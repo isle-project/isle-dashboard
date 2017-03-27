@@ -24,6 +24,14 @@ class Signup extends Component {
 								<FormControl type="email" placeholder="Enter Email" />
 							</Col>
 						</FormGroup>
+						<FormGroup controlId="formHorizontalName">
+							<Col componentClass={ControlLabel} sm={2}>
+								Name
+							</Col>
+							<Col sm={10}>
+								<FormControl type="text" placeholder="Enter Name" />
+							</Col>
+						</FormGroup>
 						<FormGroup controlId="formHorizontalPassword">
 							<Col componentClass={ControlLabel} sm={2}>
 								Password
