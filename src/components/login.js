@@ -2,7 +2,6 @@
 
 import React, { Component } from 'react';
 import { Button, ButtonGroup, Col, Row, ControlLabel, FormControl, FormGroup, Form, PageHeader, Panel } from 'react-bootstrap';
-import SocialButton from 'react-social-button';
 import { Link } from 'react-router';
 import './login.css';
 
@@ -36,23 +35,6 @@ class Login extends Component {
 							<Button bsStyle="primary" type="submit">Sign in</Button>
 						</FormGroup>
 					</Form>
-					<p style={{ fontSize: '16px' }}>or</p>
-					<ButtonGroup vertical>
-						<SocialButton
-							social='facebook'
-							text=' Sign in via Facebook'
-							btnProps={{
-								onClick: function(){alert( 'Callback called.' );}
-							}}
-						/>
-						<SocialButton
-							social='github'
-							text=' Sign in with GitHub'
-							btnProps={{
-								onClick: function(){alert( 'Callback called.' );}
-							}}
-						/>
-					</ButtonGroup>
 					<div style={{ marginTop: 20 }}>
 						<span style={{ float: 'right' }}>
 							<Link to="/forgot-password">Forgot password?</Link>
