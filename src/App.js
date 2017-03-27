@@ -26,7 +26,7 @@ class App extends Component {
 
 
 class Main extends Component {
-	
+
 	render() {
 		return (
 			<Router history={browserHistory}>
@@ -34,7 +34,7 @@ class Main extends Component {
 					<IndexRoute component={LessonsPage} />
 					<Route path="profile" component={ProfilePage}/>
 					<Route path="lessons" component={LessonsPage}/>
-					<Route path="lessons/:id" component={Lesson} />
+					<Route path="lessons/:lessonId" component={Lesson} />
 					<Route path="login" component={Login}/>
 					<Route path="signup" component={Signup}/>
 					<Route path="forgot-password" component={ForgotPassword}/>
