@@ -1,0 +1,3 @@
+export const CHANGED_NAMESPACE = 'CHANGED_NAMESPACE';
+export const LOGGED_IN = 'LOGGED_IN';
+export const LOGGED_OUT = 'LOGGED_OUT';
