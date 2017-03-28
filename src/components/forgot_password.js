@@ -16,7 +16,7 @@ class ForgotPassword extends Component {
 					<h3>Forgot password?</h3>
 					<Form inline>
 						<FormGroup controlId="formHorizontalEmail">
-							<ControlLabel>Email</ControlLabel>
+							<ControlLabel>Email Address</ControlLabel>
 							{'   '}
 							<FormControl type="email" placeholder="Enter Email" />
 							{'   '}
