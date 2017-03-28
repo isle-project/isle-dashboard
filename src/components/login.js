@@ -1,14 +1,81 @@
 // MODULES //
 
 import React, { Component } from 'react';
-import { Button, ButtonGroup, Col, Row, ControlLabel, FormControl, FormGroup, Form, PageHeader, Panel } from 'react-bootstrap';
+import { Button, ButtonGroup, Col, Row, ControlLabel, FormControl, FormGroup, Form, Overlay, PageHeader, Panel , Popover} from 'react-bootstrap';
 import { Link } from 'react-router';
+import request from 'request';
 import './login.css';
 
 
 // MAIN //
 
 class Login extends Component {
+
+	constructor( props ) {
+		super( props );
+
+		this.state = {
+			email: '',
+			password: ''
+		};
+
+		this.handleInputChange = ( event ) => {
+			const target = event.target;
+			const value = target.value;
+			const name = target.name;
+
+			this.setState({
+				[ name ]: value
+			});
+		};
+
+		this.handleSubmit = ( event ) => {
+			event.preventDefault();
+			let form = {
+				password: this.state.password,
+				email: this.state.email
+			};
+			if ( form.email === '' ) {
+				this.setState({
+					showInputOverlay: true,
+					overlayTarget: this.emailInput,
+					invalidInputMessage: 'Enter your email address.	'
+				});
+			}
+			else if ( form.password === '' ) {
+				this.setState({
+					showInputOverlay: true,
+					overlayTarget: this.passwordInput,
+					invalidInputMessage: 'Enter your password.'
+				});
+			}
+			else {
+				request.post( 'http://localhost:3000/login', {
+					form
+				}, ( err, res ) => {
+					if ( !err ) {
+						const { message, type, token, id } = JSON.parse( res.body );
+						if ( message === 'ok' ) {
+							this.props.handleLogin({ token, id });
+						} else {
+							this.setState({
+								showInputOverlay: true,
+								overlayTarget: type === 'no_user' ? this.emailInput : this.passwordInput,
+								invalidInputMessage: message
+							}, () => {
+								setTimeout( () => {
+									this.setState({
+										showInputOverlay: false
+									});
+								}, 2000 );
+							});
+						}
+					}
+				});
+			}
+		};
+	}
+
 	render() {
 		return (
 			<div className="login">
@@ -20,7 +87,13 @@ class Login extends Component {
 								Email
 							</Col>
 							<Col sm={10}>
-								<FormControl type="email" placeholder="Email" />
+								<FormControl
+									name="email"
+									type="email"
+									placeholder="Email"
+									onChange={this.handleInputChange}
+									ref={ ( input ) => { this.emailInput = input; }}
+								/>
 							</Col>
 						</FormGroup>
 						<FormGroup controlId="formHorizontalPassword">
@@ -28,11 +101,21 @@ class Login extends Component {
 								Password
 							</Col>
 							<Col sm={10}>
-								<FormControl type="password" placeholder="Password" />
+								<FormControl
+									name="password"
+									type="password"
+									placeholder="Password"
+									onChange={this.handleInputChange}
+									ref={ ( input ) => { this.passwordInput = input; }}
+								 />
 							</Col>
 						</FormGroup>
 						<FormGroup>
-							<Button bsStyle="primary" type="submit">Sign in</Button>
+							<Button
+								bsStyle="primary"
+								onClick={this.handleSubmit}
+								type="submit"
+							>Sign in</Button>
 						</FormGroup>
 					</Form>
 					<div style={{ marginTop: 20 }}>
@@ -42,6 +125,17 @@ class Login extends Component {
 							<Link to="/signup">Sign up</Link>
 						</span>
 					</div>
+					<Overlay
+						show={this.state.showInputOverlay}
+						target={this.state.overlayTarget}
+						placement="right"
+						container={this}
+						containerPadding={20}
+					>
+						<Popover id="popover-contained" title="Not valid">
+							{this.state.invalidInputMessage}
+						</Popover>
+					</Overlay>
 				</Panel>
 			</div>
 		);
