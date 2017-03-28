@@ -6,7 +6,6 @@ import {
 	Grid, Row, Col, ControlLabel, Label, Modal, Panel
 } from 'react-bootstrap';
 import chunkify from 'compute-chunkify';
-import HeaderBar from './header_bar';
 import icon from './../../public/screenshot.jpg';
 import './image.css';
 
@@ -27,6 +26,9 @@ const DeleteModel = ( props ) =>
 			<Button bsStyle="danger">Delete</Button>
 		</Modal.Footer>
 	</Modal>;
+
+
+// MAIN //
 
 class Lesson extends Component {
 
@@ -51,11 +53,6 @@ class Lesson extends Component {
 		const labelStyle = this.props.status === 'active' ? 'success' : 'warning';
 		return (
 			<div>
-				<HeaderBar
-					username="Philipp Burckhardt"
-					onDashboardClick={this.showLessons}
-					onProfileClick={this.showProfile}
-				/>
 				<Panel>
 					<div className="hovereffect">
 						<img
@@ -95,7 +92,7 @@ class Lesson extends Component {
 }
 
 
-// MAIN //
+// COMPONENTS //
 
 class LessonsPage extends Component {
 
@@ -187,17 +184,15 @@ class LessonsPage extends Component {
 		}
 
 		return (
-			<div>
-				<Grid style={{ position: 'relative', top: 70 }} >
-					{chunks.map( ( chunk, id ) => {
-						return (
-							<Row key={`row${id}`} >
-								{chunk}
-							</Row>
-						);
-					})}
-				</Grid>
-			</div>
+			<Grid style={{ position: 'relative', top: 70 }} >
+				{chunks.map( ( chunk, id ) => {
+					return (
+						<Row key={`row${id}`} >
+							{chunk}
+						</Row>
+					);
+				})}
+			</Grid>
 		);
 	}
 
