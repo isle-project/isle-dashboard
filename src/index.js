@@ -2,13 +2,26 @@
 
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './App';
+import { browserHistory, Router } from 'react-router';
+import { Provider } from 'react-redux';
+import { syncHistoryWithStore } from 'react-router-redux';
+import { createStore } from 'redux';
+import reducers from './reducers';
+import routes from './routes';
 import './index.css';
+
+
+// VARIABLES //
+
+let store = createStore( reducers );
+const history = syncHistoryWithStore( browserHistory, store );
 
 
 // MAIN //
 
 ReactDOM.render(
-	<App />,
+	<Provider store={store}>
+		<Router history={history} routes={routes} />
+	</Provider>,
 	document.getElementById( 'root' )
 );
