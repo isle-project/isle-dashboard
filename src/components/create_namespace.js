@@ -1,9 +1,7 @@
 // MODULES //
 
 import React, { Component } from 'react';
-import { Button, ControlLabel, FormControl, FormGroup, Form, Modal, OverlayTrigger,Panel, Tooltip } from 'react-bootstrap';
-import request from 'request';
-import MsgModal from './message_modal.js';
+import { Button, ControlLabel, FormControl, FormGroup, Form, OverlayTrigger, Panel, Tooltip } from 'react-bootstrap';
 
 
 // MAIN //
@@ -28,8 +26,8 @@ class CreateNamespace extends Component {
 			this.setState({
 				[ name ]: value
 			}, () => {
-				let { title } = this.state;
-				if ( title.length >= 6 ) {
+				let { title, description } = this.state;
+				if ( title.length >= 6 && description.length > 3 ) {
 					this.setState({
 						disabled: false
 					});
@@ -42,35 +40,8 @@ class CreateNamespace extends Component {
 		};
 
 		this.handleSubmit = () => {
-			request.post( 'http://localhost:3000/create_namespace', {
-				form: this.state,
-				headers: {
-					'Authorization': 'JWT ' + this.props.user.token
-				}
-			}, ( err, res ) => {
-				console.log( err );
-				if ( !err ) {
-					const body = JSON.parse( res.body );
-					let namespace = {
-						title: this.state.title,
-						description: this.state.description,
-						owners: this.state.owners
-					};
-					console.log( namespace );
-					this.props.onNamespace( namespace );
-					this.setState({
-						message: body.message,
-						successful: body.successful,
-						showModal: true
-					});
-				}
-			});
-		};
-
-		this.close = () => {
-			this.setState({
-				showModal: false
-			});
+			const { state, props } = this;
+			this.props.createNamespace({ state, props });
 		};
 	}
 
@@ -81,9 +52,9 @@ class CreateNamespace extends Component {
 				top: '80px',
 				width: '50%',
 				margin: '0 auto'
-			}} header={<h2>Create Namespace</h2>}>
+			}} header={<h2>Create Course</h2>}>
 				<Form style={{ padding: '20px' }}>
-					<OverlayTrigger placement="right" overlay={<Tooltip id="ownerTooltip">Enter a comma-separated list of email addresses denoting the administrators for this namespace</Tooltip>}>
+					<OverlayTrigger placement="right" overlay={<Tooltip id="ownerTooltip">Enter a comma-separated list of email addresses denoting the administrators for this course</Tooltip>}>
 						<FormGroup>
 							<ControlLabel>Owners</ControlLabel>
 							<FormControl
@@ -121,13 +92,6 @@ class CreateNamespace extends Component {
 					disabled={this.state.disabled}
 					block
 				>Create</Button>
-				<MsgModal
-					show={this.state.showModal}
-					close={this.close}
-					message={this.state.message}
-					successful={this.state.successful}
-					title="Create Namespace"
-				/>
 			</Panel>
 		);
 	}
