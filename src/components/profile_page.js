@@ -20,14 +20,15 @@ class ProfilePage extends Component {
 		super( props );
 
 		this.state = {
-			email: this.props.user.email,
-			name: this.props.user.name,
+			email: props.user.email,
+			name: props.user.name,
+			organization: props.user.organization,
 			password: '',
 			passwordRepeat: ''
 		};
 
 		this.handleUpdate = () => {
-			const { name, password, passwordRepeat } = this.state;
+			const { name, password, passwordRepeat, organization } = this.state;
 			let form = {};
 			let change = false;
 			if ( password ) {
@@ -38,6 +39,10 @@ class ProfilePage extends Component {
 			}
 			if ( name !== this.props.user.name ) {
 				form.name = name;
+				change = true;
+			}
+			if ( organization !== this.props.user.organization ) {
+				form.organization = organization;
 				change = true;
 			}
 			if ( change ) {
@@ -54,7 +59,8 @@ class ProfilePage extends Component {
 						});
 					} else {
 						this.props.updateUser({
-							name
+							name,
+							organization
 						});
 						this.props.addNotification({
 							message: JSON.parse( res.body ).message,
@@ -129,6 +135,20 @@ class ProfilePage extends Component {
 							/>
 						</FormGroup>
 					</OverlayTrigger>
+					<OverlayTrigger placement="right" overlay={createTooltip( 'Update your organization' )}>
+						<FormGroup
+							controlId="formHorizontalName"
+							validationState={this.getNameValidationState()}
+						>
+							<ControlLabel>Organization</ControlLabel>
+							<FormControl
+								name="organization"
+								type="text"
+								value={this.state.organization}
+								onChange={this.handleInputChange}
+							/>
+						</FormGroup>
+					</OverlayTrigger>
 					<OverlayTrigger placement="right" overlay={createTooltip( 'Please enter a password of your choosing with at least six characters' )}>
 						<FormGroup
 							controlId="formHorizontalPassword"
@@ -138,6 +158,7 @@ class ProfilePage extends Component {
 							<FormControl
 								name="password"
 								type="password"
+								value={this.state.password}
 								placeholder="Choose a new password"
 								onChange={this.handleInputChange}
 								maxLength={30}
@@ -153,6 +174,7 @@ class ProfilePage extends Component {
 						<FormControl
 							name="passwordRepeat"
 							type="password"
+							value={this.state.passwordRepeat}
 							placeholder="Repeat new password"
 							onChange={this.handleInputChange}
 							maxLength={30}

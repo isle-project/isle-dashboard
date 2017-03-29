@@ -10,7 +10,8 @@ const initialState = {
 	loggedIn: false,
 	email: '',
 	name: '',
-	namespaces: []
+	namespaces: [],
+	organization: ''
 };
 
 
@@ -22,6 +23,7 @@ export default function user( state = initialState, action ) {
 		return Object.assign({}, state, {
 			email: action.payload.email,
 			name: action.payload.name,
+			organization: action.payload.organization,
 			token: action.payload.token,
 			id: action.payload.id,
 			loggedIn: true
@@ -31,6 +33,7 @@ export default function user( state = initialState, action ) {
 	case types.USER_UPDATED:
 		return Object.assign({}, state, {
 			name: action.payload.name,
+			organization: action.payload.organization
 		});
 	case types.RETRIEVED_NAMESPACES:
 		const { namespaces } = action.payload;
