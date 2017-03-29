@@ -1,9 +1,8 @@
 // MODULES //
 
 import React, { Component } from 'react';
-import Radium from 'radium';
-import { Button, ButtonGroup, Col, Row, ControlLabel, FormControl, FormGroup, Form, Modal, OverlayTrigger, Overlay, PageHeader, Panel, Popover, Tooltip } from 'react-bootstrap';
-import { browserHistory, Link } from 'react-router';
+import { Button, Col, ControlLabel, FormControl, FormGroup, Form, Modal, OverlayTrigger, Overlay, PageHeader, Panel, Popover, Tooltip } from 'react-bootstrap';
+import { browserHistory } from 'react-router';
 import request from 'request';
 import './login.css';
 
@@ -16,8 +15,6 @@ const createTooltip = ( str ) => {
 
 
 // VARIABLES //
-
-const RadiumLink = Radium( Link );
 
 const MsgModal = ( props ) => (
 	<Modal show={props.show}>
