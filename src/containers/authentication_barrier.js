@@ -3,7 +3,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { browserHistory } from 'react-router';
-import HeaderBar from './../components/header_bar.js';
+import request from 'request';
+import HeaderBar from './header_bar.js';
 import * as actions from './../actions';
 
 
@@ -13,6 +14,8 @@ class AuthenticationBarrier extends Component {
 	componentDidMount() {
 		if ( !this.props.isLoggedIn ) {
 			browserHistory.replace( '/login' );
+		} else {
+			this.props.getNamespaces( this.props.user.token );
 		}
 	}
 
@@ -20,13 +23,7 @@ class AuthenticationBarrier extends Component {
 		if ( this.props.isLoggedIn ) {
 			return (
 				<div>
-					<HeaderBar
-						username={this.props.username}
-						onDashboardClick={this.showLessons}
-						onProfileClick={this.showProfile}
-						onLogout={this.props.logout}
-						currentNamespace={this.props.namespace}
-					/>
+					<HeaderBar />
 					{this.props.children}
 				</div>
 			);
@@ -40,19 +37,28 @@ class AuthenticationBarrier extends Component {
 
 export default connect( mapStateToProps, mapDispatchToProps )( AuthenticationBarrier );
 
-function mapStateToProps( state, ownProps ) {
+function mapStateToProps( state ) {
 	return {
 		isLoggedIn: state.user.loggedIn,
-		username: state.user.name,
+		user: state.user,
 		namespace: state.namespace
 	};
 }
 
 function mapDispatchToProps( dispatch ) {
 	return {
-		logout: () => {
-			browserHistory.replace( '/login' );
-			dispatch( actions.loggedOut() );
+		getNamespaces: ( token ) => {
+			request.get( 'http://localhost:3000/get_namespaces', {
+				headers: {
+					'Authorization': 'JWT ' + token
+				}
+			}, function( error, response, body ) {
+				if ( error ) {
+					return error;
+				}
+				body = JSON.parse( body );
+				dispatch( actions.retrievedNamespaces( body.namespaces ) );
+			});
 		}
 	};
 }
