@@ -3,6 +3,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { browserHistory } from 'react-router';
+import NotificationSystem from './../components/notification.js';
 import './app.css';
 
 
@@ -17,12 +18,16 @@ class App extends Component {
 		if ( isLoggingIn ) {
 			browserHistory.push( '/lessons' );
 		}
+		if ( isLoggingOut ) {
+			browserHistory.push( '/login' );
+		}
 	}
 
 	render() {
 		return (
 			<div className="App">
 				{this.props.children}
+				<NotificationSystem />
 			</div>
 		);
 	}
