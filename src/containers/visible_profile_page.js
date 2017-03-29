@@ -1,9 +1,9 @@
 // MODULES //
 
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import ProfilePage from './../components/profile_page.js';
-import { loggedIn } from './../actions';
+import * as actions from './../actions';
 
 
 // EXPORTS //
@@ -11,7 +11,6 @@ import { loggedIn } from './../actions';
 const VisibleProfilePage = connect( mapStateToProps, mapDispatchToProps )( ProfilePage );
 
 function mapStateToProps( state ) {
-	console.log( state );
 	return {
 		user: state.user
 	};
@@ -19,8 +18,11 @@ function mapStateToProps( state ) {
 
 function  mapDispatchToProps( dispatch ) {
 	return {
-		onTodoClick: ( id ) => {
-			dispatch( loggedIn( id ) );
+		addNotification: ({ message, level }) => {
+			dispatch( actions.addNotification({ message, level }) );
+		},
+		updateUser: ({ name, organization }) => {
+			dispatch( actions.updateUser({ name, organization }) );
 		}
 	};
 } // end FUNCTION mapStateToProps()
