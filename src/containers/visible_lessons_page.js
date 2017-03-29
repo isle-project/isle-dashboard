@@ -1,11 +1,8 @@
 // MODULES //
 
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
-import { browserHistory } from 'react-router';
-import request from 'request';
 import LessonsPage from './../components/lessons_page.js';
-import * as actions from './../actions';
 
 
 // EXPORTS //
@@ -18,7 +15,7 @@ function mapStateToProps( state ) {
 	};
 }
 
-function  mapDispatchToProps( dispatch ) {
+function  mapDispatchToProps() {
 	return {};
 }
 
