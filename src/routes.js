@@ -1,6 +1,6 @@
 // MODULES //
 
-import React, { Component } from 'react';
+import React from 'react';
 import { IndexRoute, Route } from 'react-router';
 import App from './containers/app.js';
 import VisibleCreateNamespace from './containers/visible_create_namespace.js';
@@ -12,6 +12,7 @@ import VisibleLogin from './containers/visible_login.js';
 import Signup from './components/signup.js';
 import VisibleProfilePage from './containers/visible_profile_page.js';
 import AuthenticationBarrier from './containers/authentication_barrier.js';
+import NewPassword from './components/new_password.js';
 
 
 // EXPORTS //
@@ -42,6 +43,7 @@ export default (
 			/>
 		</Route>
 		<Route path="login" component={VisibleLogin}/>
+		<Route path="new-password" component={NewPassword}/>
 		<Route path="signup" component={Signup}/>
 		<Route path="forgot-password" component={ForgotPassword}/>
 	</Route>
