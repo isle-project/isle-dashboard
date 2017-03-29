@@ -13,6 +13,11 @@
     "default-case": 0,
     "no-underscore-dangle": 0,
     "no-use-before-define": 0,
+    "no-unused-vars": ["error", { 
+      "vars": "all", 
+      "args": "after-used", 
+      "varsIgnorePattern": "React" 
+    }],
     "one-var": [ "error", "never" ],
     "import/no-unresolved": [ 2, {
       "ignore": [ "electron" ],
@@ -20,6 +25,7 @@
     }],
     "react/jsx-no-bind": 0,
     "react/prefer-stateless-function": 0,
+    "react/jsx-uses-vars": "error",
     "semi": [ 2, "always" ],
     "semi-spacing": [ 2, {
       "before": false,
