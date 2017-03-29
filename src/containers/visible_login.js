@@ -1,6 +1,6 @@
 // MODULES //
 
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import request from 'request';
 import Login from './../components/login.js';
