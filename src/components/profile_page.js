@@ -1,8 +1,8 @@
 // MODULES //
 
 import React, { Component } from 'react';
-import { Button, ControlLabel, FormControl, FormGroup, Form, Modal, OverlayTrigger, Panel, Tooltip } from 'react-bootstrap';
-import MsgModal from './message_modal.js';
+import { Button, ControlLabel, FormControl, FormGroup, Form, OverlayTrigger, Panel, Tooltip } from 'react-bootstrap';
+import request from 'request';
 
 
 // FUNCTIONS //
@@ -22,7 +22,47 @@ class ProfilePage extends Component {
 		this.state = {
 			email: this.props.user.email,
 			name: this.props.user.name,
-			password: ''
+			password: '',
+			passwordRepeat: ''
+		};
+
+		this.handleUpdate = () => {
+			const { name, password, passwordRepeat } = this.state;
+			let form = {};
+			let change = false;
+			if ( password ) {
+				if ( passwordRepeat === password ) {
+					change = true;
+					form.password = password;
+				}
+			}
+			if ( name !== this.props.user.name ) {
+				form.name = name;
+				change = true;
+			}
+			if ( change ) {
+				request.post( 'http://localhost:3000/update_user', {
+					form: form,
+					headers: {
+						'Authorization': 'JWT ' + this.props.user.token
+					}
+				}, ( err, res ) => {
+					if ( err ) {
+						this.props.addNotification({
+							message: err.message,
+							level: 'error'
+						});
+					} else {
+						this.props.updateUser({
+							name
+						});
+						this.props.addNotification({
+							message: JSON.parse( res.body ).message,
+							level: 'success'
+						});
+					}
+				});
+			}
 		};
 
 		this.handleInputChange = ( event ) => {
@@ -33,14 +73,6 @@ class ProfilePage extends Component {
 			this.setState({
 				[ name ]: value
 			});
-		};
-
-		this.getEmailValidationState = () => {
-			const { email } = this.state;
-			if ( email.includes( '@' ) ) {
-				return 'success';
-			}
-			return 'warning';
 		};
 
 		this.getNameValidationState = () => {
@@ -72,20 +104,17 @@ class ProfilePage extends Component {
 				margin: '0 auto'
 			}} header={<h2>Profile</h2>}>
 				<Form style={{ padding: '20px' }}>
-					<OverlayTrigger placement="right" overlay={createTooltip( 'Update your email address.' )}>
-						<FormGroup
-							controlId="formHorizontalEmail"
-							validationState={this.getEmailValidationState()}
-						>
-							<ControlLabel>Email Address</ControlLabel>
-							<FormControl
-								name="email"
-								type="email"
-								value={this.state.email}
-								onChange={this.handleInputChange}
-							/>
-						</FormGroup>
-					</OverlayTrigger>
+					<FormGroup
+						controlId="formHorizontalEmail"
+					>
+						<ControlLabel>Email Address</ControlLabel>
+						<FormControl
+							name="email"
+							type="email"
+							value={this.state.email}
+							disabled
+						/>
+					</FormGroup>
 					<OverlayTrigger placement="right" overlay={createTooltip( 'Update your name' )}>
 						<FormGroup
 							controlId="formHorizontalName"
@@ -132,14 +161,7 @@ class ProfilePage extends Component {
 						<FormControl.Feedback />
 					</FormGroup>
 				</Form>
-				<Button block>Update</Button>
-				<MsgModal
-					show={this.state.showModal}
-					close={this.close}
-					message={this.state.message}
-					successful={this.state.successful}
-					titile="Update Profile"
-				/>
+				<Button block onClick={this.handleUpdate}>Update</Button>
 			</Panel>
 		);
 	}
