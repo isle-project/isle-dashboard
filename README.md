@@ -18,3 +18,7 @@ An online dashboard used to deploy, organize and monitor *interactive statistics
 [dev-dependencies-url]: https://david-dm.org/planeshifter/isle-dashboard/master#info=devDependencies
 
 [docs]: http://isledocs.philipp-burckhardt.com/
+
+#### Credits
+
+- User Icon by Atacan from the Noun Project
