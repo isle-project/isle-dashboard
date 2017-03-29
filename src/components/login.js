@@ -1,7 +1,7 @@
 // MODULES //
 
 import React, { Component } from 'react';
-import { Button, ButtonGroup, Col, Row, ControlLabel, FormControl, FormGroup, Form, Overlay, PageHeader, Panel , Popover} from 'react-bootstrap';
+import { Button, Col, ControlLabel, FormControl, FormGroup, Form, Overlay, PageHeader, Panel , Popover} from 'react-bootstrap';
 import { Link } from 'react-router';
 import request from 'request';
 import './login.css';
