@@ -1,9 +1,9 @@
 // MODULES //
 
 import React, { Component } from 'react';
-import { Button, ButtonToolbar, ControlLabel, FormControl, FormGroup, Form, Modal, OverlayTrigger,Panel, Tooltip } from 'react-bootstrap';
-import request from 'request';
+import { Button, ButtonToolbar, ControlLabel, FormControl, FormGroup, Form, OverlayTrigger,Panel, Tooltip } from 'react-bootstrap';
 import MsgModal from './message_modal.js';
+import ConfirmModal from './confirm_modal.js';
 
 
 // MAIN //
@@ -17,7 +17,8 @@ class EditNamespace extends Component {
 			disabled: true,
 			title,
 			description,
-			owners
+			owners,
+			showDeleteModal: false
 		};
 
 		this.handleInputChange = ( event ) => {
@@ -41,9 +42,35 @@ class EditNamespace extends Component {
 			});
 		};
 
+		this.handleUpdate = () => {
+			this.props.updateCurrentNamespace({
+				_id: this.props.namespace._id,
+				description: this.state.description,
+				title: this.state.title,
+				owners: this.state.owners,
+				token: this.props.user.token
+			}, () => {
+				this.props.getNamespaces( this.props.user.token );
+			});
+		};
+
+		this.handleDelete = () => {
+			this.props.deleteCurrentNamespace( this.props.namespace._id, this.props.user.token );
+			this.props.getNamespaces( this.props.user.token );
+			this.setState({
+				showDeleteModal: false
+			});
+		};
+
 		this.close = () => {
 			this.setState({
 				showModal: false
+			});
+		};
+
+		this.closeDeleteModal = () => {
+			this.setState({
+				showDeleteModal: false
 			});
 		};
 	}
@@ -55,9 +82,9 @@ class EditNamespace extends Component {
 				top: '80px',
 				width: '50%',
 				margin: '0 auto'
-			}} header={<h2>Edit Current Namespace</h2>}>
+			}} header={<h2>Edit Current Course</h2>}>
 				<Form style={{ padding: '20px' }}>
-					<OverlayTrigger placement="right" overlay={<Tooltip id="ownerTooltip">Comma-separated list of email addresses denoting the administrators for this namespace</Tooltip>}>
+					<OverlayTrigger placement="right" overlay={<Tooltip id="ownerTooltip">Comma-separated list of email addresses denoting the administrators for this course</Tooltip>}>
 						<FormGroup>
 							<ControlLabel>Owners</ControlLabel>
 							<FormControl
@@ -91,15 +118,26 @@ class EditNamespace extends Component {
 					</FormGroup>
 				</Form>
 				<ButtonToolbar>
-					<Button type="submit" onClick={this.handleSubmit}>Update</Button>
-					<Button onClick={this.handleSubmit} bsStyle="danger">Delete</Button>
+					<Button type="submit" onClick={this.handleUpdate}>Update</Button>
+					<Button onClick={() => {
+						this.setState({
+							showDeleteModal: true
+						});
+					}} bsStyle="danger">Delete</Button>
 				</ButtonToolbar>
 				<MsgModal
 					show={this.state.showModal}
 					close={this.close}
 					message={this.state.message}
 					successful={this.state.successful}
-					title="Create Namespace"
+					title="Update Course"
+				/>
+				<ConfirmModal
+					show={this.state.showDeleteModal}
+					close={this.closeDeleteModal}
+					message="Are you sure that you want to delete this course?"
+					title="Delete?"
+					onDelete={this.handleDelete}
 				/>
 			</Panel>
 		);
