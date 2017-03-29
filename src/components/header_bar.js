@@ -5,10 +5,10 @@ import { browserHistory, Link } from 'react-router';
 import Radium from 'radium';
 import {
 	Button, FormGroup, FormControl, Glyphicon, InputGroup,
-	OverlayTrigger, Popover, ListGroupItem, ListGroup
+	Overlay, Popover, ListGroupItem, ListGroup
 } from 'react-bootstrap';
 import { Image } from 'react-bootstrap';
-import icon from './../../public/profile_pic.jpg';
+import icon from './../../public/profile_icon.png';
 
 
 // VARIABLES //
@@ -34,13 +34,22 @@ class HeaderBar extends Component {
 	constructor( props ) {
 		super( props );
 
-		this.logout = () => {
-
+		this.state = {
+			showNamespacesOverlay: false
 		};
 	}
 
-	render() {
+	namespaceClickFactory( id ) {
+		let out = () => {
+			this.props.onNamespace( this.props.user.namespaces[ id ]);
+			this.setState({
+				showNamespacesOverlay: false
+			});
+		};
+		return out;
+	}
 
+	render() {
 		const containerStyle = {
 			borderLeft: '1px solid rgba(255, 255, 255, 0.06)',
 			float: 'left',
@@ -61,12 +70,15 @@ class HeaderBar extends Component {
 			}
 		};
 
-		const namespacePopover = (
+		const namespacePopover = ( namespaces, clickFactory ) => (
 			<Popover id="popover-positioned-bottom">
 				<ListGroup>
-					<ListGroupItem>Personal</ListGroupItem>
-					<ListGroupItem>Chouldechova</ListGroupItem>
-					<ListGroupItem>Nagin</ListGroupItem>
+					{namespaces.map( ( x, id ) => (
+						<ListGroupItem
+							key={id}
+							style={{ padding: '5px 10px' }}
+						><Link to="/lessons" onClick={clickFactory( id )}>{x.title}</Link></ListGroupItem>
+					) )}
 				</ListGroup>
 			</Popover>
 		);
@@ -87,7 +99,7 @@ class HeaderBar extends Component {
 					marginTop: '15px',
 					position: 'relative',
 					marginLeft: '10px',
-				}} onClick={this.props.onDashboardClick}>
+				}}>
 					<RadiumLink to="/lessons" style={{
 						color: 'silver',
 						textDecoration: 'none',
@@ -102,20 +114,35 @@ class HeaderBar extends Component {
 					float: 'left',
 					position: 'relative',
 				}}>
-					<OverlayTrigger trigger="click" placement="bottom" overlay={namespacePopover}>
-						<Button style={{
+					<Button
+						ref={( button ) => { this.overlayTarget = button; }}
+						style={{
 							float: 'left',
 							marginRight: '6px',
 							marginLeft: '6px'
-						}}>
-							<Glyphicon glyph="align-justify" />
-							<span><small>{this.props.currentNamespace.title}</small></span>
-						</Button>
-					</OverlayTrigger>
+						}}
+						onClick={() => {
+							this.setState({
+								showNamespacesOverlay: !this.state.showNamespacesOverlay
+							});
+						}}
+					>
+						<Glyphicon glyph="align-justify" />
+						<small style={{ marginLeft: '5px' }}>
+							{this.props.namespace.title}
+						</small>
+					</Button>
+					<Overlay
+						show={this.state.showNamespacesOverlay}
+						target={this.overlayTarget}
+						placement="bottom"
+					>
+						{namespacePopover( this.props.user.namespaces, this.namespaceClickFactory.bind( this ) )}
+					</Overlay>
 					<Button
 						style={{ float: 'left', marginRight: '6px' }}
 						onClick={goToCoursePage}
-						disabled={!this.props.currentNamespace.title}
+						disabled={!this.props.namespace.title}
 					>
 						<Glyphicon glyph="edit" />
 					</Button>
@@ -157,7 +184,7 @@ class HeaderBar extends Component {
 					<div style={containerStyle}>
 						<Image src={icon} circle style={{
 							width: '32px',
-							height: '32px',
+							height: 'auto',
 							float: 'left',
 							position: 'relative',
 							marginLeft: '10px',
@@ -170,7 +197,7 @@ class HeaderBar extends Component {
 								':hover': {
 									color: 'white'
 								}
-							}}>{this.props.username}</RadiumLink>
+							}}>{this.props.user.name}</RadiumLink>
 						</div>
 					</div>
 					<div style={containerStyle}>
@@ -185,7 +212,7 @@ class HeaderBar extends Component {
 										color: 'white'
 									}
 								}}
-								onClick={this.props.onLogout}
+								onClick={this.props.logout}
 							> Log out </a>
 						</div>
 					</div>
