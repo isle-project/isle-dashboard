@@ -49,16 +49,17 @@
     "whatwg-fetch": "2.0.3"
   },
   "dependencies": {
+    "@stdlib/stdlib": "github:stdlib-js/stdlib#develop",
     "compute-chunkify": "git+https://github.com/compute-io/chunkify.git",
     "compute-quantiles": "^1.1.0",
     "radium": "^0.18.1",
     "react": "^15.3.2",
     "react-bootstrap": "^0.30.5",
     "react-dom": "^15.3.2",
+    "react-notification-system": "^0.2.13",
     "react-redux": "^5.0.3",
     "react-router": "3.x.x",
     "react-router-redux": "^4.0.8",
-    "react-social-button": "^1.0.1",
     "redux": "^3.6.0",
     "request": "^2.81.0",
     "victory": "^0.18.3"
