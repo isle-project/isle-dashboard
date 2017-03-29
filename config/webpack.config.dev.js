@@ -32,7 +32,10 @@ module.exports = {
 		publicPath: publicPath
 	},
 	resolve: {
-		modules: paths.nodePaths.concat( 'node_modules' ),
+		modules: paths.nodePaths.concat( [
+			'node_modules', 
+			'node_modules/@stdlib/stdlib/lib/node_modules'
+		]),
 		extensions: ['.js', '.json', '.jsx'],
 		alias: {
 			'react-native': 'react-native-web'
