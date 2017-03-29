@@ -1,5 +1,6 @@
 // MODULES //
 
+import isArray from '@stdlib/utils/is-array';
 import * as types from './../constants/action_types.js';
 
 
@@ -8,7 +9,8 @@ import * as types from './../constants/action_types.js';
 const initialState = {
 	loggedIn: false,
 	email: '',
-	name: ''
+	name: '',
+	namespaces: []
 };
 
 
@@ -17,7 +19,6 @@ const initialState = {
 export default function user( state = initialState, action ) {
 	switch ( action.type ) {
 	case types.LOGGED_IN:
-		console.log( action.payload );
 		return Object.assign({}, state, {
 			email: action.payload.email,
 			name: action.payload.name,
@@ -27,6 +28,18 @@ export default function user( state = initialState, action ) {
 		});
 	case types.LOGGED_OUT:
 		return initialState;
+	case types.USER_UPDATED:
+		return Object.assign({}, state, {
+			name: action.payload.name,
+		});
+	case types.RETRIEVED_NAMESPACES:
+		const { namespaces } = action.payload;
+		if ( !isArray( namespaces ) ) {
+			return state;
+		}
+		return Object.assign({}, state, {
+			namespaces
+		});
 	default:
 		return state;
 	}
