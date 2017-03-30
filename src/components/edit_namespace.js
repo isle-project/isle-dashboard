@@ -2,8 +2,11 @@
 
 import React, { Component } from 'react';
 import { Button, ButtonToolbar, ControlLabel, FormControl, FormGroup, Form, OverlayTrigger,Panel, Tooltip } from 'react-bootstrap';
+import isArray from '@stdlib/utils/is-array';
+import isEmail from '@stdlib/utils/is-email-address';
 import MsgModal from './message_modal.js';
 import ConfirmModal from './confirm_modal.js';
+import checkURLPath from './../utils/check_url_path.js';
 
 
 // MAIN //
@@ -13,6 +16,9 @@ class EditNamespace extends Component {
 	constructor( props ) {
 		super( props );
 		let { title, description, owners } = this.props.namespace;
+		if ( isArray( owners ) ) {
+			owners = owners.join( ',' );
+		};
 		this.state = {
 			disabled: true,
 			title,
@@ -23,8 +29,12 @@ class EditNamespace extends Component {
 
 		this.handleInputChange = ( event ) => {
 			const target = event.target;
-			const value = target.value;
 			const name = target.name;
+			let value = target.value;
+
+			if ( name === 'owners' ) {
+				value = value.replace( /\s/g, '' );
+			}
 
 			this.setState({
 				[ name ]: value
@@ -42,23 +52,73 @@ class EditNamespace extends Component {
 			});
 		};
 
-		this.handleUpdate = () => {
-			this.props.updateCurrentNamespace({
-				_id: this.props.namespace._id,
-				description: this.state.description,
-				title: this.state.title,
-				owners: this.state.owners,
-				token: this.props.user.token
-			}, () => {
-				this.props.getNamespaces( this.props.user.token );
+		this.validateInputs = () => {
+			if ( this.state.owners === '' ) {
+				return 'Owners field cannot be empty';
+			}
+			console.log( this.state.owners );
+			const owners = this.state.owners.split( ',' );
+			let invalidOwner = false;
+			owners.forEach( owner => {
+				if ( isEmail( owner ) === false ) {
+					invalidOwner = true;
+				}
 			});
+			if ( invalidOwner ) {
+				return 'Owners must be valid email addresses';
+			}
+			const res = checkURLPath( this.state.title );
+			if ( res ) {
+				return 'Namespace title contains invalid characters: '+res[ 0 ]+'';
+			}
+			return 'success';
+		};
+
+		this.handleUpdate = () => {
+			var msg = this.validateInputs();
+			if ( msg === 'success' ) {
+				this.props.updateCurrentNamespace({
+					_id: this.props.namespace._id,
+					description: this.state.description,
+					title: this.state.title,
+					owners: this.state.owners,
+					token: this.props.user.token
+				}, ( err, res ) => {
+					if ( err ) {
+						this.props.addNotification({
+							message: err.message,
+							level: 'error'
+						});
+					}
+					else {
+						if ( res.statusCode >= 400 ) {
+							this.props.addNotification({
+								message: res.body,
+								level: 'error'
+							});
+						} else {
+							this.props.addNotification({
+								message: JSON.parse( res.body ).message,
+								level: 'success'
+							});
+							this.props.getNamespaces( this.props.user.token );
+						}
+					}
+				});
+			} else {
+				this.props.addNotification({
+					message: msg,
+					level: 'warning'
+				});
+			}
 		};
 
 		this.handleDelete = () => {
-			this.props.deleteCurrentNamespace( this.props.namespace._id, this.props.user.token );
-			this.props.getNamespaces( this.props.user.token );
-			this.setState({
-				showDeleteModal: false
+			this.props.deleteCurrentNamespace( this.props.namespace._id, this.props.user.token, () => {
+				this.props.getNamespaces( this.props.user.token );
+				this.setState({
+					showDeleteModal: false
+				});
 			});
 		};
 
