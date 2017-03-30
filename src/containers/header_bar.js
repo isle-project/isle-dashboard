@@ -21,6 +21,7 @@ function mapDispatchToProps( dispatch ) {
 	return {
 		logout: () => {
 			dispatch( actions.loggedOut() );
+			dispatch( actions.deletedCurrentNamespace() );
 		},
 		onNamespace: ({ title, description, owners, _id }) => {
 			dispatch( actions.changedNamespace({ title, description, owners, _id }) );
