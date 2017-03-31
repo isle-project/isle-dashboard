@@ -21,6 +21,9 @@ function mapStateToProps( state ) {
 
 function  mapDispatchToProps( dispatch ) {
 	return {
+		addNotification: ({ message, level }) => {
+			dispatch( actions.addNotification({ message, level }) );
+		},
 		getNamespaces: ( token ) => {
 			request.get( 'http://localhost:3000/get_namespaces', {
 				headers: {
@@ -34,7 +37,7 @@ function  mapDispatchToProps( dispatch ) {
 				dispatch( actions.retrievedNamespaces( body.namespaces ) );
 			});
 		},
-		deleteCurrentNamespace: ( id, token ) => {
+		deleteCurrentNamespace: ( id, token, clbk ) => {
 			request.get( 'http://localhost:3000/delete_namespace', {
 				qs: {
 					id
@@ -42,15 +45,24 @@ function  mapDispatchToProps( dispatch ) {
 				headers: {
 					'Authorization': 'JWT ' + token
 				}
-			}, ( err ) => {
-				if ( !err ) {
-					browserHistory.replace( '/lessons' );
-					dispatch( actions.deletedCurrentNamespace() );
-					dispatch( actions.addNotification({
-						message: 'Course successfully deleted',
-						level: 'success'
+			}, ( err, res ) => {
+				if ( err || res.statusCode >= 400 ) {
+					let msg = res.body;
+					if ( res.statusCode === 403 ) {
+						msg = 'Only courses with no lessons can be deleted.';
+					}
+					return dispatch( actions.addNotification({
+						message: msg,
+						level: 'error'
 					}) );
 				}
+				browserHistory.replace( '/lessons' );
+				dispatch( actions.deletedCurrentNamespace() );
+				dispatch( actions.addNotification({
+					message: 'Course successfully deleted',
+					level: 'success'
+				}) );
+				clbk();
 			});
 		},
 		updateCurrentNamespace: ( ns, clbk ) => {
@@ -61,11 +73,11 @@ function  mapDispatchToProps( dispatch ) {
 				headers: {
 					'Authorization': 'JWT ' + ns.token
 				}
-			}, ( err ) => {
+			}, ( err, res ) => {
 				if ( err ) {
-					return err;
+					return clbk( err );
 				}
-				clbk();
+				clbk( null, res );
 				dispatch( actions.changedNamespace( ns ) );
 			});
 		}
