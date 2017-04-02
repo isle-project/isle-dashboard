@@ -9,7 +9,8 @@ const initialState = {
 	id: null,
 	title: '',
 	description: '',
-	owners: ''
+	owners: '',
+	lessons: null
 };
 
 
@@ -26,6 +27,16 @@ export default function namespace( state = initialState, action ) {
 		});
 	case types.DELETED_CURRENT_NAMESPACE:
 		return initialState;
+	case types.RETRIEVED_LESSONS:
+		return Object.assign({}, state, {
+			lessons: action.payload.lessons
+		});
+	case types.DELETED_LESSON:
+		let lessons = state.lessons.slice();
+		lessons = lessons.filter( x => x.title !== action.payload.title );
+		return Object.assign({}, state, {
+			lessons
+		});
 	default:
 		return state;
 	}
