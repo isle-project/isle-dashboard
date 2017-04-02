@@ -45,6 +45,24 @@ export function retrievedNamespaces( namespaces ) {
 	};
 }
 
+export function retrievedLessons( lessons ) {
+	return {
+		type: types.RETRIEVED_LESSONS,
+		payload: {
+			lessons
+		}
+	};
+}
+
+export function deletedLesson( lessonName ) {
+	return {
+		type: types.DELETED_LESSON,
+		payload: {
+			lessonName
+		}
+	};
+}
+
 export function deletedCurrentNamespace() {
 	return {
 		type: types.DELETED_CURRENT_NAMESPACE
