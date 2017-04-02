@@ -7,7 +7,6 @@ import {
 } from 'react-bootstrap';
 import chunkify from 'compute-chunkify';
 import isArray from '@stdlib/utils/is-array';
-import icon from './../../public/screenshot.jpg';
 import './image.css';
 
 
@@ -33,8 +32,8 @@ const DeleteModel = ( props ) =>
 
 class Lesson extends Component {
 
-	constructor() {
-		super();
+	constructor( props ) {
+		super( props );
 
 		this.state = {
 			showDeleteModal: false
@@ -80,7 +79,7 @@ class Lesson extends Component {
 					<div className="hovereffect">
 						<img
 							className="img-responsive"
-							src={icon}
+							src={this.props.url+'/preview.jpg'}
 							alt=""
 							style={{
 								width: 350,
@@ -101,7 +100,7 @@ class Lesson extends Component {
 						<ButtonGroup>
 							<ControlLabel>
 								<Label bsStyle={labelStyle} style={{
-									fontSize: '18px',
+									fontSize: '16px',
 									float: 'right'
 								}}>{this.props.active ? 'Active' : 'Disabled'}</Label>
 							</ControlLabel>
