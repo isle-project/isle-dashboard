@@ -63,6 +63,16 @@ export function deletedLesson( lessonName ) {
 	};
 }
 
+export function updatedLesson( lessonName, props ) {
+	return {
+		type: types.UPDATED_LESSON,
+		payload: {
+			lessonName,
+			props
+		}
+	};
+}
+
 export function deletedCurrentNamespace() {
 	return {
 		type: types.DELETED_CURRENT_NAMESPACE

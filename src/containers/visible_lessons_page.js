@@ -20,6 +20,52 @@ function mapStateToProps( state ) {
 
 function  mapDispatchToProps( dispatch ) {
 	return {
+		activateLesson: ({ lessonName, namespaceName, token }) => {
+			request.get( 'http://localhost:3000/activate_lesson', {
+				qs: {
+					namespaceName,
+					lessonName
+				},
+				headers: {
+					'Authorization': 'JWT ' + token
+				}
+			}, function ( err, res ) {
+				if ( err ) {
+					return dispatch( actions.addNotification({
+						message: err.message,
+						level: 'error'
+					}) );
+				}
+				dispatch( actions.addNotification({
+					message: JSON.parse( res.body ).message,
+					level: 'success'
+				}) );
+				dispatch( actions.updatedLesson( lessonName, { active: true }) );
+			});
+		},
+		deactivateLesson: ({ lessonName, namespaceName, token }) => {
+			request.get( 'http://localhost:3000/deactivate_lesson', {
+				qs: {
+					namespaceName,
+					lessonName
+				},
+				headers: {
+					'Authorization': 'JWT ' + token
+				}
+			}, function ( err, res ) {
+				if ( err ) {
+					return dispatch( actions.addNotification({
+						message: err.message,
+						level: 'error'
+					}) );
+				}
+				dispatch( actions.addNotification({
+					message: JSON.parse( res.body ).message,
+					level: 'success'
+				}) );
+				dispatch( actions.updatedLesson( lessonName, { active: false }) );
+			});
+		},
 		deleteLesson: ({ lessonName, namespaceName, token }) => {
 			if ( namespaceName && lessonName ) {
 				request.get( 'http://localhost:3000/delete_lesson', {

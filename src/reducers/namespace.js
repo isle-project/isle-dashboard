@@ -17,6 +17,8 @@ const initialState = {
 // EXPORTS //
 
 export default function namespace( state = initialState, action ) {
+	let lessons;
+
 	switch ( action.type ) {
 	case types.CHANGED_NAMESPACE:
 		return Object.assign({}, state, {
@@ -32,8 +34,22 @@ export default function namespace( state = initialState, action ) {
 			lessons: action.payload.lessons
 		});
 	case types.DELETED_LESSON:
-		let lessons = state.lessons.slice();
-		lessons = lessons.filter( x => x.title !== action.payload.title );
+		lessons = state.lessons.slice();
+		lessons = lessons.filter( x => x.title !== action.payload.lessonName );
+		return Object.assign({}, state, {
+			lessons
+		});
+	case types.UPDATED_LESSON:
+		lessons = state.lessons.slice();
+		const { props, lessonName } = action.payload;
+		for ( let i = 0; i < lessons.length; i++ ) {
+			if ( lessons[ i ].title === lessonName ) {
+				for ( let key in props ) {
+					lessons[ i ][ key ] = props[ key ];
+				}
+				break;
+			}
+		}
 		return Object.assign({}, state, {
 			lessons
 		});

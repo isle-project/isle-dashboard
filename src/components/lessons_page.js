@@ -48,8 +48,20 @@ class Lesson extends Component {
 			this.setState({ showDeleteModal: false });
 		};
 
+		this.toggleLessonState = () => {
+			const query = {
+				lessonName: this.props.title,
+				namespaceName: this.props.namespace,
+				token: this.props.token
+			};
+			if ( this.props.active ) {
+				this.props.deactivateLesson( query );
+			} else {
+				this.props.activateLesson( query );
+			}
+		};
+
 		this.delete = () => {
-			console.log( this.props );
 			this.props.deleteLesson({
 				lessonName: this.props.title,
 				namespaceName: this.props.namespace,
@@ -83,7 +95,7 @@ class Lesson extends Component {
 					<ButtonToolbar>
 						<ButtonGroup>
 							<Button><Glyphicon glyph="cog" /></Button>
-							<Button><Glyphicon glyph="off" /></Button>
+							<Button onClick={this.toggleLessonState}><Glyphicon glyph="off" /></Button>
 							<Button onClick={this.showDeleteModal} ><Glyphicon glyph="trash" /></Button>
 						</ButtonGroup>
 						<ButtonGroup>
@@ -139,6 +151,8 @@ class LessonsPage extends Component {
 								{...chunk[ j ]}
 								deleteLesson={this.props.deleteLesson}
 								token={this.props.user.token}
+								deactivateLesson={this.props.deactivateLesson}
+								activateLesson={this.props.activateLesson}
 							/>
 						</Col>;
 					} else {

@@ -10,7 +10,7 @@ import NotificationSystem from 'react-notification-system';
 const style = {
 	NotificationItem: {
 		DefaultStyle: {
-			margin: '55px 2px 2px 1px',
+			margin: '20px 2px 2px 1px',
 		}
 	}
 };
