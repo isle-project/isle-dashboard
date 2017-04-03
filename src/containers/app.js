@@ -2,7 +2,7 @@
 
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { browserHistory } from 'react-router';
+import { hashHistory } from 'react-router';
 import NotificationSystem from './../components/notification.js';
 import './app.css';
 
@@ -16,10 +16,10 @@ class App extends Component {
 		const isLoggingIn = !prevProps.isLoggedIn && this.props.isLoggedIn;
 
 		if ( isLoggingIn ) {
-			browserHistory.push( '/lessons' );
+			hashHistory.push( '/lessons' );
 		}
 		if ( isLoggingOut ) {
-			browserHistory.push( '/login' );
+			hashHistory.push( '/login' );
 		}
 	}
 

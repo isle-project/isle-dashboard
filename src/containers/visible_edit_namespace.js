@@ -4,7 +4,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import request from 'request';
 import server from './../constants/server';
-import { browserHistory } from 'react-router';
+import { hashHistory } from 'react-router';
 import EditNamespace from './../components/edit_namespace.js';
 import * as actions from './../actions';
 
@@ -57,7 +57,7 @@ function  mapDispatchToProps( dispatch ) {
 						level: 'error'
 					}) );
 				}
-				browserHistory.replace( '/lessons' );
+				hashHistory.replace( '/lessons' );
 				dispatch( actions.deletedCurrentNamespace() );
 				dispatch( actions.addNotification({
 					message: 'Course successfully deleted',

@@ -1,7 +1,7 @@
 // MODULES //
 
 import React, { Component } from 'react';
-import { browserHistory, Link } from 'react-router';
+import { hashHistory, Link } from 'react-router';
 import Radium from 'radium';
 import {
 	Button, FormGroup, FormControl, Glyphicon, InputGroup,
@@ -19,11 +19,11 @@ const RadiumLink = Radium( Link );
 // FUNCTIONS //
 
 function goToCreateCoursePage() {
-	browserHistory.replace( '/create-namespace' );
+	hashHistory.replace( '/create-namespace' );
 }
 
 function goToCoursePage() {
-	browserHistory.replace( '/edit-namespace' );
+	hashHistory.replace( '/edit-namespace' );
 }
 
 

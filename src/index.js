@@ -2,7 +2,7 @@
 
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { browserHistory, Router } from 'react-router';
+import { hashHistory, Router } from 'react-router';
 import { Provider } from 'react-redux';
 import { syncHistoryWithStore } from 'react-router-redux';
 import { createStore } from 'redux';
@@ -14,7 +14,7 @@ import './index.css';
 // VARIABLES //
 
 let store = createStore( reducers );
-const history = syncHistoryWithStore( browserHistory, store );
+const history = syncHistoryWithStore( hashHistory, store );
 
 
 // MAIN //

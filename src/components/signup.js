@@ -2,7 +2,7 @@
 
 import React, { Component } from 'react';
 import { Button, Col, ControlLabel, FormControl, FormGroup, Form, Modal, OverlayTrigger, Overlay, PageHeader, Panel, Popover, Tooltip } from 'react-bootstrap';
-import { browserHistory, Link } from 'react-router';
+import { hashHistory, Link } from 'react-router';
 import request from 'request';
 import server from './../constants/server';
 import './login.css';
@@ -29,7 +29,7 @@ const MsgModal = ( props ) => (
 			{ props.successful
 				?
 					<Button onClick={()=>{
-						browserHistory.push( '/login' );
+						hashHistory.push( '/login' );
 					}}>Go to login page</Button>
 				:
 					<Button onClick={props.close}>

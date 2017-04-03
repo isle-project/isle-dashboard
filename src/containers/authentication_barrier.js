@@ -2,7 +2,7 @@
 
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { browserHistory } from 'react-router';
+import { hashHistory } from 'react-router';
 import request from 'request';
 import HeaderBar from './header_bar.js';
 import server from './../constants/server';
@@ -14,7 +14,7 @@ import * as actions from './../actions';
 class AuthenticationBarrier extends Component {
 	componentDidMount() {
 		if ( !this.props.isLoggedIn ) {
-			browserHistory.replace( '/login' );
+			hashHistory.replace( '/login' );
 		} else {
 			this.props.getNamespaces( this.props.user.token );
 		}
