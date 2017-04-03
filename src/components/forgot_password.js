@@ -4,6 +4,7 @@ import React, { Component } from 'react';
 import { Button, ControlLabel, FormControl, FormGroup, Form, Panel } from 'react-bootstrap';
 import { Link } from 'react-router';
 import request from 'request';
+import server from './../constants/server';
 import './login.css';
 
 
@@ -19,7 +20,7 @@ class ForgotPassword extends Component {
 		};
 
 		this.handleClick = () => {
-			request.get( 'http://localhost:3000/forgot_password', {
+			request.get( server+'/forgot_password', {
 				qs: {
 					email: this.state.email
 				}

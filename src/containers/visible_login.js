@@ -3,6 +3,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import request from 'request';
+import server from './../constants/server';
 import Login from './../components/login.js';
 import * as actions from './../actions';
 
@@ -21,7 +22,7 @@ function  mapDispatchToProps( dispatch ) {
 	return {
 		handleLogin: ( obj ) => {
 			localStorage.setItem( 'isle', JSON.stringify( obj ) );
-			request.post( 'http://localhost:3000/credentials', {
+			request.post( server+'/credentials', {
 				headers: {
 					'Authorization': 'JWT ' + obj.token
 				},

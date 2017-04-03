@@ -4,6 +4,7 @@ import React, { Component } from 'react';
 import { Button, Col, ControlLabel, FormControl, FormGroup, Form, Modal, OverlayTrigger, Overlay, PageHeader, Panel, Popover, Tooltip } from 'react-bootstrap';
 import { browserHistory, Link } from 'react-router';
 import request from 'request';
+import server from './../constants/server';
 import './login.css';
 
 
@@ -62,7 +63,7 @@ class Signup extends Component {
 				this.getNameValidationState() === 'success' &&
 				this.getPasswordValidationState() === 'success'
 			) {
-				request.post( 'http://localhost:3000/create_user', {
+				request.post( server+'/create_user', {
 					form: this.state
 				}, ( err, res ) => {
 					const body = JSON.parse( res.body );

@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { browserHistory } from 'react-router';
 import request from 'request';
 import HeaderBar from './header_bar.js';
+import server from './../constants/server';
 import * as actions from './../actions';
 
 
@@ -48,7 +49,7 @@ function mapStateToProps( state ) {
 function mapDispatchToProps( dispatch ) {
 	return {
 		getNamespaces: ( token ) => {
-			request.get( 'http://localhost:3000/get_namespaces', {
+			request.get( server+'/get_namespaces', {
 				headers: {
 					'Authorization': 'JWT ' + token
 				}

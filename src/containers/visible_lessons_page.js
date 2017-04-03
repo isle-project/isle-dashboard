@@ -3,6 +3,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import request from 'request';
+import server from './../constants/server';
 import LessonsPage from './../components/lessons_page.js';
 import * as actions from './../actions';
 
@@ -21,7 +22,7 @@ function mapStateToProps( state ) {
 function  mapDispatchToProps( dispatch ) {
 	return {
 		activateLesson: ({ lessonName, namespaceName, token }) => {
-			request.get( 'http://localhost:3000/activate_lesson', {
+			request.get( server+'/activate_lesson', {
 				qs: {
 					namespaceName,
 					lessonName
@@ -44,7 +45,7 @@ function  mapDispatchToProps( dispatch ) {
 			});
 		},
 		deactivateLesson: ({ lessonName, namespaceName, token }) => {
-			request.get( 'http://localhost:3000/deactivate_lesson', {
+			request.get( server+'/deactivate_lesson', {
 				qs: {
 					namespaceName,
 					lessonName
@@ -68,7 +69,7 @@ function  mapDispatchToProps( dispatch ) {
 		},
 		deleteLesson: ({ lessonName, namespaceName, token }) => {
 			if ( namespaceName && lessonName ) {
-				request.get( 'http://localhost:3000/delete_lesson', {
+				request.get( server+'/delete_lesson', {
 					qs: {
 						namespaceName,
 						lessonName
@@ -100,7 +101,7 @@ function  mapDispatchToProps( dispatch ) {
 		},
 		getLessons: ( namespaceName ) => {
 			if ( namespaceName ) {
-				request.get( 'http://localhost:3000/get_lessons', {
+				request.get( server+'/get_lessons', {
 					qs: {
 						namespaceName
 					}
@@ -111,7 +112,7 @@ function  mapDispatchToProps( dispatch ) {
 					body = JSON.parse( body );
 					let lessons = body.lessons;
 					lessons = lessons.map( lesson => {
-						lesson.url = 'http://localhost:3000/' + namespaceName + '/' + lesson.title;
+						lesson.url = server+'/'+namespaceName+'/'+lesson.title;
 						return lesson;
 					});
 					dispatch( actions.retrievedLessons( lessons ) );

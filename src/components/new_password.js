@@ -4,6 +4,7 @@ import React, { Component } from 'react';
 import { Button, Col, ControlLabel, FormControl, FormGroup, Form, Modal, OverlayTrigger, Overlay, PageHeader, Panel, Popover, Tooltip } from 'react-bootstrap';
 import { browserHistory } from 'react-router';
 import request from 'request';
+import server from './../constants/server';
 import './login.css';
 
 
@@ -53,7 +54,7 @@ class NewPassword extends Component {
 			if (
 				this.getPasswordValidationState() === 'success'
 			) {
-				request.post( 'http://localhost:3000/update_user_password', {
+				request.post( server+'/update_user_password', {
 					form: {
 						id: id,
 						newPassword: this.state.password

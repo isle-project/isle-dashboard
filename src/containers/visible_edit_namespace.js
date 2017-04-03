@@ -3,6 +3,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import request from 'request';
+import server from './../constants/server';
 import { browserHistory } from 'react-router';
 import EditNamespace from './../components/edit_namespace.js';
 import * as actions from './../actions';
@@ -25,7 +26,7 @@ function  mapDispatchToProps( dispatch ) {
 			dispatch( actions.addNotification({ message, level }) );
 		},
 		getNamespaces: ( token ) => {
-			request.get( 'http://localhost:3000/get_namespaces', {
+			request.get( server+'/get_namespaces', {
 				headers: {
 					'Authorization': 'JWT ' + token
 				}
@@ -38,7 +39,7 @@ function  mapDispatchToProps( dispatch ) {
 			});
 		},
 		deleteCurrentNamespace: ( id, token, clbk ) => {
-			request.get( 'http://localhost:3000/delete_namespace', {
+			request.get( server+'/delete_namespace', {
 				qs: {
 					id
 				},
@@ -66,7 +67,7 @@ function  mapDispatchToProps( dispatch ) {
 			});
 		},
 		updateCurrentNamespace: ( ns, clbk ) => {
-			request.post( 'http://localhost:3000/update_namespace', {
+			request.post( server+'/update_namespace', {
 				form: {
 					ns
 				},

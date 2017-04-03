@@ -3,6 +3,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import request from 'request';
+import server from './../constants/server';
 import { browserHistory } from 'react-router';
 import CreateNamespace from './../components/create_namespace.js';
 import * as actions from './../actions';
@@ -22,7 +23,7 @@ function mapDispatchToProps( dispatch ) {
 	return {
 		createNamespace: ({ state, props }) => {
 			const user = props.user;
-			request.post( 'http://localhost:3000/create_namespace', {
+			request.post( server+'/create_namespace', {
 				form: state,
 				headers: {
 					'Authorization': 'JWT ' + user.token
@@ -50,7 +51,7 @@ function mapDispatchToProps( dispatch ) {
 			dispatch( actions.addNotification({ message, level }) );
 		},
 		getNamespaces: ( token ) => {
-			request.get( 'http://localhost:3000/get_namespaces', {
+			request.get( server+'/get_namespaces', {
 				headers: {
 					'Authorization': 'JWT ' + token
 				}

@@ -4,6 +4,7 @@ import React, { Component } from 'react';
 import { Button, Col, ControlLabel, FormControl, FormGroup, Form, Overlay, PageHeader, Panel , Popover} from 'react-bootstrap';
 import { Link } from 'react-router';
 import request from 'request';
+import server from './../constants/server';
 import './login.css';
 
 
@@ -50,7 +51,7 @@ class Login extends Component {
 				});
 			}
 			else {
-				request.post( 'http://localhost:3000/login', {
+				request.post( server+'/login', {
 					form
 				}, ( err, res ) => {
 					if ( !err ) {

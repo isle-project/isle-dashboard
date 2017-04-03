@@ -3,6 +3,7 @@
 import React, { Component } from 'react';
 import { Button, ControlLabel, FormControl, FormGroup, Form, OverlayTrigger, Panel, Tooltip } from 'react-bootstrap';
 import request from 'request';
+import server from './../constants/server';
 
 
 // FUNCTIONS //
@@ -46,7 +47,7 @@ class ProfilePage extends Component {
 				change = true;
 			}
 			if ( change ) {
-				request.post( 'http://localhost:3000/update_user', {
+				request.post( server+'/update_user', {
 					form: form,
 					headers: {
 						'Authorization': 'JWT ' + this.props.user.token

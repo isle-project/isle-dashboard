@@ -1,2 +1,4 @@
 export const LOCAL = 'http://localhost:3000';
-export const HEINZ_CMU = 'http://isle.heinz.cmu.edu/';
+export const REMOTE = 'http://isle.heinz.cmu.edu/server';
+
+export default ( process.env.NODE_ENV === 'development' ? LOCAL : REMOTE );
