@@ -1,7 +1,8 @@
 // MODULES //
 
 import React, { Component } from 'react';
-import { hashHistory, Link } from 'react-router';
+import { hashHistory } from 'react-router';
+import { Link } from 'react-router-dom';
 import Radium from 'radium';
 import {
 	Button, FormGroup, FormControl, Glyphicon, InputGroup,

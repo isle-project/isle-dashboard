@@ -2,7 +2,8 @@
 
 import React, { Component } from 'react';
 import { Button, Col, ControlLabel, FormControl, FormGroup, Form, Modal, OverlayTrigger, Overlay, PageHeader, Panel, Popover, Tooltip } from 'react-bootstrap';
-import { hashHistory, Link } from 'react-router';
+import { hashHistory } from 'react-router';
+import { Link } from 'react-router-dom';
 import request from 'request';
 import server from './../constants/server';
 import './login.css';

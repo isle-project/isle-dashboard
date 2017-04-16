@@ -2,7 +2,7 @@
 
 import React, { Component } from 'react';
 import { Button, ControlLabel, FormControl, FormGroup, Form, Panel } from 'react-bootstrap';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 import request from 'request';
 import server from './../constants/server';
 import './login.css';
