@@ -54,6 +54,15 @@ export function retrievedLessons( lessons ) {
 	};
 }
 
+export function retrievedPublicLessons( lessons ) {
+	return {
+		type: types.RETRIEVED_PUBLIC_LESSONS,
+		payload: {
+			lessons
+		}
+	};
+}
+
 export function deletedLesson( lessonName ) {
 	return {
 		type: types.DELETED_LESSON,

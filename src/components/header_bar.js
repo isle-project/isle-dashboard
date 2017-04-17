@@ -27,6 +27,9 @@ function goToCoursePage() {
 	hashHistory.replace( '/edit-namespace' );
 }
 
+function goToGallery() {
+	hashHistory.replace( '/gallery' );
+}
 
 // MAIN //
 
@@ -155,13 +158,15 @@ class HeaderBar extends Component {
 					</Button>
 					<FormGroup style={{ width: '500px' }}>
 						<InputGroup>
-							<InputGroup.Addon>
-								<Glyphicon glyph="search" />
-							</InputGroup.Addon>
 							<FormControl style={{
 								background: 'silver',
 								color: '#2a3e54'
 							}} type="text" placeholder="Search" />
+							<InputGroup.Button>
+								<Button onClick={goToGallery}>
+									<Glyphicon glyph="search" />
+								</Button>
+							</InputGroup.Button>
 						</InputGroup>
 					</FormGroup>
 				</div>

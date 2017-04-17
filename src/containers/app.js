@@ -12,6 +12,7 @@ import NewPassword from './../components/new_password.js';
 import HeaderBar from './header_bar.js';
 import VisibleCreateNamespace from './visible_create_namespace.js';
 import VisibleEditNamespace from './visible_edit_namespace.js';
+import VisibleGallery from './visible_gallery.js';
 import VisibleLessonsPage from './visible_lessons_page.js';
 import VisibleProfilePage from './visible_profile_page.js';
 import Lesson from './../components/lesson.js';
@@ -63,6 +64,10 @@ class App extends Component {
 					<Route
 						path="/profile"
 						component={VisibleProfilePage}
+					/>
+					<Route
+						path="/gallery"
+						component={VisibleGallery}
 					/>
 					<Route
 						path="/lessons"
