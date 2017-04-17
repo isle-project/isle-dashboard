@@ -2,7 +2,7 @@
 
 import React, { Component } from 'react';
 import {
-	Button, ButtonGroup, ButtonToolbar, Glyphicon,
+	Button, ButtonGroup, ButtonToolbar, FormGroup, Glyphicon,
 	Grid, Row, Col, ControlLabel, Jumbotron, Label, Modal, Panel
 } from 'react-bootstrap';
 import chunkify from 'compute-chunkify';
@@ -11,7 +11,6 @@ import './image.css';
 
 
 // COMPONENTS //
-
 
 const DeleteModel = ( props ) =>
 	<Modal show={props.show} onHide={props.close}>
@@ -60,6 +59,20 @@ class Lesson extends Component {
 			}
 		};
 
+		this.toggleLessonVisibility = () => {
+			console.log( this.props );
+			const query = {
+				lessonName: this.props.title,
+				namespaceName: this.props.namespace,
+				token: this.props.token
+			};
+			if ( this.props.public ) {
+				this.props.hideLessonInGallery( query );
+			} else {
+				this.props.showLessonInGallery( query );
+			}
+		};
+
 		this.delete = () => {
 			this.props.deleteLesson({
 				lessonName: this.props.title,
@@ -72,7 +85,8 @@ class Lesson extends Component {
 	}
 
 	render() {
-		const labelStyle = this.props.active === true ? 'success' : 'warning';
+		const activeStyle = this.props.active === true ? 'success' : 'warning';
+		const publicStyle = this.props.public === true ? 'success' : 'warning';
 		return (
 			<div>
 				<Panel>
@@ -95,16 +109,21 @@ class Lesson extends Component {
 						<ButtonGroup>
 							<Button><Glyphicon glyph="cog" /></Button>
 							<Button onClick={this.toggleLessonState}><Glyphicon glyph="off" /></Button>
+							<Button onClick={this.toggleLessonVisibility}><Glyphicon glyph="lock" /></Button>
 							<Button onClick={this.showDeleteModal} ><Glyphicon glyph="trash" /></Button>
 						</ButtonGroup>
-						<ButtonGroup>
+						<FormGroup>
 							<ControlLabel>
-								<Label bsStyle={labelStyle} style={{
-									fontSize: '16px',
-									float: 'right'
+								<Label bsStyle={activeStyle} style={{
+									fontSize: '12px'
 								}}>{this.props.active ? 'Active' : 'Disabled'}</Label>
 							</ControlLabel>
-						</ButtonGroup>
+							<ControlLabel>
+								<Label bsStyle={publicStyle} style={{
+									fontSize: '12px'
+								}}>{this.props.public ? 'Public' : 'Private'}</Label>
+							</ControlLabel>
+						</FormGroup>
 					</ButtonToolbar>
 					<DeleteModel {...this.props} show={this.state.showDeleteModal} close={this.closeDeleteModal} delete={this.delete} />
 				</Panel>
@@ -152,6 +171,8 @@ class LessonsPage extends Component {
 								token={this.props.user.token}
 								deactivateLesson={this.props.deactivateLesson}
 								activateLesson={this.props.activateLesson}
+								showLessonInGallery={this.props.showLessonInGallery}
+								hideLessonInGallery={this.props.hideLessonInGallery}
 							/>
 						</Col>;
 					} else {
@@ -161,6 +182,7 @@ class LessonsPage extends Component {
 			}
 			return (
 				<Grid style={{ position: 'relative', top: 70 }} >
+					<Row><h2>{this.props.namespace.title}</h2></Row>
 					{chunks.map( ( chunk, id ) => {
 						return (
 							<Row key={`row${id}`} >

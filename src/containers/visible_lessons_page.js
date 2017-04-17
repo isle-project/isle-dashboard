@@ -21,6 +21,52 @@ function mapStateToProps( state ) {
 
 function  mapDispatchToProps( dispatch ) {
 	return {
+		showLessonInGallery: ({ lessonName, namespaceName, token }) => {
+			request.get( server+'/show_lesson', {
+				qs: {
+					namespaceName,
+					lessonName
+				},
+				headers: {
+					'Authorization': 'JWT ' + token
+				}
+			}, function ( err, res ) {
+				if ( err ) {
+					return dispatch( actions.addNotification({
+						message: err.message,
+						level: 'error'
+					}) );
+				}
+				dispatch( actions.addNotification({
+					message: JSON.parse( res.body ).message,
+					level: 'success'
+				}) );
+				dispatch( actions.updatedLesson( lessonName, { public: true }) );
+			});
+		},
+		hideLessonInGallery: ({ lessonName, namespaceName, token }) => {
+			request.get( server+'/hide_lesson', {
+				qs: {
+					namespaceName,
+					lessonName
+				},
+				headers: {
+					'Authorization': 'JWT ' + token
+				}
+			}, function ( err, res ) {
+				if ( err ) {
+					return dispatch( actions.addNotification({
+						message: err.message,
+						level: 'error'
+					}) );
+				}
+				dispatch( actions.addNotification({
+					message: JSON.parse( res.body ).message,
+					level: 'success'
+				}) );
+				dispatch( actions.updatedLesson( lessonName, { public: false }) );
+			});
+		},
 		activateLesson: ({ lessonName, namespaceName, token }) => {
 			request.get( server+'/activate_lesson', {
 				qs: {
