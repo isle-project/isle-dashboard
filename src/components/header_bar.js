@@ -17,20 +17,6 @@ import icon from './../../public/profile_icon.png';
 const RadiumLink = Radium( Link );
 
 
-// FUNCTIONS //
-
-function goToCreateCoursePage() {
-	hashHistory.replace( '/create-namespace' );
-}
-
-function goToCoursePage() {
-	hashHistory.replace( '/edit-namespace' );
-}
-
-function goToGallery() {
-	hashHistory.replace( '/gallery' );
-}
-
 // MAIN //
 
 class HeaderBar extends Component {
@@ -39,7 +25,8 @@ class HeaderBar extends Component {
 		super( props );
 
 		this.state = {
-			showNamespacesOverlay: false
+			showNamespacesOverlay: false,
+			location: 'Dashboard'
 		};
 	}
 
@@ -47,13 +34,36 @@ class HeaderBar extends Component {
 		let out = () => {
 			this.props.onNamespace( this.props.user.namespaces[ id ]);
 			this.setState({
-				showNamespacesOverlay: false
+				showNamespacesOverlay: false,
+				location: 'Course'
 			});
 		};
 		return out;
 	}
 
+	goToCreateCoursePage() {
+		hashHistory.replace( '/create-namespace' );
+		this.setState({
+			location: 'Dashboard'
+		});
+	}
+
+	goToCoursePage() {
+		hashHistory.replace( '/edit-namespace' );
+		this.setState({
+			location: 'Dashboard'
+		});
+	}
+
+	goToGallery() {
+		hashHistory.replace( '/gallery' );
+		this.setState({
+			location: 'Gallery'
+		});
+	}
+
 	render() {
+
 		const containerStyle = {
 			borderLeft: '1px solid rgba(255, 255, 255, 0.06)',
 			float: 'left',
@@ -103,14 +113,9 @@ class HeaderBar extends Component {
 					marginTop: '15px',
 					position: 'relative',
 					marginLeft: '10px',
+					color: 'white'
 				}}>
-					<RadiumLink to="/lessons" style={{
-						color: 'silver',
-						textDecoration: 'none',
-						':hover': {
-							color: 'white'
-						}
-					}}> ISLE Dashboard </RadiumLink>
+					ISLE {this.state.location}
 				</h1>
 				<div style={{
 					marginLeft: '30px',
@@ -145,14 +150,14 @@ class HeaderBar extends Component {
 					</Overlay>
 					<Button
 						style={{ float: 'left', marginRight: '6px' }}
-						onClick={goToCoursePage}
+						onClick={this.goToCoursePage.bind( this )}
 						disabled={!this.props.namespace.title}
 					>
 						<Glyphicon glyph="edit" />
 					</Button>
 					<Button
 						style={{ float: 'left', marginRight: '6px' }}
-						onClick={goToCreateCoursePage}
+						onClick={this.goToCreateCoursePage.bind( this )}
 					>
 						<Glyphicon glyph="pencil" />
 					</Button>
@@ -163,7 +168,7 @@ class HeaderBar extends Component {
 								color: '#2a3e54'
 							}} type="text" placeholder="Search" />
 							<InputGroup.Button>
-								<Button onClick={goToGallery}>
+								<Button onClick={this.goToGallery.bind( this )}>
 									<Glyphicon glyph="search" />
 								</Button>
 							</InputGroup.Button>

@@ -180,18 +180,24 @@ class Gallery extends Component {
 			}
 		}
 		return (
-			<Grid style={{ position: 'relative', top: 70 }} >
-				<Row>
-					<h2>Gallery</h2>
-				</Row>
-				{chunks.map( ( chunk, id ) => {
-					return (
-						<Row key={`row${id}`} >
-							{chunk}
-						</Row>
-					);
-				})}
-			</Grid>
+			<div style={{
+				background: 'gainsboro',
+				width: '100%',
+				height: 'auto',
+				minHeight: '100%',
+				position: 'relative',
+				paddingBottom: '10%'
+			}}>
+				<Grid style={{ position: 'relative', top: 70 }} >
+					{chunks.map( ( chunk, id ) => {
+						return (
+							<Row key={`row${id}`} >
+								{chunk}
+							</Row>
+						);
+					})}
+				</Grid>
+			</div>
 		);
 	}
 }
