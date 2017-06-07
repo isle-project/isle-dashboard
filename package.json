@@ -52,6 +52,7 @@
     "@stdlib/stdlib": "github:stdlib-js/stdlib#develop",
     "compute-chunkify": "git+https://github.com/compute-io/chunkify.git",
     "compute-quantiles": "^1.1.0",
+    "history": "^4.6.1",
     "radium": "^0.18.1",
     "react": "^15.3.2",
     "react-bootstrap": "^0.30.5",
