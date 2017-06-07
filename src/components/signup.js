@@ -2,7 +2,7 @@
 
 import React, { Component } from 'react';
 import { Button, Col, ControlLabel, FormControl, FormGroup, Form, Modal, OverlayTrigger, Overlay, PageHeader, Panel, Popover, Tooltip } from 'react-bootstrap';
-import { hashHistory } from 'react-router';
+import { withRouter } from 'react-router';
 import { Link } from 'react-router-dom';
 import request from 'request';
 import server from './../constants/server';
@@ -18,7 +18,7 @@ const createTooltip = ( str ) => {
 
 // VARIABLES //
 
-const MsgModal = ( props ) => (
+const MsgModal = withRouter( ( props ) => (
 	<Modal show={props.show}>
 		<Modal.Header>
 			<Modal.Title>Create User</Modal.Title>
@@ -29,17 +29,17 @@ const MsgModal = ( props ) => (
 		<Modal.Footer>
 			{ props.successful
 				?
-					<Button onClick={()=>{
-						hashHistory.push( '/login' );
-					}}>Go to login page</Button>
+				<Button onClick={()=>{
+					props.history.push( '/login' );
+				}}>Go to login page</Button>
 				:
-					<Button onClick={props.close}>
-						Close
-					</Button>
+				<Button onClick={props.close}>
+					Close
+				</Button>
 			}
 		</Modal.Footer>
 	</Modal>
-);
+) );
 
 
 // MAIN //

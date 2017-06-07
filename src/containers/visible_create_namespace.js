@@ -4,7 +4,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import request from 'request';
 import server from './../constants/server';
-import { hashHistory } from 'react-router';
+import { withRouter } from 'react-router';
 import CreateNamespace from './../components/create_namespace.js';
 import * as actions from './../actions';
 
@@ -39,7 +39,7 @@ function mapDispatchToProps( dispatch ) {
 					};
 					props.onNamespace( namespace );
 					props.getNamespaces( user.token );
-					hashHistory.replace( '/lessons' );
+					props.history.replace( '/lessons' );
 					props.addNotification({
 						message: body.message,
 						level: body.successful ? 'success' : 'error'
@@ -69,4 +69,4 @@ function mapDispatchToProps( dispatch ) {
 	};
 } // end FUNCTION mapStateToProps()
 
-export default VisibleCreateNamespace;
+export default withRouter( VisibleCreateNamespace );

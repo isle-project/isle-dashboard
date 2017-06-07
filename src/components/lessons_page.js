@@ -6,7 +6,7 @@ import {
 	Grid, Row, Col, ControlLabel, Jumbotron, Label, Modal, Panel
 } from 'react-bootstrap';
 import chunkify from 'compute-chunkify';
-import isArray from '@stdlib/utils/is-array';
+import isArray from '@stdlib/assert/is-array';
 import './image.css';
 
 

@@ -1,7 +1,6 @@
 // MODULES //
 
 import React, { Component } from 'react';
-import { hashHistory } from 'react-router';
 import { Link } from 'react-router-dom';
 import Radium from 'radium';
 import {
@@ -42,21 +41,21 @@ class HeaderBar extends Component {
 	}
 
 	goToCreateCoursePage() {
-		hashHistory.replace( '/create-namespace' );
+		this.props.history.replace( '/create-namespace' );
 		this.setState({
 			location: 'Dashboard'
 		});
 	}
 
 	goToCoursePage() {
-		hashHistory.replace( '/edit-namespace' );
+		this.props.history.replace( '/edit-namespace' );
 		this.setState({
 			location: 'Dashboard'
 		});
 	}
 
 	goToGallery() {
-		hashHistory.replace( '/gallery' );
+		this.props.history.replace( '/gallery' );
 		this.setState({
 			location: 'Gallery'
 		});

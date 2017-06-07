@@ -2,7 +2,7 @@
 
 import React, { Component } from 'react';
 import { Button, Col, ControlLabel, FormControl, FormGroup, Form, Modal, OverlayTrigger, Overlay, PageHeader, Panel, Popover, Tooltip } from 'react-bootstrap';
-import { hashHistory } from 'react-router';
+import { withRouter } from 'react-router';
 import request from 'request';
 import server from './../constants/server';
 import './login.css';
@@ -106,7 +106,7 @@ class NewPassword extends Component {
 		};
 
 		this.close = () => {
-			hashHistory.replace( '/login' );
+			this.props.history.replace( '/login' );
 		};
 	}
 
@@ -187,4 +187,4 @@ class NewPassword extends Component {
 
 // EXPORTS //
 
-export default NewPassword;
+export default withRouter( NewPassword );

@@ -4,7 +4,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import request from 'request';
 import server from './../constants/server';
-import { hashHistory } from 'react-router';
 import EditNamespace from './../components/edit_namespace.js';
 import * as actions from './../actions';
 
@@ -38,7 +37,7 @@ function  mapDispatchToProps( dispatch ) {
 				dispatch( actions.retrievedNamespaces( body.namespaces ) );
 			});
 		},
-		deleteCurrentNamespace: ( id, token, clbk ) => {
+		deleteCurrentNamespace: ( id, token, history, clbk ) => {
 			request.get( server+'/delete_namespace', {
 				qs: {
 					id
@@ -57,7 +56,7 @@ function  mapDispatchToProps( dispatch ) {
 						level: 'error'
 					}) );
 				}
-				hashHistory.replace( '/lessons' );
+				history.replace( '/lessons' );
 				dispatch( actions.deletedCurrentNamespace() );
 				dispatch( actions.addNotification({
 					message: 'Course successfully deleted',

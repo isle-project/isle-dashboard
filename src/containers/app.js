@@ -2,8 +2,8 @@
 
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { hashHistory } from 'react-router';
-import { HashRouter, Route } from 'react-router-dom';
+import createHashHistory from 'history/createHashHistory';
+import { Router, Route } from 'react-router-dom';
 import request from 'request';
 import ForgotPassword from './../components/forgot_password.js';
 import VisibleLogin from './visible_login.js';
@@ -22,13 +22,18 @@ import * as actions from './../actions';
 import './app.css';
 
 
+// VARIABLES //
+
+const history = createHashHistory();
+
+
 // MAIN //
 
 class App extends Component {
 
 	componentDidMount() {
 		if ( !this.props.isLoggedIn ) {
-			hashHistory.replace( '/login' );
+			history.replace( '/login' );
 		} else {
 			this.props.getNamespaces( this.props.user.token );
 		}
@@ -39,11 +44,11 @@ class App extends Component {
 		const isLoggingIn = !prevProps.isLoggedIn && this.props.isLoggedIn;
 
 		if ( isLoggingIn ) {
-			hashHistory.push( '/lessons' );
+			history.push( '/lessons' );
 			this.props.getNamespaces( this.props.user.token );
 		}
 		if ( isLoggingOut ) {
-			hashHistory.push( '/login' );
+			history.push( '/login' );
 		}
 	}
 
@@ -52,7 +57,7 @@ class App extends Component {
 		if ( this.props.isLoggedIn ) {
 			AuthenticationBarrier =
 				<div>
-					<HeaderBar />
+					<HeaderBar history={history} />
 					<Route
 						path="/create-namespace"
 						component={VisibleCreateNamespace}
@@ -81,17 +86,17 @@ class App extends Component {
 		}
 
 		return (
-			<HashRouter>
+			<Router history={history}>
 				<div className="App">
 					{AuthenticationBarrier}
-					<Route exact path="/" component={VisibleLogin } />
+					<Route exact path="/" component={VisibleLogin} />
 					<Route path="/login" component={VisibleLogin}/>
 					<Route path="/new-password" component={NewPassword}/>
 					<Route path="/signup" component={Signup}/>
 					<Route path="/forgot-password" component={ForgotPassword}/>
 					<NotificationSystem />
 				</div>
-			</HashRouter>
+			</Router>
 		);
 	}
 }

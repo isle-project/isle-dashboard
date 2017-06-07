@@ -1,9 +1,10 @@
 // MODULES //
 
 import React, { Component } from 'react';
-import { Button, ButtonToolbar, ControlLabel, FormControl, FormGroup, Form, OverlayTrigger,Panel, Tooltip } from 'react-bootstrap';
-import isArray from '@stdlib/utils/is-array';
-import isEmail from '@stdlib/utils/is-email-address';
+import { Button, ButtonToolbar, ControlLabel, FormControl, FormGroup, Form, OverlayTrigger, Panel, Tooltip } from 'react-bootstrap';
+import { withRouter } from 'react-router';
+import isArray from '@stdlib/assert/is-array';
+import isEmail from '@stdlib/assert/is-email-address';
 import MsgModal from './message_modal.js';
 import ConfirmModal from './confirm_modal.js';
 import checkURLPath from './../utils/check_url_path.js';
@@ -114,7 +115,7 @@ class EditNamespace extends Component {
 		};
 
 		this.handleDelete = () => {
-			this.props.deleteCurrentNamespace( this.props.namespace._id, this.props.user.token, () => {
+			this.props.deleteCurrentNamespace( this.props.namespace._id, this.props.user.token, this.props.history, () => {
 				this.props.getNamespaces( this.props.user.token );
 				this.setState({
 					showDeleteModal: false
@@ -207,4 +208,4 @@ class EditNamespace extends Component {
 
 // EXPORTS //
 
-export default EditNamespace;
+export default withRouter( EditNamespace );
