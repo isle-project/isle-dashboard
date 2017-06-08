@@ -10,6 +10,7 @@ import VisibleLogin from './visible_login.js';
 import Signup from './../components/signup.js';
 import NewPassword from './../components/new_password.js';
 import HeaderBar from './header_bar.js';
+import VisibleEnterToken from './visible_enter_token.js';
 import VisibleCreateNamespace from './visible_create_namespace.js';
 import VisibleEditNamespace from './visible_edit_namespace.js';
 import VisibleGallery from './visible_gallery.js';
@@ -60,7 +61,7 @@ class App extends Component {
 					<HeaderBar history={history} />
 					<Route
 						path="/create-namespace"
-						component={VisibleCreateNamespace}
+						component={ this.props.user.writeAccess ? VisibleCreateNamespace : VisibleEnterToken }
 					/>
 					<Route
 						path="/edit-namespace"

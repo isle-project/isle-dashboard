@@ -25,8 +25,13 @@ export default function user( state = initialState, action ) {
 			name: action.payload.name,
 			organization: action.payload.organization,
 			token: action.payload.token,
+			writeAccess: action.payload.writeAccess,
 			id: action.payload.id,
 			loggedIn: true
+		});
+	case types.AUTHENTICATED:
+		return Object.assign({}, state, {
+			writeAccess: true
 		});
 	case types.LOGGED_OUT:
 		return initialState;
