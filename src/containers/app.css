@@ -1,5 +1,5 @@
 .App {
-  text-align: center;
+  text-align: left;
 }
 
 .App-header {
@@ -11,4 +11,9 @@
 
 .App-intro {
   font-size: large;
+}
+
+.App .centered {
+  display: block;
+  margin: 0 auto;
 }

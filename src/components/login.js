@@ -1,7 +1,10 @@
 // MODULES //
 
 import React, { Component } from 'react';
-import { Button, Col, ControlLabel, FormControl, FormGroup, Form, Overlay, PageHeader, Panel , Popover} from 'react-bootstrap';
+import {
+	Button, Col, ControlLabel, FormControl, FormGroup,
+	Form, Overlay, PageHeader, Panel , Popover
+} from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import request from 'request';
 import server from './../constants/server';
@@ -81,7 +84,7 @@ class Login extends Component {
 		return (
 			<div className="login">
 				<Panel style={{ opacity: 0.9 }}>
-					<PageHeader>ISLE <small>Dashboard</small></PageHeader>
+					<PageHeader style={{ textAlign: 'center' }}>ISLE <small>Dashboard</small></PageHeader>
 					<Form horizontal>
 						<FormGroup controlId="formHorizontalEmail">
 							<Col componentClass={ControlLabel} sm={2}>
@@ -113,6 +116,7 @@ class Login extends Component {
 						</FormGroup>
 						<FormGroup>
 							<Button
+								className="centered"
 								bsStyle="primary"
 								onClick={this.handleSubmit}
 								type="submit"

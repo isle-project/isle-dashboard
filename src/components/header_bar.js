@@ -31,7 +31,7 @@ class HeaderBar extends Component {
 
 	namespaceClickFactory( id ) {
 		let out = () => {
-			this.props.onNamespace( this.props.user.namespaces[ id ]);
+			this.props.onNamespace( this.props.user.namespaces[ id ], this.props.user.token );
 			this.setState({
 				showNamespacesOverlay: false,
 				location: 'Course'

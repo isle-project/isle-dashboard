@@ -52,6 +52,15 @@ export function retrievedNamespaces( namespaces ) {
 	};
 }
 
+export function retrievedCohorts( cohorts ) {
+	return {
+		type: types.RETRIEVED_COHORTS,
+		payload: {
+			cohorts
+		}
+	};
+}
+
 export function retrievedLessons( lessons ) {
 	return {
 		type: types.RETRIEVED_LESSONS,

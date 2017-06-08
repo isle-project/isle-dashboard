@@ -10,7 +10,8 @@ const initialState = {
 	title: '',
 	description: '',
 	owners: '',
-	lessons: null
+	lessons: null,
+	cohorts: []
 };
 
 
@@ -32,6 +33,10 @@ export default function namespace( state = initialState, action ) {
 	case types.RETRIEVED_LESSONS:
 		return Object.assign({}, state, {
 			lessons: action.payload.lessons
+		});
+	case types.RETRIEVED_COHORTS:
+		return Object.assign({}, state, {
+			cohorts: action.payload.cohorts
 		});
 	case types.DELETED_LESSON:
 		lessons = state.lessons.slice();

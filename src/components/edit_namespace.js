@@ -1,13 +1,19 @@
 // MODULES //
 
 import React, { Component } from 'react';
-import { Button, ButtonToolbar, ControlLabel, FormControl, FormGroup, Form, OverlayTrigger, Panel, Tooltip } from 'react-bootstrap';
+import {
+	Accordion, Button, ButtonToolbar, Col, ControlLabel, FormControl, FormGroup,
+	Form, Grid, OverlayTrigger, Panel, Tooltip
+} from 'react-bootstrap';
+import 'react-dates/lib/css/_datepicker.css';
 import { withRouter } from 'react-router';
 import isArray from '@stdlib/assert/is-array';
 import isEmail from '@stdlib/assert/is-email-address';
 import MsgModal from './message_modal.js';
 import ConfirmModal from './confirm_modal.js';
 import checkURLPath from './../utils/check_url_path.js';
+import CohortPanel from './cohort_panel.js';
+import CreateCohortModal from './create_cohort_modal.js';
 
 
 // MAIN //
@@ -25,7 +31,8 @@ class EditNamespace extends Component {
 			title,
 			description,
 			owners,
-			showDeleteModal: false
+			showDeleteModal: false,
+			showCreateCohortModal: false
 		};
 
 		this.handleInputChange = ( event ) => {
@@ -103,6 +110,10 @@ class EditNamespace extends Component {
 								level: 'success'
 							});
 							this.props.getNamespaces( this.props.user.token );
+							this.props.getCohorts({
+								namespaceID: this.props.namespace._id,
+								userToken: this.props.user.token
+							});
 						}
 					}
 				});
@@ -134,73 +145,154 @@ class EditNamespace extends Component {
 				showDeleteModal: false
 			});
 		};
+
+		this.closeCreateCohortModal = () => {
+			this.setState({
+				showCreateCohortModal: false
+			});
+		};
+
+		this.createCohort = ( cohort ) => {
+			cohort.namespaceID = this.props.namespace._id;
+			this.props.createCohort( this.props.user, cohort, () => {
+				this.closeCreateCohortModal();
+				this.props.getCohorts({
+					userToken: this.props.user.token,
+					namespaceID: this.props.namespace._id
+				});
+			});
+		};
+
+		this.deleteCohort = ( cohortID ) => {
+			this.props.deleteCohort( cohortID, this.props.user.token, () => {
+				this.props.getCohorts({
+					userToken: this.props.user.token,
+					namespaceID: this.props.namespace._id
+				});
+			});
+		};
+
+		this.updateCohort = ( cohort ) => {
+			this.props.updateCohort( cohort, this.props.user.token, () => {
+				this.props.getCohorts({
+					userToken: this.props.user.token,
+					namespaceID: this.props.namespace._id
+				});
+			});
+		};
 	}
 
 	render() {
 		return (
-			<Panel style={{
+			<Grid style={{
 				position: 'relative',
 				top: '80px',
-				width: '50%',
+				width: '80%',
 				margin: '0 auto'
-			}} header={<h2>Edit Current Course</h2>}>
-				<Form style={{ padding: '20px' }}>
-					<OverlayTrigger placement="right" overlay={<Tooltip id="ownerTooltip">Comma-separated list of email addresses denoting the administrators for this course</Tooltip>}>
-						<FormGroup>
-							<ControlLabel>Owners</ControlLabel>
-							<FormControl
-								name="owners"
-								componentClass="textarea"
-								value={this.state.owners}
-								onChange={this.handleInputChange}
-							/>
-						</FormGroup>
-					</OverlayTrigger>
-					<OverlayTrigger placement="right" overlay={<Tooltip id="ownerTooltip">Title with a minimum length of six characters.</Tooltip>}>
-						<FormGroup>
-							<ControlLabel>Title</ControlLabel>
-							<FormControl
-								name="title"
-								type="text"
-								value={this.state.title}
-								onChange={this.handleInputChange}
-							/>
-						</FormGroup>
-					</OverlayTrigger>
-					<FormGroup>
-						<ControlLabel>Description</ControlLabel>
-						<FormControl
-							name="description"
-							type="text"
-							value={this.state.description}
-							onChange={this.handleInputChange}
-						>
-						</FormControl>
-					</FormGroup>
-				</Form>
-				<ButtonToolbar>
-					<Button type="submit" onClick={this.handleUpdate}>Update</Button>
-					<Button onClick={() => {
-						this.setState({
-							showDeleteModal: true
-						});
-					}} bsStyle="danger">Delete</Button>
-				</ButtonToolbar>
-				<MsgModal
-					show={this.state.showModal}
-					close={this.close}
-					message={this.state.message}
-					successful={this.state.successful}
-					title="Update Course"
-				/>
-				<ConfirmModal
-					show={this.state.showDeleteModal}
-					close={this.closeDeleteModal}
-					message="Are you sure that you want to delete this course?"
-					title="Delete?"
-					onDelete={this.handleDelete}
-				/>
-			</Panel>
+			}} >
+				<Col md={6} >
+					<Panel header={<h2>Edit Course</h2>}>
+						<Form style={{ padding: '20px' }}>
+							<OverlayTrigger placement="right" overlay={<Tooltip id="ownerTooltip">Comma-separated list of email addresses denoting the administrators for this course</Tooltip>}>
+								<FormGroup>
+									<ControlLabel>Owners</ControlLabel>
+									<FormControl
+										name="owners"
+										componentClass="textarea"
+										value={this.state.owners}
+										onChange={this.handleInputChange}
+									/>
+								</FormGroup>
+							</OverlayTrigger>
+							<OverlayTrigger placement="right" overlay={<Tooltip id="ownerTooltip">Title with a minimum length of six characters.</Tooltip>}>
+								<FormGroup>
+									<ControlLabel>Title</ControlLabel>
+									<FormControl
+										name="title"
+										type="text"
+										value={this.state.title}
+										onChange={this.handleInputChange}
+									/>
+								</FormGroup>
+							</OverlayTrigger>
+							<FormGroup>
+								<ControlLabel>Description</ControlLabel>
+								<FormControl
+									name="description"
+									type="text"
+									value={this.state.description}
+									onChange={this.handleInputChange}
+								>
+								</FormControl>
+							</FormGroup>
+						</Form>
+						<ButtonToolbar>
+							<Button type="submit" onClick={this.handleUpdate}>Update</Button>
+							<Button onClick={() => {
+								this.setState({
+									showDeleteModal: true
+								});
+							}} bsStyle="danger">Delete</Button>
+						</ButtonToolbar>
+						<MsgModal
+							show={this.state.showModal}
+							close={this.close}
+							message={this.state.message}
+							successful={this.state.successful}
+							title="Update Course"
+						/>
+						<ConfirmModal
+							show={this.state.showDeleteModal}
+							close={this.closeDeleteModal}
+							message="Are you sure that you want to delete this course?"
+							title="Delete?"
+							onDelete={this.handleDelete}
+						/>
+						<CreateCohortModal
+							show={this.state.showCreateCohortModal}
+							close={this.closeCreateCohortModal}
+							onCreate={this.createCohort}
+						/>
+					</Panel>
+				</Col>
+				<Col md={6} >
+					<Panel header={
+						<h2>Cohorts
+							<Button bsSize="small" bsStyle="success" style={{ float: 'right', marginTop: -7 }}
+								onClick={() => {
+									this.setState({
+										showCreateCohortModal: true
+									});
+								}}
+							>
+								Create Cohort
+							</Button>
+						</h2>}>
+						<Accordion>
+							{this.props.cohorts.map( ( cohort, idx ) => {
+								return ( <Panel
+									header={cohort.title}
+									eventKey={idx}
+									key={idx}
+									style={{
+										background: 'ivory'
+									}}
+								>
+									<CohortPanel
+										id={cohort._id}
+										title={cohort.title}
+										startDate={cohort.startDate}
+										endDate={cohort.endDate}
+										students={cohort.members}
+										onDelete={this.deleteCohort}
+										onUpdate={this.updateCohort}
+									 />
+								</Panel> );
+							})}
+						</Accordion>
+					</Panel>
+				</Col>
+			</Grid>
 		);
 	}
 }

@@ -141,7 +141,7 @@ class Signup extends Component {
 			<div>
 				<div className="login">
 					<Panel style={{ opacity: 0.9 }}>
-						<PageHeader>ISLE <small>Dashboard</small></PageHeader>
+						<PageHeader style={{ textAlign: 'center' }}>ISLE <small>Dashboard</small></PageHeader>
 						<Form horizontal>
 							<OverlayTrigger placement="right" overlay={createTooltip( 'Please enter a valid email address.' )}>
 								<FormGroup
@@ -221,7 +221,12 @@ class Signup extends Component {
 								</Col>
 							</FormGroup>
 							<FormGroup>
-								<Button bsStyle="primary" type="submit" onClick={this.handleSubmit}>Sign up</Button>
+								<Button
+									bsStyle="primary"
+									className="centered"
+									type="submit"
+									onClick={this.handleSubmit}
+								>Sign up</Button>
 							</FormGroup>
 						</Form>
 						<div style={{ marginTop: 20 }}>
