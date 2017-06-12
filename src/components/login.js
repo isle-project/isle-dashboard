@@ -43,7 +43,7 @@ class Login extends Component {
 				this.setState({
 					showInputOverlay: true,
 					overlayTarget: this.emailInput,
-					invalidInputMessage: 'Enter your email address.	'
+					invalidInputMessage: 'Enter your email address.'
 				});
 			}
 			else if ( form.password === '' ) {

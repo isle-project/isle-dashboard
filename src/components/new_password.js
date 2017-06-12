@@ -51,6 +51,7 @@ class NewPassword extends Component {
 			event.preventDefault();
 			let id = window.location.hash;
 			id = id.substr( 15 );
+			console.log( id );
 			if (
 				this.getPasswordValidationState() === 'success'
 			) {
@@ -60,14 +61,21 @@ class NewPassword extends Component {
 						newPassword: this.state.password
 					}
 				}, ( err, res ) => {
-					if ( !err ) {
-						const body = JSON.parse( res.body );
-						this.setState({
-							message: body.message,
-							successful: body.successful,
-							showModal: true
-						});
+					let msg;
+					if ( err ) {
+						msg = err.message;
 					}
+					else if ( res.statusCode === 404 ) {
+						msg = 'User does not exist';
+					}
+					else if ( res.statusCode === 200 ) {
+						const body = JSON.parse( res.body );
+						msg = body.message;
+					}
+					this.setState({
+						message: msg,
+						showModal: true
+					});
 				});
 			} else {
 				this.setState({
@@ -99,16 +107,16 @@ class NewPassword extends Component {
 			if ( password.length < 6 || passwordRepeat.length === 0 ) {
 				return 'warning';
 			}
-			if ( password !== passwordRepeat ) {																																																														
+			if ( password !== passwordRepeat ) {
 				 return 'error';
 			}
 			return 'success';
 		};
 
 		this.close = () => {
-			this.props.history.replace( '/																																																																																																																																																																																																																																																																														' );
+			this.props.history.replace( '/' );
 		};
-	}																																																																																																																																																														
+	}
 
 	render() {
 		return (
@@ -166,7 +174,6 @@ class NewPassword extends Component {
 					show={this.state.showModal}
 					close={this.close}
 					message={this.state.message}
-					successful={this.state.successful}
 				/>
 				<Overlay
 					show={this.state.showSubmitOverlay}
