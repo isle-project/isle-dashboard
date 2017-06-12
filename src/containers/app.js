@@ -5,12 +5,12 @@ import { connect } from 'react-redux';
 import createHashHistory from 'history/createHashHistory';
 import { Router, Route } from 'react-router-dom';
 import request from 'request';
-import ForgotPassword from './../components/forgot_password.js';
 import VisibleLogin from './visible_login.js';
 import Signup from './../components/signup.js';
 import NewPassword from './../components/new_password.js';
 import HeaderBar from './header_bar.js';
 import VisibleEnterToken from './visible_enter_token.js';
+import VisibleForgotPassword from './visible_forgot_password.js';
 import VisibleCreateNamespace from './visible_create_namespace.js';
 import VisibleEditNamespace from './visible_edit_namespace.js';
 import VisibleGallery from './visible_gallery.js';
@@ -94,7 +94,7 @@ class App extends Component {
 					<Route path="/login" component={VisibleLogin}/>
 					<Route path="/new-password" component={NewPassword}/>
 					<Route path="/signup" component={Signup}/>
-					<Route path="/forgot-password" component={ForgotPassword}/>
+					<Route path="/forgot-password" component={VisibleForgotPassword}/>
 					<NotificationSystem />
 				</div>
 			</Router>

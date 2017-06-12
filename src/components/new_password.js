@@ -50,7 +50,7 @@ class NewPassword extends Component {
 		this.handleSubmit = ( event ) => {
 			event.preventDefault();
 			let id = window.location.hash;
-			id = id.substr( 1 );
+			id = id.substr( 15 );
 			if (
 				this.getPasswordValidationState() === 'success'
 			) {
@@ -99,16 +99,16 @@ class NewPassword extends Component {
 			if ( password.length < 6 || passwordRepeat.length === 0 ) {
 				return 'warning';
 			}
-			if ( password !== passwordRepeat ) {
+			if ( password !== passwordRepeat ) {																																																														
 				 return 'error';
 			}
 			return 'success';
 		};
 
 		this.close = () => {
-			this.props.history.replace( '/login' );
+			this.props.history.replace( '/																																																																																																																																																																																																																																																																														' );
 		};
-	}
+	}																																																																																																																																																														
 
 	render() {
 		return (
@@ -176,7 +176,7 @@ class NewPassword extends Component {
 					containerPadding={20}
 				>
 					<Popover id="popover-contained" title="Input fields are not valid">
-						Please make sure that the passwords  are valid and match each other before submitting.
+						Please make sure that the passwords are valid and match each other before submitting.
 					</Popover>
 				</Overlay>
 			</div>

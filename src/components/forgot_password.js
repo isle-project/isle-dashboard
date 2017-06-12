@@ -19,16 +19,17 @@ class ForgotPassword extends Component {
 			email: ''
 		};
 
-		this.handleClick = () => {
+		this.handleClick = ( event ) => {
+			event.preventDefault();
 			request.get( server+'/forgot_password', {
 				qs: {
 					email: this.state.email
 				}
-			}, function( error, response, body ) {
+			}, ( error ) => {
 				if ( error ) {
-					return error;
+					return this.props.addNotification({ message: error.message, level: 'error' });
 				}
-				console.log( body );
+				this.props.addNotification({ message: 'Check your email inbox for a link to choose a new password.', level: 'success' });
 			});
 		};
 	}

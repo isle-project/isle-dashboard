@@ -27,8 +27,7 @@ const MsgModal = withRouter( ( props ) => (
 			{props.message}
 		</Modal.Body>
 		<Modal.Footer>
-			{ props.successful
-				?
+			{ props.successful ?
 				<Button onClick={()=>{
 					props.history.push( '/login' );
 				}}>Go to login page</Button>
