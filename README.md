@@ -10,6 +10,9 @@ An online dashboard used to deploy, organize and monitor *interactive statistics
 
 #### [Open Documentation][docs]
 
+#### Bundle
+
+Execute the `npm run build` command to create a bundle of the ISLE dashboard, which can then be hosted on a server.
 
 [dependencies-image]: https://img.shields.io/david/planeshifter/isle-dashboard/master.svg
 [dependencies-url]: https://david-dm.org/planeshifter/isle-dashboard/master
