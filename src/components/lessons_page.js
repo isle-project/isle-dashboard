@@ -3,11 +3,20 @@
 import React, { Component } from 'react';
 import {
 	Button, ButtonGroup, ButtonToolbar, FormGroup, Glyphicon,
-	Grid, Row, Col, ControlLabel, Jumbotron, Label, Modal, Panel
+	ControlLabel, Jumbotron, Label, Modal, Panel
 } from 'react-bootstrap';
-import chunkify from 'compute-chunkify';
+import {Responsive, WidthProvider} from 'react-grid-layout';
 import isArray from '@stdlib/assert/is-array';
+import pluck from '@stdlib/utils/pluck';
+import floor from '@stdlib/math/base/special/floor';
 import './image.css';
+import 'react-grid-layout/css/styles.css';
+import 'react-resizable/css/styles.css';
+
+
+// VARIABLES //
+
+const ResponsiveReactGridLayout = WidthProvider( Responsive );
 
 
 // COMPONENTS //
@@ -88,7 +97,7 @@ class Lesson extends Component {
 		const activeStyle = this.props.active === true ? 'success' : 'warning';
 		const publicStyle = this.props.public === true ? 'success' : 'warning';
 		return (
-			<div>
+			<div key={this.props.key}>
 				<Panel>
 					<div className="hovereffect">
 						<img
@@ -96,27 +105,36 @@ class Lesson extends Component {
 							src={this.props.url+'/preview.jpg'}
 							alt=""
 							style={{
-								width: 350,
-								height: 200
+								width: 300,
+								height: 180
 							}}
 						/>
 						<div className="overlay">
 							<h2>{this.props.title}</h2>
-							<a className="info" href={this.props.url} target="_blank" >Open Lesson</a>
+							<span
+								ref={ ( link ) => this.link = link }
+								className="info"
+								onClick={() => {
+									const win = window.open( this.props.url, '_blank' );
+									win.focus();
+								}}
+							>
+								Open Lesson
+							</span>
 						</div>
 					</div>
 					<ButtonToolbar>
-						<ButtonGroup>
+						<ButtonGroup style={{ marginRight: '5px' }} >
 							<Button><Glyphicon glyph="cog" /></Button>
 							<Button onClick={this.toggleLessonState}><Glyphicon glyph="off" /></Button>
 							<Button onClick={this.toggleLessonVisibility}><Glyphicon glyph="lock" /></Button>
 							<Button onClick={this.showDeleteModal} ><Glyphicon glyph="trash" /></Button>
 						</ButtonGroup>
 						<FormGroup>
-							<ControlLabel>
+							<ControlLabel style={{ marginRight: '2px' }}>
 								<Label bsStyle={activeStyle} style={{
 									fontSize: '12px'
-								}}>{this.props.active ? 'Active' : 'Disabled'}</Label>
+								}}>{this.props.active ? 'Active' : 'Inactive'}</Label>
 							</ControlLabel>
 							<ControlLabel>
 								<Label bsStyle={publicStyle} style={{
@@ -139,6 +157,11 @@ class LessonsPage extends Component {
 
 	constructor( props ) {
 		super( props );
+
+		this.state = {
+			layouts: {}
+		};
+
 		props.getLessons( props.namespace.title );
 	}
 
@@ -148,10 +171,50 @@ class LessonsPage extends Component {
 		) {
 			this.props.getLessons( nextProps.namespace.title );
 		}
+		if (
+			nextProps.namespace.lessons !== this.props.namespace.lessons
+		) {
+			let lessons = nextProps.namespace.lessons;
+			lessons = lessons.map( ( elem, i ) =>
+				<Lesson
+					{...elem}
+					key={i}
+					deleteLesson={nextProps.deleteLesson}
+					token={nextProps.user.token}
+					deactivateLesson={nextProps.deactivateLesson}
+					activateLesson={nextProps.activateLesson}
+					showLessonInGallery={nextProps.showLessonInGallery}
+					hideLessonInGallery={nextProps.hideLessonInGallery}
+				/>
+			);
+			let layouts = lessons.map( ( e, i ) => {
+				return {
+					lg: { i: `cell-${i}`, x: i*4 % 16, y: floor( i / 4 ) * 4, w: 4, h: 4 },
+					md: { i: `cell-${i}`, x: i*4 % 12, y: floor( i / 2 ) * 4, w: 4, h: 4 },
+					sm: { i: `cell-${i}`, x: i*4 % 8, y: floor( i / 2 ) * 4, w: 4, h: 4 },
+					xs: { i: `cell-${i}`, x: i*4 % 8, y: floor( i / 2 ) * 4, w: 4, h: 4 },
+					xxs: { i: `cell-${i}`, x: i*4 % 8, y: floor( i / 2 ) * 4, w: 4, h: 4 }
+				};
+			});
+			layouts = {
+				lg: pluck( layouts, 'lg' ),
+				md: pluck( layouts, 'md' ),
+				sm: pluck( layouts, 'sm' ),
+				xs: pluck( layouts, 'xs' ),
+				xxs: pluck( layouts, 'xxs' )
+			};
+			this.state = {
+				layouts
+			};
+		}
 	}
 
+	preventOpeningLink = ( event ) => {
+		event.preventDefault();
+	};
+
 	render() {
-		const { lessons } = this.props.namespace;
+		let { lessons } = this.props.namespace;
 		if ( isArray( lessons ) ) {
 			if ( lessons.length === 0 ) {
 				return <Jumbotron style={{ position: 'relative', top: 70, textAlign: 'left', paddingLeft: 20 }}>
@@ -159,14 +222,22 @@ class LessonsPage extends Component {
 					<p>The selected course does not contain any lessons. You can upload lessons from the ISLE editor.</p>
 				</Jumbotron>;
 			}
-			let chunks = chunkify( lessons, 4 );
-			for ( let i = 0; i < chunks.length; i++ ) {
-				let chunk = chunks[ i ];
-				for ( let j = 0; j < chunk.length; j++ ) {
-					if ( chunk[ j ]) {
-						chunk[ j ] = <Col key={`cell${i}${j}`} xs={6} md={3}>
+			return (
+				<ResponsiveReactGridLayout
+					layouts={this.state.layouts}
+					breakpoints={{lg: 1200, md: 996, sm: 768, xs: 480, xxs: 0 }}
+					cols={{lg: 16, md: 12, sm: 8, xs: 8, xxs: 8 }}
+					isResizable={false}
+					rowHeight={60}
+					style={{
+						position: 'relative',
+						top: 70
+					}}
+				>
+					{lessons.map( ( e, i ) => {
+						return <div key={`cell-${i}`}>
 							<Lesson
-								{...chunk[ j ]}
+								{...lessons[ i ]}
 								deleteLesson={this.props.deleteLesson}
 								token={this.props.user.token}
 								deactivateLesson={this.props.deactivateLesson}
@@ -174,22 +245,9 @@ class LessonsPage extends Component {
 								showLessonInGallery={this.props.showLessonInGallery}
 								hideLessonInGallery={this.props.hideLessonInGallery}
 							/>
-						</Col>;
-					} else {
-						chunk[ j ] = null;
-					}
-				}
-			}
-			return (
-				<Grid style={{ position: 'relative', top: 70 }} >
-					{chunks.map( ( chunk, id ) => {
-						return (
-							<Row key={`row${id}`} >
-								{chunk}
-							</Row>
-						);
+						</div>;
 					})}
-				</Grid>
+				</ResponsiveReactGridLayout>
 			);
 		}
 		return (
