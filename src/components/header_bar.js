@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import Radium from 'radium';
 import {
 	Button, FormGroup, FormControl, Glyphicon, InputGroup,
-	Overlay, Popover, ListGroupItem, ListGroup
+	Overlay, OverlayTrigger, Popover, ListGroupItem, ListGroup, Tooltip
 } from 'react-bootstrap';
 import { Image } from 'react-bootstrap';
 import icon from './../../public/profile_icon.png';
@@ -14,6 +14,10 @@ import icon from './../../public/profile_icon.png';
 // VARIABLES //
 
 const RadiumLink = Radium( Link );
+
+const createCourseTooltip = <Tooltip>Create a new course</Tooltip>;
+const galleryTooltip = <Tooltip>Open gallery</Tooltip>;
+const selectCourseTooltip = <Tooltip>Select course</Tooltip>;
 
 
 // MAIN //
@@ -122,24 +126,27 @@ class HeaderBar extends Component {
 					float: 'left',
 					position: 'relative',
 				}}>
-					<Button
-						ref={( button ) => { this.overlayTarget = button; }}
-						style={{
-							float: 'left',
-							marginRight: '6px',
-							marginLeft: '6px'
-						}}
-						onClick={() => {
-							this.setState({
-								showNamespacesOverlay: !this.state.showNamespacesOverlay
-							});
-						}}
-					>
-						<Glyphicon glyph="align-justify" />
-						<small style={{ marginLeft: '5px' }}>
-							{this.props.namespace.title}
-						</small>
-					</Button>
+					<OverlayTrigger placement="right" overlay={selectCourseTooltip}>
+						<Button
+							ref={( button ) => { this.overlayTarget = button; }}
+							style={{
+								float: 'left',
+								marginRight: '6px',
+								marginLeft: '6px'
+							}}
+							onClick={() => {
+								this.setState({
+									showNamespacesOverlay: !this.state.showNamespacesOverlay
+								});
+							}}
+							disabled={!this.props.user.namespaces.length}
+						>
+							<Glyphicon glyph="align-justify" />
+							<small style={{ marginLeft: '5px' }}>
+								{this.props.namespace.title}
+							</small>
+						</Button>
+					</OverlayTrigger>
 					<Overlay
 						show={this.state.showNamespacesOverlay}
 						target={this.overlayTarget}
@@ -154,23 +161,27 @@ class HeaderBar extends Component {
 					>
 						<Glyphicon glyph="edit" />
 					</Button>
-					<Button
-						style={{ float: 'left', marginRight: '6px' }}
-						onClick={this.goToCreateCoursePage.bind( this )}
-					>
-						<Glyphicon glyph="pencil" />
-					</Button>
+					<OverlayTrigger placement="bottom" overlay={createCourseTooltip}>
+						<Button
+							style={{ float: 'left', marginRight: '6px' }}
+							onClick={this.goToCreateCoursePage.bind( this )}
+						>
+							<Glyphicon glyph="pencil" />
+						</Button>
+					</OverlayTrigger>
 					<FormGroup style={{ width: '500px' }}>
 						<InputGroup>
 							<FormControl style={{
 								background: 'silver',
 								color: '#2a3e54'
 							}} type="text" placeholder="Search" />
-							<InputGroup.Button>
-								<Button onClick={this.goToGallery.bind( this )}>
-									<Glyphicon glyph="search" />
-								</Button>
-							</InputGroup.Button>
+							<OverlayTrigger placement="bottom" overlay={galleryTooltip}>
+								<InputGroup.Button>
+									<Button onClick={this.goToGallery.bind( this )}>
+										<Glyphicon glyph="search" />
+									</Button>
+								</InputGroup.Button>
+							</OverlayTrigger>
 						</InputGroup>
 					</FormGroup>
 				</div>
