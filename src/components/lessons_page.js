@@ -5,7 +5,7 @@ import {
 	Button, ButtonGroup, ButtonToolbar, FormGroup, Glyphicon,
 	ControlLabel, Jumbotron, Label, Modal, Panel
 } from 'react-bootstrap';
-import {Responsive, WidthProvider} from 'react-grid-layout';
+import { Responsive, WidthProvider } from 'react-grid-layout';
 import isArray from '@stdlib/assert/is-array';
 import pluck from '@stdlib/utils/pluck';
 import floor from '@stdlib/math/base/special/floor';
