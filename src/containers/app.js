@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import createHashHistory from 'history/createHashHistory';
 import { Router, Route } from 'react-router-dom';
 import request from 'request';
+import contains from '@stdlib/assert/contains';
 import VisibleLogin from './visible_login.js';
 import Signup from './../components/signup.js';
 import NewPassword from './../components/new_password.js';
@@ -16,6 +17,7 @@ import VisibleEditNamespace from './visible_edit_namespace.js';
 import VisibleGallery from './visible_gallery.js';
 import VisibleLessonsPage from './visible_lessons_page.js';
 import VisibleProfilePage from './visible_profile_page.js';
+import CoursePage from './../components/course_page.js';
 import Lesson from './../components/lesson.js';
 import NotificationSystem from './../components/notification.js';
 import server from './../constants/server';
@@ -27,13 +29,18 @@ import './app.css';
 
 const history = createHashHistory();
 
+const VisibleCoursePage = ({ match }) => {
+	return <CoursePage namespace={match.params.namespace} />;
+};
+
 
 // MAIN //
 
 class App extends Component {
 
 	componentDidMount() {
-		if ( !this.props.isLoggedIn ) {
+		console.log( history );
+		if ( !this.props.isLoggedIn && !contains( history.location.pathname, 'courses' ) ) {
 			history.replace( '/login' );
 		} else {
 			this.props.getNamespaces( this.props.user.token );
@@ -72,12 +79,12 @@ class App extends Component {
 						component={VisibleProfilePage}
 					/>
 					<Route
-						path="/gallery"
-						component={VisibleGallery}
-					/>
-					<Route
 						path="/lessons"
 						component={VisibleLessonsPage}
+					/>
+					<Route
+						path="/gallery"
+						component={VisibleGallery}
 					/>
 					<Route
 						path="/lessons/:lessonId"
@@ -95,6 +102,10 @@ class App extends Component {
 					<Route path="/new-password" component={NewPassword}/>
 					<Route path="/signup" component={Signup}/>
 					<Route path="/forgot-password" component={VisibleForgotPassword}/>
+					<Route
+						path="/courses/:namespace"
+						component={VisibleCoursePage}
+					/>
 					<NotificationSystem />
 				</div>
 			</Router>
