@@ -40,7 +40,12 @@ class App extends Component {
 
 	componentDidMount() {
 		console.log( history );
-		if ( !this.props.isLoggedIn && !contains( history.location.pathname, 'courses' ) ) {
+		if (
+			!this.props.isLoggedIn &&
+			!contains( history.location.pathname, 'courses' ) &&
+			!contains( history.location.pathname, 'new-password' ) &&
+			!contains( history.location.pathname, 'signup' )
+		) {
 			history.replace( '/login' );
 		} else {
 			this.props.getNamespaces( this.props.user.token );
