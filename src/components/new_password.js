@@ -165,7 +165,12 @@ class NewPassword extends Component {
 								</Col>
 							</FormGroup>
 							<FormGroup>
-								<Button bsStyle="primary" type="submit" onClick={this.handleSubmit}>Confirm</Button>
+								<Button
+									bsStyle="primary"
+									type="submit"
+									onClick={this.handleSubmit}
+									className="centered"
+								>Confirm</Button>
 							</FormGroup>
 						</Form>
 					</Panel>
