@@ -3,6 +3,7 @@
 import React, { Component } from 'react';
 import { Button, Col, ControlLabel, FormControl, FormGroup, Form, Modal, OverlayTrigger, Overlay, PageHeader, Panel, Popover, Tooltip } from 'react-bootstrap';
 import { withRouter } from 'react-router';
+import queryString from 'query-string';
 import request from 'request';
 import server from './../constants/server';
 import './login.css';
@@ -41,23 +42,25 @@ class NewPassword extends Component {
 	constructor( props ) {
 		super( props );
 
+		const qs = queryString.parse( window.location.search );
+		console.log( qs );
+		const token = qs[ 'token' ];
+		console.log( token );
 		this.state = {
 			password: '',
 			passwordRepeat: '',
-			showModal: false
+			showModal: false,
+			token: token
 		};
 
 		this.handleSubmit = ( event ) => {
 			event.preventDefault();
-			let id = window.location.hash;
-			id = id.substr( 15 );
-			console.log( id );
 			if (
 				this.getPasswordValidationState() === 'success'
 			) {
 				request.post( server+'/update_user_password', {
 					form: {
-						id: id,
+						id: this.state.token,
 						newPassword: this.state.password
 					}
 				}, ( err, res ) => {
@@ -125,6 +128,19 @@ class NewPassword extends Component {
 					<Panel style={{ opacity: 0.9 }}>
 						<PageHeader><small>Choose a new Password</small></PageHeader>
 						<Form horizontal>
+							<FormGroup>
+								<Col componentClass={ControlLabel} sm={2}>
+									Token
+								</Col>
+								<Col sm={10}>
+									<FormControl
+										name="token"
+										type="token"
+										onChange={this.handleInputChange}
+										value={this.state.token}
+									/>
+								</Col>
+							</FormGroup>
 							<OverlayTrigger placement="right" overlay={createTooltip( 'Please enter a new password with at least six characters' )}>
 								<FormGroup
 									controlId="formHorizontalPassword"
