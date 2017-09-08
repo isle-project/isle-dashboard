@@ -42,7 +42,8 @@ class NewPassword extends Component {
 	constructor( props ) {
 		super( props );
 
-		const qs = queryString.parse( window.location.search );
+		const hash = window.location.hash.substring( 15 );
+		const qs = queryString.parse( hash );
 		console.log( qs );
 		const token = qs[ 'token' ];
 		console.log( token );
