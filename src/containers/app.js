@@ -39,7 +39,6 @@ const VisibleCoursePage = ({ match }) => {
 class App extends Component {
 
 	componentDidMount() {
-		console.log( history );
 		if (
 			!this.props.isLoggedIn &&
 			!contains( history.location.pathname, 'courses' ) &&
@@ -48,7 +47,9 @@ class App extends Component {
 		) {
 			history.replace( '/login' );
 		} else {
-			this.props.getNamespaces( this.props.user.token );
+			if ( this.props.user.token ) {
+				this.props.getNamespaces( this.props.user.token );
+			}
 		}
 	}
 
