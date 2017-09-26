@@ -40,6 +40,7 @@ class Lesson extends Component {
 						/>
 						<div className="overlay">
 							<h2>{this.props.title}</h2>
+							<h3>{this.props.description}</h3>
 							<span
 								className="info"
 								onClick={() => {
@@ -87,6 +88,7 @@ class CoursePage extends Component {
 			if ( isJSON( body ) ) {
 				body = JSON.parse( body );
 				let lessons = body.lessons;
+				console.log( lessons );
 				lessons = lessons.filter( lesson => {
 					return lesson.active;
 				});
