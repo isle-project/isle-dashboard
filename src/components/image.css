@@ -17,13 +17,14 @@
   left: 0;
   -webkit-transition: all 0.4s ease-in-out;
   transition: all 0.4s ease-in-out;
-}
-
-.hovereffect:hover .overlay {
   background-color: rgba(170,170,170,0.4);
 }
 
-.hovereffect h2, .hovereffect img {
+.hovereffect:hover .overlay {
+  background-color: rgba(170,170,170,0.0);;
+}
+
+.hovereffect h2 {
   -webkit-transition: all 0.4s ease-in-out;
   transition: all 0.4s ease-in-out;
 }
@@ -34,12 +35,11 @@
   -webkit-transform: scale(1.1);
   -ms-transform: scale(1.1);
   transform: scale(1.1);
+  opacity: 0.3;
 }
 
 .hovereffect:hover img {
-  -webkit-transform: scale(1);
-  -ms-transform: scale(1);
-  transform: scale(1);
+  opacity: 0.6;
 }
 
 .hovereffect h2 {
@@ -81,7 +81,7 @@
   height: 30%;
   width: 84%;
   position: absolute;
-  top: 60%;
+  top: 57%;
   left: 8%;
   padding: 18px;
 }

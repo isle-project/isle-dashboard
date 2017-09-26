@@ -3,13 +3,14 @@
 import React, { Component } from 'react';
 import {
 	Button, ButtonGroup, ButtonToolbar, Col, ControlLabel, Form, FormControl, FormGroup, Glyphicon,
-	Jumbotron, Label, Modal, Panel
+	Jumbotron, Label, Modal
 } from 'react-bootstrap';
 import { Responsive, WidthProvider } from 'react-grid-layout';
 import isArray from '@stdlib/assert/is-array';
 import pluck from '@stdlib/utils/pluck';
 import floor from '@stdlib/math/base/special/floor';
-import server from './../constants/server';
+import SERVER from './../constants/server';
+import COLORS from './../constants/colors';
 import './image.css';
 import 'react-grid-layout/css/styles.css';
 import 'react-resizable/css/styles.css';
@@ -91,7 +92,7 @@ class DetailsModal extends Component {
 	render() {
 		return (
 			<Modal show={this.props.show} onHide={this.props.close}>
-				<Form horizontal action={server} method="get" onSubmit={this.onSubmit}>
+				<Form horizontal action={SERVER} method="get" onSubmit={this.onSubmit}>
 					<Modal.Header>
 						<Modal.Title>Lesson Details</Modal.Title>
 					</Modal.Header>
@@ -228,55 +229,71 @@ class Lesson extends Component {
 		const publicStyle = this.props.public === true ? 'success' : 'warning';
 		return (
 			<div key={this.props.key}>
-				<Panel>
-					<div className="hovereffect">
-						<img
-							className="img-responsive"
-							src={this.props.url+'/preview.jpg'}
-							alt=""
-							style={{
-								width: 300,
-								height: 180
-							}}
-						/>
-						<div className="overlay">
-							<h2>{this.props.title}</h2>
-							<h3>{this.props.description}</h3>
-							<span
-								ref={ ( link ) => this.link = link }
-								className="info"
-								onClick={() => {
-									const win = window.open( this.props.url, '_blank' );
-									win.focus();
+				<div className="panel panel-default" style={{
+					background: COLORS[ this.props.colorIndex ]
+				}}>
+					<div className="panel-body" style={{ padding: 0 }}>
+						<div className="hovereffect">
+							<img
+								className="img-responsive"
+								src={this.props.url+'/preview.jpg'}
+								alt=""
+								style={{
+									width: '100%',
+									height: 180
 								}}
-							>
-								Open Lesson
-							</span>
+							/>
+							<div className="overlay" >
+								<h2>{this.props.title}</h2>
+								<h3>{this.props.description}</h3>
+								<span
+									ref={ ( link ) => this.link = link }
+									className="info"
+									onClick={() => {
+										const win = window.open( this.props.url, '_blank' );
+										win.focus();
+									}}
+								>
+									Open Lesson
+								</span>
+							</div>
 						</div>
+						<ButtonToolbar style={{
+							paddingTop: 5,
+							paddingLeft: 5,
+							paddingRight: 5,
+							position: 'absolute',
+							top: 180,
+							width: '100%',
+							height: '50px',
+							left: 5,
+							background: 'rgba(0, 0, 0, 0.75)',
+							border: '1px solid transparent',
+							borderRadius: '4px'
+						}}>
+							<ButtonGroup style={{ marginRight: '5px' }} >
+								<Button onClick={this.showDetailsModal}><Glyphicon glyph="cog" /></Button>
+								<Button onClick={this.toggleLessonState}><Glyphicon glyph="off" /></Button>
+								<Button onClick={this.toggleLessonVisibility}><Glyphicon glyph="lock" /></Button>
+								<Button onClick={this.showDeleteModal} ><Glyphicon glyph="trash" /></Button>
+							</ButtonGroup>
+							<FormGroup>
+								<ControlLabel style={{ marginRight: '2px' }}>
+									<Label bsStyle={activeStyle} style={{
+										fontSize: '12px'
+									}}>{this.props.active ? 'Active' : 'Inactive'}</Label>
+								</ControlLabel>
+								<ControlLabel>
+									<Label bsStyle={publicStyle} style={{
+										fontSize: '12px'
+									}}>{this.props.public ? 'Public' : 'Private'}</Label>
+								</ControlLabel>
+							</FormGroup>
+						</ButtonToolbar>
+						<DeleteModal {...this.props} show={this.state.showDeleteModal} close={this.closeDeleteModal} delete={this.delete} />
+						<DetailsModal {...this.props} show={this.state.showDetailsModal} close={this.closeDetailsModal} update={this.update} />
 					</div>
-					<ButtonToolbar style={{ paddingTop: 10 }}>
-						<ButtonGroup style={{ marginRight: '5px' }} >
-							<Button onClick={this.showDetailsModal}><Glyphicon glyph="cog" /></Button>
-							<Button onClick={this.toggleLessonState}><Glyphicon glyph="off" /></Button>
-							<Button onClick={this.toggleLessonVisibility}><Glyphicon glyph="lock" /></Button>
-							<Button onClick={this.showDeleteModal} ><Glyphicon glyph="trash" /></Button>
-						</ButtonGroup>
-						<FormGroup>
-							<ControlLabel style={{ marginRight: '2px' }}>
-								<Label bsStyle={activeStyle} style={{
-									fontSize: '12px'
-								}}>{this.props.active ? 'Active' : 'Inactive'}</Label>
-							</ControlLabel>
-							<ControlLabel>
-								<Label bsStyle={publicStyle} style={{
-									fontSize: '12px'
-								}}>{this.props.public ? 'Public' : 'Private'}</Label>
-							</ControlLabel>
-						</FormGroup>
-					</ButtonToolbar>
-					<DeleteModal {...this.props} show={this.state.showDeleteModal} close={this.closeDeleteModal} delete={this.delete} />
-					<DetailsModal {...this.props} show={this.state.showDetailsModal} close={this.closeDetailsModal} update={this.update} />
-				</Panel>
+				</div>
 			</div>
 		);
 	}
@@ -319,15 +336,17 @@ class LessonsPage extends Component {
 					showLessonInGallery={nextProps.showLessonInGallery}
 					hideLessonInGallery={nextProps.hideLessonInGallery}
 					getLessons={nextProps.getLessons}
+					colorIndex={i % 20}
 				/>
 			);
+			const elemH = 3.4;
 			let layouts = lessons.map( ( e, i ) => {
 				return {
-					lg: { i: `cell-${i}`, x: i*4 % 16, y: floor( i / 4 ) * 4, w: 4, h: 4 },
-					md: { i: `cell-${i}`, x: i*4 % 12, y: floor( i / 2 ) * 4, w: 4, h: 4 },
-					sm: { i: `cell-${i}`, x: i*4 % 8, y: floor( i / 2 ) * 4, w: 4, h: 4 },
-					xs: { i: `cell-${i}`, x: i*4 % 8, y: floor( i / 2 ) * 4, w: 4, h: 4 },
-					xxs: { i: `cell-${i}`, x: i*4 % 8, y: floor( i / 2 ) * 4, w: 4, h: 4 }
+					lg: { i: `cell-${i}`, x: i*4 % 16, y: floor( i / 4 ) * elemH, w: 4, h: elemH },
+					md: { i: `cell-${i}`, x: i*4 % 12, y: floor( i / 3 ) * elemH, w: 4, h: elemH },
+					sm: { i: `cell-${i}`, x: i*4 % 8, y: floor( i / 2 ) * elemH, w: 4, h: elemH },
+					xs: { i: `cell-${i}`, x: i*4 % 8, y: floor( i / 2 ) * elemH, w: 4, h: elemH },
+					xxs: { i: `cell-${i}`, x: i*4 % 8, y: floor( i / 2 ) * elemH, w: 4, h: elemH }
 				};
 			});
 			layouts = {
@@ -356,34 +375,40 @@ class LessonsPage extends Component {
 					<p>The selected course does not contain any lessons. You can upload lessons from the ISLE editor.</p>
 				</Jumbotron>;
 			}
+			lessons = lessons.sort( ( a, b ) => {
+				return a.title > b.title;
+			});
 			return (
-				<ResponsiveReactGridLayout
-					layouts={this.state.layouts}
-					breakpoints={{lg: 1200, md: 996, sm: 768, xs: 480, xxs: 0 }}
-					cols={{lg: 16, md: 12, sm: 8, xs: 8, xxs: 8 }}
-					isResizable={false}
-					rowHeight={60}
-					style={{
-						position: 'relative',
-						top: 70
-					}}
-				>
-					{lessons.map( ( e, i ) => {
-						return <div key={`cell-${i}`}>
-							<Lesson
-								{...lessons[ i ]}
-								deleteLesson={this.props.deleteLesson}
-								updateLesson={this.props.updateLesson}
-								token={this.props.user.token}
-								deactivateLesson={this.props.deactivateLesson}
-								activateLesson={this.props.activateLesson}
-								showLessonInGallery={this.props.showLessonInGallery}
-								hideLessonInGallery={this.props.hideLessonInGallery}
-								getLessons={this.props.getLessons}
-							/>
-						</div>;
-					})}
-				</ResponsiveReactGridLayout>
+				<div style={{
+					position: 'relative',
+					top: 70
+				}}>
+					<ResponsiveReactGridLayout
+						layouts={this.state.layouts}
+						breakpoints={{lg: 1200, md: 996, sm: 768, xs: 480, xxs: 0 }}
+						cols={{lg: 16, md: 12, sm: 8, xs: 8, xxs: 8 }}
+						isResizable={false}
+						rowHeight={60}
+					>
+						{lessons.map( ( e, i ) => {
+							return <div key={`cell-${i}`}>
+								<Lesson
+									{...lessons[ i ]}
+									deleteLesson={this.props.deleteLesson}
+									updateLesson={this.props.updateLesson}
+									token={this.props.user.token}
+									deactivateLesson={this.props.deactivateLesson}
+									activateLesson={this.props.activateLesson}
+									showLessonInGallery={this.props.showLessonInGallery}
+									hideLessonInGallery={this.props.hideLessonInGallery}
+									getLessons={this.props.getLessons}
+									key={i}
+									colorIndex={i % 20}
+								/>
+							</div>;
+						})}
+					</ResponsiveReactGridLayout>
+				</div>
 			);
 		}
 		return (
