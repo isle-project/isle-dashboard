@@ -20,7 +20,7 @@
     "eslint": "4.7.2",
     "eslint-config-react-app": "2.0.0",
     "eslint-loader": "1.9.x",
-    "eslint-plugin-flowtype": "2.35.x",
+    "eslint-plugin-flowtype": "2.36.x",
     "eslint-plugin-import": "2.7.x",
     "eslint-plugin-jsx-a11y": "6.x.x",
     "eslint-plugin-react": "7.x.x",
