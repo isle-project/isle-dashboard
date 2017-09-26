@@ -3,7 +3,7 @@
 import React, { Component } from 'react';
 import {
 	Button, ButtonGroup, ButtonToolbar, Col, ControlLabel, Form, FormControl, FormGroup, Glyphicon,
-	Jumbotron, Label, Modal
+	Jumbotron, Label, Modal, OverlayTrigger, Tooltip
 } from 'react-bootstrap';
 import { Responsive, WidthProvider } from 'react-grid-layout';
 import isArray from '@stdlib/assert/is-array';
@@ -272,10 +272,18 @@ class Lesson extends Component {
 							borderRadius: '4px'
 						}}>
 							<ButtonGroup style={{ marginRight: '5px' }} >
-								<Button onClick={this.showDetailsModal}><Glyphicon glyph="cog" /></Button>
-								<Button onClick={this.toggleLessonState}><Glyphicon glyph="off" /></Button>
-								<Button onClick={this.toggleLessonVisibility}><Glyphicon glyph="lock" /></Button>
-								<Button onClick={this.showDeleteModal} ><Glyphicon glyph="trash" /></Button>
+								<OverlayTrigger placement="bottom" overlay={<Tooltip>Open Details</Tooltip>}>
+									<Button onClick={this.showDetailsModal}><Glyphicon glyph="cog" /></Button>
+								</OverlayTrigger>
+								<OverlayTrigger placement="bottom" overlay={<Tooltip>Toggle Availability</Tooltip>}>
+									<Button onClick={this.toggleLessonState}><Glyphicon glyph="off" /></Button>
+								</OverlayTrigger>
+								<OverlayTrigger placement="bottom" overlay={<Tooltip>Toggle Visibility</Tooltip>}>
+									<Button onClick={this.toggleLessonVisibility}><Glyphicon glyph="lock" /></Button>
+								</OverlayTrigger>
+								<OverlayTrigger placement="bottom" overlay={<Tooltip>Delete Lesson</Tooltip>}>
+									<Button onClick={this.showDeleteModal} ><Glyphicon glyph="trash" /></Button>
+								</OverlayTrigger>
 							</ButtonGroup>
 							<FormGroup>
 								<ControlLabel style={{ marginRight: '2px' }}>
