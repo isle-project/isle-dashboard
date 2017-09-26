@@ -113,6 +113,41 @@ function  mapDispatchToProps( dispatch ) {
 				dispatch( actions.updatedLesson( lessonName, { active: false }) );
 			});
 		},
+		updateLesson: ({ lessonName, namespaceName, newTitle, newDescription, token }, clbk ) => {
+			if ( namespaceName && lessonName ) {
+				request.get( server+'/update_lesson', {
+					qs: {
+						namespaceName,
+						lessonName,
+						newTitle,
+						newDescription
+					},
+					headers: {
+						'Authorization': 'JWT ' + token
+					}
+				}, function ( err, res ) {
+					if ( err ) {
+						return dispatch( actions.addNotification({
+							message: err.message,
+							level: 'error'
+						}) );
+					}
+					let msg = JSON.parse( res.body ).message;
+					if ( res.statusCode >= 400 ) {
+						return dispatch( actions.addNotification({
+							message: msg,
+							level: 'error'
+						}) );
+					}
+					dispatch( actions.deletedLesson( lessonName ) );
+					dispatch( actions.addNotification({
+						message: msg,
+						level: 'success'
+					}) );
+					clbk();
+				});
+			}
+		},
 		deleteLesson: ({ lessonName, namespaceName, token }) => {
 			if ( namespaceName && lessonName ) {
 				request.get( server+'/delete_lesson', {
