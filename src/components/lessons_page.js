@@ -2,13 +2,14 @@
 
 import React, { Component } from 'react';
 import {
-	Button, ButtonGroup, ButtonToolbar, FormGroup, Glyphicon,
-	ControlLabel, Jumbotron, Label, Modal, Panel
+	Button, ButtonGroup, ButtonToolbar, Col, ControlLabel, Form, FormControl, FormGroup, Glyphicon,
+	Jumbotron, Label, Modal, Panel
 } from 'react-bootstrap';
 import { Responsive, WidthProvider } from 'react-grid-layout';
 import isArray from '@stdlib/assert/is-array';
 import pluck from '@stdlib/utils/pluck';
 import floor from '@stdlib/math/base/special/floor';
+import server from './../constants/server';
 import './image.css';
 import 'react-grid-layout/css/styles.css';
 import 'react-resizable/css/styles.css';
@@ -21,7 +22,7 @@ const ResponsiveReactGridLayout = WidthProvider( Responsive );
 
 // COMPONENTS //
 
-const DeleteModel = ( props ) =>
+const DeleteModal = ( props ) =>
 	<Modal show={props.show} onHide={props.close}>
 		<Modal.Header>
 			<Modal.Title>Delete?</Modal.Title>
@@ -35,6 +36,107 @@ const DeleteModel = ( props ) =>
 		</Modal.Footer>
 	</Modal>;
 
+class DetailsModal extends Component {
+
+	constructor( props ) {
+		super( props );
+
+		this.state = {
+			title: props.title,
+			description: props.description,
+			disabled: true
+		};
+	}
+
+	componentWillReceiveProps( nextProps ) {
+		if (
+			this.props.title !== nextProps.title ||
+			this.props.description !== nextProps.description
+		) {
+			this.setState({
+				title: nextProps.title,
+				description: nextProps.description
+			});
+		}
+	}
+
+	handleInputChange = ( event ) => {
+		const target = event.target;
+		const value = target.value;
+		const name = target.name;
+
+		this.setState({
+			[ name ]: value
+		}, () => {
+			if ( this.state.title.length >= 3 && this.state.description.length > 0 ) {
+				this.setState({
+					disabled: false
+				});
+			} else {
+				this.setState({
+					disabled: true
+				});
+			}
+		});
+	};
+
+	onSubmit = ( evt ) => {
+		evt.preventDefault();
+		this.props.update({
+			newTitle: this.state.title,
+			newDescription: this.state.description
+		});
+	}
+
+	render() {
+		return (
+			<Modal show={this.props.show} onHide={this.props.close}>
+				<Form horizontal action={server} method="get" onSubmit={this.onSubmit}>
+					<Modal.Header>
+						<Modal.Title>Lesson Details</Modal.Title>
+					</Modal.Header>
+					<Modal.Body>
+						<FormGroup>
+							<Col componentClass={ControlLabel} sm={2}>
+								Title
+							</Col>
+							<Col sm={10}>
+								<FormControl
+									name="title"
+									type="title"
+									onChange={this.handleInputChange}
+									defaultValue={this.state.title}
+								/>
+							</Col>
+						</FormGroup>
+						<FormGroup>
+							<Col componentClass={ControlLabel} sm={2}>
+								Description
+							</Col>
+							<Col sm={10}>
+								<FormControl
+									name="description"
+									type="description"
+									onChange={this.handleInputChange}
+									defaultValue={this.state.description}
+								/>
+							</Col>
+						</FormGroup>
+					</Modal.Body>
+					<Modal.Footer>
+						<Button onClick={this.props.close}>Cancel</Button>
+						<Button
+							bsStyle="success"
+							type="submit"
+							disabled={this.state.disabled}
+						>Save</Button>
+					</Modal.Footer>
+				</Form>
+			</Modal>
+		);
+	}
+}
+
 
 // MAIN //
 
@@ -44,15 +146,31 @@ class Lesson extends Component {
 		super( props );
 
 		this.state = {
-			showDeleteModal: false
+			showDeleteModal: false,
+			showDetailsModal: false,
+			description: props.description
 		};
 
 		this.showDeleteModal = () => {
 			this.setState({ showDeleteModal: true });
 		};
 
+		this.showDetailsModal = () => {
+			this.setState({ showDetailsModal: true });
+		};
+
 		this.closeDeleteModal = () => {
 			this.setState({ showDeleteModal: false });
+		};
+
+		this.closeDetailsModal = () => {
+			this.setState({ showDetailsModal: false });
+		};
+
+		this.handleDescriptionChange = ( evt ) => {
+			this.setState({
+				description: evt.target.value
+			});
 		};
 
 		this.toggleLessonState = () => {
@@ -91,6 +209,18 @@ class Lesson extends Component {
 			this.closeDeleteModal();
 		};
 
+		this.update = ({ newTitle, newDescription }) => {
+			this.props.updateLesson({
+				lessonName: this.props.title,
+				namespaceName: this.props.namespace,
+				token: this.props.token,
+				newTitle,
+				newDescription
+			}, () => {
+				this.props.getLessons( this.props.namespace );
+			});
+			this.closeDetailsModal();
+		};
 	}
 
 	render() {
@@ -111,6 +241,7 @@ class Lesson extends Component {
 						/>
 						<div className="overlay">
 							<h2>{this.props.title}</h2>
+							<h3>{this.props.description}</h3>
 							<span
 								ref={ ( link ) => this.link = link }
 								className="info"
@@ -123,9 +254,9 @@ class Lesson extends Component {
 							</span>
 						</div>
 					</div>
-					<ButtonToolbar>
+					<ButtonToolbar style={{ paddingTop: 10 }}>
 						<ButtonGroup style={{ marginRight: '5px' }} >
-							<Button><Glyphicon glyph="cog" /></Button>
+							<Button onClick={this.showDetailsModal}><Glyphicon glyph="cog" /></Button>
 							<Button onClick={this.toggleLessonState}><Glyphicon glyph="off" /></Button>
 							<Button onClick={this.toggleLessonVisibility}><Glyphicon glyph="lock" /></Button>
 							<Button onClick={this.showDeleteModal} ><Glyphicon glyph="trash" /></Button>
@@ -143,7 +274,8 @@ class Lesson extends Component {
 							</ControlLabel>
 						</FormGroup>
 					</ButtonToolbar>
-					<DeleteModel {...this.props} show={this.state.showDeleteModal} close={this.closeDeleteModal} delete={this.delete} />
+					<DeleteModal {...this.props} show={this.state.showDeleteModal} close={this.closeDeleteModal} delete={this.delete} />
+					<DetailsModal {...this.props} show={this.state.showDetailsModal} close={this.closeDetailsModal} update={this.update} />
 				</Panel>
 			</div>
 		);
@@ -180,11 +312,13 @@ class LessonsPage extends Component {
 					{...elem}
 					key={i}
 					deleteLesson={nextProps.deleteLesson}
+					updateLesson={nextProps.updateLesson}
 					token={nextProps.user.token}
 					deactivateLesson={nextProps.deactivateLesson}
 					activateLesson={nextProps.activateLesson}
 					showLessonInGallery={nextProps.showLessonInGallery}
 					hideLessonInGallery={nextProps.hideLessonInGallery}
+					getLessons={nextProps.getLessons}
 				/>
 			);
 			let layouts = lessons.map( ( e, i ) => {
@@ -239,11 +373,13 @@ class LessonsPage extends Component {
 							<Lesson
 								{...lessons[ i ]}
 								deleteLesson={this.props.deleteLesson}
+								updateLesson={this.props.updateLesson}
 								token={this.props.user.token}
 								deactivateLesson={this.props.deactivateLesson}
 								activateLesson={this.props.activateLesson}
 								showLessonInGallery={this.props.showLessonInGallery}
 								hideLessonInGallery={this.props.hideLessonInGallery}
+								getLessons={this.props.getLessons}
 							/>
 						</div>;
 					})}
