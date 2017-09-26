@@ -98,9 +98,9 @@ class CoursePage extends Component {
 				});
 				let layouts = lessons.map( ( e, i ) => {
 					return {
-						lg: { i: `cell-${i}`, x: i*4 % 16, y: floor( i / 4 ) * 4, w: 4, h: 4 },
-						md: { i: `cell-${i}`, x: i*4 % 12, y: floor( i / 2 ) * 4, w: 4, h: 4 },
-						sm: { i: `cell-${i}`, x: i*4 % 8, y: floor( i / 2 ) * 4, w: 4, h: 4 },
+						lg: { i: `cell-${i}`, x: i*4 % 20, y: floor( i / 5 ) * 4, w: 4, h: 4 },
+						md: { i: `cell-${i}`, x: i*4 % 16, y: floor( i / 4 ) * 4, w: 4, h: 4 },
+						sm: { i: `cell-${i}`, x: i*4 % 12, y: floor( i / 3 ) * 4, w: 4, h: 4 },
 						xs: { i: `cell-${i}`, x: i*4 % 8, y: floor( i / 2 ) * 4, w: 4, h: 4 },
 						xxs: { i: `cell-${i}`, x: i*4 % 8, y: floor( i / 2 ) * 4, w: 4, h: 4 }
 					};
@@ -134,7 +134,7 @@ class CoursePage extends Component {
 					<ResponsiveReactGridLayout
 						layouts={layouts}
 						breakpoints={{lg: 1200, md: 996, sm: 768, xs: 480, xxs: 0 }}
-						cols={{lg: 16, md: 12, sm: 8, xs: 8, xxs: 8 }}
+						cols={{lg: 20, md: 16, sm: 12, xs: 8, xxs: 8 }}
 						isResizable={false}
 						isDraggable={false}
 						rowHeight={60}
