@@ -364,9 +364,9 @@ class LessonsPage extends Component {
 				xs: pluck( layouts, 'xs' ),
 				xxs: pluck( layouts, 'xxs' )
 			};
-			this.state = {
+			this.setState({
 				layouts
-			};
+			});
 		}
 	}
 
