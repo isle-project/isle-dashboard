@@ -6,7 +6,6 @@
   position: relative;
   text-align: center;
   cursor: default;
-  margin-bottom: 10px;
 }
 
 .hovereffect .overlay {
@@ -53,11 +52,19 @@
   background: rgba(0, 0, 0, 0.6);
 }
 
+.hovereffect h3 {
+  color: #fff;
+  text-align: center;
+  position: relative;
+  font-size: 13px;
+  padding: 5px;
+  background: rgba(0, 0, 0, 0.6);
+}
+
 .hovereffect span.info {
   cursor: pointer;
   display: inline-block;
   text-decoration: none;
-  padding: 7px 14px;
   text-transform: uppercase;
   color: #fff;
   border: 1px solid #fff;
@@ -71,12 +78,12 @@
   -webkit-transition: all 0.4s ease-in-out;
   transition: all 0.4s ease-in-out;
   font-weight: normal;
-  height: 40%;
+  height: 30%;
   width: 84%;
   position: absolute;
-  top: 40%;
+  top: 60%;
   left: 8%;
-  padding: 25px;
+  padding: 18px;
 }
 
 .hovereffect:hover span.info {
