@@ -121,6 +121,9 @@ class CoursePage extends Component {
 
 	render() {
 		let { lessons, layouts } = this.state;
+		lessons = lessons.sort( ( a, b ) => {
+			return a.title > b.title;
+		});
 		if ( !isEmptyArray( lessons ) ) {
 			if ( lessons.length === 0 ) {
 				return <Jumbotron style={{ position: 'relative', top: 70, textAlign: 'left', paddingLeft: 20 }}>
