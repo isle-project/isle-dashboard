@@ -14,6 +14,14 @@ An online dashboard used to deploy, organize and monitor *interactive statistics
 
 Execute the `npm run build` command to create a bundle of the ISLE dashboard, which can then be hosted on a server. Change the `homepage` field of the `package.json` file to point to the address where the dashboard will be hosted.
 
+#### Deploy
+
+Deploy the bundled page by copying to the correct path on your server. From the project directory, run 
+
+``` bash
+scp -r build/* <user>@<homepage>:<dirpath>
+```
+
 [dependencies-image]: https://img.shields.io/david/planeshifter/isle-dashboard/master.svg
 [dependencies-url]: https://david-dm.org/planeshifter/isle-dashboard/master
 
