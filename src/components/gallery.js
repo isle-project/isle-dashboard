@@ -18,9 +18,11 @@ class ImportModal extends Component {
 	constructor( props ) {
 		super( props );
 
+
+		const ns = props.userNamespaces;
 		this.state = {
-			selected: isArray( props.userNamespaces ) ?
-				props.userNamespaces[ 0 ].title :
+			selected: ( isArray( ns ) && ns.length > 0 ) ?
+				ns[ 0 ].title :
 				null,
 			targetName: null
 		};
