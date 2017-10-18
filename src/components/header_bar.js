@@ -15,9 +15,9 @@ import icon from './../../public/profile_icon.png';
 
 const RadiumLink = Radium( Link );
 
-const createCourseTooltip = <Tooltip>Create a new course</Tooltip>;
-const galleryTooltip = <Tooltip>Open gallery</Tooltip>;
-const selectCourseTooltip = <Tooltip>Select course</Tooltip>;
+const createCourseTooltip = <Tooltip id="new_course">Create a new course</Tooltip>;
+const galleryTooltip = <Tooltip id="open_gallery">Open gallery</Tooltip>;
+const selectCourseTooltip = <Tooltip id="select_course">Select course</Tooltip>;
 
 
 // MAIN //
