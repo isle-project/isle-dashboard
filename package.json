@@ -49,19 +49,19 @@
     "whatwg-fetch": "2.0.3"
   },
   "dependencies": {
-    "@stdlib/stdlib": "0.0.23",
+    "@stdlib/stdlib": "0.0.28",
     "compute-chunkify": "git+https://github.com/compute-io/chunkify.git",
     "compute-quantiles": "^1.1.0",
     "history": "^4.6.1",
     "moment": "^2.18.1",
     "query-string": "^5.0.0",
     "radium": "^0.19.1",
-    "react": "15.6.1",
+    "react": "16.0.0",
     "react-addons-shallow-compare": "^15.5.2",
     "react-bootstrap": "^0.31.0",
-    "react-dates": "^12.1.1",
-    "react-dom": "15.6.1",
-    "react-grid-layout": "^0.15.0",
+    "react-dates": "^13.0.6",
+    "react-dom": "16.0.0",
+    "react-grid-layout": "^0.16.0",
     "react-notification-system": "^0.2.13",
     "react-redux": "^5.0.3",
     "react-router": "4.2.0",
@@ -69,7 +69,7 @@
     "react-router-redux": "4.0.8",
     "redux": "^3.6.0",
     "request": "^2.81.0",
-    "victory": "^0.22.2"
+    "victory": "^0.23.1"
   },
   "homepage": "http://isle.heinz.cmu.edu/dashboard",
   "scripts": {
