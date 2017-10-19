@@ -272,16 +272,16 @@ class Lesson extends Component {
 							borderRadius: '4px'
 						}}>
 							<ButtonGroup style={{ marginRight: '5px' }} >
-								<OverlayTrigger placement="bottom" overlay={<Tooltip>Open Details</Tooltip>}>
+								<OverlayTrigger placement="bottom" overlay={<Tooltip id="open_details">Open Details</Tooltip>}>
 									<Button onClick={this.showDetailsModal}><Glyphicon glyph="cog" /></Button>
 								</OverlayTrigger>
-								<OverlayTrigger placement="bottom" overlay={<Tooltip>Toggle Availability</Tooltip>}>
+								<OverlayTrigger placement="bottom" overlay={<Tooltip id="toggle_availability">Toggle Availability</Tooltip>}>
 									<Button onClick={this.toggleLessonState}><Glyphicon glyph="off" /></Button>
 								</OverlayTrigger>
-								<OverlayTrigger placement="bottom" overlay={<Tooltip>Toggle Visibility</Tooltip>}>
+								<OverlayTrigger placement="bottom" overlay={<Tooltip id="toggle_visibility">Toggle Visibility</Tooltip>}>
 									<Button onClick={this.toggleLessonVisibility}><Glyphicon glyph="lock" /></Button>
 								</OverlayTrigger>
-								<OverlayTrigger placement="bottom" overlay={<Tooltip>Delete Lesson</Tooltip>}>
+								<OverlayTrigger placement="bottom" overlay={<Tooltip id="delete_lesson">Delete Lesson</Tooltip>}>
 									<Button onClick={this.showDeleteModal} ><Glyphicon glyph="trash" /></Button>
 								</OverlayTrigger>
 							</ButtonGroup>
