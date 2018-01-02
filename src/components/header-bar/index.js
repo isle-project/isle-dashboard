@@ -2,7 +2,6 @@
 
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import Radium from 'radium';
 import {
 	Button, FormGroup, FormControl, Glyphicon, Image, InputGroup,
 	Overlay, OverlayTrigger, Popover, ListGroupItem, ListGroup, Tooltip
@@ -13,8 +12,6 @@ import './header_bar.css';
 
 
 // VARIABLES //
-
-const RadiumLink = Radium( Link );
 
 const createCourseTooltip = <Tooltip id="new_course">Create a new course</Tooltip>;
 const galleryTooltip = <Tooltip id="open_gallery">Open gallery</Tooltip>;
@@ -66,19 +63,6 @@ class HeaderBar extends Component {
 	}
 
 	render() {
-		const spanStyle = {
-			float: 'left',
-			marginTop: '16px',
-			marginLeft: '10px',
-			position: 'relative',
-			marginRight: '10px',
-			cursor: 'pointer',
-			color: 'silver',
-			':hover': {
-				color: 'white'
-			}
-		};
-
 		const namespacePopover = ( namespaces, clickFactory ) => (
 			<Popover id="popover-positioned-bottom">
 				<ListGroup>
@@ -164,47 +148,25 @@ class HeaderBar extends Component {
 					marginRight: '10px'
 				}}>
 					<div className="header-bar-container">
-						<div key="help" style={spanStyle} >
-							<a href="http://isledocs.com/" target="_blank" style={{
-								color: 'silver',
-								textDecoration: 'none',
-								':hover': {
-									color: 'white'
-								}
-							}}>Help</a>
+						<div key="help" className="header-bar-link-div" >
+							<a
+								href="http://isledocs.com/" target="_blank"
+								className="header-bar-link"
+							>Help</a>
 						</div>
 					</div>
 					<div className="header-bar-container">
-						<Image src={icon} circle style={{
-							width: '32px',
-							height: 'auto',
-							float: 'left',
-							position: 'relative',
-							marginLeft: '10px',
-							marginTop: '10px'
-						}}></Image>
-						<div key="account" style={spanStyle} >
-							<RadiumLink to="/profile" style={{
-								color: 'silver',
-								textDecoration: 'none',
-								':hover': {
-									color: 'white'
-								}
-							}}>{this.props.user.name}</RadiumLink>
+						<Image src={icon} circle className="header-bar-icon"></Image>
+						<div key="account" className="header-bar-link-div" >
+							<Link to="/profile" className="header-bar-link">{this.props.user.name}</Link>
 						</div>
 					</div>
-					<div style={containerStyle}>
-						<div key="logout" style={spanStyle} >
+					<div className="header-bar-container">
+						<div key="logout" className="header-bar-link-div" >
 							<a
 								key="logoutButton"
 								href="#"
-								style={{
-									color: 'silver',
-									textDecoration: 'none',
-									':hover': {
-										color: 'white'
-									}
-								}}
+								className="header-bar-link"
 								onClick={this.props.logout}
 							> Log out </a>
 						</div>
@@ -228,4 +190,4 @@ HeaderBar.propTypes = {
 
 // EXPORTS //
 
-export default Radium( HeaderBar );
+export default HeaderBar;

@@ -31,3 +31,35 @@
 	height: 52px;
 	width: auto;
 }
+
+.header-bar-link-div {
+	float: left;
+	margin-top: 16px;
+	margin-left: 10px;
+	position: relative;
+	margin-right: 10px;
+	cursor: pointer;
+	color: silver;
+}
+
+.header-bar-link-div:hover {
+	color: white;
+}
+
+.header-bar-link {
+	color: silver;
+	text-decoration: none;
+}
+
+.header-bar-link:hover {
+	color: white;
+}
+
+.header-bar-icon {
+	width: 32px;
+	height: auto;
+	float: left;
+	position: relative;
+	margin-left: 10px;
+	margin-top: 10px;
+}
