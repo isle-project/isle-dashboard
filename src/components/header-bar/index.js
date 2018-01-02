@@ -4,11 +4,12 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import Radium from 'radium';
 import {
-	Button, FormGroup, FormControl, Glyphicon, InputGroup,
+	Button, FormGroup, FormControl, Glyphicon, Image, InputGroup,
 	Overlay, OverlayTrigger, Popover, ListGroupItem, ListGroup, Tooltip
 } from 'react-bootstrap';
-import { Image } from 'react-bootstrap';
-import icon from './../../public/profile_icon.png';
+import PropTypes from 'prop-types';
+import icon from './../../../public/profile_icon.png';
+import './header_bar.css';
 
 
 // VARIABLES //
@@ -23,7 +24,6 @@ const selectCourseTooltip = <Tooltip id="select_course">Select course</Tooltip>;
 // MAIN //
 
 class HeaderBar extends Component {
-
 	constructor( props ) {
 		super( props );
 
@@ -66,14 +66,6 @@ class HeaderBar extends Component {
 	}
 
 	render() {
-
-		const containerStyle = {
-			borderLeft: '1px solid rgba(255, 255, 255, 0.06)',
-			float: 'left',
-			position: 'relative',
-			height: '52px',
-			width: 'auto'
-		};
 		const spanStyle = {
 			float: 'left',
 			marginTop: '16px',
@@ -101,31 +93,11 @@ class HeaderBar extends Component {
 		);
 
 		return (
-			<header style={{
-				width: '100%',
-				height: '52px',
-				position: 'fixed',
-				top: 0,
-				left: 0,
-				background: '#2a3e54',
-				zIndex: 100
-			}}>
-				<h1 style={{
-					float: 'left',
-					fontSize: '22px',
-					marginTop: '15px',
-					position: 'relative',
-					marginLeft: '10px',
-					color: 'white'
-				}}>
+			<header className="header-bar">
+				<h1 className="header-bar-title">
 					ISLE {this.state.location}
 				</h1>
-				<div style={{
-					marginLeft: '30px',
-					marginTop: '8px',
-					float: 'left',
-					position: 'relative',
-				}}>
+				<div className="header-bar-buttons" >
 					<OverlayTrigger placement="right" overlay={selectCourseTooltip}>
 						<Button
 							ref={( button ) => { this.overlayTarget = button; }}
@@ -191,7 +163,7 @@ class HeaderBar extends Component {
 					fontSize: '15px',
 					marginRight: '10px'
 				}}>
-					<div style={containerStyle}>
+					<div className="header-bar-container">
 						<div key="help" style={spanStyle} >
 							<a href="http://isledocs.com/" target="_blank" style={{
 								color: 'silver',
@@ -202,7 +174,7 @@ class HeaderBar extends Component {
 							}}>Help</a>
 						</div>
 					</div>
-					<div style={containerStyle}>
+					<div className="header-bar-container">
 						<Image src={icon} circle style={{
 							width: '32px',
 							height: 'auto',
@@ -242,6 +214,16 @@ class HeaderBar extends Component {
 		);
 	}
 }
+
+// PROPERTY TYPES //
+
+HeaderBar.propTypes = {
+	history: PropTypes.object.isRequired,
+	logout: PropTypes.func.isRequired,
+	namespace: PropTypes.object.isRequired,
+	onNamespace: PropTypes.func.isRequired,
+	user: PropTypes.object.isRequired
+};
 
 
 // EXPORTS //

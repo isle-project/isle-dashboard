@@ -3,7 +3,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import request from 'request';
-import HeaderBar from './../components/header_bar.js';
+import HeaderBar from './../components/header-bar';
 import server from './../constants/server';
 import * as actions from './../actions';
 
