@@ -1,4 +1,4 @@
-process.env.NODE_ENV = 'development';
+process.env.NODE_ENV = 'development'; //eslint-disable-line
 
 // Load environment variables from .env file. Surpress warnings using silent
 // if this file is missing. dotenv will never modify any environment variables
@@ -26,7 +26,7 @@ if (!checkRequiredFiles([paths.appHtml, paths.appIndexJs])) {
 }
 
 // Tools like Cloud9 rely on this.
-var DEFAULT_PORT = process.env.PORT || 3000;
+var DEFAULT_PORT = process.env.PORT || 3000;  //eslint-disable-line
 var compiler;
 var handleCompile;
 
@@ -34,7 +34,7 @@ var handleCompile;
 // We only use this block for testing of Create React App itself:
 var isSmokeTest = process.argv.some(arg => arg.indexOf('--smoke-test') > -1);
 if (isSmokeTest) {
-	handleCompile = function (err, stats) {
+	handleCompile = function onCompile(err, stats) {
 		if (err || stats.hasErrors() || stats.hasWarnings()) {
 			process.exit(1);
 		} else {
@@ -52,14 +52,14 @@ function setupCompiler(host, port, protocol) {
 	// recompiling a bundle. WebpackDevServer takes care to pause serving the
 	// bundle, so if you refresh, it'll wait instead of serving the old one.
 	// "invalid" is short for "bundle invalidated", it doesn't imply any errors.
-	compiler.plugin('invalid', function() {
+	compiler.plugin('invalid', function onInvalid() {
 		clearConsole();
 		console.log('Compiling...');
 	});
 
 	// "done" event fires when Webpack has finished recompiling the bundle.
 	// Whether or not you have warnings or errors, you will get this event.
-	compiler.plugin('done', function(stats) {
+	compiler.plugin('done', function onDone(stats) {
 		clearConsole();
 
 		// We have switched off the default Webpack output in WebpackDevServer
@@ -108,7 +108,7 @@ function setupCompiler(host, port, protocol) {
 // We need to provide a custom onError function for httpProxyMiddleware.
 // It allows us to log custom error messages on the console.
 function onProxyError(proxy) {
-	return function(err, req, res){
+	return function done(err, req, res){
 		var host = req.headers && req.headers.host;
 		console.log(
 			chalk.red('Proxy error:') + ' Could not proxy request ' + chalk.cyan(req.url) +
@@ -128,7 +128,7 @@ function onProxyError(proxy) {
 		res.end('Proxy error: Could not proxy request ' + req.url + ' from ' +
 			host + ' to ' + proxy + ' (' + err.code + ').'
 		);
-	}
+	};
 }
 
 function addMiddleware(devServer) {
@@ -220,7 +220,7 @@ function runDevServer(host, port, protocol) {
 			ignored: /node_modules/
 		},
 		// Enable HTTPS if the HTTPS environment variable is set to 'true'
-		https: protocol === "https",
+		https: protocol === 'https',
 		host: host
 	});
 
@@ -241,8 +241,8 @@ function runDevServer(host, port, protocol) {
 }
 
 function run(port) {
-	var protocol = process.env.HTTPS === 'true' ? "https" : "http";
-	var host = process.env.HOST || 'localhost';
+	var protocol = process.env.HTTPS === 'true' ? 'https' : 'http'; //eslint-disable-line
+	var host = process.env.HOST || 'localhost'; //eslint-disable-line
 	setupCompiler(host, port, protocol);
 	runDevServer(host, port, protocol);
 }
