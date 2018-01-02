@@ -4,6 +4,7 @@ import React, { Component } from 'react';
 import { Button, ControlLabel, FormControl, FormGroup, Form, OverlayTrigger, Panel, Tooltip } from 'react-bootstrap';
 import request from 'request';
 import server from './../constants/server';
+import PropTypes from 'prop-types';
 
 
 // FUNCTIONS //
@@ -16,7 +17,6 @@ const createTooltip = ( str ) => {
 // MAIN //
 
 class ProfilePage extends Component {
-
 	constructor( props ) {
 		super( props );
 
@@ -96,7 +96,7 @@ class ProfilePage extends Component {
 				return 'warning';
 			}
 			if ( password !== passwordRepeat ) {
-				 return 'error';
+				return 'error';
 			}
 			return 'success';
 		};
@@ -189,6 +189,15 @@ class ProfilePage extends Component {
 		);
 	}
 }
+
+ProfilePage.propTypes = {
+	addNotification: PropTypes.func.isRequired,
+	updateUser: PropTypes.func.isRequired,
+	user: PropTypes.object.isRequired
+};
+
+ProfilePage.defaultProps = {
+};
 
 
 // EXPORTS //
