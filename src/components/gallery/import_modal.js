@@ -4,6 +4,7 @@ import React, { Component } from 'react';
 import {
 	Button, ControlLabel, FormControl, FormGroup, Modal
 } from 'react-bootstrap';
+import PropTypes from 'prop-types';
 import isArray from '@stdlib/assert/is-array';
 
 
@@ -59,7 +60,12 @@ class ImportModal extends Component {
 							placeholder="select"
 							onChange={this.handleChange}
 						>
-							{this.props.userNamespaces.map( ns => <option value={ns.title}>{ns.title}</option> )}
+							{this.props.userNamespaces.map( ( ns, idx ) => {
+								return ( <option
+									key={idx}
+									value={ns.title}
+								>{ns.title}</option> );
+							})}
 						</FormControl>
 					</FormGroup>
 					<FormGroup>
@@ -80,6 +86,18 @@ class ImportModal extends Component {
 		);
 	}
 }
+
+// PROPERTY TYPES //
+
+ImportModal.propTypes = {
+	close: PropTypes.func.isRequired,
+	copyLesson: PropTypes.func.isRequired,
+	namespace: PropTypes.object.isRequired,
+	show: PropTypes.bool.isRequired,
+	title: PropTypes.string.isRequired,
+	token: PropTypes.string.isRequired,
+	userNamespaces: PropTypes.array.isRequired
+};
 
 
 // EXPORTS //

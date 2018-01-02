@@ -7,6 +7,7 @@ import chunkify from 'compute-chunkify';
 import isArray from '@stdlib/assert/is-array';
 import Lesson from './lesson.js';
 import './image.css';
+import './gallery.css';
 
 
 // MAIN //
@@ -43,15 +44,8 @@ class Gallery extends Component {
 			}
 		}
 		return (
-			<div style={{
-				background: 'gainsboro',
-				width: '100%',
-				height: 'auto',
-				minHeight: '100%',
-				position: 'relative',
-				paddingBottom: '10%'
-			}}>
-				<Grid style={{ position: 'relative', top: 70 }} >
+			<div className="gallery">
+				<Grid className="gallery-grid" >
 					{chunks.map( ( chunk, id ) => {
 						return (
 							<Row key={`row${id}`} >
@@ -69,7 +63,10 @@ class Gallery extends Component {
 // PROPERTY TYPES //
 
 Gallery.propTypes = {
-	findPublicLessons: PropTypes.func.isRequired
+	copyLesson: PropTypes.func.isRequired,
+	findPublicLessons: PropTypes.func.isRequired,
+	gallery: PropTypes.object.isRequired,
+	user: PropTypes.object.isRequired
 };
 
 
