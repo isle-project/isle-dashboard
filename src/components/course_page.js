@@ -24,7 +24,6 @@ const ResponsiveReactGridLayout = WidthProvider( Responsive );
 // COMPONENTS //
 
 class Lesson extends Component {
-
 	render() {
 		console.log( this.props );
 		return (
@@ -70,7 +69,6 @@ class Lesson extends Component {
 // MAIN //
 
 class CoursePage extends Component {
-
 	constructor( props ) {
 		super( props );
 
@@ -135,10 +133,10 @@ class CoursePage extends Component {
 		});
 		if ( !isEmptyArray( lessons ) ) {
 			if ( lessons.length === 0 ) {
-				return <Jumbotron style={{ position: 'relative', top: 70, textAlign: 'left', paddingLeft: 20 }}>
+				return (<Jumbotron style={{ position: 'relative', top: 70, textAlign: 'left', paddingLeft: 20 }}>
 					<h1>No Lessons Found</h1>
 					<p>The selected course does not contain any lessons. You can upload lessons from the ISLE editor.</p>
-				</Jumbotron>;
+				</Jumbotron>);
 			}
 			return (
 				<div>
@@ -152,12 +150,12 @@ class CoursePage extends Component {
 						rowHeight={60}
 					>
 						{lessons.map( ( e, i ) => {
-							return <div key={`cell-${i}`}>
+							return (<div key={`cell-${i}`}>
 								<Lesson
 									{...lessons[ i ]}
 									colorIndex={i}
 								/>
-							</div>;
+							</div>);
 						})}
 					</ResponsiveReactGridLayout>
 				</div>
@@ -171,6 +169,24 @@ class CoursePage extends Component {
 	}
 }
 
+
+Lesson.propTypes = {
+	colorIndex: PropTypes.number,
+	description: PropTypes.string,
+	title: PropTypes.string,
+	url: PropTypes.string
+};
+
+Lesson.defaultProps = {
+};
+
+
+CoursePage.propTypes = {
+	namespace: PropTypes.object
+};
+
+CoursePage.defaultProps = {
+};
 
 // EXPORTS //
 

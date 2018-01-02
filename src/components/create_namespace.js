@@ -2,12 +2,11 @@
 
 import React, { Component } from 'react';
 import { Button, ControlLabel, FormControl, FormGroup, Form, OverlayTrigger, Panel, Tooltip } from 'react-bootstrap';
-
+import PropTypes from 'prop-types';
 
 // MAIN //
 
 class CreateNamespace extends Component {
-
 	constructor( props ) {
 		super( props );
 
@@ -96,6 +95,15 @@ class CreateNamespace extends Component {
 		);
 	}
 }
+
+
+CreateNamespace.propTypes = {
+	createNamespace: PropTypes.func.isRequired,
+	user: PropTypes.object.isRequired
+};
+
+CreateNamespace.defaultProps = {
+};
 
 
 // EXPORTS //
