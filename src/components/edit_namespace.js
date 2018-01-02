@@ -14,18 +14,17 @@ import ConfirmModal from './confirm_modal.js';
 import checkURLPath from './../utils/check_url_path.js';
 import CohortPanel from './cohort_panel.js';
 import CreateCohortModal from './create_cohort_modal.js';
-
+import PropTypes from 'prop-types';
 
 // MAIN //
 
 class EditNamespace extends Component {
-
 	constructor( props ) {
 		super( props );
 		let { title, description, owners } = this.props.namespace;
 		if ( isArray( owners ) ) {
 			owners = owners.join( ',' );
-		};
+		}
 		this.state = {
 			disabled: true,
 			title,
@@ -296,6 +295,13 @@ class EditNamespace extends Component {
 		);
 	}
 }
+
+EditNamespace.propTypes = {
+	updateCurrentNamespace: PropTypes.func.isRequired
+};
+
+EditNamespace.defaultProps = {
+};
 
 
 // EXPORTS //
