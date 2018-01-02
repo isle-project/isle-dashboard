@@ -1,7 +1,7 @@
 // MODULES //
 
 import React, { Component } from 'react';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import NotificationSystem from 'react-notification-system';
 
 
@@ -10,7 +10,7 @@ import NotificationSystem from 'react-notification-system';
 const style = {
 	NotificationItem: {
 		DefaultStyle: {
-			margin: '20px 2px 2px 1px',
+			margin: '20px 2px 2px 1px'
 		}
 	}
 };
@@ -19,14 +19,13 @@ const style = {
 // MAIN //
 
 class NotificationContainer extends Component {
-
 	constructor( props ) {
 		super( props );
 	}
 
 	componentWillReceiveProps( newProps ) {
-		const {message, level, position } = newProps.notification;
-		this.refs.notificationSystem.addNotification({
+		const { message, level, position } = newProps.notification;
+		this.notificationSystem.addNotification({
 			message,
 			position,
 			level
@@ -35,7 +34,12 @@ class NotificationContainer extends Component {
 
 	render() {
 		return (
-			<NotificationSystem style={style} ref="notificationSystem" />
+			<NotificationSystem
+				style={style}
+				ref={( elem ) => {
+					this.notificationSystem = elem;
+				}}
+			/>
 		);
 	}
 }

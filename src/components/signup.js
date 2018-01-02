@@ -30,8 +30,7 @@ const MsgModal = withRouter( ( props ) => (
 			{ props.successful ?
 				<Button onClick={()=>{
 					props.history.push( '/login' );
-				}}>Go to login page</Button>
-				:
+				}}>Go to login page</Button> :
 				<Button onClick={props.close}>
 					Close
 				</Button>
@@ -44,7 +43,6 @@ const MsgModal = withRouter( ( props ) => (
 // MAIN //
 
 class Signup extends Component {
-
 	constructor( props ) {
 		super( props );
 
@@ -134,7 +132,7 @@ class Signup extends Component {
 				return 'warning';
 			}
 			if ( password !== passwordRepeat ) {
-				 return 'error';
+				return 'error';
 			}
 			return 'success';
 		};

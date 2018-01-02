@@ -2,12 +2,12 @@
 
 import React, { Component } from 'react';
 import { Button, Col, ControlLabel, Form, FormControl, FormGroup, OverlayTrigger, Panel, Tooltip } from 'react-bootstrap';
+import PropTypes from 'prop-types';
 
 
 // MAIN //
 
 class EnterToken extends Component {
-
 	constructor( props ) {
 		super( props );
 
@@ -65,6 +65,14 @@ class EnterToken extends Component {
 		);
 	}
 }
+
+
+// PROPERTY TYPES //
+
+EnterToken.propTypes = {
+	authenticate: PropTypes.func.isRequired,
+	user: PropTypes.object.isRequired
+};
 
 
 // EXPORTS //

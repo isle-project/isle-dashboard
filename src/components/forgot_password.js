@@ -3,6 +3,7 @@
 import React, { Component } from 'react';
 import { Button, ControlLabel, FormControl, FormGroup, Form, Panel } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import request from 'request';
 import server from './../constants/server';
 import './login.css';
@@ -11,7 +12,6 @@ import './login.css';
 // MAIN //
 
 class ForgotPassword extends Component {
-
 	constructor( props ) {
 		super( props );
 
@@ -54,7 +54,7 @@ class ForgotPassword extends Component {
 									const target = event.target;
 									const value = target.value;
 									this.setState({
-										email:  value
+										email: value
 									});
 								}}
 							/>
@@ -74,6 +74,13 @@ class ForgotPassword extends Component {
 		);
 	}
 }
+
+
+// PROPERTY TYPES //
+
+ForgotPassword.propTypes = {
+	addNotification: PropTypes.func.isRequired
+};
 
 
 // EXPORTS //
