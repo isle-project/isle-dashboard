@@ -2,6 +2,7 @@
 
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import createHashHistory from 'history/createHashHistory';
 import { Router, Route } from 'react-router-dom';
 import request from 'request';
@@ -37,7 +38,6 @@ const VisibleCoursePage = ({ match }) => {
 // MAIN //
 
 class App extends Component {
-
 	componentDidMount() {
 		if (
 			!this.props.isLoggedIn &&
@@ -117,6 +117,14 @@ class App extends Component {
 	}
 }
 
+App.propTypes = {
+	getNamespaces: PropTypes.func,
+	isLoggedIn: PropTypes.bool,
+	user: PropTypes.object.isRequired
+};
+
+App.defaultProps = {
+};
 
 // EXPORTS //
 
