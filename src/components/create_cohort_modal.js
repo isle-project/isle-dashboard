@@ -7,12 +7,12 @@ import {
 } from 'react-bootstrap';
 import { DateRangePicker } from 'react-dates';
 import moment from 'moment';
+import PropTypes from 'prop-types';
 
 
 // MAIN //
 
 class CreateCohortModal extends Component {
-
 	constructor( props ) {
 		super( props );
 
@@ -64,7 +64,6 @@ class CreateCohortModal extends Component {
 			this.setState( initialState );
 			this.props.close();
 		};
-
 	}
 
 	render() {
@@ -101,7 +100,7 @@ class CreateCohortModal extends Component {
 											this.setState({ startDate, endDate })
 										}
 										focusedInput={this.state.focusedInput}
-										onFocusChange={ focusedInput => this.setState({ focusedInput }) }
+										onFocusChange={focusedInput => this.setState({ focusedInput })}
 									/>
 								</Col>
 							</FormGroup>
@@ -131,6 +130,18 @@ class CreateCohortModal extends Component {
 		);
 	}
 }
+
+CreateCohortModal.propTypes = {
+	close: PropTypes.func,
+	onCreate: PropTypes.func,
+	show: PropTypes.bool
+};
+
+CreateCohortModal.defaultProps = {
+	close(){},
+	onCreate(){},
+	show: false
+};
 
 // EXPORTS //
 

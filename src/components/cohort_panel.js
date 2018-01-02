@@ -5,6 +5,7 @@ import {
 	Button, ButtonToolbar, ControlLabel, Form, FormControl, FormGroup,
 	OverlayTrigger, Row, Tooltip
 } from 'react-bootstrap';
+import PropTypes from 'prop-types';
 import { DateRangePicker } from 'react-dates';
 import 'react-dates/lib/css/_datepicker.css';
 import moment from 'moment';
@@ -14,7 +15,6 @@ import ConfirmModal from './confirm_modal.js';
 // MAIN //
 
 class CohortPanel extends Component {
-
 	constructor( props ) {
 		super( props );
 
@@ -102,7 +102,7 @@ class CohortPanel extends Component {
 								this.setState({ startDate, endDate })
 							}
 							focusedInput={this.state.focusedInput}
-							onFocusChange={ focusedInput => this.setState({ focusedInput }) }
+							onFocusChange={focusedInput => this.setState({ focusedInput })}
 						/>
 					</FormGroup>
 				</Row>
@@ -122,7 +122,7 @@ class CohortPanel extends Component {
 				<Row>
 					<ButtonToolbar>
 						<Button onClick={this.handleUpdate}>Save</Button>
-						<Button onClick={ () => {
+						<Button onClick={() => {
 							this.setState({
 								showDeleteModal: true
 							});
@@ -141,6 +141,18 @@ class CohortPanel extends Component {
 		return content;
 	}
 }
+
+// PROPERTY TYPES //
+
+CohortPanel.propTypes = {
+	onDelete: PropTypes.func,
+	onUpdate: PropTypes.func
+};
+
+CohortPanel.defaultProps = {
+	onUpdate(){},
+	onDelete(){}
+};
 
 
 // EXPORTS //
