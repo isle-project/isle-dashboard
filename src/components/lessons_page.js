@@ -5,6 +5,7 @@ import {
 	Button, ButtonGroup, ButtonToolbar, Col, ControlLabel, Form, FormControl, FormGroup, Glyphicon,
 	Jumbotron, Label, Modal, OverlayTrigger, Tooltip
 } from 'react-bootstrap';
+import PropTypes from 'prop-types';
 import { Responsive, WidthProvider } from 'react-grid-layout';
 import isArray from '@stdlib/assert/is-array';
 import pluck from '@stdlib/utils/pluck';
@@ -24,7 +25,7 @@ const ResponsiveReactGridLayout = WidthProvider( Responsive );
 // COMPONENTS //
 
 const DeleteModal = ( props ) =>
-	<Modal show={props.show} onHide={props.close}>
+	(<Modal show={props.show} onHide={props.close}>
 		<Modal.Header>
 			<Modal.Title>Delete?</Modal.Title>
 		</Modal.Header>
@@ -35,10 +36,9 @@ const DeleteModal = ( props ) =>
 			<Button onClick={props.close}>Cancel</Button>
 			<Button bsStyle="danger" onClick={props.delete} >Delete</Button>
 		</Modal.Footer>
-	</Modal>;
+	</Modal>);
 
 class DetailsModal extends Component {
-
 	constructor( props ) {
 		super( props );
 
@@ -142,7 +142,6 @@ class DetailsModal extends Component {
 // MAIN //
 
 class Lesson extends Component {
-
 	constructor( props ) {
 		super( props );
 
@@ -247,7 +246,7 @@ class Lesson extends Component {
 								<h2>{this.props.title}</h2>
 								<h3>{this.props.description}</h3>
 								<span
-									ref={ ( link ) => this.link = link }
+									ref={( link ) => this.link = link}
 									className="info"
 									onClick={() => {
 										const win = window.open( this.props.url, '_blank' );
@@ -311,7 +310,6 @@ class Lesson extends Component {
 // COMPONENTS //
 
 class LessonsPage extends Component {
-
 	constructor( props ) {
 		super( props );
 
@@ -333,7 +331,7 @@ class LessonsPage extends Component {
 		) {
 			let lessons = nextProps.namespace.lessons;
 			lessons = lessons.map( ( elem, i ) =>
-				<Lesson
+				(<Lesson
 					{...elem}
 					key={i}
 					deleteLesson={nextProps.deleteLesson}
@@ -345,7 +343,7 @@ class LessonsPage extends Component {
 					hideLessonInGallery={nextProps.hideLessonInGallery}
 					getLessons={nextProps.getLessons}
 					colorIndex={i % 20}
-				/>
+				/>)
 			);
 			const elemH = 3.4;
 			let layouts = lessons.map( ( e, i ) => {
@@ -378,10 +376,10 @@ class LessonsPage extends Component {
 		let { lessons } = this.props.namespace;
 		if ( isArray( lessons ) ) {
 			if ( lessons.length === 0 ) {
-				return <Jumbotron style={{ position: 'relative', top: 70, textAlign: 'left', paddingLeft: 20 }}>
+				return (<Jumbotron style={{ position: 'relative', top: 70, textAlign: 'left', paddingLeft: 20 }}>
 					<h1>No Lessons Found</h1>
 					<p>The selected course does not contain any lessons. You can upload lessons from the ISLE editor.</p>
-				</Jumbotron>;
+			</Jumbotron>);
 			}
 			lessons = lessons.sort( ( a, b ) => {
 				return a.title > b.title;
@@ -399,7 +397,7 @@ class LessonsPage extends Component {
 						rowHeight={60}
 					>
 						{lessons.map( ( e, i ) => {
-							return <div key={`cell-${i}`}>
+							return (<div key={`cell-${i}`}>
 								<Lesson
 									{...lessons[ i ]}
 									deleteLesson={this.props.deleteLesson}
@@ -413,7 +411,7 @@ class LessonsPage extends Component {
 									key={i}
 									colorIndex={i % 20}
 								/>
-							</div>;
+						</div>);
 						})}
 					</ResponsiveReactGridLayout>
 				</div>
@@ -427,6 +425,44 @@ class LessonsPage extends Component {
 		);
 	}
 }
+
+
+DetailsModal.propTypes = {
+	description: PropTypes.string,
+	title: PropTypes.string,
+	update: PropTypes.func
+};
+
+DetailsModal.defaultProps = {
+};
+
+Lesson.propTypes = {
+	activateLesson: PropTypes.func,
+	active: PropTypes.bool,
+	deactivateLesson: PropTypes.func,
+	deleteLesson: PropTypes.func.isRequired,
+	description: PropTypes.string.isRequired,
+	getLessons: PropTypes.func.isRequired,
+	hideLessonInGallery: PropTypes.func.isRequired,
+	namespace: PropTypes.object.isRequired,
+	public: PropTypes.bool,
+	showLessonInGallery: PropTypes.func.isRequired,
+	title: PropTypes.string.isRequired,
+	token: PropTypes.string.isRequired,
+	updateLesson: PropTypes.func.isRequired,
+	url:  PropTypes.string.isRequired
+};
+
+Lesson.defaultProps = {
+};
+
+
+LessonsPage.propTypes = {
+	getLessons: PropTypes.func.isRequired,
+};
+
+LessonsPage.defaultProps = {
+};
 
 
 // EXPORTS //
