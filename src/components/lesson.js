@@ -7,7 +7,7 @@ import React, { Component } from 'react';
 
 class Lesson extends Component {
 	render() {
-		return ( 
+		return (
 			<h2>LESSON PAGE</h2>
 		);
 	}

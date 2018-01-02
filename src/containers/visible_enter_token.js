@@ -3,9 +3,15 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import request from 'request';
+import logger from 'debug';
 import server from './../constants/server';
 import EnterToken from './../components/enter_token.js';
 import * as actions from './../actions';
+
+
+// VARIABLES //
+
+const debug = logger( 'isle-dashboard' );
 
 
 // EXPORTS //
@@ -21,15 +27,15 @@ function mapStateToProps( state ) {
 function mapDispatchToProps( dispatch ) {
 	return {
 		authenticate: ({ userToken, writeAccessToken }) => {
-			console.log( userToken );
+			debug( 'Authenticate user with token: %s', userToken );
 			request.get( server+'/set_write_access', {
 				headers: {
 					'Authorization': 'JWT ' + userToken
 				},
 				qs: {
-					 token: writeAccessToken
+					token: writeAccessToken
 				}
-			}, function( error, response, body ) {
+			}, function onResponse( error, response, body ) {
 				if ( error ) {
 					return error;
 				}

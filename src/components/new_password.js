@@ -3,6 +3,7 @@
 import React, { Component } from 'react';
 import { Button, Col, ControlLabel, FormControl, FormGroup, Form, Modal, OverlayTrigger, Overlay, PageHeader, Panel, Popover, Tooltip } from 'react-bootstrap';
 import { withRouter } from 'react-router';
+import PropTypes from 'prop-types';
 import queryString from 'query-string';
 import request from 'request';
 import server from './../constants/server';
@@ -34,19 +35,22 @@ const MsgModal = ( props ) => (
 	</Modal>
 );
 
+MsgModal.propTypes = {
+	close: PropTypes.func.isRequired,
+	message: PropTypes.string.isRequired,
+	show: PropTypes.bool.isRequired
+};
+
 
 // MAIN //
 
 class NewPassword extends Component {
-
 	constructor( props ) {
 		super( props );
 
 		const hash = window.location.hash.substring( 15 );
 		const qs = queryString.parse( hash );
-		console.log( qs );
 		const token = qs[ 'token' ];
-		console.log( token );
 		this.state = {
 			password: '',
 			passwordRepeat: '',
@@ -112,7 +116,7 @@ class NewPassword extends Component {
 				return 'warning';
 			}
 			if ( password !== passwordRepeat ) {
-				 return 'error';
+				return 'error';
 			}
 			return 'success';
 		};
@@ -212,6 +216,13 @@ class NewPassword extends Component {
 		);
 	}
 }
+
+
+// PROPERTY TYPES //
+
+NewPassword.propTypes = {
+	history: PropTypes.object.isRequired
+};
 
 
 // EXPORTS //

@@ -27,9 +27,9 @@ function mapDispatchToProps( dispatch ) {
 					'Authorization': 'JWT ' + obj.token
 				},
 				form: {
-					 id: obj.id
+					id: obj.id
 				}
-			}, function( error, response, body ) {
+			}, function onLogin( error, response, body ) {
 				if ( error ) {
 					return error;
 				}

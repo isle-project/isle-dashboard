@@ -1,26 +1,26 @@
 .App {
-  text-align: left;
+	text-align: left;
 }
 
 .App-header {
-  background-color: #222;
-  height: 150px;
-  padding: 20px;
-  color: white;
+	background-color: #222;
+	height: 150px;
+	padding: 20px;
+	color: white;
 }
 
 .App-intro {
-  font-size: large;
+	font-size: large;
 }
 
 .App .centered {
-  display: block;
-  margin: 0 auto;
+	display: block;
+	margin: 0 auto;
 }
 
 h1 {
-  color: #2e4468;
-  font-size: 40px;
-  font-weight: bold;
-  letter-spacing: 1px;
+	color: #2e4468;
+	font-size: 40px;
+	font-weight: bold;
+	letter-spacing: 1px;
 }

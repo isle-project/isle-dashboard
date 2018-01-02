@@ -20,7 +20,7 @@ function mapStateToProps( state ) {
 	};
 } // end FUNCTION mapStateToProps()
 
-function  mapDispatchToProps( dispatch ) {
+function mapDispatchToProps( dispatch ) {
 	return {
 		addNotification: ({ message, level }) => {
 			dispatch( actions.addNotification({ message, level }) );
@@ -54,8 +54,8 @@ function  mapDispatchToProps( dispatch ) {
 				},
 				qs: {
 					namespaceID
-				},
-			}, function( error, response, body ) {
+				}
+			}, function onCohorts( error, response, body ) {
 				if ( error ) {
 					return error;
 				}
@@ -110,7 +110,7 @@ function  mapDispatchToProps( dispatch ) {
 				headers: {
 					'Authorization': 'JWT ' + token
 				}
-			}, function( error, response, body ) {
+			}, function onNamespaces( error, response, body ) {
 				if ( error ) {
 					return error;
 				}
@@ -158,8 +158,8 @@ function  mapDispatchToProps( dispatch ) {
 				if ( err ) {
 					return clbk( err );
 				}
-				clbk( null, res );
 				dispatch( actions.changedNamespace( ns ) );
+				clbk( null, res );
 			});
 		}
 	};

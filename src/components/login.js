@@ -3,9 +3,10 @@
 import React, { Component } from 'react';
 import {
 	Button, Col, ControlLabel, FormControl, FormGroup,
-	Form, Overlay, PageHeader, Panel , Popover
+	Form, Overlay, PageHeader, Panel, Popover
 } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import request from 'request';
 import server from './../constants/server';
 import './login.css';
@@ -14,7 +15,6 @@ import './login.css';
 // MAIN //
 
 class Login extends Component {
-
 	constructor( props ) {
 		super( props );
 
@@ -96,7 +96,7 @@ class Login extends Component {
 									type="email"
 									placeholder="Email"
 									onChange={this.handleInputChange}
-									ref={ ( input ) => { this.emailInput = input; }}
+									ref={( input ) => { this.emailInput = input; }}
 								/>
 							</Col>
 						</FormGroup>
@@ -110,8 +110,8 @@ class Login extends Component {
 									type="password"
 									placeholder="Password"
 									onChange={this.handleInputChange}
-									ref={ ( input ) => { this.passwordInput = input; }}
-								 />
+									ref={( input ) => { this.passwordInput = input; }}
+								/>
 							</Col>
 						</FormGroup>
 						<FormGroup>
@@ -146,6 +146,13 @@ class Login extends Component {
 		);
 	}
 }
+
+
+// PROPERTY TYPES //
+
+Login.propTypes = {
+	handleLogin: PropTypes.func.isRequired
+};
 
 
 // EXPORTS //

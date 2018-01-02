@@ -1,5 +1,6 @@
 // MODULES //
 
+import hasOwnProp from '@stdlib/assert/has-own-property';
 import * as types from './../constants/action_types.js';
 
 
@@ -44,13 +45,16 @@ export default function namespace( state = initialState, action ) {
 		return Object.assign({}, state, {
 			lessons
 		});
+	/* eslint-disable no-case-declarations */
 	case types.UPDATED_LESSON:
 		lessons = state.lessons.slice();
 		const { props, lessonName } = action.payload;
 		for ( let i = 0; i < lessons.length; i++ ) {
 			if ( lessons[ i ].title === lessonName ) {
 				for ( let key in props ) {
-					lessons[ i ][ key ] = props[ key ];
+					if ( hasOwnProp( props, key ) ) {
+						lessons[ i ][ key ] = props[ key ];
+					}
 				}
 				break;
 			}
