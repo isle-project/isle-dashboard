@@ -75,6 +75,7 @@
   "scripts": {
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
+    "lint": "eslint src test *.js",
     "test": "node scripts/test.js --env=jsdom"
   },
   "jest": {
@@ -100,8 +101,5 @@
     "presets": [
       "react-app"
     ]
-  },
-  "eslintConfig": {
-    "extends": "react-app"
   }
 }
