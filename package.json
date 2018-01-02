@@ -55,7 +55,6 @@
     "history": "^4.6.1",
     "moment": "^2.20.1",
     "query-string": "^5.0.0",
-    "radium": "^0.19.1",
     "react": "16.2.0",
     "react-addons-shallow-compare": "^15.5.2",
     "react-bootstrap": "0.31.5",

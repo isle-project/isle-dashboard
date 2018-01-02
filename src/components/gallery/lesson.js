@@ -65,11 +65,16 @@ class Lesson extends Component {
 	}
 }
 
+
 // PROPERTY TYPES //
 
 Lesson.propTypes = {
+	copyLesson: PropTypes.func.isRequired,
+	namespace: PropTypes.string.isRequired,
 	title: PropTypes.string.isRequired,
-	util: PropTypes.string.isRequired
+	token: PropTypes.string.isRequired,
+	url: PropTypes.string.isRequired,
+	userNamespaces: PropTypes.array.isRequired
 };
 
 
