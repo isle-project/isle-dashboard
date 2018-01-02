@@ -40,7 +40,7 @@ class LessonsPage extends Component {
 		if (
 			nextProps.namespace.lessons !== this.props.namespace.lessons
 		) {
-			let lessons = nextProps.namespace.lessons;
+			let lessons = nextProps.namespace.lessons || [];
 			lessons = lessons.map( ( elem, i ) =>
 				(<Lesson
 					{...elem}
@@ -102,9 +102,10 @@ class LessonsPage extends Component {
 				}}>
 					<ResponsiveReactGridLayout
 						layouts={this.state.layouts}
-						breakpoints={{lg: 1200, md: 996, sm: 768, xs: 480, xxs: 0 }}
-						cols={{lg: 16, md: 12, sm: 8, xs: 8, xxs: 8 }}
+						breakpoints={{ lg: 1200, md: 996, sm: 768, xs: 480, xxs: 0 }}
+						cols={{ lg: 16, md: 12, sm: 8, xs: 8, xxs: 8 }}
 						isResizable={false}
+						isDraggable={false}
 						rowHeight={60}
 					>
 						{lessons.map( ( e, i ) => {
@@ -149,8 +150,12 @@ LessonsPage.propTypes = {
 	namespace: PropTypes.object.isRequired,
 	showLessonInGallery: PropTypes.func.isRequired,
 	updateLesson: PropTypes.func.isRequired,
-	url: PropTypes.string.isRequired,
+	url: PropTypes.string,
 	user: PropTypes.object.isRequired
+};
+
+LessonsPage.defaultProps = {
+	url: null
 };
 
 

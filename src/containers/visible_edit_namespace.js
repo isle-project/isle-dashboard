@@ -18,7 +18,7 @@ function mapStateToProps( state ) {
 		namespace: state.namespace,
 		cohorts: state.namespace.cohorts
 	};
-} // end FUNCTION mapStateToProps()
+}
 
 function mapDispatchToProps( dispatch ) {
 	return {
@@ -37,14 +37,13 @@ function mapDispatchToProps( dispatch ) {
 						message: 'Cohort successfully created',
 						level: 'success'
 					}) );
-					clbk();
-				} else {
-					const message = err ? err.msg : res.body;
-					dispatch( actions.addNotification({
-						message: message,
-						level: 'error'
-					}) );
+					return clbk();
 				}
+				const message = err ? err.msg : res.body;
+				dispatch( actions.addNotification({
+					message: message,
+					level: 'error'
+				}) );
 			});
 		},
 		getCohorts: ({ namespaceID, userToken }) => {
@@ -163,6 +162,6 @@ function mapDispatchToProps( dispatch ) {
 			});
 		}
 	};
-} // end FUNCTION mapStateToProps()
+}
 
 export default VisibleEditNamespace;

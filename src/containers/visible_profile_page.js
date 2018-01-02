@@ -14,7 +14,7 @@ function mapStateToProps( state ) {
 	return {
 		user: state.user
 	};
-} // end FUNCTION mapStateToProps()
+}
 
 function mapDispatchToProps( dispatch ) {
 	return {
@@ -25,6 +25,6 @@ function mapDispatchToProps( dispatch ) {
 			dispatch( actions.updateUser({ name, organization }) );
 		}
 	};
-} // end FUNCTION mapStateToProps()
+}
 
 export default VisibleProfilePage;

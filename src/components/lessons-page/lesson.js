@@ -91,7 +91,7 @@ class Lesson extends Component {
 		const activeStyle = this.props.active === true ? 'success' : 'warning';
 		const publicStyle = this.props.public === true ? 'success' : 'warning';
 		return (
-			<div key={this.props.key}>
+			<div>
 				<div className="panel panel-default" style={{
 					background: COLORS[ this.props.colorIndex ]
 				}}>
@@ -184,8 +184,7 @@ Lesson.propTypes = {
 	description: PropTypes.string.isRequired,
 	getLessons: PropTypes.func.isRequired,
 	hideLessonInGallery: PropTypes.func.isRequired,
-	key: PropTypes.string.isRequired,
-	namespace: PropTypes.object.isRequired,
+	namespace: PropTypes.string.isRequired,
 	public: PropTypes.bool.isRequired,
 	showLessonInGallery: PropTypes.func.isRequired,
 	title: PropTypes.string.isRequired,

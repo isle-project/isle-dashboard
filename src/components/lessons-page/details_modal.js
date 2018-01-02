@@ -5,7 +5,13 @@ import {
 	Button, Col, ControlLabel, Form, FormControl, FormGroup, Modal
 } from 'react-bootstrap';
 import PropTypes from 'prop-types';
+import logger from 'debug';
 import SERVER from './../../constants/server';
+
+
+// VARIABLES //
+
+const debug = logger( 'isle-dashboard' );
 
 
 // MAIN //
@@ -17,7 +23,7 @@ class DetailsModal extends Component {
 		this.state = {
 			title: props.title,
 			description: props.description,
-			disabled: true
+			disabled: false
 		};
 	}
 
@@ -37,7 +43,8 @@ class DetailsModal extends Component {
 		const target = event.target;
 		const value = target.value;
 		const name = target.name;
-
+		debug( `Input field ${name} changed to ${value}` );
+		console.log( `Input field ${name} changed to ${value}` );
 		this.setState({
 			[ name ]: value
 		}, () => {

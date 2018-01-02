@@ -35,7 +35,7 @@ var handleCompile;
 var isSmokeTest = process.argv.some(arg => arg.indexOf('--smoke-test') > -1);
 if (isSmokeTest) {
 	handleCompile = function onCompile(err, stats) {
-		if (err || stats.hasErrors() || stats.hasWarnings()) {
+		if ( err || stats.hasErrors() ) {
 			process.exit(1);
 		} else {
 			process.exit(0);

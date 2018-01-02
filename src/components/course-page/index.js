@@ -96,8 +96,8 @@ class CoursePage extends Component {
 					<h1 style={{ paddingLeft: '20px' }}>{this.props.namespace}</h1>
 					<ResponsiveReactGridLayout
 						layouts={layouts}
-						breakpoints={{lg: 1200, md: 996, sm: 768, xs: 480, xxs: 0 }}
-						cols={{lg: 20, md: 16, sm: 12, xs: 8, xxs: 8 }}
+						breakpoints={{ lg: 1200, md: 996, sm: 768, xs: 480, xxs: 0 }}
+						cols={{ lg: 20, md: 16, sm: 12, xs: 8, xxs: 8 }}
 						isResizable={false}
 						isDraggable={false}
 						rowHeight={60}

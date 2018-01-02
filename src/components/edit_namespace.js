@@ -27,7 +27,7 @@ class EditNamespace extends Component {
 			owners = owners.join( ',' );
 		}
 		this.state = {
-			disabled: true,
+			disabled: false,
 			title,
 			description,
 			owners,
@@ -48,7 +48,7 @@ class EditNamespace extends Component {
 				[ name ]: value
 			}, () => {
 				let { title } = this.state;
-				if ( title.length > 6 ) {
+				if ( title.length > 4 ) {
 					this.setState({
 						disabled: false
 					});

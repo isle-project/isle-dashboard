@@ -94,6 +94,8 @@ class CreateCohortModal extends Component {
 								<Col componentClass={ControlLabel} sm={2}>From ... To </Col>
 								<Col sm={10}>
 									<DateRangePicker
+										startDateId="start_date_input"
+										endDateId="end_date_input"
 										startDate={this.state.startDate}
 										endDate={this.state.endDate}
 										onDatesChange={({ startDate, endDate }) =>

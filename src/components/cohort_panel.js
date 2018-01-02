@@ -59,7 +59,6 @@ class CohortPanel extends Component {
 				members: this.state.students,
 				title: this.state.title
 			};
-			console.log( updatedCohort );
 			this.props.onUpdate( updatedCohort );
 		};
 
@@ -96,6 +95,8 @@ class CohortPanel extends Component {
 						<ControlLabel> From ... To </ControlLabel>
 						<br />
 						<DateRangePicker
+							startDateId="panel_start_date_input"
+							endDateId="panel_end_date_input"
 							startDate={this.state.startDate}
 							endDate={this.state.endDate}
 							onDatesChange={({ startDate, endDate }) =>

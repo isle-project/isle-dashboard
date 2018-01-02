@@ -17,7 +17,7 @@ function mapStateToProps( state ) {
 	return {
 		user: state.user
 	};
-} // end FUNCTION mapStateToProps()
+}
 
 function mapDispatchToProps( dispatch ) {
 	return {
@@ -67,6 +67,6 @@ function mapDispatchToProps( dispatch ) {
 			dispatch( actions.changedNamespace({ title, description, owners, _id }) );
 		}
 	};
-} // end FUNCTION mapStateToProps()
+}
 
 export default withRouter( VisibleCreateNamespace );

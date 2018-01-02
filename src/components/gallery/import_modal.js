@@ -87,12 +87,13 @@ class ImportModal extends Component {
 	}
 }
 
+
 // PROPERTY TYPES //
 
 ImportModal.propTypes = {
 	close: PropTypes.func.isRequired,
 	copyLesson: PropTypes.func.isRequired,
-	namespace: PropTypes.object.isRequired,
+	namespace: PropTypes.string.isRequired,
 	show: PropTypes.bool.isRequired,
 	title: PropTypes.string.isRequired,
 	token: PropTypes.string.isRequired,
