@@ -131,6 +131,9 @@ class CreateCohortModal extends Component {
 	}
 }
 
+
+// PROPERTY TYPES //
+
 CreateCohortModal.propTypes = {
 	close: PropTypes.func,
 	onCreate: PropTypes.func,
@@ -142,6 +145,7 @@ CreateCohortModal.defaultProps = {
 	onCreate(){},
 	show: false
 };
+
 
 // EXPORTS //
 

@@ -4,6 +4,7 @@ import React from 'react';
 import { Button, Modal } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 
+
 // MAIN //
 
 const ConfirmModal = ( props ) => (
@@ -21,6 +22,8 @@ const ConfirmModal = ( props ) => (
 	</Modal>
 );
 
+
+// PROPERTY TYPES //
 
 ConfirmModal.propTypes = {
 	close: PropTypes.func,
