@@ -97,23 +97,21 @@ class EditNamespace extends Component {
 							level: 'error'
 						});
 					}
-					else {
-						if ( res.statusCode >= 400 ) {
-							this.props.addNotification({
-								message: res.body,
-								level: 'error'
-							});
-						} else {
-							this.props.addNotification({
-								message: JSON.parse( res.body ).message,
-								level: 'success'
-							});
-							this.props.getNamespaces( this.props.user.token );
-							this.props.getCohorts({
-								namespaceID: this.props.namespace._id,
-								userToken: this.props.user.token
-							});
-						}
+					else if ( res.statusCode >= 400 ) {
+						this.props.addNotification({
+							message: res.body,
+							level: 'error'
+						});
+					} else {
+						this.props.addNotification({
+							message: JSON.parse( res.body ).message,
+							level: 'success'
+						});
+						this.props.getNamespaces( this.props.user.token );
+						this.props.getCohorts({
+							namespaceID: this.props.namespace._id,
+							userToken: this.props.user.token
+						});
 					}
 				});
 			} else {
@@ -285,7 +283,7 @@ class EditNamespace extends Component {
 										students={cohort.members}
 										onDelete={this.deleteCohort}
 										onUpdate={this.updateCohort}
-									 />
+									/>
 								</Panel> );
 							})}
 						</Accordion>
@@ -297,10 +295,22 @@ class EditNamespace extends Component {
 }
 
 EditNamespace.propTypes = {
-	updateCurrentNamespace: PropTypes.func.isRequired
+	addNotification: PropTypes.func.isRequired,
+	cohorts: PropTypes.array,
+	createCohort: PropTypes.func.isRequired,
+	deleteCohort: PropTypes.func.isRequired,
+	deleteCurrentNamespace: PropTypes.func.isRequired,
+	getCohorts: PropTypes.func.isRequired,
+	getNamespaces: PropTypes.func.isRequired,
+	history: PropTypes.object.isRequired,
+	namespace: PropTypes.object.isRequired,
+	updateCohort: PropTypes.func.isRequired,
+	updateCurrentNamespace: PropTypes.func.isRequired,
+	user: PropTypes.object.isRequired
 };
 
 EditNamespace.defaultProps = {
+	cohorts: []
 };
 
 
