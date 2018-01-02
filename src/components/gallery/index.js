@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 import chunkify from 'compute-chunkify';
 import isArray from '@stdlib/assert/is-array';
 import Lesson from './lesson.js';
-import './image.css';
+import './../image.css';
 import './gallery.css';
 
 

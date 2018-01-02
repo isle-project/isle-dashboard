@@ -4,7 +4,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import request from 'request';
 import server from './../constants/server';
-import LessonsPage from './../components/lessons_page.js';
+import LessonsPage from './../components/lessons-page';
 import * as actions from './../actions';
 
 
