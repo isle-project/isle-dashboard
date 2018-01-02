@@ -19,7 +19,7 @@ function mapStateToProps( state ) {
 	};
 }
 
-function  mapDispatchToProps( dispatch ) {
+function mapDispatchToProps( dispatch ) {
 	return {
 		showLessonInGallery: ({ lessonName, namespaceName, token }) => {
 			request.get( server+'/show_lesson', {
@@ -30,7 +30,7 @@ function  mapDispatchToProps( dispatch ) {
 				headers: {
 					'Authorization': 'JWT ' + token
 				}
-			}, function ( err, res ) {
+			}, function onShow( err, res ) {
 				if ( err ) {
 					return dispatch( actions.addNotification({
 						message: err.message,
@@ -53,7 +53,7 @@ function  mapDispatchToProps( dispatch ) {
 				headers: {
 					'Authorization': 'JWT ' + token
 				}
-			}, function ( err, res ) {
+			}, function onHide( err, res ) {
 				if ( err ) {
 					return dispatch( actions.addNotification({
 						message: err.message,
@@ -76,7 +76,7 @@ function  mapDispatchToProps( dispatch ) {
 				headers: {
 					'Authorization': 'JWT ' + token
 				}
-			}, function ( err, res ) {
+			}, function onActivate( err, res ) {
 				if ( err ) {
 					return dispatch( actions.addNotification({
 						message: err.message,
@@ -99,7 +99,7 @@ function  mapDispatchToProps( dispatch ) {
 				headers: {
 					'Authorization': 'JWT ' + token
 				}
-			}, function ( err, res ) {
+			}, function onDeactivate( err, res ) {
 				if ( err ) {
 					return dispatch( actions.addNotification({
 						message: err.message,
@@ -125,7 +125,7 @@ function  mapDispatchToProps( dispatch ) {
 					headers: {
 						'Authorization': 'JWT ' + token
 					}
-				}, function ( err, res ) {
+				}, function onUpdate( err, res ) {
 					if ( err ) {
 						return dispatch( actions.addNotification({
 							message: err.message,
@@ -158,7 +158,7 @@ function  mapDispatchToProps( dispatch ) {
 					headers: {
 						'Authorization': 'JWT ' + token
 					}
-				}, function ( err, res ) {
+				}, function onDelete( err, res ) {
 					if ( err ) {
 						return dispatch( actions.addNotification({
 							message: err.message,
@@ -186,7 +186,7 @@ function  mapDispatchToProps( dispatch ) {
 					qs: {
 						namespaceName
 					}
-				}, function( error, response, body ) {
+				}, function onLessons( error, response, body ) {
 					if ( error ) {
 						return error;
 					}

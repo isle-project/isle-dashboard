@@ -33,8 +33,8 @@ function mapDispatchToProps( dispatch ) {
 				},
 				qs: {
 					namespaceID: _id
-				},
-			}, function( error, response, body ) {
+				}
+			}, function onNamespace( error, response, body ) {
 				if ( error ) {
 					return error;
 				}

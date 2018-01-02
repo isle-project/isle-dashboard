@@ -46,10 +46,8 @@ class App extends Component {
 			!contains( history.location.pathname, 'signup' )
 		) {
 			history.replace( '/login' );
-		} else {
-			if ( this.props.user.token ) {
-				this.props.getNamespaces( this.props.user.token );
-			}
+		} else if ( this.props.user.token ) {
+			this.props.getNamespaces( this.props.user.token );
 		}
 	}
 
@@ -74,7 +72,7 @@ class App extends Component {
 					<HeaderBar history={history} />
 					<Route
 						path="/create-namespace"
-						component={ this.props.user.writeAccess ? VisibleCreateNamespace : VisibleEnterToken }
+						component={this.props.user.writeAccess ? VisibleCreateNamespace : VisibleEnterToken}
 					/>
 					<Route
 						path="/edit-namespace"
@@ -104,10 +102,10 @@ class App extends Component {
 				<div className="App">
 					{AuthenticationBarrier}
 					<Route exact path="/" component={VisibleLogin} />
-					<Route path="/login" component={VisibleLogin}/>
-					<Route path="/new-password" component={NewPassword}/>
-					<Route path="/signup" component={Signup}/>
-					<Route path="/forgot-password" component={VisibleForgotPassword}/>
+					<Route path="/login" component={VisibleLogin} />
+					<Route path="/new-password" component={NewPassword} />
+					<Route path="/signup" component={Signup} />
+					<Route path="/forgot-password" component={VisibleForgotPassword} />
 					<Route
 						path="/courses/:namespace"
 						component={VisibleCoursePage}
@@ -139,7 +137,7 @@ function mapDispatchToProps( dispatch ) {
 				headers: {
 					'Authorization': 'JWT ' + token
 				}
-			}, function( error, response, body ) {
+			}, function onNamespaces( error, response, body ) {
 				if ( error ) {
 					return error;
 				}

@@ -16,7 +16,7 @@ function mapStateToProps( state ) {
 	};
 } // end FUNCTION mapStateToProps()
 
-function  mapDispatchToProps( dispatch ) {
+function mapDispatchToProps( dispatch ) {
 	return {
 		addNotification: ({ message, level }) => {
 			dispatch( actions.addNotification({ message, level }) );

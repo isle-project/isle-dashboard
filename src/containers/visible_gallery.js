@@ -19,7 +19,7 @@ function mapStateToProps( state ) {
 	};
 }
 
-function  mapDispatchToProps( dispatch ) {
+function mapDispatchToProps( dispatch ) {
 	return {
 		copyLesson: ({ sourceName, target, targetName, source, token }) => {
 			if ( sourceName && target && source ) {
@@ -33,7 +33,7 @@ function  mapDispatchToProps( dispatch ) {
 					headers: {
 						'Authorization': 'JWT ' + token
 					}
-				}, function ( err, res ) {
+				}, function onResponse( err, res ) {
 					if ( err ) {
 						return dispatch( actions.addNotification({
 							message: err.message,
@@ -47,7 +47,6 @@ function  mapDispatchToProps( dispatch ) {
 							level: 'error'
 						}) );
 					}
-					// dispatch( actions.deletedLesson( sourceName ) );
 					dispatch( actions.addNotification({
 						message: msg,
 						level: 'success'
@@ -56,7 +55,7 @@ function  mapDispatchToProps( dispatch ) {
 			}
 		},
 		findPublicLessons: () => {
-			request.get( server+'/get_public_lessons', function( error, 	response, body ) {
+			request.get( server+'/get_public_lessons', function onResponse( error, response, body ) {
 				if ( error ) {
 					return error;
 				}
