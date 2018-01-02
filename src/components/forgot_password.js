@@ -25,9 +25,12 @@ class ForgotPassword extends Component {
 				qs: {
 					email: this.state.email
 				}
-			}, ( error ) => {
+			}, ( error, res ) => {
 				if ( error ) {
 					return this.props.addNotification({ message: error.message, level: 'error' });
+				}
+				if ( res.statusCode >= 400 ) {
+					return this.props.addNotification({ message: res.body, level: 'error' });
 				}
 				this.props.addNotification({ message: 'Check your email inbox for a link to choose a new password.', level: 'success' });
 			});
