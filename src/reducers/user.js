@@ -40,6 +40,7 @@ export default function user( state = initialState, action ) {
 			name: action.payload.name,
 			organization: action.payload.organization
 		});
+	/* eslint-disable no-case-declarations */
 	case types.RETRIEVED_NAMESPACES:
 		const { namespaces } = action.payload;
 		if ( !isArray( namespaces ) ) {
