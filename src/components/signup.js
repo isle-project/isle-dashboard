@@ -66,15 +66,26 @@ class Signup extends Component {
 				request.post( server+'/create_user', {
 					form: this.state
 				}, ( err, res ) => {
-					const body = JSON.parse( res.body );
-					console.log( body );
 					if ( !err ) {
-						this.setState({
+						if ( res.statusCode !== 200 ) {
+							return this.setState({
+								message: res.body,
+								successful: false,
+								showModal: true
+							});
+						}
+						const body = JSON.parse( res.body );
+						return this.setState({
 							message: body.message,
-							successful: body.successful,
+							successful: true,
 							showModal: true
 						});
 					}
+					this.setState({
+						message: 'The server appears to be down. Please try again later.',
+						successful: false,
+						showModal: true
+					});
 				});
 			} else {
 				this.setState({
