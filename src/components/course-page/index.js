@@ -9,61 +9,15 @@ import isEmptyArray from '@stdlib/assert/is-empty-array';
 import isJSON from '@stdlib/assert/is-json';
 import pluck from '@stdlib/utils/pluck';
 import floor from '@stdlib/math/base/special/floor';
-import './image.css';
+import Lesson from './lesson.js';
 import 'react-grid-layout/css/styles.css';
 import 'react-resizable/css/styles.css';
-import COLORS from './../constants/colors';
-import SERVER from './../constants/server';
+import SERVER from './../../constants/server';
 
 
 // VARIABLES //
 
 const ResponsiveReactGridLayout = WidthProvider( Responsive );
-
-
-// COMPONENTS //
-
-class Lesson extends Component {
-	render() {
-		console.log( this.props );
-		return (
-			<div key={this.props.key}>
-				<div className="panel panel-default" style={{
-					background: COLORS[ this.props.colorIndex ]
-				}}>
-					<div className="panel-body" style={{ padding: 0 }}>
-						<div className="hovereffect">
-							<img
-								className="img-responsive"
-								src={this.props.url+'/preview.jpg'}
-								alt=""
-								style={{
-									width: 300,
-									height: 180
-								}}
-							/>
-							<div
-								className="overlay"
-							>
-								<h2>{this.props.title}</h2>
-								<h3>{this.props.description}</h3>
-								<span
-									className="info"
-									onClick={() => {
-										const win = window.open( this.props.url, '_blank' );
-										win.focus();
-									}}
-								>
-									Open Lesson
-								</span>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		);
-	}
-}
 
 
 // MAIN //
@@ -94,7 +48,6 @@ class CoursePage extends Component {
 			if ( isJSON( body ) ) {
 				body = JSON.parse( body );
 				let lessons = body.lessons;
-				console.log( lessons );
 				lessons = lessons.filter( lesson => {
 					return lesson.active;
 				});
@@ -170,23 +123,12 @@ class CoursePage extends Component {
 }
 
 
-Lesson.propTypes = {
-	colorIndex: PropTypes.number,
-	description: PropTypes.string,
-	title: PropTypes.string,
-	url: PropTypes.string
-};
-
-Lesson.defaultProps = {
-};
-
+// PROPERTY TYPES //
 
 CoursePage.propTypes = {
-	namespace: PropTypes.object
+	namespace: PropTypes.object.isRequired
 };
 
-CoursePage.defaultProps = {
-};
 
 // EXPORTS //
 

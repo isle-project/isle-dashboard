@@ -16,6 +16,7 @@ import CohortPanel from './cohort_panel.js';
 import CreateCohortModal from './create_cohort_modal.js';
 import PropTypes from 'prop-types';
 
+
 // MAIN //
 
 class EditNamespace extends Component {
@@ -224,7 +225,7 @@ class EditNamespace extends Component {
 							</FormGroup>
 						</Form>
 						<ButtonToolbar>
-							<Button type="submit" onClick={this.handleUpdate}>Update</Button>
+							<Button type="submit" disabled={this.state.disabled} onClick={this.handleUpdate}>Update</Button>
 							<Button onClick={() => {
 								this.setState({
 									showDeleteModal: true
@@ -293,6 +294,9 @@ class EditNamespace extends Component {
 		);
 	}
 }
+
+
+// PROPERTY TYPES //
 
 EditNamespace.propTypes = {
 	addNotification: PropTypes.func.isRequired,

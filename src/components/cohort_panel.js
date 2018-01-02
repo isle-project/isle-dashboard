@@ -121,7 +121,10 @@ class CohortPanel extends Component {
 				</Row>
 				<Row>
 					<ButtonToolbar>
-						<Button onClick={this.handleUpdate}>Save</Button>
+						<Button
+							disabled={this.state.disabled}
+							onClick={this.handleUpdate}
+						>Save</Button>
 						<Button onClick={() => {
 							this.setState({
 								showDeleteModal: true
@@ -145,13 +148,18 @@ class CohortPanel extends Component {
 // PROPERTY TYPES //
 
 CohortPanel.propTypes = {
+	endDate: PropTypes.number,
 	onDelete: PropTypes.func,
-	onUpdate: PropTypes.func
+	onUpdate: PropTypes.func,
+	startDate: PropTypes.number.isRequired,
+	students: PropTypes.array.isRequired,
+	title: PropTypes.string.isRequired
 };
 
 CohortPanel.defaultProps = {
-	onUpdate(){},
-	onDelete(){}
+	endDate: null,
+	onUpdate() {},
+	onDelete() {}
 };
 
 

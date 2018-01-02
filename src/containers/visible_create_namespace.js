@@ -55,7 +55,7 @@ function mapDispatchToProps( dispatch ) {
 				headers: {
 					'Authorization': 'JWT ' + token
 				}
-			}, function( error, response, body ) {
+			}, function onNamespaces( error, response, body ) {
 				if ( error ) {
 					return error;
 				}

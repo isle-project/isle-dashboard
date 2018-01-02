@@ -18,7 +18,7 @@ import VisibleEditNamespace from './visible_edit_namespace.js';
 import VisibleGallery from './visible_gallery.js';
 import VisibleLessonsPage from './visible_lessons_page.js';
 import VisibleProfilePage from './visible_profile_page.js';
-import CoursePage from './../components/course_page.js';
+import CoursePage from './../components/course-page';
 import Lesson from './../components/lesson.js';
 import NotificationSystem from './../components/notification.js';
 import server from './../constants/server';
@@ -32,6 +32,10 @@ const history = createHashHistory();
 
 const VisibleCoursePage = ({ match }) => {
 	return <CoursePage namespace={match.params.namespace} />;
+};
+
+VisibleCoursePage.propTypes = {
+	match: PropTypes.object.isRequired
 };
 
 
@@ -117,14 +121,14 @@ class App extends Component {
 	}
 }
 
+// PROPERTY TYPES //
+
 App.propTypes = {
-	getNamespaces: PropTypes.func,
-	isLoggedIn: PropTypes.bool,
+	getNamespaces: PropTypes.func.isRequired,
+	isLoggedIn: PropTypes.bool.isRequired,
 	user: PropTypes.object.isRequired
 };
 
-App.defaultProps = {
-};
 
 // EXPORTS //
 
