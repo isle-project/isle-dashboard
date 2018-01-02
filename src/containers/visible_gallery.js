@@ -4,7 +4,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import request from 'request';
 import server from './../constants/server';
-import Gallery from './../components/gallery.js';
+import Gallery from './../components/gallery';
 import * as actions from './../actions';
 
 

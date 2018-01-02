@@ -1,0 +1,87 @@
+// MODULES //
+
+import React, { Component } from 'react';
+import {
+	Button, ControlLabel, FormControl, FormGroup, Modal
+} from 'react-bootstrap';
+import isArray from '@stdlib/assert/is-array';
+
+
+// MAIN //
+
+class ImportModal extends Component {
+	constructor( props ) {
+		super( props );
+
+		const ns = props.userNamespaces;
+		this.state = {
+			selected: ( isArray( ns ) && ns.length > 0 ) ?
+				ns[ 0 ].title :
+				null,
+			targetName: null
+		};
+
+		this.handleChange = ( event ) => {
+			const target = event.target;
+			const value = target.value;
+			const name = target.name;
+			this.setState({
+				[ name ]: value
+			});
+		};
+
+		this.handleImport = () => {
+			this.props.copyLesson({
+				sourceName: this.props.title,
+				source: this.props.namespace,
+				target: this.state.selected,
+				targetName: this.state.targetName,
+				token: this.props.token
+			});
+			this.props.close();
+		};
+	}
+
+	render() {
+		return (
+			<Modal show={this.props.show} onHide={this.props.close}>
+				<Modal.Header>
+					<Modal.Title>Import lesson <span style={{ color: 'darkred' }}>{this.props.namespace}: {this.props.title}</span></Modal.Title>
+				</Modal.Header>
+				<Modal.Body>
+					Please select the course that the lesson should be copied into.
+					<br />
+					<FormGroup>
+						<ControlLabel>Select Course</ControlLabel>
+						<FormControl
+							name="selected"
+							componentClass="select"
+							placeholder="select"
+							onChange={this.handleChange}
+						>
+							{this.props.userNamespaces.map( ns => <option value={ns.title}>{ns.title}</option> )}
+						</FormControl>
+					</FormGroup>
+					<FormGroup>
+						<ControlLabel>Lesson Name</ControlLabel>
+						<FormControl
+							name="targetName"
+							type="text"
+							placeholder={this.props.title}
+							onChange={this.handleChange}
+						/>
+					</FormGroup>
+				</Modal.Body>
+				<Modal.Footer>
+					<Button onClick={this.props.close}>Cancel</Button>
+					<Button bsStyle="primary" onClick={this.handleImport} >Import</Button>
+				</Modal.Footer>
+			</Modal>
+		);
+	}
+}
+
+
+// EXPORTS //
+
+export default ImportModal;
