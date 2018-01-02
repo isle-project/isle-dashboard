@@ -1,6 +1,7 @@
 // MODULES //
 
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Jumbotron } from 'react-bootstrap';
 import { Responsive, WidthProvider } from 'react-grid-layout';
 import request from 'request';

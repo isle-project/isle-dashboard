@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { Button, Modal } from 'react-bootstrap';
+import PropTypes from 'prop-types';
 
 
 // MAIN //
@@ -21,6 +22,22 @@ const MsgModal = ( props ) => (
 		</Modal.Footer>
 	</Modal>
 );
+
+
+MsgModal.propTypes = {
+	close: PropTypes.func,
+	message: PropTypes.string,
+	show: PropTypes.bool,
+	title: PropTypes.string
+
+};
+
+MsgModal.defaultProps = {
+	close(){},
+	message: '',
+	show: false,
+	title: ''
+};
 
 
 // EXPORTS //

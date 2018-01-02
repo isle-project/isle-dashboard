@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { Button, Modal } from 'react-bootstrap';
-
+import PropTypes from 'prop-types';
 
 // MAIN //
 
@@ -20,6 +20,24 @@ const ConfirmModal = ( props ) => (
 		</Modal.Footer>
 	</Modal>
 );
+
+
+ConfirmModal.propTypes = {
+	close: PropTypes.func,
+	message: PropTypes.string,
+	onDelete: PropTypes.func,
+	show: PropTypes.bool,
+	title: PropTypes.string
+
+};
+
+ConfirmModal.defaultProps = {
+	close(){},
+	message: '',
+	onDelete(){},
+	show: false,
+	title: ''
+};
 
 
 // EXPORTS //
