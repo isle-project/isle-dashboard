@@ -162,7 +162,7 @@ class HeaderBar extends Component {
 			<InputGroup>
 				<FormControl
 					style={{
-						background: 'silver',
+						background: 'white',
 						color: '#2a3e54'
 					}}
 					type="text"
