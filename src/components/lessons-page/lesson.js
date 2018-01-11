@@ -2,7 +2,7 @@
 
 import React, { Component } from 'react';
 import {
-	Button, ButtonGroup, ButtonToolbar, ControlLabel, FormGroup, Glyphicon, Label, OverlayTrigger, Tooltip
+	Button, ButtonGroup, ButtonToolbar, ControlLabel, FormGroup, Glyphicon, Label, OverlayTrigger, Panel, Tooltip
 } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import DetailsModal from './details_modal.js';
@@ -91,83 +91,80 @@ class Lesson extends Component {
 		const activeStyle = this.props.active === true ? 'success' : 'warning';
 		const publicStyle = this.props.public === true ? 'success' : 'warning';
 		return (
-			<div>
-				<div className="panel panel-default" style={{
-					background: COLORS[ this.props.colorIndex ]
-				}}>
-					<div className="panel-body" style={{ padding: 0 }}>
-						<div className="hovereffect">
-							<img
-								className="img-responsive"
-								src={this.props.url+'/preview.jpg'}
-								alt=""
-								style={{
-									width: '100%',
-									height: 180
+			<Panel>
+				<Panel.Body style={{ padding: 0 }}>
+					<div className="hovereffect">
+						<img
+							className="img-responsive"
+							src={this.props.url+'/preview.jpg'}
+							alt=""
+							style={{
+								width: '100%',
+								height: 180,
+								background: COLORS[ this.props.colorIndex ]
+							}}
+						/>
+						<div className="overlay" >
+							<h2>{this.props.title}</h2>
+							<h3>{this.props.description}</h3>
+							<span
+								ref={( link ) => {
+									this.link = link;
 								}}
-							/>
-							<div className="overlay" >
-								<h2>{this.props.title}</h2>
-								<h3>{this.props.description}</h3>
-								<span
-									ref={( link ) => {
-										this.link = link;
-									}}
-									className="info"
-									onClick={() => {
-										const win = window.open( this.props.url, '_blank' );
-										win.focus();
-									}}
-								>
-									Open Lesson
-								</span>
-							</div>
+								className="info"
+								onClick={() => {
+									const win = window.open( this.props.url, '_blank' );
+									win.focus();
+								}}
+							>
+								Open Lesson
+							</span>
 						</div>
-						<ButtonToolbar style={{
-							paddingTop: 5,
-							paddingLeft: 5,
-							paddingRight: 5,
-							position: 'absolute',
-							top: 180,
-							width: '100%',
-							height: '50px',
-							left: 5,
-							background: 'rgba(0, 0, 0, 0.75)',
-							border: '1px solid transparent',
-							borderRadius: '4px'
-						}}>
-							<ButtonGroup style={{ marginRight: '5px' }} >
-								<OverlayTrigger placement="bottom" overlay={<Tooltip id="open_details">Open Details</Tooltip>}>
-									<Button onClick={this.showDetailsModal}><Glyphicon glyph="cog" /></Button>
-								</OverlayTrigger>
-								<OverlayTrigger placement="bottom" overlay={<Tooltip id="toggle_availability">Toggle Availability</Tooltip>}>
-									<Button onClick={this.toggleLessonState}><Glyphicon glyph="off" /></Button>
-								</OverlayTrigger>
-								<OverlayTrigger placement="bottom" overlay={<Tooltip id="toggle_visibility">Toggle Visibility</Tooltip>}>
-									<Button onClick={this.toggleLessonVisibility}><Glyphicon glyph="lock" /></Button>
-								</OverlayTrigger>
-								<OverlayTrigger placement="bottom" overlay={<Tooltip id="delete_lesson">Delete Lesson</Tooltip>}>
-									<Button onClick={this.showDeleteModal} ><Glyphicon glyph="trash" /></Button>
-								</OverlayTrigger>
-							</ButtonGroup>
-							<FormGroup>
-								<ControlLabel style={{ marginRight: '2px' }}>
-									<Label bsStyle={activeStyle} style={{
-										fontSize: '12px'
-									}}>{this.props.active ? 'Active' : 'Inactive'}</Label>
-								</ControlLabel>
-								<ControlLabel>
-									<Label bsStyle={publicStyle} style={{
-										fontSize: '12px'
-									}}>{this.props.public ? 'Public' : 'Private'}</Label>
-								</ControlLabel>
-							</FormGroup>
-						</ButtonToolbar>
-						<DeleteModal {...this.props} show={this.state.showDeleteModal} close={this.closeDeleteModal} delete={this.delete} />
-						<DetailsModal {...this.props} show={this.state.showDetailsModal} close={this.closeDetailsModal} update={this.update} />
 					</div>
-				</div>
-			</div>
+					<ButtonToolbar style={{
+						paddingTop: 5,
+						paddingLeft: 5,
+						paddingRight: 5,
+						position: 'absolute',
+						top: 180,
+						width: '100%',
+						height: '50px',
+						left: 5,
+						background: 'rgba(0, 0, 0, 0.75)',
+						border: '1px solid transparent',
+						borderRadius: '4px'
+					}}>
+						<ButtonGroup style={{ marginRight: '5px' }} >
+							<OverlayTrigger placement="bottom" overlay={<Tooltip id="open_details">Open Details</Tooltip>}>
+								<Button onClick={this.showDetailsModal}><Glyphicon glyph="cog" /></Button>
+							</OverlayTrigger>
+							<OverlayTrigger placement="bottom" overlay={<Tooltip id="toggle_availability">Toggle Availability</Tooltip>}>
+								<Button onClick={this.toggleLessonState}><Glyphicon glyph="off" /></Button>
+							</OverlayTrigger>
+							<OverlayTrigger placement="bottom" overlay={<Tooltip id="toggle_visibility">Toggle Visibility</Tooltip>}>
+								<Button onClick={this.toggleLessonVisibility}><Glyphicon glyph="lock" /></Button>
+							</OverlayTrigger>
+							<OverlayTrigger placement="bottom" overlay={<Tooltip id="delete_lesson">Delete Lesson</Tooltip>}>
+								<Button onClick={this.showDeleteModal} ><Glyphicon glyph="trash" /></Button>
+							</OverlayTrigger>
+						</ButtonGroup>
+						<FormGroup>
+							<ControlLabel style={{ marginRight: '2px' }}>
+								<Label bsStyle={activeStyle} style={{
+									fontSize: '12px'
+								}}>{this.props.active ? 'Active' : 'Inactive'}</Label>
+							</ControlLabel>
+							<ControlLabel>
+								<Label bsStyle={publicStyle} style={{
+									fontSize: '12px'
+								}}>{this.props.public ? 'Public' : 'Private'}</Label>
+							</ControlLabel>
+						</FormGroup>
+					</ButtonToolbar>
+					<DeleteModal {...this.props} show={this.state.showDeleteModal} close={this.closeDeleteModal} delete={this.delete} />
+					<DetailsModal {...this.props} show={this.state.showDetailsModal} close={this.closeDetailsModal} update={this.update} />
+				</Panel.Body>
+			</Panel>
 		);
 	}
 }

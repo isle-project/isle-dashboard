@@ -1,11 +1,13 @@
 // MODULES //
 
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import {
 	ButtonToolbar, ButtonGroup, Button, Panel
 } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import ImportModal from './import_modal.js';
+import './../image.css';
+import COLORS from './../../constants/colors';
 
 
 // MAIN //
@@ -29,28 +31,37 @@ class Lesson extends Component {
 
 	render() {
 		return (
-			<div>
+			<Fragment>
 				<Panel>
-					<div className="hovereffect">
-						<img
-							className="img-responsive"
-							src={this.props.url+'/preview.jpg'}
-							alt=""
-							style={{
-								width: 350,
-								height: 200
-							}}
-						/>
-						<div className="overlay">
-							<h2>{this.props.namespace}: {this.props.title}</h2>
-							<a className="info" href={this.props.url} target="_blank" >Open Lesson</a>
+					<Panel.Body>
+						<div className="hovereffect">
+							<img
+								className="img-responsive"
+								src={this.props.url+'/preview.jpg'}
+								alt=""
+								style={{
+									width: 350,
+									height: 200,
+									background: COLORS[ this.props.colorIndex ]
+								}}
+							/>
+							<div className="overlay">
+								<h2>{this.props.namespace}: {this.props.title}</h2>
+								<span
+									className="info"
+									onClick={() => {
+										const win = window.open( this.props.url, '_blank' );
+										win.focus();
+									}}
+								>Open Lesson</span>
+							</div>
 						</div>
-					</div>
-					<ButtonToolbar>
-						<ButtonGroup>
-							<Button onClick={this.showImportModal}>Import</Button>
-						</ButtonGroup>
-					</ButtonToolbar>
+						<ButtonToolbar>
+							<ButtonGroup>
+								<Button onClick={this.showImportModal}>Import</Button>
+							</ButtonGroup>
+						</ButtonToolbar>
+					</Panel.Body>
 				</Panel>
 				<ImportModal
 					{...this.props}
@@ -60,7 +71,7 @@ class Lesson extends Component {
 					token={this.props.token}
 					copyLesson={this.props.copyLesson}
 				/>
-			</div>
+			</Fragment>
 		);
 	}
 }
@@ -69,6 +80,7 @@ class Lesson extends Component {
 // PROPERTY TYPES //
 
 Lesson.propTypes = {
+	colorIndex: PropTypes.number.isRequired,
 	copyLesson: PropTypes.func.isRequired,
 	namespace: PropTypes.string.isRequired,
 	title: PropTypes.string.isRequired,

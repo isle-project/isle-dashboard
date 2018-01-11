@@ -26,15 +26,18 @@ class Gallery extends Component {
 			</Jumbotron> );
 		}
 		let chunks = chunkify( lessons, 4 );
+		let count = 0;
 		for ( let i = 0; i < chunks.length; i++ ) {
 			let chunk = chunks[ i ];
 			for ( let j = 0; j < chunk.length; j++ ) {
+				count += 1;
 				if ( chunk[ j ]) {
 					chunk[ j ] = <Col key={`cell${i}${j}`} xs={6} md={3}>
 						<Lesson
 							userNamespaces={this.props.user.namespaces}
 							token={this.props.user.token}
 							copyLesson={this.props.copyLesson}
+							colorIndex={count % 20}
 							{...chunk[ j ]}
 						/>
 					</Col>;
