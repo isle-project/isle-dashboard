@@ -1,6 +1,6 @@
 // MODULES //
 
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import createHashHistory from 'history/createHashHistory';
@@ -72,7 +72,7 @@ class App extends Component {
 		let AuthenticationBarrier = null;
 		if ( this.props.isLoggedIn ) {
 			AuthenticationBarrier =
-				<div>
+				<Fragment>
 					<HeaderBar history={history} />
 					<Route
 						path="/create-namespace"
@@ -102,9 +102,8 @@ class App extends Component {
 						path="/lessons/:lessonId"
 						component={Lesson}
 					/>
-				</div>;
+				</Fragment>;
 		}
-
 		return (
 			<Router history={history}>
 				<div className="App">
