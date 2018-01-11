@@ -109,7 +109,10 @@ class ProfilePage extends Component {
 				top: '80px',
 				width: '50%',
 				margin: '0 auto'
-			}} header={<h2>Profile</h2>}>
+			}}>
+			<Panel.Heading>
+				<Panel.Title componentClass="h1">Profile</Panel.Title>
+			</Panel.Heading>
 				<Form style={{ padding: '20px' }}>
 					<FormGroup
 						controlId="formHorizontalEmail"

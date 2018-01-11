@@ -1,6 +1,6 @@
 // MODULES //
 
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import {
 	Accordion, Button, ButtonToolbar, Col, ControlLabel, FormControl, FormGroup,
 	Form, Grid, OverlayTrigger, Panel, Tooltip
@@ -180,6 +180,32 @@ class EditNamespace extends Component {
 		};
 	}
 
+	renderModals() {
+		return (
+			<Fragment>
+				<MsgModal
+					show={this.state.showModal}
+					close={this.close}
+					message={this.state.message}
+					successful={this.state.successful}
+					title="Update Course"
+				/>
+				<ConfirmModal
+					show={this.state.showDeleteModal}
+					close={this.closeDeleteModal}
+					message="Are you sure that you want to delete this course?"
+					title="Delete?"
+					onDelete={this.handleDelete}
+				/>
+				<CreateCohortModal
+					show={this.state.showCreateCohortModal}
+					close={this.closeCreateCohortModal}
+					onCreate={this.createCohort}
+				/>
+			</Fragment>
+		);
+	}
+
 	render() {
 		return (
 			<Grid style={{
@@ -189,68 +215,55 @@ class EditNamespace extends Component {
 				margin: '0 auto'
 			}} >
 				<Col md={6} >
-					<Panel header={<h2>Edit Course</h2>}>
-						<Form style={{ padding: '20px' }}>
-							<OverlayTrigger placement="right" overlay={<Tooltip id="ownerTooltip">Comma-separated list of email addresses denoting the administrators for this course</Tooltip>}>
+					<Panel>
+						<Panel.Heading>
+							<Panel.Title componentClass="h1">Edit Course</Panel.Title>
+						</Panel.Heading>
+						<Panel.Body>
+							<Form style={{ padding: '20px' }}>
+								<OverlayTrigger placement="right" overlay={<Tooltip id="ownerTooltip">Comma-separated list of email addresses denoting the administrators for this course</Tooltip>}>
+									<FormGroup>
+										<ControlLabel>Owners</ControlLabel>
+										<FormControl
+											name="owners"
+											componentClass="textarea"
+											value={this.state.owners}
+											onChange={this.handleInputChange}
+										/>
+									</FormGroup>
+								</OverlayTrigger>
+								<OverlayTrigger placement="right" overlay={<Tooltip id="ownerTooltip">Title with a minimum length of six characters.</Tooltip>}>
+									<FormGroup>
+										<ControlLabel>Title</ControlLabel>
+										<FormControl
+											name="title"
+											type="text"
+											value={this.state.title}
+											onChange={this.handleInputChange}
+										/>
+									</FormGroup>
+								</OverlayTrigger>
 								<FormGroup>
-									<ControlLabel>Owners</ControlLabel>
+									<ControlLabel>Description</ControlLabel>
 									<FormControl
-										name="owners"
-										componentClass="textarea"
-										value={this.state.owners}
-										onChange={this.handleInputChange}
-									/>
-								</FormGroup>
-							</OverlayTrigger>
-							<OverlayTrigger placement="right" overlay={<Tooltip id="ownerTooltip">Title with a minimum length of six characters.</Tooltip>}>
-								<FormGroup>
-									<ControlLabel>Title</ControlLabel>
-									<FormControl
-										name="title"
+										name="description"
 										type="text"
-										value={this.state.title}
+										value={this.state.description}
 										onChange={this.handleInputChange}
-									/>
+									>
+									</FormControl>
 								</FormGroup>
-							</OverlayTrigger>
-							<FormGroup>
-								<ControlLabel>Description</ControlLabel>
-								<FormControl
-									name="description"
-									type="text"
-									value={this.state.description}
-									onChange={this.handleInputChange}
-								>
-								</FormControl>
-							</FormGroup>
-						</Form>
-						<ButtonToolbar>
-							<Button type="submit" disabled={this.state.disabled} onClick={this.handleUpdate}>Update</Button>
-							<Button onClick={() => {
-								this.setState({
-									showDeleteModal: true
-								});
-							}} bsStyle="danger">Delete</Button>
-						</ButtonToolbar>
-						<MsgModal
-							show={this.state.showModal}
-							close={this.close}
-							message={this.state.message}
-							successful={this.state.successful}
-							title="Update Course"
-						/>
-						<ConfirmModal
-							show={this.state.showDeleteModal}
-							close={this.closeDeleteModal}
-							message="Are you sure that you want to delete this course?"
-							title="Delete?"
-							onDelete={this.handleDelete}
-						/>
-						<CreateCohortModal
-							show={this.state.showCreateCohortModal}
-							close={this.closeCreateCohortModal}
-							onCreate={this.createCohort}
-						/>
+							</Form>
+							<ButtonToolbar>
+								<Button type="submit" disabled={this.state.disabled} onClick={this.handleUpdate}>Update</Button>
+								<Button onClick={() => {
+									this.setState({
+										showDeleteModal: true
+									});
+								}} bsStyle="danger">Delete</Button>
+							</ButtonToolbar>
+						</Panel.Body>
+						{ this.renderModals() }
 					</Panel>
 				</Col>
 				<Col md={6} >

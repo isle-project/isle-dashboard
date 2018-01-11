@@ -40,7 +40,7 @@ class ForgotPassword extends Component {
 	render() {
 		return (
 			<div className="login">
-				<Panel style={{ opacity: 0.9 }}>
+				<Panel style={{ boxShadow: '0 0 8px rgba(0,0,0,0.3)', borderRadius: '6px', opacity: 0.98, background: 'rgba(255,255,255,0.75)'}}>
 					<Panel.Body>
 						<h3>Forgot password?</h3>
 						<Form inline>
@@ -66,7 +66,7 @@ class ForgotPassword extends Component {
 							</FormGroup>
 						</Form>
 					</Panel.Body>
-					<Panel.Footer style={{ textAlign: 'right' }}>
+					<Panel.Footer style={{ background: 'rgba(255,255,255,0.6)', textAlign: 'right' }}>
 						<Link to="/signup">Sign up</Link>
 						<span> | </span>
 						<Link to="/login">Log in</Link>

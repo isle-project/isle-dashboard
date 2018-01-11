@@ -148,7 +148,7 @@ class Signup extends Component {
 		return (
 			<Fragment>
 				<div className="login">
-					<Panel style={{ opacity: 0.9 }}>
+					<Panel style={{ boxShadow: '0 0 8px rgba(0,0,0,0.3)', borderRadius: '6px', opacity: 0.98, background: 'rgba(255,255,255,0.75)'}}>
 						<Panel.Body>
 							<PageHeader style={{ textAlign: 'center' }}>ISLE <small>Dashboard</small></PageHeader>
 							<Form horizontal>
@@ -239,7 +239,7 @@ class Signup extends Component {
 								</FormGroup>
 							</Form>
 						</Panel.Body>
-						<Panel.Footer style={{ textAlign: 'right' }}>
+						<Panel.Footer style={{ background: 'rgba(255,255,255,0.6)', textAlign: 'right' }}>
 							<Link to="/forgot-password">Forgot password?</Link>
 							<span> | </span>
 							<Link to="/login">Log in</Link>
