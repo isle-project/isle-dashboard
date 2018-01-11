@@ -59,10 +59,9 @@
 	color: white;
 }
 
-a:visited {
+.header-bar-link:visited {
 	color: silver;
 }
-
 
 .header-bar-icon {
 	width: 32px;
