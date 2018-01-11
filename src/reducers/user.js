@@ -11,7 +11,8 @@ const initialState = {
 	email: '',
 	name: '',
 	namespaces: [],
-	organization: ''
+	organization: '',
+	writeAccess: false
 };
 
 

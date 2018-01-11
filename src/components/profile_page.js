@@ -102,6 +102,21 @@ class ProfilePage extends Component {
 		};
 	}
 
+	gotoTokenPage = () => {
+		this.props.history.replace( '/enter-token' );
+	}
+
+	renderInstructorButton() {
+		if ( this.props.user.writeAccess ) {
+			return null;
+		}
+		return ( <Button
+			onClick={this.gotoTokenPage}
+			bsSize="small" bsStyle="success"
+			style={{ float: 'right', marginTop: -7 }}
+		>Instructor Access</Button> );
+	}
+
 	render() {
 		return (
 			<Panel style={{
@@ -111,7 +126,9 @@ class ProfilePage extends Component {
 				margin: '0 auto'
 			}}>
 			<Panel.Heading>
-				<Panel.Title componentClass="h1">Profile</Panel.Title>
+				<Panel.Title componentClass="h1">Profile
+				{this.renderInstructorButton()}
+				</Panel.Title>
 			</Panel.Heading>
 				<Form style={{ padding: '20px' }}>
 					<FormGroup
@@ -195,6 +212,7 @@ class ProfilePage extends Component {
 
 ProfilePage.propTypes = {
 	addNotification: PropTypes.func.isRequired,
+	history: PropTypes.object.isRequired,
 	updateUser: PropTypes.func.isRequired,
 	user: PropTypes.object.isRequired
 };

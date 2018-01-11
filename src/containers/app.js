@@ -76,11 +76,15 @@ class App extends Component {
 					<HeaderBar history={history} />
 					<Route
 						path="/create-namespace"
-						component={this.props.user.writeAccess ? VisibleCreateNamespace : VisibleEnterToken}
+						component={VisibleCreateNamespace}
 					/>
 					<Route
 						path="/edit-namespace"
 						component={VisibleEditNamespace}
+					/>
+					<Route
+						path="/enter-token"
+						component={VisibleEnterToken}
 					/>
 					<Route
 						path="/profile"

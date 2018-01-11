@@ -62,6 +62,20 @@ class HeaderBar extends Component {
 		});
 	}
 
+	renderCreateButton() {
+		if ( !this.props.user.writeAccess ) {
+			return null;
+		}
+		return ( <OverlayTrigger placement="bottom" overlay={createCourseTooltip}>
+			<Button
+				style={{ float: 'left', marginRight: '6px' }}
+				onClick={this.goToCreateCoursePage.bind( this )}
+			>
+				<Glyphicon glyph="pencil" />
+			</Button>
+		</OverlayTrigger> );
+	}
+
 	render() {
 		const namespacePopover = ( namespaces, clickFactory ) => (
 			<Popover id="popover-positioned-bottom">
@@ -117,14 +131,7 @@ class HeaderBar extends Component {
 					>
 						<Glyphicon glyph="edit" />
 					</Button>
-					<OverlayTrigger placement="bottom" overlay={createCourseTooltip}>
-						<Button
-							style={{ float: 'left', marginRight: '6px' }}
-							onClick={this.goToCreateCoursePage.bind( this )}
-						>
-							<Glyphicon glyph="pencil" />
-						</Button>
-					</OverlayTrigger>
+					{this.renderCreateButton()}
 					<FormGroup style={{ width: '500px' }}>
 						<InputGroup>
 							<FormControl style={{
