@@ -25,6 +25,9 @@ function mapDispatchToProps( dispatch ) {
 			dispatch( actions.loggedOut() );
 			dispatch( actions.deletedCurrentNamespace() );
 		},
+		setSearchPhrase: ( str ) => {
+			dispatch( actions.searchPhraseSet( str ) );
+		},
 		onNamespace: ({ title, description, owners, _id }, userToken ) => {
 			dispatch( actions.changedNamespace({ title, description, owners, _id }) );
 			request.get( server+'/get_cohorts', {

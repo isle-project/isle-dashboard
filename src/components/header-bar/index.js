@@ -7,6 +7,7 @@ import {
 	Overlay, OverlayTrigger, Popover, ListGroupItem, ListGroup, Tooltip
 } from 'react-bootstrap';
 import PropTypes from 'prop-types';
+import debounce from 'lodash.debounce';
 import icon from './../../../public/profile_icon.png';
 import './header_bar.css';
 
@@ -14,8 +15,22 @@ import './header_bar.css';
 // VARIABLES //
 
 const createCourseTooltip = <Tooltip id="new_course">Create a new course</Tooltip>;
+const editCourseTooltip = <Tooltip id="edit_course">Edit course</Tooltip>;
 const galleryTooltip = <Tooltip id="open_gallery">Open gallery</Tooltip>;
 const selectCourseTooltip = <Tooltip id="select_course">Select course</Tooltip>;
+
+const namespacePopover = ( namespaces, clickFactory ) => (
+	<Popover id="popover-positioned-bottom">
+		<ListGroup>
+			{namespaces.map( ( x, id ) => (
+				<ListGroupItem
+					key={id}
+					style={{ padding: '5px 10px' }}
+				><Link to="/lessons" onClick={clickFactory( id )}>{x.title}</Link></ListGroupItem>
+			) )}
+		</ListGroup>
+	</Popover>
+);
 
 
 // MAIN //
@@ -62,13 +77,23 @@ class HeaderBar extends Component {
 		});
 	}
 
+	handleTextChange = ( event ) => {
+		if ( !this.debouncedChange ) {
+			this.debouncedChange = debounce( ( value ) => {
+				this.props.setSearchPhrase( value );
+			}, 750 );
+		}
+		const { value } = event.target;
+		this.debouncedChange( value );
+	}
+
 	renderCreateButton() {
 		if ( !this.props.user.writeAccess ) {
 			return null;
 		}
 		return ( <OverlayTrigger placement="bottom" overlay={createCourseTooltip}>
 			<Button
-				style={{ float: 'left', marginRight: '6px' }}
+				style={{ float: 'left', marginRight: '24px' }}
 				onClick={this.goToCreateCoursePage.bind( this )}
 			>
 				<Glyphicon glyph="pencil" />
@@ -76,47 +101,92 @@ class HeaderBar extends Component {
 		</OverlayTrigger> );
 	}
 
-	render() {
-		const namespacePopover = ( namespaces, clickFactory ) => (
-			<Popover id="popover-positioned-bottom">
-				<ListGroup>
-					{namespaces.map( ( x, id ) => (
-						<ListGroupItem
-							key={id}
-							style={{ padding: '5px 10px' }}
-						><Link to="/lessons" onClick={clickFactory( id )}>{x.title}</Link></ListGroupItem>
-					) )}
-				</ListGroup>
-			</Popover>
+	renderEditButton() {
+		return (
+			<OverlayTrigger placement="bottom" overlay={editCourseTooltip}>
+				<Button
+					style={{ float: 'left', marginRight: '6px' }}
+					onClick={this.goToCoursePage.bind( this )}
+					disabled={!this.props.namespace.title}
+				>
+					<Glyphicon glyph="edit" />
+				</Button>
+			</OverlayTrigger>
 		);
+	}
 
+	renderGalleryButton() {
+		return (
+			<OverlayTrigger placement="bottom" overlay={galleryTooltip}>
+				<Button
+					onClick={this.goToGallery.bind( this )}
+					style={{
+						float: 'left',
+						marginRight: '18px',
+						marginLeft: '6px'
+					}}
+				>
+					<Glyphicon glyph="eye-open" />
+					<small style={{ marginLeft: '5px' }}>Gallery</small>
+				</Button>
+			</OverlayTrigger>
+		);
+	}
+
+	renderCoursesButton() {
+		return ( <OverlayTrigger placement="right" overlay={selectCourseTooltip}>
+			<Button
+				ref={( button ) => { this.overlayTarget = button; }}
+				style={{
+					float: 'left',
+					marginRight: '6px',
+					marginLeft: '6px'
+				}}
+				onClick={() => {
+					this.setState({
+						showNamespacesOverlay: !this.state.showNamespacesOverlay
+					});
+				}}
+				disabled={!this.props.user.namespaces.length}
+			>
+				<Glyphicon glyph="align-justify" />
+				<small style={{ marginLeft: '5px' }}>
+					{this.props.namespace.title || 'Your Courses'}
+				</small>
+			</Button>
+		</OverlayTrigger> );
+	}
+
+	renderSearchField() {
+		return ( <FormGroup style={{ width: '500px' }}>
+			<InputGroup>
+				<FormControl
+					style={{
+						background: 'silver',
+						color: '#2a3e54'
+					}}
+					type="text"
+					placeholder="Search"
+					onChange={this.handleTextChange}
+				/>
+					<InputGroup.Button>
+						<Button disabled style={{ cursor: 'auto' }}>
+							<Glyphicon glyph="search" />
+						</Button>
+					</InputGroup.Button>
+			</InputGroup>
+		</FormGroup> );
+	}
+
+	render() {
 		return (
 			<header className="header-bar">
 				<h1 className="header-bar-title">
 					ISLE {this.state.location}
 				</h1>
 				<div className="header-bar-buttons" >
-					<OverlayTrigger placement="right" overlay={selectCourseTooltip}>
-						<Button
-							ref={( button ) => { this.overlayTarget = button; }}
-							style={{
-								float: 'left',
-								marginRight: '6px',
-								marginLeft: '6px'
-							}}
-							onClick={() => {
-								this.setState({
-									showNamespacesOverlay: !this.state.showNamespacesOverlay
-								});
-							}}
-							disabled={!this.props.user.namespaces.length}
-						>
-							<Glyphicon glyph="align-justify" />
-							<small style={{ marginLeft: '5px' }}>
-								{this.props.namespace.title}
-							</small>
-						</Button>
-					</OverlayTrigger>
+					{this.renderGalleryButton()}
+					{this.renderCoursesButton()}
 					<Overlay
 						show={this.state.showNamespacesOverlay}
 						target={this.overlayTarget}
@@ -124,29 +194,9 @@ class HeaderBar extends Component {
 					>
 						{namespacePopover( this.props.user.namespaces, this.namespaceClickFactory.bind( this ) )}
 					</Overlay>
-					<Button
-						style={{ float: 'left', marginRight: '6px' }}
-						onClick={this.goToCoursePage.bind( this )}
-						disabled={!this.props.namespace.title}
-					>
-						<Glyphicon glyph="edit" />
-					</Button>
+					{this.renderEditButton()}
 					{this.renderCreateButton()}
-					<FormGroup style={{ width: '500px' }}>
-						<InputGroup>
-							<FormControl style={{
-								background: 'silver',
-								color: '#2a3e54'
-							}} type="text" placeholder="Search" />
-							<OverlayTrigger placement="bottom" overlay={galleryTooltip}>
-								<InputGroup.Button>
-									<Button onClick={this.goToGallery.bind( this )}>
-										<Glyphicon glyph="search" />
-									</Button>
-								</InputGroup.Button>
-							</OverlayTrigger>
-						</InputGroup>
-					</FormGroup>
+					{this.renderSearchField()}
 				</div>
 				<div style={{
 					float: 'right',
@@ -184,6 +234,7 @@ class HeaderBar extends Component {
 	}
 }
 
+
 // PROPERTY TYPES //
 
 HeaderBar.propTypes = {
@@ -191,6 +242,7 @@ HeaderBar.propTypes = {
 	logout: PropTypes.func.isRequired,
 	namespace: PropTypes.object.isRequired,
 	onNamespace: PropTypes.func.isRequired,
+	setSearchPhrase: PropTypes.func.isRequired,
 	user: PropTypes.object.isRequired
 };
 

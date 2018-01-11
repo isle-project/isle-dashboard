@@ -5,6 +5,8 @@ import { Grid, Row, Col, Jumbotron } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import chunkify from 'compute-chunkify';
 import isArray from '@stdlib/assert/is-array';
+import contains from '@stdlib/assert/contains';
+import lowercase from '@stdlib/string/lowercase';
 import Lesson from './lesson.js';
 import './../image.css';
 import './gallery.css';
@@ -15,15 +17,36 @@ import './gallery.css';
 class Gallery extends Component {
 	constructor( props ) {
 		super( props );
+		this.state = {
+			chunks: []
+		};
 		props.findPublicLessons();
 	}
 
-	render() {
-		const { lessons } = this.props.gallery;
+	componentWillReceiveProps( nextProps ) {
+		if (
+			nextProps.search.phrase !== this.props.search.phrase
+		) {
+			const lessons = this.searchLessons( this.props.gallery.lessons, nextProps.search.phrase );
+			const chunks = this.createChunks( lessons );
+			this.setState({
+				chunks
+			});
+		}
+		if (
+			nextProps.gallery.lessons !== this.props.gallery.lessons
+		) {
+			const lessons = this.searchLessons( nextProps.gallery.lessons, this.props.search.phrase );
+			const chunks = this.createChunks( lessons );
+			this.setState({
+				chunks
+			});
+		}
+	}
+
+	createChunks( lessons ) {
 		if ( !isArray( lessons ) || lessons.length === 0 ) {
-			return ( <Jumbotron style={{ position: 'relative', top: 70, textAlign: 'left', paddingLeft: 20 }}>
-				<h1>No Lessons Found</h1>
-			</Jumbotron> );
+			return [];
 		}
 		let chunks = chunkify( lessons, 4 );
 		let count = 0;
@@ -45,6 +68,35 @@ class Gallery extends Component {
 					chunk[ j ] = null;
 				}
 			}
+		}
+		return chunks;
+	}
+
+	searchLessons( lessons, phrase ) {
+		if ( !phrase ) {
+			return lessons;
+		}
+		const ret = [];
+		if ( isArray( lessons ) ) {
+			for ( let i = 0; i < lessons.length; i++ ) {
+				if (
+					contains( lowercase( lessons[ i ].title ), phrase ) ||
+					contains( lowercase( lessons[ i ].namespace ), phrase ) ||
+					contains( lowercase( lessons[ i ].description ), phrase )
+				) {
+					ret.push( lessons[ i ] );
+				}
+			}
+		}
+		return ret;
+	}
+
+	render() {
+		const { chunks } = this.state;
+		if ( chunks.length === 0 ) {
+			return ( <Jumbotron style={{ position: 'relative', top: 70, textAlign: 'left', paddingLeft: 20 }}>
+				<h1>No Lessons Found</h1>
+			</Jumbotron> );
 		}
 		return (
 			<div className="gallery">
@@ -69,6 +121,7 @@ Gallery.propTypes = {
 	copyLesson: PropTypes.func.isRequired,
 	findPublicLessons: PropTypes.func.isRequired,
 	gallery: PropTypes.object.isRequired,
+	search: PropTypes.object.isRequired,
 	user: PropTypes.object.isRequired
 };
 

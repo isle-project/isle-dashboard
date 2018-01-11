@@ -5,6 +5,8 @@ import { Glyphicon, Jumbotron } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import { Responsive, WidthProvider } from 'react-grid-layout';
 import isArray from '@stdlib/assert/is-array';
+import contains from '@stdlib/assert/contains';
+import lowercase from '@stdlib/string/lowercase';
 import pluck from '@stdlib/utils/pluck';
 import floor from '@stdlib/math/base/special/floor';
 import Lesson from './lesson.js';
@@ -25,9 +27,9 @@ class LessonsPage extends Component {
 		super( props );
 
 		this.state = {
+			filteredLessons: [],
 			layouts: {}
 		};
-
 		props.getLessons( props.namespace.title );
 	}
 
@@ -40,51 +42,73 @@ class LessonsPage extends Component {
 		if (
 			nextProps.namespace.lessons !== this.props.namespace.lessons
 		) {
-			let lessons = nextProps.namespace.lessons || [];
-			lessons = lessons.map( ( elem, i ) =>
-				(<Lesson
-					{...elem}
-					key={i}
-					deleteLesson={nextProps.deleteLesson}
-					updateLesson={nextProps.updateLesson}
-					token={nextProps.user.token}
-					deactivateLesson={nextProps.deactivateLesson}
-					activateLesson={nextProps.activateLesson}
-					showLessonInGallery={nextProps.showLessonInGallery}
-					hideLessonInGallery={nextProps.hideLessonInGallery}
-					getLessons={nextProps.getLessons}
-					colorIndex={i % 20}
-				/>)
-			);
-			const elemH = 3.4;
-			let layouts = lessons.map( ( e, i ) => {
-				return {
-					lg: { i: `cell-${i}`, x: i*4 % 16, y: floor( i / 4 ) * elemH, w: 4, h: elemH },
-					md: { i: `cell-${i}`, x: i*4 % 12, y: floor( i / 3 ) * elemH, w: 4, h: elemH },
-					sm: { i: `cell-${i}`, x: i*4 % 8, y: floor( i / 2 ) * elemH, w: 4, h: elemH },
-					xs: { i: `cell-${i}`, x: i*4 % 8, y: floor( i / 2 ) * elemH, w: 4, h: elemH },
-					xxs: { i: `cell-${i}`, x: i*4 % 8, y: floor( i / 2 ) * elemH, w: 4, h: elemH }
-				};
-			});
-			layouts = {
-				lg: pluck( layouts, 'lg' ),
-				md: pluck( layouts, 'md' ),
-				sm: pluck( layouts, 'sm' ),
-				xs: pluck( layouts, 'xs' ),
-				xxs: pluck( layouts, 'xxs' )
-			};
+			const lessons = nextProps.namespace.lessons || [];
+			const filteredLessons = this.searchLessons( lessons, this.props.search.phrase );
+			const layouts = this.createLayout( filteredLessons );
 			this.setState({
+				filteredLessons,
 				layouts
 			});
 		}
+		if (
+			nextProps.search.phrase !== this.props.search.phrase
+		) {
+			const lessons = nextProps.namespace.lessons || [];
+			const filteredLessons = this.searchLessons( lessons, nextProps.search.phrase );
+			const layouts = this.createLayout( filteredLessons );
+			this.setState({
+				filteredLessons,
+				layouts
+			});
+		}
+	}
+
+	createLayout( lessons ) {
+		const elemH = 3.4;
+		let layouts = lessons.map( ( e, i ) => {
+			return {
+				lg: { i: `cell-${i}`, x: i*4 % 16, y: floor( i / 4 ) * elemH, w: 4, h: elemH },
+				md: { i: `cell-${i}`, x: i*4 % 12, y: floor( i / 3 ) * elemH, w: 4, h: elemH },
+				sm: { i: `cell-${i}`, x: i*4 % 8, y: floor( i / 2 ) * elemH, w: 4, h: elemH },
+				xs: { i: `cell-${i}`, x: i*4 % 8, y: floor( i / 2 ) * elemH, w: 4, h: elemH },
+				xxs: { i: `cell-${i}`, x: i*4 % 8, y: floor( i / 2 ) * elemH, w: 4, h: elemH }
+			};
+		});
+		layouts = {
+			lg: pluck( layouts, 'lg' ),
+			md: pluck( layouts, 'md' ),
+			sm: pluck( layouts, 'sm' ),
+			xs: pluck( layouts, 'xs' ),
+			xxs: pluck( layouts, 'xxs' )
+		};
+		return layouts;
 	}
 
 	preventOpeningLink = ( event ) => {
 		event.preventDefault();
 	};
 
+	searchLessons( lessons, phrase ) {
+		if ( !phrase ) {
+			return lessons;
+		}
+		const filteredLessons = [];
+		if ( isArray( lessons ) ) {
+			for ( let i = 0; i < lessons.length; i++ ) {
+				if (
+					contains( lowercase( lessons[ i ].title ), phrase ) ||
+					contains( lowercase( lessons[ i ].namespace ), phrase ) ||
+					contains( lowercase( lessons[ i ].description ), phrase )
+				) {
+					filteredLessons.push( lessons[ i ] );
+				}
+			}
+		}
+		return filteredLessons;
+	}
+
 	render() {
-		let { lessons } = this.props.namespace;
+		let lessons = this.state.filteredLessons;
 		if ( isArray( lessons ) ) {
 			if ( lessons.length === 0 ) {
 				return (<Jumbotron style={{ position: 'relative', top: 70, textAlign: 'left', paddingLeft: 20 }}>
@@ -148,6 +172,7 @@ LessonsPage.propTypes = {
 	getLessons: PropTypes.func.isRequired,
 	hideLessonInGallery: PropTypes.func.isRequired,
 	namespace: PropTypes.object.isRequired,
+	search: PropTypes.object.isRequired,
 	showLessonInGallery: PropTypes.func.isRequired,
 	updateLesson: PropTypes.func.isRequired,
 	url: PropTypes.string,

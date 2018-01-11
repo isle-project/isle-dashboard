@@ -14,6 +14,7 @@ const VisibleGallery = connect( mapStateToProps, mapDispatchToProps )( Gallery )
 
 function mapStateToProps( state ) {
 	return {
+		search: state.search,
 		user: state.user,
 		gallery: state.gallery
 	};

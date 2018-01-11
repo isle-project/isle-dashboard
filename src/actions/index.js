@@ -31,6 +31,15 @@ export function loggedOut() {
 	};
 }
 
+export function searchPhraseSet( phrase ) {
+	return {
+		type: types.SEARCH_PHRASE_SET,
+		payload: {
+			phrase
+		}
+	};
+}
+
 export function changedNamespace({ title, owners, description, _id }) {
 	return {
 		type: types.CHANGED_NAMESPACE,

@@ -14,6 +14,7 @@ const VisibleLessonsPage = connect( mapStateToProps, mapDispatchToProps )( Lesso
 
 function mapStateToProps( state ) {
 	return {
+		search: state.search,
 		user: state.user,
 		namespace: state.namespace
 	};
