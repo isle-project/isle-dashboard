@@ -55,6 +55,15 @@
 	color: white;
 }
 
+.header-bar-link:hover {
+	color: white;
+}
+
+a:visited {
+	color: silver;
+}
+
+
 .header-bar-icon {
 	width: 32px;
 	height: auto;
