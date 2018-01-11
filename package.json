@@ -66,6 +66,7 @@
     "compute-quantiles": "^1.1.0",
     "debug": "^3.1.0",
     "history": "^4.6.1",
+    "lodash.debounce": "^4.0.8",
     "moment": "^2.20.1",
     "query-string": "^5.0.0",
     "react": "16.2.0",
