@@ -267,18 +267,20 @@ class EditNamespace extends Component {
 					</Panel>
 				</Col>
 				<Col md={6} >
-					<Panel header={
-						<h2>Cohorts
-							<Button bsSize="small" bsStyle="success" style={{ float: 'right', marginTop: -7 }}
-								onClick={() => {
-									this.setState({
-										showCreateCohortModal: true
-									});
-								}}
-							>
-								Create Cohort
-							</Button>
-						</h2>}>
+					<Panel>
+						<Panel.Heading>
+							<Panel.Title componentClass="h1">Cohorts
+								<Button bsSize="small" bsStyle="success" style={{ float: 'right', marginTop: -7 }}
+									onClick={() => {
+										this.setState({
+											showCreateCohortModal: true
+										});
+									}}
+								>
+									Create Cohort
+								</Button>
+							</Panel.Title>
+						</Panel.Heading>
 						<Accordion>
 							{this.props.cohorts.map( ( cohort, idx ) => {
 								return ( <Panel
