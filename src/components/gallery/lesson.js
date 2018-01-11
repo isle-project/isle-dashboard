@@ -57,6 +57,7 @@ class Lesson extends Component {
 						/>
 						<div className="overlay">
 							<h2>{this.props.namespace}: {this.props.title}</h2>
+							<h3>{this.props.description}</h3>
 							<span
 								className="info"
 								onClick={() => {
@@ -67,7 +68,7 @@ class Lesson extends Component {
 						</div>
 					</div>
 					<ButtonToolbar>
-						<ButtonGroup>
+						<ButtonGroup style={{ marginTop: '8px' }}>
 							<Button onClick={this.showImportModal}>Import</Button>
 						</ButtonGroup>
 					</ButtonToolbar>
@@ -84,6 +85,7 @@ class Lesson extends Component {
 Lesson.propTypes = {
 	colorIndex: PropTypes.number.isRequired,
 	copyLesson: PropTypes.func.isRequired,
+	description: PropTypes.string.isRequired,
 	namespace: PropTypes.string.isRequired,
 	title: PropTypes.string.isRequired,
 	token: PropTypes.string.isRequired,
