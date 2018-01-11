@@ -4,6 +4,10 @@
 
 [![Dependencies][dependencies-image]][dependencies-url] [![DevDependencies][dev-dependencies-image]][dev-dependencies-url] [![DOI](https://zenodo.org/badge/71033733.svg)](https://zenodo.org/badge/latestdoi/71033733)
 
+#### Tests
+
+[![Build Status](https://travis-ci.org/Planeshifter/isle-dashboard.svg?branch=master)](https://travis-ci.org/Planeshifter/isle-dashboard)
+[![codecov](https://codecov.io/gh/Planeshifter/isle-dashboard/branch/master/graph/badge.svg)](https://codecov.io/gh/Planeshifter/isle-dashboard)
 
 ## Introduction
 
