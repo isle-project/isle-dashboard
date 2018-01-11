@@ -55,27 +55,35 @@ class CoursePage extends Component {
 					lesson.url = SERVER+'/'+namespaceName+'/'+lesson.title;
 					return lesson;
 				});
-				const elemH = 2.8;
-				let layouts = lessons.map( ( e, i ) => {
-					return {
-						lg: { i: `cell-${i}`, x: i*4 % 20, y: floor( i / 5 ) * elemH, w: 4, h: elemH },
-						md: { i: `cell-${i}`, x: i*4 % 16, y: floor( i / 4 ) * elemH, w: 4, h: elemH },
-						sm: { i: `cell-${i}`, x: i*4 % 12, y: floor( i / 3 ) * elemH, w: 4, h: elemH },
-						xs: { i: `cell-${i}`, x: i*4 % 8, y: floor( i / 2 ) * elemH, w: 4, h: elemH },
-						xxs: { i: `cell-${i}`, x: i*4 % 8, y: floor( i / 2 ) * elemH, w: 4, h: elemH }
-					};
-				});
-				layouts = {
-					lg: pluck( layouts, 'lg' ),
-					md: pluck( layouts, 'md' ),
-					sm: pluck( layouts, 'sm' ),
-					xs: pluck( layouts, 'xs' ),
-					xxs: pluck( layouts, 'xxs' )
-				};
+				const layouts = this.createLayout( lessons );
 				this.setState({
-					layouts, lessons
+					layouts,
+					lessons
 				});
 			}
+		});
+	}
+
+	createLayout( lessons ) {
+		const elemH = 2.8;
+		let layouts = lessons.map( ( e, i ) => {
+			return {
+				lg: { i: `cell-${i}`, x: i*4 % 20, y: floor( i / 5 ) * elemH, w: 4, h: elemH },
+				md: { i: `cell-${i}`, x: i*4 % 16, y: floor( i / 4 ) * elemH, w: 4, h: elemH },
+				sm: { i: `cell-${i}`, x: i*4 % 12, y: floor( i / 3 ) * elemH, w: 4, h: elemH },
+				xs: { i: `cell-${i}`, x: i*4 % 8, y: floor( i / 2 ) * elemH, w: 4, h: elemH },
+				xxs: { i: `cell-${i}`, x: i*4 % 8, y: floor( i / 2 ) * elemH, w: 4, h: elemH }
+			};
+		});
+		layouts = {
+			lg: pluck( layouts, 'lg' ),
+			md: pluck( layouts, 'md' ),
+			sm: pluck( layouts, 'sm' ),
+			xs: pluck( layouts, 'xs' ),
+			xxs: pluck( layouts, 'xxs' )
+		};
+		this.setState({
+			layouts
 		});
 	}
 
@@ -126,7 +134,8 @@ class CoursePage extends Component {
 // PROPERTY TYPES //
 
 CoursePage.propTypes = {
-	namespace: PropTypes.object.isRequired
+	namespace: PropTypes.object.isRequired,
+	search: PropTypes.object.isRequired
 };
 
 
