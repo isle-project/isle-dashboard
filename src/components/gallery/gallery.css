@@ -1,6 +1,8 @@
 .gallery {
 	background: gainsboro;
-	position: relative;
+	position: absolute;
+	width: 100%;
 	top: 52px;
+	min-height: calc(100% - 52px);
 }
 

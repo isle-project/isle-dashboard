@@ -60,7 +60,7 @@ class Gallery extends Component {
 	}
 
 	createLayout( lessons ) {
-		const elemH = 3.6;
+		const elemH = 3.72;
 		let layouts = lessons.map( ( e, i ) => {
 			return {
 				lg: { i: `cell-${i}`, x: i*4 % 24, y: floor( i / 6 ) * elemH, w: 4, h: elemH },
