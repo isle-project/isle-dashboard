@@ -1,15 +1,24 @@
 // MODULES //
 
 import React, { Component } from 'react';
-import { Grid, Row, Col, Jumbotron } from 'react-bootstrap';
+import { Jumbotron } from 'react-bootstrap';
 import PropTypes from 'prop-types';
-import chunkify from 'compute-chunkify';
+import { Responsive, WidthProvider } from 'react-grid-layout';
 import isArray from '@stdlib/assert/is-array';
 import contains from '@stdlib/assert/contains';
 import lowercase from '@stdlib/string/lowercase';
+import pluck from '@stdlib/utils/pluck';
+import floor from '@stdlib/math/base/special/floor';
 import Lesson from './lesson.js';
 import './../image.css';
 import './gallery.css';
+import 'react-grid-layout/css/styles.css';
+import 'react-resizable/css/styles.css';
+
+
+// VARIABLES //
+
+const ResponsiveReactGridLayout = WidthProvider( Responsive );
 
 
 // MAIN //
@@ -17,66 +26,68 @@ import './gallery.css';
 class Gallery extends Component {
 	constructor( props ) {
 		super( props );
+
 		this.state = {
-			chunks: []
+			filteredLessons: [],
+			layouts: {}
 		};
 		props.findPublicLessons();
 	}
 
 	componentWillReceiveProps( nextProps ) {
 		if (
-			nextProps.search.phrase !== this.props.search.phrase
+			nextProps.gallery.lessons !== this.props.gallery.lessons
 		) {
-			const lessons = this.searchLessons( this.props.gallery.lessons, nextProps.search.phrase );
-			const chunks = this.createChunks( lessons );
+			const lessons = nextProps.gallery.lessons || [];
+			const filteredLessons = this.searchLessons( lessons, this.props.search.phrase );
+			const layouts = this.createLayout( filteredLessons );
 			this.setState({
-				chunks
+				filteredLessons,
+				layouts
 			});
 		}
 		if (
-			nextProps.gallery.lessons !== this.props.gallery.lessons
+			nextProps.search.phrase !== this.props.search.phrase
 		) {
-			const lessons = this.searchLessons( nextProps.gallery.lessons, this.props.search.phrase );
-			const chunks = this.createChunks( lessons );
+			const lessons = this.props.gallery.lessons || [];
+			const filteredLessons = this.searchLessons( lessons, nextProps.search.phrase );
+			const layouts = this.createLayout( filteredLessons );
 			this.setState({
-				chunks
+				filteredLessons,
+				layouts
 			});
 		}
 	}
 
-	createChunks( lessons ) {
-		if ( !isArray( lessons ) || lessons.length === 0 ) {
-			return [];
-		}
-		let chunks = chunkify( lessons, 4 );
-		let count = 0;
-		for ( let i = 0; i < chunks.length; i++ ) {
-			let chunk = chunks[ i ];
-			for ( let j = 0; j < chunk.length; j++ ) {
-				count += 1;
-				if ( chunk[ j ]) {
-					chunk[ j ] = <Col key={`cell${i}${j}`} xs={6} md={3}>
-						<Lesson
-							userNamespaces={this.props.user.namespaces}
-							token={this.props.user.token}
-							copyLesson={this.props.copyLesson}
-							colorIndex={count % 20}
-							{...chunk[ j ]}
-						/>
-					</Col>;
-				} else {
-					chunk[ j ] = null;
-				}
-			}
-		}
-		return chunks;
+	createLayout( lessons ) {
+		const elemH = 3.6;
+		let layouts = lessons.map( ( e, i ) => {
+			return {
+				lg: { i: `cell-${i}`, x: i*4 % 24, y: floor( i / 6 ) * elemH, w: 4, h: elemH },
+				md: { i: `cell-${i}`, x: i*4 % 20, y: floor( i / 5 ) * elemH, w: 4, h: elemH },
+				sm: { i: `cell-${i}`, x: i*4 % 16, y: floor( i / 4 ) * elemH, w: 4, h: elemH },
+				xs: { i: `cell-${i}`, x: i*4 % 12, y: floor( i / 3 ) * elemH, w: 4, h: elemH },
+				xxs: { i: `cell-${i}`, x: i*4 % 8, y: floor( i / 2 ) * elemH, w: 4, h: elemH },
+				tiny: { i: `cell-${i}`, x: i*4 % 4, y: floor( i / 1 ) * elemH, w: 4, h: elemH }
+			};
+		});
+		layouts = {
+			lg: pluck( layouts, 'lg' ),
+			md: pluck( layouts, 'md' ),
+			sm: pluck( layouts, 'sm' ),
+			xs: pluck( layouts, 'xs' ),
+			xxs: pluck( layouts, 'xxs' ),
+			tiny: pluck( layouts, 'tiny' )
+
+		};
+		return layouts;
 	}
 
 	searchLessons( lessons, phrase ) {
 		if ( !phrase ) {
 			return lessons;
 		}
-		const ret = [];
+		const filteredLessons = [];
 		if ( isArray( lessons ) ) {
 			for ( let i = 0; i < lessons.length; i++ ) {
 				if (
@@ -84,31 +95,47 @@ class Gallery extends Component {
 					contains( lowercase( lessons[ i ].namespace ), phrase ) ||
 					contains( lowercase( lessons[ i ].description ), phrase )
 				) {
-					ret.push( lessons[ i ] );
+					filteredLessons.push( lessons[ i ] );
 				}
 			}
 		}
-		return ret;
+		return filteredLessons;
 	}
 
 	render() {
-		const { chunks } = this.state;
-		if ( chunks.length === 0 ) {
-			return ( <Jumbotron style={{ position: 'relative', top: 70, textAlign: 'left', paddingLeft: 20 }}>
+		let lessons = this.state.filteredLessons;
+		if ( !isArray( lessons ) || lessons.length === 0 ) {
+			return (<Jumbotron style={{ position: 'relative', top: 70, textAlign: 'left', paddingLeft: 20 }}>
 				<h1>No Lessons Found</h1>
-			</Jumbotron> );
+				<p>The selected course does not contain any lessons. You can upload lessons from the ISLE editor.</p>
+		</Jumbotron>);
 		}
+		lessons = lessons.sort( ( a, b ) => {
+			return a.title > b.title;
+		});
 		return (
 			<div className="gallery">
-				<Grid className="gallery-grid" >
-					{chunks.map( ( chunk, id ) => {
-						return (
-							<Row key={`row${id}`} >
-								{chunk}
-							</Row>
-						);
+				<ResponsiveReactGridLayout
+					layouts={this.state.layouts}
+					breakpoints={{ lg: 1800, md: 1550, sm: 1200, xs: 900, xxs: 400, tiny: 0 }}
+					cols={{ lg: 24, md: 20, sm: 16, xs: 12, xxs: 8, tiny: 4 }}
+					isResizable={false}
+					isDraggable={false}
+					rowHeight={60}
+				>
+					{lessons.map( ( e, i ) => {
+						return (<div key={`cell-${i}`}>
+							<Lesson
+								{...lessons[ i ]}
+								userNamespaces={this.props.user.namespaces}
+								token={this.props.user.token}
+								copyLesson={this.props.copyLesson}
+								key={i}
+								colorIndex={i % 20}
+							/>
+					</div>);
 					})}
-				</Grid>
+				</ResponsiveReactGridLayout>
 			</div>
 		);
 	}

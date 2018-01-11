@@ -1,14 +1,6 @@
 .gallery {
 	background: gainsboro;
-	width: 100%;
-	min-height: calc( 100% - 52px );
-	height: auto;
-	position: absolute;
-	padding-bottom: 10%;
+	position: relative;
 	top: 52px;
 }
 
-.gallery-grid {
-	position: relative;
-	margin-top: 20px;
-}

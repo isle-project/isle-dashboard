@@ -1,6 +1,6 @@
 // MODULES //
 
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import {
 	ButtonToolbar, ButtonGroup, Button, Panel
 } from 'react-bootstrap';
@@ -29,49 +29,51 @@ class Lesson extends Component {
 		};
 	}
 
+	renderImportModal() {
+		return ( <ImportModal
+			{...this.props}
+			show={this.state.showImportModal}
+			close={this.closeImportModal}
+			userNamespaces={this.props.userNamespaces}
+			token={this.props.token}
+			copyLesson={this.props.copyLesson}
+		/> );
+	}
+
 	render() {
 		return (
-			<Fragment>
-				<Panel>
-					<Panel.Body>
-						<div className="hovereffect">
-							<img
-								className="img-responsive"
-								src={this.props.url+'/preview.jpg'}
-								alt=""
-								style={{
-									width: 350,
-									height: 200,
-									background: COLORS[ this.props.colorIndex ]
+			<Panel>
+				<Panel.Body>
+					<div className="hovereffect">
+						<img
+							className="img-responsive"
+							src={this.props.url+'/preview.jpg'}
+							alt=""
+							style={{
+								width: '100%',
+								height: 180,
+								background: COLORS[ this.props.colorIndex ]
+							}}
+						/>
+						<div className="overlay">
+							<h2>{this.props.namespace}: {this.props.title}</h2>
+							<span
+								className="info"
+								onClick={() => {
+									const win = window.open( this.props.url, '_blank' );
+									win.focus();
 								}}
-							/>
-							<div className="overlay">
-								<h2>{this.props.namespace}: {this.props.title}</h2>
-								<span
-									className="info"
-									onClick={() => {
-										const win = window.open( this.props.url, '_blank' );
-										win.focus();
-									}}
-								>Open Lesson</span>
-							</div>
+							>Open Lesson</span>
 						</div>
-						<ButtonToolbar>
-							<ButtonGroup>
-								<Button onClick={this.showImportModal}>Import</Button>
-							</ButtonGroup>
-						</ButtonToolbar>
-					</Panel.Body>
-				</Panel>
-				<ImportModal
-					{...this.props}
-					show={this.state.showImportModal}
-					close={this.closeImportModal}
-					userNamespaces={this.props.userNamespaces}
-					token={this.props.token}
-					copyLesson={this.props.copyLesson}
-				/>
-			</Fragment>
+					</div>
+					<ButtonToolbar>
+						<ButtonGroup>
+							<Button onClick={this.showImportModal}>Import</Button>
+						</ButtonGroup>
+					</ButtonToolbar>
+				</Panel.Body>
+				{this.renderImportModal()}
+			</Panel>
 		);
 	}
 }
