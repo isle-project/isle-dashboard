@@ -2,8 +2,8 @@
 
 import React, { Component, Fragment } from 'react';
 import {
-	Accordion, Button, ButtonToolbar, Col, ControlLabel, FormControl, FormGroup,
-	Form, Grid, OverlayTrigger, Panel, Tooltip
+	Button, ButtonToolbar, Col, ControlLabel, FormControl, FormGroup,
+	Form, Grid, OverlayTrigger, Panel, PanelGroup, Tooltip
 } from 'react-bootstrap';
 import 'react-dates/lib/css/_datepicker.css';
 import { withRouter } from 'react-router';
@@ -281,28 +281,32 @@ class EditNamespace extends Component {
 								</Button>
 							</Panel.Title>
 						</Panel.Heading>
-						<Accordion>
+						<PanelGroup accordion>
 							{this.props.cohorts.map( ( cohort, idx ) => {
 								return ( <Panel
-									header={cohort.title}
 									eventKey={idx}
 									key={idx}
 									style={{
 										background: 'ivory'
 									}}
 								>
-									<CohortPanel
-										id={cohort._id}
-										title={cohort.title}
-										startDate={cohort.startDate}
-										endDate={cohort.endDate}
-										students={cohort.members}
-										onDelete={this.deleteCohort}
-										onUpdate={this.updateCohort}
-									/>
+									<Panel.Heading>
+										<Panel.Title toggle>{cohort.title}</Panel.Title>
+									</Panel.Heading>
+									<Panel.Body collapsible>
+										<CohortPanel
+											id={cohort._id}
+											title={cohort.title}
+											startDate={cohort.startDate}
+											endDate={cohort.endDate}
+											students={cohort.members}
+											onDelete={this.deleteCohort}
+											onUpdate={this.updateCohort}
+										/>
+									</Panel.Body>
 								</Panel> );
 							})}
-						</Accordion>
+						</PanelGroup>
 					</Panel>
 				</Col>
 			</Grid>
