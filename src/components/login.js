@@ -1,6 +1,6 @@
 // MODULES //
 
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import {
 	Button, Col, ControlLabel, FormControl, FormGroup,
 	Form, Overlay, PageHeader, Panel, Popover
@@ -82,67 +82,67 @@ class Login extends Component {
 
 	render() {
 		return (
-			<div className="login">
-				<Panel style={{ opacity: 0.9 }}>
+			<Fragment>
+				<div className="login"><Panel style={{ opacity: 0.9 }}>
 					<PageHeader style={{ textAlign: 'center' }}>ISLE <small>Dashboard</small></PageHeader>
-					<Form horizontal>
-						<FormGroup controlId="formHorizontalEmail">
-							<Col componentClass={ControlLabel} sm={2}>
-								Email
-							</Col>
-							<Col sm={10}>
-								<FormControl
-									name="email"
-									type="email"
-									placeholder="Email"
-									onChange={this.handleInputChange}
-									ref={( input ) => { this.emailInput = input; }}
-								/>
-							</Col>
-						</FormGroup>
-						<FormGroup controlId="formHorizontalPassword">
-							<Col componentClass={ControlLabel} sm={2}>
-								Password
-							</Col>
-							<Col sm={10}>
-								<FormControl
-									name="password"
-									type="password"
-									placeholder="Password"
-									onChange={this.handleInputChange}
-									ref={( input ) => { this.passwordInput = input; }}
-								/>
-							</Col>
-						</FormGroup>
-						<FormGroup>
-							<Button
-								className="centered"
-								bsStyle="primary"
-								onClick={this.handleSubmit}
-								type="submit"
-							>Sign in</Button>
-						</FormGroup>
-					</Form>
-					<div style={{ marginTop: 20 }}>
-						<span style={{ float: 'right' }}>
-							<Link to="/forgot-password">Forgot password?</Link>
-							<span> | </span>
-							<Link to="/signup">Sign up</Link>
-						</span>
-					</div>
-					<Overlay
-						show={this.state.showInputOverlay}
-						target={this.state.overlayTarget}
-						placement="right"
-						container={this}
-						containerPadding={20}
-					>
-						<Popover id="popover-contained" title="Not valid">
-							{this.state.invalidInputMessage}
-						</Popover>
-					</Overlay>
-				</Panel>
-			</div>
+					<Panel.Body>
+						<Form horizontal>
+							<FormGroup controlId="formHorizontalEmail">
+								<Col componentClass={ControlLabel} sm={2}>
+									Email
+								</Col>
+								<Col sm={10}>
+									<FormControl
+										name="email"
+										type="email"
+										placeholder="Email"
+										onChange={this.handleInputChange}
+										ref={( input ) => { this.emailInput = input; }}
+									/>
+								</Col>
+							</FormGroup>
+							<FormGroup controlId="formHorizontalPassword">
+								<Col componentClass={ControlLabel} sm={2}>
+									Password
+								</Col>
+								<Col sm={10}>
+									<FormControl
+										name="password"
+										type="password"
+										placeholder="Password"
+										onChange={this.handleInputChange}
+										ref={( input ) => { this.passwordInput = input; }}
+									/>
+								</Col>
+							</FormGroup>
+							<FormGroup>
+								<Button
+									className="centered"
+									bsStyle="primary"
+									onClick={this.handleSubmit}
+									type="submit"
+								>Sign in</Button>
+							</FormGroup>
+						</Form>
+					</Panel.Body>
+					<Panel.Footer style={{ textAlign: 'right' }}>
+						<Link to="/forgot-password">Forgot password?</Link>
+						<span> | </span>
+						<Link to="/signup">Sign up</Link>
+					</Panel.Footer>
+				</Panel></div>
+				<Overlay
+					show={this.state.showInputOverlay}
+					target={this.state.overlayTarget}
+					placement="right"
+					container={this}
+					containerPadding={20}
+				>
+					<Popover id="popover-contained" title="Not valid">
+						{this.state.invalidInputMessage}
+					</Popover>
+				</Overlay>
+			</Fragment>
 		);
 	}
 }

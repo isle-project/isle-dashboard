@@ -41,34 +41,36 @@ class ForgotPassword extends Component {
 		return (
 			<div className="login">
 				<Panel style={{ opacity: 0.9 }}>
-					<h3>Forgot password?</h3>
-					<Form inline>
-						<FormGroup controlId="formHorizontalEmail">
-							<ControlLabel>Email Address</ControlLabel>
-							{'   '}
-							<FormControl
-								type="email"
-								placeholder="Enter Email"
-								value={this.state.email}
-								onChange={( event )=>{
-									const target = event.target;
-									const value = target.value;
-									this.setState({
-										email: value
-									});
-								}}
-							/>
-							{'   '}
-							<Button onClick={this.handleClick} bsStyle="primary" type="submit">Reset</Button>
-						</FormGroup>
-					</Form>
-					<div style={{ marginTop: 20 }}>
-						<span style={{ float: 'right' }}>
-							<Link to="/signup">Sign up</Link>
-							<span> | </span>
-							<Link to="/login">Log in</Link>
-						</span>
-					</div>
+					<Panel.Body>
+						<h3>Forgot password?</h3>
+						<Form inline>
+							<FormGroup controlId="formHorizontalEmail">
+								<ControlLabel>Email Address</ControlLabel>
+								<FormControl
+									type="email"
+									placeholder="Enter Email"
+									value={this.state.email}
+									onChange={( event )=>{
+										const target = event.target;
+										const value = target.value;
+										this.setState({
+											email: value
+										});
+									}}
+									style={{
+										marginLeft: '10px',
+										marginRight: '6px'
+									}}
+								/>
+								<Button onClick={this.handleClick} bsStyle="primary" type="submit">Reset</Button>
+							</FormGroup>
+						</Form>
+					</Panel.Body>
+					<Panel.Footer style={{ textAlign: 'right' }}>
+						<Link to="/signup">Sign up</Link>
+						<span> | </span>
+						<Link to="/login">Log in</Link>
+					</Panel.Footer>
 				</Panel>
 			</div>
 		);
