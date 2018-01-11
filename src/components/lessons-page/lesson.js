@@ -1,6 +1,6 @@
 // MODULES //
 
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import {
 	Button, ButtonGroup, ButtonToolbar, ControlLabel, FormGroup, Glyphicon, Label, OverlayTrigger, Panel, Tooltip
 } from 'react-bootstrap';
@@ -87,9 +87,59 @@ class Lesson extends Component {
 		};
 	}
 
-	render() {
+	renderButtonToolbar() {
 		const activeStyle = this.props.active === true ? 'success' : 'warning';
 		const publicStyle = this.props.public === true ? 'success' : 'warning';
+		return ( <ButtonToolbar style={{
+			paddingTop: 5,
+			paddingLeft: 5,
+			paddingRight: 5,
+			position: 'absolute',
+			top: 180,
+			width: '100%',
+			height: '50px',
+			left: 5,
+			background: 'rgba(0, 0, 0, 0.75)',
+			border: '1px solid transparent',
+			borderRadius: '4px'
+		}}>
+			<ButtonGroup style={{ marginRight: '5px' }} >
+				<OverlayTrigger placement="bottom" overlay={<Tooltip id="open_details">Open Details</Tooltip>}>
+					<Button onClick={this.showDetailsModal}><Glyphicon glyph="cog" /></Button>
+				</OverlayTrigger>
+				<OverlayTrigger placement="bottom" overlay={<Tooltip id="toggle_availability">Toggle Availability</Tooltip>}>
+					<Button onClick={this.toggleLessonState}><Glyphicon glyph="off" /></Button>
+				</OverlayTrigger>
+				<OverlayTrigger placement="bottom" overlay={<Tooltip id="toggle_visibility">Toggle Visibility</Tooltip>}>
+					<Button onClick={this.toggleLessonVisibility}><Glyphicon glyph="lock" /></Button>
+				</OverlayTrigger>
+				<OverlayTrigger placement="bottom" overlay={<Tooltip id="delete_lesson">Delete Lesson</Tooltip>}>
+					<Button onClick={this.showDeleteModal} ><Glyphicon glyph="trash" /></Button>
+				</OverlayTrigger>
+			</ButtonGroup>
+			<FormGroup>
+				<ControlLabel style={{ marginRight: '2px' }}>
+					<Label bsStyle={activeStyle} style={{
+						fontSize: '12px'
+					}}>{this.props.active ? 'Active' : 'Inactive'}</Label>
+				</ControlLabel>
+				<ControlLabel>
+					<Label bsStyle={publicStyle} style={{
+						fontSize: '12px'
+					}}>{this.props.public ? 'Public' : 'Private'}</Label>
+				</ControlLabel>
+			</FormGroup>
+		</ButtonToolbar> );
+	}
+
+	renderModals() {
+		return ( <Fragment>
+			<DeleteModal {...this.props} show={this.state.showDeleteModal} close={this.closeDeleteModal} delete={this.delete} />
+			<DetailsModal {...this.props} show={this.state.showDetailsModal} close={this.closeDetailsModal} update={this.update} />
+		</Fragment> );
+	}
+
+	render() {
 		return (
 			<Panel>
 				<Panel.Body style={{ padding: 0 }}>
@@ -121,48 +171,8 @@ class Lesson extends Component {
 							</span>
 						</div>
 					</div>
-					<ButtonToolbar style={{
-						paddingTop: 5,
-						paddingLeft: 5,
-						paddingRight: 5,
-						position: 'absolute',
-						top: 180,
-						width: '100%',
-						height: '50px',
-						left: 5,
-						background: 'rgba(0, 0, 0, 0.75)',
-						border: '1px solid transparent',
-						borderRadius: '4px'
-					}}>
-						<ButtonGroup style={{ marginRight: '5px' }} >
-							<OverlayTrigger placement="bottom" overlay={<Tooltip id="open_details">Open Details</Tooltip>}>
-								<Button onClick={this.showDetailsModal}><Glyphicon glyph="cog" /></Button>
-							</OverlayTrigger>
-							<OverlayTrigger placement="bottom" overlay={<Tooltip id="toggle_availability">Toggle Availability</Tooltip>}>
-								<Button onClick={this.toggleLessonState}><Glyphicon glyph="off" /></Button>
-							</OverlayTrigger>
-							<OverlayTrigger placement="bottom" overlay={<Tooltip id="toggle_visibility">Toggle Visibility</Tooltip>}>
-								<Button onClick={this.toggleLessonVisibility}><Glyphicon glyph="lock" /></Button>
-							</OverlayTrigger>
-							<OverlayTrigger placement="bottom" overlay={<Tooltip id="delete_lesson">Delete Lesson</Tooltip>}>
-								<Button onClick={this.showDeleteModal} ><Glyphicon glyph="trash" /></Button>
-							</OverlayTrigger>
-						</ButtonGroup>
-						<FormGroup>
-							<ControlLabel style={{ marginRight: '2px' }}>
-								<Label bsStyle={activeStyle} style={{
-									fontSize: '12px'
-								}}>{this.props.active ? 'Active' : 'Inactive'}</Label>
-							</ControlLabel>
-							<ControlLabel>
-								<Label bsStyle={publicStyle} style={{
-									fontSize: '12px'
-								}}>{this.props.public ? 'Public' : 'Private'}</Label>
-							</ControlLabel>
-						</FormGroup>
-					</ButtonToolbar>
-					<DeleteModal {...this.props} show={this.state.showDeleteModal} close={this.closeDeleteModal} delete={this.delete} />
-					<DetailsModal {...this.props} show={this.state.showDetailsModal} close={this.closeDetailsModal} update={this.update} />
+					{this.renderButtonToolbar()}
+					{this.renderModals()}
 				</Panel.Body>
 			</Panel>
 		);
