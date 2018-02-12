@@ -89,8 +89,8 @@ class CoursePage extends Component {
 
 	render() {
 		let { lessons, layouts } = this.state;
-		lessons = lessons.sort( ( a, b ) => {
-			return a.title > b.title;
+		lessons.sort( ( a, b ) => {
+			return a.title.localeCompare( b.title );
 		});
 		if ( !isEmptyArray( lessons ) ) {
 			if ( lessons.length === 0 ) {

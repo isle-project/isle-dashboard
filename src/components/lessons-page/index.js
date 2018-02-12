@@ -119,8 +119,8 @@ class LessonsPage extends Component {
 					<p>The selected course does not contain any lessons. You can upload lessons from the ISLE editor.</p>
 			</Jumbotron>);
 			}
-			lessons = lessons.sort( ( a, b ) => {
-				return a.title > b.title;
+			lessons.sort( ( a, b ) => {
+				return a.title.localeCompare( b.title );
 			});
 			return (
 				<div style={{
