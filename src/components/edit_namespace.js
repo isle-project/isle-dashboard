@@ -64,7 +64,6 @@ class EditNamespace extends Component {
 			if ( this.state.owners === '' ) {
 				return 'Owners field cannot be empty';
 			}
-			console.log( this.state.owners );
 			const owners = this.state.owners.split( ',' );
 			let invalidOwner = false;
 			owners.forEach( owner => {

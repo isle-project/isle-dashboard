@@ -51,7 +51,6 @@ class Lesson extends Component {
 		};
 
 		this.toggleLessonVisibility = () => {
-			console.log( this.props );
 			const query = {
 				lessonName: this.props.title,
 				namespaceName: this.props.namespace,

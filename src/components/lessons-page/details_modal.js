@@ -44,7 +44,6 @@ class DetailsModal extends Component {
 		const value = target.value;
 		const name = target.name;
 		debug( `Input field ${name} changed to ${value}` );
-		console.log( `Input field ${name} changed to ${value}` );
 		this.setState({
 			[ name ]: value
 		}, () => {
