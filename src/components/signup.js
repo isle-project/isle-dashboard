@@ -148,7 +148,7 @@ class Signup extends Component {
 		return (
 			<Fragment>
 				<div className="login">
-					<Panel style={{ boxShadow: '0 0 8px rgba(0,0,0,0.3)', borderRadius: '6px', opacity: 0.98, background: 'rgba(255,255,255,0.75)'}}>
+					<Panel style={{ boxShadow: '0 0 8px rgba(0,0,0,0.3)', borderRadius: '6px', opacity: 0.98, background: 'rgba(255,255,255,0.75)' }}>
 						<PageHeader style={{ textAlign: 'center' }}>ISLE <small>Dashboard</small></PageHeader>
 						<Panel.Body>
 							<Form horizontal>

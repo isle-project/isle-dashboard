@@ -158,7 +158,7 @@ class HeaderBar extends Component {
 	}
 
 	renderSearchField() {
-		return ( <FormGroup style={{ width: '50vw'}}>
+		return ( <FormGroup style={{ width: '50vw' }}>
 			<InputGroup>
 				<FormControl
 					style={{

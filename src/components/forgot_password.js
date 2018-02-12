@@ -40,7 +40,7 @@ class ForgotPassword extends Component {
 	render() {
 		return (
 			<div className="login">
-				<Panel style={{ boxShadow: '0 0 8px rgba(0,0,0,0.3)', borderRadius: '6px', opacity: 0.98, background: 'rgba(255,255,255,0.75)'}}>
+				<Panel style={{ boxShadow: '0 0 8px rgba(0,0,0,0.3)', borderRadius: '6px', opacity: 0.98, background: 'rgba(255,255,255,0.75)' }}>
 					<Panel.Body>
 						<h3>Forgot password?</h3>
 						<Form inline>
