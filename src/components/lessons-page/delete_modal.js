@@ -13,7 +13,7 @@ const DeleteModal = ( props ) => (
 			<Modal.Title>Delete?</Modal.Title>
 		</Modal.Header>
 		<Modal.Body>
-			Are you sure that you want to delete the lesson with the name "{props.title}"?
+			Are you sure that you want to delete the lesson with the name &quot;{props.title}&quot;?
 		</Modal.Body>
 		<Modal.Footer>
 			<Button onClick={props.close}>Cancel</Button>
