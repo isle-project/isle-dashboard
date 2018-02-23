@@ -1,6 +1,6 @@
 // MODULES //
 
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { Jumbotron } from 'react-bootstrap';
 import { Responsive, WidthProvider } from 'react-grid-layout';
@@ -68,11 +68,12 @@ class CoursePage extends Component {
 		const elemH = 2.8;
 		let layouts = lessons.map( ( e, i ) => {
 			return {
-				lg: { i: `cell-${i}`, x: i*4 % 20, y: floor( i / 5 ) * elemH, w: 4, h: elemH },
-				md: { i: `cell-${i}`, x: i*4 % 16, y: floor( i / 4 ) * elemH, w: 4, h: elemH },
-				sm: { i: `cell-${i}`, x: i*4 % 12, y: floor( i / 3 ) * elemH, w: 4, h: elemH },
-				xs: { i: `cell-${i}`, x: i*4 % 8, y: floor( i / 2 ) * elemH, w: 4, h: elemH },
-				xxs: { i: `cell-${i}`, x: i*4 % 8, y: floor( i / 2 ) * elemH, w: 4, h: elemH }
+				lg: { i: `cell-${i}`, x: i*4 % 24, y: floor( i / 6 ) * elemH, w: 4, h: elemH },
+				md: { i: `cell-${i}`, x: i*4 % 20, y: floor( i / 5 ) * elemH, w: 4, h: elemH },
+				sm: { i: `cell-${i}`, x: i*4 % 16, y: floor( i / 4 ) * elemH, w: 4, h: elemH },
+				xs: { i: `cell-${i}`, x: i*4 % 12, y: floor( i / 3 ) * elemH, w: 4, h: elemH },
+				xxs: { i: `cell-${i}`, x: i*4 % 8, y: floor( i / 2 ) * elemH, w: 4, h: elemH },
+				tiny: { i: `cell-${i}`, x: i*4 % 4, y: floor( i / 1 ) * elemH, w: 4, h: elemH }
 			};
 		});
 		layouts = {
@@ -80,11 +81,11 @@ class CoursePage extends Component {
 			md: pluck( layouts, 'md' ),
 			sm: pluck( layouts, 'sm' ),
 			xs: pluck( layouts, 'xs' ),
-			xxs: pluck( layouts, 'xxs' )
+			xxs: pluck( layouts, 'xxs' ),
+			tiny: pluck( layouts, 'tiny' )
+
 		};
-		this.setState({
-			layouts
-		});
+		return layouts;
 	}
 
 	render() {
@@ -100,26 +101,31 @@ class CoursePage extends Component {
 				</Jumbotron>);
 			}
 			return (
-				<div>
+				<Fragment>
 					<h1 style={{ paddingLeft: '20px' }}>{this.props.namespace}</h1>
-					<ResponsiveReactGridLayout
-						layouts={layouts}
-						breakpoints={{ lg: 1200, md: 996, sm: 768, xs: 480, xxs: 0 }}
-						cols={{ lg: 20, md: 16, sm: 12, xs: 8, xxs: 8 }}
-						isResizable={false}
-						isDraggable={false}
-						rowHeight={60}
-					>
-						{lessons.map( ( e, i ) => {
-							return (<div key={`cell-${i}`}>
-								<Lesson
-									{...lessons[ i ]}
-									colorIndex={i}
-								/>
-							</div>);
-						})}
-					</ResponsiveReactGridLayout>
-				</div>
+					<div style={{
+						position: 'relative'
+					}}>
+						<ResponsiveReactGridLayout
+							layouts={layouts}
+							breakpoints={{ lg: 1800, md: 1550, sm: 1200, xs: 900, xxs: 400, tiny: 0 }}
+							cols={{ lg: 24, md: 20, sm: 16, xs: 12, xxs: 8, tiny: 4 }}
+							isResizable={false}
+							isDraggable={false}
+							rowHeight={60}
+						>
+							{lessons.map( ( e, i ) => {
+								return (<div key={`cell-${i}`}>
+									<Lesson
+										{...lessons[ i ]}
+										colorIndex={i % 20}
+										key={i}
+									/>
+								</div>);
+							})}
+						</ResponsiveReactGridLayout>
+					</div>
+				</Fragment>
 			);
 		}
 		return (
