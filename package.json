@@ -57,7 +57,7 @@
     "whatwg-fetch": "2.0.3"
   },
   "dependencies": {
-    "@stdlib/stdlib": "0.0.30",
+    "@stdlib/stdlib": "0.0.33",
     "babel-plugin-add-module-exports": "^0.2.1",
     "babel-plugin-resolver": "^1.1.0",
     "babel-plugin-transform-react-jsx": "^6.24.1",
@@ -68,10 +68,10 @@
     "history": "^4.6.1",
     "lodash.debounce": "^4.0.8",
     "moment": "^2.20.1",
-    "query-string": "^5.0.0",
+    "query-string": "^6.0.0",
     "react": "16.2.0",
     "react-addons-shallow-compare": "^15.5.2",
-    "react-bootstrap": "0.32.0",
+    "react-bootstrap": "0.32.1",
     "react-dates": "^16.0.2",
     "react-dom": "16.2.0",
     "react-grid-layout": "^0.16.2",
@@ -82,7 +82,7 @@
     "react-router-redux": "4.0.8",
     "redux": "^3.6.0",
     "request": "^2.81.0",
-    "victory": "^0.24.5"
+    "victory": "^0.25.7"
   },
   "homepage": "http://isle.heinz.cmu.edu/dashboard",
   "scripts": {
