@@ -7,7 +7,7 @@ import PropTypes from 'prop-types';
 import queryString from 'query-string';
 import request from 'request';
 import server from './../constants/server';
-import './login.css';
+import './login/login.css';
 
 
 // FUNCTIONS //

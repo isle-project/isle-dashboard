@@ -4,7 +4,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import request from 'request';
 import server from './../constants/server';
-import Login from './../components/login.js';
+import Login from './../components/login';
 import * as actions from './../actions';
 
 

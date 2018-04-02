@@ -8,7 +8,7 @@ import {
 } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import debounce from 'lodash.debounce';
-import icon from './../../../public/profile_icon.png';
+import icon from './profile_icon.png';
 import './header_bar.css';
 
 

@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import request from 'request';
 import server from './../constants/server';
-import './login.css';
+import './login/login.css';
 
 
 // MAIN //

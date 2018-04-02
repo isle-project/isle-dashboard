@@ -6,7 +6,7 @@ import { withRouter } from 'react-router';
 import { Link } from 'react-router-dom';
 import request from 'request';
 import server from './../constants/server';
-import './login.css';
+import './login/login.css';
 
 
 // FUNCTIONS //
