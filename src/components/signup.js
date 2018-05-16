@@ -4,6 +4,7 @@ import React, { Component, Fragment } from 'react';
 import { Button, Col, ControlLabel, FormControl, FormGroup, Form, Modal, OverlayTrigger, Overlay, PageHeader, Panel, Popover, Tooltip } from 'react-bootstrap';
 import { withRouter } from 'react-router';
 import { Link } from 'react-router-dom';
+import logger from 'debug';
 import request from 'request';
 import server from './../constants/server';
 import './login/login.css';
@@ -15,9 +16,14 @@ const createTooltip = ( str ) => {
 	return <Tooltip id="tooltip">{str}</Tooltip>;
 };
 
+const extractUserData = ({ name, email, password }) => {
+	return { name, email, password };
+};
+
 
 // VARIABLES //
 
+const debug = logger( 'isle-dashboard:signup' );
 const MsgModal = withRouter( ( props ) => (
 	<Modal show={props.show}>
 		<Modal.Header>
@@ -62,26 +68,27 @@ class Signup extends Component {
 				this.getPasswordValidationState() === 'success'
 			) {
 				request.post( server+'/create_user', {
-					form: this.state
+					form: extractUserData( this.state )
 				}, ( err, res ) => {
-					if ( !err ) {
-						if ( res.statusCode !== 200 ) {
-							return this.setState({
-								message: res.body,
-								successful: false,
-								showModal: true
-							});
-						}
-						const body = JSON.parse( res.body );
+					if ( err ) {
+						debug( 'Encountered an error: ' + err.message );
 						return this.setState({
-							message: body.message,
-							successful: true,
+							message: 'The server appears to be down. Please try again later.',
+							successful: false,
 							showModal: true
 						});
 					}
-					this.setState({
-						message: 'The server appears to be down. Please try again later.',
-						successful: false,
+					if ( res.statusCode !== 200 ) {
+						return this.setState({
+							message: res.body,
+							successful: false,
+							showModal: true
+						});
+					}
+					const body = JSON.parse( res.body );
+					return this.setState({
+						message: body.message,
+						successful: true,
 						showModal: true
 					});
 				});
@@ -212,7 +219,7 @@ class Signup extends Component {
 									</FormGroup>
 								</OverlayTrigger>
 								<FormGroup
-									controlId="formHorizontalPassword"
+									controlId="formHorizontalPasswordConfirmation"
 									validationState={this.getPasswordValidationState()}
 								>
 									<Col componentClass={ControlLabel} sm={2}>
