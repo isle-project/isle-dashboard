@@ -3,6 +3,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import NotificationSystem from 'react-notification-system';
+import PropTypes from 'prop-types';
 
 
 // VARIABLES //
@@ -23,8 +24,9 @@ class NotificationContainer extends Component {
 		super( props );
 	}
 
-	componentWillReceiveProps( newProps ) {
-		const { message, level, position } = newProps.notification;
+	componentDidUpdate() {
+		const notification = this.props.notification;
+		const { message, level, position } = notification;
 		this.notificationSystem.addNotification({
 			message,
 			position,
@@ -43,6 +45,10 @@ class NotificationContainer extends Component {
 		);
 	}
 }
+
+NotificationContainer.propTypes = {
+	notification: PropTypes.object.isRequired
+};
 
 function mapStateToProps( state ) {
 	return {

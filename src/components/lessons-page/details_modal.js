@@ -27,14 +27,14 @@ class DetailsModal extends Component {
 		};
 	}
 
-	componentWillReceiveProps( nextProps ) {
+	componentDidUpdate( prevProps ) {
 		if (
-			this.props.title !== nextProps.title ||
-			this.props.description !== nextProps.description
+			prevProps.title !== this.props.title ||
+			prevProps.description !== this.props.description
 		) {
 			this.setState({
-				title: nextProps.title,
-				description: nextProps.description
+				title: this.props.title,
+				description: this.props.description
 			});
 		}
 	}

@@ -34,12 +34,12 @@ class Gallery extends Component {
 		props.findPublicLessons();
 	}
 
-	componentWillReceiveProps( nextProps ) {
+	componentDidUpdate( prevProps ) {
 		if (
-			nextProps.gallery.lessons !== this.props.gallery.lessons
+			this.props.gallery.lessons !== prevProps.gallery.lessons
 		) {
-			const lessons = nextProps.gallery.lessons || [];
-			const filteredLessons = this.searchLessons( lessons, this.props.search.phrase );
+			const lessons = this.props.gallery.lessons || [];
+			const filteredLessons = this.searchLessons( lessons, prevProps.search.phrase );
 			const layouts = this.createLayout( filteredLessons );
 			this.setState({
 				filteredLessons,
@@ -47,10 +47,10 @@ class Gallery extends Component {
 			});
 		}
 		if (
-			nextProps.search.phrase !== this.props.search.phrase
+			this.props.search.phrase !== prevProps.search.phrase
 		) {
-			const lessons = this.props.gallery.lessons || [];
-			const filteredLessons = this.searchLessons( lessons, nextProps.search.phrase );
+			const lessons = prevProps.gallery.lessons || [];
+			const filteredLessons = this.searchLessons( lessons, this.props.search.phrase );
 			const layouts = this.createLayout( filteredLessons );
 			this.setState({
 				filteredLessons,

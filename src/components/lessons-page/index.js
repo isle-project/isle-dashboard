@@ -33,17 +33,17 @@ class LessonsPage extends Component {
 		props.getLessons( props.namespace.title );
 	}
 
-	componentWillReceiveProps( nextProps ) {
+	componentDidUpdate( prevProps ) {
 		if (
-			nextProps.namespace.title !== this.props.namespace.title
+			this.props.namespace.title !== prevProps.namespace.title
 		) {
-			this.props.getLessons( nextProps.namespace.title );
+			prevProps.getLessons( this.props.namespace.title );
 		}
 		if (
-			nextProps.namespace.lessons !== this.props.namespace.lessons
+			this.props.namespace.lessons !== prevProps.namespace.lessons
 		) {
-			const lessons = nextProps.namespace.lessons || [];
-			const filteredLessons = this.searchLessons( lessons, this.props.search.phrase );
+			const lessons = this.props.namespace.lessons || [];
+			const filteredLessons = this.searchLessons( lessons, prevProps.search.phrase );
 			const layouts = this.createLayout( filteredLessons );
 			this.setState({
 				filteredLessons,
@@ -51,10 +51,10 @@ class LessonsPage extends Component {
 			});
 		}
 		if (
-			nextProps.search.phrase !== this.props.search.phrase
+			this.props.search.phrase !== prevProps.search.phrase
 		) {
-			const lessons = nextProps.namespace.lessons || [];
-			const filteredLessons = this.searchLessons( lessons, nextProps.search.phrase );
+			const lessons = this.props.namespace.lessons || [];
+			const filteredLessons = this.searchLessons( lessons, this.props.search.phrase );
 			const layouts = this.createLayout( filteredLessons );
 			this.setState({
 				filteredLessons,
