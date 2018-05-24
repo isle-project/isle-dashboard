@@ -83,12 +83,14 @@
     "react-router-redux": "4.0.8",
     "redux": "^3.6.0",
     "request": "^2.86.0",
+    "source-map-explorer": "^1.5.0",
     "sw-precache-webpack-plugin": "^0.11.5",
     "victory": "^0.26.0",
     "webpack-manifest-plugin": "^2.0.2"
   },
   "homepage": "http://isle.heinz.cmu.edu/dashboard",
   "scripts": {
+    "analyze": "source-map-explorer build/static/js/main.*",
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
     "lint": "eslint src test *.js",
