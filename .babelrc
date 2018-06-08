@@ -24,7 +24,8 @@
                             "node_modules/@stdlib/stdlib/lib/node_modules"
                         ]
                     }
-                ]
+                ],
+                "css-modules-transform"
             ]
         }
     }
