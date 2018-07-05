@@ -4,6 +4,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import ReactTable from 'react-table';
 import contains from '@stdlib/assert/contains';
+import server from './../../constants/server';
 import 'react-table/react-table.css';
 import './react_table_height.css';
 
@@ -53,7 +54,7 @@ const FILE_COLUMNS = [
 		Header: 'Access',
 		accessor: 'filename',
 		Cell: ( row ) => {
-			return ( <a href={row.value} target="_blank">
+			return ( <a href={server+'/'+row.value} target="_blank">
 				Open
 			</a> );
 		},
