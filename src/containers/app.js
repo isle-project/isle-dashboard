@@ -15,6 +15,7 @@ import VisibleEnterToken from './visible_enter_token.js';
 import VisibleForgotPassword from './visible_forgot_password.js';
 import VisibleCreateNamespace from './visible_create_namespace.js';
 import VisibleEditNamespace from './visible_edit_namespace.js';
+import VisibleNamespaceData from './visible_namespace_data.js';
 import VisibleGallery from './visible_gallery.js';
 import VisibleLessonsPage from './visible_lessons_page.js';
 import VisibleProfilePage from './visible_profile_page.js';
@@ -81,6 +82,10 @@ class App extends Component {
 					<Route
 						path="/edit-namespace"
 						component={VisibleEditNamespace}
+					/>
+					<Route
+						path="/namespace-data"
+						component={VisibleNamespaceData}
 					/>
 					<Route
 						path="/enter-token"

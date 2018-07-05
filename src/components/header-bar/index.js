@@ -16,6 +16,7 @@ import './header_bar.css';
 
 const createCourseTooltip = <Tooltip id="new_course">Create a new course</Tooltip>;
 const editCourseTooltip = <Tooltip id="edit_course">Edit course</Tooltip>;
+const courseDataTooltip = <Tooltip id="course_data">Course Data</Tooltip>;
 const galleryTooltip = <Tooltip id="open_gallery">Open gallery</Tooltip>;
 const selectCourseTooltip = <Tooltip id="select_course">Select course</Tooltip>;
 
@@ -63,8 +64,15 @@ class HeaderBar extends Component {
 		});
 	}
 
-	goToCoursePage() {
+	goToCourseEditPage() {
 		this.props.history.replace( '/edit-namespace' );
+		this.setState({
+			location: 'Dashboard'
+		});
+	}
+
+	goToCourseDataPage() {
+		this.props.history.replace( '/namespace-data' );
 		this.setState({
 			location: 'Dashboard'
 		});
@@ -106,10 +114,24 @@ class HeaderBar extends Component {
 			<OverlayTrigger placement="bottom" overlay={editCourseTooltip}>
 				<Button
 					style={{ float: 'left', marginRight: '6px' }}
-					onClick={this.goToCoursePage.bind( this )}
+					onClick={this.goToCourseEditPage.bind( this )}
 					disabled={!this.props.namespace.title}
 				>
 					<Glyphicon glyph="edit" />
+				</Button>
+			</OverlayTrigger>
+		);
+	}
+
+	renderDataButton() {
+		return (
+			<OverlayTrigger placement="bottom" overlay={courseDataTooltip}>
+				<Button
+					style={{ float: 'left', marginRight: '6px' }}
+					onClick={this.goToCourseDataPage.bind( this )}
+					disabled={!this.props.namespace.title}
+				>
+					<Glyphicon glyph="stats" />
 				</Button>
 			</OverlayTrigger>
 		);
@@ -195,6 +217,7 @@ class HeaderBar extends Component {
 						{namespacePopover( this.props.user.namespaces, this.namespaceClickFactory.bind( this ) )}
 					</Overlay>
 					{this.renderEditButton()}
+					{this.renderDataButton()}
 					{this.renderCreateButton()}
 					{this.renderSearchField()}
 				</div>
