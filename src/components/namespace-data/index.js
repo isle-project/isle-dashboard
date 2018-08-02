@@ -38,7 +38,6 @@ class NamespaceData extends Component {
 					}
 					return file;
 				});
-				console.log( files );
 				this.setState({
 					activePage: selectedKey,
 					files: files
