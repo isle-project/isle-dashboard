@@ -314,7 +314,8 @@
   },
   "plugins": [
     "import",
-    "react"
+    "react",
+    "jest"
   ],
   "settings": {
     "import/external-module-folders": [ "node_modules" ],
