@@ -6,6 +6,7 @@
     "autoprefixer": "8.6.5",
     "babel-core": "6.26.3",
     "babel-eslint": "8.2.6",
+    "babel-jest": "^23.4.2",
     "babel-loader": "7.1.5",
     "babel-plugin-css-modules-transform": "^1.6.1",
     "babel-plugin-transform-async-to-generator": "^6.24.1",
@@ -39,6 +40,8 @@
     "html-webpack-plugin": "3.2.0",
     "http-proxy-middleware": "0.18.0",
     "istanbul": "^1.1.0-alpha.1",
+    "jest": "^23.4.2",
+    "jest-cli": "^23.4.2",
     "jsdom": "^11.11.0",
     "json-loader": "0.5.7",
     "object-assign": "4.1.1",
@@ -50,8 +53,6 @@
     "rimraf": "2.6.2",
     "strip-ansi": "4.0.0",
     "style-loader": "0.21.0",
-    "tap-spec": "^5.0.0",
-    "tape": "^4.9.1",
     "url-loader": "1.0.1",
     "webpack": "3.10.0",
     "webpack-dev-server": "2.11.0",
@@ -95,12 +96,15 @@
     "analyze": "source-map-explorer build/static/js/main.*",
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
+    "clean": "rm -rf ./node_modules",
     "lint": "eslint src/**/*.js test/**/*.js",
-    "coverage": "cross-env NODE_ENV=test BABEL_DISABLE_CACHE=1 istanbul cover --dir ./reports/codecov/coverage --report lcovonly tape -- -r babel-register test/setup.js test/**/*.spec.js && cat ./reports/codecov/coverage/lcov.info | codecov && rm -rf ./reports/codecov",
-    "ftest": "cross-env NODE_ENV=test BABEL_DISABLE_CACHE=1 tape -r babel-register test/setup.js test/**/${TEST:-*}.spec.js | tap-spec",
-    "test": "cross-env NODE_ENV=test BABEL_DISABLE_CACHE=1 tape -r babel-register test/setup.js test/**/*.spec.js | tap-spec",
-    "test-cov": "cross-env NODE_ENV=test BABEL_DISABLE_CACHE=1 istanbul cover --dir ./reports/coverage --report lcov tape -- -r babel-register test/setup.js test/**/*.spec.js",
-    "view-cov": "xdg-open ./reports/coverage/lcov-report/index.html"
+    "test": "jest",
+    "coverage": "jest && codecov"
+  },
+  "jest": {
+    "coverageDirectory": "./coverage/",
+    "collectCoverage": true,
+    "testURL": "http://localhost/"
   },
   "babel": {
     "presets": [

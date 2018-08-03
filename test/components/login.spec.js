@@ -1,16 +1,23 @@
 // MODULES //
 
-import test from 'tape';
 import React from 'react';
-import { shallow } from 'enzyme';
+import Enzyme, { shallow } from 'enzyme';
+import Adapter from 'enzyme-adapter-react-16';
+import noop from '@stdlib/utils/noop';
 import Login from './../../src/components/login';
+
+
+// VARIABLES //
+
+Enzyme.configure({ adapter: new Adapter() });
 
 
 // TESTS //
 
-test( 'the component renders a div element of class `.login`', t => {
-	const wrapper = shallow( <Login></Login> );
-	const div = wrapper.find( '.login' );
-	t.strictEqual( div.length, 1, 'returns one element' );
-	t.end();
+describe( '<Login />', function test() {
+	const wrapper = shallow( <Login handleLogin={noop} ></Login> );
+	it('should render without throwing an error', () => {
+		const div = wrapper.find( '.login' );
+		expect( div.length ).toBe( 1 );
+	});
 });
