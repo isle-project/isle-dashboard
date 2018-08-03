@@ -19,13 +19,14 @@
                 "transform-es2015-modules-commonjs",
                 "css-modules-transform",
                 [
-                    "module-resolver", {
-                      "root": [
-                          "app",
-                          "node_modules/@stdlib/stdlib/lib/node_modules"
+                    "resolver", {
+                        "resolveDirs": [
+                            "src",
+                            "node_modules/@stdlib/stdlib/lib/node_modules"
                         ]
                     }
                 ],
+                "transform-es2015-modules-commonjs",
                 "css-modules-transform"
             ]
         }
