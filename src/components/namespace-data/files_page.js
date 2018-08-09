@@ -4,6 +4,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import ReactTable from 'react-table';
 import contains from '@stdlib/assert/contains';
+import lowercase from '@stdlib/string/lowercase';
 import server from './../../constants/server';
 import 'react-table/react-table.css';
 import './react_table_height.css';
@@ -26,9 +27,20 @@ const FILE_COLUMNS = [
 		}
 	},
 	{
-		Header: 'User',
-		accessor: 'user',
-		maxWidth: 160
+		Header: 'Name',
+		accessor: 'name',
+		maxWidth: 160,
+		filterMethod: ( filter, row ) => {
+			return contains( lowercase( row[ filter.id ] ), lowercase( filter.value ) );
+		}
+	},
+	{
+		Header: 'Email',
+		accessor: 'email',
+		maxWidth: 160,
+		filterMethod: ( filter, row ) => {
+			return row[ filter.id ].startsWith( filter.value );
+		}
 	},
 	{
 		Header: 'Type',
@@ -42,7 +54,8 @@ const FILE_COLUMNS = [
 		accessor: 'updatedAt',
 		Cell: ( row ) => {
 			return row.value.toLocaleDateString( 'en-US' );
-		}
+		},
+		maxWidth: 120
 	},
 	{
 		Header: 'Filename',
