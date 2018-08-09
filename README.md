@@ -33,7 +33,7 @@ scp -r build/* <user>@<homepage>:<dirpath>
 [dev-dependencies-image]: https://img.shields.io/david/dev/planeshifter/isle-dashboard/master.svg
 [dev-dependencies-url]: https://david-dm.org/planeshifter/isle-dashboard/master#info=devDependencies
 
-[docs]: http://isledocs.philipp-burckhardt.com/
+[docs]: http://isledocs.com/
 
 #### Credits
 
