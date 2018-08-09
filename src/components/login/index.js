@@ -95,6 +95,7 @@ class Login extends Component {
 									<FormControl
 										name="email"
 										type="email"
+										autoComplete="isle-email"
 										placeholder="Email"
 										onChange={this.handleInputChange}
 										ref={( input ) => { this.emailInput = input; }}
@@ -109,6 +110,7 @@ class Login extends Component {
 									<FormControl
 										name="password"
 										type="password"
+										autoComplete="isle-password"
 										placeholder="Password"
 										onChange={this.handleInputChange}
 										ref={( input ) => { this.passwordInput = input; }}
