@@ -3,6 +3,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import ReactTable from 'react-table';
+import ControlLabel from 'react-bootstrap/lib/ControlLabel';
+import FormControl from 'react-bootstrap/lib/FormControl';
+import FormGroup from 'react-bootstrap/lib/FormGroup';
+import Label from 'react-bootstrap/lib/Label';
 import contains from '@stdlib/assert/contains';
 import lowercase from '@stdlib/string/lowercase';
 import server from './../../constants/server';
@@ -18,6 +22,9 @@ const FILE_COLUMNS = [
 		accessor: 'lesson',
 		maxWidth: 160,
 		Cell: ( row ) => {
+			if ( !row.row.lesson ) {
+				return <span>no lesson</span>;
+			}
 			return ( <a href={row.row.lesson.url} target="_blank">
 				{row.row.lesson.title}
 			</a> );
@@ -82,7 +89,19 @@ const FILE_COLUMNS = [
 class FilesPage extends Component {
 	render() {
 		return ( <div className="namespace-data-page">
-			<h1>Files</h1>
+			<h1 style={{ display: 'inline-block' }}>Files</h1>
+			<FormGroup style={{ display: 'inline-block', marginLeft: '20px', marginBottom: '0px' }}>
+					<ControlLabel htmlFor="fileUpload" style={{ cursor: 'pointer' }}>
+						<h3><Label bsStyle="success">Upload file</Label></h3>
+						<FormControl
+							id="fileUpload"
+							type="file"
+							accept=".pdf"
+							onChange={this.props.handleUpload}
+							style={{ display: 'none' }}
+						/>
+					</ControlLabel>
+			</FormGroup>
 			<ReactTable
 				filterable
 				data={this.props.files}
@@ -96,7 +115,8 @@ class FilesPage extends Component {
 // PROPERTY TYPES //
 
 FilesPage.propTypes = {
-	files: PropTypes.array.isRequired
+	files: PropTypes.array.isRequired,
+	handleUpload: PropTypes.func.isRequired
 };
 
 FilesPage.defaultProps = {

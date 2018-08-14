@@ -44,6 +44,33 @@ function mapDispatchToProps( dispatch ) {
 		},
 		addNotification: ({ message, level }) => {
 			dispatch( actions.addNotification({ message, level }) );
+		},
+		uploadFile: ({ token, formData }) => {
+			const xhr = new XMLHttpRequest();
+			xhr.open( 'POST', server+'/upload_file', true );
+			xhr.setRequestHeader( 'Authorization', 'JWT ' + token );
+			xhr.onreadystatechange = () => {
+				if ( xhr.readyState === XMLHttpRequest.DONE ) {
+					let message;
+					let level;
+					let body;
+					if ( xhr.status === 200 ) {
+						body = JSON.parse( xhr.responseText );
+						message = body.message;
+						level = 'success';
+					} else {
+						message = xhr.responseText;
+						level = 'error';
+					}
+					return dispatch( actions.addNotification({
+						title: 'File Upload',
+						message,
+						level,
+						position: 'tl'
+					}) );
+				}
+			};
+			xhr.send( formData );
 		}
 	};
 }

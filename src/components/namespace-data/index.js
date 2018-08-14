@@ -21,6 +21,18 @@ class NamespaceData extends Component {
 		};
 	}
 
+	handleUpload = ( event ) => {
+		console.log( 'Uploading file...' );
+		const file = event.target.files[ 0 ];
+		const formData = new FormData();
+		formData.append( 'file', file );
+		formData.append( 'namespaceName', this.props.namespace.title );
+		this.props.uploadFile({
+			token: this.props.user.token,
+			formData: formData
+		});
+	}
+
 	handleSelect = ( selectedKey ) => {
 		if ( selectedKey === 4 ) {
 			this.props.getFiles({
@@ -63,7 +75,7 @@ class NamespaceData extends Component {
 			case 2:
 				return <StatisticsPage />;
 			case 4:
-				return <FilesPage files={this.state.files} />;
+				return <FilesPage files={this.state.files} handleUpload={this.handleUpload} />;
 		}
 	}
 
@@ -72,7 +84,7 @@ class NamespaceData extends Component {
 		return (
 			<div className="namespace-data-div">
 				<div className="namespace-data-navbar">
-					<Nav NamebsStyle="pills" stacked activeKey={1} onSelect={this.handleSelect}>
+					<Nav bsStyle="pills" stacked activeKey={1} onSelect={this.handleSelect}>
 						<NavItem eventKey={1} title="Recent Activity">
 							Recent Activity
 						</NavItem>
@@ -101,6 +113,7 @@ class NamespaceData extends Component {
 NamespaceData.propTypes = {
 	getFiles: PropTypes.func.isRequired,
 	namespace: PropTypes.object.isRequired,
+	uploadFile: PropTypes.func.isRequired,
 	user: PropTypes.object.isRequired
 };
 
