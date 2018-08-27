@@ -111,6 +111,14 @@ class LessonsPage extends Component {
 	}
 
 	render() {
+		if ( !this.props.namespace.title ) {
+			return (
+				<Jumbotron style={{ position: 'relative', top: 70, textAlign: 'left', paddingLeft: 20 }}>
+				<h1>No Course Selected</h1>
+				<p>Open an existing course by selecting one from the dropdown menu above at <Glyphicon glyph="align-justify" /> or create a new one under <Glyphicon glyph="pencil" />.</p>
+			</Jumbotron>
+			);
+		}
 		let lessons = this.state.filteredLessons;
 		if ( isArray( lessons ) ) {
 			if ( lessons.length === 0 ) {
@@ -156,12 +164,6 @@ class LessonsPage extends Component {
 				</div>
 			);
 		}
-		return (
-			<Jumbotron style={{ position: 'relative', top: 70, textAlign: 'left', paddingLeft: 20 }}>
-				<h1>No Course Selected</h1>
-				<p>Open an existing course by selecting one from the dropdown menu above at <Glyphicon glyph="align-justify" /> or create a new one under <Glyphicon glyph="pencil" />.</p>
-			</Jumbotron>
-		);
 	}
 }
 
