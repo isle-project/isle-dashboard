@@ -3,10 +3,16 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Nav, NavItem } from 'react-bootstrap';
+import logger from 'debug';
 import FilesPage from './files_page.js';
 import RecentActivityPage from './recent_activity_page.js';
 import StatisticsPage from './statistics_page.js';
 import './namespace_data.css';
+
+
+// VARIABLES //
+
+const debug = logger( 'isle-dashboard:namespace-data' );
 
 
 // MAIN //
@@ -22,7 +28,7 @@ class NamespaceData extends Component {
 	}
 
 	handleUpload = ( event ) => {
-		console.log( 'Uploading file...' );
+		debug( 'Uploading file...' );
 		const file = event.target.files[ 0 ];
 		const formData = new FormData();
 		formData.append( 'file', file );
