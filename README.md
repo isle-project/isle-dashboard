@@ -38,7 +38,7 @@ See [LICENSE][license].
 
 - User Icon by Atacan from the Noun Project
 
-[license]: https://raw.githubusercontent.com/Planeshifter/isle-dashboard/master/LICENSE.md
+[license]: https://raw.githubusercontent.com/Planeshifter/isle-dashboard/master/LICENSE
 
 [dependencies-image]: https://img.shields.io/david/planeshifter/isle-dashboard/master.svg
 [dependencies-url]: https://david-dm.org/planeshifter/isle-dashboard/master
