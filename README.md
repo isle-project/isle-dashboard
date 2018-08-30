@@ -11,7 +11,10 @@
 
 ## Introduction
 
-An online dashboard used to deploy, organize and monitor *interactive statistics learning environment* (ISLE) lessons.
+An online dashboard used to deploy, organize and monitor *integrated statistics learning environment* (ISLE) lessons. Other parts of the ISLE environment are: 
+
+-   the [isle-editor][isle-editor] is used to author ISLE lessons
+-   the [isle-server][isle-server] is the server program responsible for user management and data storage
 
 #### [Open Documentation][docs]
 
@@ -27,6 +30,10 @@ Deploy the bundled page by copying to the correct path on your server. From the 
 scp -r build/* <user>@<homepage>:<dirpath>
 ```
 
+#### Credits
+
+- User Icon by Atacan from the Noun Project
+
 [dependencies-image]: https://img.shields.io/david/planeshifter/isle-dashboard/master.svg
 [dependencies-url]: https://david-dm.org/planeshifter/isle-dashboard/master
 
@@ -34,7 +41,5 @@ scp -r build/* <user>@<homepage>:<dirpath>
 [dev-dependencies-url]: https://david-dm.org/planeshifter/isle-dashboard/master#info=devDependencies
 
 [docs]: http://isledocs.com/
-
-#### Credits
-
-- User Icon by Atacan from the Noun Project
+[isle-server]: https://github.com/Planeshifter/isle-server
+[isle-editor]: https://github.com/Planeshifter/isle-editor
