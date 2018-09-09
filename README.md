@@ -30,9 +30,15 @@ Deploy the bundled page by copying to the correct path on your server. From the 
 scp -r build/* <user>@<homepage>:<dirpath>
 ```
 
+#### License
+
+See [LICENSE][license].
+
 #### Credits
 
 - User Icon by Atacan from the Noun Project
+
+[license]: https://raw.githubusercontent.com/Planeshifter/isle-dashboard/master/LICENSE
 
 [dependencies-image]: https://img.shields.io/david/planeshifter/isle-dashboard/master.svg
 [dependencies-url]: https://david-dm.org/planeshifter/isle-dashboard/master
