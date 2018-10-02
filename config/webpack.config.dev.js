@@ -30,7 +30,6 @@ const env = getClientEnvironment(publicUrl);
 const cssRegex = /\.css$/;
 const cssModuleRegex = /\.module\.css$/;
 
-
 // common function to get style loaders
 const getStyleLoaders = (cssOptions, preProcessor) => {
 	const loaders = [
@@ -126,8 +125,8 @@ module.exports = {
 		// We placed these paths second because we want `node_modules` to "win"
 		// if there are any conflicts. This matches Node resolution mechanism.
 		// https://github.com/facebook/create-react-app/issues/253
-		modules: [ 
-			'node_modules', 
+		modules: [
+			'node_modules',
 			resolve( './node_modules/@stdlib/stdlib/lib/node_modules' ),
 			paths.appSrc
 		].concat(
