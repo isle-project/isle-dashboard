@@ -51,6 +51,7 @@
     "@babel/plugin-proposal-class-properties": "^7.1.0",
     "@stdlib/stdlib": "0.0.43",
     "babel-plugin-add-module-exports": "^1.0.0",
+    "babel-plugin-module-resolver": "^3.1.1",
     "babel-plugin-named-asset-import": "^0.2.2",
     "babel-plugin-transform-react-jsx": "^6.24.1",
     "debug": "^4.0.1",
