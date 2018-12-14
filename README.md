@@ -7,7 +7,7 @@
 #### Tests
 
 [![Build Status](https://travis-ci.org/Planeshifter/isle-dashboard.svg?branch=master)](https://travis-ci.org/Planeshifter/isle-dashboard)
-[![codecov](https://codecov.io/gh/Planeshifter/isle-dashboard/branch/master/graph/badge.svg)](https://codecov.io/gh/Planeshifter/isle-dashboard)
+[![codecov](https://codecov.io/gh/Planeshifter/isle-dashboard/branch/master/graph/badge.svg)](https://codecov.io/gh/Planeshifter/isle-dashboard) [![Greenkeeper badge](https://badges.greenkeeper.io/Planeshifter/isle-dashboard.svg)](https://greenkeeper.io/)
 
 ## Introduction
 
