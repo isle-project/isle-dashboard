@@ -68,7 +68,7 @@
     "postcss-preset-env": "^6.0.8",
     "prop-types": "^15.6.2",
     "query-string": "^6.1.0",
-    "react": "16.6.3",
+    "react": "16.7.0",
     "react-bootstrap": "0.32.4",
     "react-dates": "^18.0.1",
     "react-dom": "16.6.3",
