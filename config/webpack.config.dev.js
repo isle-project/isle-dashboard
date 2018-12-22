@@ -29,8 +29,7 @@ const env = getClientEnvironment(publicUrl);
 // style files regexes
 const cssRegex = /\.css$/;
 const cssModuleRegex = /\.module\.css$/;
-const sassRegex = /\.(scss|sass)$/;
-const sassModuleRegex = /\.module\.(scss|sass)$/;
+
 
 // common function to get style loaders
 const getStyleLoaders = (cssOptions, preProcessor) => {
@@ -279,39 +278,6 @@ module.exports = {
 							importLoaders: 1,
 						}),
 					},
-					// Adds support for CSS Modules (https://github.com/css-modules/css-modules)
-					// using the extension .module.css
-					{
-						test: cssModuleRegex,
-						use: getStyleLoaders({
-							importLoaders: 1,
-							modules: true,
-							getLocalIdent: getCSSModuleLocalIdent,
-						}),
-					},
-					// Opt-in support for SASS (using .scss or .sass extensions).
-					// Chains the sass-loader with the css-loader and the style-loader
-					// to immediately apply all styles to the DOM.
-					// By default we support SASS Modules with the
-					// extensions .module.scss or .module.sass
-					{
-						test: sassRegex,
-						exclude: sassModuleRegex,
-						use: getStyleLoaders({ importLoaders: 2 }, 'sass-loader'),
-					},
-					// Adds support for CSS Modules, but using SASS
-					// using the extension .module.scss or .module.sass
-					{
-						test: sassModuleRegex,
-						use: getStyleLoaders(
-							{
-								importLoaders: 2,
-								modules: true,
-								getLocalIdent: getCSSModuleLocalIdent,
-							},
-							'sass-loader'
-						),
-					},
 					// "file" loader makes sure those assets get served by WebpackDevServer.
 					// When you `import` an asset, you get its (virtual) filename.
 					// In production, they would get copied to the `build` folder.
@@ -322,7 +288,7 @@ module.exports = {
 						// its runtime that would otherwise be processed through "file" loader.
 						// Also exclude `html` and `json` extensions so they get processed
 						// by webpacks internal loaders.
-						exclude: [/\.(js|jsx)$/, /\.html$/, /\.json$/],
+						exclude: [/\.(js|jsx)$/, /\.html$/, /\.json$/, /\.css$/],
 						loader: require.resolve('file-loader'),
 						options: {
 							name: 'static/media/[name].[hash:8].[ext]',
