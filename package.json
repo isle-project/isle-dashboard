@@ -44,7 +44,7 @@
     "pnp-webpack-plugin": "^1.1.0",
     "postcss-loader": "3.0.0",
     "postcss-safe-parser": "^4.0.1",
-    "react-dev-utils": "6.1.1",
+    "react-dev-utils": "7.0.0",
     "style-loader": "0.23.1",
     "terser-webpack-plugin": "^1.1.0",
     "url-loader": "1.1.2",
