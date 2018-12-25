@@ -8,7 +8,8 @@ import * as types from './../constants/action_types.js';
 const initialState = {
 	message: '',
 	level: '',
-	position: 'tl'
+	position: 'tl',
+	time: null
 };
 
 
@@ -19,7 +20,8 @@ export default function namespace( state = initialState, action ) {
 	case types.ADD_NOTIFICATION:
 		return Object.assign({}, state, {
 			message: action.payload.message,
-			level: action.payload.level
+			level: action.payload.level,
+			time: new Date()
 		});
 	default:
 		return state;

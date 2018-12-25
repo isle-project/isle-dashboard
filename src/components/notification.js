@@ -24,10 +24,12 @@ class NotificationContainer extends Component {
 		super( props );
 	}
 
-	componentDidUpdate() {
+	componentDidUpdate( prevProps, prevState ) {
 		const notification = this.props.notification;
+		const prevNotification = prevProps.notification;
 		const { message, level, position } = notification;
-		if ( message && level ) {
+
+		if ( prevNotification.time !== notification.time ) {
 			this.notificationSystem.addNotification({
 				message,
 				position,
