@@ -27,11 +27,13 @@ class NotificationContainer extends Component {
 	componentDidUpdate() {
 		const notification = this.props.notification;
 		const { message, level, position } = notification;
-		this.notificationSystem.addNotification({
-			message,
-			position,
-			level
-		});
+		if ( message && level ) {
+			this.notificationSystem.addNotification({
+				message,
+				position,
+				level
+			});
+		}
 	}
 
 	render() {
