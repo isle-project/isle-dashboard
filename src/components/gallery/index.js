@@ -130,6 +130,7 @@ class Gallery extends Component {
 								userNamespaces={this.props.user.namespaces}
 								token={this.props.user.token}
 								copyLesson={this.props.copyLesson}
+								getIsleFile={this.props.getIsleFile}
 								key={i}
 								colorIndex={i % 20}
 							/>
@@ -148,6 +149,7 @@ Gallery.propTypes = {
 	copyLesson: PropTypes.func.isRequired,
 	findPublicLessons: PropTypes.func.isRequired,
 	gallery: PropTypes.object.isRequired,
+	getIsleFile: PropTypes.func.isRequired,
 	search: PropTypes.object.isRequired,
 	user: PropTypes.object.isRequired
 };

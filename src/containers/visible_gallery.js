@@ -68,6 +68,30 @@ function mapDispatchToProps( dispatch ) {
 				});
 				dispatch( actions.retrievedPublicLessons( lessons ) );
 			});
+		},
+		getIsleFile: ({ lessonName, namespaceName, token, callback }) => {
+			request.get( server+'/get_isle_file', {
+				qs: {
+					lessonName,
+					namespaceName
+				},
+				headers: {
+					'Authorization': 'JWT ' + token
+				}
+			}, function onResponse( error, response, body ) {
+				if ( error ) {
+					dispatch( actions.addNotification({
+						message: error.message,
+						level: 'error'
+					}) );
+					return callback( error );
+				}
+				callback( null, body );
+				dispatch( actions.addNotification({
+					message: 'Source code has been copied to the clipboard',
+					level: 'success'
+				}) );
+			});
 		}
 	};
 }

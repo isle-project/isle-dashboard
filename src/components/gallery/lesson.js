@@ -2,12 +2,13 @@
 
 import React, { Component } from 'react';
 import {
-	ButtonToolbar, ButtonGroup, Button, Panel
+	ButtonToolbar, ButtonGroup, Button, Panel, OverlayTrigger, Tooltip
 } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import ImportModal from './import_modal.js';
 import './../image.css';
 import COLORS from './../../constants/colors';
+import copyToClipboard from 'clipboard-copy';
 
 
 // MAIN //
@@ -40,6 +41,17 @@ class Lesson extends Component {
 		/> );
 	}
 
+	getIsleFile = () => {
+		this.props.getIsleFile({
+			lessonName: this.props.title,
+			namespaceName: this.props.namespace,
+			token: this.props.token,
+			callback( err, body ) {
+				copyToClipboard( body);
+			}
+		});
+	}
+
 	render() {
 		return (
 			<Panel>
@@ -69,7 +81,12 @@ class Lesson extends Component {
 					</div>
 					<ButtonToolbar>
 						<ButtonGroup style={{ marginTop: '8px' }}>
-							<Button onClick={this.showImportModal}>Import</Button>
+							<OverlayTrigger placement="bottom" overlay={<Tooltip id="ImportFile">Import lesson to own course</Tooltip>}>
+								<Button onClick={this.showImportModal}>Import</Button>
+							</OverlayTrigger>
+							<OverlayTrigger placement="bottom" overlay={<Tooltip id="IsleFile">Copy ISLE file to clipboard</Tooltip>}>
+								<Button onClick={this.getIsleFile}><i className="fa fa-clipboard"></i></Button>
+							</OverlayTrigger>
 						</ButtonGroup>
 					</ButtonToolbar>
 				</Panel.Body>
@@ -86,6 +103,7 @@ Lesson.propTypes = {
 	colorIndex: PropTypes.number.isRequired,
 	copyLesson: PropTypes.func.isRequired,
 	description: PropTypes.string.isRequired,
+	getIsleFile: PropTypes.func.isRequired,
 	namespace: PropTypes.string.isRequired,
 	title: PropTypes.string.isRequired,
 	token: PropTypes.string.isRequired,
