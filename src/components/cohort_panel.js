@@ -149,10 +149,10 @@ class CohortPanel extends Component {
 // PROPERTY TYPES //
 
 CohortPanel.propTypes = {
-	endDate: PropTypes.number,
+	endDate: PropTypes.string,
 	onDelete: PropTypes.func,
 	onUpdate: PropTypes.func,
-	startDate: PropTypes.number.isRequired,
+	startDate: PropTypes.string.isRequired,
 	students: PropTypes.array.isRequired,
 	title: PropTypes.string.isRequired
 };

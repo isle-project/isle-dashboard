@@ -38,7 +38,7 @@ function mapDispatchToProps( dispatch ) {
 						_id: body._id
 					};
 					props.onNamespace( namespace );
-					props.getNamespaces( user.token );
+					dispatch( actions.appendCreatedNamespace( namespace ) );
 					props.history.replace( '/lessons' );
 					props.addNotification({
 						message: body.message,
@@ -49,19 +49,6 @@ function mapDispatchToProps( dispatch ) {
 		},
 		addNotification: ({ message, level }) => {
 			dispatch( actions.addNotification({ message, level }) );
-		},
-		getNamespaces: ( token ) => {
-			request.get( server+'/get_namespaces', {
-				headers: {
-					'Authorization': 'JWT ' + token
-				}
-			}, function onNamespaces( error, response, body ) {
-				if ( error ) {
-					return error;
-				}
-				body = JSON.parse( body );
-				dispatch( actions.retrievedNamespaces( body.namespaces ) );
-			});
 		},
 		onNamespace: ({ title, description, owners, _id }) => {
 			dispatch( actions.changedNamespace({ title, description, owners, _id }) );

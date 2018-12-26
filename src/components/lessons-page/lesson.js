@@ -8,6 +8,7 @@ import PropTypes from 'prop-types';
 import DetailsModal from './details_modal.js';
 import DeleteModal from './delete_modal.js';
 import COLORS from './../../constants/colors';
+import background from './architecture.jpeg';
 
 
 // MAIN //
@@ -142,15 +143,14 @@ class Lesson extends Component {
 		return (
 			<Panel>
 				<Panel.Body style={{ padding: 0 }}>
-					<div className="hovereffect">
+					<div style={{ webkitFilter: 'grayscale(30%)', background: COLORS[ this.props.colorIndex ]}} className="hovereffect">
 						<img
 							className="img-responsive"
-							src={this.props.url+'/preview.jpg'}
+							src={background}
 							alt=""
 							style={{
 								width: '100%',
-								height: 180,
-								background: COLORS[ this.props.colorIndex ]
+								height: 180
 							}}
 						/>
 						<div className="overlay" >

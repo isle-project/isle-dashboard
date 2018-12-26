@@ -24,6 +24,9 @@ class EditNamespace extends Component {
 		super( props );
 		let { title, description, owners } = this.props.namespace;
 		if ( isArray( owners ) ) {
+			owners = owners.map( ( owner ) => {
+				return owner.email;
+			});
 			owners = owners.join( ',' );
 		}
 		this.state = {
@@ -107,7 +110,6 @@ class EditNamespace extends Component {
 							message: JSON.parse( res.body ).message,
 							level: 'success'
 						});
-						this.props.getNamespaces( this.props.user.token );
 						this.props.getCohorts({
 							namespaceID: this.props.namespace._id,
 							userToken: this.props.user.token
@@ -123,12 +125,7 @@ class EditNamespace extends Component {
 		};
 
 		this.handleDelete = () => {
-			this.props.deleteCurrentNamespace( this.props.namespace._id, this.props.user.token, this.props.history, () => {
-				this.props.getNamespaces( this.props.user.token );
-				this.setState({
-					showDeleteModal: false
-				});
-			});
+			this.props.deleteCurrentNamespace( this.props.namespace._id, this.props.user.token, this.props.history );
 		};
 
 		this.close = () => {
@@ -280,7 +277,7 @@ class EditNamespace extends Component {
 								</Button>
 							</Panel.Title>
 						</Panel.Heading>
-						<PanelGroup accordion>
+						<PanelGroup accordion id="namespace_accordion" >
 							{this.props.cohorts.map( ( cohort, idx ) => {
 								return ( <Panel
 									eventKey={idx}
@@ -323,7 +320,6 @@ EditNamespace.propTypes = {
 	deleteCohort: PropTypes.func.isRequired,
 	deleteCurrentNamespace: PropTypes.func.isRequired,
 	getCohorts: PropTypes.func.isRequired,
-	getNamespaces: PropTypes.func.isRequired,
 	history: PropTypes.object.isRequired,
 	namespace: PropTypes.object.isRequired,
 	updateCohort: PropTypes.func.isRequired,

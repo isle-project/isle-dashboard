@@ -48,7 +48,7 @@ class HeaderBar extends Component {
 
 	namespaceClickFactory( id ) {
 		let out = () => {
-			this.props.onNamespace( this.props.user.namespaces[ id ], this.props.user.token );
+			this.props.onNamespace( this.props.user.ownedNamespaces[ id ], this.props.user.token );
 			this.setState({
 				showNamespacesOverlay: false,
 				location: 'Course'
@@ -110,12 +110,9 @@ class HeaderBar extends Component {
 	}
 
 	renderEditButton() {
-		console.log( this.props.user);
-		if (!this.props.namespace.title) {
+		if ( !this.props.namespace.title ) {
 			return null;
 		}
-
-		console.log( this.props.namespace.owners );
 		return (
 			<OverlayTrigger placement="bottom" overlay={editCourseTooltip}>
 				<Button
@@ -229,7 +226,7 @@ class HeaderBar extends Component {
 						target={this.overlayTarget}
 						placement="bottom"
 					>
-						{namespacePopover( this.props.user.namespaces, this.namespaceClickFactory.bind( this ) )}
+						{namespacePopover( this.props.user.ownedNamespaces, this.namespaceClickFactory.bind( this ) )}
 					</Overlay>
 					{this.renderEditButton()}
 					{this.renderDataButton()}

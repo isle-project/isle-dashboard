@@ -104,20 +104,7 @@ function mapDispatchToProps( dispatch ) {
 				clbk( null, res );
 			});
 		},
-		getNamespaces: ( token ) => {
-			request.get( server+'/get_namespaces', {
-				headers: {
-					'Authorization': 'JWT ' + token
-				}
-			}, function onNamespaces( error, response, body ) {
-				if ( error ) {
-					return error;
-				}
-				body = JSON.parse( body );
-				dispatch( actions.retrievedNamespaces( body.namespaces ) );
-			});
-		},
-		deleteCurrentNamespace: ( id, token, history, clbk ) => {
+		deleteCurrentNamespace: ( id, token, history ) => {
 			request.get( server+'/delete_namespace', {
 				qs: {
 					id
@@ -137,12 +124,11 @@ function mapDispatchToProps( dispatch ) {
 					}) );
 				}
 				history.replace( '/lessons' );
-				dispatch( actions.deletedCurrentNamespace() );
+				dispatch( actions.deletedCurrentNamespace( id ) );
 				dispatch( actions.addNotification({
 					message: 'Course successfully deleted',
 					level: 'success'
 				}) );
-				clbk();
 			});
 		},
 		updateCurrentNamespace: ( ns, clbk ) => {

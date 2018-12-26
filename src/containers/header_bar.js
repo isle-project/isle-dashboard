@@ -23,7 +23,6 @@ function mapDispatchToProps( dispatch ) {
 	return {
 		logout: () => {
 			dispatch( actions.loggedOut() );
-			dispatch( actions.deletedCurrentNamespace() );
 		},
 		setSearchPhrase: ( str ) => {
 			dispatch( actions.searchPhraseSet( str ) );

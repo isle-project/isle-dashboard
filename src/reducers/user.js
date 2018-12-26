@@ -54,6 +54,23 @@ export default function user( state = initialState, action ) {
 		return Object.assign({}, state, {
 			namespaces
 		});
+	case types.APPEND_CREATED_NAMESPACE:
+		const arr = state.ownedNamespaces.slice();
+		arr.push( action.payload.namespace );
+		return Object.assign({}, state, {
+			ownedNamespaces: arr
+		});
+	case types.DELETED_CURRENT_NAMESPACE:
+		const ownedNamespaces = [];
+		for ( let i = 0; i < state.ownedNamespaces.length; i++ ) {
+			const item = state.ownedNamespaces[ i ];
+			if ( item._id !== action.payload.id ) {
+				ownedNamespaces.push( item );
+			}
+		}
+		return Object.assign({}, state, {
+			ownedNamespaces
+		});
 	default:
 		return state;
 	}

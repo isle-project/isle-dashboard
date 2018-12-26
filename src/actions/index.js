@@ -63,6 +63,15 @@ export function retrievedNamespaces( namespaces ) {
 	};
 }
 
+export function appendCreatedNamespace( namespace ) {
+	return {
+		type: types.APPEND_CREATED_NAMESPACE,
+		payload: {
+			namespace
+		}
+	};
+}
+
 export function retrievedCohorts( cohorts ) {
 	return {
 		type: types.RETRIEVED_COHORTS,
@@ -109,9 +118,12 @@ export function updatedLesson( lessonName, props ) {
 	};
 }
 
-export function deletedCurrentNamespace() {
+export function deletedCurrentNamespace( id ) {
 	return {
-		type: types.DELETED_CURRENT_NAMESPACE
+		type: types.DELETED_CURRENT_NAMESPACE,
+		payload: {
+			id
+		}
 	};
 }
 

@@ -22,7 +22,7 @@ function mapDispatchToProps( dispatch ) {
 	return {
 		handleLogin: ( obj ) => {
 			localStorage.setItem( 'isle', JSON.stringify( obj ) );
-			request.post( server+'/credentials', {
+			request.post( server+'/credentials_dashboard', {
 				headers: {
 					'Authorization': 'JWT ' + obj.token
 				},
