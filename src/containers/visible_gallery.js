@@ -86,11 +86,11 @@ function mapDispatchToProps( dispatch ) {
 					}) );
 					return callback( error );
 				}
-				callback( null, body );
 				dispatch( actions.addNotification({
 					message: 'Source code has been copied to the clipboard',
 					level: 'success'
 				}) );
+				return callback( null, body );
 			});
 		}
 	};
