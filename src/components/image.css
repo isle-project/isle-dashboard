@@ -17,11 +17,6 @@
 	left: 0;
 	-webkit-transition: all 0.4s ease-in-out;
 	transition: all 0.4s ease-in-out;
-	background-color: rgba(170,170,170,0.4);
-}
-
-.hovereffect:hover .overlay {
-	background-color: rgba(170,170,170,0.0);;
 }
 
 .hovereffect h2 {
@@ -35,11 +30,11 @@
 	-webkit-transform: scale(1.1);
 	-ms-transform: scale(1.1);
 	transform: scale(1.1);
-	opacity: 0.3;
+	opacity: 0.6;
 }
 
 .hovereffect:hover img {
-	opacity: 0.9;
+	opacity: 0.3;
 }
 
 .hovereffect h2 {
