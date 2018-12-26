@@ -110,26 +110,33 @@ class HeaderBar extends Component {
 	}
 
 	renderEditButton() {
+		console.log( this.props.user);
+		if (!this.props.namespace.title) {
+			return null;
+		}
+
+		console.log( this.props.namespace.owners );
 		return (
 			<OverlayTrigger placement="bottom" overlay={editCourseTooltip}>
 				<Button
 					style={{ float: 'left', marginRight: '6px' }}
 					onClick={this.goToCourseEditPage.bind( this )}
-					disabled={!this.props.namespace.title}
-				>
-					<Glyphicon glyph="edit" />
+				>	<Glyphicon glyph="edit" />
 				</Button>
 			</OverlayTrigger>
 		);
 	}
 
 	renderDataButton() {
+		if (!this.props.namespace.title) {
+			return null;
+		}
+
 		return (
 			<OverlayTrigger placement="bottom" overlay={courseDataTooltip}>
 				<Button
 					style={{ float: 'left', marginRight: '6px' }}
 					onClick={this.goToCourseDataPage.bind( this )}
-					disabled={!this.props.namespace.title}
 				>
 					<Glyphicon glyph="stats" />
 				</Button>
@@ -138,6 +145,10 @@ class HeaderBar extends Component {
 	}
 
 	renderGalleryButton() {
+		if ( !this.props.user.writeAccess ) {
+			return null;
+		}
+
 		return (
 			<OverlayTrigger placement="bottom" overlay={galleryTooltip}>
 				<Button
@@ -180,6 +191,10 @@ class HeaderBar extends Component {
 	}
 
 	renderSearchField() {
+		if (!this.props.namespace.title) {
+			return null;
+		}
+
 		return ( <FormGroup style={{ width: '50vw' }}>
 			<InputGroup>
 				<FormControl

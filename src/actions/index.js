@@ -5,12 +5,14 @@ import * as types from './../constants/action_types.js';
 
 // EXPORTS //
 
-export function loggedIn({ email, name, token, id, organization, writeAccess }) {
+export function loggedIn({ email, name, enrolledNamespaces, ownedNamespaces, token, id, organization, writeAccess }) {
 	return {
 		type: types.LOGGED_IN,
 		payload: {
 			email,
 			name,
+			enrolledNamespaces,
+			ownedNamespaces,
 			organization,
 			token,
 			writeAccess,

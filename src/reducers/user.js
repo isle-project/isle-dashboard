@@ -12,7 +12,9 @@ const initialState = {
 	name: '',
 	namespaces: [],
 	organization: '',
-	writeAccess: false
+	writeAccess: false,
+	enrolledNamespaces: [],
+	ownedNamespaces: []
 };
 
 
@@ -24,6 +26,8 @@ export default function user( state = initialState, action ) {
 		return Object.assign({}, state, {
 			email: action.payload.email,
 			name: action.payload.name,
+			enrolledNamespaces: action.payload.enrolledNamespaces,
+			ownedNamespaces: action.payload.ownedNamespaces,
 			organization: action.payload.organization,
 			token: action.payload.token,
 			writeAccess: action.payload.writeAccess,
