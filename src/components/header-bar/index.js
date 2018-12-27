@@ -6,6 +6,8 @@ import {
 	Button, FormGroup, FormControl, Image, InputGroup,
 	Overlay, OverlayTrigger, Popover, ListGroupItem, ListGroup, Tooltip
 } from 'react-bootstrap';
+import isObjectArray from '@stdlib/assert/is-object-array';
+import contains from '@stdlib/assert/contains';
 import PropTypes from 'prop-types';
 import debounce from 'lodash.debounce';
 import icon from './profile_icon.png';
@@ -20,8 +22,7 @@ const courseDataTooltip = <Tooltip id="course_data">Course Data</Tooltip>;
 const galleryTooltip = <Tooltip id="open_gallery">Open gallery</Tooltip>;
 const selectCourseTooltip = <Tooltip id="select_course">Select course</Tooltip>;
 
-const namespacePopover = ( namespaces, clickFactory ) => (
-	<Popover id="popover-positioned-bottom">
+const namespaceListGroup = ( namespaces, clickFactory ) => (
 		<ListGroup>
 			{namespaces.map( ( x, id ) => (
 				<ListGroupItem
@@ -30,7 +31,6 @@ const namespacePopover = ( namespaces, clickFactory ) => (
 				><Link to="/lessons" onClick={clickFactory( id )}>{x.title}</Link></ListGroupItem>
 			) )}
 		</ListGroup>
-	</Popover>
 );
 
 
@@ -46,7 +46,18 @@ class HeaderBar extends Component {
 		};
 	}
 
-	namespaceClickFactory( id ) {
+	enrolledClickFactory(id) {
+		let out = () => {
+			this.props.onNamespace( this.props.user.enrolledNamespaces[ id ], this.props.user.token );
+			this.setState({
+				showNamespacesOverlay: false,
+				location: 'Course'
+			});
+		};
+		return out;
+	}
+
+	namespaceClickFactory( id) {
 		let out = () => {
 			this.props.onNamespace( this.props.user.ownedNamespaces[ id ], this.props.user.token );
 			this.setState({
@@ -55,6 +66,12 @@ class HeaderBar extends Component {
 			});
 		};
 		return out;
+	}
+
+	setProfileLocation = () => {
+		this.setState({
+			location: 'Profile'
+		});
 	}
 
 	goToCreateCoursePage() {
@@ -110,7 +127,11 @@ class HeaderBar extends Component {
 	}
 
 	renderEditButton() {
-		if ( !this.props.namespace.title ) {
+		let owners = this.props.namespace.owners;
+		if ( isObjectArray( owners ) ) {
+			owners = owners.map( user => user.email );
+		}
+		if ( !contains( owners, this.props.user.email ) ) {
 			return null;
 		}
 		return (
@@ -165,6 +186,11 @@ class HeaderBar extends Component {
 	}
 
 	renderCoursesButton() {
+		let disabled = true;
+		if (this.props.user.ownedNamespaces.length > 0 || this.props.user.enrolledNamespaces.length > 0) {
+			disabled = false;
+		}
+
 		return ( <OverlayTrigger placement="right" overlay={selectCourseTooltip}>
 			<Button
 				ref={( button ) => { this.overlayTarget = button; }}
@@ -178,7 +204,7 @@ class HeaderBar extends Component {
 						showNamespacesOverlay: !this.state.showNamespacesOverlay
 					});
 				}}
-				disabled={!this.props.user.namespaces.length}
+				disabled={disabled}
 			>
 				<i className="fa fa-align-justify"></i>
 				<small style={{ marginLeft: '5px' }}>
@@ -227,7 +253,12 @@ class HeaderBar extends Component {
 						target={this.overlayTarget}
 						placement="bottom"
 					>
-						{namespacePopover( this.props.user.ownedNamespaces, this.namespaceClickFactory.bind( this ) )}
+						<Popover id="popover-positioned-bottom">
+							<label className="label-display">OWNED COURSES</label>
+							{namespaceListGroup( this.props.user.ownedNamespaces, this.namespaceClickFactory.bind( this ) )}
+							<label className="label-display">ENROLLED COURSES</label>
+							{namespaceListGroup( this.props.user.enrolledNamespaces, this.enrolledClickFactory.bind( this ) )}
+						</Popover>
 					</Overlay>
 					{this.renderEditButton()}
 					{this.renderDataButton()}
@@ -251,7 +282,7 @@ class HeaderBar extends Component {
 					<div className="header-bar-container">
 						<Image src={icon} circle className="header-bar-icon"></Image>
 						<div key="account" className="header-bar-link-div" >
-							<Link to="/profile" className="header-bar-link">{this.props.user.name}</Link>
+							<Link to="/profile" onClick={this.setProfileLocation} className="header-bar-link">{this.props.user.name}</Link>
 						</div>
 					</div>
 					<div className="header-bar-container">

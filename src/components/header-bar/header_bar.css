@@ -11,10 +11,13 @@
 .header-bar-title {
 	float: left;
 	font-size: 22px;
-	margin-top: 15px;
+	margin-top: 5px;
 	position: relative;
 	margin-left: 10px;
+	font-size: 32px;
 	color: white;
+	text-transform: lowercase;
+	font-variant: small-caps;
 }
 
 .header-bar-buttons {
@@ -70,4 +73,10 @@
 	position: relative;
 	margin-left: 10px;
 	margin-top: 10px;
+}
+
+
+.label-display {
+	font-family: Open Sans Condensed;
+	color: silver;
 }
