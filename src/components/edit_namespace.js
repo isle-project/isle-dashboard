@@ -1,6 +1,7 @@
 // MODULES //
 
 import React, { Component, Fragment } from 'react';
+import PropTypes from 'prop-types';
 import {
 	Button, ButtonGroup, Card, Container, Col, Row, FormLabel, FormControl, FormGroup,
 	Form, OverlayTrigger, Tooltip
@@ -15,7 +16,6 @@ import ConfirmModal from './confirm_modal.js';
 import checkURLPath from './../utils/check_url_path.js';
 import CohortPanel from './cohort_panel.js';
 import CreateCohortModal from './create_cohort_modal.js';
-import PropTypes from 'prop-types';
 
 
 // FUNCTIONS //
@@ -312,9 +312,9 @@ class EditNamespace extends Component {
 										}}
 									>
 										<Card.Header>
-											<Card.Title toggle>{cohort.title}</Card.Title>
+											<Card.Title>{cohort.title}</Card.Title>
 										</Card.Header>
-										<Card.Body collapsible>
+										<Card.Body>
 											<CohortPanel
 												id={cohort._id}
 												title={cohort.title}
