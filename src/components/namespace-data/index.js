@@ -2,7 +2,7 @@
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Nav, NavItem } from 'react-bootstrap';
+import { Nav } from 'react-bootstrap';
 import logger from 'debug';
 import FilesPage from './files_page.js';
 import RecentActivityPage from './recent_activity_page.js';
@@ -91,21 +91,21 @@ class NamespaceData extends Component {
 			<div className="namespace-data-div">
 				<div className="namespace-data-navbar">
 					<Nav variant="pills" stacked activeKey={1} onSelect={this.handleSelect}>
-						<NavItem eventKey={1} title="Recent Activity">
-							Recent Activity
-						</NavItem>
-						<NavItem eventKey={2} title="Statistics">
-							Statistics
-						</NavItem>
-						<NavItem eventKey={3} disabled title="Cohorts">
-							Cohorts
-						</NavItem>
-						<NavItem eventKey={4} title="Files">
-							Files
-						</NavItem>
-						<NavItem eventKey={5} disabled title="Actions">
-							Actions
-						</NavItem>
+						<Nav.Item title="Recent Activity">
+							<Nav.Link eventKey={1} >Recent Activity</Nav.Link>
+						</Nav.Item>
+						<Nav.Item title="Statistics">
+							<Nav.Link eventKey={2} >Statistics</Nav.Link>
+						</Nav.Item>
+						<Nav.Item disabled title="Cohorts">
+							<Nav.Link eventKey={3} >Cohorts</Nav.Link>
+						</Nav.Item>
+						<Nav.Item title="Files">
+							<Nav.Link eventKey={4} >Files</Nav.Link>
+						</Nav.Item>
+						<Nav.Item disabled title="Actions">
+							<Nav.Link eventKey={5} >Actions</Nav.Link>
+						</Nav.Item>
 					</Nav>
 				</div>
 				{page}

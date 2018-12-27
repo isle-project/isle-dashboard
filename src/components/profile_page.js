@@ -132,7 +132,7 @@ class ProfilePage extends Component {
 			</Card.Header>
 				<Form style={{ padding: '20px' }}>
 					<FormGroup
-						controlId="formHorizontalEmail"
+						controlId="form-email"
 					>
 						<FormLabel>Email Address</FormLabel>
 						<FormControl
@@ -144,7 +144,7 @@ class ProfilePage extends Component {
 					</FormGroup>
 					<OverlayTrigger placement="right" overlay={createTooltip( 'Update your name' )}>
 						<FormGroup
-							controlId="formHorizontalName"
+							controlId="form-name"
 							validationState={this.getNameValidationState()}
 						>
 							<FormLabel>Name</FormLabel>
@@ -158,7 +158,7 @@ class ProfilePage extends Component {
 					</OverlayTrigger>
 					<OverlayTrigger placement="right" overlay={createTooltip( 'Update your organization' )}>
 						<FormGroup
-							controlId="formHorizontalName"
+							controlId="form-organization"
 							validationState={this.getNameValidationState()}
 						>
 							<FormLabel>Organization</FormLabel>
@@ -172,7 +172,7 @@ class ProfilePage extends Component {
 					</OverlayTrigger>
 					<OverlayTrigger placement="right" overlay={createTooltip( 'Please enter a password of your choosing with at least six characters' )}>
 						<FormGroup
-							controlId="formHorizontalPassword"
+							controlId="form-password"
 							validationState={this.getPasswordValidationState()}
 						>
 							<FormLabel>Password</FormLabel>
@@ -189,7 +189,7 @@ class ProfilePage extends Component {
 						</FormGroup>
 					</OverlayTrigger>
 					<FormGroup
-						controlId="formHorizontalPassword"
+						controlId="form-repeat-password"
 						validationState={this.getPasswordValidationState()}
 					>
 						<FormControl

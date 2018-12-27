@@ -70,7 +70,7 @@ class DetailsModal extends Component {
 	render() {
 		return (
 			<Modal show={this.props.show} onHide={this.props.close}>
-				<Form horizontal action={SERVER} method="get" onSubmit={this.onSubmit}>
+				<Form action={SERVER} method="get" onSubmit={this.onSubmit}>
 					<Modal.Header>
 						<Modal.Title>Lesson Details</Modal.Title>
 					</Modal.Header>
