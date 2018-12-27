@@ -42,8 +42,9 @@
 .profile-page-badge-item {
     float: left;
     margin-left: 15px;
-    width: 80px;
-    height: 80px;
+    margin-bottom: 10px;
+    width: 64px;
+    height: 64px;
     border-radius: 50%;
     background: silver;
     background-size: 100% auto;
