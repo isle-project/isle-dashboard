@@ -2,7 +2,7 @@
 
 import React, { Component } from 'react';
 import {
-	Button, Col, ControlLabel, Form, FormControl, FormGroup, Modal
+	Button, Col, FormLabel, Form, FormControl, FormGroup, Modal
 } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import logger from 'debug';
@@ -76,7 +76,7 @@ class DetailsModal extends Component {
 					</Modal.Header>
 					<Modal.Body>
 						<FormGroup>
-							<Col componentClass={ControlLabel} sm={2}>
+							<Col componentClass={FormLabel} sm={2}>
 								Title
 							</Col>
 							<Col sm={10}>
@@ -89,7 +89,7 @@ class DetailsModal extends Component {
 							</Col>
 						</FormGroup>
 						<FormGroup>
-							<Col componentClass={ControlLabel} sm={2}>
+							<Col componentClass={FormLabel} sm={2}>
 								Description
 							</Col>
 							<Col sm={10}>

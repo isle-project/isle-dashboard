@@ -3,10 +3,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import ReactTable from 'react-table';
-import ControlLabel from 'react-bootstrap/lib/ControlLabel';
+import FormLabel from 'react-bootstrap/lib/FormLabel';
 import FormControl from 'react-bootstrap/lib/FormControl';
 import FormGroup from 'react-bootstrap/lib/FormGroup';
-import Label from 'react-bootstrap/lib/Label';
+import Badge from 'react-bootstrap/lib/Badge';
 import contains from '@stdlib/assert/contains';
 import lowercase from '@stdlib/string/lowercase';
 import server from './../../constants/server';
@@ -91,8 +91,8 @@ class FilesPage extends Component {
 		return ( <div className="namespace-data-page">
 			<h1 style={{ display: 'inline-block' }}>Files</h1>
 			<FormGroup style={{ display: 'inline-block', marginLeft: '20px', marginBottom: '0px' }}>
-					<ControlLabel htmlFor="fileUpload" style={{ cursor: 'pointer' }}>
-						<h3><Label bsStyle="success">Upload file</Label></h3>
+					<FormLabel htmlFor="fileUpload" style={{ cursor: 'pointer' }}>
+						<h3><Badge bsStyle="success">Upload file</Badge></h3>
 						<FormControl
 							id="fileUpload"
 							type="file"
@@ -100,7 +100,7 @@ class FilesPage extends Component {
 							onChange={this.props.handleUpload}
 							style={{ display: 'none' }}
 						/>
-					</ControlLabel>
+					</FormLabel>
 			</FormGroup>
 			<ReactTable
 				filterable

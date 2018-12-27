@@ -2,8 +2,8 @@
 
 import React, { Component, Fragment } from 'react';
 import {
-	Button, Col, ControlLabel, FormControl, FormGroup,
-	Form, Overlay, PageHeader, Panel, Popover
+	Button, Card, Col, FormLabel, FormControl, FormGroup,
+	Form, Overlay, Popover
 } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
@@ -83,12 +83,12 @@ class Login extends Component {
 	render() {
 		return (
 			<Fragment>
-				<div className="login"><Panel className="login-panel">
-					<PageHeader style={{ textAlign: 'center' }}>ISLE <small>Dashboard</small></PageHeader>
-					<Panel.Body>
+				<div className="login"><Card className="login-panel">
+					<Card.Title style={{ textAlign: 'center' }}>ISLE <small>Dashboard</small></Card.Title>
+					<Card.Body>
 						<Form horizontal>
 							<FormGroup controlId="formHorizontalEmail">
-								<Col componentClass={ControlLabel} sm={2}>
+								<Col componentClass={FormLabel} sm={2}>
 									Email
 								</Col>
 								<Col sm={10}>
@@ -103,7 +103,7 @@ class Login extends Component {
 								</Col>
 							</FormGroup>
 							<FormGroup controlId="formHorizontalPassword">
-								<Col componentClass={ControlLabel} sm={2}>
+								<Col componentClass={FormLabel} sm={2}>
 									Password
 								</Col>
 								<Col sm={10}>
@@ -126,13 +126,13 @@ class Login extends Component {
 								>Sign in</Button>
 							</FormGroup>
 						</Form>
-					</Panel.Body>
-					<Panel.Footer style={{ background: 'rgba(255,255,255,0.6)', textAlign: 'right' }}>
+					</Card.Body>
+					<Card.Footer style={{ background: 'rgba(255,255,255,0.6)', textAlign: 'right' }}>
 						<Link to="/forgot-password">Forgot password?</Link>
 						<span> | </span>
 						<Link to="/signup">Sign up</Link>
-					</Panel.Footer>
-				</Panel></div>
+					</Card.Footer>
+				</Card></div>
 				<Overlay
 					show={this.state.showInputOverlay}
 					target={this.state.overlayTarget}

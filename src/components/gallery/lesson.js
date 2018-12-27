@@ -2,7 +2,7 @@
 
 import React, { Component } from 'react';
 import {
-	ButtonToolbar, ButtonGroup, Button, Panel, OverlayTrigger, Tooltip
+	ButtonToolbar, ButtonGroup, Button, Card, OverlayTrigger, Tooltip
 } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import ImportModal from './import_modal.js';
@@ -54,8 +54,8 @@ class Lesson extends Component {
 
 	render() {
 		return (
-			<Panel>
-				<Panel.Body>
+			<Card>
+				<Card.Body>
 					<div className="hovereffect">
 						<img
 							className="img-responsive"
@@ -89,9 +89,9 @@ class Lesson extends Component {
 							</OverlayTrigger>
 						</ButtonGroup>
 					</ButtonToolbar>
-				</Panel.Body>
+				</Card.Body>
 				{this.renderImportModal()}
-			</Panel>
+			</Card>
 		);
 	}
 }

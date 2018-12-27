@@ -2,7 +2,7 @@
 
 import React, { Component } from 'react';
 import {
-	Button, ControlLabel, FormControl, FormGroup, Modal
+	Button, FormLabel, FormControl, FormGroup, Modal
 } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import isArray from '@stdlib/assert/is-array';
@@ -53,7 +53,7 @@ class ImportModal extends Component {
 					Please select the course that the lesson should be copied into.
 					<br />
 					<FormGroup>
-						<ControlLabel>Select Course</ControlLabel>
+						<FormLabel>Select Course</FormLabel>
 						<FormControl
 							name="selected"
 							componentClass="select"
@@ -69,7 +69,7 @@ class ImportModal extends Component {
 						</FormControl>
 					</FormGroup>
 					<FormGroup>
-						<ControlLabel>Lesson Name</ControlLabel>
+						<FormLabel>Lesson Name</FormLabel>
 						<FormControl
 							name="targetName"
 							type="text"

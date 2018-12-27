@@ -1,8 +1,9 @@
 // MODULES //
 
 import React, { Component } from 'react';
-import { Button, ControlLabel, FormControl, FormGroup, Form, OverlayTrigger, Panel, Tooltip } from 'react-bootstrap';
+import { Button, Card, FormLabel, FormControl, FormGroup, Form, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import PropTypes from 'prop-types';
+
 
 // MAIN //
 
@@ -46,16 +47,19 @@ class CreateNamespace extends Component {
 
 	render() {
 		return (
-			<Panel style={{
+			<Card style={{
 				position: 'relative',
 				top: '80px',
 				width: '50%',
 				margin: '0 auto'
-			}} header={<h2>Create Course</h2>}>
+			}}>
+				<Card.Heading>
+					<Card.Title>Create Course</Card.Title>
+				</Card.Heading>
 				<Form style={{ padding: '20px' }}>
 					<OverlayTrigger placement="right" overlay={<Tooltip id="ownerTooltip">Enter a comma-separated list of email addresses denoting the administrators for this course</Tooltip>}>
 						<FormGroup>
-							<ControlLabel>Owners</ControlLabel>
+							<FormLabel>Owners</FormLabel>
 							<FormControl
 								name="owners"
 								componentClass="textarea"
@@ -66,7 +70,7 @@ class CreateNamespace extends Component {
 					</OverlayTrigger>
 					<OverlayTrigger placement="right" overlay={<Tooltip id="ownerTooltip">Please enter a title with a minimum length of six characters.</Tooltip>}>
 						<FormGroup>
-							<ControlLabel>Title</ControlLabel>
+							<FormLabel>Title</FormLabel>
 							<FormControl
 								name="title"
 								type="text"
@@ -76,7 +80,7 @@ class CreateNamespace extends Component {
 						</FormGroup>
 					</OverlayTrigger>
 					<FormGroup>
-						<ControlLabel>Description</ControlLabel>
+						<FormLabel>Description</FormLabel>
 						<FormControl
 							name="description"
 							type="text"
@@ -91,7 +95,7 @@ class CreateNamespace extends Component {
 					disabled={this.state.disabled}
 					block
 				>Create</Button>
-			</Panel>
+			</Card>
 		);
 	}
 }

@@ -2,8 +2,8 @@
 
 import React, { Component, Fragment } from 'react';
 import {
-	Button, ButtonToolbar, Col, ControlLabel, FormControl, FormGroup,
-	Form, Grid, OverlayTrigger, Panel, PanelGroup, Tooltip
+	Button, ButtonToolbar, Card, Container, Col, Row, FormLabel, FormControl, FormGroup,
+	Form, OverlayTrigger, Tooltip
 } from 'react-bootstrap';
 import 'react-dates/lib/css/_datepicker.css';
 import { withRouter } from 'react-router';
@@ -204,108 +204,110 @@ class EditNamespace extends Component {
 
 	render() {
 		return (
-			<Grid style={{
+			<Container style={{
 				position: 'relative',
 				top: '80px',
 				width: '80%',
 				margin: '0 auto'
 			}} >
-				<Col md={6} >
-					<Panel>
-						<Panel.Heading>
-							<Panel.Title componentClass="h1">Edit Course</Panel.Title>
-						</Panel.Heading>
-						<Panel.Body>
-							<Form style={{ padding: '20px' }}>
-								<OverlayTrigger placement="right" overlay={<Tooltip id="ownerTooltip">Comma-separated list of email addresses denoting the administrators for this course</Tooltip>}>
+				<Row>
+					<Col md={6} >
+						<Card>
+							<Card.Heading>
+								<Card.Title componentClass="h1">Edit Course</Card.Title>
+							</Card.Heading>
+							<Card.Body>
+								<Form style={{ padding: '20px' }}>
+									<OverlayTrigger placement="right" overlay={<Tooltip id="ownerTooltip">Comma-separated list of email addresses denoting the administrators for this course</Tooltip>}>
+										<FormGroup>
+											<FormLabel>Owners</FormLabel>
+											<FormControl
+												name="owners"
+												componentClass="textarea"
+												value={this.state.owners}
+												onChange={this.handleInputChange}
+											/>
+										</FormGroup>
+									</OverlayTrigger>
+									<OverlayTrigger placement="right" overlay={<Tooltip id="ownerTooltip">Title with a minimum length of six characters.</Tooltip>}>
+										<FormGroup>
+											<FormLabel>Title</FormLabel>
+											<FormControl
+												name="title"
+												type="text"
+												value={this.state.title}
+												onChange={this.handleInputChange}
+											/>
+										</FormGroup>
+									</OverlayTrigger>
 									<FormGroup>
-										<ControlLabel>Owners</ControlLabel>
+										<FormLabel>Description</FormLabel>
 										<FormControl
-											name="owners"
-											componentClass="textarea"
-											value={this.state.owners}
-											onChange={this.handleInputChange}
-										/>
-									</FormGroup>
-								</OverlayTrigger>
-								<OverlayTrigger placement="right" overlay={<Tooltip id="ownerTooltip">Title with a minimum length of six characters.</Tooltip>}>
-									<FormGroup>
-										<ControlLabel>Title</ControlLabel>
-										<FormControl
-											name="title"
+											name="description"
 											type="text"
-											value={this.state.title}
+											value={this.state.description}
 											onChange={this.handleInputChange}
-										/>
+										>
+										</FormControl>
 									</FormGroup>
-								</OverlayTrigger>
-								<FormGroup>
-									<ControlLabel>Description</ControlLabel>
-									<FormControl
-										name="description"
-										type="text"
-										value={this.state.description}
-										onChange={this.handleInputChange}
-									>
-									</FormControl>
-								</FormGroup>
-							</Form>
-							<ButtonToolbar>
-								<Button type="submit" disabled={this.state.disabled} onClick={this.handleUpdate}>Update</Button>
-								<Button onClick={() => {
-									this.setState({
-										showDeleteModal: true
-									});
-								}} bsStyle="danger">Delete</Button>
-							</ButtonToolbar>
-						</Panel.Body>
-						{ this.renderModals() }
-					</Panel>
-				</Col>
-				<Col md={6} >
-					<Panel>
-						<Panel.Heading>
-							<Panel.Title componentClass="h1">Cohorts
-								<Button bsSize="small" bsStyle="success" style={{ float: 'right', marginTop: -7 }}
-									onClick={() => {
+								</Form>
+								<ButtonToolbar>
+									<Button type="submit" disabled={this.state.disabled} onClick={this.handleUpdate}>Update</Button>
+									<Button onClick={() => {
 										this.setState({
-											showCreateCohortModal: true
+											showDeleteModal: true
 										});
-									}}
-								>
-									Create Cohort
-								</Button>
-							</Panel.Title>
-						</Panel.Heading>
-						<PanelGroup accordion id="namespace_accordion" >
-							{this.props.cohorts.map( ( cohort, idx ) => {
-								return ( <Panel
-									eventKey={idx}
-									key={idx}
-									style={{
-										background: 'ivory'
-									}}
-								>
-									<Panel.Heading>
-										<Panel.Title toggle>{cohort.title}</Panel.Title>
-									</Panel.Heading>
-									<Panel.Body collapsible>
-										<CohortPanel
-											id={cohort._id}
-											title={cohort.title}
-											startDate={cohort.startDate}
-											endDate={cohort.endDate}
-											students={cohort.members}
-											onDelete={this.deleteCohort}
-											onUpdate={this.updateCohort}
-										/>
-									</Panel.Body>
-								</Panel> );
-							})}
-						</PanelGroup>
-					</Panel>
-				</Col>
-			</Grid>
+									}} bsStyle="danger">Delete</Button>
+								</ButtonToolbar>
+							</Card.Body>
+							{ this.renderModals() }
+						</Card>
+					</Col>
+					<Col md={6} >
+						<Card>
+							<Card.Heading>
+								<Card.Title componentClass="h1">Cohorts
+									<Button bsSize="small" bsStyle="success" style={{ float: 'right', marginTop: -7 }}
+										onClick={() => {
+											this.setState({
+												showCreateCohortModal: true
+											});
+										}}
+									>
+										Create Cohort
+									</Button>
+								</Card.Title>
+							</Card.Heading>
+							<div>
+								{this.props.cohorts.map( ( cohort, idx ) => {
+									return ( <Card
+										eventKey={idx}
+										key={idx}
+										style={{
+											background: 'ivory'
+										}}
+									>
+										<Card.Heading>
+											<Card.Title toggle>{cohort.title}</Card.Title>
+										</Card.Heading>
+										<Card.Body collapsible>
+											<CohortPanel
+												id={cohort._id}
+												title={cohort.title}
+												startDate={cohort.startDate}
+												endDate={cohort.endDate}
+												students={cohort.members}
+												onDelete={this.deleteCohort}
+												onUpdate={this.updateCohort}
+											/>
+										</Card.Body>
+									</Card> );
+								})}
+							</div>
+						</Card>
+					</Col>
+				</Row>
+			</Container>
 		);
 	}
 }

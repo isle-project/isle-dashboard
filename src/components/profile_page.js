@@ -1,7 +1,7 @@
 // MODULES //
 
 import React, { Component } from 'react';
-import { Button, ControlLabel, FormControl, FormGroup, Form, OverlayTrigger, Panel, Tooltip } from 'react-bootstrap';
+import { Button, Card, FormLabel, FormControl, FormGroup, Form, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import request from 'request';
 import server from './../constants/server';
 import PropTypes from 'prop-types';
@@ -119,22 +119,22 @@ class ProfilePage extends Component {
 
 	render() {
 		return (
-			<Panel style={{
+			<Card style={{
 				position: 'relative',
 				top: '80px',
 				width: '50%',
 				margin: '0 auto'
 			}}>
-			<Panel.Heading>
-				<Panel.Title componentClass="h1">Profile
+			<Card.Header>
+				<Card.Title as="h1">Profile
 				{this.renderInstructorButton()}
-				</Panel.Title>
-			</Panel.Heading>
+				</Card.Title>
+			</Card.Header>
 				<Form style={{ padding: '20px' }}>
 					<FormGroup
 						controlId="formHorizontalEmail"
 					>
-						<ControlLabel>Email Address</ControlLabel>
+						<FormLabel>Email Address</FormLabel>
 						<FormControl
 							name="email"
 							type="email"
@@ -147,7 +147,7 @@ class ProfilePage extends Component {
 							controlId="formHorizontalName"
 							validationState={this.getNameValidationState()}
 						>
-							<ControlLabel>Name</ControlLabel>
+							<FormLabel>Name</FormLabel>
 							<FormControl
 								name="name"
 								type="text"
@@ -161,7 +161,7 @@ class ProfilePage extends Component {
 							controlId="formHorizontalName"
 							validationState={this.getNameValidationState()}
 						>
-							<ControlLabel>Organization</ControlLabel>
+							<FormLabel>Organization</FormLabel>
 							<FormControl
 								name="organization"
 								type="text"
@@ -175,7 +175,7 @@ class ProfilePage extends Component {
 							controlId="formHorizontalPassword"
 							validationState={this.getPasswordValidationState()}
 						>
-							<ControlLabel>Password</ControlLabel>
+							<FormLabel>Password</FormLabel>
 							<FormControl
 								name="password"
 								type="password"
@@ -205,7 +205,7 @@ class ProfilePage extends Component {
 					</FormGroup>
 				</Form>
 				<Button block onClick={this.handleUpdate}>Update</Button>
-			</Panel>
+			</Card>
 		);
 	}
 }

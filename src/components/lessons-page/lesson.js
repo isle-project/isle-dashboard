@@ -2,7 +2,7 @@
 
 import React, { Component, Fragment } from 'react';
 import {
-	Button, ButtonGroup, ButtonToolbar, ControlLabel, FormGroup, Glyphicon, Label, OverlayTrigger, Panel, Tooltip
+	Badge, Button, ButtonGroup, ButtonToolbar, Card, FormLabel, FormGroup, OverlayTrigger, Tooltip
 } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import DetailsModal from './details_modal.js';
@@ -105,29 +105,37 @@ class Lesson extends Component {
 		}}>
 			<ButtonGroup style={{ marginRight: '5px' }} >
 				<OverlayTrigger placement="bottom" overlay={<Tooltip id="open_details">Open Details</Tooltip>}>
-					<Button onClick={this.showDetailsModal}><Glyphicon glyph="cog" /></Button>
+					<Button onClick={this.showDetailsModal}>
+						<i className="fa fa-cog"></i>
+					</Button>
 				</OverlayTrigger>
 				<OverlayTrigger placement="bottom" overlay={<Tooltip id="toggle_availability">Toggle Availability</Tooltip>}>
-					<Button onClick={this.toggleLessonState}><Glyphicon glyph="off" /></Button>
+					<Button onClick={this.toggleLessonState}>
+						<i className="fa fa-power-off"></i>
+					</Button>
 				</OverlayTrigger>
 				<OverlayTrigger placement="bottom" overlay={<Tooltip id="toggle_visibility">Toggle Visibility</Tooltip>}>
-					<Button onClick={this.toggleLessonVisibility}><Glyphicon glyph="lock" /></Button>
+					<Button onClick={this.toggleLessonVisibility}>
+						<i className="fa fa-lock"></i>
+					</Button>
 				</OverlayTrigger>
 				<OverlayTrigger placement="bottom" overlay={<Tooltip id="delete_lesson">Delete Lesson</Tooltip>}>
-					<Button onClick={this.showDeleteModal} ><Glyphicon glyph="trash" /></Button>
+					<Button onClick={this.showDeleteModal} >
+						<i className="fa fa-trash-alt"></i>
+					</Button>
 				</OverlayTrigger>
 			</ButtonGroup>
 			<FormGroup>
-				<ControlLabel style={{ marginRight: '2px' }}>
-					<Label bsStyle={activeStyle} style={{
+				<FormLabel style={{ marginRight: '2px' }}>
+					<Badge bsStyle={activeStyle} style={{
 						fontSize: '12px'
-					}}>{this.props.active ? 'Active' : 'Inactive'}</Label>
-				</ControlLabel>
-				<ControlLabel>
-					<Label bsStyle={publicStyle} style={{
+					}}>{this.props.active ? 'Active' : 'Inactive'}</Badge>
+				</FormLabel>
+				<FormLabel>
+					<Badge bsStyle={publicStyle} style={{
 						fontSize: '12px'
-					}}>{this.props.public ? 'Public' : 'Private'}</Label>
-				</ControlLabel>
+					}}>{this.props.public ? 'Public' : 'Private'}</Badge>
+				</FormLabel>
 			</FormGroup>
 		</ButtonToolbar> );
 	}
@@ -141,8 +149,8 @@ class Lesson extends Component {
 
 	render() {
 		return (
-			<Panel>
-				<Panel.Body style={{ padding: 0 }}>
+			<Card>
+				<Card.Body style={{ padding: 0 }}>
 					<div style={{ webkitFilter: 'grayscale(30%)', background: COLORS[ this.props.colorIndex ]}} className="hovereffect">
 						<img
 							className="img-responsive"
@@ -172,8 +180,8 @@ class Lesson extends Component {
 					</div>
 					{this.renderButtonToolbar()}
 					{this.renderModals()}
-				</Panel.Body>
-			</Panel>
+				</Card.Body>
+			</Card>
 		);
 	}
 }

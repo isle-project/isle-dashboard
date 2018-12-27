@@ -1,7 +1,7 @@
 // MODULES //
 
 import React, { Component } from 'react';
-import { Button, Col, ControlLabel, Form, FormControl, FormGroup, OverlayTrigger, Panel, Tooltip } from 'react-bootstrap';
+import { Button, Card, Col, FormLabel, Form, FormControl, FormGroup, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 
 
@@ -28,16 +28,16 @@ class EnterToken extends Component {
 
 	render() {
 		return (
-			<Panel style={{
+			<Card style={{
 				position: 'relative',
 				top: '150px',
 				width: '50%',
 				margin: '0 auto'
 			}}>
-				<Panel.Heading>
-					<Panel.Title componentClass="h2">Enter Access Token</Panel.Title>
-				</Panel.Heading>
-				<Panel.Body>
+				<Card.Heading>
+					<Card.Title componentClass="h2">Enter Access Token</Card.Title>
+				</Card.Heading>
+				<Card.Body>
 					<div>
 						Please enter the write-access token that was sent to you. If you have not received it yet,
 						please get in touch with <a href="mailto:pgb@andrew.cmu.edu">Philipp Burckhardt</a>.
@@ -46,7 +46,7 @@ class EnterToken extends Component {
 					<Form horizontal>
 						<OverlayTrigger placement="right" overlay={<Tooltip id="ownerTooltip">Please enter the access token.</Tooltip>}>
 							<FormGroup>
-								<Col componentClass={ControlLabel} sm={2}>Token</Col>
+								<Col componentClass={FormLabel} sm={2}>Token</Col>
 								<Col sm={10}>
 									<FormControl
 										name="title"
@@ -65,8 +65,8 @@ class EnterToken extends Component {
 							</Col>
 						</FormGroup>
 					</Form>
-				</Panel.Body>
-			</Panel>
+				</Card.Body>
+			</Card>
 		);
 	}
 }

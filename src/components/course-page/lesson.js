@@ -1,7 +1,7 @@
 // MODULES //
 
 import React, { Component } from 'react';
-import { Panel } from 'react-bootstrap';
+import { Card } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import COLORS from './../../constants/colors';
 
@@ -15,8 +15,8 @@ class Lesson extends Component {
 
 	render() {
 		return (
-			<Panel id={this.props.key}>
-				<Panel.Body style={{ padding: 0 }}>
+			<Card id={this.props.key}>
+				<Card.Body style={{ padding: 0 }}>
 					<div className="hovereffect">
 						<img
 							className="img-responsive"
@@ -45,8 +45,8 @@ class Lesson extends Component {
 							</span>
 						</div>
 					</div>
-				</Panel.Body>
-			</Panel>
+				</Card.Body>
+			</Card>
 		);
 	}
 }

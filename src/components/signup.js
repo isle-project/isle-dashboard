@@ -1,7 +1,7 @@
 // MODULES //
 
 import React, { Component, Fragment } from 'react';
-import { Button, Col, ControlLabel, FormControl, FormGroup, Form, Modal, OverlayTrigger, Overlay, PageHeader, Panel, Popover, Tooltip } from 'react-bootstrap';
+import { Button, Card, Col, FormLabel, FormControl, FormGroup, Form, Modal, OverlayTrigger, Overlay, Popover, Tooltip } from 'react-bootstrap';
 import { withRouter } from 'react-router';
 import { Link } from 'react-router-dom';
 import logger from 'debug';
@@ -155,16 +155,16 @@ class Signup extends Component {
 		return (
 			<Fragment>
 				<div className="login">
-					<Panel style={{ boxShadow: '0 0 8px rgba(0,0,0,0.3)', borderRadius: '6px', opacity: 0.98, background: 'rgba(255,255,255,0.75)' }}>
-						<PageHeader style={{ textAlign: 'center' }}>ISLE <small>Dashboard</small></PageHeader>
-						<Panel.Body>
+					<Card style={{ boxShadow: '0 0 8px rgba(0,0,0,0.3)', borderRadius: '6px', opacity: 0.98, background: 'rgba(255,255,255,0.75)' }}>
+						<Card.Title style={{ textAlign: 'center' }}>ISLE <small>Dashboard</small></Card.Title>
+						<Card.Body>
 							<Form horizontal>
 								<OverlayTrigger placement="right" overlay={createTooltip( 'Please enter a valid email address.' )}>
 									<FormGroup
 										controlId="formHorizontalEmail"
 										validationState={this.getEmailValidationState()}
 									>
-										<Col componentClass={ControlLabel} sm={2}>
+										<Col componentClass={FormLabel} sm={2}>
 											Email
 										</Col>
 										<Col sm={10}>
@@ -183,7 +183,7 @@ class Signup extends Component {
 										controlId="formHorizontalName"
 										validationState={this.getNameValidationState()}
 									>
-										<Col componentClass={ControlLabel} sm={2}>
+										<Col componentClass={FormLabel} sm={2}>
 											Name
 										</Col>
 										<Col sm={10}>
@@ -202,7 +202,7 @@ class Signup extends Component {
 										controlId="formHorizontalPassword"
 										validationState={this.getPasswordValidationState()}
 									>
-										<Col componentClass={ControlLabel} sm={2}>
+										<Col componentClass={FormLabel} sm={2}>
 											Password
 										</Col>
 										<Col sm={10}>
@@ -222,7 +222,7 @@ class Signup extends Component {
 									controlId="formHorizontalPasswordConfirmation"
 									validationState={this.getPasswordValidationState()}
 								>
-									<Col componentClass={ControlLabel} sm={2}>
+									<Col componentClass={FormLabel} sm={2}>
 									</Col>
 									<Col sm={10}>
 										<FormControl
@@ -245,13 +245,13 @@ class Signup extends Component {
 									>Sign up</Button>
 								</FormGroup>
 							</Form>
-						</Panel.Body>
-						<Panel.Footer style={{ background: 'rgba(255,255,255,0.6)', textAlign: 'right' }}>
+						</Card.Body>
+						<Card.Footer style={{ background: 'rgba(255,255,255,0.6)', textAlign: 'right' }}>
 							<Link to="/forgot-password">Forgot password?</Link>
 							<span> | </span>
 							<Link to="/login">Log in</Link>
-						</Panel.Footer>
-					</Panel>
+						</Card.Footer>
+					</Card>
 				</div>
 				<MsgModal
 					show={this.state.showModal}

@@ -1,7 +1,7 @@
 // MODULES //
 
 import React, { Component } from 'react';
-import { Button, ControlLabel, FormControl, FormGroup, Form, Panel } from 'react-bootstrap';
+import { Button, Card, FormLabel, FormControl, FormGroup, Form } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import request from 'request';
@@ -40,12 +40,12 @@ class ForgotPassword extends Component {
 	render() {
 		return (
 			<div className="login">
-				<Panel style={{ boxShadow: '0 0 8px rgba(0,0,0,0.3)', borderRadius: '6px', opacity: 0.98, background: 'rgba(255,255,255,0.75)' }}>
-					<Panel.Body>
+				<Card style={{ boxShadow: '0 0 8px rgba(0,0,0,0.3)', borderRadius: '6px', opacity: 0.98, background: 'rgba(255,255,255,0.75)' }}>
+					<Card.Body>
 						<h3>Forgot password?</h3>
 						<Form inline>
 							<FormGroup controlId="formHorizontalEmail">
-								<ControlLabel>Email Address</ControlLabel>
+								<FormLabel>Email Address</FormLabel>
 								<FormControl
 									type="email"
 									placeholder="Enter Email"
@@ -65,13 +65,13 @@ class ForgotPassword extends Component {
 								<Button onClick={this.handleClick} bsStyle="primary" type="submit">Reset</Button>
 							</FormGroup>
 						</Form>
-					</Panel.Body>
-					<Panel.Footer style={{ background: 'rgba(255,255,255,0.6)', textAlign: 'right' }}>
+					</Card.Body>
+					<Card.Footer style={{ background: 'rgba(255,255,255,0.6)', textAlign: 'right' }}>
 						<Link to="/signup">Sign up</Link>
 						<span> | </span>
 						<Link to="/login">Log in</Link>
-					</Panel.Footer>
-				</Panel>
+					</Card.Footer>
+				</Card>
 			</div>
 		);
 	}

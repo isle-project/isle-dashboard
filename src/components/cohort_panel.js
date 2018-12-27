@@ -2,7 +2,7 @@
 
 import React, { Component } from 'react';
 import {
-	Button, ButtonToolbar, ControlLabel, Form, FormControl, FormGroup,
+	Button, ButtonToolbar, FormLabel, Form, FormControl, FormGroup,
 	OverlayTrigger, Row, Tooltip
 } from 'react-bootstrap';
 import PropTypes from 'prop-types';
@@ -80,7 +80,7 @@ class CohortPanel extends Component {
 				<Row>
 					<OverlayTrigger placement="right" overlay={<Tooltip id="ownerTooltip">Title with a minimum length of four characters.</Tooltip>}>
 						<FormGroup>
-							<ControlLabel>Title</ControlLabel>
+							<FormLabel>Title</FormLabel>
 							<FormControl
 								name="title"
 								type="text"
@@ -92,7 +92,7 @@ class CohortPanel extends Component {
 				</Row>
 				<Row>
 					<FormGroup>
-						<ControlLabel> From ... To </ControlLabel>
+						<FormLabel> From ... To </FormLabel>
 						<br />
 						<DateRangePicker
 							startDateId="panel_start_date_input"
@@ -110,7 +110,7 @@ class CohortPanel extends Component {
 				<Row>
 					<OverlayTrigger placement="right" overlay={<Tooltip id="ownerTooltip">Comma-separated list of email addresses denoting the students for this cohort</Tooltip>}>
 						<FormGroup>
-							<ControlLabel>Enrolled Students</ControlLabel>
+							<FormLabel>Enrolled Students</FormLabel>
 							<FormControl
 								name="students"
 								componentClass="textarea"

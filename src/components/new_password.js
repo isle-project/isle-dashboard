@@ -1,7 +1,7 @@
 // MODULES //
 
 import React, { Component } from 'react';
-import { Button, Col, ControlLabel, FormControl, FormGroup, Form, Modal, OverlayTrigger, Overlay, PageHeader, Panel, Popover, Tooltip } from 'react-bootstrap';
+import { Button, Card, Col, FormLabel, FormControl, FormGroup, Form, Modal, OverlayTrigger, Overlay, Popover, Tooltip } from 'react-bootstrap';
 import { withRouter } from 'react-router';
 import PropTypes from 'prop-types';
 import queryString from 'query-string';
@@ -130,11 +130,11 @@ class NewPassword extends Component {
 		return (
 			<div>
 				<div className="login">
-					<Panel style={{ opacity: 0.9 }}>
-						<PageHeader><small>Choose a new Password</small></PageHeader>
+					<Card style={{ opacity: 0.9 }}>
+						<Card.Title><small>Choose a new Password</small></Card.Title>
 						<Form horizontal>
 							<FormGroup>
-								<Col componentClass={ControlLabel} sm={2}>
+								<Col componentClass={FormLabel} sm={2}>
 									Token
 								</Col>
 								<Col sm={10}>
@@ -151,7 +151,7 @@ class NewPassword extends Component {
 									controlId="formHorizontalPassword"
 									validationState={this.getPasswordValidationState()}
 								>
-									<Col componentClass={ControlLabel} sm={2}>
+									<Col componentClass={FormLabel} sm={2}>
 										Password
 									</Col>
 									<Col sm={10}>
@@ -171,7 +171,7 @@ class NewPassword extends Component {
 								controlId="formHorizontalPassword"
 								validationState={this.getPasswordValidationState()}
 							>
-								<Col componentClass={ControlLabel} sm={2}>
+								<Col componentClass={FormLabel} sm={2}>
 								</Col>
 								<Col sm={10}>
 									<FormControl
@@ -194,7 +194,7 @@ class NewPassword extends Component {
 								>Confirm</Button>
 							</FormGroup>
 						</Form>
-					</Panel>
+					</Card>
 				</div>
 				<MsgModal
 					show={this.state.showModal}

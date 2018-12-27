@@ -1,7 +1,7 @@
 // MODULES //
 
 import React, { Component } from 'react';
-import { Glyphicon, Jumbotron } from 'react-bootstrap';
+import { Jumbotron } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import { Responsive, WidthProvider } from 'react-grid-layout';
 import isArray from '@stdlib/assert/is-array';
@@ -115,7 +115,7 @@ class LessonsPage extends Component {
 			return (
 				<Jumbotron style={{ position: 'relative', top: 70, textAlign: 'left', paddingLeft: 20 }}>
 				<h1>No Course Selected</h1>
-				<p>Open an existing course by selecting one from the dropdown menu above at <Glyphicon glyph="align-justify" /> or create a new one under <Glyphicon glyph="pencil" />.</p>
+				<p>Open an existing course by selecting one from the dropdown menu above at <i className="fa fa-align-justify"></i> or create a new one under <i className="fa fa-pencil-alt"></i>.</p>
 			</Jumbotron>
 			);
 		}
