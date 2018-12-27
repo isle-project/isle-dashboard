@@ -126,7 +126,7 @@ class ProfilePage extends Component {
 				margin: '0 auto'
 			}}>
 			<Card.Header>
-				<Card.Title as="h1">Profile
+				<Card.Title as="h3">Profile
 				{this.renderInstructorButton()}
 				</Card.Title>
 			</Card.Header>

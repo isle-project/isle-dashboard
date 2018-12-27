@@ -34,9 +34,9 @@ class EnterToken extends Component {
 				width: '50%',
 				margin: '0 auto'
 			}}>
-				<Card.Heading>
-					<Card.Title componentClass="h2">Enter Access Token</Card.Title>
-				</Card.Heading>
+				<Card.Header>
+					<Card.Title as="h2">Enter Access Token</Card.Title>
+				</Card.Header>
 				<Card.Body>
 					<div>
 						Please enter the write-access token that was sent to you. If you have not received it yet,
