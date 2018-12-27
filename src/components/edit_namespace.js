@@ -214,7 +214,9 @@ class EditNamespace extends Component {
 					<Col md={6} >
 						<Card>
 							<Card.Header>
-								<Card.Title as="h1">Edit Course</Card.Title>
+								<Card.Title as="h2">
+									Edit Course
+								</Card.Title>
 							</Card.Header>
 							<Card.Body>
 								<Form style={{ padding: '20px' }}>
@@ -266,7 +268,7 @@ class EditNamespace extends Component {
 					<Col md={6} >
 						<Card>
 							<Card.Header>
-								<Card.Title as="h1">Cohorts
+								<Card.Title as="h2">Cohorts
 									<Button size="small" variant="success" style={{ float: 'right', marginTop: -7 }}
 										onClick={() => {
 											this.setState({
