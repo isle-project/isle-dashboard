@@ -16,7 +16,6 @@ import TextSelect from './text_select.js';
 
 function validateInputs({ emails, title }) {
 	let invalid = false;
-	console.log( emails );
 	if ( emails.length === 0 ) {
 		invalid = true;
 	} else {
