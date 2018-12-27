@@ -105,7 +105,7 @@
     display: grid;
 
     grid-template-columns: 20px auto 20px;
-	grid-template-rows: 20px 40% 20px 40% auto 40px;
+	grid-template-rows: 20px 40% 20px 40% 5% 40px;
 
 	grid-template-areas:
 		"mleft header mright"
@@ -144,16 +144,22 @@
 
 
 .profile-page-user-score {
-    border:solid 1px black;
+    border:solid 1px darkgray;
     font-family: Open Sans Condensed;
     color: silver;
     font-weight: 800;
     font-size: 32px;
     text-align: center;
     width: 40%;
-    box-shadow: inset 0px 0px 5px #c1c1c1;
+    box-shadow: inset 0px 0px 5px #c1c1c1, inset 3px 3px 5px darkgray, inset 0 0 2px darkgray ;
     margin-bottom: 8px;
     border-radius: 8px;
+    transition: all 1.7;
+}
+
+.profile-page-user-score:hover {
+    background: gainsboro;
+    color: darkslategray;
 }
 
 
