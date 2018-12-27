@@ -91,36 +91,29 @@ class Lesson extends Component {
 		const activeStyle = this.props.active === true ? 'success' : 'warning';
 		const publicStyle = this.props.public === true ? 'success' : 'warning';
 		return ( <ButtonToolbar style={{
-			paddingTop: 5,
-			paddingLeft: 5,
-			paddingRight: 5,
 			position: 'absolute',
 			top: 180,
 			width: '100%',
-			height: '50px',
-			left: 5,
-			background: 'rgba(0, 0, 0, 0.75)',
-			border: '1px solid transparent',
-			borderRadius: '4px'
+			background: 'rgba(0, 0, 0, 0.75)'
 		}}>
 			<ButtonGroup style={{ marginRight: '5px' }} >
 				<OverlayTrigger placement="bottom" overlay={<Tooltip id="open_details">Open Details</Tooltip>}>
-					<Button onClick={this.showDetailsModal}>
+					<Button size="small" variant="secondary" onClick={this.showDetailsModal}>
 						<i className="fa fa-cog"></i>
 					</Button>
 				</OverlayTrigger>
 				<OverlayTrigger placement="bottom" overlay={<Tooltip id="toggle_availability">Toggle Availability</Tooltip>}>
-					<Button onClick={this.toggleLessonState}>
+					<Button size="small" variant="secondary" onClick={this.toggleLessonState}>
 						<i className="fa fa-power-off"></i>
 					</Button>
 				</OverlayTrigger>
 				<OverlayTrigger placement="bottom" overlay={<Tooltip id="toggle_visibility">Toggle Visibility</Tooltip>}>
-					<Button onClick={this.toggleLessonVisibility}>
+					<Button size="small" variant="secondary" onClick={this.toggleLessonVisibility}>
 						<i className="fa fa-lock"></i>
 					</Button>
 				</OverlayTrigger>
 				<OverlayTrigger placement="bottom" overlay={<Tooltip id="delete_lesson">Delete Lesson</Tooltip>}>
-					<Button onClick={this.showDeleteModal} >
+					<Button size="small" variant="secondary" onClick={this.showDeleteModal} >
 						<i className="fa fa-trash-alt"></i>
 					</Button>
 				</OverlayTrigger>

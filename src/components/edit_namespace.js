@@ -213,9 +213,9 @@ class EditNamespace extends Component {
 				<Row>
 					<Col md={6} >
 						<Card>
-							<Card.Heading>
+							<Card.Header>
 								<Card.Title as="h1">Edit Course</Card.Title>
-							</Card.Heading>
+							</Card.Header>
 							<Card.Body>
 								<Form style={{ padding: '20px' }}>
 									<OverlayTrigger placement="right" overlay={<Tooltip id="ownerTooltip">Comma-separated list of email addresses denoting the administrators for this course</Tooltip>}>

@@ -123,7 +123,7 @@ class HeaderBar extends Component {
 				style={{ float: 'left', marginRight: '24px' }}
 				onClick={this.goToCreateCoursePage.bind( this )}
 			>
-				<i className="fa fa-pencil"></i>
+				<i className="fa fa-pencil-alt"></i>
 			</Button>
 		</OverlayTrigger> );
 	}
@@ -158,7 +158,7 @@ class HeaderBar extends Component {
 					style={{ float: 'left', marginRight: '6px' }}
 					onClick={this.goToCourseDataPage.bind( this )}
 				>
-					<i className="fa fa-chart-bar"></i>
+					<i className="fa fa-chart-pie"></i>
 				</Button>
 			</OverlayTrigger>
 		);
@@ -215,11 +215,10 @@ class HeaderBar extends Component {
 	}
 
 	renderSearchField() {
-		if (!this.props.namespace.title) {
+		if ( !this.props.namespace.title ) {
 			return null;
 		}
-
-		return ( <FormGroup style={{ width: '50vw' }}>
+		return ( <FormGroup style={{ width: '30vw' }}>
 			<InputGroup>
 				<FormControl
 					style={{
