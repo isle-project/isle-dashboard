@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { connect } from 'react-redux';
-import ProfilePage from './../components/profile_page.js';
+import ProfilePage from './../components/profile-page';
 import * as actions from './../actions';
 
 
