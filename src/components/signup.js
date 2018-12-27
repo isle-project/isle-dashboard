@@ -165,7 +165,7 @@ class Signup extends Component {
 							<Form>
 								<OverlayTrigger placement="right" overlay={createTooltip( 'Please enter a valid email address.' )}>
 									<FormGroup
-										controlId="formHorizontalEmail"
+										controlId="form-email"
 										validationState={this.getEmailValidationState()}
 									>
 										<Row>
@@ -186,7 +186,7 @@ class Signup extends Component {
 								</OverlayTrigger>
 								<OverlayTrigger placement="right" overlay={createTooltip( 'Please enter your name (minimum three characters).' )}>
 									<FormGroup
-										controlId="formHorizontalName"
+										controlId="form-name"
 										validationState={this.getNameValidationState()}
 									>
 										<Row>
@@ -207,7 +207,7 @@ class Signup extends Component {
 								</OverlayTrigger>
 								<OverlayTrigger placement="right" overlay={createTooltip( 'Please enter a password of your choosing with at least six characters' )}>
 									<FormGroup
-										controlId="formHorizontalPassword"
+										controlId="form-password"
 										validationState={this.getPasswordValidationState()}
 									>
 										<Row>
@@ -229,7 +229,7 @@ class Signup extends Component {
 									</FormGroup>
 								</OverlayTrigger>
 								<FormGroup
-									controlId="formHorizontalPasswordConfirmation"
+									controlId="form-repeat-password"
 									validationState={this.getPasswordValidationState()}
 								>
 									<Row>

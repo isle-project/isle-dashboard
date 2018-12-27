@@ -2,13 +2,14 @@
 
 import React, { Component, Fragment } from 'react';
 import {
-	Badge, Button, ButtonGroup, ButtonToolbar, Card, FormLabel, FormGroup, OverlayTrigger, Tooltip
+	Badge, Button, ButtonGroup, ButtonToolbar, Card, OverlayTrigger, Tooltip
 } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import DetailsModal from './details_modal.js';
 import DeleteModal from './delete_modal.js';
 import COLORS from './../../constants/colors';
 import background from './architecture.jpeg';
+import './lessons.css';
 
 
 // MAIN //
@@ -102,34 +103,18 @@ class Lesson extends Component {
 						<i className="fa fa-cog"></i>
 					</Button>
 				</OverlayTrigger>
-				<OverlayTrigger placement="bottom" overlay={<Tooltip id="toggle_availability">Toggle Availability</Tooltip>}>
-					<Button size="small" variant="secondary" onClick={this.toggleLessonState}>
-						<i className="fa fa-power-off"></i>
-					</Button>
-				</OverlayTrigger>
-				<OverlayTrigger placement="bottom" overlay={<Tooltip id="toggle_visibility">Toggle Visibility</Tooltip>}>
-					<Button size="small" variant="secondary" onClick={this.toggleLessonVisibility}>
-						<i className="fa fa-lock"></i>
-					</Button>
-				</OverlayTrigger>
 				<OverlayTrigger placement="bottom" overlay={<Tooltip id="delete_lesson">Delete Lesson</Tooltip>}>
 					<Button size="small" variant="secondary" onClick={this.showDeleteModal} >
 						<i className="fa fa-trash-alt"></i>
 					</Button>
 				</OverlayTrigger>
 			</ButtonGroup>
-			<FormGroup>
-				<FormLabel style={{ marginRight: '2px' }}>
-					<Badge variant={activeStyle} style={{
-						fontSize: '12px'
-					}}>{this.props.active ? 'Active' : 'Inactive'}</Badge>
-				</FormLabel>
-				<FormLabel>
-					<Badge variant={publicStyle} style={{
-						fontSize: '12px'
-					}}>{this.props.public ? 'Public' : 'Private'}</Badge>
-				</FormLabel>
-			</FormGroup>
+			<OverlayTrigger placement="bottom" overlay={<Tooltip id="toggle_availability">Toggle Availability</Tooltip>}>
+				<Badge className="lessons-status" onClick={this.toggleLessonState} variant={activeStyle} >{this.props.active ? 'Active' : 'Inactive'}</Badge>
+			</OverlayTrigger>
+			<OverlayTrigger placement="bottom" overlay={<Tooltip id="toggle_visibility">Toggle Visibility</Tooltip>}>
+				<Badge className="lessons-status" onClick={this.toggleLessonVisibility} variant={publicStyle}>{this.props.public ? 'Public' : 'Private'}</Badge>
+			</OverlayTrigger>
 		</ButtonToolbar> );
 	}
 

@@ -2,14 +2,36 @@
 
 import React, { Component } from 'react';
 import {
-	Button, ButtonToolbar, FormLabel, Form, FormControl, FormGroup,
+	Button, ButtonGroup, FormLabel, Form, FormControl, FormGroup,
 	OverlayTrigger, Row, Tooltip
 } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import { DateRangePicker } from 'react-dates';
 import 'react-dates/lib/css/_datepicker.css';
 import moment from 'moment';
+import isEmail from '@stdlib/assert/is-email-address';
 import ConfirmModal from './confirm_modal.js';
+import TextSelect from './text_select.js';
+
+
+// FUNCTIONS //
+
+function validateInputs({ emails, title }) {
+	let invalid = false;
+	if ( emails.length === 0 ) {
+		invalid = true;
+	} else {
+		emails.forEach( owner => {
+			if ( !isEmail( owner ) ) {
+				invalid = true;
+			}
+		});
+	}
+	if ( invalid ) {
+		return false;
+	}
+	return title.length >= 4;
+}
 
 
 // MAIN //
@@ -23,55 +45,58 @@ class CohortPanel extends Component {
 			startDate: moment( props.startDate ),
 			endDate: moment( props.endDate ),
 			title: props.title,
-			students: props.students.join( ',' ),
+			students: props.students,
 			showDeleteModal: false
 		};
+	}
 
-		this.handleInputChange = ( event ) => {
-			const target = event.target;
-			const name = target.name;
-			let value = target.value;
-
-			if ( name === 'students' ) {
-				value = value.replace( /\s/g, '' );
-			}
+	handleInputChange = ( event ) => {
+		const target = event.target;
+		const name = target.name;
+		let value = target.value;
+		this.setState({
+			[ name ]: value
+		}, () => {
 			this.setState({
-				[ name ]: value
-			}, () => {
-				let { title } = this.state;
-				if ( title.length > 4 ) {
-					this.setState({
-						disabled: false
-					});
-				} else {
-					this.setState({
-						disabled: true
-					});
-				}
+				disabled: !validateInputs({
+					emails: this.state.owners,
+					title: this.state.title
+				})
 			});
-		};
+		});
+	}
 
-		this.handleUpdate = () => {
-			const updatedCohort = {
-				_id: this.props.id,
-				startDate: this.state.startDate.toDate(),
-				endDate: this.state.endDate.toDate(),
-				members: this.state.students,
+	handleUpdate = () => {
+		const updatedCohort = {
+			_id: this.props.id,
+			startDate: this.state.startDate.toDate(),
+			endDate: this.state.endDate.toDate(),
+			members: this.state.students.join( ',' ),
+			title: this.state.title
+		};
+		this.props.onUpdate( updatedCohort );
+	}
+
+	handleDelete = () => {
+		this.props.onDelete( this.props.id );
+		this.closeDeleteModal();
+	}
+
+	closeDeleteModal = () => {
+		this.setState({
+			showDeleteModal: false
+		});
+	}
+
+	handleStudentChange = ( newValue ) => {
+		const students = newValue.map( x => x.value );
+		this.setState({
+			students: students,
+			disabled: !validateInputs({
+				emails: students,
 				title: this.state.title
-			};
-			this.props.onUpdate( updatedCohort );
-		};
-
-		this.handleDelete = () => {
-			this.props.onDelete( this.props.id );
-			this.closeDeleteModal();
-		};
-
-		this.closeDeleteModal = () => {
-			this.setState({
-				showDeleteModal: false
-			});
-		};
+			})
+		});
 	}
 
 	render() {
@@ -111,17 +136,15 @@ class CohortPanel extends Component {
 					<OverlayTrigger placement="right" overlay={<Tooltip id="ownerTooltip">Comma-separated list of email addresses denoting the students for this cohort</Tooltip>}>
 						<FormGroup>
 							<FormLabel>Enrolled Students</FormLabel>
-							<FormControl
-								name="students"
-								componentClass="textarea"
-								value={this.state.students}
-								onChange={this.handleInputChange}
+							<TextSelect
+								onChange={this.handleStudentChange}
+								defaultValue={this.state.students}
 							/>
 						</FormGroup>
 					</OverlayTrigger>
 				</Row>
 				<Row>
-					<ButtonToolbar>
+					<ButtonGroup>
 						<Button
 							disabled={this.state.disabled}
 							onClick={this.handleUpdate}
@@ -131,7 +154,7 @@ class CohortPanel extends Component {
 								showDeleteModal: true
 							});
 						}} variant="danger">Delete</Button>
-					</ButtonToolbar>
+					</ButtonGroup>
 				</Row>
 				<ConfirmModal
 					show={this.state.showDeleteModal}
@@ -146,7 +169,8 @@ class CohortPanel extends Component {
 	}
 }
 
-// PROPERTY TYPES //
+
+// PROPERTIES //
 
 CohortPanel.propTypes = {
 	endDate: PropTypes.string,

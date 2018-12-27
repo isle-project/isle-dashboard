@@ -90,7 +90,7 @@ class Login extends Component {
 						</Card.Title>
 					</Card.Header>
 					<Card.Body>
-						<Form horizontal>
+						<Form>
 							<FormGroup controlId="form-email">
 								<Row>
 									<Col sm={3}>

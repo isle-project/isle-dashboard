@@ -21,20 +21,19 @@ function mapStateToProps( state ) {
 
 function mapDispatchToProps( dispatch ) {
 	return {
-		createNamespace: ({ state, props }) => {
-			const user = props.user;
+		createNamespace: ({ title, description, owners, props }) => {
 			request.post( server+'/create_namespace', {
-				form: state,
+				form: { title, description, owners },
 				headers: {
-					'Authorization': 'JWT ' + user.token
+					'Authorization': 'JWT ' + props.user.token
 				}
 			}, ( err, res ) => {
 				if ( !err ) {
 					const body = JSON.parse( res.body );
 					let namespace = {
-						title: state.title,
-						description: state.description,
-						owners: state.owners,
+						title,
+						description,
+						owners,
 						_id: body._id
 					};
 					props.onNamespace( namespace );

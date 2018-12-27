@@ -1,3 +1,22 @@
+/* Color definitions */
+:root {
+	--primary: #2e4468;
+	--primarydark: #4a618691;
+	--primaryhalf: #526c96;
+	--primarylight:  #2e4468af;
+	--primarysuperlight:  #2e4468;
+	--secondary: #3c763d;
+	--secondarymedium: #2b552c;
+	--secondarydark: #162c17;
+	--secondarylight:#77df79;
+	--secondaryhalf: #54a857;
+	--tertiary:  #2e4468;
+	--tertiarylight:  #7285a3;
+	--quartary: #ca5800;
+	--quartarydark: #351802;
+	--quartarylight:  #c49978;
+}
+
 body {
 	margin: 0;
 	padding: 0;
@@ -8,8 +27,29 @@ h1 {
 	font-family: Open Sans Condensed;
 }
 
+h2 {
+	font-size: 36px;
+	color: var(--secondary);
+	font-family: Open Sans Condensed;
+	font-weight: 800;
+}
 
 h3 {
 	font-family: Open Sans Condensed;
+	font-size: 24px;
+	color: var(--tertiary);
 	font-weight: 800;
+}
+
+h4 {
+	font-family: Open Sans Condensed;
+	color: var(--quartary);
+}
+
+h5 {
+	font-family: Open Sans Condensed;
+}
+
+.btn-primary {
+	filter: saturate(80%);
 }

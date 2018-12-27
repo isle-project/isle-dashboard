@@ -120,7 +120,7 @@ class HeaderBar extends Component {
 		}
 		return ( <OverlayTrigger placement="bottom" overlay={createCourseTooltip}>
 			<Button
-				style={{ float: 'left', marginRight: '24px' }}
+				style={{ float: 'left', marginRight: '6px' }}
 				onClick={this.goToCreateCoursePage.bind( this )}
 			>
 				<i className="fa fa-pencil-alt"></i>
@@ -174,7 +174,7 @@ class HeaderBar extends Component {
 					onClick={this.goToGallery.bind( this )}
 					style={{
 						float: 'left',
-						marginRight: '18px',
+						marginRight: '6px',
 						marginLeft: '6px'
 					}}
 				>
@@ -195,8 +195,7 @@ class HeaderBar extends Component {
 				ref={( button ) => { this.overlayTarget = button; }}
 				style={{
 					float: 'left',
-					marginRight: '6px',
-					marginLeft: '6px'
+					marginRight: '6px'
 				}}
 				onClick={() => {
 					this.setState({
@@ -215,10 +214,14 @@ class HeaderBar extends Component {
 	}
 
 	renderSearchField() {
-		if ( !this.props.namespace.title ) {
+		if (
+			!this.props.namespace.title ||
+			this.props.history.location.pathname !== '/lessons' ||
+			this.props.history.location.pathname !== '/gallery'
+		) {
 			return null;
 		}
-		return ( <FormGroup style={{ width: '30vw', float: 'left' }}>
+		return ( <FormGroup style={{ width: '20vw', float: 'left' }}>
 			<InputGroup>
 				<FormControl
 					style={{
@@ -236,6 +239,17 @@ class HeaderBar extends Component {
 					</InputGroup.Append>
 			</InputGroup>
 		</FormGroup> );
+	}
+
+	renderHelp() {
+		return ( <div className="header-bar-container">
+			<div key="help" className="header-bar-link-div" >
+				<a
+					href="http://isledocs.com/" target="_blank"
+					className="header-bar-link"
+				>Help</a>
+			</div>
+		</div> );
 	}
 
 	render() {
@@ -270,14 +284,7 @@ class HeaderBar extends Component {
 					fontSize: '15px',
 					marginRight: '10px'
 				}}>
-					<div className="header-bar-container">
-						<div key="help" className="header-bar-link-div" >
-							<a
-								href="http://isledocs.com/" target="_blank"
-								className="header-bar-link"
-							>Help</a>
-						</div>
-					</div>
+					{this.renderHelp()}
 					<div className="header-bar-container">
 						<Image src={icon} className="header-bar-icon"></Image>
 						<div key="account" className="header-bar-link-div" >

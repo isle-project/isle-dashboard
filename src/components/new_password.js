@@ -134,7 +134,7 @@ class NewPassword extends Component {
 						<Card.Title>
 							<small>Choose a new Password</small>
 						</Card.Title>
-						<Form horizontal>
+						<Form>
 							<FormGroup>
 								<Col sm={2}>
 									<FormLabel>Token</FormLabel>
@@ -150,7 +150,7 @@ class NewPassword extends Component {
 							</FormGroup>
 							<OverlayTrigger placement="right" overlay={createTooltip( 'Please enter a new password with at least six characters' )}>
 								<FormGroup
-									controlId="form-horizontal-password"
+									controlId="form-password"
 									validationState={this.getPasswordValidationState()}
 								>
 									<Col sm={2}>
@@ -170,7 +170,7 @@ class NewPassword extends Component {
 								</FormGroup>
 							</OverlayTrigger>
 							<FormGroup
-								controlId="form-horizontal-password-confirmation"
+								controlId="form-password-confirmation"
 								validationState={this.getPasswordValidationState()}
 							>
 								<Col sm={{ span: 10, offset: 2 }}>
