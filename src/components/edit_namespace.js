@@ -287,9 +287,9 @@ class EditNamespace extends Component {
 											background: 'ivory'
 										}}
 									>
-										<Card.Heading>
+										<Card.Header>
 											<Card.Title toggle>{cohort.title}</Card.Title>
-										</Card.Heading>
+										</Card.Header>
 										<Card.Body collapsible>
 											<CohortPanel
 												id={cohort._id}

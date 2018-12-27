@@ -218,7 +218,7 @@ class HeaderBar extends Component {
 		if ( !this.props.namespace.title ) {
 			return null;
 		}
-		return ( <FormGroup style={{ width: '30vw' }}>
+		return ( <FormGroup style={{ width: '30vw', float: 'left' }}>
 			<InputGroup>
 				<FormControl
 					style={{
