@@ -3,7 +3,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import {
-	Button, FormGroup, FormControl, Glyphicon, Image, InputGroup,
+	Button, FormGroup, FormControl, Image, InputGroup,
 	Overlay, OverlayTrigger, Popover, ListGroupItem, ListGroup, Tooltip
 } from 'react-bootstrap';
 import PropTypes from 'prop-types';
@@ -104,7 +104,7 @@ class HeaderBar extends Component {
 				style={{ float: 'left', marginRight: '24px' }}
 				onClick={this.goToCreateCoursePage.bind( this )}
 			>
-				<Glyphicon glyph="pencil" />
+				<i className="fa fa-pencil-alt"></i>
 			</Button>
 		</OverlayTrigger> );
 	}
@@ -118,7 +118,8 @@ class HeaderBar extends Component {
 				<Button
 					style={{ float: 'left', marginRight: '6px' }}
 					onClick={this.goToCourseEditPage.bind( this )}
-				>	<Glyphicon glyph="edit" />
+				>
+					<i classNam="fa fa-edit"></i>
 				</Button>
 			</OverlayTrigger>
 		);
@@ -135,7 +136,7 @@ class HeaderBar extends Component {
 					style={{ float: 'left', marginRight: '6px' }}
 					onClick={this.goToCourseDataPage.bind( this )}
 				>
-					<Glyphicon glyph="stats" />
+					<i className="fa fa-chart-bar"></i>
 				</Button>
 			</OverlayTrigger>
 		);
@@ -156,7 +157,7 @@ class HeaderBar extends Component {
 						marginLeft: '6px'
 					}}
 				>
-					<Glyphicon glyph="eye-open" />
+					<i className="fa fa-eye"></i>
 					<small style={{ marginLeft: '5px' }}>Gallery</small>
 				</Button>
 			</OverlayTrigger>
@@ -179,7 +180,7 @@ class HeaderBar extends Component {
 				}}
 				disabled={!this.props.user.namespaces.length}
 			>
-				<Glyphicon glyph="align-justify" />
+				<i className="fa fa-align-justify"></i>
 				<small style={{ marginLeft: '5px' }}>
 					{this.props.namespace.title || 'Your Courses'}
 				</small>
@@ -205,7 +206,7 @@ class HeaderBar extends Component {
 				/>
 					<InputGroup.Button>
 						<Button disabled style={{ cursor: 'auto' }}>
-							<Glyphicon glyph="search" />
+							<i className="fa fa-search"></i>
 						</Button>
 					</InputGroup.Button>
 			</InputGroup>
