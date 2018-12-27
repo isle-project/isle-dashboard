@@ -131,7 +131,9 @@ class NewPassword extends Component {
 			<div>
 				<div className="login">
 					<Card style={{ opacity: 0.9 }}>
-						<Card.Title><small>Choose a new Password</small></Card.Title>
+						<Card.Title>
+							<small>Choose a new Password</small>
+						</Card.Title>
 						<Form horizontal>
 							<FormGroup>
 								<Col componentClass={FormLabel} sm={2}>
@@ -187,7 +189,7 @@ class NewPassword extends Component {
 							</FormGroup>
 							<FormGroup>
 								<Button
-									bsStyle="primary"
+									variant="primary"
 									type="submit"
 									onClick={this.handleSubmit}
 									className="centered"

@@ -1,7 +1,7 @@
 // MODULES //
 
 import React, { Component, Fragment } from 'react';
-import { Button, Card, Col, FormLabel, FormControl, FormGroup, Form, Modal, OverlayTrigger, Overlay, Popover, Tooltip } from 'react-bootstrap';
+import { Button, Card, Col, Row, FormLabel, FormControl, FormGroup, Form, Modal, OverlayTrigger, Overlay, Popover, Tooltip } from 'react-bootstrap';
 import { withRouter } from 'react-router';
 import { Link } from 'react-router-dom';
 import logger from 'debug';
@@ -156,7 +156,11 @@ class Signup extends Component {
 			<Fragment>
 				<div className="login">
 					<Card style={{ boxShadow: '0 0 8px rgba(0,0,0,0.3)', borderRadius: '6px', opacity: 0.98, background: 'rgba(255,255,255,0.75)' }}>
-						<Card.Title style={{ textAlign: 'center' }}>ISLE <small>Dashboard</small></Card.Title>
+						<Card.Header>
+							<Card.Title as="h1" style={{ textAlign: 'center' }}>
+								ISLE <small>Dashboard</small>
+							</Card.Title>
+						</Card.Header>
 						<Card.Body>
 							<Form horizontal>
 								<OverlayTrigger placement="right" overlay={createTooltip( 'Please enter a valid email address.' )}>
@@ -164,18 +168,20 @@ class Signup extends Component {
 										controlId="formHorizontalEmail"
 										validationState={this.getEmailValidationState()}
 									>
-										<Col componentClass={FormLabel} sm={2}>
-											Email
-										</Col>
-										<Col sm={10}>
-											<FormControl
-												name="email"
-												type="email"
-												placeholder="Enter Email"
-												onChange={this.handleInputChange}
-											/>
-											<FormControl.Feedback />
-										</Col>
+										<Row>
+											<Col componentClass={FormLabel} sm={3}>
+												Email
+											</Col>
+											<Col sm={9}>
+												<FormControl
+													name="email"
+													type="email"
+													placeholder="Enter Email"
+													onChange={this.handleInputChange}
+												/>
+												<FormControl.Feedback />
+											</Col>
+										</Row>
 									</FormGroup>
 								</OverlayTrigger>
 								<OverlayTrigger placement="right" overlay={createTooltip( 'Please enter your name (minimum three characters).' )}>
@@ -183,18 +189,20 @@ class Signup extends Component {
 										controlId="formHorizontalName"
 										validationState={this.getNameValidationState()}
 									>
-										<Col componentClass={FormLabel} sm={2}>
-											Name
-										</Col>
-										<Col sm={10}>
-											<FormControl
-												name="name"
-												type="text"
-												placeholder="Enter Name"
-												onChange={this.handleInputChange}
-											/>
-											<FormControl.Feedback />
-										</Col>
+										<Row>
+											<Col componentClass={FormLabel} sm={3}>
+												Name
+											</Col>
+											<Col sm={9}>
+												<FormControl
+													name="name"
+													type="text"
+													placeholder="Enter Name"
+													onChange={this.handleInputChange}
+												/>
+												<FormControl.Feedback />
+											</Col>
+										</Row>
 									</FormGroup>
 								</OverlayTrigger>
 								<OverlayTrigger placement="right" overlay={createTooltip( 'Please enter a password of your choosing with at least six characters' )}>
@@ -202,43 +210,47 @@ class Signup extends Component {
 										controlId="formHorizontalPassword"
 										validationState={this.getPasswordValidationState()}
 									>
-										<Col componentClass={FormLabel} sm={2}>
-											Password
-										</Col>
-										<Col sm={10}>
-											<FormControl
-												name="password"
-												type="password"
-												placeholder="Choose Password"
-												onChange={this.handleInputChange}
-												maxLength={30}
-												minLength={6}
-											/>
-											<FormControl.Feedback />
-										</Col>
+										<Row>
+											<Col componentClass={FormLabel} sm={3}>
+												Password
+											</Col>
+											<Col sm={9}>
+												<FormControl
+													name="password"
+													type="password"
+													placeholder="Choose Password"
+													onChange={this.handleInputChange}
+													maxLength={30}
+													minLength={6}
+												/>
+												<FormControl.Feedback />
+											</Col>
+										</Row>
 									</FormGroup>
 								</OverlayTrigger>
 								<FormGroup
 									controlId="formHorizontalPasswordConfirmation"
 									validationState={this.getPasswordValidationState()}
 								>
-									<Col componentClass={FormLabel} sm={2}>
-									</Col>
-									<Col sm={10}>
-										<FormControl
-											name="passwordRepeat"
-											type="password"
-											placeholder="Confirm Password"
-											onChange={this.handleInputChange}
-											maxLength={30}
-											minLength={6}
-										/>
-										<FormControl.Feedback />
-									</Col>
+									<Row>
+										<Col componentClass={FormLabel} sm={3}>
+										</Col>
+										<Col sm={9}>
+											<FormControl
+												name="passwordRepeat"
+												type="password"
+												placeholder="Confirm Password"
+												onChange={this.handleInputChange}
+												maxLength={30}
+												minLength={6}
+											/>
+											<FormControl.Feedback />
+										</Col>
+									</Row>
 								</FormGroup>
 								<FormGroup>
 									<Button
-										bsStyle="primary"
+										variant="primary"
 										className="centered"
 										type="submit"
 										onClick={this.handleSubmit}

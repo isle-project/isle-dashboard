@@ -90,7 +90,7 @@ class NamespaceData extends Component {
 		return (
 			<div className="namespace-data-div">
 				<div className="namespace-data-navbar">
-					<Nav bsStyle="pills" stacked activeKey={1} onSelect={this.handleSelect}>
+					<Nav variant="pills" stacked activeKey={1} onSelect={this.handleSelect}>
 						<NavItem eventKey={1} title="Recent Activity">
 							Recent Activity
 						</NavItem>

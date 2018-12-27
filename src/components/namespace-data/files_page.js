@@ -92,7 +92,7 @@ class FilesPage extends Component {
 			<h1 style={{ display: 'inline-block' }}>Files</h1>
 			<FormGroup style={{ display: 'inline-block', marginLeft: '20px', marginBottom: '0px' }}>
 					<FormLabel htmlFor="fileUpload" style={{ cursor: 'pointer' }}>
-						<h3><Badge bsStyle="success">Upload file</Badge></h3>
+						<h3><Badge variant="success">Upload file</Badge></h3>
 						<FormControl
 							id="fileUpload"
 							type="file"

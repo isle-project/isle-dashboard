@@ -130,7 +130,7 @@ class CohortPanel extends Component {
 							this.setState({
 								showDeleteModal: true
 							});
-						}} bsStyle="danger">Delete</Button>
+						}} variant="danger">Delete</Button>
 					</ButtonToolbar>
 				</Row>
 				<ConfirmModal

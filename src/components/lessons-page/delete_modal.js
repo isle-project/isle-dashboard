@@ -17,7 +17,7 @@ const DeleteModal = ( props ) => (
 		</Modal.Body>
 		<Modal.Footer>
 			<Button onClick={props.close}>Cancel</Button>
-			<Button bsStyle="danger" onClick={props.delete} >Delete</Button>
+			<Button variant="danger" onClick={props.delete} >Delete</Button>
 		</Modal.Footer>
 	</Modal>
 );

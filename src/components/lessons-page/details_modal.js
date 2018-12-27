@@ -105,7 +105,7 @@ class DetailsModal extends Component {
 					<Modal.Footer>
 						<Button onClick={this.props.close}>Cancel</Button>
 						<Button
-							bsStyle="success"
+							variant="success"
 							type="submit"
 							disabled={this.state.disabled}
 						>Save</Button>

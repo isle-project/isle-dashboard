@@ -41,8 +41,10 @@ class ForgotPassword extends Component {
 		return (
 			<div className="login">
 				<Card style={{ boxShadow: '0 0 8px rgba(0,0,0,0.3)', borderRadius: '6px', opacity: 0.98, background: 'rgba(255,255,255,0.75)' }}>
+					<Card.Header>
+						<Card.Title as="h5">Forgot password?</Card.Title>
+					</Card.Header>
 					<Card.Body>
-						<h3>Forgot password?</h3>
 						<Form inline>
 							<FormGroup controlId="formHorizontalEmail">
 								<FormLabel>Email Address</FormLabel>
@@ -62,7 +64,7 @@ class ForgotPassword extends Component {
 										marginRight: '6px'
 									}}
 								/>
-								<Button onClick={this.handleClick} bsStyle="primary" type="submit">Reset</Button>
+								<Button onClick={this.handleClick} variant="primary" type="submit">Reset</Button>
 							</FormGroup>
 						</Form>
 					</Card.Body>

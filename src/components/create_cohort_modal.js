@@ -126,7 +126,7 @@ class CreateCohortModal extends Component {
 				</Modal.Body>
 				<Modal.Footer>
 					<Button onClick={this.onClose}>Cancel</Button>
-					<Button bsStyle="success" disabled={this.state.disabled} onClick={this.onCreate}>Create</Button>
+					<Button variant="success" disabled={this.state.disabled} onClick={this.onCreate}>Create</Button>
 				</Modal.Footer>
 			</Modal>
 		);

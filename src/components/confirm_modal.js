@@ -17,7 +17,7 @@ const ConfirmModal = ( props ) => (
 		</Modal.Body>
 		<Modal.Footer>
 			<Button onClick={props.close}>Cancel</Button>
-			<Button bsStyle="danger" onClick={props.onDelete}>Confirm</Button>
+			<Button variant="danger" onClick={props.onDelete}>Confirm</Button>
 		</Modal.Footer>
 	</Modal>
 );

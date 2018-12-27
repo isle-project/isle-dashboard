@@ -2,7 +2,7 @@
 
 import React, { Component, Fragment } from 'react';
 import {
-	Button, Card, Col, FormLabel, FormControl, FormGroup,
+	Button, Card, Col, Row, FormLabel, FormControl, FormGroup,
 	Form, Overlay, Popover
 } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
@@ -84,43 +84,51 @@ class Login extends Component {
 		return (
 			<Fragment>
 				<div className="login"><Card className="login-panel">
-					<Card.Title style={{ textAlign: 'center' }}>ISLE <small>Dashboard</small></Card.Title>
+					<Card.Header>
+						<Card.Title as="h1" style={{ textAlign: 'center' }}>
+							ISLE <small>Dashboard</small>
+						</Card.Title>
+					</Card.Header>
 					<Card.Body>
 						<Form horizontal>
 							<FormGroup controlId="formHorizontalEmail">
-								<Col componentClass={FormLabel} sm={2}>
-									Email
-								</Col>
-								<Col sm={10}>
-									<FormControl
-										name="email"
-										type="email"
-										autoComplete="isle-email"
-										placeholder="Email"
-										onChange={this.handleInputChange}
-										ref={( input ) => { this.emailInput = input; }}
-									/>
-								</Col>
+								<Row>
+									<Col componentClass={FormLabel} sm={3}>
+										Email
+									</Col>
+									<Col sm={9}>
+										<FormControl
+											name="email"
+											type="email"
+											autoComplete="isle-email"
+											placeholder="Email"
+											onChange={this.handleInputChange}
+											ref={( input ) => { this.emailInput = input; }}
+										/>
+									</Col>
+								</Row>
 							</FormGroup>
 							<FormGroup controlId="formHorizontalPassword">
-								<Col componentClass={FormLabel} sm={2}>
-									Password
-								</Col>
-								<Col sm={10}>
-									<FormControl
-										name="password"
-										type="password"
-										autoComplete="isle-password"
-										placeholder="Password"
-										onChange={this.handleInputChange}
-										ref={( input ) => { this.passwordInput = input; }}
-									/>
-								</Col>
+								<Row>
+									<Col componentClass={FormLabel} sm={3}>
+										Password
+									</Col>
+									<Col sm={9}>
+										<FormControl
+											name="password"
+											type="password"
+											autoComplete="isle-password"
+											placeholder="Password"
+											onChange={this.handleInputChange}
+											ref={( input ) => { this.passwordInput = input; }}
+										/>
+									</Col>
+								</Row>
 							</FormGroup>
 							<FormGroup>
 								<Button
 									className="centered"
-									bsStyle="primary"
+									variant="primary"
 									onClick={this.handleSubmit}
 									type="submit"
 								>Sign in</Button>

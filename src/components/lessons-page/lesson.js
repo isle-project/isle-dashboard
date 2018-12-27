@@ -127,12 +127,12 @@ class Lesson extends Component {
 			</ButtonGroup>
 			<FormGroup>
 				<FormLabel style={{ marginRight: '2px' }}>
-					<Badge bsStyle={activeStyle} style={{
+					<Badge variant={activeStyle} style={{
 						fontSize: '12px'
 					}}>{this.props.active ? 'Active' : 'Inactive'}</Badge>
 				</FormLabel>
 				<FormLabel>
-					<Badge bsStyle={publicStyle} style={{
+					<Badge variant={publicStyle} style={{
 						fontSize: '12px'
 					}}>{this.props.public ? 'Public' : 'Private'}</Badge>
 				</FormLabel>

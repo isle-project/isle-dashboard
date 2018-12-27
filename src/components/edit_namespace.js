@@ -257,7 +257,7 @@ class EditNamespace extends Component {
 										this.setState({
 											showDeleteModal: true
 										});
-									}} bsStyle="danger">Delete</Button>
+									}} variant="danger">Delete</Button>
 								</ButtonToolbar>
 							</Card.Body>
 							{ this.renderModals() }
@@ -267,7 +267,7 @@ class EditNamespace extends Component {
 						<Card>
 							<Card.Heading>
 								<Card.Title componentClass="h1">Cohorts
-									<Button bsSize="small" bsStyle="success" style={{ float: 'right', marginTop: -7 }}
+									<Button bsSize="small" variant="success" style={{ float: 'right', marginTop: -7 }}
 										onClick={() => {
 											this.setState({
 												showCreateCohortModal: true
