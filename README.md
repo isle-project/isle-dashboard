@@ -37,6 +37,7 @@ See [LICENSE][license].
 #### Credits
 
 - User Icon by Atacan from the Noun Project
+- Badge Icon by Royyan Wijaya from the Noun Project
 
 [license]: https://raw.githubusercontent.com/Planeshifter/isle-dashboard/master/LICENSE
 
