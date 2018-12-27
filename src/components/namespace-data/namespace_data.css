@@ -5,17 +5,18 @@
 }
 
 .namespace-data-navbar {
-	margin-left: 10px;
-	width: 180px;
-	height: 100%;
-	float: left;
-	box-shadow: 4px 4px 10px darkgrey;
+	box-shadow: 2px 2px 2px 2px darkgrey;
+	padding-left: 6px;
+	padding-right: 6px;
+	margin: 8px;
 }
 
 .namespace-data-page {
-	float: left;
-	margin-left: 30px;
-	width: calc(100% - 250px);
-	height: 400px;
-	margin-right: 30px;
+	height: 100%;
+}
+
+.namespace-data-page-container {
+	box-shadow: 2px 2px 2px 2px darkgrey;
+	padding: 1.25rem;
+	margin: 8px;
 }

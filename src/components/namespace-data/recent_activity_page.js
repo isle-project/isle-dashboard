@@ -14,7 +14,7 @@ class RecentActivityPage extends Component {
 }
 
 
-// PROPERTY TYPES //
+// PROPERTIES //
 
 RecentActivityPage.propTypes = {
 };

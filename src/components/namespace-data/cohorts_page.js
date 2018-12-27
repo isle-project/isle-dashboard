@@ -5,10 +5,10 @@ import React, { Component } from 'react';
 
 // MAIN //
 
-class StatisticsPage extends Component {
+class CohortsPage extends Component {
 	render() {
 		return ( <div className="namespace-data-page">
-			<h1>Statistics</h1>
+			<h1>Cohort Data</h1>
 		</div> );
 	}
 }
@@ -16,13 +16,13 @@ class StatisticsPage extends Component {
 
 // PROPERTIES //
 
-StatisticsPage.propTypes = {
+CohortsPage.propTypes = {
 };
 
-StatisticsPage.defaultProps = {
+CohortsPage.defaultProps = {
 };
 
 
 // EXPORTS //
 
-export default StatisticsPage;
+export default CohortsPage;

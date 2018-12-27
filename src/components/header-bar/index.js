@@ -93,7 +93,7 @@ class HeaderBar extends Component {
 	goToCourseDataPage() {
 		this.props.history.replace( '/namespace-data' );
 		this.setState({
-			location: 'Dashboard'
+			location: 'Course Data'
 		});
 	}
 

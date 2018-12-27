@@ -5,10 +5,10 @@ import React, { Component } from 'react';
 
 // MAIN //
 
-class StatisticsPage extends Component {
+class ActionsPage extends Component {
 	render() {
 		return ( <div className="namespace-data-page">
-			<h1>Statistics</h1>
+			<h1>Export Actions</h1>
 		</div> );
 	}
 }
@@ -16,13 +16,13 @@ class StatisticsPage extends Component {
 
 // PROPERTIES //
 
-StatisticsPage.propTypes = {
+ActionsPage.propTypes = {
 };
 
-StatisticsPage.defaultProps = {
+ActionsPage.defaultProps = {
 };
 
 
 // EXPORTS //
 
-export default StatisticsPage;
+export default ActionsPage;
