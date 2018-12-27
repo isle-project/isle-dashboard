@@ -53,9 +53,9 @@ class CreateNamespace extends Component {
 				width: '50%',
 				margin: '0 auto'
 			}}>
-				<Card.Heading>
-					<Card.Title>Create Course</Card.Title>
-				</Card.Heading>
+				<Card.Header>
+					<Card.Title as="h3" >Create Course</Card.Title>
+				</Card.Header>
 				<Form style={{ padding: '20px' }}>
 					<OverlayTrigger placement="right" overlay={<Tooltip id="ownerTooltip">Enter a comma-separated list of email addresses denoting the administrators for this course</Tooltip>}>
 						<FormGroup>

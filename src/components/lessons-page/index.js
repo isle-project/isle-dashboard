@@ -115,7 +115,7 @@ class LessonsPage extends Component {
 			return (
 				<Jumbotron style={{ position: 'relative', top: 70, textAlign: 'left', paddingLeft: 20 }}>
 				<h1>No Course Selected</h1>
-				<p>Open an existing course by selecting one from the dropdown menu above at <i className="fa fa-align-justify"></i> or create a new one under <i className="fa fa-pencil-alt"></i>.</p>
+				<p>Open an existing course by selecting one from the dropdown menu above at <i className="fa fa-align-justify"></i> or create a new one under <i className="fa fa-pencil"></i>.</p>
 			</Jumbotron>
 			);
 		}

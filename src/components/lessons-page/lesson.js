@@ -151,7 +151,10 @@ class Lesson extends Component {
 		return (
 			<Card>
 				<Card.Body style={{ padding: 0 }}>
-					<div style={{ webkitFilter: 'grayscale(30%)', background: COLORS[ this.props.colorIndex ]}} className="hovereffect">
+					<div style={{
+						filter: 'grayscale(30%)',
+						background: COLORS[ this.props.colorIndex ]
+					}} className="hovereffect">
 						<img
 							className="img-responsive"
 							src={background}

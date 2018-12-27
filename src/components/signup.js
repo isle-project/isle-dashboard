@@ -162,15 +162,15 @@ class Signup extends Component {
 							</Card.Title>
 						</Card.Header>
 						<Card.Body>
-							<Form horizontal>
+							<Form>
 								<OverlayTrigger placement="right" overlay={createTooltip( 'Please enter a valid email address.' )}>
 									<FormGroup
 										controlId="formHorizontalEmail"
 										validationState={this.getEmailValidationState()}
 									>
 										<Row>
-											<Col componentClass={FormLabel} sm={3}>
-												Email
+											<Col sm={3}>
+												<FormLabel>Email</FormLabel>
 											</Col>
 											<Col sm={9}>
 												<FormControl
@@ -190,8 +190,8 @@ class Signup extends Component {
 										validationState={this.getNameValidationState()}
 									>
 										<Row>
-											<Col componentClass={FormLabel} sm={3}>
-												Name
+											<Col sm={3}>
+												<FormLabel>Name</FormLabel>
 											</Col>
 											<Col sm={9}>
 												<FormControl
@@ -211,8 +211,8 @@ class Signup extends Component {
 										validationState={this.getPasswordValidationState()}
 									>
 										<Row>
-											<Col componentClass={FormLabel} sm={3}>
-												Password
+											<Col sm={3}>
+												<FormLabel>Password</FormLabel>
 											</Col>
 											<Col sm={9}>
 												<FormControl
@@ -233,9 +233,7 @@ class Signup extends Component {
 									validationState={this.getPasswordValidationState()}
 								>
 									<Row>
-										<Col componentClass={FormLabel} sm={3}>
-										</Col>
-										<Col sm={9}>
+										<Col sm={{ span: 9, offset: 3 }}>
 											<FormControl
 												name="passwordRepeat"
 												type="password"

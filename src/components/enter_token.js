@@ -43,10 +43,12 @@ class EnterToken extends Component {
 						please get in touch with <a href="mailto:pgb@andrew.cmu.edu">Philipp Burckhardt</a>.
 					</div>
 					<br />
-					<Form horizontal>
+					<Form>
 						<OverlayTrigger placement="right" overlay={<Tooltip id="ownerTooltip">Please enter the access token.</Tooltip>}>
 							<FormGroup>
-								<Col componentClass={FormLabel} sm={2}>Token</Col>
+								<Col sm={2}>
+									<FormLabel>Token</FormLabel>
+								</Col>
 								<Col sm={10}>
 									<FormControl
 										name="title"
@@ -58,7 +60,7 @@ class EnterToken extends Component {
 							</FormGroup>
 						</OverlayTrigger>
 						<FormGroup>
-							<Col smOffset={2} sm={10}>
+							<Col sm={{ span: 10, offset: 2 }}>
 								<Button onClick={this.handleSubmit}>
 									Submit
 								</Button>

@@ -136,8 +136,8 @@ class NewPassword extends Component {
 						</Card.Title>
 						<Form horizontal>
 							<FormGroup>
-								<Col componentClass={FormLabel} sm={2}>
-									Token
+								<Col sm={2}>
+									<FormLabel>Token</FormLabel>
 								</Col>
 								<Col sm={10}>
 									<FormControl
@@ -150,11 +150,11 @@ class NewPassword extends Component {
 							</FormGroup>
 							<OverlayTrigger placement="right" overlay={createTooltip( 'Please enter a new password with at least six characters' )}>
 								<FormGroup
-									controlId="formHorizontalPassword"
+									controlId="form-horizontal-password"
 									validationState={this.getPasswordValidationState()}
 								>
-									<Col componentClass={FormLabel} sm={2}>
-										Password
+									<Col sm={2}>
+										<FormLabel>Password</FormLabel>
 									</Col>
 									<Col sm={10}>
 										<FormControl
@@ -170,12 +170,10 @@ class NewPassword extends Component {
 								</FormGroup>
 							</OverlayTrigger>
 							<FormGroup
-								controlId="formHorizontalPassword"
+								controlId="form-horizontal-password-confirmation"
 								validationState={this.getPasswordValidationState()}
 							>
-								<Col componentClass={FormLabel} sm={2}>
-								</Col>
-								<Col sm={10}>
+								<Col sm={{ span: 10, offset: 2 }}>
 									<FormControl
 										name="passwordRepeat"
 										type="password"

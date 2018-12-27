@@ -214,7 +214,7 @@ class EditNamespace extends Component {
 					<Col md={6} >
 						<Card>
 							<Card.Heading>
-								<Card.Title componentClass="h1">Edit Course</Card.Title>
+								<Card.Title as="h1">Edit Course</Card.Title>
 							</Card.Heading>
 							<Card.Body>
 								<Form style={{ padding: '20px' }}>
@@ -265,9 +265,9 @@ class EditNamespace extends Component {
 					</Col>
 					<Col md={6} >
 						<Card>
-							<Card.Heading>
-								<Card.Title componentClass="h1">Cohorts
-									<Button bsSize="small" variant="success" style={{ float: 'right', marginTop: -7 }}
+							<Card.Header>
+								<Card.Title as="h1">Cohorts
+									<Button size="small" variant="success" style={{ float: 'right', marginTop: -7 }}
 										onClick={() => {
 											this.setState({
 												showCreateCohortModal: true
@@ -277,7 +277,7 @@ class EditNamespace extends Component {
 										Create Cohort
 									</Button>
 								</Card.Title>
-							</Card.Heading>
+							</Card.Header>
 							<div>
 								{this.props.cohorts.map( ( cohort, idx ) => {
 									return ( <Card

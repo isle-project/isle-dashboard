@@ -112,7 +112,7 @@ class ProfilePage extends Component {
 		}
 		return ( <Button
 			onClick={this.gotoTokenPage}
-			bsSize="small" variant="success"
+			size="small" variant="success"
 			style={{ float: 'right', marginTop: -7 }}
 		>Instructor Access</Button> );
 	}

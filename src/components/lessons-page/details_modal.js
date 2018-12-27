@@ -76,8 +76,8 @@ class DetailsModal extends Component {
 					</Modal.Header>
 					<Modal.Body>
 						<FormGroup>
-							<Col componentClass={FormLabel} sm={2}>
-								Title
+							<Col sm={2}>
+								<FormLabel>Title</FormLabel>
 							</Col>
 							<Col sm={10}>
 								<FormControl
@@ -89,8 +89,8 @@ class DetailsModal extends Component {
 							</Col>
 						</FormGroup>
 						<FormGroup>
-							<Col componentClass={FormLabel} sm={2}>
-								Description
+							<Col sm={2}>
+								<FormLabel>Description</FormLabel>
 							</Col>
 							<Col sm={10}>
 								<FormControl

@@ -73,11 +73,13 @@ class CreateCohortModal extends Component {
 					<Modal.Title>Create a new Cohort</Modal.Title>
 				</Modal.Header>
 				<Modal.Body>
-					<Form horizontal style={{ paddingLeft: 20, paddingRight: 20 }}>
+					<Form style={{ paddingLeft: 20, paddingRight: 20 }}>
 						<Row>
 							<OverlayTrigger placement="right" overlay={<Tooltip id="ownerTooltip">Please enter the name of the cohort.</Tooltip>}>
 								<FormGroup>
-									<Col componentClass={FormLabel} sm={2}>Title</Col>
+									<Col sm={2}>
+										<FormLabel>Title</FormLabel>
+									</Col>
 									<Col sm={10}>
 										<FormControl
 											name="title"
@@ -91,7 +93,9 @@ class CreateCohortModal extends Component {
 						</Row>
 						<Row>
 							<FormGroup>
-								<Col componentClass={FormLabel} sm={2}>From ... To </Col>
+								<Col sm={2}>
+									<FormLabel>From ... To </FormLabel>
+								</Col>
 								<Col sm={10}>
 									<DateRangePicker
 										startDateId="start_date_input"
@@ -110,7 +114,9 @@ class CreateCohortModal extends Component {
 						<Row>
 							<OverlayTrigger placement="right" overlay={<Tooltip id="ownerTooltip">Comma-separated list of email addresses denoting the students for this cohort</Tooltip>}>
 								<FormGroup>
-									<Col componentClass={FormLabel} sm={2}>Enrolled Students</Col>
+									<Col sm={2}>
+										<FormLabel>Enrolled Students</FormLabel>
+									</Col>
 									<Col sm={10}>
 										<FormControl
 											name="students"

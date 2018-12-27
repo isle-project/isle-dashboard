@@ -46,7 +46,7 @@ class ForgotPassword extends Component {
 					</Card.Header>
 					<Card.Body>
 						<Form inline>
-							<FormGroup controlId="formHorizontalEmail">
+							<FormGroup controlId="form-email">
 								<FormLabel>Email Address</FormLabel>
 								<FormControl
 									type="email"

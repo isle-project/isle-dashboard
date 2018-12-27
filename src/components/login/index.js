@@ -91,10 +91,10 @@ class Login extends Component {
 					</Card.Header>
 					<Card.Body>
 						<Form horizontal>
-							<FormGroup controlId="formHorizontalEmail">
+							<FormGroup controlId="form-email">
 								<Row>
-									<Col componentClass={FormLabel} sm={3}>
-										Email
+									<Col sm={3}>
+										<FormLabel>Email</FormLabel>
 									</Col>
 									<Col sm={9}>
 										<FormControl
@@ -108,10 +108,10 @@ class Login extends Component {
 									</Col>
 								</Row>
 							</FormGroup>
-							<FormGroup controlId="formHorizontalPassword">
+							<FormGroup controlId="form-password">
 								<Row>
-									<Col componentClass={FormLabel} sm={3}>
-										Password
+									<Col sm={3}>
+										<FormLabel>Password</FormLabel>
 									</Col>
 									<Col sm={9}>
 										<FormControl

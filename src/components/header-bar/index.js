@@ -23,14 +23,18 @@ const galleryTooltip = <Tooltip id="open_gallery">Open gallery</Tooltip>;
 const selectCourseTooltip = <Tooltip id="select_course">Select course</Tooltip>;
 
 const namespaceListGroup = ( namespaces, clickFactory ) => (
-		<ListGroup>
-			{namespaces.map( ( x, id ) => (
-				<ListGroupItem
-					key={id}
-					style={{ padding: '5px 10px' }}
-				><Link to="/lessons" onClick={clickFactory( id )}>{x.title}</Link></ListGroupItem>
-			) )}
-		</ListGroup>
+	<ListGroup>
+		{namespaces.map( ( x, id ) => (
+			<ListGroupItem
+				key={id}
+				style={{ padding: '5px 10px' }}
+			>
+				<Link to="/lessons" onClick={clickFactory( id )}>
+					{x.title}
+				</Link>
+			</ListGroupItem>
+		) )}
+	</ListGroup>
 );
 
 
@@ -46,26 +50,24 @@ class HeaderBar extends Component {
 		};
 	}
 
-	enrolledClickFactory(id) {
-		let out = () => {
+	enrolledClickFactory = ( id ) => {
+		return () => {
 			this.props.onNamespace( this.props.user.enrolledNamespaces[ id ], this.props.user.token );
 			this.setState({
 				showNamespacesOverlay: false,
 				location: 'Course'
 			});
 		};
-		return out;
 	}
 
-	namespaceClickFactory( id) {
-		let out = () => {
+	ownedClickFactory = ( id ) => {
+		return () => {
 			this.props.onNamespace( this.props.user.ownedNamespaces[ id ], this.props.user.token );
 			this.setState({
 				showNamespacesOverlay: false,
 				location: 'Course'
 			});
 		};
-		return out;
 	}
 
 	setProfileLocation = () => {
@@ -121,7 +123,7 @@ class HeaderBar extends Component {
 				style={{ float: 'left', marginRight: '24px' }}
 				onClick={this.goToCreateCoursePage.bind( this )}
 			>
-				<i className="fa fa-pencil-alt"></i>
+				<i className="fa fa-pencil"></i>
 			</Button>
 		</OverlayTrigger> );
 	}
@@ -140,17 +142,16 @@ class HeaderBar extends Component {
 					style={{ float: 'left', marginRight: '6px' }}
 					onClick={this.goToCourseEditPage.bind( this )}
 				>
-					<i classNam="fa fa-edit"></i>
+					<i className="fa fa-edit"></i>
 				</Button>
 			</OverlayTrigger>
 		);
 	}
 
 	renderDataButton() {
-		if (!this.props.namespace.title) {
+		if ( !this.props.namespace.title ) {
 			return null;
 		}
-
 		return (
 			<OverlayTrigger placement="bottom" overlay={courseDataTooltip}>
 				<Button
@@ -167,7 +168,6 @@ class HeaderBar extends Component {
 		if ( !this.props.user.writeAccess ) {
 			return null;
 		}
-
 		return (
 			<OverlayTrigger placement="bottom" overlay={galleryTooltip}>
 				<Button
@@ -190,7 +190,6 @@ class HeaderBar extends Component {
 		if (this.props.user.ownedNamespaces.length > 0 || this.props.user.enrolledNamespaces.length > 0) {
 			disabled = false;
 		}
-
 		return ( <OverlayTrigger placement="right" overlay={selectCourseTooltip}>
 			<Button
 				ref={( button ) => { this.overlayTarget = button; }}
@@ -204,6 +203,7 @@ class HeaderBar extends Component {
 						showNamespacesOverlay: !this.state.showNamespacesOverlay
 					});
 				}}
+				variant="secondary"
 				disabled={disabled}
 			>
 				<i className="fa fa-align-justify"></i>
@@ -230,11 +230,11 @@ class HeaderBar extends Component {
 					placeholder="Search"
 					onChange={this.handleTextChange}
 				/>
-					<InputGroup.Button>
+					<InputGroup.Append>
 						<Button disabled style={{ cursor: 'auto' }}>
 							<i className="fa fa-search"></i>
 						</Button>
-					</InputGroup.Button>
+					</InputGroup.Append>
 			</InputGroup>
 		</FormGroup> );
 	}
@@ -255,9 +255,9 @@ class HeaderBar extends Component {
 					>
 						<Popover id="popover-positioned-bottom">
 							<label className="label-display">OWNED COURSES</label>
-							{namespaceListGroup( this.props.user.ownedNamespaces, this.namespaceClickFactory.bind( this ) )}
+							{namespaceListGroup( this.props.user.ownedNamespaces, this.ownedClickFactory )}
 							<label className="label-display">ENROLLED COURSES</label>
-							{namespaceListGroup( this.props.user.enrolledNamespaces, this.enrolledClickFactory.bind( this ) )}
+							{namespaceListGroup( this.props.user.enrolledNamespaces, this.enrolledClickFactory )}
 						</Popover>
 					</Overlay>
 					{this.renderEditButton()}
@@ -280,7 +280,7 @@ class HeaderBar extends Component {
 						</div>
 					</div>
 					<div className="header-bar-container">
-						<Image src={icon} circle className="header-bar-icon"></Image>
+						<Image src={icon} className="header-bar-icon"></Image>
 						<div key="account" className="header-bar-link-div" >
 							<Link to="/profile" onClick={this.setProfileLocation} className="header-bar-link">{this.props.user.name}</Link>
 						</div>
