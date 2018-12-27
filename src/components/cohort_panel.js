@@ -2,7 +2,7 @@
 
 import React, { Component } from 'react';
 import {
-	Button, ButtonToolbar, FormLabel, Form, FormControl, FormGroup,
+	Button, ButtonGroup, FormLabel, Form, FormControl, FormGroup,
 	OverlayTrigger, Row, Tooltip
 } from 'react-bootstrap';
 import PropTypes from 'prop-types';
@@ -113,7 +113,7 @@ class CohortPanel extends Component {
 							<FormLabel>Enrolled Students</FormLabel>
 							<FormControl
 								name="students"
-								componentClass="textarea"
+								as="textarea"
 								value={this.state.students}
 								onChange={this.handleInputChange}
 							/>
@@ -121,7 +121,7 @@ class CohortPanel extends Component {
 					</OverlayTrigger>
 				</Row>
 				<Row>
-					<ButtonToolbar>
+					<ButtonGroup>
 						<Button
 							disabled={this.state.disabled}
 							onClick={this.handleUpdate}
@@ -131,7 +131,7 @@ class CohortPanel extends Component {
 								showDeleteModal: true
 							});
 						}} variant="danger">Delete</Button>
-					</ButtonToolbar>
+					</ButtonGroup>
 				</Row>
 				<ConfirmModal
 					show={this.state.showDeleteModal}
