@@ -7,6 +7,7 @@ import './profile-page.css';
 import stats from './img/stats.png';
 import badge2 from './img/badge2.svg';
 import EditModal from './edit_modal.js';
+import EnterTokenModal from './enter_token_modal.js';
 
 
 // FUNCTIONS //
@@ -23,12 +24,9 @@ class ProfilePage extends Component {
 		super( props );
 
 		this.state = {
-			showModal: false
+			showEditModal: false,
+			showTokenModal: false
 		};
-	}
-
-	gotoTokenPage = () => {
-		this.props.history.replace( '/enter-token' );
 	}
 
 	renderInstructorButton() {
@@ -36,15 +34,21 @@ class ProfilePage extends Component {
 			return null;
 		}
 		return ( <Button
-			onClick={this.gotoTokenPage}
+			onClick={this.toggleTokenModal}
 			size="small" variant="success"
 			style={{ marginTop: -7 }}
 		>Instructor Access</Button> );
 	}
 
-	toggleModal = () => {
+	toggleEditModal = () => {
 		this.setState({
-			showModal: !this.state.showModal
+			showEditModal: !this.state.showEditModal
+		});
+	}
+
+	toggleTokenModal = () => {
+		this.setState({
+			showTokenModal: !this.state.showTokenModal
 		});
 	}
 
@@ -77,7 +81,7 @@ class ProfilePage extends Component {
 			<div className="profile-page-user-container">
 				<div className="profile-page-user-portrait">
 					<img src="https://isle.heinz.cmu.edu/Philipp-Burckhardt_1545932125612.jpg" />
-					<Button style={{ marginTop: 5 }} onClick={this.toggleModal}>EDIT PROFILE</Button>
+					<Button style={{ marginTop: 5 }} onClick={this.toggleEditModal}>EDIT PROFILE</Button>
 				</div>
 				<div className="profile-page-user-personal">
 					<div className="profile-page-user-personal-name">
@@ -120,10 +124,16 @@ class ProfilePage extends Component {
 				</div>
 				<EditModal
 					user={this.props.user}
-					show={this.state.showModal}
+					show={this.state.showEditModal}
 					addNotification={this.props.addNotification}
 					updateUser={this.props.updateUser}
-					onHide={this.toggleModal}
+					onHide={this.toggleEditModal}
+				/>
+				<EnterTokenModal
+					user={this.props.user}
+					authenticate={this.props.authenticate}
+					show={this.state.showTokenModal}
+					onHide={this.toggleTokenModal}
 				/>
 			</Fragment>
 		);
@@ -135,7 +145,7 @@ class ProfilePage extends Component {
 
 ProfilePage.propTypes = {
 	addNotification: PropTypes.func.isRequired,
-	history: PropTypes.object.isRequired,
+	authenticate: PropTypes.func.isRequired,
 	updateUser: PropTypes.func.isRequired,
 	user: PropTypes.object.isRequired
 };
