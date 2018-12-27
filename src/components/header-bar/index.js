@@ -120,7 +120,7 @@ class HeaderBar extends Component {
 		}
 		return ( <OverlayTrigger placement="bottom" overlay={createCourseTooltip}>
 			<Button
-				style={{ float: 'left', marginRight: '24px' }}
+				style={{ float: 'left', marginRight: '6px' }}
 				onClick={this.goToCreateCoursePage.bind( this )}
 			>
 				<i className="fa fa-pencil-alt"></i>
@@ -174,7 +174,7 @@ class HeaderBar extends Component {
 					onClick={this.goToGallery.bind( this )}
 					style={{
 						float: 'left',
-						marginRight: '18px',
+						marginRight: '6px',
 						marginLeft: '6px'
 					}}
 				>
@@ -195,8 +195,7 @@ class HeaderBar extends Component {
 				ref={( button ) => { this.overlayTarget = button; }}
 				style={{
 					float: 'left',
-					marginRight: '6px',
-					marginLeft: '6px'
+					marginRight: '6px'
 				}}
 				onClick={() => {
 					this.setState({
