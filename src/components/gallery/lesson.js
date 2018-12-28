@@ -9,6 +9,7 @@ import ImportModal from './import_modal.js';
 import './../image.css';
 import COLORS from './../../constants/colors';
 import copyToClipboard from 'clipboard-copy';
+import background from './bubble.jpg';
 
 
 // MAIN //
@@ -56,10 +57,13 @@ class Lesson extends Component {
 		return (
 			<Card>
 				<Card.Body>
-					<div className="hovereffect">
+					<div style={{
+						filter: 'grayscale(30%)',
+						background: COLORS[ this.props.colorIndex ]
+					}} className="hovereffect">
 						<img
 							className="img-responsive"
-							src={this.props.url+'/preview.jpg'}
+							src={background}
 							alt=""
 							style={{
 								width: '100%',
@@ -79,8 +83,9 @@ class Lesson extends Component {
 							>Open Lesson</span>
 						</div>
 					</div>
+					<div className="galleryToolbar">
 					<ButtonToolbar>
-						<ButtonGroup style={{ marginTop: '8px' }}>
+						<ButtonGroup size="sm" style={{ marginLeft: 16, marginTop: 3 }}>
 							<OverlayTrigger placement="bottom" overlay={<Tooltip id="ImportFile">Import lesson to own course</Tooltip>}>
 								<Button onClick={this.showImportModal}>Import</Button>
 							</OverlayTrigger>
@@ -89,6 +94,7 @@ class Lesson extends Component {
 							</OverlayTrigger>
 						</ButtonGroup>
 					</ButtonToolbar>
+					</div>
 				</Card.Body>
 				{this.renderImportModal()}
 			</Card>
