@@ -31,7 +31,8 @@ class EditModal extends Component {
 			name: props.user.name,
 			organization: props.user.organization,
 			password: '',
-			passwordRepeat: ''
+			passwordRepeat: '',
+			changed: false
 		};
 	}
 
@@ -70,6 +71,7 @@ class EditModal extends Component {
 						name,
 						organization
 					});
+					this.props.onHide();
 					this.props.addNotification({
 						message: JSON.parse( res.body ).message,
 						level: 'success'
@@ -84,7 +86,8 @@ class EditModal extends Component {
 		const value = target.value;
 		const name = target.name;
 		this.setState({
-			[ name ]: value
+			[ name ]: value,
+			changed: true
 		});
 	}
 
@@ -201,7 +204,7 @@ class EditModal extends Component {
 					</FormGroup>
 				</Form>
 				<Card>
-					<Button block disabled={!validName || ( !validPasswords && enteredPasswords )} onClick={this.handleUpdate}>Update</Button>
+					<Button block disabled={!this.state.changed || !validName || ( !validPasswords && enteredPasswords )} onClick={this.handleUpdate}>Update</Button>
 				</Card>
 			</Modal>
 		);
