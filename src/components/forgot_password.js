@@ -5,6 +5,7 @@ import { Button, Card, FormLabel, FormControl, FormGroup, Form } from 'react-boo
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import request from 'request';
+import isEmail from '@stdlib/assert/is-email-address';
 import server from './../constants/server';
 import './login/login.css';
 
@@ -64,7 +65,7 @@ class ForgotPassword extends Component {
 										marginRight: '6px'
 									}}
 								/>
-								<Button onClick={this.handleClick} variant="primary" type="submit">Reset</Button>
+								<Button disabled={!isEmail( this.state.email )} onClick={this.handleClick} variant="primary" type="submit">Reset</Button>
 							</FormGroup>
 						</Form>
 					</Card.Body>
