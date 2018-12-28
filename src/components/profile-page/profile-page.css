@@ -9,7 +9,7 @@
     top: 52px;
 	background: gainsboro;
 	grid-template-columns: 25% auto 25% 20px;
-	grid-template-rows: 20px auto 16px 30% 30px;
+	grid-template-rows: 20px auto 16px 34% 30px;
 
 	grid-template-areas:
 		"left header header right"
@@ -105,7 +105,7 @@
     display: grid;
 
     grid-template-columns: 20px auto 20px;
-	grid-template-rows: 20px 40% 20px 40% 5% 40px;
+    grid-template-rows: 20px 40% 15px 50% 1% 40px;
 
 	grid-template-areas:
 		"mleft header mright"
@@ -118,13 +118,14 @@
 
 
 .profile-page-user-portrait {
-	grid-area: portrait;
+    grid-area: portrait;
 }
 
 .profile-page-user-portrait img {
-    width: 100%;
-    height: auto;
-    opacity: 0.8;
+    cursor: pointer;
+    width: auto;
+    height: 100%;
+    opacity: 1;
     transition: all .7s;
     box-shadow: 0 0 1px darkslategray;
 }
@@ -132,21 +133,36 @@
 .profile-page-user-portrait img:hover {
     opacity: 1;
     box-shadow: 0 0 4px black;
+    filter: saturate(0%);
 }
 
+.profile-page-user-portrait:hover:after {
+    position: absolute;
+    font-family: Open Sans Condensed;
+    font-size: 24px;
+    left: 7%;
+    top: 4%;
+    color: white;
+    width: 70%;
+    content: "click to edit the profile pic";
+    z-index: 2;
+}
+
+
 .profile-page-user-personal {
-	grid-area: personal;
+    grid-area: personal;
+    width: 90%;
 }
 
 .profile-page-user-personal-name {
-	grid-area: personal;
+    grid-area: personal;
 }
 
 
 
 .profile-page-user-legend {
     float: left;
-    width: 50%;
+    width: 62%;
     font-family: Open Sans Condensed;
     font-size: calc(16px + 0.4vw);
     font-weight: 600;
@@ -157,7 +173,7 @@
 
 .profile-page-user-value {
     float: left;
-    width: 50%;
+    width: 38%;
     font-family: Open Sans Condensed;
     font-size: 24px;
     font-weight: 600;

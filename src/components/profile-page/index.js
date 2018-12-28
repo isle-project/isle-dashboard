@@ -69,8 +69,6 @@ class ProfilePage extends Component {
 
 	renderBadgesSection() {
 		let list = [];
-
-
 		for ( let i = 0; i < 24; i++ ) {
 			list.push(
 				<div className="profile-page-badge-item" key={i} >
@@ -95,17 +93,18 @@ class ProfilePage extends Component {
 	}
 
 	renderUserSection() {
+		var date = new Date(this.props.user.createdAt).toLocaleDateString();
 		return (
 			<div className="profile-page-user-container">
-				<div onClick={this.toggleProfilePicModal} className="profile-page-user-portrait">
-					<img src="https://isle.heinz.cmu.edu/Philipp-Burckhardt_1545932125612.jpg" />
-					<Button style={{ marginTop: 5 }} onClick={this.toggleEditModal}>EDIT PROFILE</Button>
+				<div className="profile-page-user-portrait">
+					<img onClick={this.toggleProfilePicModal} src={this.props.user.picture} />
 				</div>
 				<div className="profile-page-user-personal">
 					<div className="profile-page-user-personal-name">
 						<Card>
 							<Card.Header>
 								<Card.Title as="h3">{ this.props.user.name}</Card.Title>
+								<div>registered since {date}</div>
 							</Card.Header>
 							<Card.Body>
 								<div className="profile-page-user-values">
@@ -121,13 +120,12 @@ class ProfilePage extends Component {
 								</div>
 							</Card.Body>
 						</Card>
+						<Button style={{ marginTop: 25 }} onClick={this.toggleEditModal}>EDIT PROFILE</Button>
 					</div>
 				</div>
-
 				<div className="profile-page-user-footer">
 					{this.renderInstructorButton()}
 				</div>
-
 			</div>
 		);
 	}
@@ -164,8 +162,8 @@ class ProfilePage extends Component {
 					authenticate={this.props.authenticate}
 					show={this.state.showProfilePicModal}
 					onHide={this.toggleProfilePicModal}
+					uploadProfilePic={this.props.uploadProfilePic}
 				/>
-
 			</Fragment>
 		);
 	}
@@ -178,6 +176,7 @@ ProfilePage.propTypes = {
 	addNotification: PropTypes.func.isRequired,
 	authenticate: PropTypes.func.isRequired,
 	updateUser: PropTypes.func.isRequired,
+	uploadProfilePic: PropTypes.func.isRequired,
 	user: PropTypes.object.isRequired
 };
 

@@ -59,6 +59,35 @@ function mapDispatchToProps( dispatch ) {
 					}) );
 				}
 			});
+		},
+		uploadProfilePic: ({ token, formData }) => {
+			const xhr = new XMLHttpRequest();
+			xhr.open( 'POST', server+'/upload_profile_pic', true );
+			xhr.setRequestHeader( 'Authorization', 'JWT ' + token );
+			xhr.onreadystatechange = () => {
+				if ( xhr.readyState === XMLHttpRequest.DONE ) {
+					let message;
+					let level;
+					let body;
+					if ( xhr.status === 200 ) {
+						body = JSON.parse( xhr.responseText );
+						message = body.message;
+						level = 'success';
+						body.filename = server + '/avatar/' + body.filename;
+						dispatch( actions.updateUserPicture( body.filename ) );
+					} else {
+						message = xhr.responseText;
+						level = 'error';
+					}
+					return dispatch( actions.addNotification({
+						title: 'Profile Picture Upload',
+						message,
+						level,
+						position: 'tl'
+					}) );
+				}
+			};
+			xhr.send( formData );
 		}
 	};
 }

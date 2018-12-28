@@ -5,18 +5,21 @@ import * as types from './../constants/action_types.js';
 
 // EXPORTS //
 
-export function loggedIn({ email, name, enrolledNamespaces, ownedNamespaces, token, id, organization, writeAccess }) {
+export function loggedIn( user ) {
 	return {
 		type: types.LOGGED_IN,
 		payload: {
-			email,
-			name,
-			enrolledNamespaces,
-			ownedNamespaces,
-			organization,
-			token,
-			writeAccess,
-			id
+			email: user.email,
+			name: user.name,
+			enrolledNamespaces: user.enrolledNamespaces,
+			ownedNamespaces: user.ownedNamespaces,
+			organization: user.organization,
+			token: user.token,
+			writeAccess: user.writeAccess,
+			id: user.id,
+			picture: user.picture,
+			createdAt: user.createdAt,
+			updatedAt: user.updatedAt
 		}
 	};
 }
@@ -135,6 +138,15 @@ export function updateUser({ name, organization }) {
 		payload: {
 			name,
 			organization
+		}
+	};
+}
+
+export function updateUserPicture( picture ) {
+	return {
+		type: types.USER_PICTURE_MODIFIED,
+		payload: {
+			picture
 		}
 	};
 }

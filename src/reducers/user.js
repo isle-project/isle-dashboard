@@ -12,7 +12,10 @@ const initialState = {
 	organization: '',
 	writeAccess: false,
 	enrolledNamespaces: [],
-	ownedNamespaces: []
+	ownedNamespaces: [],
+	picture: null,
+	createdAt: null,
+	updatedAt: null
 };
 
 
@@ -30,6 +33,9 @@ export default function user( state = initialState, action ) {
 			token: action.payload.token,
 			writeAccess: action.payload.writeAccess,
 			id: action.payload.id,
+			picture: action.payload.picture,
+			createdAt: action.payload.createdAt,
+			updatedAt: action.payload.updatedAt,
 			loggedIn: true
 		});
 	case types.AUTHENTICATED:
@@ -42,6 +48,10 @@ export default function user( state = initialState, action ) {
 		return Object.assign({}, state, {
 			name: action.payload.name,
 			organization: action.payload.organization
+		});
+	case types.USER_PICTURE_MODIFIED:
+		return Object.assign({}, state, {
+			picture: action.payload.picture
 		});
 	/* eslint-disable no-case-declarations */
 	case types.APPEND_CREATED_NAMESPACE:

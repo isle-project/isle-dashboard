@@ -113,8 +113,8 @@ class LessonsPage extends Component {
 
 
 	renderLessons() {
-		console.log( 'USER STATUS ' + this.props.namespace.userStatus);
 		let lessons = this.state.filteredLessons;
+		console.log(lessons);
 		lessons.sort( ( a, b ) => {
 			return a.title.localeCompare( b.title );
 		});

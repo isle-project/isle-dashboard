@@ -165,6 +165,7 @@ class HeaderBar extends Component {
 	}
 
 	renderGalleryButton() {
+		console.log( this.props.user );
 		if ( !this.props.user.writeAccess ) {
 			return null;
 		}
