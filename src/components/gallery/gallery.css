@@ -6,3 +6,11 @@
 	min-height: calc(100% - 52px);
 }
 
+.galleryToolbar {
+	position: absolute;
+	left: 0;
+	top: 200px;
+	height: 36px;
+	width: 100%;
+	background: white;
+}
