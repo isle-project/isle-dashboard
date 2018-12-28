@@ -75,7 +75,7 @@ class ImportModal extends Component {
 						<FormControl
 							name="targetName"
 							type="text"
-							placeholder={this.props.title}
+							defaultValue={this.props.title}
 							onChange={this.handleChange}
 						/>
 					</FormGroup>
