@@ -27,10 +27,11 @@ function mapDispatchToProps( dispatch ) {
 		setSearchPhrase: ( str ) => {
 			dispatch( actions.searchPhraseSet( str ) );
 		},
-		onEnrolledNamespace: ({title, description, owners, _id}, userToken) => {
-			dispatch( actions.changedNamespace({ title, description, owners, _id, userStatus: 'enrolled' }) );
+		onEnrolledNamespace: ({ title, description, owners, _id }) => {
+			dispatch( actions.changedNamespace({
+				title, description, owners, _id, userStatus: 'enrolled'
+			}) );
 		},
-
 		onNamespace: ({ title, description, owners, _id }, userToken ) => {
 			dispatch( actions.changedNamespace({ title, description, owners, _id, userStatus: 'owner' }) );
 			request.get( server+'/get_cohorts', {
