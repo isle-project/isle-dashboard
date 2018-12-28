@@ -62,7 +62,10 @@ class EnterTokenModal extends Component {
 					</Form>
 				</Modal.Body>
 				<Modal.Footer>
-					<Button onClick={this.handleSubmit}>
+					<Button
+						onClick={this.handleSubmit}
+						disabled={!this.state.token}
+					>
 						Submit
 					</Button>
 				</Modal.Footer>

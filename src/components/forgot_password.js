@@ -43,7 +43,7 @@ class ForgotPassword extends Component {
 			<div className="login">
 				<Card style={{ boxShadow: '0 0 8px rgba(0,0,0,0.3)', borderRadius: '6px', opacity: 0.98, background: 'rgba(255,255,255,0.75)' }}>
 					<Card.Header>
-						<Card.Title as="h5">Forgot password?</Card.Title>
+						<Card.Title as="h3">Forgot password?</Card.Title>
 					</Card.Header>
 					<Card.Body>
 						<Form inline>
