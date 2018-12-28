@@ -69,6 +69,7 @@
 .header-bar-icon {
 	width: 32px;
 	height: auto;
+	border-radius: 16px;
 	float: left;
 	position: relative;
 	margin-left: 10px;

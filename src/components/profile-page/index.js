@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 import './profile-page.css';
 import stats from './img/stats.png';
 import badge2 from './img/badge2.svg';
+import hoodie from './img/hoodie.jpg';
 import EditModal from './edit_modal.js';
 import EnterTokenModal from './enter_token_modal.js';
 import ProfilePicModal from './profile_pic_modal.js';
@@ -93,18 +94,21 @@ class ProfilePage extends Component {
 	}
 
 	renderUserSection() {
-		var date = new Date(this.props.user.createdAt).toLocaleDateString();
+		var date = null;
+		if ( this.props.user.createdAt) date = new Date(this.props.user.createdAt).toLocaleDateString();
+		let userPic = hoodie;
+		if (this.props.user.picture) userPic = this.props.user.picture;
 		return (
 			<div className="profile-page-user-container">
 				<div className="profile-page-user-portrait">
-					<img onClick={this.toggleProfilePicModal} src={this.props.user.picture} />
+					<img onClick={this.toggleProfilePicModal} src={userPic} />
 				</div>
 				<div className="profile-page-user-personal">
 					<div className="profile-page-user-personal-name">
 						<Card>
 							<Card.Header>
 								<Card.Title as="h3">{ this.props.user.name}</Card.Title>
-								<div>registered since {date}</div>
+								{date ? <div>registered since {date}</div> : null}
 							</Card.Header>
 							<Card.Body>
 								<div className="profile-page-user-values">

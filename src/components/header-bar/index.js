@@ -255,6 +255,8 @@ class HeaderBar extends Component {
 	}
 
 	render() {
+		let profilePic = icon;
+		if (this.props.user.picture) profilePic = this.props.user.picture;
 		return (
 			<header className="header-bar">
 				<h1 className="header-bar-title">
@@ -291,7 +293,7 @@ class HeaderBar extends Component {
 				}}>
 					{this.renderHelp()}
 					<div className="header-bar-container">
-						<Image src={icon} className="header-bar-icon"></Image>
+						<Image src={profilePic} className="header-bar-icon"></Image>
 						<div key="account" className="header-bar-link-div" >
 							<Link to="/profile" onClick={this.setProfileLocation} className="header-bar-link">{this.props.user.name}</Link>
 						</div>
