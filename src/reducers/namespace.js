@@ -12,7 +12,8 @@ const initialState = {
 	description: '',
 	owners: '',
 	lessons: null,
-	cohorts: []
+	cohorts: [],
+	userStatus: null
 };
 
 
@@ -27,7 +28,8 @@ export default function namespace( state = initialState, action ) {
 			_id: action.payload._id,
 			title: action.payload.title,
 			description: action.payload.description,
-			owners: action.payload.owners
+			owners: action.payload.owners,
+			userStatus: action.payload.userStatus
 		});
 	case types.DELETED_CURRENT_NAMESPACE:
 		return initialState;

@@ -42,14 +42,15 @@ export function searchPhraseSet( phrase ) {
 	};
 }
 
-export function changedNamespace({ title, owners, description, _id }) {
+export function changedNamespace({ title, owners, description, _id, userStatus }) {
 	return {
 		type: types.CHANGED_NAMESPACE,
 		payload: {
 			title,
 			description,
 			owners,
-			_id
+			_id,
+			userStatus
 		}
 	};
 }

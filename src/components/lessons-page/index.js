@@ -10,6 +10,7 @@ import lowercase from '@stdlib/string/lowercase';
 import pluck from '@stdlib/utils/pluck';
 import floor from '@stdlib/math/base/special/floor';
 import Lesson from './lesson.js';
+import EnrolledLesson from './enrolledLesson.js';
 import './../image.css';
 import 'react-grid-layout/css/styles.css';
 import 'react-resizable/css/styles.css';
@@ -110,6 +111,49 @@ class LessonsPage extends Component {
 		return filteredLessons;
 	}
 
+
+	renderLessons() {
+		console.log( 'USER STATUS ' + this.props.namespace.userStatus);
+		let lessons = this.state.filteredLessons;
+		lessons.sort( ( a, b ) => {
+			return a.title.localeCompare( b.title );
+		});
+
+		if (this.props.namespace.userStatus === 'enrolled') {
+			return lessons.map( ( e, i ) => {
+				return (<div key={`cell-${i}`}>
+					<EnrolledLesson
+						{...lessons[ i ]}
+						getLessons={this.props.getLessons}
+						key={i}
+						colorIndex={i % 20}
+					/>
+					</div>);
+			});
+		}
+
+		return (
+		lessons.map( ( e, i ) => {
+			return (<div key={`cell-${i}`}>
+				<Lesson
+					{...lessons[ i ]}
+					deleteLesson={this.props.deleteLesson}
+					updateLesson={this.props.updateLesson}
+					token={this.props.user.token}
+					deactivateLesson={this.props.deactivateLesson}
+					activateLesson={this.props.activateLesson}
+					showLessonInGallery={this.props.showLessonInGallery}
+					hideLessonInGallery={this.props.hideLessonInGallery}
+					getLessons={this.props.getLessons}
+					key={i}
+					colorIndex={i % 20}
+				/>
+		</div>);
+		})
+		);
+	}
+
+
 	render() {
 		if ( !this.props.namespace.title ) {
 			return (
@@ -127,9 +171,7 @@ class LessonsPage extends Component {
 					<p>The selected course does not contain any lessons. You can upload lessons from the ISLE editor.</p>
 			</Jumbotron>);
 			}
-			lessons.sort( ( a, b ) => {
-				return a.title.localeCompare( b.title );
-			});
+
 			return (
 				<div style={{
 					position: 'relative',
@@ -143,23 +185,7 @@ class LessonsPage extends Component {
 						isDraggable={false}
 						rowHeight={60}
 					>
-						{lessons.map( ( e, i ) => {
-							return (<div key={`cell-${i}`}>
-								<Lesson
-									{...lessons[ i ]}
-									deleteLesson={this.props.deleteLesson}
-									updateLesson={this.props.updateLesson}
-									token={this.props.user.token}
-									deactivateLesson={this.props.deactivateLesson}
-									activateLesson={this.props.activateLesson}
-									showLessonInGallery={this.props.showLessonInGallery}
-									hideLessonInGallery={this.props.hideLessonInGallery}
-									getLessons={this.props.getLessons}
-									key={i}
-									colorIndex={i % 20}
-								/>
-						</div>);
-						})}
+					{ this.renderLessons() }
 					</ResponsiveReactGridLayout>
 				</div>
 			);

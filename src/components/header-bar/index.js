@@ -1,6 +1,6 @@
 // MODULES //
 
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import {
 	Button, FormGroup, FormControl, Image, InputGroup,
@@ -52,7 +52,7 @@ class HeaderBar extends Component {
 
 	enrolledClickFactory = ( id ) => {
 		return () => {
-			this.props.onNamespace( this.props.user.enrolledNamespaces[ id ], this.props.user.token );
+			this.props.onEnrolledNamespace( this.props.user.enrolledNamespaces[ id ], this.props.user.token );
 			this.setState({
 				showNamespacesOverlay: false,
 				location: 'Course'
@@ -149,7 +149,7 @@ class HeaderBar extends Component {
 	}
 
 	renderDataButton() {
-		if ( !this.props.namespace.title ) {
+		if ( !this.props.namespace.title || this.props.namespace.userStatus === 'enrolled' ) {
 			return null;
 		}
 		return (
@@ -214,10 +214,11 @@ class HeaderBar extends Component {
 	}
 
 	renderSearchField() {
+		console.log(this.props.history.location);
 		if (
 			!this.props.namespace.title ||
-			this.props.history.location.pathname !== '/lessons' ||
-			this.props.history.location.pathname !== '/gallery'
+			( this.props.history.location.pathname !== '/lessons' &&
+			this.props.history.location.pathname !== '/gallery' )
 		) {
 			return null;
 		}
@@ -267,8 +268,11 @@ class HeaderBar extends Component {
 						placement="bottom"
 					>
 						<Popover id="popover-positioned-bottom">
-							<label className="label-display">OWNED COURSES</label>
-							{namespaceListGroup( this.props.user.ownedNamespaces, this.ownedClickFactory )}
+							{ this.props.user.ownedNamespaces.length > 0 ? <Fragment>
+								<label className="label-display">OWNED COURSES</label>
+								{namespaceListGroup( this.props.user.ownedNamespaces, this.ownedClickFactory )}
+								<div className="separator" />
+								</Fragment> : null}
 							<label className="label-display">ENROLLED COURSES</label>
 							{namespaceListGroup( this.props.user.enrolledNamespaces, this.enrolledClickFactory )}
 						</Popover>
@@ -314,6 +318,7 @@ HeaderBar.propTypes = {
 	history: PropTypes.object.isRequired,
 	logout: PropTypes.func.isRequired,
 	namespace: PropTypes.object.isRequired,
+	onEnrolledNamespace: PropTypes.func.isRequired,
 	onNamespace: PropTypes.func.isRequired,
 	setSearchPhrase: PropTypes.func.isRequired,
 	user: PropTypes.object.isRequired

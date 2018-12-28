@@ -8,7 +8,7 @@ import stats from './img/stats.png';
 import badge2 from './img/badge2.svg';
 import EditModal from './edit_modal.js';
 import EnterTokenModal from './enter_token_modal.js';
-
+import ProfilePicModal from './profile_pic_modal.js';
 
 // FUNCTIONS //
 
@@ -25,7 +25,8 @@ class ProfilePage extends Component {
 
 		this.state = {
 			showEditModal: false,
-			showTokenModal: false
+			showTokenModal: false,
+			showProfilePicModal: false
 		};
 	}
 
@@ -52,6 +53,12 @@ class ProfilePage extends Component {
 		});
 	}
 
+	toggleProfilePicModal = () => {
+		this.setState({
+			showProfilePicModal: !this.state.showProfilePicModal
+		});
+	}
+
 	renderStatisticSection() {
 		return (
 			<div className="profile-page-stats-section">
@@ -62,6 +69,8 @@ class ProfilePage extends Component {
 
 	renderBadgesSection() {
 		let list = [];
+
+
 		for ( let i = 0; i < 24; i++ ) {
 			list.push(
 				<div className="profile-page-badge-item" key={i} >
@@ -73,13 +82,22 @@ class ProfilePage extends Component {
 				</div>
 			);
 		}
-		return list;
+		return (
+			<Card style={{ height: '100%'}}>
+				<Card.Header>
+					<Card.Title as="h3">Badges</Card.Title>
+				</Card.Header>
+				<Card.Body>
+				{list}
+				</Card.Body>
+			</Card>
+		);
 	}
 
 	renderUserSection() {
 		return (
 			<div className="profile-page-user-container">
-				<div className="profile-page-user-portrait">
+				<div onClick={this.toggleProfilePicModal} className="profile-page-user-portrait">
 					<img src="https://isle.heinz.cmu.edu/Philipp-Burckhardt_1545932125612.jpg" />
 					<Button style={{ marginTop: 5 }} onClick={this.toggleEditModal}>EDIT PROFILE</Button>
 				</div>
@@ -90,11 +108,17 @@ class ProfilePage extends Component {
 								<Card.Title as="h3">{ this.props.user.name}</Card.Title>
 							</Card.Header>
 							<Card.Body>
-								<OverlayTrigger placement="top" overlay={createTooltip( 'Your score' )}>
-									<div className="profile-page-user-score">17912</div>
-								</OverlayTrigger>
-								<div>COMPLETED LESSONS</div>
-								<div>TIME SPENT</div>
+								<div className="profile-page-user-values">
+									<div className="profile-page-user-legend">Score</div>
+									<OverlayTrigger placement="top" overlay={createTooltip( 'Your score' )}>
+										<div className="profile-page-user-value">17912</div>
+									</OverlayTrigger>
+									<div className="profile-page-user-legend">Completed Lessons</div>
+									<div className="profile-page-user-value">13</div>
+
+									<div className="profile-page-user-legend">Time spent</div>
+									<div className="profile-page-user-value">3:17</div>
+								</div>
 							</Card.Body>
 						</Card>
 					</div>
@@ -135,6 +159,13 @@ class ProfilePage extends Component {
 					show={this.state.showTokenModal}
 					onHide={this.toggleTokenModal}
 				/>
+				<ProfilePicModal
+					user={this.props.user}
+					authenticate={this.props.authenticate}
+					show={this.state.showProfilePicModal}
+					onHide={this.toggleProfilePicModal}
+				/>
+
 			</Fragment>
 		);
 	}

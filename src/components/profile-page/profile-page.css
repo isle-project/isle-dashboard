@@ -9,20 +9,20 @@
     top: 52px;
 	background: gainsboro;
 	grid-template-columns: 25% auto 25% 20px;
-	grid-template-rows: 20px auto 16px 25% 30px;
+	grid-template-rows: 20px auto 16px 30% 30px;
 
 	grid-template-areas:
 		"left header header right"
         "left statistics statistics right"
         "left middle middle right"
-        "left badges badges right"
-		"left footer footer footer"
+        "left badges badges badges"
+		"left badges badges badges"
 }
 
 
 .profile-page-left {
 	grid-area: left;
-    border-right:solid 1px darkslategray;
+    border-right:solid 1px silver;
 }
 
 .profile-page-badges {
@@ -41,10 +41,10 @@
 
 .profile-page-badge-item {
     float: left;
-    margin-left: 15px;
-    margin-bottom: 10px;
-    width: 64px;
-    height: 64px;
+    margin-left: 18px;
+    margin-bottom: 20px;
+    width: calc(56px + 2vw);
+    height:calc(56px + 2vw);
     border-radius: 50%;
     background: silver;
     background-size: 100% auto;
@@ -143,7 +143,30 @@
 }
 
 
+
+.profile-page-user-legend {
+    float: left;
+    width: 50%;
+    font-family: Open Sans Condensed;
+    font-size: calc(16px + 0.4vw);
+    font-weight: 600;
+    color: darkgrey;
+    text-transform: lowercase;
+    font-variant: small-caps;
+}
+
+.profile-page-user-value {
+    float: left;
+    width: 50%;
+    font-family: Open Sans Condensed;
+    font-size: 24px;
+    font-weight: 600;
+    color: darkgrey;
+}
+
+
 .profile-page-user-score {
+    float: left;
     border:solid 1px darkgray;
     font-family: Open Sans Condensed;
     color: silver;
@@ -151,6 +174,7 @@
     font-size: 32px;
     text-align: center;
     width: 40%;
+    background: white;
     box-shadow: inset 0px 0px 5px #c1c1c1, inset 3px 3px 5px darkgray, inset 0 0 2px darkgray ;
     margin-bottom: 8px;
     border-radius: 8px;
@@ -159,7 +183,7 @@
 
 .profile-page-user-score:hover {
     background: gainsboro;
-    color: darkslategray;
+    color: darkgray;
 }
 
 
@@ -169,3 +193,17 @@
 
 
 /* END OF USER SECTION */
+
+
+.profile-pic-modal {
+    width: 465px;
+    height: 465px;
+    background: white;
+    border:solid 1px darkgray;
+}
+
+
+.profile-pic-modal img {
+    width: 100%;
+    height: auto;
+}

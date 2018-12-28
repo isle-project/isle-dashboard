@@ -6,3 +6,24 @@
 	cursor: pointer;
 	font-family: Open Sans Condensed;
 }
+
+
+.enrolled-lesson-progress {
+	width: 58%; 
+	height: 16px;
+	margin-top: 5px;
+	margin-left: 5px;
+	margin-right: 3%;
+}
+
+.enrolled-lesson-time {
+	text-align: center;
+	width: 36%;
+	height: 20px;
+	margin-top: 2px;
+	font-family: Open Sans Condensed;
+	font-weight: 600;
+	font-variant: small-caps;
+	font-size: 14px;
+	color: gainsboro;
+}
