@@ -19,7 +19,7 @@ class ImportModal extends Component {
 			selected: ( isArray( ns ) && ns.length > 0 ) ?
 				ns[ 0 ].title :
 				null,
-			targetName: null
+			targetName: props.title
 		};
 
 		this.handleChange = ( event ) => {
@@ -75,7 +75,7 @@ class ImportModal extends Component {
 						<FormControl
 							name="targetName"
 							type="text"
-							defaultValue={this.props.title}
+							value={this.state.targetName}
 							onChange={this.handleChange}
 						/>
 					</FormGroup>

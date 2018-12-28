@@ -2,7 +2,7 @@
 
 import React, { Component } from 'react';
 import {
-	ButtonToolbar, ButtonGroup, Button, Card, OverlayTrigger, Tooltip
+	ButtonToolbar, Button, Card, OverlayTrigger, Tooltip
 } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import ImportModal from './import_modal.js';
@@ -84,15 +84,13 @@ class Lesson extends Component {
 						</div>
 					</div>
 					<div className="galleryToolbar">
-					<ButtonToolbar>
-						<ButtonGroup size="sm" style={{ marginLeft: 16, marginTop: 3 }}>
+					<ButtonToolbar size="sm" style={{ marginLeft: 16, marginTop: 3 }}>
 							<OverlayTrigger placement="bottom" overlay={<Tooltip id="ImportFile">Import lesson to own course</Tooltip>}>
-								<Button onClick={this.showImportModal}>Import</Button>
+								<Button size="sm" style={{ marginLeft: 4, marginRight: 4}} onClick={this.showImportModal}>Import</Button>
 							</OverlayTrigger>
 							<OverlayTrigger placement="bottom" overlay={<Tooltip id="IsleFile">Copy ISLE file to clipboard</Tooltip>}>
-								<Button onClick={this.getIsleFile}><i className="fa fa-clipboard"></i></Button>
+								<Button size="sm" onClick={this.getIsleFile}><i className="fa fa-clipboard"></i></Button>
 							</OverlayTrigger>
-						</ButtonGroup>
 					</ButtonToolbar>
 					</div>
 				</Card.Body>
