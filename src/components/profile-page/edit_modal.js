@@ -111,7 +111,7 @@ class EditModal extends Component {
 	render() {
 		const validPasswords = this.getPasswordValidationState();
 		const validName = this.getNameValidationState();
-		const enteredPasswords = this.state.password && this.state.passwordRepeat;
+		const enteredPasswords = this.state.password || this.state.passwordRepeat;
 		return (
 			<Modal show={this.props.show} onHide={this.props.onHide}>
 			<Modal.Header closeButton>
@@ -201,7 +201,7 @@ class EditModal extends Component {
 					</FormGroup>
 				</Form>
 				<Card>
-					<Button block disabled={!validName || !validPasswords} onClick={this.handleUpdate}>Update</Button>
+					<Button block disabled={!validName || ( !validPasswords && enteredPasswords )} onClick={this.handleUpdate}>Update</Button>
 				</Card>
 			</Modal>
 		);
