@@ -82,7 +82,7 @@ class ImportModal extends Component {
 				</Modal.Body>
 				<Modal.Footer>
 					<Button onClick={this.props.close}>Cancel</Button>
-					<Button variant="primary" onClick={this.handleImport} >Import</Button>
+					<Button variant="success" onClick={this.handleImport} >Import</Button>
 				</Modal.Footer>
 			</Modal>
 		);
