@@ -33,7 +33,7 @@ class EnterTokenModal extends Component {
 		return (
 			<Modal onHide={this.props.onHide} show={this.props.show} >
 				<Modal.Header closeButton >
-					<Modal.Title as="h2">Enter Access Token</Modal.Title>
+					<Modal.Title as="h3">Enter Access Token</Modal.Title>
 				</Modal.Header>
 				<Modal.Body>
 					<div>

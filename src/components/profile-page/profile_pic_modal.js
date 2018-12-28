@@ -33,7 +33,8 @@ class ProfilePicModal extends Component {
 			const canvas = this.editor.getImage();
 			canvas.toBlob( img => {
 				const formData = new FormData();
-				formData.append( 'avatar', img, this.props.user.id + this.state.ext );
+				const filename = this.props.user.id + this.state.ext;
+				formData.append( 'avatar', img, filename );
 				this.props.uploadProfilePic({
 					token: this.props.user.token,
 					formData: formData
@@ -43,13 +44,14 @@ class ProfilePicModal extends Component {
 	}
 
 	handleFileSelection = (e) => {
-		let file = e.target.files;
-		var ext = path.extname( file[0].name);
-		console.log(file );
-		this.setState({
-			actualFile: file[ 0 ],
-			ext: ext
-		});
+		const file = e.target.files[ 0 ];
+		if ( file ) {
+			const ext = path.extname( file.name );
+			this.setState({
+				actualFile: file,
+				ext: ext
+			});
+		}
 	}
 
 	changeZoom = (e) => {
@@ -74,7 +76,7 @@ class ProfilePicModal extends Component {
 					scale={this.state.zoom}
 					rotate={0}
 				/>
-				<Form.Group controlId="Form-Zoom">
+				<Form.Group controlId="form-zoom">
 					<Form.Label>
 						<h3>Zoom</h3>
 					</Form.Label>
@@ -91,7 +93,7 @@ class ProfilePicModal extends Component {
 		return (
 			<Modal onHide={this.props.onHide} show={this.props.show} >
 				<Modal.Header closeButton >
-					<Modal.Title as="h2">Profile Picture</Modal.Title>
+					<Modal.Title as="h3">Profile Picture</Modal.Title>
 				</Modal.Header>
 				<Modal.Body>
 					<Form.Group>
@@ -105,12 +107,11 @@ class ProfilePicModal extends Component {
 							onChange={this.handleFileSelection}
 							accept="image/*"
 						/>
+						<span style={{ paddingLeft: 10 }}>
+							Click to upload a new profile picture.
+						</span>
 					</Form.Group>
 					{ this.renderAvatarEditor() }
-					<br />
-					<div>
-						You can upload a new profile pic
-					</div>
 				</Modal.Body>
 				<Modal.Footer>
 					<Button onClick={this.handleUpload}>

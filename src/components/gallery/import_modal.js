@@ -47,7 +47,9 @@ class ImportModal extends Component {
 		return (
 			<Modal show={this.props.show} onHide={this.props.close}>
 				<Modal.Header>
-					<Modal.Title>Import lesson <span style={{ color: 'darkred' }}>{this.props.namespace}: {this.props.title}</span></Modal.Title>
+					<Modal.Title>
+						Import lesson <span style={{ color: 'darkred' }}>{this.props.namespace}: {this.props.title}</span>
+					</Modal.Title>
 				</Modal.Header>
 				<Modal.Body>
 					Please select the course that the lesson should be copied into.
@@ -56,7 +58,7 @@ class ImportModal extends Component {
 						<FormLabel>Select Course</FormLabel>
 						<FormControl
 							name="selected"
-							componentClass="select"
+							as="select"
 							placeholder="select"
 							onChange={this.handleChange}
 						>
