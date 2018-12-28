@@ -1,6 +1,5 @@
 // MODULES //
 
-import isArray from '@stdlib/assert/is-array';
 import * as types from './../constants/action_types.js';
 
 
@@ -10,7 +9,6 @@ const initialState = {
 	loggedIn: false,
 	email: '',
 	name: '',
-	namespaces: [],
 	organization: '',
 	writeAccess: false,
 	enrolledNamespaces: [],
@@ -46,14 +44,6 @@ export default function user( state = initialState, action ) {
 			organization: action.payload.organization
 		});
 	/* eslint-disable no-case-declarations */
-	case types.RETRIEVED_NAMESPACES:
-		const { namespaces } = action.payload;
-		if ( !isArray( namespaces ) ) {
-			return state;
-		}
-		return Object.assign({}, state, {
-			namespaces
-		});
 	case types.APPEND_CREATED_NAMESPACE:
 		const arr = state.ownedNamespaces.slice();
 		arr.push( action.payload.namespace );

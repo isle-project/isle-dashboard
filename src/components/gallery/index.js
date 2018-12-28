@@ -127,7 +127,7 @@ class Gallery extends Component {
 						return (<div key={`cell-${i}`}>
 							<Lesson
 								{...lessons[ i ]}
-								userNamespaces={this.props.user.namespaces}
+								userNamespaces={this.props.user.ownedNamespaces}
 								token={this.props.user.token}
 								copyLesson={this.props.copyLesson}
 								getIsleFile={this.props.getIsleFile}

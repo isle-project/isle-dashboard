@@ -4,6 +4,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Button, Card, FormLabel, FormControl, FormGroup, Form, OverlayTrigger, Tooltip, Modal } from 'react-bootstrap';
 import request from 'request';
+import logger from 'debug';
 import server from './../../constants/server';
 
 
@@ -12,6 +13,11 @@ import server from './../../constants/server';
 const createTooltip = ( str ) => {
 	return <Tooltip id="tooltip">{str}</Tooltip>;
 };
+
+
+// VARIABLES //
+
+const debug = logger( 'isle-dashboard' );
 
 
 // MAIN //
@@ -92,6 +98,7 @@ class EditModal extends Component {
 
 	getPasswordValidationState = () => {
 		const { password, passwordRepeat } = this.state;
+		debug( `Password: ${password}; Repeat password: ${passwordRepeat}` );
 		if ( password.length < 6 || passwordRepeat.length === 0 ) {
 			return false;
 		}
@@ -102,13 +109,16 @@ class EditModal extends Component {
 	}
 
 	render() {
+		const validPasswords = this.getPasswordValidationState();
+		const validName = this.getNameValidationState();
+		const enteredPasswords = this.state.password || this.state.passwordRepeat;
 		return (
 			<Modal show={this.props.show} onHide={this.props.onHide}>
 			<Modal.Header closeButton>
 				<Modal.Title as="h3">Profile
 				</Modal.Title>
 			</Modal.Header>
-				<Form validated style={{ padding: '20px' }}>
+				<Form noValidate style={{ padding: '20px' }}>
 					<FormGroup
 						controlId="form-email"
 					>
@@ -123,7 +133,6 @@ class EditModal extends Component {
 					<OverlayTrigger placement="right" overlay={createTooltip( 'Update your name' )}>
 						<FormGroup
 							controlId="form-name"
-							isValid={this.getNameValidationState()}
 						>
 							<FormLabel>Name</FormLabel>
 							<FormControl
@@ -131,13 +140,16 @@ class EditModal extends Component {
 								type="text"
 								value={this.state.name}
 								onChange={this.handleInputChange}
+								isInvalid={!validName}
 							/>
+							<Form.Control.Feedback type="invalid">
+								Name needs to be at least four characters long.
+							</Form.Control.Feedback>
 						</FormGroup>
 					</OverlayTrigger>
 					<OverlayTrigger placement="right" overlay={createTooltip( 'Update your organization' )}>
 						<FormGroup
 							controlId="form-organization"
-							isValid={this.getNameValidationState()}
 						>
 							<FormLabel>Organization</FormLabel>
 							<FormControl
@@ -151,7 +163,6 @@ class EditModal extends Component {
 					<OverlayTrigger placement="right" overlay={createTooltip( 'Please enter a password of your choosing with at least six characters' )}>
 						<FormGroup
 							controlId="form-password"
-							isValid={this.getPasswordValidationState()}
 						>
 							<FormLabel>Password</FormLabel>
 							<FormControl
@@ -163,13 +174,15 @@ class EditModal extends Component {
 								onChange={this.handleInputChange}
 								maxLength={30}
 								minLength={6}
+								isInvalid={enteredPasswords && !validPasswords}
 							/>
-							<FormControl.Feedback />
+							<Form.Control.Feedback type="invalid">
+								Please enter a new password with at least six characters.
+							</Form.Control.Feedback>
 						</FormGroup>
 					</OverlayTrigger>
 					<FormGroup
 						controlId="form-repeat-password"
-						isValid={this.getPasswordValidationState()}
 					>
 						<FormControl
 							name="passwordRepeat"
@@ -180,12 +193,15 @@ class EditModal extends Component {
 							onChange={this.handleInputChange}
 							maxLength={30}
 							minLength={6}
+							isInvalid={enteredPasswords && !validPasswords}
 						/>
-						<FormControl.Feedback />
+						<Form.Control.Feedback type="invalid">
+							Passwords do not match.
+						</Form.Control.Feedback>
 					</FormGroup>
 				</Form>
 				<Card>
-					<Button block onClick={this.handleUpdate}>Update</Button>
+					<Button block disabled={!validName || ( !validPasswords && enteredPasswords )} onClick={this.handleUpdate}>Update</Button>
 				</Card>
 			</Modal>
 		);
