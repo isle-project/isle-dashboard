@@ -48,7 +48,7 @@ class App extends Component {
 			!contains( history.location.pathname, 'new-password' ) &&
 			!contains( history.location.pathname, 'signup' )
 		) {
-			let isle = localStorage.getItem( 'isle' );
+			let isle = localStorage.getItem( 'isle-dashboard' );
 			if ( isle ) {
 				isle = JSON.parse( isle );
 				this.props.handleLogin( isle );
@@ -61,10 +61,14 @@ class App extends Component {
 	componentDidUpdate( prevProps ) {
 		const isLoggingOut = prevProps.isLoggedIn && !this.props.isLoggedIn;
 		const isLoggingIn = !prevProps.isLoggedIn && this.props.isLoggedIn;
-
 		if ( isLoggingIn ) {
-			const path = this.props.user.writeAccess ? '/lessons' : '/profile';
-			history.push( path );
+			const pathname = history.location.pathname;
+			if ( pathname && pathname !== '/' && pathname !== '/login' ) {
+				history.push( history.location.pathname );
+			} else {
+				const path = this.props.user.writeAccess ? '/lessons' : '/profile';
+				history.push( path );
+			}
 		}
 		if ( isLoggingOut ) {
 			history.push( '/login' );
@@ -148,7 +152,6 @@ function mapStateToProps( state ) {
 function mapDispatchToProps( dispatch ) {
 	return {
 		handleLogin: ( obj ) => {
-			localStorage.setItem( 'isle', JSON.stringify( obj ) );
 			request.post( server+'/credentials_dashboard', {
 				headers: {
 					'Authorization': 'JWT ' + obj.token
@@ -161,7 +164,9 @@ function mapDispatchToProps( dispatch ) {
 					return error;
 				}
 				body = JSON.parse( body );
-				body.picture = server + '/avatar/' + body.picture;
+				if ( body.picture ) {
+					body.picture = server + '/avatar/' + body.picture;
+				}
 				let user = {
 					...obj,
 					...body

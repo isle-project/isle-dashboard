@@ -21,7 +21,7 @@ function mapStateToProps( state ) {
 function mapDispatchToProps( dispatch ) {
 	return {
 		handleLogin: ( obj ) => {
-			localStorage.setItem( 'isle', JSON.stringify( obj ) );
+			localStorage.setItem( 'isle-dashboard', JSON.stringify( obj ) );
 			request.post( server+'/credentials_dashboard', {
 				headers: {
 					'Authorization': 'JWT ' + obj.token
