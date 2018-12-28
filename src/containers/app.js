@@ -1,8 +1,9 @@
 // MODULES //
 
 import React, { Component, Fragment } from 'react';
-import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import request from 'request';
 import createHashHistory from 'history/createHashHistory';
 import { Router, Route } from 'react-router-dom';
 import contains from '@stdlib/assert/contains';
@@ -19,6 +20,8 @@ import VisibleLessonsPage from './visible_lessons_page.js';
 import VisibleProfilePage from './visible_profile_page.js';
 import CoursePage from './../components/course-page';
 import NotificationSystem from './../components/notification.js';
+import server from './../constants/server';
+import * as actions from './../actions';
 import './app.css';
 
 
@@ -45,7 +48,13 @@ class App extends Component {
 			!contains( history.location.pathname, 'new-password' ) &&
 			!contains( history.location.pathname, 'signup' )
 		) {
-			history.replace( '/login' );
+			let isle = localStorage.getItem( 'isle' );
+			if ( isle ) {
+				isle = JSON.parse( isle );
+				this.props.handleLogin( isle );
+			} else {
+				history.replace( '/login' );
+			}
 		}
 	}
 
@@ -114,9 +123,11 @@ class App extends Component {
 	}
 }
 
-// PROPERTY TYPES //
+
+// PROPERTIES //
 
 App.propTypes = {
+	handleLogin: PropTypes.func.isRequired,
 	isLoggedIn: PropTypes.bool.isRequired,
 	user: PropTypes.object.isRequired
 };
@@ -135,5 +146,28 @@ function mapStateToProps( state ) {
 }
 
 function mapDispatchToProps( dispatch ) {
-	return {};
+	return {
+		handleLogin: ( obj ) => {
+			localStorage.setItem( 'isle', JSON.stringify( obj ) );
+			request.post( server+'/credentials_dashboard', {
+				headers: {
+					'Authorization': 'JWT ' + obj.token
+				},
+				form: {
+					id: obj.id
+				}
+			}, function onLogin( error, response, body ) {
+				if ( error ) {
+					return error;
+				}
+				body = JSON.parse( body );
+				body.picture = server + '/avatar/' + body.picture;
+				let user = {
+					...obj,
+					...body
+				};
+				dispatch( actions.loggedIn( user ) );
+			});
+		}
+	};
 }
