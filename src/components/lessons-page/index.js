@@ -153,7 +153,6 @@ class LessonsPage extends Component {
 		);
 	}
 
-
 	render() {
 		if ( !this.props.namespace.title ) {
 			return (

@@ -54,7 +54,8 @@ class App extends Component {
 		const isLoggingIn = !prevProps.isLoggedIn && this.props.isLoggedIn;
 
 		if ( isLoggingIn ) {
-			history.push( '/lessons' );
+			const path = this.props.user.writeAccess ? '/lessons' : '/profile';
+			history.push( path );
 		}
 		if ( isLoggingOut ) {
 			history.push( '/login' );
@@ -116,7 +117,8 @@ class App extends Component {
 // PROPERTY TYPES //
 
 App.propTypes = {
-	isLoggedIn: PropTypes.bool.isRequired
+	isLoggedIn: PropTypes.bool.isRequired,
+	user: PropTypes.object.isRequired
 };
 
 

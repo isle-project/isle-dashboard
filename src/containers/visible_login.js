@@ -33,7 +33,6 @@ function mapDispatchToProps( dispatch ) {
 				if ( error ) {
 					return error;
 				}
-
 				body = JSON.parse( body );
 				body.picture = server + '/avatar/' + body.picture;
 				let user = {
