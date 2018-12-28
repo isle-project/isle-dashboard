@@ -62,6 +62,7 @@ class ProfilePicModal extends Component {
 		return (
 			<Fragment>
 				<AvatarEditor
+					className="avatarEditor"
 					ref={(editor) => {
 						this.editor = editor;
 					}}
