@@ -7,7 +7,7 @@ import createHashHistory from 'history/createHashHistory';
 import { Router, Route } from 'react-router-dom';
 import contains from '@stdlib/assert/contains';
 import VisibleLogin from './visible_login.js';
-import Signup from './../components/signup.js';
+import Signup from './../components/signup';
 import NewPassword from './../components/new_password.js';
 import HeaderBar from './header_bar.js';
 import VisibleForgotPassword from './visible_forgot_password.js';
