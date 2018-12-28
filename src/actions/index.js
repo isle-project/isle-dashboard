@@ -54,15 +54,6 @@ export function changedNamespace({ title, owners, description, _id }) {
 	};
 }
 
-export function retrievedNamespaces( namespaces ) {
-	return {
-		type: types.RETRIEVED_NAMESPACES,
-		payload: {
-			namespaces
-		}
-	};
-}
-
 export function appendCreatedNamespace( namespace ) {
 	return {
 		type: types.APPEND_CREATED_NAMESPACE,

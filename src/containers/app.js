@@ -5,7 +5,6 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import createHashHistory from 'history/createHashHistory';
 import { Router, Route } from 'react-router-dom';
-import request from 'request';
 import contains from '@stdlib/assert/contains';
 import VisibleLogin from './visible_login.js';
 import Signup from './../components/signup.js';
@@ -19,10 +18,7 @@ import VisibleGallery from './visible_gallery.js';
 import VisibleLessonsPage from './visible_lessons_page.js';
 import VisibleProfilePage from './visible_profile_page.js';
 import CoursePage from './../components/course-page';
-import Lesson from './../components/lesson.js';
 import NotificationSystem from './../components/notification.js';
-import server from './../constants/server';
-import * as actions from './../actions';
 import './app.css';
 
 
@@ -50,8 +46,6 @@ class App extends Component {
 			!contains( history.location.pathname, 'signup' )
 		) {
 			history.replace( '/login' );
-		} else if ( this.props.user.token ) {
-			this.props.getNamespaces( this.props.user.token );
 		}
 	}
 
@@ -61,7 +55,6 @@ class App extends Component {
 
 		if ( isLoggingIn ) {
 			history.push( '/lessons' );
-			this.props.getNamespaces( this.props.user.token );
 		}
 		if ( isLoggingOut ) {
 			history.push( '/login' );
@@ -98,10 +91,6 @@ class App extends Component {
 						path="/gallery"
 						component={VisibleGallery}
 					/>
-					<Route
-						path="/lessons/:lessonId"
-						component={Lesson}
-					/>
 				</Fragment>;
 		}
 		return (
@@ -127,9 +116,7 @@ class App extends Component {
 // PROPERTY TYPES //
 
 App.propTypes = {
-	getNamespaces: PropTypes.func.isRequired,
-	isLoggedIn: PropTypes.bool.isRequired,
-	user: PropTypes.object.isRequired
+	isLoggedIn: PropTypes.bool.isRequired
 };
 
 
@@ -146,19 +133,5 @@ function mapStateToProps( state ) {
 }
 
 function mapDispatchToProps( dispatch ) {
-	return {
-		getNamespaces: ( token ) => {
-			request.get( server+'/get_namespaces', {
-				headers: {
-					'Authorization': 'JWT ' + token
-				}
-			}, function onNamespaces( error, response, body ) {
-				if ( error ) {
-					return error;
-				}
-				body = JSON.parse( body );
-				dispatch( actions.retrievedNamespaces( body.namespaces ) );
-			});
-		}
-	};
+	return {};
 }
