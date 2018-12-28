@@ -62,6 +62,7 @@ function mapDispatchToProps( dispatch ) {
 				}
 				body = JSON.parse( body );
 				let lessons = body.lessons;
+				console.log( lessons );
 				lessons = lessons.map( lesson => {
 					lesson.url = server+'/'+lesson.namespace+'/'+lesson.title;
 					return lesson;

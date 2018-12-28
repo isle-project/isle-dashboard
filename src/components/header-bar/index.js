@@ -216,10 +216,10 @@ class HeaderBar extends Component {
 
 	renderSearchField() {
 		console.log(this.props.history.location);
+		var pth = this.props.history.location.pathname;
 		if (
-			!this.props.namespace.title ||
-			( this.props.history.location.pathname !== '/lessons' &&
-			this.props.history.location.pathname !== '/gallery' )
+			(!this.props.namespace.title && pth === '/lessons') ||
+			(pth !== '/lessons' && pth!== '/gallery')
 		) {
 			return null;
 		}

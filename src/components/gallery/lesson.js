@@ -55,7 +55,7 @@ class Lesson extends Component {
 
 	render() {
 		return (
-			<Card>
+			<Card className="gallery-card">
 				<Card.Body>
 					<div style={{
 						filter: 'grayscale(30%)',
