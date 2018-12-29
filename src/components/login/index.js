@@ -7,8 +7,6 @@ import {
 	Form, Overlay, Popover
 } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import request from 'request';
-import server from 'constants/server';
 import 'css/login.css';
 
 
@@ -22,62 +20,60 @@ class Login extends Component {
 			email: '',
 			password: ''
 		};
+	}
 
-		this.handleInputChange = ( event ) => {
-			const target = event.target;
-			const value = target.value;
-			const name = target.name;
-
+	handleSubmit = ( event ) => {
+		event.preventDefault();
+		let form = {
+			password: this.state.password,
+			email: this.state.email
+		};
+		if ( form.email === '' ) {
 			this.setState({
-				[ name ]: value
+				showInputOverlay: true,
+				overlayTarget: this.emailInput,
+				invalidInputMessage: 'Enter your email address.'
 			});
-		};
-
-		this.handleSubmit = ( event ) => {
-			event.preventDefault();
-			let form = {
-				password: this.state.password,
-				email: this.state.email
-			};
-			if ( form.email === '' ) {
-				this.setState({
-					showInputOverlay: true,
-					overlayTarget: this.emailInput,
-					invalidInputMessage: 'Enter your email address.'
-				});
-			}
-			else if ( form.password === '' ) {
-				this.setState({
-					showInputOverlay: true,
-					overlayTarget: this.passwordInput,
-					invalidInputMessage: 'Enter your password.'
-				});
-			}
-			else {
-				request.post( server+'/login', {
-					form
-				}, ( err, res ) => {
-					if ( !err ) {
-						const { message, type, token, id } = JSON.parse( res.body );
-						if ( message === 'ok' ) {
-							this.props.handleLogin({ token, id });
-						} else {
-							this.setState({
-								showInputOverlay: true,
-								overlayTarget: type === 'no_user' ? this.emailInput : this.passwordInput,
-								invalidInputMessage: message
-							}, () => {
-								setTimeout( () => {
-									this.setState({
-										showInputOverlay: false
-									});
-								}, 2000 );
-							});
-						}
+		}
+		else if ( form.password === '' ) {
+			this.setState({
+				showInputOverlay: true,
+				overlayTarget: this.passwordInput,
+				invalidInputMessage: 'Enter your password.'
+			});
+		}
+		else {
+			this.props.handleLogin( form, ( err, res ) => {
+				if ( !err ) {
+					const { message, type, token, id } = JSON.parse( res.body );
+					if ( message === 'ok' ) {
+						this.props.fetchCredentials({ token, id });
+					} else {
+						this.setState({
+							showInputOverlay: true,
+							overlayTarget: type === 'no_user' ? this.emailInput : this.passwordInput,
+							invalidInputMessage: message
+						}, () => {
+							setTimeout( () => {
+								this.setState({
+									showInputOverlay: false
+								});
+							}, 2000 );
+						});
 					}
-				});
-			}
-		};
+				}
+			});
+		}
+	}
+
+	handleInputChange = ( event ) => {
+		const target = event.target;
+		const value = target.value;
+		const name = target.name;
+
+		this.setState({
+			[ name ]: value
+		});
 	}
 
 	render() {
@@ -161,6 +157,7 @@ class Login extends Component {
 // PROPERTIES //
 
 Login.propTypes = {
+	fetchCredentials: PropTypes.func.isRequired,
 	handleLogin: PropTypes.func.isRequired
 };
 

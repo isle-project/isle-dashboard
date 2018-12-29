@@ -20,9 +20,6 @@ function mapStateToProps( state ) {
 
 function mapDispatchToProps( dispatch ) {
 	return {
-		addNotification: ({ message, level }) => {
-			dispatch( actions.addNotification({ message, level }) );
-		},
 		forgotPassword: ({ email }) => {
 			request.get( server+'/forgot_password', {
 				qs: {

@@ -1,12 +1,11 @@
 // MODULES //
 
 import React, { Component, Fragment } from 'react';
+import PropTypes from 'prop-types';
 import { Button, Card, Col, Row, FormLabel, FormControl, FormGroup, Form, OverlayTrigger, Overlay, Popover, Tooltip } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import logger from 'debug';
-import request from 'request';
 import isEmail from '@stdlib/assert/is-email-address';
-import server from 'constants/server';
 import MessageModal from './message_modal.js';
 import 'css/login.css';
 
@@ -49,9 +48,7 @@ class Signup extends Component {
 			this.getNameValidationState() &&
 			this.getPasswordValidationState()
 		) {
-			request.post( server+'/create_user', {
-				form: extractUserData( this.state )
-			}, ( err, res ) => {
+			this.props.createUser( extractUserData( this.state ), ( err, res ) => {
 				if ( err ) {
 					debug( 'Encountered an error: ' + err.message );
 					return this.setState({
@@ -284,6 +281,13 @@ class Signup extends Component {
 		);
 	}
 }
+
+
+// PROPERTIES //
+
+Signup.propTypes = {
+	createUser: PropTypes.func.isRequired
+};
 
 
 // EXPORTS //

@@ -7,7 +7,6 @@ import request from 'request';
 import createHashHistory from 'history/createHashHistory';
 import { Router, Route } from 'react-router-dom';
 import contains from '@stdlib/assert/contains';
-import Signup from 'components/signup';
 import NewPassword from 'components/new-password';
 import CoursePage from 'components/course-page';
 import server from 'constants/server';
@@ -17,6 +16,7 @@ import VisibleForgotPassword from './visible_forgot_password.js';
 import VisibleCreateNamespace from './visible_create_namespace.js';
 import VisibleEditNamespace from './visible_edit_namespace.js';
 import VisibleLogin from './visible_login.js';
+import VisibleSignup from './visible_signup.js';
 import VisibleNamespaceData from './visible_namespace_data.js';
 import VisibleGallery from './visible_gallery.js';
 import VisibleLessonsPage from './visible_lessons_page.js';
@@ -114,7 +114,7 @@ class App extends Component {
 					<Route exact path="/" component={VisibleLogin} />
 					<Route path="/login" component={VisibleLogin} />
 					<Route path="/new-password" component={NewPassword} />
-					<Route path="/signup" component={Signup} />
+					<Route path="/signup" component={VisibleSignup} />
 					<Route path="/forgot-password" component={VisibleForgotPassword} />
 					<Route
 						path="/courses/:namespace"

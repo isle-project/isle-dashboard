@@ -123,6 +123,7 @@ class NamespaceData extends Component {
 	}
 }
 
+
 // PROPERTIES //
 
 NamespaceData.propTypes = {

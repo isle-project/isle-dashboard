@@ -20,7 +20,12 @@ function mapStateToProps( state ) {
 
 function mapDispatchToProps( dispatch ) {
 	return {
-		handleLogin: ( obj ) => {
+		handleLogin: ( form, clbk ) => {
+			request.post( server+'/login', {
+				form
+			}, clbk );
+		},
+		fetchCredentials: ( obj ) => {
 			localStorage.setItem( 'isle-dashboard', JSON.stringify( obj ) );
 			request.post( server+'/credentials_dashboard', {
 				headers: {

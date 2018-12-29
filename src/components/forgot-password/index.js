@@ -72,7 +72,6 @@ class ForgotPassword extends Component {
 // PROPERTIES //
 
 ForgotPassword.propTypes = {
-	addNotification: PropTypes.func.isRequired,
 	forgotPassword: PropTypes.func.isRequired
 };
 
