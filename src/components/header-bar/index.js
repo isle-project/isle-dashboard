@@ -295,7 +295,7 @@ class HeaderBar extends Component {
 						target={this.overlayTarget}
 						placement="bottom"
 					>
-						<Popover id="popover-positioned-bottom">
+						<Popover id="popover-courses">
 							{ this.props.user.ownedNamespaces.length > 0 ? <Fragment>
 								<label className="label-display">OWNED COURSES</label>
 								{namespaceListGroup( this.props.user.ownedNamespaces, this.ownedClickFactory )}

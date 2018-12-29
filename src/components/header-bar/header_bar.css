@@ -83,6 +83,10 @@
 	margin-top: 10px;
 }
 
+#popover-courses {
+	overflow-y: auto;
+	max-height: 500px
+}
 
 .label-display {
 	font-family: Open Sans Condensed;
