@@ -4,7 +4,7 @@ import React, { Component, Fragment } from 'react';
 import { Button, Card, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import './profile-page.css';
-import stats from './img/stats.png';
+// import stats from './img/stats.png';
 import badge2 from './img/badge2.svg';
 import badgeCircle from './img/badge_circle.svg';
 import hoodie from './img/hoodie.jpg';
@@ -38,8 +38,8 @@ class ProfilePage extends Component {
 		}
 		return ( <Button
 			onClick={this.toggleTokenModal}
-			size="small" variant="success"
-			style={{ marginTop: -7 }}
+			variant="success"
+			style={{ marginLeft: 10, marginTop: 15 }}
 		>Instructor Access</Button> );
 	}
 
@@ -63,8 +63,11 @@ class ProfilePage extends Component {
 
 	renderStatisticSection() {
 		return (
-			<div className="profile-page-stats-section">
-				<img src={stats} />
+			<div className="profile-page-statistics">
+				<div className="profile-page-statistics-title1">Actions</div>
+				<div className="profile-page-statistics-title2">Statistics</div>
+				<div className="profile-page-statistics-actions"></div>
+				<div className="profile-page-statistics-stats"></div>
 			</div>
 		);
 	}
@@ -144,11 +147,11 @@ class ProfilePage extends Component {
 								</div>
 							</Card.Body>
 						</Card>
-						<Button style={{ marginTop: 25 }} onClick={this.toggleEditModal}>EDIT PROFILE</Button>
+						<Button style={{ marginTop: 15 }} onClick={this.toggleEditModal}>Edit Profile</Button>
+						{this.renderInstructorButton()}
 					</div>
 				</div>
 				<div className="profile-page-user-footer">
-					{this.renderInstructorButton()}
 				</div>
 			</div>
 		);
@@ -161,9 +164,9 @@ class ProfilePage extends Component {
 					<div className="profile-page-left">
 						{this.renderUserSection()}
 					</div>
-					<div className="profile-page-statistics">
-						{this.renderStatisticSection()}
-					</div>
+
+					{this.renderStatisticSection()}
+
 					<div className="profile-page-badge-title">Badges</div>
 
 					<div className="profile-page-badge-container">
