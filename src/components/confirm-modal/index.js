@@ -10,7 +10,7 @@ import { Button, Modal } from 'react-bootstrap';
 const ConfirmModal = ( props ) => (
 	<Modal show={props.show} onHide={props.close}>
 		<Modal.Header>
-			<Modal.Title>{props.title}</Modal.Title>
+			<Modal.Title as="h3">{props.title}</Modal.Title>
 		</Modal.Header>
 		<Modal.Body>
 			{props.message}
