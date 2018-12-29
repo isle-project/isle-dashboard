@@ -5,7 +5,7 @@ import { Button, Card, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import './profile-page.css';
 // import stats from './img/stats.png';
-import badge2 from './img/badge2.svg';
+import badge2 from './img/question.svg';
 import badgeCircle from './img/badge_circle.svg';
 import hoodie from './img/hoodie.jpg';
 import EditModal from './edit_modal.js';
@@ -72,7 +72,7 @@ class ProfilePage extends Component {
 		);
 	}
 
-	renderBadgesSectionNew() {
+	renderBadgesSection() {
 		let list = [];
 		for ( let i = 0; i < 24; i++ ) {
 			list.push(
@@ -91,30 +91,6 @@ class ProfilePage extends Component {
 		return list;
 	}
 
-	renderBadgesSection() {
-		let list = [];
-		for ( let i = 0; i < 24; i++ ) {
-			list.push(
-				<div className="profile-page-badge-item" key={i} >
-					<OverlayTrigger placement="bottom" overlay={<Tooltip id="toggle_visibility">Toggle Visibility</Tooltip>}>
-						<div className="profile-page-badge-image">
-							<img src={badge2} />
-						</div>
-					</OverlayTrigger>
-				</div>
-			);
-		}
-		return (
-			<Card style={{ height: '100%' }}>
-				<Card.Header>
-					<Card.Title as="h3">Badges</Card.Title>
-				</Card.Header>
-				<Card.Body>
-				{list}
-				</Card.Body>
-			</Card>
-		);
-	}
 
 	renderUserSection() {
 		var date = null;
@@ -170,7 +146,7 @@ class ProfilePage extends Component {
 					<div className="profile-page-badge-title">Badges</div>
 
 					<div className="profile-page-badge-container">
-						{this.renderBadgesSectionNew()}
+						{this.renderBadgesSection()}
 					</div>
 				</div>
 				<EditModal
