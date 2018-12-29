@@ -128,7 +128,7 @@ class HeaderBar extends Component {
 		}
 		return ( <OverlayTrigger placement="bottom" overlay={createCourseTooltip}>
 			<Button
-				style={{ float: 'left', marginRight: '6px' }}
+				style={{ float: 'left', marginRight: '4px' }}
 				onClick={this.goToCreateCoursePage.bind( this )}
 			>
 				<i className="fa fa-pencil-alt"></i>
@@ -147,7 +147,7 @@ class HeaderBar extends Component {
 		return (
 			<OverlayTrigger placement="bottom" overlay={editCourseTooltip}>
 				<Button
-					style={{ float: 'left', marginRight: '6px' }}
+					style={{ float: 'left', marginRight: '4px' }}
 					onClick={this.goToCourseEditPage.bind( this )}
 				>
 					<i className="fa fa-edit"></i>
@@ -163,7 +163,7 @@ class HeaderBar extends Component {
 		return (
 			<OverlayTrigger placement="bottom" overlay={courseDataTooltip}>
 				<Button
-					style={{ float: 'left', marginRight: '6px' }}
+					style={{ float: 'left', marginRight: '4px' }}
 					onClick={this.goToCourseDataPage.bind( this )}
 				>
 					<i className="fa fa-chart-pie"></i>
@@ -182,12 +182,11 @@ class HeaderBar extends Component {
 					onClick={this.goToGallery.bind( this )}
 					style={{
 						float: 'left',
-						marginRight: '6px',
-						marginLeft: '6px'
+						marginRight: '4px'
 					}}
 				>
 					<i className="fa fa-eye"></i>
-					<small style={{ marginLeft: '5px' }}>Gallery</small>
+					<small style={{ marginLeft: '4px' }}>Gallery</small>
 				</Button>
 			</OverlayTrigger>
 		);
@@ -203,7 +202,7 @@ class HeaderBar extends Component {
 		return (
 			<ButtonGroup style={{
 				float: 'left',
-				marginRight: '6px'
+				marginRight: '4px'
 			}}>
 				<OverlayTrigger placement="right" overlay={selectCourseTooltip}>
 					<Button
@@ -227,7 +226,7 @@ class HeaderBar extends Component {
 						disabled={!this.props.namespace.title}
 						onClick={this.goBackToLesson}
 					>
-						<small style={{ marginLeft: '5px' }}>
+						<small>
 							{this.props.namespace.title || 'Your Courses'}
 						</small>
 					</Button>
@@ -260,10 +259,16 @@ class HeaderBar extends Component {
 			<ButtonGroup style={{ marginLeft: 5, float: 'left'}} >
 				<DropdownButton variant="secondary" onSelect={( newValue ) => {
 					this.props.setLessonOrder( newValue );
-				}} id="dropdown" title={title} >
-					<Dropdown.Item eventKey="alphabetically">Sort alphabetically</Dropdown.Item>
-					<Dropdown.Item eventKey="created_at">Sort by create date</Dropdown.Item>
-					<Dropdown.Item eventKey="updated_at">Sort by update date</Dropdown.Item>
+				}} id="dropdown" title={<small>{title}</small>} >
+					<Dropdown.Item eventKey="alphabetically">
+						<small>Sort alphabetically</small>
+					</Dropdown.Item>
+					<Dropdown.Item eventKey="created_at">
+						<small>Sort by create date</small>
+					</Dropdown.Item>
+					<Dropdown.Item eventKey="updated_at">
+						<small>Sort by update date</small>
+					</Dropdown.Item>
 				</DropdownButton>
 				<Button variant="secondary" style={{ marginLeft: 2 }} onClick={() => {
 					if ( this.props.search.direction === 'ascending' ) {
@@ -289,12 +294,14 @@ class HeaderBar extends Component {
 		) {
 			return null;
 		}
-		return ( <FormGroup style={{ width: '20vw', float: 'left' }}>
+		return ( <FormGroup style={{ width: '16vw', float: 'left' }}>
 			<InputGroup>
 				<FormControl
 					style={{
 						background: 'white',
-						color: '#2a3e54'
+						color: '#2a3e54',
+						fontSize: '80%',
+						fontWeight: 400
 					}}
 					type="text"
 					placeholder="Search"
@@ -339,7 +346,14 @@ class HeaderBar extends Component {
 					<Overlay
 						show={this.state.showNamespacesOverlay}
 						target={this.overlayTarget}
+						onHide={() => {
+							this.setState({
+								showNamespacesOverlay: false
+							});
+						}}
 						placement="bottom"
+						rootClose
+						rootCloseEvent="click"
 					>
 						<Popover id="popover-courses">
 							{ this.props.user.ownedNamespaces.length > 0 ? <Fragment>
