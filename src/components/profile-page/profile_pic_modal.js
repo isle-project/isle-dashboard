@@ -69,17 +69,15 @@ class ProfilePicModal extends Component {
 						this.editor = editor;
 					}}
 					image={this.state.actualFile}
-					width={365}
-					height={365}
-					border={50}
+					width={200}
+					height={200}
+					border={[80, 50]}
 					color={[255, 255, 255, 0.9]} // RGBA
 					scale={this.state.zoom}
 					rotate={0}
 				/>
 				<Form.Group controlId="form-zoom">
-					<Form.Label>
-						<h3>Zoom</h3>
-					</Form.Label>
+					<Form.Label>Zoom</Form.Label>
 					<FormControl
 						step={0.05} type="range" defaultValue={1} min={0.5} max={3}
 						onChange={this.changeZoom}
@@ -91,12 +89,16 @@ class ProfilePicModal extends Component {
 
 	render() {
 		return (
-			<Modal onHide={this.props.onHide} show={this.props.show} >
+			<Modal
+				onHide={this.props.onHide}
+				show={this.props.show}
+				dialogClassName="profile-pic-modal"
+			>
 				<Modal.Header closeButton >
 					<Modal.Title as="h3">Profile Picture</Modal.Title>
 				</Modal.Header>
-				<Modal.Body>
-					<Form.Group>
+				<Modal.Body style={{ paddingBottom: 0 }}>
+					<Form.Group style={{ marginBottom: 0 }}>
 						<Form.Label htmlFor="imageUpload" style={{ cursor: 'pointer' }}>
 							<h3><Badge variant="success">Select file</Badge></h3>
 						</Form.Label>
