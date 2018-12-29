@@ -9,9 +9,9 @@
 
 .lessons-jumbotron {
 	position: relative;
-	top: 70;
+	top: 70px;
 	text-align: left;
-	padding-left: 20;
+	padding-left: 20px;
 }
 
 .enrolled-lesson-progress {
