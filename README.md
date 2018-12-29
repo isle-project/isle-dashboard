@@ -39,6 +39,8 @@ See [LICENSE][license].
 - User Icon by Atacan from the Noun Project
 - Badge Icon by Royyan Wijaya from the Noun Project
 - Upload Icon by McGalloway, CC BY-SA 4.0
+- Badge by Kristin Hogan from the Noun Project
+- Question by unlimicon from the Noun Project
 
 [license]: https://raw.githubusercontent.com/Planeshifter/isle-dashboard/master/LICENSE
 

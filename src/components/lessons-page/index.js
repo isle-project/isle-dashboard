@@ -111,12 +111,46 @@ class LessonsPage extends Component {
 		return filteredLessons;
 	}
 
+	sortLessons( lessons ) {
+		const { type, direction } = this.props.search;
+		if ( type === 'alphabetically' ) {
+			if ( direction === 'ascending' ) {
+				lessons.sort( ( a, b ) => {
+					return a.title.localeCompare( b.title );
+				});
+			} else {
+				lessons.sort( ( a, b ) => {
+					return b.title.localeCompare( a.title );
+				});
+			}
+		}
+		else if ( type === 'created_at' ) {
+			if ( direction === 'ascending' ) {
+				lessons.sort( ( a, b ) => {
+					return a.createdAt.localeCompare( b.createdAt );
+				});
+			} else {
+				lessons.sort( ( a, b ) => {
+					return b.createdAt.localeCompare( a.createdAt );
+				});
+			}
+		}
+		else if ( type === 'updated_at' ) {
+			if ( direction === 'ascending' ) {
+				lessons.sort( ( a, b ) => {
+					return a.updatedAt.localeCompare( b.updatedAt );
+				});
+			} else {
+				lessons.sort( ( a, b ) => {
+					return b.updatedAt.localeCompare( a.updatedAt );
+				});
+			}
+		}
+	}
 
 	renderLessons() {
 		let lessons = this.state.filteredLessons;
-		lessons.sort( ( a, b ) => {
-			return a.title.localeCompare( b.title );
-		});
+		this.sortLessons( lessons );
 		if ( this.props.namespace.userStatus === 'enrolled' ) {
 			return lessons.map( ( e, i ) => {
 				return (<div key={`cell-${i}`}>
@@ -166,10 +200,7 @@ class LessonsPage extends Component {
 				</Jumbotron> );
 			}
 			return (
-				<div style={{
-					position: 'relative',
-					top: 70
-				}}>
+				<div className="lessons-grid-container">
 					<ResponsiveReactGridLayout
 						layouts={this.state.layouts}
 						breakpoints={{ lg: 1800, md: 1550, sm: 1200, xs: 900, xxs: 400, tiny: 0 }}
@@ -178,7 +209,7 @@ class LessonsPage extends Component {
 						isDraggable={false}
 						rowHeight={60}
 					>
-					{ this.renderLessons() }
+					{this.renderLessons()}
 					</ResponsiveReactGridLayout>
 				</div>
 			);

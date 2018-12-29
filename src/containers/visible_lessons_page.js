@@ -195,8 +195,16 @@ function mapDispatchToProps( dispatch ) {
 					let lessons = body.lessons;
 					lessons = lessons.map( lesson => {
 						lesson.url = server+'/'+namespaceName+'/'+lesson.title;
+						if (!lesson.createdAt) {
+							lesson.createdAt = new Date(0).toLocaleString();
+						}
+						if (!lesson.updatedAt) {
+							lesson.updatedAt = lesson.createdAt;
+						}
+
 						return lesson;
 					});
+					console.log( lessons );
 					dispatch( actions.retrievedLessons( lessons ) );
 				});
 			}

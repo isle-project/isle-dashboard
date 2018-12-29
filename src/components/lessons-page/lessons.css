@@ -14,6 +14,13 @@
 	padding-left: 20px;
 }
 
+.lessons-grid-container {
+	position: relative;
+	top: 52px;
+	background: url(https://isle.heinz.cmu.edu/white_carbonfiber_1543854970404.png);
+	
+}
+
 .enrolled-lesson-progress {
 	width: 58%;
 	height: 16px;

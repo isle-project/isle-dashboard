@@ -3,7 +3,7 @@
 import React, { Component, Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import {
-	Button, ButtonGroup, FormGroup, FormControl, Image, InputGroup,
+	Button, ButtonGroup, DropdownButton, Dropdown, FormGroup, FormControl, Image, InputGroup,
 	Overlay, OverlayTrigger, Popover, ListGroupItem, ListGroup, Tooltip
 } from 'react-bootstrap';
 import isObjectArray from '@stdlib/assert/is-object-array';
@@ -236,6 +236,51 @@ class HeaderBar extends Component {
 		);
 	}
 
+	renderDropdownButton() {
+		const pth = this.props.history.location.pathname;
+		if (
+			( !this.props.namespace.title && pth === '/lessons' ) ||
+			( pth !== '/lessons' && pth!== '/gallery' )
+		) {
+			return null;
+		}
+		let title;
+		switch ( this.props.search.type ) {
+			case 'alphabetically':
+				title = 'Sort alphabetically';
+				break;
+			case 'created_at':
+				title = 'Sort by create date';
+				break;
+			case 'updated_at':
+				title = 'Sort by update date';
+				break;
+		}
+		return (
+			<ButtonGroup style={{ marginLeft: 5, float: 'left'}} >
+				<DropdownButton variant="secondary" onSelect={( newValue ) => {
+					this.props.setLessonOrder( newValue );
+				}} id="dropdown" title={title} >
+					<Dropdown.Item eventKey="alphabetically">Sort alphabetically</Dropdown.Item>
+					<Dropdown.Item eventKey="created_at">Sort by create date</Dropdown.Item>
+					<Dropdown.Item eventKey="updated_at">Sort by update date</Dropdown.Item>
+				</DropdownButton>
+				<Button variant="secondary" style={{ marginLeft: 2 }} onClick={() => {
+					if ( this.props.search.direction === 'ascending' ) {
+						this.props.setLessonOrderDirection( 'descending' );
+					} else {
+						this.props.setLessonOrderDirection( 'ascending' );
+					}
+				}}>
+					{ this.props.search.direction === 'ascending' ?
+						<i className="fas fa-arrow-down" /> :
+						<i className="fas fa-arrow-up" />
+					}
+				</Button>
+			</ButtonGroup>
+		);
+	}
+
 	renderSearchField() {
 		const pth = this.props.history.location.pathname;
 		if (
@@ -253,10 +298,11 @@ class HeaderBar extends Component {
 					}}
 					type="text"
 					placeholder="Search"
+					defaultValue={this.props.search.phrase}
 					onChange={this.handleTextChange}
 				/>
 					<InputGroup.Append>
-						<Button disabled style={{ cursor: 'auto' }}>
+						<Button disabled variant="secondary" style={{ cursor: 'auto' }}>
 							<i className="fa fa-search"></i>
 						</Button>
 					</InputGroup.Append>
@@ -309,6 +355,7 @@ class HeaderBar extends Component {
 					{this.renderDataButton()}
 					{this.renderCreateButton()}
 					{this.renderSearchField()}
+					{this.renderDropdownButton()}
 				</div>
 				<div className="header-bar-right-container">
 					{this.renderHelp()}
@@ -343,6 +390,9 @@ HeaderBar.propTypes = {
 	namespace: PropTypes.object.isRequired,
 	onEnrolledNamespace: PropTypes.func.isRequired,
 	onNamespace: PropTypes.func.isRequired,
+	search: PropTypes.object.isRequired,
+	setLessonOrder: PropTypes.func.isRequired,
+	setLessonOrderDirection: PropTypes.func.isRequired,
 	setSearchPhrase: PropTypes.func.isRequired,
 	user: PropTypes.object.isRequired
 };

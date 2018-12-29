@@ -15,7 +15,8 @@ export default connect( mapStateToProps, mapDispatchToProps )( HeaderBar );
 function mapStateToProps( state ) {
 	return {
 		user: state.user,
-		namespace: state.namespace
+		namespace: state.namespace,
+		search: state.search
 	};
 }
 
@@ -27,6 +28,12 @@ function mapDispatchToProps( dispatch ) {
 		},
 		setSearchPhrase: ( str ) => {
 			dispatch( actions.searchPhraseSet( str ) );
+		},
+		setLessonOrder: ( order ) => {
+			dispatch( actions.setLessonOrder( order ) );
+		},
+		setLessonOrderDirection: ( direction ) => {
+			dispatch( actions.setLessonOrderDirection( direction ) );
 		},
 		onEnrolledNamespace: ({ title, description, owners, _id }) => {
 			dispatch( actions.changedNamespace({

@@ -45,6 +45,24 @@ export function searchPhraseSet( phrase ) {
 	};
 }
 
+export function setLessonOrder( type ) {
+	return {
+		type: types.LESSON_ORDER,
+		payload: {
+			type
+		}
+	};
+}
+
+export function setLessonOrderDirection( direction ) {
+	return {
+		type: types.LESSON_ORDER_DIRECTION,
+		payload: {
+			direction
+		}
+	};
+}
+
 export function changedNamespace({ title, owners, description, _id, userStatus }) {
 	return {
 		type: types.CHANGED_NAMESPACE,

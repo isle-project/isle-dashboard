@@ -80,7 +80,7 @@ class ProfilePage extends Component {
 					<OverlayTrigger placement="bottom" overlay={<Tooltip id="toggle_visibility">Toggle Visibility</Tooltip>}>
 						<div className="profile-page-badge-item">
 							<img className="mask" src={badgeCircle} />
-							<div className="profile-page-badge-item-interior" >
+							<div className="profile-page-badge-item-interior unknown" >
 							<img src={badge2} />
 							</div>
 						</div>

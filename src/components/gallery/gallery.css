@@ -4,6 +4,7 @@
 	width: 100%;
 	top: 52px;
 	min-height: calc(100% - 52px);
+	background: url(https://isle.heinz.cmu.edu/white_carbonfiber_1543854970404.png);
 }
 
 .gallery-toolbar {

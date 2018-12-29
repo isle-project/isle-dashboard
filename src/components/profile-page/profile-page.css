@@ -11,7 +11,7 @@
 	top: 52px;
 	background: gainsboro;
 	grid-template-columns: 360px auto 25% 20px;
-	grid-template-rows: 20px auto 50px 28% 30px;
+    grid-template-rows: 20px auto 50px 28% 30px;
 
 	grid-template-areas:
 		"left header header right"
@@ -24,7 +24,8 @@
 
 .profile-page-left {
 	grid-area: left;
-	border-right:solid 1px silver;
+    border-right:solid 1px silver;
+    background: url(https://isle.heinz.cmu.edu/white_carbonfiber_1543854970404.png);
 }
 
 .profile-page-badge-title {
@@ -178,6 +179,13 @@
 	height: auto;
 }
 
+
+
+.unknown {
+    background: silver;
+    opacity: 0.3;
+}
+
 /* END OF BADGE */
 
 /* THE STATISTICS SECTION */
@@ -221,7 +229,7 @@
 
 
 .profile-page-user-portrait {
-	grid-area: portrait;
+    grid-area: portrait;
 }
 
 .profile-page-user-portrait img {
@@ -257,7 +265,8 @@
 
 .profile-page-user-personal {
 	grid-area: personal;
-	width: 340px;
+    width: 340px;
+    background-image:url(https://isle.heinz.cmu.edu/white_carbonfiber_1543854970404.png);
 }
 
 .profile-page-user-personal-name {
