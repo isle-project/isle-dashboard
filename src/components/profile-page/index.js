@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 import './profile-page.css';
 import stats from './img/stats.png';
 import badge2 from './img/badge2.svg';
+import badgeCircle from './img/badge_circle.svg';
 import hoodie from './img/hoodie.jpg';
 import EditModal from './edit_modal.js';
 import EnterTokenModal from './enter_token_modal.js';
@@ -66,6 +67,25 @@ class ProfilePage extends Component {
 				<img src={stats} />
 			</div>
 		);
+	}
+
+	renderBadgesSectionNew() {
+		let list = [];
+		for ( let i = 0; i < 24; i++ ) {
+			list.push(
+				<div className="profile-page-badge-item-nova" key={i}>
+					<OverlayTrigger placement="bottom" overlay={<Tooltip id="toggle_visibility">Toggle Visibility</Tooltip>}>
+						<div className="profile-page-badge-item">
+							<img className="mask" src={badgeCircle} />
+							<div className="profile-page-badge-item-interior" >
+							<img src={badge2} />
+							</div>
+						</div>
+					</OverlayTrigger>
+				</div>
+			);
+		}
+		return list;
 	}
 
 	renderBadgesSection() {
@@ -144,8 +164,10 @@ class ProfilePage extends Component {
 					<div className="profile-page-statistics">
 						{this.renderStatisticSection()}
 					</div>
-					<div className="profile-page-badges">
-						{this.renderBadgesSection()}
+					<div className="profile-page-badge-title">Badges</div>
+
+					<div className="profile-page-badge-container">
+						{this.renderBadgesSectionNew()}
 					</div>
 				</div>
 				<EditModal

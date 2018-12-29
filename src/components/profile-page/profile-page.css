@@ -1,4 +1,6 @@
-
+:root {
+    --ratio-percent: 75%;
+  }
 /* THE WHOLE PROFILE PAGE */
 
 .profile-page-grid-container {
@@ -8,15 +10,15 @@
     height: calc(100% - 52px);
     top: 52px;
 	background: gainsboro;
-	grid-template-columns: 25% auto 25% 20px;
-	grid-template-rows: 20px auto 16px 34% 30px;
+	grid-template-columns: 360px auto 25% 20px;
+	grid-template-rows: 20px auto 50px 28% 30px;
 
 	grid-template-areas:
 		"left header header right"
         "left statistics statistics right"
         "left middle middle right"
-        "left badges badges badges"
-		"left badges badges badges"
+        "left badges badges right"
+		"left badges badges right"
 }
 
 
@@ -25,8 +27,33 @@
     border-right:solid 1px silver;
 }
 
+.profile-page-badge-title {
+    grid-area: middle;
+    margin-left: 10px;
+    margin-bottom: 10px;
+    border-top:solid 1px darkgray;
+    font-family: Open Sans Condensed;
+    font-size: 32px;
+    font-weight: 600;
+    color: darkgrey;
+}
+
 .profile-page-badges {
-	grid-area: badges;
+    grid-area: badges;
+}
+
+
+.profile-page-badge-container {
+    grid-area: badges;
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-columns: 360px auto 25% 20px;
+
+    grid-template-columns: repeat(12, 1fr);
+    grid-template-rows: 20px 1fr 1fr, 1fr;
+    grid-gap: 15px;
+    grid-row-gap: 1em;
 }
 
 .profile-page-statistics {
@@ -39,24 +66,56 @@
 
 /* BEGINNING OF THE BADGE SECTION */
 
+.profile-page-badge-item-nova {
+    width: 100%;
+    height: auto;
+    position: relative; /* If you want text inside of it */
+    display: inline-block;
+}
+
+
+
 .profile-page-badge-item {
-    float: left;
-    margin-left: 18px;
-    margin-bottom: 20px;
-    width: calc(56px + 2vw);
-    height:calc(56px + 2vw);
-    border-radius: 50%;
-    background: silver;
-    background-size: 100% auto;
+    position: absolute;
+    width: 100%;
+    height: auto;
     transition: all 0.3s;
+    border-radius: 50%;
+    box-shadow: 0 0 darkgray;
+    background-image: url(./img/badge_circle.svg);
+    background-size: 100% auto;
+    /*
+    -webkit-mask: url(./img/badge_circle.svg) no-repeat center;
+    mask: url(./img/badge_circle.svg) no-repeat center;
+    */
 }
 
 .profile-page-badge-item:hover {
-    transform: scale(1.25);
+    transform: scale(1.12);
+}
+
+.mask {
+    opacity: 0;
 }
 
 
 .profile-page-badge-item img {
+    width: 100%;
+    height: 100%;
+    fill: silver;
+}
+
+
+.profile-page-badge-item-interior {
+    position: absolute;
+    left: 10%;
+    top: 10%;
+    width: 80%;
+    height: 80%;
+    border-radius: 50%;
+}
+
+.profile-page-badge-item-interior img {
     width: 100%;
     height: 100%;
 }
@@ -104,7 +163,7 @@
 
     display: grid;
 
-    grid-template-columns: 20px auto 20px;
+    grid-template-columns: 10px auto 20px;
     grid-template-rows: 20px 40% 15px 50% 1% 40px;
 
 	grid-template-areas:
@@ -123,8 +182,8 @@
 
 .profile-page-user-portrait img {
     cursor: pointer;
-    width: auto;
-    height: 100%;
+    width: 340px;
+    height: auto;
     opacity: 1;
     transition: all .7s;
     box-shadow: 0 0 1px darkslategray;
@@ -152,7 +211,7 @@
 
 .profile-page-user-personal {
     grid-area: personal;
-    width: 90%;
+    width: 340px;
 }
 
 .profile-page-user-personal-name {
