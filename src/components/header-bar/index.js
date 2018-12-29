@@ -3,7 +3,7 @@
 import React, { Component, Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import {
-	Button, FormGroup, FormControl, Image, InputGroup,
+	Button, ButtonGroup, FormGroup, FormControl, Image, InputGroup,
 	Overlay, OverlayTrigger, Popover, ListGroupItem, ListGroup, Tooltip
 } from 'react-bootstrap';
 import isObjectArray from '@stdlib/assert/is-object-array';
@@ -21,6 +21,7 @@ const editCourseTooltip = <Tooltip id="edit_course">Edit course</Tooltip>;
 const courseDataTooltip = <Tooltip id="course_data">Course Data</Tooltip>;
 const galleryTooltip = <Tooltip id="open_gallery">Open gallery</Tooltip>;
 const selectCourseTooltip = <Tooltip id="select_course">Select course</Tooltip>;
+const selectBackTooltip = <Tooltip id="to_course">Go back to course</Tooltip>;
 
 const namespaceListGroup = ( namespaces, clickFactory ) => (
 	<ListGroup>
@@ -73,6 +74,13 @@ class HeaderBar extends Component {
 	setProfileLocation = () => {
 		this.setState({
 			location: 'Profile'
+		});
+	}
+
+	goBackToLesson = () => {
+		this.props.history.replace( '/lessons' );
+		this.setState({
+			location: 'Course'
 		});
 	}
 
@@ -187,30 +195,45 @@ class HeaderBar extends Component {
 
 	renderCoursesButton() {
 		let disabled = true;
-		if (this.props.user.ownedNamespaces.length > 0 || this.props.user.enrolledNamespaces.length > 0) {
+		if (
+			this.props.user.ownedNamespaces.length > 0 || this.props.user.enrolledNamespaces.length > 0
+		) {
 			disabled = false;
 		}
-		return ( <OverlayTrigger placement="right" overlay={selectCourseTooltip}>
-			<Button
-				ref={( button ) => { this.overlayTarget = button; }}
-				style={{
-					float: 'left',
-					marginRight: '6px'
-				}}
-				onClick={() => {
-					this.setState({
-						showNamespacesOverlay: !this.state.showNamespacesOverlay
-					});
-				}}
-				variant="secondary"
-				disabled={disabled}
-			>
-				<i className="fa fa-align-justify"></i>
-				<small style={{ marginLeft: '5px' }}>
-					{this.props.namespace.title || 'Your Courses'}
-				</small>
-			</Button>
-		</OverlayTrigger> );
+		return (
+			<ButtonGroup style={{
+				float: 'left',
+				marginRight: '6px'
+			}}>
+				<OverlayTrigger placement="bottom" overlay={selectCourseTooltip}>
+					<Button
+						variant="secondary"
+						ref={( button ) => { this.overlayTarget = button; }}
+						disabled={disabled}
+						onClick={() => {
+						this.setState({
+							showNamespacesOverlay: !this.state.showNamespacesOverlay
+						});
+					}}>
+						<i className="fa fa-align-justify"></i>
+					</Button>
+				</OverlayTrigger>
+				<OverlayTrigger
+					disabled={!this.props.namespace.title}
+					placement="bottom" overlay={selectBackTooltip}
+				>
+					<Button
+						variant="secondary"
+						disabled={!this.props.namespace.title}
+						onClick={this.goBackToLesson}
+					>
+						<small style={{ marginLeft: '5px' }}>
+							{this.props.namespace.title || 'Your Courses'}
+						</small>
+					</Button>
+				</OverlayTrigger>
+			</ButtonGroup>
+		);
 	}
 
 	renderSearchField() {
