@@ -10,6 +10,7 @@ import DeleteModal from './delete_modal.js';
 import COLORS from './../../constants/colors';
 import background from './architecture.jpeg';
 import './lessons.css';
+import upload from './upload.svg';
 
 
 // MAIN //
@@ -88,6 +89,34 @@ class Lesson extends Component {
 		};
 	}
 
+	renderButtonToolbarDate() {
+		if (!this.props.updatedAt) return null;
+
+		let date = null;
+		let updated = null;
+
+		if (this.props.updatedAt) {
+			updated = new Date(this.props.updatedAt);
+			updated = updated.toLocaleDateString();
+			if (this.props.createdAt) {
+				date = new Date(this.props.createdAt);
+				date = date.toLocaleDateString();
+			}
+			else date = updated;
+			}
+
+		return (
+			<span className="lessons-upload">
+			<OverlayTrigger placement="bottom" overlay={<Tooltip id="toggle_visibility">created at</Tooltip>}>
+				<span className="lessons-uploaded-image"><img style={{ stroke: 'white', fill: 'red'}} src={upload} /></span>
+			</OverlayTrigger>
+			<OverlayTrigger placement="bottom" overlay={<Tooltip id="toggle_visibility">updated at {updated}</Tooltip>}>
+			<span className="lessons-uploaded">{date}</span>
+			</OverlayTrigger>
+		</span>
+		);
+	}
+
 	renderButtonToolbar() {
 		const activeStyle = this.props.active === true ? 'success' : 'warning';
 		const publicStyle = this.props.public === true ? 'success' : 'warning';
@@ -115,6 +144,8 @@ class Lesson extends Component {
 			<OverlayTrigger placement="bottom" overlay={<Tooltip id="toggle_visibility">Toggle Visibility</Tooltip>}>
 				<Badge className="lessons-status" onClick={this.toggleLessonVisibility} variant={publicStyle}>{this.props.public ? 'Public' : 'Private'}</Badge>
 			</OverlayTrigger>
+			{ this.renderButtonToolbarDate() }
+
 		</ButtonToolbar> );
 	}
 
