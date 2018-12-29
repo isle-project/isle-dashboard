@@ -3,10 +3,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import request from 'request';
-import server from './../constants/server';
+import server from 'constants/server';
 import { withRouter } from 'react-router';
-import NamespaceData from '../components/namespace-data';
-import * as actions from './../actions';
+import NamespaceData from 'components/namespace-data';
+import * as actions from 'actions';
 
 
 // EXPORTS //

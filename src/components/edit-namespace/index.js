@@ -337,7 +337,7 @@ class EditNamespace extends Component {
 }
 
 
-// PROPERTY TYPES //
+// PROPERTIES //
 
 EditNamespace.propTypes = {
 	addNotification: PropTypes.func.isRequired,

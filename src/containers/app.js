@@ -7,20 +7,20 @@ import request from 'request';
 import createHashHistory from 'history/createHashHistory';
 import { Router, Route } from 'react-router-dom';
 import contains from '@stdlib/assert/contains';
-import VisibleLogin from './visible_login.js';
 import Signup from 'components/signup';
 import NewPassword from 'components/new-password';
-import HeaderBar from './header_bar.js';
+import CoursePage from 'components/course-page';
+import server from 'constants/server';
+import NotificationSystem from './notification.js';
+import VisibleHeaderBar from './visible_header_bar.js';
 import VisibleForgotPassword from './visible_forgot_password.js';
 import VisibleCreateNamespace from './visible_create_namespace.js';
 import VisibleEditNamespace from './visible_edit_namespace.js';
+import VisibleLogin from './visible_login.js';
 import VisibleNamespaceData from './visible_namespace_data.js';
 import VisibleGallery from './visible_gallery.js';
 import VisibleLessonsPage from './visible_lessons_page.js';
 import VisibleProfilePage from './visible_profile_page.js';
-import CoursePage from 'components/course-page';
-import NotificationSystem from 'components/notification';
-import server from 'constants/server';
 import * as actions from 'actions';
 import './app.css';
 
@@ -80,7 +80,7 @@ class App extends Component {
 		if ( this.props.isLoggedIn ) {
 			AuthenticationBarrier =
 				<Fragment>
-					<HeaderBar history={history} />
+					<VisibleHeaderBar history={history} />
 					<Route
 						path="/create-namespace"
 						component={VisibleCreateNamespace}

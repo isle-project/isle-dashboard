@@ -1,6 +1,6 @@
 // MODULES //
 
-import * as types from './../constants/action_types.js';
+import * as types from 'constants/action_types.js';
 
 
 // EXPORTS //

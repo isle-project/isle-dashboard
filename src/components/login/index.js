@@ -1,12 +1,12 @@
 // MODULES //
 
 import React, { Component, Fragment } from 'react';
+import PropTypes from 'prop-types';
 import {
 	Button, Card, Col, Row, FormLabel, FormControl, FormGroup,
 	Form, Overlay, Popover
 } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import PropTypes from 'prop-types';
 import request from 'request';
 import server from 'constants/server';
 import 'css/login.css';
@@ -158,7 +158,7 @@ class Login extends Component {
 }
 
 
-// PROPERTY TYPES //
+// PROPERTIES //
 
 Login.propTypes = {
 	handleLogin: PropTypes.func.isRequired

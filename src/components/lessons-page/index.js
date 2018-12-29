@@ -10,7 +10,7 @@ import lowercase from '@stdlib/string/lowercase';
 import pluck from '@stdlib/utils/pluck';
 import floor from '@stdlib/math/base/special/floor';
 import Lesson from './lesson.js';
-import EnrolledLesson from './enrolledLesson.js';
+import EnrolledLesson from './enrolled_lesson.js';
 import 'css/image.css';
 import 'react-grid-layout/css/styles.css';
 import 'react-resizable/css/styles.css';
@@ -187,7 +187,7 @@ class LessonsPage extends Component {
 }
 
 
-// PROPERTY TYPES //
+// PROPERTIES //
 
 LessonsPage.propTypes = {
 	activateLesson: PropTypes.func.isRequired,

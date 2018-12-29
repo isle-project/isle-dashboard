@@ -5,7 +5,7 @@ import {
 	Card, ButtonToolbar, ProgressBar, OverlayTrigger, Tooltip
 } from 'react-bootstrap';
 import PropTypes from 'prop-types';
-import COLORS from './../../constants/colors';
+import COLORS from 'constants/colors';
 import background from './architecture.jpeg';
 import './lessons.css';
 
@@ -84,7 +84,7 @@ class EnrolledLesson extends Component {
 }
 
 
-// PROPERTY TYPES //
+// PROPERTIES //
 
 EnrolledLesson.propTypes = {
 	colorIndex: PropTypes.number.isRequired,

@@ -1,7 +1,7 @@
 // MODULES //
 
 import hasOwnProp from '@stdlib/assert/has-own-property';
-import * as types from './../constants/action_types.js';
+import * as types from 'constants/action_types.js';
 
 
 // VARIABLES //

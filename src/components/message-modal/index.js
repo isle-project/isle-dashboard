@@ -24,12 +24,13 @@ const MsgModal = ( props ) => (
 );
 
 
+// PROPERTIES //
+
 MsgModal.propTypes = {
 	close: PropTypes.func,
 	message: PropTypes.string,
 	show: PropTypes.bool,
 	title: PropTypes.string
-
 };
 
 MsgModal.defaultProps = {

@@ -1,10 +1,10 @@
 // MODULES //
 
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import {
 	Button, Col, FormLabel, Form, FormControl, FormGroup, Modal
 } from 'react-bootstrap';
-import PropTypes from 'prop-types';
 import logger from 'debug';
 import SERVER from 'constants/server';
 
@@ -117,7 +117,7 @@ class DetailsModal extends Component {
 }
 
 
-// PROPERTY TYPES //
+// PROPERTIES //
 
 DetailsModal.propTypes = {
 	close: PropTypes.func.isRequired,

@@ -164,7 +164,7 @@ class CreateCohortModal extends Component {
 }
 
 
-// PROPERTY TYPES //
+// PROPERTIES //
 
 CreateCohortModal.propTypes = {
 	close: PropTypes.func,

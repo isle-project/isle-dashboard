@@ -123,7 +123,7 @@ class NamespaceData extends Component {
 	}
 }
 
-// PROPERTY TYPES //
+// PROPERTIES //
 
 NamespaceData.propTypes = {
 	getFiles: PropTypes.func.isRequired,

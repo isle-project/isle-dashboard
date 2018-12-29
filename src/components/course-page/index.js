@@ -137,7 +137,7 @@ class CoursePage extends Component {
 }
 
 
-// PROPERTY TYPES //
+// PROPERTIES //
 
 CoursePage.propTypes = {
 	namespace: PropTypes.object.isRequired,

@@ -7,7 +7,7 @@ import {
 import PropTypes from 'prop-types';
 import DetailsModal from './details_modal.js';
 import DeleteModal from './delete_modal.js';
-import COLORS from './../../constants/colors';
+import COLORS from 'constants/colors';
 import background from './architecture.jpeg';
 import './lessons.css';
 import upload from './upload.svg';

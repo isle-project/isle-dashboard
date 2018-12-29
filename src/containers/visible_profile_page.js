@@ -4,9 +4,9 @@ import React from 'react';
 import { connect } from 'react-redux';
 import request from 'request';
 import logger from 'debug';
-import ProfilePage from './../components/profile-page';
-import server from './../constants/server';
-import * as actions from './../actions';
+import ProfilePage from 'components/profile-page';
+import server from 'constants/server';
+import * as actions from 'actions';
 
 
 // VARIABLES //

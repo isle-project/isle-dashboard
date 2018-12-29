@@ -335,7 +335,7 @@ class HeaderBar extends Component {
 }
 
 
-// PROPERTY TYPES //
+// PROPERTIES //
 
 HeaderBar.propTypes = {
 	history: PropTypes.object.isRequired,

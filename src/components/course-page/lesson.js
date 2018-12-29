@@ -1,9 +1,9 @@
 // MODULES //
 
 import React, { Component } from 'react';
-import { Card } from 'react-bootstrap';
 import PropTypes from 'prop-types';
-import COLORS from './../../constants/colors';
+import { Card } from 'react-bootstrap';
+import COLORS from 'constants/colors';
 
 
 // MAIN //
@@ -52,7 +52,7 @@ class Lesson extends Component {
 }
 
 
-// PROPERTY TYPES //
+// PROPERTIES //
 
 Lesson.propTypes = {
 	colorIndex: PropTypes.number.isRequired,

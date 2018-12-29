@@ -1,8 +1,8 @@
 // MODULES //
 
 import React from 'react';
-import { Button, Modal } from 'react-bootstrap';
 import PropTypes from 'prop-types';
+import { Button, Modal } from 'react-bootstrap';
 
 
 // MAIN //

@@ -1,7 +1,7 @@
 // MODULES //
 
-import * as types from './../constants/action_types.js';
 import lowercase from '@stdlib/string/lowercase';
+import * as types from 'constants/action_types.js';
 
 
 // VARIABLES //

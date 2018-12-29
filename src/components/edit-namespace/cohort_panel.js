@@ -1,11 +1,11 @@
 // MODULES //
 
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import {
 	Button, ButtonGroup, FormLabel, Form, FormControl, FormGroup,
 	OverlayTrigger, Row, Tooltip
 } from 'react-bootstrap';
-import PropTypes from 'prop-types';
 import { DateRangePicker } from 'react-dates';
 import 'react-dates/lib/css/_datepicker.css';
 import moment from 'moment';

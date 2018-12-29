@@ -9,7 +9,7 @@ import FormGroup from 'react-bootstrap/lib/FormGroup';
 import Badge from 'react-bootstrap/lib/Badge';
 import contains from '@stdlib/assert/contains';
 import lowercase from '@stdlib/string/lowercase';
-import server from './../../constants/server';
+import server from 'constants/server';
 import 'react-table/react-table.css';
 import './react_table_height.css';
 
@@ -112,7 +112,7 @@ class FilesPage extends Component {
 }
 
 
-// PROPERTY TYPES //
+// PROPERTIES //
 
 FilesPage.propTypes = {
 	files: PropTypes.array.isRequired,
