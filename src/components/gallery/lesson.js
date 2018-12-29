@@ -10,6 +10,7 @@ import './../image.css';
 import COLORS from './../../constants/colors';
 import copyToClipboard from 'clipboard-copy';
 import background from './bubble.jpg';
+import upload from './upload.svg';
 
 
 // MAIN //
@@ -53,6 +54,35 @@ class Lesson extends Component {
 		/> );
 	}
 
+	renderButtonToolbarDate() {
+		if (!this.props.updatedAt) return null;
+
+		let date = null;
+		let updated = null;
+
+		if (this.props.updatedAt) {
+			updated = new Date(this.props.updatedAt);
+			updated = updated.toLocaleDateString();
+			if (this.props.createdAt) {
+				date = new Date(this.props.createdAt);
+				date = date.toLocaleDateString();
+			}
+			else date = updated;
+			}
+
+		return (
+			<div className="gallery-upload">
+			<OverlayTrigger placement="bottom" overlay={<Tooltip id="toggle_visibility">created at</Tooltip>}>
+				<span className="gallery-uploaded-image"><img style={{ stroke: 'white', fill: 'red'}} src={upload} /></span>
+			</OverlayTrigger>
+			<OverlayTrigger placement="bottom" overlay={<Tooltip id="toggle_visibility">updated at {updated}</Tooltip>}>
+			<span className="gallery-uploaded">{date}</span>
+			</OverlayTrigger>
+		</div>
+		);
+	}
+
+
 	renderButtonToolbar() {
 		return ( <div className="gallery-toolbar">
 			<ButtonToolbar size="sm" style={{ marginLeft: 16, marginTop: 3 }}>
@@ -66,6 +96,7 @@ class Lesson extends Component {
 						<i className="fa fa-clipboard"></i>
 					</Button>
 				</OverlayTrigger>
+				{ this.renderButtonToolbarDate() }
 			</ButtonToolbar>
 		</div> );
 	}
