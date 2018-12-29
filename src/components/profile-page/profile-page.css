@@ -164,7 +164,7 @@
 	display: grid;
 
 	grid-template-columns: 10px auto 20px;
-	grid-template-rows: 20px 300px 15px auto 1% 40px;
+	grid-template-rows: 20px 250px 15px auto 1% 40px;
 
 	grid-template-areas:
 		"mleft header mright"
@@ -183,8 +183,8 @@
 .profile-page-user-portrait img {
     cursor: pointer;
     margin-top: 20px;
-    margin-left: 38px;
-	width: 250px;
+    margin-left: 56px;
+	width: 200px;
 	height: auto;
 	opacity: 1;
 	transition: all .7s;
@@ -237,7 +237,7 @@
 	float: left;
 	width: 38%;
 	font-family: Open Sans Condensed;
-	font-size: 24px;
+	font-size: calc(16px + 0.4vw);
 	font-weight: 600;
 	color: darkgrey;
 }
