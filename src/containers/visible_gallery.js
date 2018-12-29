@@ -65,6 +65,12 @@ function mapDispatchToProps( dispatch ) {
 				let lessons = body.lessons;
 				lessons = lessons.map( lesson => {
 					lesson.url = server+'/'+lesson.namespace+'/'+lesson.title;
+					if ( !lesson.createdAt ) {
+						lesson.createdAt = new Date( 0 ).toLocaleString();
+					}
+					if ( !lesson.updatedAt ) {
+						lesson.updatedAt = lesson.createdAt;
+					}
 					return lesson;
 				});
 				dispatch( actions.retrievedPublicLessons( lessons ) );

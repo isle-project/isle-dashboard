@@ -9,6 +9,7 @@ import contains from '@stdlib/assert/contains';
 import lowercase from '@stdlib/string/lowercase';
 import pluck from '@stdlib/utils/pluck';
 import floor from '@stdlib/math/base/special/floor';
+import sortLessons from 'utils/sort_lessons.js';
 import ImportModal from './import_modal.js';
 import Lesson from './lesson.js';
 import 'react-grid-layout/css/styles.css';
@@ -144,9 +145,7 @@ class Gallery extends Component {
 				<p>The selected course does not contain any lessons. You can upload lessons from the ISLE editor.</p>
 			</Jumbotron> );
 		}
-		lessons.sort( ( a, b ) => {
-			return a.title.localeCompare( b.title );
-		});
+		sortLessons( lessons, this.props.search );
 		return (
 			<div className="gallery">
 				<ResponsiveReactGridLayout

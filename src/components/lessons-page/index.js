@@ -11,6 +11,7 @@ import pluck from '@stdlib/utils/pluck';
 import floor from '@stdlib/math/base/special/floor';
 import Lesson from './lesson.js';
 import EnrolledLesson from './enrolled_lesson.js';
+import sortLessons from 'utils/sort_lessons.js';
 import 'css/image.css';
 import 'react-grid-layout/css/styles.css';
 import 'react-resizable/css/styles.css';
@@ -111,46 +112,9 @@ class LessonsPage extends Component {
 		return filteredLessons;
 	}
 
-	sortLessons( lessons ) {
-		const { type, direction } = this.props.search;
-		if ( type === 'alphabetically' ) {
-			if ( direction === 'ascending' ) {
-				lessons.sort( ( a, b ) => {
-					return a.title.localeCompare( b.title );
-				});
-			} else {
-				lessons.sort( ( a, b ) => {
-					return b.title.localeCompare( a.title );
-				});
-			}
-		}
-		else if ( type === 'created_at' ) {
-			if ( direction === 'ascending' ) {
-				lessons.sort( ( a, b ) => {
-					return a.createdAt.localeCompare( b.createdAt );
-				});
-			} else {
-				lessons.sort( ( a, b ) => {
-					return b.createdAt.localeCompare( a.createdAt );
-				});
-			}
-		}
-		else if ( type === 'updated_at' ) {
-			if ( direction === 'ascending' ) {
-				lessons.sort( ( a, b ) => {
-					return a.updatedAt.localeCompare( b.updatedAt );
-				});
-			} else {
-				lessons.sort( ( a, b ) => {
-					return b.updatedAt.localeCompare( a.updatedAt );
-				});
-			}
-		}
-	}
-
 	renderLessons() {
 		let lessons = this.state.filteredLessons;
-		this.sortLessons( lessons );
+		sortLessons( lessons, this.props.search );
 		if ( this.props.namespace.userStatus === 'enrolled' ) {
 			return lessons.map( ( e, i ) => {
 				return (<div key={`cell-${i}`}>
