@@ -4,7 +4,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import request from 'request';
 import server from './../constants/server';
-import EditNamespace from './../components/edit_namespace.js';
+import EditNamespace from './../components/edit-namespace';
 import * as actions from './../actions';
 
 

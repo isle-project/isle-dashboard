@@ -10,8 +10,8 @@ import { DateRangePicker } from 'react-dates';
 import 'react-dates/lib/css/_datepicker.css';
 import moment from 'moment';
 import isEmail from '@stdlib/assert/is-email-address';
-import ConfirmModal from './confirm_modal.js';
-import TextSelect from './text_select.js';
+import ConfirmModal from '../confirm_modal.js';
+import TextSelect from '../text_select.js';
 
 
 // FUNCTIONS //
