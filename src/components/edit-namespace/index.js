@@ -10,10 +10,10 @@ import 'react-dates/lib/css/_datepicker.css';
 import { withRouter } from 'react-router';
 import isArray from '@stdlib/assert/is-array';
 import isEmail from '@stdlib/assert/is-email-address';
-import TextSelect from '../text_select.js';
-import MsgModal from '../message_modal.js';
-import ConfirmModal from '../confirm_modal.js';
-import checkURLPath from '../../utils/check_url_path.js';
+import TextSelect from 'components/text-select';
+import MsgModal from 'components/message-modal';
+import ConfirmModal from 'components/confirm-modal';
+import checkURLPath from 'utils/check_url_path.js';
 import CohortPanel from './cohort_panel.js';
 import CreateCohortModal from './create_cohort_modal.js';
 

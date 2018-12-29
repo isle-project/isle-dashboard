@@ -6,7 +6,7 @@ import {
 } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import logger from 'debug';
-import SERVER from './../../constants/server';
+import SERVER from 'constants/server';
 
 
 // VARIABLES //

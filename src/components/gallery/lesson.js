@@ -5,8 +5,8 @@ import {
 	ButtonToolbar, Button, Card, OverlayTrigger, Tooltip
 } from 'react-bootstrap';
 import PropTypes from 'prop-types';
-import './../image.css';
-import COLORS from './../../constants/colors';
+import 'css/image.css';
+import COLORS from 'constants/colors';
 import copyToClipboard from 'clipboard-copy';
 import background from './bubble.jpg';
 import upload from './upload.svg';

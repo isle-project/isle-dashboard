@@ -6,9 +6,9 @@ import { Link } from 'react-router-dom';
 import logger from 'debug';
 import request from 'request';
 import isEmail from '@stdlib/assert/is-email-address';
-import server from './../../constants/server';
+import server from 'constants/server';
 import MessageModal from './message_modal.js';
-import './../login/login.css';
+import 'css/login.css';
 
 
 // FUNCTIONS //

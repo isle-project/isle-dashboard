@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import { Button, Card, FormLabel, FormControl, FormGroup, Form, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import logger from 'debug';
 import isEmail from '@stdlib/assert/is-email-address';
-import TextSelect from './text_select.js';
+import TextSelect from 'components/text-select';
 
 
 // VARIABLES //
@@ -93,7 +93,7 @@ class CreateNamespace extends Component {
 				margin: '0 auto'
 			}}>
 				<Card.Header>
-					<Card.Title as="h3" >Create Course</Card.Title>
+					<Card.Title as="h2" >Create Course</Card.Title>
 				</Card.Header>
 				<Form style={{ padding: '20px' }}>
 					<OverlayTrigger placement="right" overlay={<Tooltip id="ownerTooltip">Enter list of email addresses denoting the administrators for this course</Tooltip>}>
@@ -147,6 +147,8 @@ class CreateNamespace extends Component {
 	}
 }
 
+
+// PROPERTIES //
 
 CreateNamespace.propTypes = {
 	createNamespace: PropTypes.func.isRequired,

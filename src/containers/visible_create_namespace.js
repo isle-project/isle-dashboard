@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import request from 'request';
 import server from './../constants/server';
 import { withRouter } from 'react-router';
-import CreateNamespace from './../components/create_namespace.js';
+import CreateNamespace from '../components/create-namespace';
 import * as actions from './../actions';
 
 

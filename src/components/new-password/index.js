@@ -6,8 +6,8 @@ import { withRouter } from 'react-router';
 import PropTypes from 'prop-types';
 import queryString from 'query-string';
 import request from 'request';
-import server from './../constants/server';
-import './login/login.css';
+import server from 'constants/server';
+import 'css/login.css';
 
 
 // FUNCTIONS //
@@ -57,73 +57,73 @@ class NewPassword extends Component {
 			showModal: false,
 			token: token
 		};
+	}
 
-		this.handleSubmit = ( event ) => {
-			event.preventDefault();
-			if (
-				this.getPasswordValidationState() === 'success'
-			) {
-				request.post( server+'/update_user_password', {
-					form: {
-						id: this.state.token,
-						newPassword: this.state.password
-					}
-				}, ( err, res ) => {
-					let msg;
-					if ( err ) {
-						msg = err.message;
-					}
-					else if ( res.statusCode === 404 ) {
-						msg = 'User does not exist';
-					}
-					else if ( res.statusCode === 200 ) {
-						const body = JSON.parse( res.body );
-						msg = body.message;
-					}
-					this.setState({
-						message: msg,
-						showModal: true
-					});
-				});
-			} else {
+	handleSubmit = ( event ) => {
+		event.preventDefault();
+		if (
+			this.getPasswordValidationState() === 'success'
+		) {
+			request.post( server+'/update_user_password', {
+				form: {
+					id: this.state.token,
+					newPassword: this.state.password
+				}
+			}, ( err, res ) => {
+				let msg;
+				if ( err ) {
+					msg = err.message;
+				}
+				else if ( res.statusCode === 404 ) {
+					msg = 'User does not exist';
+				}
+				else if ( res.statusCode === 200 ) {
+					const body = JSON.parse( res.body );
+					msg = body.message;
+				}
 				this.setState({
-					showSubmitOverlay: true,
-					overlayTarget: event.target
-				}, () => {
-					setTimeout( () => {
-						this.setState({
-							showSubmitOverlay: false
-						});
-					}, 2000 );
+					message: msg,
+					showModal: true
 				});
-			}
-			return false;
-		};
-
-		this.handleInputChange = ( event ) => {
-			const target = event.target;
-			const value = target.value;
-			const name = target.name;
-
-			this.setState({
-				[ name ]: value
 			});
-		};
+		} else {
+			this.setState({
+				showSubmitOverlay: true,
+				overlayTarget: event.target
+			}, () => {
+				setTimeout( () => {
+					this.setState({
+						showSubmitOverlay: false
+					});
+				}, 2000 );
+			});
+		}
+		return false;
+	}
 
-		this.getPasswordValidationState = () => {
-			const { password, passwordRepeat } = this.state;
-			if ( password.length < 6 || passwordRepeat.length === 0 ) {
-				return 'warning';
-			}
-			if ( password !== passwordRepeat ) {
-				return 'error';
-			}
-			return 'success';
-		};
+	handleInputChange = ( event ) => {
+		const target = event.target;
+		const value = target.value;
+		const name = target.name;
 
-		this.close = () => {
-			this.props.history.replace( '/' );
-		};
+		this.setState({
+			[ name ]: value
+		});
+	}
+
+	getPasswordValidationState = () => {
+		const { password, passwordRepeat } = this.state;
+		if ( password.length < 6 || passwordRepeat.length === 0 ) {
+			return 'warning';
+		}
+		if ( password !== passwordRepeat ) {
+			return 'error';
+		}
+		return 'success';
+	}
+
+	close = () => {
+		this.props.history.replace( '/' );
 	}
 
 	render() {
@@ -218,7 +218,7 @@ class NewPassword extends Component {
 }
 
 
-// PROPERTY TYPES //
+// PROPERTIES //
 
 NewPassword.propTypes = {
 	history: PropTypes.object.isRequired

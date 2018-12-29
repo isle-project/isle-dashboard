@@ -23,7 +23,7 @@ const DeleteModal = ( props ) => (
 );
 
 
-// PROPERTY TYPES //
+// PROPERTIES //
 
 DeleteModal.propTypes = {
 	close: PropTypes.func.isRequired,

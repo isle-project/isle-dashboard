@@ -205,7 +205,7 @@ class HeaderBar extends Component {
 				float: 'left',
 				marginRight: '6px'
 			}}>
-				<OverlayTrigger placement="bottom" overlay={selectCourseTooltip}>
+				<OverlayTrigger placement="right" overlay={selectCourseTooltip}>
 					<Button
 						variant="secondary"
 						ref={( button ) => { this.overlayTarget = button; }}

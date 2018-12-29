@@ -2,8 +2,8 @@
 
 import React from 'react';
 import { connect } from 'react-redux';
-import ForgotPassword from './../components/forgot_password.js';
-import * as actions from './../actions';
+import ForgotPassword from 'components/forgot-password';
+import * as actions from 'actions';
 
 
 // EXPORTS //

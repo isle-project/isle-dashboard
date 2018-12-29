@@ -9,7 +9,7 @@ import {
 import { DateRangePicker } from 'react-dates';
 import moment from 'moment';
 import isEmail from '@stdlib/assert/is-email-address';
-import TextSelect from '../text_select.js';
+import TextSelect from 'components/text-select';
 
 
 // FUNCTIONS //

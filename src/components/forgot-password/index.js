@@ -1,13 +1,13 @@
 // MODULES //
 
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Button, Card, FormLabel, FormControl, FormGroup, Form } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import PropTypes from 'prop-types';
 import request from 'request';
 import isEmail from '@stdlib/assert/is-email-address';
-import server from './../constants/server';
-import './login/login.css';
+import server from 'constants/server';
+import 'css/login.css';
 
 
 // MAIN //
@@ -19,23 +19,23 @@ class ForgotPassword extends Component {
 		this.state = {
 			email: ''
 		};
+	}
 
-		this.handleClick = ( event ) => {
-			event.preventDefault();
-			request.get( server+'/forgot_password', {
-				qs: {
-					email: this.state.email
-				}
-			}, ( error, res ) => {
-				if ( error ) {
-					return this.props.addNotification({ message: error.message, level: 'error' });
-				}
-				if ( res.statusCode >= 400 ) {
-					return this.props.addNotification({ message: res.body, level: 'error' });
-				}
-				this.props.addNotification({ message: 'Check your email inbox for a link to choose a new password.', level: 'success' });
-			});
-		};
+	handleClick = ( event ) => {
+		event.preventDefault();
+		request.get( server+'/forgot_password', {
+			qs: {
+				email: this.state.email
+			}
+		}, ( error, res ) => {
+			if ( error ) {
+				return this.props.addNotification({ message: error.message, level: 'error' });
+			}
+			if ( res.statusCode >= 400 ) {
+				return this.props.addNotification({ message: res.body, level: 'error' });
+			}
+			this.props.addNotification({ message: 'Check your email inbox for a link to choose a new password.', level: 'success' });
+		});
 	}
 
 	render() {
@@ -81,7 +81,7 @@ class ForgotPassword extends Component {
 }
 
 
-// PROPERTY TYPES //
+// PROPERTIES //
 
 ForgotPassword.propTypes = {
 	addNotification: PropTypes.func.isRequired

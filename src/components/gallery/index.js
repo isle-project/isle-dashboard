@@ -13,7 +13,7 @@ import ImportModal from './import_modal.js';
 import Lesson from './lesson.js';
 import 'react-grid-layout/css/styles.css';
 import 'react-resizable/css/styles.css';
-import './../image.css';
+import 'css/image.css';
 import './gallery.css';
 
 

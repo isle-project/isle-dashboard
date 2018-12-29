@@ -9,10 +9,10 @@ import isEmptyArray from '@stdlib/assert/is-empty-array';
 import isJSON from '@stdlib/assert/is-json';
 import pluck from '@stdlib/utils/pluck';
 import floor from '@stdlib/math/base/special/floor';
-import Lesson from './lesson.js';
 import 'react-grid-layout/css/styles.css';
 import 'react-resizable/css/styles.css';
-import SERVER from './../../constants/server';
+import SERVER from 'constants/server';
+import Lesson from './lesson.js';
 
 
 // VARIABLES //

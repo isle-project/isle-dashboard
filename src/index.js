@@ -7,7 +7,7 @@ import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 import reducers from './reducers';
 import App from './containers/app.js';
-import './index.css';
+import './css/index.css';
 
 
 // VARIABLES //
