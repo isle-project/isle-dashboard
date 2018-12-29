@@ -164,7 +164,7 @@
 	display: grid;
 
 	grid-template-columns: 10px auto 20px;
-	grid-template-rows: 20px 40% 15px 50% 1% 40px;
+	grid-template-rows: 20px 300px 15px auto 1% 40px;
 
 	grid-template-areas:
 		"mleft header mright"
@@ -181,8 +181,10 @@
 }
 
 .profile-page-user-portrait img {
-	cursor: pointer;
-	width: 340px;
+    cursor: pointer;
+    margin-top: 20px;
+    margin-left: 38px;
+	width: 250px;
 	height: auto;
 	opacity: 1;
 	transition: all .7s;
