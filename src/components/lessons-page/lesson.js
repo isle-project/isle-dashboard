@@ -23,94 +23,93 @@ class Lesson extends Component {
 			showDeleteModal: false,
 			showDetailsModal: false
 		};
+	}
 
-		this.showDeleteModal = () => {
-			this.setState({ showDeleteModal: true });
+	toggleLessonState = () => {
+		const query = {
+			lessonName: this.props.title,
+			namespaceName: this.props.namespace,
+			token: this.props.token
 		};
+		if ( this.props.active ) {
+			this.props.deactivateLesson( query );
+		} else {
+			this.props.activateLesson( query );
+		}
+	}
 
-		this.showDetailsModal = () => {
-			this.setState({ showDetailsModal: true });
+	toggleLessonVisibility = () => {
+		const query = {
+			lessonName: this.props.title,
+			namespaceName: this.props.namespace,
+			token: this.props.token
 		};
+		if ( this.props.public ) {
+			this.props.hideLessonInGallery( query );
+		} else {
+			this.props.showLessonInGallery( query );
+		}
+	}
 
-		this.closeDeleteModal = () => {
-			this.setState({ showDeleteModal: false });
-		};
+	delete = () => {
+		this.props.deleteLesson({
+			lessonName: this.props.title,
+			namespaceName: this.props.namespace,
+			token: this.props.token
+		});
+		this.closeDeleteModal();
+	}
 
-		this.closeDetailsModal = () => {
-			this.setState({ showDetailsModal: false });
-		};
+	update = ({ newTitle, newDescription }) => {
+		this.props.updateLesson({
+			lessonName: this.props.title,
+			namespaceName: this.props.namespace,
+			token: this.props.token,
+			newTitle,
+			newDescription
+		}, () => {
+			this.props.getLessons( this.props.namespace );
+		});
+		this.closeDetailsModal();
+	}
 
-		this.toggleLessonState = () => {
-			const query = {
-				lessonName: this.props.title,
-				namespaceName: this.props.namespace,
-				token: this.props.token
-			};
-			if ( this.props.active ) {
-				this.props.deactivateLesson( query );
-			} else {
-				this.props.activateLesson( query );
-			}
-		};
+	showDeleteModal = () => {
+		this.setState({ showDeleteModal: true });
+	}
 
-		this.toggleLessonVisibility = () => {
-			const query = {
-				lessonName: this.props.title,
-				namespaceName: this.props.namespace,
-				token: this.props.token
-			};
-			if ( this.props.public ) {
-				this.props.hideLessonInGallery( query );
-			} else {
-				this.props.showLessonInGallery( query );
-			}
-		};
+	showDetailsModal = () => {
+		this.setState({ showDetailsModal: true });
+	}
 
-		this.delete = () => {
-			this.props.deleteLesson({
-				lessonName: this.props.title,
-				namespaceName: this.props.namespace,
-				token: this.props.token
-			});
-			this.closeDeleteModal();
-		};
+	closeDeleteModal = () => {
+		this.setState({ showDeleteModal: false });
+	};
 
-		this.update = ({ newTitle, newDescription }) => {
-			this.props.updateLesson({
-				lessonName: this.props.title,
-				namespaceName: this.props.namespace,
-				token: this.props.token,
-				newTitle,
-				newDescription
-			}, () => {
-				this.props.getLessons( this.props.namespace );
-			});
-			this.closeDetailsModal();
-		};
+	closeDetailsModal = () => {
+		this.setState({ showDetailsModal: false });
 	}
 
 	renderButtonToolbarDate() {
-		if (!this.props.updatedAt) return null;
-
+		if ( !this.props.updatedAt ) {
+			return null;
+		}
 		let date = null;
 		let updated = null;
-
-		if (this.props.updatedAt) {
-			updated = new Date(this.props.updatedAt);
+		if ( this.props.updatedAt ) {
+			updated = new Date( this.props.updatedAt );
 			updated = updated.toLocaleDateString();
-			if (this.props.createdAt) {
+			if ( this.props.createdAt ) {
 				date = new Date(this.props.createdAt);
 				date = date.toLocaleDateString();
 			}
 			else date = updated;
-			}
-
+		}
 		return (
 			<span className="lessons-upload">
 			<OverlayTrigger placement="bottom" overlay={<Tooltip id="toggle_visibility">created at</Tooltip>}>
-				<span className="lessons-uploaded-image"><img style={{ stroke: 'white', fill: 'red'}} src={upload} /></span>
+				<span className="lessons-uploaded-image"><img style={{ stroke: 'white', fill: 'red' }} src={upload} /></span>
 			</OverlayTrigger>
-			<OverlayTrigger placement="bottom" overlay={<Tooltip id="toggle_visibility">updated at {updated}</Tooltip>}>
+			<OverlayTrigger placement="bottom" overlay={<Tooltip id="toggle_visibility">last updated at {updated}</Tooltip>}>
 			<span className="lessons-uploaded">{date}</span>
 			</OverlayTrigger>
 		</span>
@@ -138,10 +137,10 @@ class Lesson extends Component {
 					</Button>
 				</OverlayTrigger>
 			</ButtonGroup>
-			<OverlayTrigger placement="bottom" overlay={<Tooltip id="toggle_availability">Toggle Availability</Tooltip>}>
+			<OverlayTrigger placement="bottom" overlay={<Tooltip id="toggle_availability">{this.props.active ? 'Disable lesson': 'Activate lesson'}</Tooltip>}>
 				<Badge className="lessons-status" onClick={this.toggleLessonState} variant={activeStyle} >{this.props.active ? 'Active' : 'Inactive'}</Badge>
 			</OverlayTrigger>
-			<OverlayTrigger placement="bottom" overlay={<Tooltip id="toggle_visibility">Toggle Visibility</Tooltip>}>
+			<OverlayTrigger placement="bottom" overlay={<Tooltip id="toggle_visibility">{this.props.public ? 'Remove lesson from gallery' : 'Show lesson in gallery' }</Tooltip>}>
 				<Badge className="lessons-status" onClick={this.toggleLessonVisibility} variant={publicStyle}>{this.props.public ? 'Public' : 'Private'}</Badge>
 			</OverlayTrigger>
 			{ this.renderButtonToolbarDate() }
@@ -199,7 +198,7 @@ class Lesson extends Component {
 }
 
 
-// PROPERTY TYPES //
+// PROPERTIES //
 
 Lesson.propTypes = {
 	activateLesson: PropTypes.func.isRequired,

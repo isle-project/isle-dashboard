@@ -23,7 +23,7 @@ const ConfirmModal = ( props ) => (
 );
 
 
-// PROPERTY TYPES //
+// PROPERTIES //
 
 ConfirmModal.propTypes = {
 	close: PropTypes.func,
@@ -31,7 +31,6 @@ ConfirmModal.propTypes = {
 	onDelete: PropTypes.func,
 	show: PropTypes.bool,
 	title: PropTypes.string
-
 };
 
 ConfirmModal.defaultProps = {

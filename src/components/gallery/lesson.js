@@ -49,7 +49,7 @@ class Lesson extends Component {
 		return (
 			<div className="gallery-upload">
 				<OverlayTrigger placement="bottom" overlay={<Tooltip id="toggle_visibility">created at</Tooltip>}>
-					<span className="gallery-uploaded-image"><img style={{ stroke: 'white', fill: 'red'}} src={upload} /></span>
+					<span className="gallery-uploaded-image"><img style={{ stroke: 'white', fill: 'red' }} src={upload} /></span>
 				</OverlayTrigger>
 				<OverlayTrigger placement="bottom" overlay={<Tooltip id="toggle_visibility">updated at {updated}</Tooltip>}>
 				<span className="gallery-uploaded">{date}</span>

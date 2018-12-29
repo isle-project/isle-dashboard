@@ -21,7 +21,7 @@ const editCourseTooltip = <Tooltip id="edit_course">Edit course</Tooltip>;
 const courseDataTooltip = <Tooltip id="course_data">Course Data</Tooltip>;
 const galleryTooltip = <Tooltip id="open_gallery">Open gallery</Tooltip>;
 const selectCourseTooltip = <Tooltip id="select_course">Select course</Tooltip>;
-const selectBackTooltip = <Tooltip id="to_course">Go back to course</Tooltip>;
+const selectBackTooltip = <Tooltip id="to_course">Go to course lessons</Tooltip>;
 
 const namespaceListGroup = ( namespaces, clickFactory ) => (
 	<ListGroup>
