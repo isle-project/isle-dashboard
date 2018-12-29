@@ -79,6 +79,7 @@ class TextSelect extends Component {
 				onKeyDown={this.handleKeyDown}
 				placeholder="Enter email addresses..."
 				value={value}
+				styles={this.props.styles}
 			/>
 		);
 	}
@@ -90,13 +91,15 @@ class TextSelect extends Component {
 TextSelect.propTypes = {
 	defaultValue: PropTypes.array,
 	isClearable: PropTypes.bool,
-	onChange: PropTypes.func
+	onChange: PropTypes.func,
+	styles: PropTypes.object
 };
 
 TextSelect.defaultProps = {
 	defaultValue: [],
 	isClearable: false,
-	onChange() {}
+	onChange() {},
+	styles: {}
 };
 
 
