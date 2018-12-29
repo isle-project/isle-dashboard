@@ -21,14 +21,25 @@ class Lesson extends Component {
 		this.state = {
 			showImportModal: false
 		};
+	}
 
-		this.showImportModal = () => {
-			this.setState({ showImportModal: true });
-		};
+	showImportModal = () => {
+		this.setState({ showImportModal: true });
+	}
 
-		this.closeImportModal = () => {
-			this.setState({ showImportModal: false });
-		};
+	closeImportModal = () => {
+		this.setState({ showImportModal: false });
+	}
+
+	getIsleFile = () => {
+		this.props.getIsleFile({
+			lessonName: this.props.title,
+			namespaceName: this.props.namespace,
+			token: this.props.token,
+			callback( err, body ) {
+				copyToClipboard( body);
+			}
+		});
 	}
 
 	renderImportModal() {
@@ -42,15 +53,21 @@ class Lesson extends Component {
 		/> );
 	}
 
-	getIsleFile = () => {
-		this.props.getIsleFile({
-			lessonName: this.props.title,
-			namespaceName: this.props.namespace,
-			token: this.props.token,
-			callback( err, body ) {
-				copyToClipboard( body);
-			}
-		});
+	renderButtonToolbar() {
+		return ( <div className="galleryToolbar">
+			<ButtonToolbar size="sm" style={{ marginLeft: 16, marginTop: 3 }}>
+				<OverlayTrigger placement="bottom" overlay={<Tooltip id="ImportFile">Import lesson to own course</Tooltip>}>
+					<Button size="sm" style={{ marginLeft: 4, marginRight: 4 }} onClick={this.showImportModal}>
+						Import
+					</Button>
+				</OverlayTrigger>
+				<OverlayTrigger placement="bottom" overlay={<Tooltip id="IsleFile">Copy ISLE file to clipboard</Tooltip>}>
+					<Button size="sm" onClick={this.getIsleFile}>
+						<i className="fa fa-clipboard"></i>
+					</Button>
+				</OverlayTrigger>
+			</ButtonToolbar>
+		</div> );
 	}
 
 	render() {
@@ -83,16 +100,7 @@ class Lesson extends Component {
 							>Open Lesson</span>
 						</div>
 					</div>
-					<div className="galleryToolbar">
-					<ButtonToolbar size="sm" style={{ marginLeft: 16, marginTop: 3 }}>
-							<OverlayTrigger placement="bottom" overlay={<Tooltip id="ImportFile">Import lesson to own course</Tooltip>}>
-								<Button size="sm" style={{ marginLeft: 4, marginRight: 4}} onClick={this.showImportModal}>Import</Button>
-							</OverlayTrigger>
-							<OverlayTrigger placement="bottom" overlay={<Tooltip id="IsleFile">Copy ISLE file to clipboard</Tooltip>}>
-								<Button size="sm" onClick={this.getIsleFile}><i className="fa fa-clipboard"></i></Button>
-							</OverlayTrigger>
-					</ButtonToolbar>
-					</div>
+					{this.renderButtonToolbar()}
 				</Card.Body>
 				{this.renderImportModal()}
 			</Card>

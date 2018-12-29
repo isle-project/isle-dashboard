@@ -82,7 +82,7 @@ class ProfilePage extends Component {
 			);
 		}
 		return (
-			<Card style={{ height: '100%'}}>
+			<Card style={{ height: '100%' }}>
 				<Card.Header>
 					<Card.Title as="h3">Badges</Card.Title>
 				</Card.Header>

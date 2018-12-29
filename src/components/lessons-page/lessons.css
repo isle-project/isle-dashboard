@@ -7,9 +7,15 @@
 	font-family: Open Sans Condensed;
 }
 
+.lessons-jumbotron {
+	position: relative;
+	top: 70px;
+	text-align: left;
+	padding-left: 20px;
+}
 
 .enrolled-lesson-progress {
-	width: 58%; 
+	width: 58%;
 	height: 16px;
 	margin-top: 5px;
 	margin-left: 5px;

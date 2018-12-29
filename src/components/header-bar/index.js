@@ -165,7 +165,6 @@ class HeaderBar extends Component {
 	}
 
 	renderGalleryButton() {
-		console.log( this.props.user );
 		if ( !this.props.user.writeAccess ) {
 			return null;
 		}
@@ -215,11 +214,10 @@ class HeaderBar extends Component {
 	}
 
 	renderSearchField() {
-		console.log(this.props.history.location);
-		var pth = this.props.history.location.pathname;
+		const pth = this.props.history.location.pathname;
 		if (
-			(!this.props.namespace.title && pth === '/lessons') ||
-			(pth !== '/lessons' && pth!== '/gallery')
+			( !this.props.namespace.title && pth === '/lessons' ) ||
+			( pth !== '/lessons' && pth!== '/gallery' )
 		) {
 			return null;
 		}
@@ -255,8 +253,12 @@ class HeaderBar extends Component {
 	}
 
 	render() {
-		let profilePic = icon;
-		if (this.props.user.picture) profilePic = this.props.user.picture;
+		let profilePic;
+		if ( this.props.user.picture ) {
+			profilePic = this.props.user.picture;
+		} else {
+			profilePic = icon;
+		}
 		return (
 			<header className="header-bar">
 				<h1 className="header-bar-title">
@@ -285,12 +287,7 @@ class HeaderBar extends Component {
 					{this.renderCreateButton()}
 					{this.renderSearchField()}
 				</div>
-				<div style={{
-					float: 'right',
-					position: 'relative',
-					fontSize: '15px',
-					marginRight: '10px'
-				}}>
+				<div className="header-bar-right-container">
 					{this.renderHelp()}
 					<div className="header-bar-container">
 						<Image src={profilePic} className="header-bar-icon"></Image>
