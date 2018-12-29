@@ -11,6 +11,7 @@ import hoodie from './img/hoodie.jpg';
 import EditModal from './edit_modal.js';
 import EnterTokenModal from './enter_token_modal.js';
 import ProfilePicModal from './profile_pic_modal.js';
+import badges from './badges.js';
 
 // FUNCTIONS //
 
@@ -75,13 +76,23 @@ class ProfilePage extends Component {
 	renderBadgesSection() {
 		let list = [];
 		for ( let i = 0; i < 24; i++ ) {
+			let temp = badge2;
+			let desc = 'Toggle visibility';
+			let display = 'profile-page-badge-item-interior unknown';
+
+			if (i < badges.length) {
+				temp = badges[i].picture;
+				desc = badges[i].description;
+				display = 'profile-page-badge-item-interior';
+			}
+
 			list.push(
 				<div className="profile-page-badge-item-nova" key={i}>
-					<OverlayTrigger placement="bottom" overlay={<Tooltip id="toggle_visibility">Toggle Visibility</Tooltip>}>
+					<OverlayTrigger placement="bottom" overlay={<Tooltip id="description">{ desc }</Tooltip>}>
 						<div className="profile-page-badge-item">
 							<img className="mask" src={badgeCircle} />
-							<div className="profile-page-badge-item-interior unknown" >
-							<img src={badge2} />
+							<div className={display} >
+							<img src={temp} />
 							</div>
 						</div>
 					</OverlayTrigger>
