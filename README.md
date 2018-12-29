@@ -38,6 +38,7 @@ See [LICENSE][license].
 
 - User Icon by Atacan from the Noun Project
 - Badge Icon by Royyan Wijaya from the Noun Project
+- Upload Icon McGalloway, CC BY-SA 4.0
 
 [license]: https://raw.githubusercontent.com/Planeshifter/isle-dashboard/master/LICENSE
 

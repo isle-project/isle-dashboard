@@ -33,3 +33,27 @@
 	font-size: 14px;
 	color: gainsboro;
 }
+
+.lessons-upload {
+	margin-top: 5px;
+}
+
+.lessons-uploaded {
+	margin-left: 5px;
+	margin-top: 8px;
+	color: gainsboro;
+	font-family: Open Sans Condensed;
+	font-size: 16px;
+	stroke:#b52808;
+	font-weight: 600;
+}
+
+.lessons-uploaded-image {
+	margin-top: -4px;
+	margin-left: 10px;
+	width: 16px;
+	height: 16px;
+	stroke:#b52808;
+	fill: white;
+	margin-right: 3px;
+}
