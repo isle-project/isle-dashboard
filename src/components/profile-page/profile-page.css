@@ -208,7 +208,7 @@
 	display: grid;
 
 	grid-template-columns: 10px auto 20px;
-	grid-template-rows: 20px 250px 15px auto 1% 40px;
+	grid-template-rows: 20px 250px 15px auto 1% 10px;
 
 	grid-template-areas:
 		"mleft header mright"
