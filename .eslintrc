@@ -327,7 +327,7 @@
       },
       "node": {
         "moduleDirectory": [
-          "app",
+          "src",
           "node_modules",
           "node_modules/@stdlib/stdlib/lib/node_modules"
         ]
