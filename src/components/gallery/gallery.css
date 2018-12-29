@@ -6,7 +6,7 @@
 	min-height: calc(100% - 52px);
 }
 
-.galleryToolbar {
+.gallery-toolbar {
 	position: absolute;
 	left: 0;
 	top: 200px;
@@ -18,10 +18,17 @@
 	box-shadow: 0 2px 2px -2px gray;
 }
 
-.galleryToolbar:hover {
+.gallery-toolbar:hover {
 	filter: saturate(100%);
 }
 
 .gallery-card {
 	box-shadow: 0 0 2px darkgrey;
+}
+
+.gallery-jumbotron {
+	position: relative;
+	top: 70px;
+	text-align: left;
+	padding-left: 20px;
 }

@@ -3,28 +3,14 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Button, Card, FormLabel, FormControl, FormGroup, Form, OverlayTrigger, Tooltip } from 'react-bootstrap';
+import logger from 'debug';
 import isEmail from '@stdlib/assert/is-email-address';
 import TextSelect from './text_select.js';
 
 
-// FUNCTIONS //
+// VARIABLES //
 
-function validateInputs({ emails, title, description }) {
-	let invalid = false;
-	if ( emails.length === 0 ) {
-		invalid = true;
-	} else {
-		emails.forEach( owner => {
-			if ( !isEmail( owner ) ) {
-				invalid = true;
-			}
-		});
-	}
-	if ( invalid ) {
-		return false;
-	}
-	return title.length >= 6 && description.length > 3;
-}
+const debug = logger( 'isle-dashboard:create-namespace' );
 
 
 // MAIN //
@@ -34,7 +20,6 @@ class CreateNamespace extends Component {
 		super( props );
 
 		this.state = {
-			disabled: true,
 			title: '',
 			description: '',
 			owners: [ this.props.user.email ]
@@ -47,14 +32,6 @@ class CreateNamespace extends Component {
 		const name = target.name;
 		this.setState({
 			[ name ]: value
-		}, () => {
-			this.setState({
-				disabled: !validateInputs({
-					emails: this.state.owners,
-					description: this.state.description,
-					title: this.state.title
-				})
-			});
 		});
 	}
 
@@ -70,16 +47,44 @@ class CreateNamespace extends Component {
 	handleOwnerChange = ( newValue ) => {
 		const owners = newValue.map( x => x.value );
 		this.setState({
-			owners: owners,
-			disabled: !validateInputs({
-				emails: owners,
-				description: this.state.description,
-				title: this.state.title
-			})
+			owners: owners
 		});
 	}
 
+	validateOwners() {
+		const owners = this.state.owners;
+		let invalid = false;
+		if ( owners.length === 0 ) {
+			invalid = true;
+		} else {
+			owners.forEach( owner => {
+				if ( !isEmail( owner ) ) {
+					invalid = true;
+				}
+			});
+		}
+		if ( invalid ) {
+			return false;
+		}
+		return true;
+	}
+
+	validateTitle() {
+		return this.state.title.length >= 6;
+	}
+
+	validateDescription() {
+		return this.state.description.length > 3;
+	}
+
 	render() {
+		const validTitle = this.validateTitle();
+		const validDescription = this.validateDescription();
+		const validOwners = this.validateOwners();
+		debug( 'Validation status of input fields: ' );
+		debug( `Title: ${validTitle}` );
+		debug( `Description: ${validDescription}` );
+		debug( `Owners: ${validOwners}` );
 		return (
 			<Card style={{
 				position: 'relative',
@@ -100,7 +105,7 @@ class CreateNamespace extends Component {
 							/>
 						</FormGroup>
 					</OverlayTrigger>
-					<OverlayTrigger placement="right" overlay={<Tooltip id="ownerTooltip">Please enter a title with a minimum length of six characters.</Tooltip>}>
+					<OverlayTrigger placement="right" overlay={<Tooltip id="ownerTooltip">Please enter a course title</Tooltip>}>
 						<FormGroup>
 							<FormLabel>Title</FormLabel>
 							<FormControl
@@ -108,10 +113,14 @@ class CreateNamespace extends Component {
 								type="text"
 								placeholder="Enter title"
 								onChange={this.handleInputChange}
+								isInvalid={this.state.title && !validTitle}
 							/>
+							<Form.Control.Feedback type="invalid">
+								Title must be at least six characters long.
+							</Form.Control.Feedback>
 						</FormGroup>
 					</OverlayTrigger>
-					<OverlayTrigger placement="right" overlay={<Tooltip id="ownerTooltip">Please enter a course description with a minimum length of three characters.</Tooltip>}>
+					<OverlayTrigger placement="right" overlay={<Tooltip id="ownerTooltip">Please enter a course description.</Tooltip>}>
 						<FormGroup>
 							<FormLabel>Description</FormLabel>
 							<FormControl
@@ -119,14 +128,18 @@ class CreateNamespace extends Component {
 								type="text"
 								placeholder="Enter description"
 								onChange={this.handleInputChange}
-							>
-							</FormControl>
+								isInvalid={this.state.description && !validDescription}
+							/>
+							<Form.Control.Feedback type="invalid">
+								Description must be at least three characters long.
+							</Form.Control.Feedback>
 						</FormGroup>
 					</OverlayTrigger>
 				</Form>
 				<Button
+					variant="success"
 					onClick={this.handleSubmit}
-					disabled={this.state.disabled}
+					disabled={!validOwners || !validTitle || !validDescription}
 					block
 				>Create</Button>
 			</Card>

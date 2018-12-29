@@ -10,10 +10,10 @@ import lowercase from '@stdlib/string/lowercase';
 import pluck from '@stdlib/utils/pluck';
 import floor from '@stdlib/math/base/special/floor';
 import Lesson from './lesson.js';
-import './../image.css';
-import './gallery.css';
 import 'react-grid-layout/css/styles.css';
 import 'react-resizable/css/styles.css';
+import './../image.css';
+import './gallery.css';
 
 
 // VARIABLES //
@@ -105,10 +105,10 @@ class Gallery extends Component {
 	render() {
 		let lessons = this.state.filteredLessons;
 		if ( !isArray( lessons ) || lessons.length === 0 ) {
-			return (<Jumbotron style={{ position: 'relative', top: 70, textAlign: 'left', paddingLeft: 20 }}>
+			return ( <Jumbotron className="gallery-jumbotron">
 				<h1>No Lessons Found</h1>
 				<p>The selected course does not contain any lessons. You can upload lessons from the ISLE editor.</p>
-		</Jumbotron>);
+			</Jumbotron> );
 		}
 		lessons.sort( ( a, b ) => {
 			return a.title.localeCompare( b.title );
@@ -124,7 +124,7 @@ class Gallery extends Component {
 					rowHeight={60}
 				>
 					{lessons.map( ( e, i ) => {
-						return (<div key={`cell-${i}`}>
+						return ( <div key={`cell-${i}`}>
 							<Lesson
 								{...lessons[ i ]}
 								userNamespaces={this.props.user.ownedNamespaces}
@@ -134,7 +134,7 @@ class Gallery extends Component {
 								key={i}
 								colorIndex={i % 20}
 							/>
-					</div>);
+						</div> );
 					})}
 				</ResponsiveReactGridLayout>
 			</div>

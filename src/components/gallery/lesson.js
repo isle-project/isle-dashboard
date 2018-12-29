@@ -54,7 +54,7 @@ class Lesson extends Component {
 	}
 
 	renderButtonToolbar() {
-		return ( <div className="galleryToolbar">
+		return ( <div className="gallery-toolbar">
 			<ButtonToolbar size="sm" style={{ marginLeft: 16, marginTop: 3 }}>
 				<OverlayTrigger placement="bottom" overlay={<Tooltip id="ImportFile">Import lesson to own course</Tooltip>}>
 					<Button size="sm" style={{ marginLeft: 4, marginRight: 4 }} onClick={this.showImportModal}>
