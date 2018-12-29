@@ -54,3 +54,8 @@ h5 {
 	filter: saturate(80%);
 }
 
+label {
+	font-weight: 600;
+	font-stretch: extra-expanded;
+	color: var(--primary);
+}
