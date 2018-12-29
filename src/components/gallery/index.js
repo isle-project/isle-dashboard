@@ -9,6 +9,7 @@ import contains from '@stdlib/assert/contains';
 import lowercase from '@stdlib/string/lowercase';
 import pluck from '@stdlib/utils/pluck';
 import floor from '@stdlib/math/base/special/floor';
+import ImportModal from './import_modal.js';
 import Lesson from './lesson.js';
 import 'react-grid-layout/css/styles.css';
 import 'react-resizable/css/styles.css';
@@ -29,7 +30,10 @@ class Gallery extends Component {
 
 		this.state = {
 			filteredLessons: [],
-			layouts: {}
+			layouts: {},
+			showImportModal: false,
+			namespace: null,
+			title: null
 		};
 		props.findPublicLessons();
 	}
@@ -83,6 +87,20 @@ class Gallery extends Component {
 		return layouts;
 	}
 
+	showImportModal = ({ title, namespace }) => {
+		this.setState({
+			showImportModal: true,
+			namespace,
+			title
+		});
+	}
+
+	closeImportModal = () => {
+		this.setState({
+			showImportModal: false
+		});
+	}
+
 	searchLessons( lessons, phrase ) {
 		if ( !phrase ) {
 			return lessons;
@@ -100,6 +118,22 @@ class Gallery extends Component {
 			}
 		}
 		return filteredLessons;
+	}
+
+	renderImportModal() {
+		if ( !this.state.showImportModal ) {
+			return null;
+		}
+		return ( <ImportModal
+			namespace={this.state.namespace}
+			title={this.state.title}
+			show={this.state.showImportModal}
+			close={this.closeImportModal}
+			userNamespaces={this.props.user.ownedNamespaces}
+			token={this.props.user.token}
+			copyLesson={this.props.copyLesson}
+			openedNamespace={this.props.openedNamespace}
+		/> );
 	}
 
 	render() {
@@ -127,29 +161,36 @@ class Gallery extends Component {
 						return ( <div key={`cell-${i}`}>
 							<Lesson
 								{...lessons[ i ]}
-								userNamespaces={this.props.user.ownedNamespaces}
 								token={this.props.user.token}
-								copyLesson={this.props.copyLesson}
 								getIsleFile={this.props.getIsleFile}
+								openedNamespace={this.props.openedNamespace}
 								key={i}
 								colorIndex={i % 20}
+								onImport={() => {
+									this.showImportModal({
+										title: lessons[ i ].title,
+										namespace: lessons[ i ].namespace
+									});
+								}}
 							/>
 						</div> );
 					})}
 				</ResponsiveReactGridLayout>
+				{this.renderImportModal()}
 			</div>
 		);
 	}
 }
 
 
-// PROPERTY TYPES //
+// PROPERTIES //
 
 Gallery.propTypes = {
 	copyLesson: PropTypes.func.isRequired,
 	findPublicLessons: PropTypes.func.isRequired,
 	gallery: PropTypes.object.isRequired,
 	getIsleFile: PropTypes.func.isRequired,
+	openedNamespace: PropTypes.object.isRequired,
 	search: PropTypes.object.isRequired,
 	user: PropTypes.object.isRequired
 };

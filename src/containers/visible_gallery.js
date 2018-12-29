@@ -16,6 +16,7 @@ function mapStateToProps( state ) {
 	return {
 		search: state.search,
 		user: state.user,
+		openedNamespace: state.namespace,
 		gallery: state.gallery
 	};
 }

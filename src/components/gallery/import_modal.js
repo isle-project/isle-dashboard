@@ -1,10 +1,11 @@
 // MODULES //
 
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import {
 	Button, FormLabel, FormControl, FormGroup, Modal
 } from 'react-bootstrap';
-import PropTypes from 'prop-types';
+import SelectInput from 'react-select';
 import isArray from '@stdlib/assert/is-array';
 
 
@@ -15,32 +16,47 @@ class ImportModal extends Component {
 		super( props );
 
 		const ns = props.userNamespaces;
-		this.state = {
-			selected: ( isArray( ns ) && ns.length > 0 ) ?
+		let selected;
+		if ( props.openedNamespace.title ) {
+			selected = props.openedNamespace.title;
+		} else {
+			selected = ( isArray( ns ) && ns.length > 0 ) ?
 				ns[ 0 ].title :
-				null,
+				null;
+		}
+		if ( selected ) {
+			selected = { label: selected, value: selected };
+		}
+		this.state = {
+			selected: selected,
 			targetName: props.title
 		};
+	}
 
-		this.handleChange = ( event ) => {
-			const target = event.target;
-			const value = target.value;
-			const name = target.name;
-			this.setState({
-				[ name ]: value
-			});
-		};
+	handleChange = ( event ) => {
+		const target = event.target;
+		const value = target.value;
+		const name = target.name;
+		this.setState({
+			[ name ]: value
+		});
+	}
 
-		this.handleImport = () => {
-			this.props.copyLesson({
-				sourceName: this.props.title,
-				source: this.props.namespace,
-				target: this.state.selected,
-				targetName: this.state.targetName,
-				token: this.props.token
-			});
-			this.props.close();
-		};
+	handleImport = () => {
+		this.props.copyLesson({
+			sourceName: this.props.title,
+			source: this.props.namespace,
+			target: this.state.selected.value,
+			targetName: this.state.targetName,
+			token: this.props.token
+		});
+		this.props.close();
+	}
+
+	handleCourseChange = ( newValue ) => {
+		this.setState({
+			selected: newValue
+		});
 	}
 
 	render() {
@@ -52,23 +68,16 @@ class ImportModal extends Component {
 					</Modal.Title>
 				</Modal.Header>
 				<Modal.Body>
-					Please select the course that the lesson should be copied into.
-					<br />
+					<p>Please select the course that the lesson should be copied into.</p>
 					<FormGroup>
 						<FormLabel>Select Course</FormLabel>
-						<FormControl
-							name="selected"
-							as="select"
-							placeholder="select"
-							onChange={this.handleChange}
-						>
-							{this.props.userNamespaces.map( ( ns, idx ) => {
-								return ( <option
-									key={idx}
-									value={ns.title}
-								>{ns.title}</option> );
+						<SelectInput
+							options={this.props.userNamespaces.map( ns => {
+								return { value: ns.title, label: ns.title };
 							})}
-						</FormControl>
+							onChange={this.handleCourseChange}
+							value={this.state.selected}
+						/>
 					</FormGroup>
 					<FormGroup>
 						<FormLabel>Lesson Name</FormLabel>
@@ -90,12 +99,13 @@ class ImportModal extends Component {
 }
 
 
-// PROPERTY TYPES //
+// PROPERTIES //
 
 ImportModal.propTypes = {
 	close: PropTypes.func.isRequired,
 	copyLesson: PropTypes.func.isRequired,
 	namespace: PropTypes.string.isRequired,
+	openedNamespace: PropTypes.object.isRequired,
 	show: PropTypes.bool.isRequired,
 	title: PropTypes.string.isRequired,
 	token: PropTypes.string.isRequired,
