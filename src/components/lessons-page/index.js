@@ -114,12 +114,10 @@ class LessonsPage extends Component {
 
 	renderLessons() {
 		let lessons = this.state.filteredLessons;
-		console.log(lessons);
 		lessons.sort( ( a, b ) => {
 			return a.title.localeCompare( b.title );
 		});
-
-		if (this.props.namespace.userStatus === 'enrolled') {
+		if ( this.props.namespace.userStatus === 'enrolled' ) {
 			return lessons.map( ( e, i ) => {
 				return (<div key={`cell-${i}`}>
 					<EnrolledLesson
@@ -131,46 +129,42 @@ class LessonsPage extends Component {
 					</div>);
 			});
 		}
-
 		return (
-		lessons.map( ( e, i ) => {
-			return (<div key={`cell-${i}`}>
-				<Lesson
-					{...lessons[ i ]}
-					deleteLesson={this.props.deleteLesson}
-					updateLesson={this.props.updateLesson}
-					token={this.props.user.token}
-					deactivateLesson={this.props.deactivateLesson}
-					activateLesson={this.props.activateLesson}
-					showLessonInGallery={this.props.showLessonInGallery}
-					hideLessonInGallery={this.props.hideLessonInGallery}
-					getLessons={this.props.getLessons}
-					key={i}
-					colorIndex={i % 20}
-				/>
-		</div>);
-		})
+			lessons.map( ( e, i ) => {
+				return ( <div key={`cell-${i}`}>
+					<Lesson
+						{...lessons[ i ]}
+						deleteLesson={this.props.deleteLesson}
+						updateLesson={this.props.updateLesson}
+						token={this.props.user.token}
+						deactivateLesson={this.props.deactivateLesson}
+						activateLesson={this.props.activateLesson}
+						showLessonInGallery={this.props.showLessonInGallery}
+						hideLessonInGallery={this.props.hideLessonInGallery}
+						getLessons={this.props.getLessons}
+						key={i}
+						colorIndex={i % 20}
+					/>
+				</div> );
+			})
 		);
 	}
 
 	render() {
 		if ( !this.props.namespace.title ) {
-			return (
-				<Jumbotron style={{ position: 'relative', top: 70, textAlign: 'left', paddingLeft: 20 }}>
+			return ( <Jumbotron className="lessons-jumbotron" >
 				<h1>No Course Selected</h1>
 				<p>Open an existing course by selecting one from the dropdown menu above at <i className="fa fa-align-justify"></i> or create a new one under <i className="fa fa-pencil-alt"></i>.</p>
-			</Jumbotron>
-			);
+			</Jumbotron> );
 		}
 		let lessons = this.state.filteredLessons;
 		if ( isArray( lessons ) ) {
 			if ( lessons.length === 0 ) {
-				return (<Jumbotron style={{ position: 'relative', top: 70, textAlign: 'left', paddingLeft: 20 }}>
+				return ( <Jumbotron className="lessons-jumbotron">
 					<h1>No Lessons Found</h1>
 					<p>The selected course does not contain any lessons. You can upload lessons from the ISLE editor.</p>
-			</Jumbotron>);
+				</Jumbotron> );
 			}
-
 			return (
 				<div style={{
 					position: 'relative',
