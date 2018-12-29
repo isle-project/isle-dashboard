@@ -27,6 +27,13 @@
 	position: relative;
 }
 
+.header-bar-right-container {
+	float: right;
+	position: relative;
+	font-size: 15px;
+	margin-right: 10px;
+}
+
 .header-bar-container {
 	border-left: 1px solid rgba(255, 255, 255, 0.06);
 	float: left;
