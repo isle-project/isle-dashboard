@@ -3,8 +3,7 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import {
-	Button, ButtonGroup, Card, Container, Col, Row, FormLabel, FormControl, FormGroup,
-	Form, OverlayTrigger, Tooltip
+	Badge, Button, ButtonGroup, Card, Container, Col, Row, FormLabel, FormControl, FormGroup, Form, ListGroup, ListGroupItem, OverlayTrigger, Tooltip
 } from 'react-bootstrap';
 import 'react-dates/lib/css/_datepicker.css';
 import { withRouter } from 'react-router';
@@ -14,8 +13,9 @@ import TextSelect from 'components/text-select';
 import MsgModal from 'components/message-modal';
 import ConfirmModal from 'components/confirm-modal';
 import checkURLPath from 'utils/check_url_path.js';
-import CohortPanel from './cohort_panel.js';
+import EditCohortModal from './edit_cohort_modal.js';
 import CreateCohortModal from './create_cohort_modal.js';
+import './edit_namespace.css';
 
 
 // FUNCTIONS //
@@ -55,7 +55,9 @@ class EditNamespace extends Component {
 			description,
 			owners,
 			showDeleteModal: false,
-			showCreateCohortModal: false
+			showCreateCohortModal: false,
+			showEditCohortModal: false,
+			selectedCohort: null
 		};
 	}
 
@@ -200,6 +202,22 @@ class EditNamespace extends Component {
 		});
 	}
 
+	closeEditCohortModal = () => {
+		this.setState({
+			selectedCohort: null,
+			showEditCohortModal: false
+		});
+	}
+
+	cohortModalFactory = ( idx ) => {
+		return () => {
+			this.setState({
+				selectedCohort: this.props.cohorts[ idx ],
+				showEditCohortModal: true
+			});
+		};
+	}
+
 	renderModals() {
 		return (
 			<Fragment>
@@ -222,18 +240,45 @@ class EditNamespace extends Component {
 					close={this.closeCreateCohortModal}
 					onCreate={this.createCohort}
 				/>
+				{ this.state.showEditCohortModal ? <EditCohortModal
+					show={this.state.showEditCohortModal}
+					{...this.state.selectedCohort}
+					onDelete={this.deleteCohort}
+					onHide={this.closeEditCohortModal}
+					onUpdate={this.updateCohort}
+				/> : null }
 			</Fragment>
 		);
 	}
 
+	renderCohortList() {
+		return ( <ListGroup>
+			{this.props.cohorts.map( ( cohort, idx ) => {
+				return (
+					<ListGroupItem
+						variant="light"
+						eventKey={idx}
+						key={idx}
+						style={{
+							backgroundColor: 'white'
+						}}
+					>
+						<label>{cohort.title}</label>
+						<span style={{ marginLeft: 5, color: 'black' }} >
+							(no of students:
+						</span>
+						<Badge variant="primary">{cohort.members.length}</Badge>
+						<span style={{color: 'black' }} >)</span>
+						<Button size="sm" onClick={this.cohortModalFactory( idx )} style={{ float: 'right' }}>Edit</Button>
+					</ListGroupItem>
+				);
+			})}
+		</ListGroup> );
+	}
+
 	render() {
 		return (
-			<Container style={{
-				position: 'relative',
-				top: '80px',
-				width: '80%',
-				margin: '0 auto'
-			}} >
+			<Container className="edit-namespace-container" >
 				<Row>
 					<Col md={6} >
 						<Card>
@@ -290,7 +335,7 @@ class EditNamespace extends Component {
 					<Col md={6} >
 						<Card>
 							<Card.Header>
-								<Card.Title as="h2">Cohorts
+								<Card.Title as="h2">Manage Cohorts
 									<Button size="small" variant="success" style={{ float: 'right', marginTop: 7 }}
 										onClick={() => {
 											this.setState({
@@ -302,32 +347,9 @@ class EditNamespace extends Component {
 									</Button>
 								</Card.Title>
 							</Card.Header>
-							<div>
-								{this.props.cohorts.map( ( cohort, idx ) => {
-									return ( <Card
-										eventKey={idx}
-										key={idx}
-										style={{
-											background: 'ivory'
-										}}
-									>
-										<Card.Header>
-											<Card.Title>{cohort.title}</Card.Title>
-										</Card.Header>
-										<Card.Body>
-											<CohortPanel
-												id={cohort._id}
-												title={cohort.title}
-												startDate={cohort.startDate}
-												endDate={cohort.endDate}
-												students={cohort.members}
-												onDelete={this.deleteCohort}
-												onUpdate={this.updateCohort}
-											/>
-										</Card.Body>
-									</Card> );
-								})}
-							</div>
+							<Card.Body>
+								{this.renderCohortList()}
+							</Card.Body>
 						</Card>
 					</Col>
 				</Row>

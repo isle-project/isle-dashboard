@@ -1,10 +1,10 @@
 // MODULES //
 
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import {
-	Button, ButtonGroup, FormLabel, Form, FormControl, FormGroup,
-	OverlayTrigger, Row, Tooltip
+	Button, ButtonGroup, Modal, FormLabel, Form, FormControl, FormGroup,
+	OverlayTrigger, Col, Row, Tooltip
 } from 'react-bootstrap';
 import { DateRangePicker } from 'react-dates';
 import 'react-dates/lib/css/_datepicker.css';
@@ -36,7 +36,7 @@ function validateInputs({ emails, title }) {
 
 // MAIN //
 
-class CohortPanel extends Component {
+class EditCohortModal extends Component {
 	constructor( props ) {
 		super( props );
 
@@ -45,7 +45,7 @@ class CohortPanel extends Component {
 			startDate: moment( props.startDate ),
 			endDate: moment( props.endDate ),
 			title: props.title,
-			students: props.students,
+			members: props.members,
 			showDeleteModal: false
 		};
 	}
@@ -71,7 +71,7 @@ class CohortPanel extends Component {
 			_id: this.props.id,
 			startDate: this.state.startDate.toDate(),
 			endDate: this.state.endDate.toDate(),
-			members: this.state.students.join( ',' ),
+			members: this.state.members.join( ',' ),
 			title: this.state.title
 		};
 		this.props.onUpdate( updatedCohort );
@@ -89,11 +89,11 @@ class CohortPanel extends Component {
 	}
 
 	handleStudentChange = ( newValue ) => {
-		const students = newValue.map( x => x.value );
+		const members = newValue.map( x => x.value );
 		this.setState({
-			students: students,
+			members: members,
 			disabled: !validateInputs({
-				emails: students,
+				emails: members,
 				title: this.state.title
 			})
 		});
@@ -103,34 +103,36 @@ class CohortPanel extends Component {
 		const content = (
 			<Form style={{ padding: '10px' }}>
 				<Row>
-					<OverlayTrigger placement="right" overlay={<Tooltip id="ownerTooltip">Title with a minimum length of four characters.</Tooltip>}>
+					<Col md={6}>
+						<OverlayTrigger placement="right" overlay={<Tooltip id="ownerTooltip">Title with a minimum length of four characters.</Tooltip>}>
+							<FormGroup>
+								<FormLabel>Title</FormLabel>
+								<FormControl
+									name="title"
+									type="text"
+									value={this.state.title}
+									onChange={this.handleInputChange}
+								/>
+							</FormGroup>
+						</OverlayTrigger>
+					</Col>
+					<Col md={6}>
 						<FormGroup>
-							<FormLabel>Title</FormLabel>
-							<FormControl
-								name="title"
-								type="text"
-								value={this.state.title}
-								onChange={this.handleInputChange}
+							<FormLabel> From ... To </FormLabel>
+							<br />
+							<DateRangePicker
+								startDateId="panel_start_date_input"
+								endDateId="panel_end_date_input"
+								startDate={this.state.startDate}
+								endDate={this.state.endDate}
+								onDatesChange={({ startDate, endDate }) =>
+									this.setState({ startDate, endDate })
+								}
+								focusedInput={this.state.focusedInput}
+								onFocusChange={focusedInput => this.setState({ focusedInput })}
 							/>
 						</FormGroup>
-					</OverlayTrigger>
-				</Row>
-				<Row>
-					<FormGroup>
-						<FormLabel> From ... To </FormLabel>
-						<br />
-						<DateRangePicker
-							startDateId="panel_start_date_input"
-							endDateId="panel_end_date_input"
-							startDate={this.state.startDate}
-							endDate={this.state.endDate}
-							onDatesChange={({ startDate, endDate }) =>
-								this.setState({ startDate, endDate })
-							}
-							focusedInput={this.state.focusedInput}
-							onFocusChange={focusedInput => this.setState({ focusedInput })}
-						/>
-					</FormGroup>
+					</Col>
 				</Row>
 				<Row>
 					<OverlayTrigger placement="right" overlay={<Tooltip id="ownerTooltip">Comma-separated list of email addresses denoting the students for this cohort</Tooltip>}>
@@ -138,24 +140,48 @@ class CohortPanel extends Component {
 							<FormLabel>Enrolled Students</FormLabel>
 							<TextSelect
 								onChange={this.handleStudentChange}
-								defaultValue={this.state.students}
+								defaultValue={this.state.members}
+								styles={{
+									control: () => ({
+										width: '100%'
+									})
+								}}
 							/>
 						</FormGroup>
 					</OverlayTrigger>
 				</Row>
-				<Row>
-					<ButtonGroup>
-						<Button
-							disabled={this.state.disabled}
-							onClick={this.handleUpdate}
-						>Save</Button>
-						<Button onClick={() => {
-							this.setState({
-								showDeleteModal: true
-							});
-						}} variant="danger">Delete</Button>
-					</ButtonGroup>
-				</Row>
+			</Form>
+		);
+
+		return (
+			<Fragment>
+				<Modal size="lg" show={this.props.show} onHide={this.props.onHide} >
+					<Modal.Header closeButton>
+						<Modal.Title as="h3">
+							{`Edit Cohort: ${this.props.title}`}
+						</Modal.Title>
+					</Modal.Header>
+					<Modal.Body>
+						{content}
+					</Modal.Body>
+					<Modal.Footer>
+						<ButtonGroup>
+							<Button onClick={() => {
+								this.setState({
+									showDeleteModal: true
+								});
+							}} variant="danger">Delete</Button>
+							<Button
+								onClick={this.props.onHide}
+							>Cancel</Button>
+							<Button
+								variant="success"
+								disabled={this.state.disabled}
+								onClick={this.handleUpdate}
+							>Save</Button>
+						</ButtonGroup>
+					</Modal.Footer>
+				</Modal>
 				<ConfirmModal
 					show={this.state.showDeleteModal}
 					close={this.closeDeleteModal}
@@ -163,25 +189,26 @@ class CohortPanel extends Component {
 					title="Delete?"
 					onDelete={this.handleDelete}
 				/>
-			</Form>
+			</Fragment>
 		);
-		return content;
 	}
 }
 
 
 // PROPERTIES //
 
-CohortPanel.propTypes = {
+EditCohortModal.propTypes = {
 	endDate: PropTypes.string,
+	members: PropTypes.array.isRequired,
 	onDelete: PropTypes.func,
+	onHide: PropTypes.func.isRequired,
 	onUpdate: PropTypes.func,
+	show: PropTypes.bool.isRequired,
 	startDate: PropTypes.string.isRequired,
-	students: PropTypes.array.isRequired,
 	title: PropTypes.string.isRequired
 };
 
-CohortPanel.defaultProps = {
+EditCohortModal.defaultProps = {
 	endDate: null,
 	onUpdate() {},
 	onDelete() {}
@@ -190,4 +217,4 @@ CohortPanel.defaultProps = {
 
 // EXPORTS //
 
-export default CohortPanel;
+export default EditCohortModal;

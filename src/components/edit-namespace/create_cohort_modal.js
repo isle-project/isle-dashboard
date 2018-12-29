@@ -95,7 +95,7 @@ class CreateCohortModal extends Component {
 		return (
 			<Modal show={this.props.show} onHide={this.onClose}>
 				<Modal.Header>
-					<Modal.Title>Create a new Cohort</Modal.Title>
+					<Modal.Title as="h3">Create a new Cohort</Modal.Title>
 				</Modal.Header>
 				<Modal.Body>
 					<Form style={{ paddingLeft: 20, paddingRight: 20 }}>
