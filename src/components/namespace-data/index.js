@@ -2,7 +2,7 @@
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Card, Nav } from 'react-bootstrap';
+import { Alert, Card, Nav } from 'react-bootstrap';
 import logger from 'debug';
 import FilesPage from './files_page.js';
 import RecentActivityPage from './recent_activity_page.js';
@@ -93,6 +93,12 @@ class NamespaceData extends Component {
 	}
 
 	render() {
+		console.log( this.props.namespace );
+		if ( !this.props.namespace._id ) {
+			return ( <div className="namespace-data-div">
+				<Alert variant="danger">No namespace selected.</Alert>
+			</div> );
+		}
 		const page = this.renderPage();
 		return (
 			<div className="namespace-data-div">
