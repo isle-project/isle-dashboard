@@ -172,7 +172,7 @@ class LessonsPage extends Component {
 						cols={{ lg: 24, md: 20, sm: 16, xs: 12, xxs: 8, tiny: 4 }}
 						isResizable={false}
 						isDraggable={false}
-						rowHeight={60}
+						rowHeight={55}
 					>
 					{this.renderLessons()}
 					</ResponsiveReactGridLayout>
