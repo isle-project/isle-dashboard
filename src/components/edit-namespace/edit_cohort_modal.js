@@ -68,18 +68,20 @@ class EditCohortModal extends Component {
 
 	handleUpdate = () => {
 		const updatedCohort = {
-			_id: this.props.id,
+			_id: this.props._id,
 			startDate: this.state.startDate.toDate(),
 			endDate: this.state.endDate.toDate(),
 			members: this.state.members.join( ',' ),
 			title: this.state.title
 		};
 		this.props.onUpdate( updatedCohort );
+		this.props.onHide();
 	}
 
 	handleDelete = () => {
-		this.props.onDelete( this.props.id );
+		this.props.onDelete( this.props._id );
 		this.closeDeleteModal();
+		this.props.onHide();
 	}
 
 	closeDeleteModal = () => {

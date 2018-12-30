@@ -106,7 +106,7 @@ class EditNamespace extends Component {
 				_id: this.props.namespace._id,
 				description: this.state.description,
 				title: this.state.title,
-				owners: this.state.owners.join( ',' ),
+				owners: this.state.owners,
 				token: this.props.user.token
 			}, ( err, res ) => {
 				if ( err ) {
