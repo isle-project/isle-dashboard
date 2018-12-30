@@ -106,10 +106,15 @@ class ProfilePage extends Component {
 
 
 	renderUserSection() {
-		var date = null;
-		if ( this.props.user.createdAt) date = new Date(this.props.user.createdAt).toLocaleDateString();
+		const user = this.props.user;
+		let date = null;
+		if ( user.createdAt ) {
+			date = new Date( user.createdAt ).toLocaleDateString();
+		}
 		let userPic = hoodie;
-		if (this.props.user.picture) userPic = this.props.user.picture;
+		if ( user.picture ) {
+			userPic = user.picture;
+		}
 		return (
 			<div className="profile-page-user-container">
 				<div className="profile-page-user-portrait">
@@ -119,20 +124,20 @@ class ProfilePage extends Component {
 					<div className="profile-page-user-personal-name">
 						<Card>
 							<Card.Header>
-								<Card.Title as="h3">{ this.props.user.name}</Card.Title>
+								<Card.Title as="h3">{user.name}</Card.Title>
 								{date ? <div>registered since {date}</div> : null}
 							</Card.Header>
 							<Card.Body>
 								<div className="profile-page-user-values">
 									<div className="profile-page-user-legend">Score</div>
 									<OverlayTrigger placement="top" overlay={createTooltip( 'Your score' )}>
-										<div className="profile-page-user-value">17912</div>
+										<div className="profile-page-user-value">{user.score}</div>
 									</OverlayTrigger>
 									<div className="profile-page-user-legend">Completed Lessons</div>
 									<div className="profile-page-user-value">13</div>
 
 									<div className="profile-page-user-legend">Time spent</div>
-									<div className="profile-page-user-value">3:17</div>
+									<div className="profile-page-user-value">{user.timeSpent}</div>
 								</div>
 							</Card.Body>
 						</Card>
