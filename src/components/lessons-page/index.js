@@ -123,6 +123,7 @@ class LessonsPage extends Component {
 						getLessons={this.props.getLessons}
 						key={i}
 						colorIndex={i % 20}
+						user={this.props.user}
 					/>
 					</div>);
 			});

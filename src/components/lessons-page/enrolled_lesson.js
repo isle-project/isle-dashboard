@@ -21,26 +21,34 @@ class EnrolledLesson extends Component {
 		};
 	}
 
-    renderButtonToolbar() {
-        const now = 60;
-        return ( <ButtonToolbar style={{
-			position: 'absolute',
-			top: 180,
-            width: '100%',
-            height: '26px',
-			background: 'rgba(0, 0, 0, 0.75)'
-		}}>
-            <div className="enrolled-lesson-progress">
-            <OverlayTrigger placement="bottom" overlay={<Tooltip id="open_details">Progress</Tooltip>}>
-                <ProgressBar variant='success' now={now} label={`${now}%`} />
-            </OverlayTrigger>
-            </div>
-            <div className="enrolled-lesson-time" style={{ width: '35%', height: '100%' }} >
-                TIME SPENT 1:27
-            </div>
-
-        </ButtonToolbar> );
-    }
+	renderButtonToolbar() {
+		let children = [];
+		let progress;
+		const lessonData = this.props.user.lessonData[ this.props._id ];
+		if ( lessonData ) {
+			progress = lessonData.progress;
+			progress *= 100;
+			children.push( <div className="enrolled-lesson-progress">
+				<OverlayTrigger placement="bottom" overlay={<Tooltip id="open_details">Progress</Tooltip>}>
+					<ProgressBar variant='success' now={progress} label={`${progress}%`} />
+				</OverlayTrigger>
+			</div> );
+			children.push( <div className="enrolled-lesson-time" style={{ width: '35%', height: '100%' }} >
+					TIME SPENT 1:27
+			</div> );
+		}
+		return (
+			<ButtonToolbar style={{
+				position: 'absolute',
+				top: 180,
+				width: '100%',
+				height: '26px',
+				background: 'rgba(0, 0, 0, 0.75)'
+			}}>
+				{children}
+			</ButtonToolbar>
+		);
+	}
 
 	render() {
 		return (
@@ -87,10 +95,12 @@ class EnrolledLesson extends Component {
 // PROPERTIES //
 
 EnrolledLesson.propTypes = {
+	'_id': PropTypes.string.isRequired,
 	colorIndex: PropTypes.number.isRequired,
 	description: PropTypes.string.isRequired,
 	title: PropTypes.string.isRequired,
-	url: PropTypes.string.isRequired
+	url: PropTypes.string.isRequired,
+	user: PropTypes.object.isRequired
 };
 
 
