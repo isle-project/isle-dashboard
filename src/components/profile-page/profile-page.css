@@ -24,8 +24,8 @@
 
 .profile-page-left {
 	grid-area: left;
-    border-right:solid 1px silver;
-    background: url(https://isle.heinz.cmu.edu/white_carbonfiber_1543854970404.png);
+	border-right:solid 1px silver;
+	background-image: url(https://isle.heinz.cmu.edu/white_carbonfiber_1543854970404.png);
 }
 
 .profile-page-badge-title {
@@ -46,12 +46,14 @@
     display: grid;
     margin-left: 20px;
 	grid-template-columns: 360px auto 25% 20px;
+	filter: sepia(77%);
 
 
 	grid-template-columns: repeat(12, 1fr);
 	grid-template-rows: 20px 1fr 1fr, 1fr;
 	grid-gap: 15px;
 	grid-row-gap: 1em;
+
 }
 
 
@@ -171,7 +173,7 @@
 	margin-left: 10%;
 	width: 80%;
 	height: 80%;
-	opacity: 0.3 ;
+	opacity: 1 ;
 }
 
 .profile-page-badge-image img {
@@ -183,7 +185,7 @@
 
 .unknown {
     background: silver;
-    opacity: 0.3;
+    opacity: 0.1;
 }
 
 /* END OF BADGE */
@@ -241,6 +243,7 @@
 	opacity: 1;
 	transition: all .7s;
 	box-shadow: 0 0 1px darkslategray;
+	animation: scale-up .7s;
 }
 
 .profile-page-user-portrait img:hover {
@@ -346,4 +349,19 @@
 .profile-pic-modal {
 	max-width: none !important;
 	width: 400px;
+}
+
+
+/******************************************************************************************
+/////////////////////////////////// ANIMATIONS ////////////////////////////////////////////
+*/
+
+
+@keyframes scale-up {
+	0% {
+			transform: scale(0.01);
+	}
+	100% {
+			transform: scale(1);
+	}
 }

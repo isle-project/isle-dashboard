@@ -86,8 +86,10 @@ class ProfilePage extends Component {
 				display = 'profile-page-badge-item-interior';
 			}
 
+			var ani = 'scale-up ' + ((i*0.05) + 0.1) + 's';
+
 			list.push(
-				<div className="profile-page-badge-item-nova" key={i}>
+				<div style={{animation: ani}} className="profile-page-badge-item-nova" key={i}>
 					<OverlayTrigger placement="bottom" overlay={<Tooltip id="description">{ desc }</Tooltip>}>
 						<div className="profile-page-badge-item">
 							<img className="mask" src={badgeCircle} />
