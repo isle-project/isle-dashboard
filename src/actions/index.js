@@ -79,6 +79,18 @@ export function changedNamespace({ title, owners, description, _id, userStatus }
 	};
 }
 
+export function updatedOwnedNamespace({ title, owners, description, _id }) {
+	return {
+		type: types.UPDATED_OWNED_NAMESPACE,
+		payload: {
+			title,
+			description,
+			owners,
+			_id
+		}
+	};
+}
+
 export function appendCreatedNamespace( namespace ) {
 	return {
 		type: types.APPEND_CREATED_NAMESPACE,

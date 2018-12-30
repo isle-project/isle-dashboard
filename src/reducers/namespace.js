@@ -7,7 +7,7 @@ import * as types from 'constants/action_types.js';
 // VARIABLES //
 
 const initialState = {
-	id: null,
+	_id: null,
 	title: '',
 	description: '',
 	owners: '',

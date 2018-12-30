@@ -144,6 +144,7 @@ function mapDispatchToProps( dispatch ) {
 					return clbk( err );
 				}
 				dispatch( actions.changedNamespace( ns ) );
+				dispatch( actions.updatedOwnedNamespace( ns ) );
 				clbk( null, res );
 			});
 		}

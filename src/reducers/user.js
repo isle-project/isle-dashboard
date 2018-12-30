@@ -25,6 +25,7 @@ const initialState = {
 // EXPORTS //
 
 export default function user( state = initialState, action ) {
+	let arr;
 	switch ( action.type ) {
 	case types.LOGGED_IN:
 		return Object.assign({}, state, {
@@ -59,23 +60,35 @@ export default function user( state = initialState, action ) {
 		return Object.assign({}, state, {
 			picture: action.payload.picture
 		});
-	/* eslint-disable no-case-declarations */
 	case types.APPEND_CREATED_NAMESPACE:
-		const arr = state.ownedNamespaces.slice();
+		arr = state.ownedNamespaces.slice();
 		arr.push( action.payload.namespace );
 		return Object.assign({}, state, {
 			ownedNamespaces: arr
 		});
 	case types.DELETED_CURRENT_NAMESPACE:
-		const ownedNamespaces = [];
+		arr = [];
 		for ( let i = 0; i < state.ownedNamespaces.length; i++ ) {
 			const item = state.ownedNamespaces[ i ];
 			if ( item._id !== action.payload.id ) {
-				ownedNamespaces.push( item );
+				arr.push( item );
 			}
 		}
 		return Object.assign({}, state, {
-			ownedNamespaces
+			ownedNamespaces: arr
+		});
+	case types.UPDATED_OWNED_NAMESPACE:
+		arr = state.ownedNamespaces.slice();
+		for ( let i = 0; i < arr.length; i++ ) {
+			const item = arr[ i ];
+			if ( item._id === action.payload._id ) {
+				arr[ i ] = action.payload;
+			} else {
+				arr[ i ] = item;
+			}
+		}
+		return Object.assign({}, state, {
+			ownedNamespaces: arr
 		});
 	default:
 		return state;
