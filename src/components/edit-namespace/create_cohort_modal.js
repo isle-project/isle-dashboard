@@ -91,68 +91,67 @@ class CreateCohortModal extends Component {
 		});
 	}
 
+	renderBody() {
+		return ( <Form style={{ paddingLeft: 20, paddingRight: 20 }}>
+			<Row>
+				<Col md={6}>
+					<OverlayTrigger placement="right" overlay={<Tooltip id="ownerTooltip">Please enter the name of the cohort.</Tooltip>}>
+						<FormGroup>
+							<FormLabel>Title</FormLabel>
+							<FormControl
+								name="title"
+								type="text"
+								placeholder="Enter title"
+								onChange={this.handleInputChange}
+							/>
+						</FormGroup>
+					</OverlayTrigger>
+				</Col>
+				<Col md={6}>
+					<FormGroup>
+						<FormLabel>From ... To </FormLabel>
+						<DateRangePicker
+							startDateId="start_date_input"
+							endDateId="end_date_input"
+							startDate={this.state.startDate}
+							endDate={this.state.endDate}
+							onDatesChange={({ startDate, endDate }) =>
+								this.setState({ startDate, endDate })
+							}
+							focusedInput={this.state.focusedInput}
+							onFocusChange={focusedInput => this.setState({ focusedInput })}
+						/>
+					</FormGroup>
+				</Col>
+			</Row>
+			<Row>
+				<OverlayTrigger placement="right" overlay={<Tooltip id="ownerTooltip">Comma-separated list of email addresses denoting the students for this cohort</Tooltip>}>
+					<FormGroup>
+						<FormLabel>Enrolled Students</FormLabel>
+						<TextSelect
+							onChange={this.handleStudentChange}
+							defaultValue={this.state.students}
+							isClearable
+							styles={{
+								control: () => ({
+									width: '100%'
+								})
+							}}
+						/>
+					</FormGroup>
+				</OverlayTrigger>
+			</Row>
+		</Form> );
+	}
+
 	render() {
 		return (
-			<Modal show={this.props.show} onHide={this.onClose}>
-				<Modal.Header>
+			<Modal size="lg" show={this.props.show} onHide={this.onClose}>
+				<Modal.Header closeButton>
 					<Modal.Title as="h3">Create a new Cohort</Modal.Title>
 				</Modal.Header>
 				<Modal.Body>
-					<Form style={{ paddingLeft: 20, paddingRight: 20 }}>
-						<OverlayTrigger placement="right" overlay={<Tooltip id="ownerTooltip">Please enter the name of the cohort.</Tooltip>}>
-							<FormGroup>
-								<Row>
-									<Col sm={2}>
-										<FormLabel>Title</FormLabel>
-									</Col>
-									<Col sm={10}>
-										<FormControl
-											name="title"
-											type="text"
-											placeholder="Enter title"
-											onChange={this.handleInputChange}
-										/>
-									</Col>
-								</Row>
-							</FormGroup>
-						</OverlayTrigger>
-						<FormGroup>
-							<Row>
-								<Col sm={2}>
-									<FormLabel>From ... To </FormLabel>
-								</Col>
-								<Col sm={10}>
-									<DateRangePicker
-										startDateId="start_date_input"
-										endDateId="end_date_input"
-										startDate={this.state.startDate}
-										endDate={this.state.endDate}
-										onDatesChange={({ startDate, endDate }) =>
-											this.setState({ startDate, endDate })
-										}
-										focusedInput={this.state.focusedInput}
-										onFocusChange={focusedInput => this.setState({ focusedInput })}
-									/>
-								</Col>
-							</Row>
-						</FormGroup>
-						<OverlayTrigger placement="right" overlay={<Tooltip id="ownerTooltip">Comma-separated list of email addresses denoting the students for this cohort</Tooltip>}>
-							<FormGroup>
-								<Row>
-									<Col sm={2}>
-										<FormLabel>Enrolled Students</FormLabel>
-									</Col>
-									<Col sm={10}>
-										<TextSelect
-											onChange={this.handleStudentChange}
-											defaultValue={this.state.students}
-											isClearable
-										/>
-									</Col>
-								</Row>
-							</FormGroup>
-						</OverlayTrigger>
-					</Form>
+					{this.renderBody()}
 				</Modal.Body>
 				<Modal.Footer>
 					<Button onClick={this.onClose}>Cancel</Button>
