@@ -1,17 +1,17 @@
 // MODULES //
 
 import React, { Component, Fragment } from 'react';
-import { Button, Card, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import PropTypes from 'prop-types';
-import './profile-page.css';
-// import stats from './img/stats.png';
-import badge2 from './img/question.svg';
-import badgeCircle from './img/badge_circle.svg';
+import { Button, Card, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import hoodie from './img/hoodie.jpg';
 import EditModal from './edit_modal.js';
 import EnterTokenModal from './enter_token_modal.js';
 import ProfilePicModal from './profile_pic_modal.js';
 import badges from './badges.js';
+import badge from './img/question.svg';
+import badgeCircle from './img/badge_circle.svg';
+import './profile-page.css';
+
 
 // FUNCTIONS //
 
@@ -76,7 +76,7 @@ class ProfilePage extends Component {
 	renderBadgesSection() {
 		let list = [];
 		for ( let i = 0; i < 24; i++ ) {
-			let temp = badge2;
+			let temp = badge;
 			let desc = 'Toggle visibility';
 			let display = 'profile-page-badge-item-interior unknown';
 
@@ -89,7 +89,7 @@ class ProfilePage extends Component {
 			var ani = 'scale-up ' + ((i*0.05) + 0.1) + 's';
 
 			list.push(
-				<div style={{animation: ani}} className="profile-page-badge-item-nova" key={i}>
+				<div style={{ animation: ani }} className="profile-page-badge-item-nova" key={i}>
 					<OverlayTrigger placement="bottom" overlay={<Tooltip id="description">{ desc }</Tooltip>}>
 						<div className="profile-page-badge-item">
 							<img className="mask" src={badgeCircle} />
