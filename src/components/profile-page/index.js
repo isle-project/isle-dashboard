@@ -3,6 +3,7 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { Button, Card, OverlayTrigger, Tooltip } from 'react-bootstrap';
+import floor from '@stdlib/math/base/special/floor';
 import hoodie from './img/hoodie.jpg';
 import EditModal from './edit_modal.js';
 import EnterTokenModal from './enter_token_modal.js';
@@ -15,8 +16,15 @@ import './profile-page.css';
 
 // FUNCTIONS //
 
-const createTooltip = ( str ) => {
-	return <Tooltip id="tooltip">{str}</Tooltip>;
+const formatTime = ( time ) => {
+	time = time / 1000;
+	const hours = floor( time / ( 60*60 ) );
+	time = time % ( 60*60 );
+	let minutes = floor( time / 60 );
+	if ( minutes < 10 ) {
+		minutes = '0'+minutes;
+	}
+	return hours + ':' + minutes;
 };
 
 
@@ -107,7 +115,6 @@ class ProfilePage extends Component {
 
 	renderUserSection() {
 		const user = this.props.user;
-		console.log( user );
 		let date = null;
 		if ( user.createdAt ) {
 			date = new Date( user.createdAt ).toLocaleDateString();
@@ -134,14 +141,15 @@ class ProfilePage extends Component {
 							<Card.Body>
 								<div className="profile-page-user-values">
 									<div className="profile-page-user-legend">Score</div>
-									<OverlayTrigger placement="top" overlay={createTooltip( 'Your score' )}>
-										<div className="profile-page-user-value">{user.score}</div>
-									</OverlayTrigger>
+									<div className="profile-page-user-value">
+										{user.score}
+									</div>
 									<div className="profile-page-user-legend">Completed Lessons</div>
 									<div className="profile-page-user-value">13</div>
-
 									<div className="profile-page-user-legend">Time spent</div>
-									<div className="profile-page-user-value">{user.spentTime}</div>
+									<div className="profile-page-user-value">
+										{formatTime( user.spentTime )}
+									</div>
 								</div>
 							</Card.Body>
 						</Card>
