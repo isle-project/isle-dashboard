@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 import COLORS from 'constants/colors';
 import background from './architecture.jpeg';
 import './lessons.css';
-
+import round from '@stdlib/math/base/special/round';
 
 // MAIN //
 
@@ -27,6 +27,7 @@ class EnrolledLesson extends Component {
 		if ( data ) {
 			progress = data.progress;
 			progress *= 100;
+			progress = round(progress);
 			duration = data.spentTime;
 		} else {
 			progress = 0;

@@ -216,6 +216,7 @@
 	height: 100%;
 
 	display: grid;
+	box-shadow: 2px 0 0px darkgray;
 
 	grid-template-columns: 10px auto 20px;
 	grid-template-rows: 20px 230px 15px auto 1% 10px;
@@ -269,7 +270,7 @@
 .profile-page-user-personal {
 	grid-area: personal;
     width: 340px;
-    background-image:url(https://isle.heinz.cmu.edu/white_carbonfiber_1543854970404.png);
+	background-image:url(https://isle.heinz.cmu.edu/white_carbonfiber_1543854970404.png);
 }
 
 .profile-page-user-personal-name {
