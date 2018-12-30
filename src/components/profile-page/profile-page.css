@@ -1,5 +1,6 @@
 :root {
 	--ratio-percent: 75%;
+	--primary: #2e4468;
 }
 
 /* THE WHOLE PROFILE PAGE */
@@ -59,13 +60,14 @@
 	grid-area: statistics;
 	display: grid;
 
-	grid-template-columns: 10px 49% 49%;
-	grid-template-rows: 50px auto 1px 10px;
+	grid-template-columns: 10px auto 46% 46%;
+	grid-template-rows: 52px 50px auto 1px 10px;
 
 	grid-template-areas:
-	"marginLeft topactions topr"
-	"marginLeft actions statistics"
-	"marginLeft bottom bottom"
+	"marginLeft navicomment navi navi"
+	"marginLeft topactions topactions topr"
+	"marginLeft actions actions statistics"
+	"marginLeft bottom bottom bottom"
 }
 
 
@@ -73,6 +75,42 @@
 
 
 /* BEGINNING OF THE STATISTICS SECTION */
+.profile-page-statistics-navigation {
+	grid-area: navi;
+	font-family: Open Sans Condensed;
+	font-size: 32px;
+	color: darkgrey;
+	border-top:solid 1px darkgray;
+}
+
+.profile-page-statistics-navigation-title {
+	grid-area: navicomment;
+	font-family: Open Sans Condensed;
+	font-size: 32px;
+	color: darkgrey;
+	border-top:solid 1px darkgray;
+}
+
+
+.profile-page-statistics-navigation .nav-item  {
+	font-size: 22px;
+	font-weight: 700;
+	color: var(--primary);
+}
+
+
+.profile-page-statistics-navigation .nav-link  {
+	color: var(--primaryhalf);
+}
+
+.profile-page-statistics-navigation .nav-link:hover  {
+	color: var(--primary);
+}
+
+.profile-page-statistics-navigation .nav-link:active {
+	color: var(--primaryhalf);
+}
+
 .profile-page-statistics-title1 {
 	grid-area: topactions;
 	font-family: Open Sans Condensed;
