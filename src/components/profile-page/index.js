@@ -3,6 +3,7 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { Button, Card, OverlayTrigger, Tooltip } from 'react-bootstrap';
+import keys from '@stdlib/utils/keys';
 import formatTime from 'utils/format_time.js';
 import hoodie from './img/hoodie.jpg';
 import EditModal from './edit_modal.js';
@@ -109,6 +110,7 @@ class ProfilePage extends Component {
 		if ( user.picture ) {
 			userPic = user.picture;
 		}
+		const nLessons = keys( user.lessonData ).length;
 		return (
 			<div className="profile-page-user-container">
 				<div className="profile-page-user-portrait">
@@ -130,8 +132,8 @@ class ProfilePage extends Component {
 									<div className="profile-page-user-value">
 										{user.score}
 									</div>
-									<div className="profile-page-user-legend">Completed Lessons</div>
-									<div className="profile-page-user-value">13</div>
+									<div className="profile-page-user-legend">No. of Lessons</div>
+									<div className="profile-page-user-value">{nLessons}</div>
 									<div className="profile-page-user-legend">Time spent</div>
 									<div className="profile-page-user-value">
 										{formatTime( user.spentTime )}
