@@ -203,7 +203,7 @@ function mapDispatchToProps( dispatch ) {
 						}
 						return lesson;
 					});
-					dispatch( actions.retrievedLessons( lessons ) );
+					dispatch( actions.retrievedLessons({ lessons, namespaceName }) );
 				});
 			}
 		}

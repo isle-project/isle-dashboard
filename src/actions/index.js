@@ -109,11 +109,12 @@ export function retrievedCohorts( cohorts ) {
 	};
 }
 
-export function retrievedLessons( lessons ) {
+export function retrievedLessons({ lessons, namespaceName }) {
 	return {
 		type: types.RETRIEVED_LESSONS,
 		payload: {
-			lessons
+			lessons,
+			namespaceName
 		}
 	};
 }

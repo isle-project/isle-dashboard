@@ -34,9 +34,12 @@ export default function namespace( state = initialState, action ) {
 	case types.DELETED_CURRENT_NAMESPACE:
 		return initialState;
 	case types.RETRIEVED_LESSONS:
-		return Object.assign({}, state, {
-			lessons: action.payload.lessons
-		});
+		if ( action.payload.namespaceName === state.title ) {
+			return Object.assign({}, state, {
+				lessons: action.payload.lessons
+			});
+		}
+		return state;
 	case types.RETRIEVED_COHORTS:
 		return Object.assign({}, state, {
 			cohorts: action.payload.cohorts

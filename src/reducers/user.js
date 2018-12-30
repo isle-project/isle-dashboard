@@ -1,7 +1,7 @@
 // MODULES //
 
 import * as types from 'constants/action_types.js';
-
+import groupBy from '@stdlib/utils/group-by';
 
 // VARIABLES //
 
@@ -19,7 +19,7 @@ const initialState = {
 	updatedAt: null,
 	score: null,
 	spentTime: null,
-	files: []
+	files: null
 };
 
 
@@ -78,6 +78,17 @@ export default function user( state = initialState, action ) {
 		return Object.assign({}, state, {
 			ownedNamespaces: arr
 		});
+	case types.RETRIEVED_LESSONS:
+		arr = state.enrolledNamespaces.slice();
+		for ( let i = 0; i < arr.length; i++ ) {
+			let course = arr[ i ];
+			if ( course.title === action.payload.namespaceName ) {
+				arr[ i ].lessons = action.payload.lessons;
+			}
+		}
+		return Object.assign({}, state, {
+			enrolledNamespaces: arr
+		});
 	case types.UPDATED_OWNED_NAMESPACE:
 		arr = state.ownedNamespaces.slice();
 		for ( let i = 0; i < arr.length; i++ ) {
@@ -92,9 +103,11 @@ export default function user( state = initialState, action ) {
 			ownedNamespaces: arr
 		});
 	case types.RECEIVED_FILES:
-	return Object.assign({}, state, {
-		files: action.payload.files
-	});
+		return Object.assign({}, state, {
+			files: groupBy(action.payload.files, (v) => {
+				return v.namespace;
+			})
+		});
 	default:
 		return state;
 	}
