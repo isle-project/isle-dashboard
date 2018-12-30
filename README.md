@@ -44,6 +44,7 @@ See [LICENSE][license].
 - profile by Hea Poh Lin from the Noun Project
 - weights by José Manuel de Laá from the Noun Project
 - chat by nauraicon from the Noun Project
+- feedback by Delwar Hossain from the Noun Project
 
 [license]: https://raw.githubusercontent.com/Planeshifter/isle-dashboard/master/LICENSE
 

@@ -61,8 +61,21 @@ var badges = [
     picture: 'https://isle.heinz.cmu.edu/badge_chat_500_1546116376702.svg',
     acquired: false,
     secret: false
-    }
-
+    },
+    {
+	name: '25 feedbacks',
+	description: '25 feedbacks',
+	picture: 'https://isle.heinz.cmu.edu/badge_feedback_25_1546192928954.svg',
+	acquired: false,
+	secret: false
+	},
+    {
+	name: '100 feedbacks',
+	description: '100 feedbacks',
+	picture: 'https://isle.heinz.cmu.edu/badge_feedback_100_1546192989682.svg',
+	acquired: false,
+	secret: false
+	}
 
 ];
 
