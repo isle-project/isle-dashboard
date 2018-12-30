@@ -3,7 +3,7 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import {
-	Badge, Button, ButtonGroup, Card, Container, Col, Row, FormLabel, FormControl, FormGroup, Form, ListGroup, ListGroupItem, OverlayTrigger, Tooltip
+	Alert, Badge, Button, ButtonGroup, Card, Container, Col, Row, FormLabel, FormControl, FormGroup, Form, ListGroup, ListGroupItem, OverlayTrigger, Tooltip
 } from 'react-bootstrap';
 import 'react-dates/lib/css/_datepicker.css';
 import { withRouter } from 'react-router';
@@ -277,6 +277,11 @@ class EditNamespace extends Component {
 	}
 
 	render() {
+		if ( !this.props.namespace._id ) {
+			return ( <Container className="edit-namespace-container" >
+				<Alert variant="danger">No namespace selected.</Alert>
+			</Container> );
+		}
 		return (
 			<Container className="edit-namespace-container" >
 				<Row>
