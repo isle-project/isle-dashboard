@@ -24,9 +24,10 @@ class EnrolledLesson extends Component {
 	renderButtonToolbar() {
 		let children = [];
 		let progress;
-		const lessonData = this.props.user.lessonData[ this.props._id ];
+		const lessonData = this.props.user.lessonData;
 		if ( lessonData ) {
-			progress = lessonData.progress;
+			const data = lessonData[ this.props._id ];
+			progress = data.progress;
 			progress *= 100;
 			children.push( <div className="enrolled-lesson-progress">
 				<OverlayTrigger placement="bottom" overlay={<Tooltip id="open_details">Progress</Tooltip>}>
