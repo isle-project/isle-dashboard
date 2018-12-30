@@ -34,7 +34,7 @@ scp -r build/* <user>@<homepage>:<dirpath>
 
 See [LICENSE][license].
 
-#### Credits
+#### Icon Credits
 
 - User Icon by Atacan from the Noun Project
 - Badge Icon by Royyan Wijaya from the Noun Project
