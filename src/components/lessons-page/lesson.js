@@ -90,20 +90,12 @@ class Lesson extends Component {
 	}
 
 	renderButtonToolbarDate() {
-		if ( !this.props.updatedAt ) {
-			return null;
-		}
-		let date = null;
-		let updated = null;
-		if ( this.props.updatedAt ) {
-			updated = new Date( this.props.updatedAt );
-			updated = updated.toLocaleDateString();
-			if ( this.props.createdAt ) {
-				date = new Date(this.props.createdAt);
-				date = date.toLocaleDateString();
-			}
-			else date = updated;
-		}
+		let updated = new Date( this.props.updatedAt );
+		updated = updated.toLocaleDateString();
+
+		let date = new Date(this.props.createdAt);
+		date = date.toLocaleDateString();
+
 		return (
 			<span className="lessons-upload">
 			<OverlayTrigger placement="bottom" overlay={<Tooltip id="toggle_visibility">created at</Tooltip>}>
