@@ -15,7 +15,9 @@ const initialState = {
 	ownedNamespaces: [],
 	picture: null,
 	createdAt: null,
-	updatedAt: null
+	updatedAt: null,
+	score: null,
+	spentTime: null
 };
 
 
@@ -36,6 +38,8 @@ export default function user( state = initialState, action ) {
 			picture: action.payload.picture,
 			createdAt: action.payload.createdAt,
 			updatedAt: action.payload.updatedAt,
+			score: action.payload.score,
+			spentTime: action.payload.spentTime,
 			loggedIn: true
 		});
 	case types.AUTHENTICATED:

@@ -107,6 +107,7 @@ class ProfilePage extends Component {
 
 	renderUserSection() {
 		const user = this.props.user;
+		console.log( user );
 		let date = null;
 		if ( user.createdAt ) {
 			date = new Date( user.createdAt ).toLocaleDateString();
@@ -124,7 +125,10 @@ class ProfilePage extends Component {
 					<div className="profile-page-user-personal-name">
 						<Card>
 							<Card.Header>
-								<Card.Title as="h3">{user.name}</Card.Title>
+								<Card.Title as="h3">
+									{user.name} <br />
+									{user.organization ? <small>{user.organization}</small>: null }
+								</Card.Title>
 								{date ? <div>registered since {date}</div> : null}
 							</Card.Header>
 							<Card.Body>
@@ -137,7 +141,7 @@ class ProfilePage extends Component {
 									<div className="profile-page-user-value">13</div>
 
 									<div className="profile-page-user-legend">Time spent</div>
-									<div className="profile-page-user-value">{user.timeSpent}</div>
+									<div className="profile-page-user-value">{user.spentTime}</div>
 								</div>
 							</Card.Body>
 						</Card>

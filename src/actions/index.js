@@ -19,7 +19,9 @@ export function loggedIn( user ) {
 			id: user.id,
 			picture: user.picture,
 			createdAt: user.createdAt,
-			updatedAt: user.updatedAt
+			updatedAt: user.updatedAt,
+			score: user.score,
+			spentTime: user.spentTime
 		}
 	};
 }
