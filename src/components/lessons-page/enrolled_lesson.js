@@ -16,27 +16,21 @@ class EnrolledLesson extends Component {
 	constructor( props ) {
 		super( props );
 
-		this.state = {
-
-		};
+		this.state = {};
 	}
 
 	renderButtonToolbar() {
-		let children = [];
 		let progress;
+		let duration;
 		const lessonData = this.props.user.lessonData;
-		if ( lessonData ) {
-			const data = lessonData[ this.props._id ];
+		const data = lessonData[ this.props._id ];
+		if ( data ) {
 			progress = data.progress;
 			progress *= 100;
-			children.push( <div className="enrolled-lesson-progress">
-				<OverlayTrigger placement="bottom" overlay={<Tooltip id="open_details">Progress</Tooltip>}>
-					<ProgressBar variant='success' now={progress} label={`${progress}%`} />
-				</OverlayTrigger>
-			</div> );
-			children.push( <div className="enrolled-lesson-time" style={{ width: '35%', height: '100%' }} >
-					TIME SPENT 1:27
-			</div> );
+			duration = data.spentTime;
+		} else {
+			progress = 0;
+			duration = '00:00';
 		}
 		return (
 			<ButtonToolbar style={{
@@ -46,7 +40,14 @@ class EnrolledLesson extends Component {
 				height: '26px',
 				background: 'rgba(0, 0, 0, 0.75)'
 			}}>
-				{children}
+				<div className="enrolled-lesson-progress">
+					<OverlayTrigger placement="bottom" overlay={<Tooltip id="open_details">Progress</Tooltip>}>
+						<ProgressBar variant='success' now={progress} label={`${progress}%`} />
+					</OverlayTrigger>
+				</div>
+				<div className="enrolled-lesson-time" style={{ width: '35%', height: '100%' }} >
+					Time Spent: {duration}
+				</div>
 			</ButtonToolbar>
 		);
 	}
