@@ -268,7 +268,7 @@ class EditNamespace extends Component {
 							(no of students:
 						</span>
 						<Badge variant="primary">{cohort.members.length}</Badge>
-						<span style={{color: 'black' }} >)</span>
+						<span style={{ color: 'black' }} >)</span>
 						<Button size="sm" onClick={this.cohortModalFactory( idx )} style={{ float: 'right' }}>Edit</Button>
 					</ListGroupItem>
 				);

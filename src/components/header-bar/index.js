@@ -256,7 +256,7 @@ class HeaderBar extends Component {
 				break;
 		}
 		return (
-			<ButtonGroup style={{ marginLeft: 5, float: 'left'}} >
+			<ButtonGroup style={{ marginLeft: 5, float: 'left' }} >
 				<DropdownButton variant="secondary" onSelect={( newValue ) => {
 					this.props.setLessonOrder( newValue );
 				}} id="dropdown" title={<small>{title}</small>} >
