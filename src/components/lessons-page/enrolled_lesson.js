@@ -33,7 +33,7 @@ class EnrolledLesson extends Component {
 			duration = data.spentTime;
 		} else {
 			progress = 0;
-			duration = '00:00';
+			duration = 0;
 		}
 		return (
 			<ButtonToolbar style={{
