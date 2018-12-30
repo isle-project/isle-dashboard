@@ -3,7 +3,7 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { Button, Card, OverlayTrigger, Tooltip } from 'react-bootstrap';
-import floor from '@stdlib/math/base/special/floor';
+import formatTime from 'utils/format_time.js';
 import hoodie from './img/hoodie.jpg';
 import EditModal from './edit_modal.js';
 import EnterTokenModal from './enter_token_modal.js';
@@ -12,20 +12,6 @@ import badges from './badges.js';
 import badge from './img/question.svg';
 import badgeCircle from './img/badge_circle.svg';
 import './profile-page.css';
-
-
-// FUNCTIONS //
-
-const formatTime = ( time ) => {
-	time = time / 1000;
-	const hours = floor( time / ( 60*60 ) );
-	time = time % ( 60*60 );
-	let minutes = floor( time / 60 );
-	if ( minutes < 10 ) {
-		minutes = '0'+minutes;
-	}
-	return hours + ':' + minutes;
-};
 
 
 // MAIN //

@@ -1,14 +1,16 @@
 // MODULES //
 
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import {
 	Card, ButtonToolbar, ProgressBar, OverlayTrigger, Tooltip
 } from 'react-bootstrap';
-import PropTypes from 'prop-types';
+import round from '@stdlib/math/base/special/round';
 import COLORS from 'constants/colors';
+import formatTime from 'utils/format_time.js';
 import background from './architecture.jpeg';
 import './lessons.css';
-import round from '@stdlib/math/base/special/round';
+
 
 // MAIN //
 
@@ -27,7 +29,7 @@ class EnrolledLesson extends Component {
 		if ( data ) {
 			progress = data.progress;
 			progress *= 100;
-			progress = round(progress);
+			progress = round( progress );
 			duration = data.spentTime;
 		} else {
 			progress = 0;
@@ -47,7 +49,7 @@ class EnrolledLesson extends Component {
 					</OverlayTrigger>
 				</div>
 				<div className="enrolled-lesson-time" style={{ width: '35%', height: '100%' }} >
-					Time Spent: {duration}
+					Time Spent: {formatTime( duration )}
 				</div>
 			</ButtonToolbar>
 		);
