@@ -2,9 +2,13 @@
 
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
-import { Button, Card, OverlayTrigger, Tooltip } from 'react-bootstrap';
+import { Button, Card, Media, Nav, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import keys from '@stdlib/utils/keys';
+import isArray from '@stdlib/assert/is-array';
+import iterMean from '@stdlib/stats/iterators/mean';
+import array2iterator from '@stdlib/array/to-iterator';
 import formatTime from 'utils/format_time.js';
+import server from 'constants/server';
 import hoodie from './img/hoodie.jpg';
 import EditModal from './edit_modal.js';
 import EnterTokenModal from './enter_token_modal.js';
@@ -13,6 +17,21 @@ import badges from './badges.js';
 import badge from './img/question.svg';
 import badgeCircle from './img/badge_circle.svg';
 import './profile-page.css';
+
+
+// FUNCTIONS //
+
+function id2Name( lessons, id ) {
+	if ( !lessons ) {
+		return '';
+	}
+	for ( let i = 0; i < lessons.length; i++ ) {
+		if ( lessons[ i ]._id === id ) {
+			return lessons[ i ].title;
+		}
+	}
+	return '';
+}
 
 
 // MAIN //
@@ -24,8 +43,16 @@ class ProfilePage extends Component {
 		this.state = {
 			showEditModal: false,
 			showTokenModal: false,
-			showProfilePicModal: false
+			showProfilePicModal: false,
+			selectedNamespace: null,
+			selectedNamespaceID: null
 		};
+	}
+
+	componentDidMount() {
+		if ( !this.props.user.files ) {
+			this.props.getFiles({ token: this.props.user.token });
+		}
 	}
 
 	renderInstructorButton() {
@@ -57,13 +84,101 @@ class ProfilePage extends Component {
 		});
 	}
 
+	handleSelect = ( newValue, event ) => {
+		const namespaceName = event.target.title;
+		const id = event.target.dataset.id;
+		this.setState({
+			selectedNamespaceID: newValue,
+			selectedNamespace: this.props.user.enrolledNamespaces[ id ]
+		}, () => {
+			const course = this.props.user.enrolledNamespaces[ id ];
+			if ( !course.lessons ) {
+				this.props.getLessons( namespaceName );
+			}
+		});
+	}
+
+	renderStatisticNavigation() {
+		console.log(this.props.user);
+		let courses = this.props.user.enrolledNamespaces;
+		let arr = [];
+		for ( let i = 0; i < courses.length; i++) {
+			const title = courses[i].title;
+			const id = courses[i]._id;
+			arr.push(
+				<Nav.Item key={i}>
+					<Nav.Link eventKey={id} title={title} data-id={i} >{title}</Nav.Link>
+				</Nav.Item>
+			);
+		}
+		return arr;
+	}
+
+	renderStats() {
+		if ( !this.state.selectedNamespace ) {
+			return null;
+		}
+		const lessons = this.state.selectedNamespace.lessons;
+		if ( !isArray( lessons ) ) {
+			return null;
+		}
+		const data = this.props.user.lessonData;
+		const durations = [];
+		for ( let i = 0; i < lessons.length; i++ ) {
+			const lesson = lessons[ i ];
+			if ( data[ lesson._id ] ) {
+				durations.push( data[ lesson._id ].spentTime );
+			}
+		}
+		const it = array2iterator( durations );
+		const avg = iterMean( it );
+		return <div><label>Average time spent:</label>{formatTime( avg )}</div>;
+	}
+
+	renderFiles() {
+		let files = this.props.user.files;
+		if ( files ) {
+			files = files[ this.state.selectedNamespaceID ];
+		}
+		if ( !isArray( files ) ) {
+			return null;
+		}
+		const out = [];
+		for ( let i = 0; i < files.length; i++ ) {
+			const file = files[ i ];
+			const lessonName = id2Name( this.state.selectedNamespace.lessons, file.lesson );
+			out.push( <Media>
+				<div className="mr-3">
+					<a href={server+'/'+file.filename} target="_blank">
+						<i className="fas fa-file-image fa-4x" />
+					</a>
+				</div>
+				<Media.Body>
+					<h4>{file.title}</h4>
+					<p>Date: {new Date( file.createdAt ).toLocaleDateString()}, Lesson: {lessonName}</p>
+				</Media.Body>
+			</Media> );
+		}
+		return out;
+	}
+
 	renderStatisticSection() {
 		return (
 			<div className="profile-page-statistics">
-				<div className="profile-page-statistics-title1">Actions</div>
+				<div className="profile-page-statistics-navigation-title">Courses</div>
+				<div className="profile-page-statistics-navigation">
+				<Nav variant="tabs" activeKey={this.state.selectedNamespaceID} onSelect={this.handleSelect}>
+					{ this.renderStatisticNavigation()}
+				</Nav>
+				</div>
+				<div className="profile-page-statistics-title1">Files</div>
 				<div className="profile-page-statistics-title2">Statistics</div>
-				<div className="profile-page-statistics-actions"></div>
-				<div className="profile-page-statistics-stats"></div>
+				<div className="profile-page-statistics-actions">
+					{this.renderFiles()}
+				</div>
+				<div className="profile-page-statistics-stats">
+					{this.renderStats()}
+				</div>
 			</div>
 		);
 	}
@@ -198,6 +313,8 @@ class ProfilePage extends Component {
 ProfilePage.propTypes = {
 	addNotification: PropTypes.func.isRequired,
 	authenticate: PropTypes.func.isRequired,
+	getFiles: PropTypes.func.isRequired,
+	getLessons: PropTypes.func.isRequired,
 	updateUser: PropTypes.func.isRequired,
 	uploadProfilePic: PropTypes.func.isRequired,
 	user: PropTypes.object.isRequired

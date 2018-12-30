@@ -93,7 +93,6 @@ class NamespaceData extends Component {
 	}
 
 	render() {
-		console.log( this.props.namespace );
 		if ( !this.props.namespace._id ) {
 			return ( <div className="namespace-data-div">
 				<Alert variant="danger">No namespace selected.</Alert>

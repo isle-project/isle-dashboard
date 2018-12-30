@@ -104,7 +104,7 @@ export default function user( state = initialState, action ) {
 		});
 	case types.RECEIVED_FILES:
 		return Object.assign({}, state, {
-			files: groupBy(action.payload.files, (v) => {
+			files: groupBy( action.payload.files, ( v ) => {
 				return v.namespace;
 			})
 		});
