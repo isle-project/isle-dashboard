@@ -17,6 +17,7 @@ export function loggedIn( user ) {
 			token: user.token,
 			writeAccess: user.writeAccess,
 			id: user.id,
+			lessonData: user.lessonData,
 			picture: user.picture,
 			createdAt: user.createdAt,
 			updatedAt: user.updatedAt,
