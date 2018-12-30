@@ -18,7 +18,8 @@ const initialState = {
 	createdAt: null,
 	updatedAt: null,
 	score: null,
-	spentTime: null
+	spentTime: null,
+	files: []
 };
 
 
@@ -90,6 +91,10 @@ export default function user( state = initialState, action ) {
 		return Object.assign({}, state, {
 			ownedNamespaces: arr
 		});
+	case types.RECEIVED_FILES:
+	return Object.assign({}, state, {
+		files: action.payload.files
+	});
 	default:
 		return state;
 	}

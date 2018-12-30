@@ -127,6 +127,15 @@ export function retrievedPublicLessons( lessons ) {
 	};
 }
 
+export function receivedFiles( files ) {
+	return {
+		type: types.RECEIVED_FILES,
+		payload: {
+			files
+		}
+	};
+}
+
 export function deletedLesson( lessonName ) {
 	return {
 		type: types.DELETED_LESSON,

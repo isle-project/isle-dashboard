@@ -60,6 +60,21 @@ function mapDispatchToProps( dispatch ) {
 				}
 			});
 		},
+		getFiles: ({ token }) => {
+			request.get( server+'/get_user_files', {
+				headers: {
+					'Authorization': 'JWT ' + token
+				}
+			}, function onResponse( error, response, body ) {
+				if ( error ) {
+					return error;
+				}
+				if ( response.statusCode === 200 ) {
+					body = JSON.parse( body );
+					dispatch( actions.receivedFiles( body.files ) );
+				}
+			});
+		},
 		uploadProfilePic: ({ token, formData }) => {
 			const xhr = new XMLHttpRequest();
 			xhr.open( 'POST', server+'/upload_profile_pic', true );
