@@ -44,7 +44,9 @@ class ProfilePage extends Component {
 			showTokenModal: false,
 			showProfilePicModal: false,
 			selectedNamespace: null,
-			selectedNamespaceID: null
+			selectedNamespaceID: null,
+			selectedDataType: null
+
 		};
 	}
 
@@ -98,8 +100,33 @@ class ProfilePage extends Component {
 		});
 	}
 
+
+	handleDataSelect = ( newValue, event ) => {
+		this.setState({
+			selectedDataType: newValue
+		});
+	}
+
+	renderLeftPanel() {
+		console.log(this.state.selectedDataType);
+		if (this.state.selectedDataType === 'files') {
+			return this.renderFiles();
+		}
+		if (this.state.selectedDataType === 'actions') {
+			return this.renderActions();
+		}
+	}
+
+	renderActions() {
+		return (
+			<div>Here are the actions</div>
+		);
+	}
+
+
 	renderFiles() {
 		let files = this.props.user.files;
+		console.log(files);
 		if ( files ) {
 			files = files[ this.state.selectedNamespaceID ];
 		}
@@ -160,14 +187,26 @@ class ProfilePage extends Component {
 					})}
 				</Nav>
 				</div>
-				<div className="profile-page-statistics-title1">
-					Files
+				<div className="profile-page-statistics-data-select">Data</div>
+				<div className="profile-page-statistics-top-actions">
+					<Nav variant="pills" activeKey={this.state.selectedData} onSelect={this.handleDataSelect}>
+						<Nav.Item >
+							<Nav.Link eventKey="files" title="Files">
+								Files
+							</Nav.Link>
+						</Nav.Item>
+						<Nav.Item >
+							<Nav.Link eventKey="actions" title="Actions">
+								Actions
+							</Nav.Link>
+						</Nav.Item>
+					</Nav>
 				</div>
 				<div className="profile-page-statistics-title2">
 					Statistics
 				</div>
 				<div className="profile-page-statistics-actions">
-					{this.renderFiles()}
+					{this.renderLeftPanel()}
 				</div>
 				<div className="profile-page-statistics-stats">
 					<Statistics
@@ -180,6 +219,8 @@ class ProfilePage extends Component {
 	}
 
 	renderBadgesSection() {
+		console.log( this.props.user );
+
 		let list = [];
 		let badges = this.props.user.badges || [];
 		for ( let i = 0; i < 24; i++ ) {
