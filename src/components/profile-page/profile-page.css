@@ -27,6 +27,7 @@
 	grid-area: left;
 	border-right:solid 1px silver;
 	background-image: url(https://isle.heinz.cmu.edu/white_carbonfiber_1543854970404.png);
+	height: calc(100vh - 52px);
 }
 
 .profile-page-badge-title {
