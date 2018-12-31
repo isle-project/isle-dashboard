@@ -60,7 +60,7 @@
 	grid-area: statistics;
 	display: grid;
 
-	grid-template-columns: 10px auto 46% 46%;
+	grid-template-columns: 10px auto 34% 58%;
 	grid-template-rows: 52px 50px auto 1px 10px;
 
 	grid-template-areas:
