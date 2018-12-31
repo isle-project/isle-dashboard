@@ -30,9 +30,8 @@ class ActionTypesDisplay extends Component {
 			const lesson = lessons[ i ];
 			const id = lesson._id;
 			if ( data[ id ] ) {
-				const namespace = data[ id ].namespace;
 				const types = data[ id ].actionTypes;
-				if ( namespace === this.props.selectedNamespaceID && types ) {
+				if ( types ) {
 					const typeNames = objectKeys( types );
 					for ( let j = 0; j < typeNames.length; j++ ) {
 						const name = typeNames[ j ];
@@ -74,12 +73,14 @@ class ActionTypesDisplay extends Component {
 
 ActionTypesDisplay.propTypes = {
 	lessonData: PropTypes.object,
-	selectedNamespace: PropTypes.object
+	selectedNamespace: PropTypes.object,
+	selectedNamespaceID: PropTypes.string
 };
 
 ActionTypesDisplay.defaultProps = {
 	lessonData: null,
-	selectedNamespace: null
+	selectedNamespace: null,
+	selectedNamespaceID: ''
 };
 
 
