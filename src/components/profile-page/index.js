@@ -188,7 +188,7 @@ class ProfilePage extends Component {
 				</Nav>
 				</div>
 				<div className="profile-page-statistics-data-select">Data</div>
-				<div className="profile-page-statistics-title1">
+				<div className="profile-page-statistics-top-actions">
 					<Nav variant="pills" activeKey={this.state.selectedData} onSelect={this.handleDataSelect}>
 						<Nav.Item >
 							<Nav.Link eventKey="files" title="Files">
