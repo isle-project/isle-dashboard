@@ -8,12 +8,13 @@
 .profile-page-grid-container {
 	position: absolute;
 	display: grid;
-	width: 100%;
-	height: calc(100% - 52px);
+	width: 100vw;
+	height: calc(100vh - 52px);
 	top: 52px;
 	background: gainsboro;
 	grid-template-columns: 360px auto 25% 20px;
 	grid-template-rows: 20px auto 50px 28% 30px;
+	overflow-x: hidden;
 
 	grid-template-areas:
 		"left header header right"
@@ -62,7 +63,7 @@
 	display: grid;
 
 	grid-template-columns: 10px auto 34% 58%;
-	grid-template-rows: 52px 50px auto 1px 10px;
+	grid-template-rows: 52px 10px auto 1px 10px;
 
 	grid-template-areas:
 	"marginLeft navicomment navi navi"
