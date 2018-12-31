@@ -94,8 +94,12 @@ class Statistics extends Component {
 // PROPERTIES //
 
 Statistics.propTypes = {
-	selectedNamespace: PropTypes.object.isRequired,
+	selectedNamespace: PropTypes.object,
 	user: PropTypes.object.isRequired
+};
+
+Statistics.defaultProps = {
+	selectedNamespace: null
 };
 
 
