@@ -19,7 +19,8 @@ const initialState = {
 	updatedAt: null,
 	score: null,
 	spentTime: null,
-	files: null
+	files: null,
+	badges: null
 };
 
 
@@ -107,6 +108,10 @@ export default function user( state = initialState, action ) {
 			files: groupBy( action.payload.files, ( v ) => {
 				return v.namespace;
 			})
+		});
+	case types.USER_RECEIVED_BADGES:
+		return Object.assign({}, state, {
+			badges: action.payload.badges
 		});
 	default:
 		return state;

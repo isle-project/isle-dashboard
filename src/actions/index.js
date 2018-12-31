@@ -190,3 +190,12 @@ export function updateUserPicture( picture ) {
 		}
 	};
 }
+
+export function receivedPages( badges ) {
+	return {
+		type: types.USER_RECEIVED_BADGES,
+		payload: {
+			badges
+		}
+	}
+}
