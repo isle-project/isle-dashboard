@@ -13,6 +13,8 @@ import hoodie from './img/hoodie.jpg';
 import EditModal from './edit_modal.js';
 import EnterTokenModal from './enter_token_modal.js';
 import ProfilePicModal from './profile_pic_modal.js';
+import path from 'path';
+/* import ReactSVG from 'react-svg'; */
 import badges from './badges.js';
 import badge from './img/question.svg';
 import badgeCircle from './img/badge_circle.svg';
@@ -132,7 +134,12 @@ class ProfilePage extends Component {
 		}
 		const it = array2iterator( durations );
 		const avg = iterMean( it );
-		return <div><label>Average time spent:</label>{formatTime( avg )}</div>;
+		return (
+			<Fragment>
+				<div className="profile-page-stats-key">Average time spent:</div>
+				<div className="profile-page-stats-value">	{formatTime( avg )}</div>
+			</Fragment>
+		);
 	}
 
 	renderFiles() {
@@ -147,10 +154,27 @@ class ProfilePage extends Component {
 		for ( let i = 0; i < files.length; i++ ) {
 			const file = files[ i ];
 			const lessonName = id2Name( this.state.selectedNamespace.lessons, file.lesson );
+
+			let cl = 'fas fa-file-image fa-4x';
+			const pth = path.extname(file.filename);
+			switch (pth) {
+				case '.html':
+					cl = 'fab fa-html5 fa-4x';
+				break;
+
+				case '.pdf':
+					cl = 'far fa-file-pdf fa-4x';
+				break;
+
+				case '.jpg':
+					cl = 'fas fa-file-image fa-4x';
+				break;
+			}
+
 			out.push( <Media>
 				<div className="mr-3">
 					<a href={server+'/'+file.filename} target="_blank">
-						<i className="fas fa-file-image fa-4x" />
+						<i className={cl} />
 					</a>
 				</div>
 				<Media.Body>
@@ -174,7 +198,7 @@ class ProfilePage extends Component {
 				<div className="profile-page-statistics-title1">Files</div>
 				<div className="profile-page-statistics-title2">Statistics</div>
 				<div className="profile-page-statistics-actions">
-					{this.renderFiles()}
+						{this.renderFiles()}
 				</div>
 				<div className="profile-page-statistics-stats">
 					{this.renderStats()}
@@ -189,12 +213,15 @@ class ProfilePage extends Component {
 			let temp = badge;
 			let desc = 'Toggle visibility';
 			let display = 'profile-page-badge-item-interior unknown';
+			let badgeState = 'badge-not-acquired';
 
 			if (i < badges.length) {
 				temp = badges[i].picture;
 				desc = badges[i].description;
 				display = 'profile-page-badge-item-interior';
+				if (badges[i].acquired) badgeState='badge-acquired';
 			}
+
 
 			var ani = 'scale-up ' + ((i*0.05) + 0.1) + 's';
 
@@ -204,7 +231,7 @@ class ProfilePage extends Component {
 						<div className="profile-page-badge-item">
 							<img className="mask" src={badgeCircle} />
 							<div className={display} >
-							<img src={temp} />
+							<img className={badgeState} src={temp} />
 							</div>
 						</div>
 					</OverlayTrigger>

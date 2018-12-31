@@ -2,8 +2,8 @@ var badges = [
     {
     name: 'profile',
     description: 'Profile pic uploaded',
-    picture: 'https://isle.heinz.cmu.edu/badge_profile_1546113661044.svg',
-    acquired: false,
+    picture: 'https://isle.heinz.cmu.edu/badge_profile_1546253881865.svg',
+    acquired: true,
     secret: false
     },
     {
@@ -17,7 +17,7 @@ var badges = [
     name: '10 lessons',
     description: 'Ten lessons mastered',
     picture: 'https://isle.heinz.cmu.edu/badge_10_lessons_1546115287629.svg',
-    acquired: false,
+    acquired: true,
     secret: false
     },
     {
@@ -45,7 +45,7 @@ var badges = [
     name: '7 days',
     description: '7 days in a row',
     picture: 'https://isle.heinz.cmu.edu/badge_calendar_7_days_1546115423253.svg',
-    acquired: false,
+    acquired: true,
     secret: false
     },
     {
