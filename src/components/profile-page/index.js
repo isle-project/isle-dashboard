@@ -12,6 +12,7 @@ import EditModal from './edit_modal.js';
 import EnterTokenModal from './enter_token_modal.js';
 import ProfilePicModal from './profile_pic_modal.js';
 import Statistics from './statistics.js';
+import ActionTypesDisplay from './action_types_display.js';
 import hoodie from './img/hoodie.jpg';
 import badge from './img/question.svg';
 import badgeCircle from './img/badge_circle.svg';
@@ -108,21 +109,18 @@ class ProfilePage extends Component {
 	}
 
 	renderLeftPanel() {
-		console.log(this.state.selectedDataType);
 		if (this.state.selectedDataType === 'files') {
 			return this.renderFiles();
 		}
 		if (this.state.selectedDataType === 'actions') {
-			return this.renderActions();
+			const data = this.props.user.lessonData;
+			return ( <ActionTypesDisplay
+				lessonData={data}
+				selectedNamespace={this.state.selectedNamespace}
+				selectedNamespaceID={this.state.selectedNamespaceID}
+			/> );
 		}
 	}
-
-	renderActions() {
-		return (
-			<div>Here are the actions</div>
-		);
-	}
-
 
 	renderFiles() {
 		let files = this.props.user.files;
