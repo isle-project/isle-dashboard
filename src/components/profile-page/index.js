@@ -167,6 +167,23 @@ class ProfilePage extends Component {
 		return out;
 	}
 
+	renderStatisticDataToolbar() {
+		return (
+		<Nav variant="tabs" activeKey={this.state.selectedData} onSelect={this.handleDataSelect}>
+		<Nav.Item >
+			<Nav.Link eventKey="files" title="Files">
+				Files
+			</Nav.Link>
+		</Nav.Item>
+		<Nav.Item >
+			<Nav.Link eventKey="actions" title="Actions">
+				Actions
+			</Nav.Link>
+		</Nav.Item>
+		</Nav>
+		);
+	}
+
 	renderStatisticSection() {
 		const courses = this.props.user.enrolledNamespaces;
 		return (
@@ -187,18 +204,7 @@ class ProfilePage extends Component {
 				</div>
 				<div className="profile-page-statistics-data-select">Data</div>
 				<div className="profile-page-statistics-top-actions">
-					<Nav variant="pills" activeKey={this.state.selectedData} onSelect={this.handleDataSelect}>
-						<Nav.Item >
-							<Nav.Link eventKey="files" title="Files">
-								Files
-							</Nav.Link>
-						</Nav.Item>
-						<Nav.Item >
-							<Nav.Link eventKey="actions" title="Actions">
-								Actions
-							</Nav.Link>
-						</Nav.Item>
-					</Nav>
+					{ this.state.selectedNamespaceID ? this.renderStatisticDataToolbar() : null }
 				</div>
 				<div className="profile-page-statistics-title2">
 					Statistics

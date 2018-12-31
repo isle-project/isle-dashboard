@@ -63,12 +63,12 @@
 	display: grid;
 	height: 100%;
 
-	grid-template-columns: 20px 40px auto 34% 58%;
+	grid-template-columns: 40px 60px auto 34% 58%;
 	grid-template-rows: 52px 38px auto 10px;
 
 	grid-template-areas:
 	"marginLeft navicomment navicomment navi navi"
-	"marginLeft dataselect topactions topactions topr"
+	"marginLeft dataselect dataselect topactions topr"
 	"marginLeft actions actions actions statistics"
 	"marginLeft bottom bottom bottom bottom"
 }
@@ -122,29 +122,9 @@
 	color: var(--primaryhalf);
 }
 
-/* for the inner section */
-.profile-page-statistics .nav-item  {
-	font-size: 22px;
-	font-weight: 700;
-	color: var(--primary);
-}
 
-.profile-page-statistics .nav-link  {
-	color: var(--primaryhalf);
-}
-
-.profile-page-statistics .nav-link:hover  {
-	color: var(--primary);
-}
-
-.profile-page-statistics .nav-link:active {
-	color: var(--primaryhalf);
-}
 
 /************ end inner section *******/
-
-
-
 
 .profile-page-statistics-top-actions {
 	grid-area: topactions;
@@ -153,6 +133,36 @@
 	color: darkgrey;
 	border-top:solid 1px darkgray;
 }
+
+
+/* for the inner section */
+.profile-page-statistics-top-actions .nav-item  {
+	font-size: 12px;
+	font-weight: 700;
+	color: var(--primary);
+	padding-top: 0;
+}
+
+.profile-page-statistics-top-actions .nav-link  {
+	color: var(--primaryhalf);
+	padding-left: 5px;
+	padding: 3px;
+}
+
+.profile-page-statistics-top-actions .nav-link:hover  {
+	color: var(--primary);
+}
+
+.profile-page-statistics-top-actions .nav-link:active {
+	color: var(--primaryhalf);
+}
+
+
+
+.profile-page-statistics-top-actions .nav-item {
+	font-size: 22px;
+}
+
 
 .profile-page-statistics-title2 {
 	grid-area: topr;
@@ -169,6 +179,7 @@
 	grid-area: actions;
 	border-right:solid 1px darkgray;
 	width: 100%;
+	margin-top: 12px;
 	min-height: 0;
 	min-height: auto;
 	max-height: auto;
