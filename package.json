@@ -92,7 +92,7 @@
   "scripts": {
     "analyze": "source-map-explorer build/static/js/main.*",
     "start": "node scripts/start.js",
-    "build": "node scripts/build.js",
+    "build": "node --max_old_space_size=4096 scripts/build.js",
     "clean": "rm -rf ./node_modules",
     "lint": "eslint src/**/*.js test/**/*.js",
     "test": "jest",
