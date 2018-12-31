@@ -9,7 +9,9 @@ const initialState = {
 	message: '',
 	level: '',
 	position: 'tl',
-	time: null
+	children: null,
+	time: null,
+	autoDismiss: 5
 };
 
 
@@ -19,8 +21,7 @@ export default function namespace( state = initialState, action ) {
 	switch ( action.type ) {
 	case types.ADD_NOTIFICATION:
 		return Object.assign({}, state, {
-			message: action.payload.message,
-			level: action.payload.level,
+			...action.payload,
 			time: new Date()
 		});
 	default:

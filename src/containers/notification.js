@@ -12,6 +12,13 @@ const style = {
 	NotificationItem: {
 		DefaultStyle: {
 			margin: '20px 2px 2px 1px'
+		},
+		info: {
+			color: 'black',
+			backgroundColor: 'white',
+			boxShadow: '0 0 4px darkslategray',
+			height: '50vh',
+			borderTop: 'none'
 		}
 	}
 };
@@ -27,14 +34,8 @@ class NotificationContainer extends Component {
 	componentDidUpdate( prevProps, prevState ) {
 		const notification = this.props.notification;
 		const prevNotification = prevProps.notification;
-		const { message, level, position } = notification;
-
 		if ( prevNotification.time !== notification.time ) {
-			this.notificationSystem.addNotification({
-				message,
-				position,
-				level
-			});
+			this.notificationSystem.addNotification( notification );
 		}
 	}
 

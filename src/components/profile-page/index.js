@@ -53,6 +53,7 @@ class ProfilePage extends Component {
 		if ( !this.props.user.files ) {
 			this.props.getFiles({ token: this.props.user.token });
 		}
+		this.props.addBadges();
 	}
 
 	renderInstructorButton() {
@@ -303,6 +304,7 @@ class ProfilePage extends Component {
 // PROPERTIES //
 
 ProfilePage.propTypes = {
+	addBadges: PropTypes.func.isRequired,
 	addNotification: PropTypes.func.isRequired,
 	authenticate: PropTypes.func.isRequired,
 	getFiles: PropTypes.func.isRequired,

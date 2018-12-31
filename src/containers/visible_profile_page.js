@@ -29,6 +29,40 @@ function mapDispatchToProps( dispatch ) {
 		addNotification: ({ message, level }) => {
 			dispatch( actions.addNotification({ message, level }) );
 		},
+		addBadges: () => {
+			dispatch( actions.addNotification({
+				children: (
+					<div>
+						<h3>Received Badge: TODO</h3>
+						<div>
+							<div>
+								<div style={{
+									position: 'absolute',
+									left: '11%',
+									top: '13%',
+									width: '78%',
+									height: '70%',
+									borderRadius: '50%',
+									filter: 'saturate(20%)',
+									background: 'rgba(255,0,0,0.1)'
+								}} />
+								<img style={{ display: 'block',
+									marginLeft: 'auto',
+									marginRight: 'auto',
+									width: '80%'
+								}} src="https://isle.heinz.cmu.edu/badge_50_lessons_1546115022850.svg"
+								/>
+							</div>
+							<p style={{ marginTop: 15 }}>You received a badge for: TODO.</p>
+						</div>
+					</div>
+				),
+				level: 'info',
+				position: 'tc',
+				dismissible: 'button',
+				autoDismiss: 0
+			}) );
+		},
 		updateUser: ({ name, organization }) => {
 			dispatch( actions.updateUser({ name, organization }) );
 		},

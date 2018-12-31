@@ -82,7 +82,7 @@ class Statistics extends Component {
 					useResizeHandler={true}
 					style={{
 						width: '100%',
-						height: '18vw'
+						height: '17vw'
 					}}
 				/>
 			</div>

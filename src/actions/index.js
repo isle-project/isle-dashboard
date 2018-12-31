@@ -165,13 +165,10 @@ export function deletedCurrentNamespace( id ) {
 	};
 }
 
-export function addNotification({ message, level }) {
+export function addNotification( notification ) {
 	return {
 		type: types.ADD_NOTIFICATION,
-		payload: {
-			message,
-			level
-		}
+		payload: notification
 	};
 }
 
