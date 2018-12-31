@@ -135,8 +135,8 @@
 	border-right:solid 1px darkgray;
 	width: 100%;
 	min-height: 0;
-	min-height: 46vh;
-	max-height: 46vh;
+	min-height: 44vh;
+	max-height: 44vh;
 	overflow-y: auto;
 }
 
@@ -150,8 +150,8 @@
 .profile-page-statistics-stats {
 	grid-area: statistics;
 	width: 100%;
-	min-height: 46vh;
-	max-height: 46vh;
+	min-height: 44vh;
+	max-height: 44vh;
 	overflow-y: auto;
 }
 
