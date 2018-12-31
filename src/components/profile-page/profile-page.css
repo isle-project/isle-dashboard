@@ -13,7 +13,7 @@
 	top: 52px;
 	background: gainsboro;
 	grid-template-columns: 360px auto 25% 20px;
-	grid-template-rows: 5px auto 40px 28% 12px;
+	grid-template-rows: 0.5vh 59vh 5vh auto 0;
 	overflow-x: hidden;
 
 	grid-template-areas:
@@ -35,25 +35,25 @@
 .profile-page-badge-title {
 	grid-area: middle;
 	margin-left: 10px;
-	border-top:solid 1px darkgray;
+	border-top:solid inset 1px darkgray;
 	font-family: Open Sans Condensed;
 	font-size: 28px;
+	margin-bottom: 8px;
 	color: darkgrey;
 }
 
 .profile-page-badge-container {
 	grid-area: badges;
 	width: calc(100% - 20px);
-	height: 26vh;
+	height: 25vh;
 	display: grid;
 	margin-left: 20px;
 	grid-template-columns: 360px auto 25% 20px;
 	filter: sepia(77%);
 
-
 	grid-template-columns: repeat(12, 1fr);
 	grid-template-rows: 20px 1fr 1fr, 1fr;
-	grid-gap: 15px;
+	grid-gap: 0.5vw;
 	grid-row-gap: 1em;
 
 }
@@ -61,11 +61,10 @@
 .profile-page-statistics {
 	grid-area: statistics;
 	display: grid;
-
-	height: 57vh;
+	height: 100%;
 
 	grid-template-columns: 10px auto 34% 58%;
-	grid-template-rows: 52px 50px auto 1px 10px;
+	grid-template-rows: 52px 38px auto 10px;
 
 	grid-template-areas:
 	"marginLeft navicomment navi navi"
@@ -139,8 +138,8 @@
 	border-right:solid 1px darkgray;
 	width: 100%;
 	min-height: 0;
-	min-height: 44vh;
-	max-height: 44vh;
+	min-height: auto;
+	max-height: auto;
 	overflow-y: auto;
 }
 
@@ -154,8 +153,8 @@
 .profile-page-statistics-stats {
 	grid-area: statistics;
 	width: 100%;
-	min-height: 44vh;
-	max-height: 44vh;
+	min-height: auto;
+	max-height: auto;
 	overflow-y: auto;
 }
 
