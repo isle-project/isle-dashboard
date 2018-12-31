@@ -160,10 +160,14 @@ class ProfilePage extends Component {
 					})}
 				</Nav>
 				</div>
-				<div className="profile-page-statistics-title1">Files</div>
-				<div className="profile-page-statistics-title2">Statistics</div>
+				<div className="profile-page-statistics-title1">
+					Files
+				</div>
+				<div className="profile-page-statistics-title2">
+					Statistics
+				</div>
 				<div className="profile-page-statistics-actions">
-						{this.renderFiles()}
+					{this.renderFiles()}
 				</div>
 				<div className="profile-page-statistics-stats">
 					<Statistics
