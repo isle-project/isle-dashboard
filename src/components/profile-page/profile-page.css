@@ -63,7 +63,7 @@
 	display: grid;
 	height: 100%;
 
-	grid-template-columns: 10px auto 34% 58%;
+	grid-template-columns: 20px auto 34% 58%;
 	grid-template-rows: 52px 38px auto 10px;
 
 	grid-template-areas:
@@ -80,6 +80,7 @@
 /* BEGINNING OF THE STATISTICS SECTION */
 .profile-page-statistics-navigation {
 	grid-area: navi;
+	padding-left: 15px;
 	font-family: Open Sans Condensed;
 	font-size: 28px;
 	color: darkgrey;
