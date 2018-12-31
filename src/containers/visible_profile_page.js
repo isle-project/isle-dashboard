@@ -15,7 +15,7 @@ import contains from '@stdlib/assert/contains';
 const debug = logger( 'isle-dashboard' );
 
 
-function createBadgeNotification({name, description, picture}) {
+function createBadgeNotification({ name, description, picture }) {
 	let pic = server + '/badges/' + picture;
 	return {
 		children: (
@@ -76,7 +76,6 @@ function mapDispatchToProps( dispatch ) {
 					return error;
 				}
 				body = JSON.parse( body );
-				console.log( body );
 				dispatch(actions.receivedBadges(body.badges) );
 				if (body.addedBadges.length > 0) {
 					for (var i = 0; i < body.badges.length; i++) {
