@@ -43,11 +43,10 @@ class Statistics extends Component {
 				<label>Average time spent: </label><span>{` ${formatTime( avg )}`}</span>
 				<Plotly
 					data={[{
-						x: durations,
-						y: names,
+						x: names,
+						y: durations,
 						text: texts,
 						type: 'bar',
-						orientation: 'h',
 						marker: {
 							color: '#0069d9',
 							opacity: 0.6,
@@ -65,11 +64,11 @@ class Statistics extends Component {
 						plot_bgcolor: 'rgba(0,0,0,0.0)',
 						paper_bgcolor: 'rgba(0,0,0,0.0)',
 						xaxis: {
-							title: 'Time (in min)',
+							title: 'Lesson Name',
 							fixedrange: true
 						},
 						yaxis: {
-							title: 'Lesson Name',
+							title: 'Time (in min)',
 							fixedrange: true
 						},
 						title: 'Time spent per lesson',
@@ -78,7 +77,7 @@ class Statistics extends Component {
 					useResizeHandler={true}
 					style={{
 						width: '100%',
-						height: '100%'
+						height: '18vw'
 					}}
 				/>
 			</div>
