@@ -39,7 +39,7 @@ class Statistics extends Component {
 			return d / ( 1000*60 );
 		});
 		return (
-			<div style={{ padding: '5px' }}>
+			<div style={{ padding: '5px', overflow: 'hidden' }}>
 				<label>Average time spent: </label><span>{` ${formatTime( avg )}`}</span>
 				<Plotly
 					data={[{
@@ -71,8 +71,13 @@ class Statistics extends Component {
 							title: 'Time (in min)',
 							fixedrange: true
 						},
-						title: 'Time spent per lesson',
-						autosize: true
+						autosize: true,
+						margin: {
+							l: 50,
+							r: 50,
+							b: 50,
+							t: 50
+						}
 					}}
 					useResizeHandler={true}
 					style={{
