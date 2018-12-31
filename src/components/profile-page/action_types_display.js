@@ -23,7 +23,7 @@ class ActionTypesDisplay extends Component {
 					<td>{count}</td>
 				</tr>;
 			}
-			table = <Table>
+			table = <Table striped >
 				<thead>
 					<tr>
 						<th>Action</th>
