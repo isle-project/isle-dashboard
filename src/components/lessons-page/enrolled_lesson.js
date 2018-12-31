@@ -44,7 +44,7 @@ class EnrolledLesson extends Component {
 				background: 'rgba(0, 0, 0, 0.75)'
 			}}>
 				<div className="enrolled-lesson-progress">
-					<OverlayTrigger placement="bottom" overlay={<Tooltip id="open_details">Progress</Tooltip>}>
+					<OverlayTrigger placement="bottom" overlay={<Tooltip id="open_details">Your Progress</Tooltip>}>
 						<ProgressBar variant='success' now={progress} label={`${progress}%`} />
 					</OverlayTrigger>
 				</div>
