@@ -13,7 +13,7 @@
 	top: 52px;
 	background: gainsboro;
 	grid-template-columns: 360px auto 25% 20px;
-	grid-template-rows: 10px auto 50px 28% 15px;
+	grid-template-rows: 5px auto 40px 28% 12px;
 	overflow-x: hidden;
 
 	grid-template-areas:
@@ -23,6 +23,7 @@
 		"left badges badges right"
 		"left badges badges right"
 }
+
 
 .profile-page-left {
 	grid-area: left;
@@ -34,10 +35,9 @@
 .profile-page-badge-title {
 	grid-area: middle;
 	margin-left: 10px;
-	margin-bottom: 10px;
 	border-top:solid 1px darkgray;
 	font-family: Open Sans Condensed;
-	font-size: 32px;
+	font-size: 28px;
 	color: darkgrey;
 }
 
@@ -62,8 +62,10 @@
 	grid-area: statistics;
 	display: grid;
 
+	height: 57vh;
+
 	grid-template-columns: 10px auto 34% 58%;
-	grid-template-rows: 52px 50 auto 1px 10px;
+	grid-template-rows: 52px 50px auto 1px 10px;
 
 	grid-template-areas:
 	"marginLeft navicomment navi navi"
@@ -80,7 +82,7 @@
 .profile-page-statistics-navigation {
 	grid-area: navi;
 	font-family: Open Sans Condensed;
-	font-size: 32px;
+	font-size: 28px;
 	color: darkgrey;
 	border-top:solid 1px darkgray;
 }
@@ -88,7 +90,7 @@
 .profile-page-statistics-navigation-title {
 	grid-area: navicomment;
 	font-family: Open Sans Condensed;
-	font-size: 32px;
+	font-size: 28px;
 	color: darkgrey;
 	border-top:solid 1px darkgray;
 }
@@ -116,7 +118,7 @@
 .profile-page-statistics-title1 {
 	grid-area: topactions;
 	font-family: Open Sans Condensed;
-	font-size: 32px;
+	font-size: 28px;
 	color: darkgrey;
 	border-top:solid 1px darkgray;
 }
@@ -124,7 +126,7 @@
 .profile-page-statistics-title2 {
 	grid-area: topr;
 	font-family: Open Sans Condensed;
-	font-size: 32px;
+	font-size: 28px;
 	color: darkgrey;
 	border-top:solid 1px darkgray;
 	width: 100%;
