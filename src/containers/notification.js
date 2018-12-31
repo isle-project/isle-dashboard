@@ -17,7 +17,8 @@ const style = {
 			color: 'black',
 			backgroundColor: 'white',
 			boxShadow: '0 0 4px darkslategray',
-			height: '50vh',
+			height: '400px',
+			width: '400px',
 			borderTop: 'none'
 		}
 	}

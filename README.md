@@ -41,10 +41,10 @@ See [LICENSE][license].
 - Upload Icon by McGalloway, CC BY-SA 4.0
 - Badge by Kristin Hogan from the Noun Project
 - Question by unlimicon from the Noun Project
-- profile by Hea Poh Lin from the Noun Project
 - weights by José Manuel de Laá from the Noun Project
 - chat by nauraicon from the Noun Project
 - feedback by Delwar Hossain from the Noun Project
+- avatar by Hea Poh Lin from the Noun Project
 
 [license]: https://raw.githubusercontent.com/Planeshifter/isle-dashboard/master/LICENSE
 

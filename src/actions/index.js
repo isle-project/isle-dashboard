@@ -191,11 +191,11 @@ export function updateUserPicture( picture ) {
 	};
 }
 
-export function receivedPages( badges ) {
+export function receivedBadges( badges ) {
 	return {
 		type: types.USER_RECEIVED_BADGES,
 		payload: {
 			badges
 		}
-	}
+	};
 }

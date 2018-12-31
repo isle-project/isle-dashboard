@@ -13,7 +13,6 @@ import EditModal from './edit_modal.js';
 import EnterTokenModal from './enter_token_modal.js';
 import ProfilePicModal from './profile_pic_modal.js';
 import Statistics from './statistics.js';
-import badges from './badges.js';
 import badge from './img/question.svg';
 import badgeCircle from './img/badge_circle.svg';
 import './profile-page.css';
@@ -53,7 +52,7 @@ class ProfilePage extends Component {
 		if ( !this.props.user.files ) {
 			this.props.getFiles({ token: this.props.user.token });
 		}
-		this.props.addBadges();
+		this.props.addBadges(this.props.user.token);
 	}
 
 	renderInstructorButton() {
@@ -182,13 +181,14 @@ class ProfilePage extends Component {
 
 	renderBadgesSection() {
 		let list = [];
+		let badges = this.props.user.badges || [];
 		for ( let i = 0; i < 24; i++ ) {
 			let temp = badge;
 			let desc = 'Toggle visibility';
 			let display = 'profile-page-badge-item-interior unknown';
 			let badgeState = 'badge-not-acquired';
 			if ( i < badges.length ) {
-				temp = badges[i].picture;
+				temp = server + '/badges/' + badges[i].picture;
 				desc = badges[i].description;
 				display = 'profile-page-badge-item-interior';
 				if ( badges[i].acquired ) {
