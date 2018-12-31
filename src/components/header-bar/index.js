@@ -373,12 +373,12 @@ class HeaderBar extends Component {
 				</div>
 				<div className="header-bar-right-container">
 					{this.renderHelp()}
-					<div className="header-bar-container">
-						<Image src={profilePic} className="header-bar-icon"></Image>
-						<div key="account" className="header-bar-link-div" >
-							<Link to="/profile" onClick={this.setProfileLocation} className="header-bar-link">{this.props.user.name}</Link>
-						</div>
-					</div>
+					<Link to="/profile" className="header-bar-container">
+						<Image src={profilePic} className="header-bar-icon" />
+						<span key="account" className="header-bar-link-div" >
+							<span onClick={this.setProfileLocation} className="header-bar-link">{this.props.user.name}</span>
+						</span>
+					</Link>
 					<div className="header-bar-container">
 						<div key="logout" className="header-bar-link-div" >
 							<a
