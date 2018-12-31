@@ -98,22 +98,6 @@ class ProfilePage extends Component {
 		});
 	}
 
-	renderStatisticNavigation() {
-		console.log(this.props.user);
-		let courses = this.props.user.enrolledNamespaces;
-		let arr = [];
-		for ( let i = 0; i < courses.length; i++) {
-			const title = courses[i].title;
-			const id = courses[i]._id;
-			arr.push(
-				<Nav.Item key={i}>
-					<Nav.Link eventKey={id} title={title} data-id={i} >{title}</Nav.Link>
-				</Nav.Item>
-			);
-		}
-		return arr;
-	}
-
 	renderFiles() {
 		let files = this.props.user.files;
 		if ( files ) {
@@ -159,12 +143,21 @@ class ProfilePage extends Component {
 	}
 
 	renderStatisticSection() {
+		const courses = this.props.user.enrolledNamespaces;
 		return (
 			<div className="profile-page-statistics">
 				<div className="profile-page-statistics-navigation-title">Courses</div>
 				<div className="profile-page-statistics-navigation">
 				<Nav variant="tabs" activeKey={this.state.selectedNamespaceID} onSelect={this.handleSelect}>
-					{ this.renderStatisticNavigation()}
+					{courses.map( ( course, i ) => {
+						const title = course.title;
+						const id = course._id;
+						return ( <Nav.Item key={i}>
+							<Nav.Link eventKey={id} title={title} data-id={i} >
+								{title}
+							</Nav.Link>
+						</Nav.Item> );
+					})}
 				</Nav>
 				</div>
 				<div className="profile-page-statistics-title1">Files</div>
@@ -173,7 +166,10 @@ class ProfilePage extends Component {
 						{this.renderFiles()}
 				</div>
 				<div className="profile-page-statistics-stats">
-					<Statistics user={this.props.user} selectedNamespace={this.state.selectedNamespace} />
+					<Statistics
+						user={this.props.user}
+						selectedNamespace={this.state.selectedNamespace}
+					/>
 				</div>
 			</div>
 		);
@@ -186,19 +182,16 @@ class ProfilePage extends Component {
 			let desc = 'Toggle visibility';
 			let display = 'profile-page-badge-item-interior unknown';
 			let badgeState = 'badge-not-acquired';
-
-			if (i < badges.length) {
+			if ( i < badges.length ) {
 				temp = badges[i].picture;
 				desc = badges[i].description;
 				display = 'profile-page-badge-item-interior';
-				if (badges[i].acquired) badgeState='badge-acquired';
+				if ( badges[i].acquired ) {
+					badgeState='badge-acquired';
+				}
 			}
-
-
-			var ani = 'scale-up ' + ((i*0.05) + 0.1) + 's';
-
 			list.push(
-				<div style={{ animation: ani }} className="profile-page-badge-item-nova" key={i}>
+				<div style={{ animation: 'scale-up ' + ((i*0.05) + 0.1) + 's' }} className="profile-page-badge-item-nova" key={i}>
 					<OverlayTrigger placement="bottom" overlay={<Tooltip id="description">{ desc }</Tooltip>}>
 						<div className="profile-page-badge-item">
 							<img className="mask" src={badgeCircle} />
@@ -212,7 +205,6 @@ class ProfilePage extends Component {
 		}
 		return list;
 	}
-
 
 	renderUserSection() {
 		const user = this.props.user;
@@ -272,11 +264,8 @@ class ProfilePage extends Component {
 					<div className="profile-page-left">
 						{this.renderUserSection()}
 					</div>
-
 					{this.renderStatisticSection()}
-
 					<div className="profile-page-badge-title">Badges</div>
-
 					<div className="profile-page-badge-container">
 						{this.renderBadgesSection()}
 					</div>
