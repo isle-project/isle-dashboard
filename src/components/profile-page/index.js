@@ -124,7 +124,6 @@ class ProfilePage extends Component {
 
 	renderFiles() {
 		let files = this.props.user.files;
-		console.log(files);
 		if ( files ) {
 			files = files[ this.state.selectedNamespaceID ];
 		}
@@ -223,8 +222,6 @@ class ProfilePage extends Component {
 	}
 
 	renderBadgesSection() {
-		console.log( this.props.user );
-
 		let list = [];
 		let badges = this.props.user.badges || [];
 		for ( let i = 0; i < 24; i++ ) {
