@@ -22,21 +22,6 @@ function mapStateToProps( state ) {
 
 function mapDispatchToProps( dispatch ) {
 	return {
-		getFullCohorts: ({ namespaceID, token }, clbk ) => {
-			request.get( server+'/get_full_cohorts', {
-				qs: {
-					namespaceID
-				},
-				headers: {
-					'Authorization': 'JWT ' + token
-				}
-			}, function onCohorts(err, res, body){
-				if (err) console.log('ERROR ' + err.message);
-				else {
-					console.log(body);
-				}
-			});
-		},
 		getFiles: ({ namespaceName, token }, clbk ) => {
 			request.get( server+'/get_files', {
 				qs: {

@@ -45,7 +45,7 @@ class EditCohortModal extends Component {
 			startDate: moment( props.startDate ),
 			endDate: moment( props.endDate ),
 			title: props.title,
-			members: props.members,
+			members: props.members.map( user => user.email ),
 			showDeleteModal: false
 		};
 	}
