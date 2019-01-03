@@ -29,6 +29,13 @@ class NamespaceData extends Component {
 		};
 	}
 
+	componentDidMount() {
+		this.props.getFullCohorts({
+			namespaceID: this.props.namespace._id,
+			token: this.props.user.token
+		});
+	}
+
 	handleUpload = ( event ) => {
 		debug( 'Uploading file...' );
 		const file = event.target.files[ 0 ];
@@ -133,6 +140,7 @@ class NamespaceData extends Component {
 
 NamespaceData.propTypes = {
 	getFiles: PropTypes.func.isRequired,
+	getFullCohorts: PropTypes.func.isRequired,
 	namespace: PropTypes.object.isRequired,
 	uploadFile: PropTypes.func.isRequired,
 	user: PropTypes.object.isRequired

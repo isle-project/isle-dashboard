@@ -1,9 +1,6 @@
 // MODULES //
 
 import React, { Component, Fragment } from 'react';
-import {
-	ProgressBar
-} from 'react-bootstrap';
 import './cohorts.css';
 
 // MAIN //
@@ -14,7 +11,6 @@ class CohortsPage extends Component {
 	}
 
 	renderMember() {
-		let progress = 55;
 		let name = 'Donald Kiefer Sutherland';
 		let score = 2799;
 		let time = '5:39';
@@ -27,9 +23,6 @@ class CohortsPage extends Component {
 				<div className="cohort-member-values">
 					<span className="cohort-member-score">{ score }</span>
 					<span className="cohort-member-time">{ time }</span>
-				</div>
-				<div className="cohort-member-progress">
-					<ProgressBar style={{ borderRadius: 0, height: 12, fontSize: 10}} variant='success' now={progress} label={progress+'%'} />
 				</div>
 			</div>
 
