@@ -159,7 +159,7 @@ function mapDispatchToProps( dispatch ) {
 				});
 			}
 		},
-		uploadProfilePic: ({ token, formData }) => {
+		uploadProfilePic: ({ token, avatarData, thumbnailData }) => {
 			const xhr = new XMLHttpRequest();
 			xhr.open( 'POST', server+'/upload_profile_pic', true );
 			xhr.setRequestHeader( 'Authorization', 'JWT ' + token );
@@ -186,7 +186,12 @@ function mapDispatchToProps( dispatch ) {
 					}) );
 				}
 			};
-			xhr.send( formData );
+			xhr.send( avatarData );
+
+			const xhr2 = new XMLHttpRequest();
+			xhr2.open( 'POST', server+'/upload_thumbnail_pic', true );
+			xhr2.setRequestHeader( 'Authorization', 'JWT ' + token );
+			xhr2.send( thumbnailData );
 		}
 	};
 }

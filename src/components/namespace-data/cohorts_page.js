@@ -45,7 +45,7 @@ class CohortsPage extends Component {
 		return (
 			<Fragment>
 			<div className="cohort-member" onClick={this.showUser}>
-				<img src={server + '/avatar/'+member.picture} />
+				<img src={server + '/thumbnail/'+member.picture} />
 				<div className="cohort-member-name">{member.name}</div>
 				<div className="cohort-member-values">
 					<span className="cohort-member-score">{member.score}</span>

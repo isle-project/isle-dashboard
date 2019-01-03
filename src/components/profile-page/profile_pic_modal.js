@@ -7,6 +7,17 @@ import PropTypes from 'prop-types';
 import path from 'path';
 
 
+function getResizedCanvas(canvas, newWidth, newHeight) {
+    const tmpCanvas = document.createElement('canvas');
+    tmpCanvas.width = newWidth;
+    tmpCanvas.height = newHeight;
+
+    const ctx = tmpCanvas.getContext('2d');
+    ctx.drawImage(canvas, 0, 0, canvas.width, canvas.height, 0, 0, newWidth, newHeight);
+
+    return tmpCanvas;
+}
+
 // MAIN //
 
 class ProfilePicModal extends Component {
@@ -30,14 +41,22 @@ class ProfilePicModal extends Component {
 
 	handleUpload = () => {
 		if ( this.editor ) {
-			const canvas = this.editor.getImage();
+			const canvas = this.editor.getImageScaledToCanvas();
+
 			canvas.toBlob( img => {
-				const formData = new FormData();
-				const filename = this.props.user.id + this.state.ext;
-				formData.append( 'avatar', img, filename );
-				this.props.uploadProfilePic({
-					token: this.props.user.token,
-					formData: formData
+				const avatarData = new FormData();
+				const thumbnailData = new FormData();
+				const tn = getResizedCanvas(canvas, 80, 80);
+				tn.toBlob( thumbnail => {
+					const filename = this.props.user.id + this.state.ext;
+					const thumbnailName = filename;
+					avatarData.append( 'avatar', img, filename );
+					thumbnailData.append( 'thumbnail', thumbnail, thumbnailName );
+					this.props.uploadProfilePic({
+						token: this.props.user.token,
+						avatarData: avatarData,
+						thumbnailData: thumbnailData
+					});
 				});
 			});
 		}
