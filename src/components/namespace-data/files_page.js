@@ -91,8 +91,8 @@ class FilesPage extends Component {
 		return ( <div className="namespace-data-page">
 			<FormGroup style={{
 				position: 'absolute',
-				top: '0.8%',
-				right: '1%',
+				top: '4px',
+				right: '32px',
 				display: 'inline-block'
 			}}>
 					<FormLabel htmlFor="fileUpload" style={{ cursor: 'pointer' }}>
