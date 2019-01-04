@@ -89,7 +89,12 @@ const FILE_COLUMNS = [
 class FilesPage extends Component {
 	render() {
 		return ( <div className="namespace-data-page">
-			<FormGroup style={{ display: 'inline-block', marginBottom: '0px' }}>
+			<FormGroup style={{
+				position: 'absolute',
+				top: '0.8%',
+				right: '1%',
+				display: 'inline-block'
+			}}>
 					<FormLabel htmlFor="fileUpload" style={{ cursor: 'pointer' }}>
 						<h3><Badge variant="success">Upload file</Badge></h3>
 						<FormControl
