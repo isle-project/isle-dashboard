@@ -66,22 +66,22 @@ function mapDispatchToProps( dispatch ) {
 		addNotification: ({ message, level }) => {
 			dispatch( actions.addNotification({ message, level }) );
 		},
-		addBadges: (userToken) => {
+		addBadges: ( userToken ) => {
 			request.get( server+'/get_user_badges', {
 				headers: {
 					'Authorization': 'JWT ' + userToken
 				}
-			}, function getBadges(error, response, body) {
+			}, function getBadges( error, response, body ) {
 				if ( error ) {
 					return error;
 				}
 				body = JSON.parse( body );
-				dispatch(actions.receivedBadges(body.badges) );
-				if (body.addedBadges.length > 0) {
-					for (var i = 0; i < body.badges.length; i++) {
-						var item = body.badges[i];
-						if ( contains(body.addedBadges, item.name)) {
-							dispatch( actions.addNotification(createBadgeNotification(item) ) );
+				dispatch(actions.receivedUserBadges(body.badges) );
+				if ( body.addedBadges.length > 0 ) {
+					for ( let i = 0; i < body.badges.length; i++ ) {
+						const item = body.badges[i];
+						if ( contains( body.addedBadges, item.name ) ) {
+							dispatch( actions.addNotification( createBadgeNotification( item ) ) );
 						}
 					}
 				}

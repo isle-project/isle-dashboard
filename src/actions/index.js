@@ -191,9 +191,18 @@ export function updateUserPicture( picture ) {
 	};
 }
 
-export function receivedBadges( badges ) {
+export function receivedUserBadges( badges ) {
 	return {
 		type: types.USER_RECEIVED_BADGES,
+		payload: {
+			badges
+		}
+	};
+}
+
+export function retrievedBadges( badges ) {
+	return {
+		type: types.RETRIEVED_BADGES,
 		payload: {
 			badges
 		}

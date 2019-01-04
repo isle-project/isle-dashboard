@@ -2,6 +2,7 @@
 
 import { combineReducers } from 'redux';
 import { routerReducer as routing } from 'react-router-redux';
+import badges from './badges';
 import namespace from './namespace';
 import notification from './notification';
 import gallery from './gallery';
@@ -12,6 +13,7 @@ import user from './user';
 // MAIN //
 
 const rootReducer = combineReducers({
+	badges,
 	gallery,
 	namespace,
 	notification,

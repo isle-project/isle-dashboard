@@ -15,6 +15,7 @@ const VisibleNamespaceData = connect( mapStateToProps, mapDispatchToProps )( Nam
 
 function mapStateToProps( state ) {
 	return {
+		badges: state.badges,
 		user: state.user,
 		namespace: state.namespace
 	};
@@ -22,6 +23,18 @@ function mapStateToProps( state ) {
 
 function mapDispatchToProps( dispatch ) {
 	return {
+		getBadges: () => {
+			request.get( server+'/get_available_badges', function onBadges( err, res, body ) {
+				if ( err ) {
+					return dispatch( actions.addNotification({
+						message: err.message,
+						level: 'error'
+					}) );
+				}
+				body = JSON.parse( body );
+				dispatch( actions.retrievedBadges( body ) );
+			});
+		},
 		getFiles: ({ namespaceName, token }, clbk ) => {
 			request.get( server+'/get_files', {
 				qs: {

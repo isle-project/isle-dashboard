@@ -29,6 +29,10 @@ class NamespaceData extends Component {
 		};
 	}
 
+	componentDidMount() {
+		this.props.getBadges();
+	}
+
 	handleUpload = ( event ) => {
 		debug( 'Uploading file...' );
 		const file = event.target.files[ 0 ];
@@ -78,7 +82,7 @@ class NamespaceData extends Component {
 			case 2:
 				return <ProgressPage cohorts={this.props.namespace.cohorts} lessons={this.props.namespace.lessons} />;
 			case 3:
-				return <CohortsPage badges={this.props.user.badges} cohorts={this.props.namespace.cohorts} lessons={this.props.namespace.lessons} />;
+				return <CohortsPage badges={this.props.badges} cohorts={this.props.namespace.cohorts} lessons={this.props.namespace.lessons} />;
 			case 4:
 				return <FilesPage files={this.state.files} handleUpload={this.handleUpload} />;
 			case 5:
@@ -126,6 +130,8 @@ class NamespaceData extends Component {
 // PROPERTIES //
 
 NamespaceData.propTypes = {
+	badges: PropTypes.array.isRequired,
+	getBadges: PropTypes.func.isRequired,
 	getFiles: PropTypes.func.isRequired,
 	namespace: PropTypes.object.isRequired,
 	uploadFile: PropTypes.func.isRequired,
