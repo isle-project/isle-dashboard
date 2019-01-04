@@ -2,11 +2,12 @@
 
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
-import { ProgressBar } from 'react-bootstrap';
+import { ProgressBar, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import round from '@stdlib/math/base/special/round';
 import Select from 'react-select';
 import server from 'constants/server';
 import formatTime from 'utils/format_time.js';
+import contains from '@stdlib/assert/contains';
 import './cohorts.css';
 
 
@@ -15,8 +16,6 @@ import './cohorts.css';
 class CohortsPage extends Component {
 	constructor( props ) {
 		super( props );
-
-		this.totalTime = 0;
 
 		this.state = {
 			cohortOptions: props.cohorts.map( cohort => {
@@ -76,19 +75,20 @@ class CohortsPage extends Component {
 
 	renderMemberLessons(member) {
 		let lessons = this.props.lessons;
-		let progress = 30;
+		let progress = 0;
 		let spentTime = 0;
 		let list = [];
 		let totalTime = 0;
+
 		for (var i = 0; i < lessons.length; i++) {
 			let id = lessons[i]._id;
-			if (member.lessonData[id]) {
+
+			if (member.lessonData && member.lessonData[id]) {
 				progress = round(member.lessonData[id].progress * 100);
 				spentTime = formatTime(member.lessonData[id].spentTime);
 				totalTime += member.lessonData[id].spentTime;
 			}
 
-			this.totalTime = formatTime(totalTime);
 
 			list.push(
 				<Fragment>
@@ -100,8 +100,18 @@ class CohortsPage extends Component {
 			);
 		}
 
+		console.log(totalTime);
+		totalTime = formatTime(totalTime);
+
 		return (
-			list
+			<Fragment>
+			<hr />
+			<div className="cohort-actual-member-lesson-header">COURSE INFO</div>
+			<div className="cohort-actual-member-lesson-total">COURSE TOTAL TIME: {totalTime}</div>
+			<div className="lessons-area">
+				{ list }
+			</div>
+			</Fragment>
 		);
 	}
 
@@ -112,10 +122,49 @@ class CohortsPage extends Component {
 	}
 
 	renderMemberBadges(member) {
-		// var list = [];
+		let badges = this.props.badges;
+		console.log( member );
+		console.log( badges );
+
+		let time = formatTime(member.spentTime);
+		let list = [];
+
+		for (let i = 0; i < badges.length; i++) {
+			if (contains(member.badges, badges[i].name) ) {
+				console.log('ist enthalten');
+
+				list.push(
+				<Fragment>
+					<OverlayTrigger placement="bottom" overlay={<Tooltip id="isleTime">{ badges[i].description }</Tooltip>}>
+					<div className="cohort-user-badge" >
+						<img src={server + '/badges/' + badges[i].picture} />
+					</div>
+					</OverlayTrigger>
+				</Fragment>
+
+				);
+			}
+		}
+
+		let isleTime = 'the time the user spent with ISLE';
+		let scoreComment = 'user score';
 
 		return (
-			<div>Hier die Badges</div>
+			<Fragment>
+				<div>General User Info</div>
+				<OverlayTrigger placement="bottom" overlay={<Tooltip id="isleTime">{ isleTime }</Tooltip>}>
+					<span className="user-info-time">ISLE TIME: {time}</span>
+				</OverlayTrigger>
+				<OverlayTrigger placement="bottom" overlay={<Tooltip id="isleTime">{ scoreComment }</Tooltip>}>
+					<span className="user-info-score">SCORE: {member.score}</span>
+				</OverlayTrigger>
+				<div></div>
+
+				<div className="user-info-badges">
+					<div className="user-info-seperator">Badges</div>
+					{list}
+				</div>
+			</Fragment>
 		);
 	}
 
@@ -139,7 +188,6 @@ class CohortsPage extends Component {
 				<div className="cohort-actual-member-info">
 					{ this.renderMemberLessons(member)}
 				</div>
-				<div className="cohort-actual-member-total-time">TOTAL TIME: {this.totalTime}</div>
 				<div className="cohort-actual-member-badges">
 					{ this.renderMemberBadges(member) }
 				</div>
@@ -171,7 +219,9 @@ class CohortsPage extends Component {
 // PROPERTIES //
 
 CohortsPage.propTypes = {
+	badges: PropTypes.array.isRequired,
 	cohorts: PropTypes.array.isRequired
+
 };
 
 CohortsPage.defaultProps = {
