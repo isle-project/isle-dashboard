@@ -17,12 +17,19 @@ class CohortsPage extends Component {
 	constructor( props ) {
 		super( props );
 
+		const cohortOptions = props.cohorts.map( cohort => {
+			return { label: cohort.title, value: cohort };
+		});
+
+		let displayedMembers = [];
+		for (var i = 0; i < props.cohorts.length; i++) {
+			displayedMembers = displayedMembers.concat( props.cohorts[i].members);
+		}
+
 		this.state = {
-			cohortOptions: props.cohorts.map( cohort => {
-				return { label: cohort.title, value: cohort };
-			}),
-			selectedCohorts: null,
-			displayedMembers: [],
+			cohortOptions: cohortOptions,
+			selectedCohorts: cohortOptions,
+			displayedMembers: displayedMembers,
 			actualMember: null
 		};
 	}
@@ -198,14 +205,17 @@ class CohortsPage extends Component {
 	render() {
 		return (
 			<div className="namespace-data-page">
-				<div style={{ width: '300px', height: '40px' }}>
-					<Select
-						isMulti
-						name="cohorts"
-						options={this.state.cohortOptions}
-						onChange={this.handleCohortChange}
-					/>
-				</div>
+				<OverlayTrigger placement="right" overlay={<Tooltip id="select">Select user cohorts</Tooltip>}>
+					<div style={{ width: '400px', height: '40px' }}>
+						<Select
+							value={this.state.selectedCohorts}
+							isMulti
+							name="cohorts"
+							options={this.state.cohortOptions}
+							onChange={this.handleCohortChange}
+						/>
+					</div>
+				</OverlayTrigger>
 				<div className="cohort-page">
 					{ this.renderCohort() }
 				</div>

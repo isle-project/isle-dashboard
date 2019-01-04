@@ -42,21 +42,26 @@ function createColumns( lessons ) {
 			maxWidth: 46,
 			minWidth: 46,
 			filterable: false,
-			resizable: false
+			resizable: false,
+			style: { color: 'darkslategrey' }
 		},
 		{
 			Header: 'Name',
 			accessor: 'name',
-			maxWidth: 150
+			maxWidth: 150,
+			style: { marginTop: '8px', color: 'darkslategrey' }
+
 		},
 		{
 			Header: 'email',
 			accessor: 'email',
-			maxWidth: 200
+			maxWidth: 200,
+			style: { marginTop: '8px', color: 'darkslategrey' }
 		},
 		{
 			Header: 'Cohort',
-			accessor: 'cohort'
+			accessor: 'cohort',
+			style: { marginTop: '8px', color: 'darkslategrey' }
 		}
 	];
 	for ( let i = 0; i < lessons.length; i++ ) {
