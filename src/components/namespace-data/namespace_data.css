@@ -5,7 +5,7 @@
 }
 
 .namespace-data-navbar {
-	box-shadow: 2px 2px 2px 2px darkgrey;
+	box-shadow: 0 0 4px darkgray, 0 0 2px darkslategray;
 	padding-left: 6px;
 	padding-right: 6px;
 	margin: 8px;
@@ -16,7 +16,14 @@
 }
 
 .namespace-data-page-container {
-	box-shadow: 2px 2px 2px 2px darkgrey;
+	box-shadow: 0 0 2px darkslategray;
 	padding: 1.25rem;
 	margin: 8px;
+	background-image:url(https://isle.heinz.cmu.edu/white_carbonfiber_1543854970404.png);
+	height: calc(100vh - 125px);
+}
+
+.namespace-data-page .rt-td {
+	font-weight: 800;
+	padding-top: 7px;
 }

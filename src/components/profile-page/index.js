@@ -224,6 +224,7 @@ class ProfilePage extends Component {
 	renderBadgesSection() {
 		let list = [];
 		let badges = this.props.user.badges || [];
+
 		for ( let i = 0; i < 24; i++ ) {
 			let temp = badge;
 			let desc = 'Toggle visibility';
