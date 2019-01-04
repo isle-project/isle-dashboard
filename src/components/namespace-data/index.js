@@ -80,7 +80,7 @@ class NamespaceData extends Component {
 			case 1:
 				return <RecentActivityPage />;
 			case 2:
-				return <ProgressPage cohorts={this.props.namespace.cohorts} lessons={this.props.namespace.lessons} />;
+				return <ProgressPage addNotification={this.props.addNotification} namespace={this.props.namespace} cohorts={this.props.namespace.cohorts} lessons={this.props.namespace.lessons} />;
 			case 3:
 				return <CohortsPage badges={this.props.badges} cohorts={this.props.namespace.cohorts} lessons={this.props.namespace.lessons} />;
 			case 4:
@@ -130,6 +130,7 @@ class NamespaceData extends Component {
 // PROPERTIES //
 
 NamespaceData.propTypes = {
+	addNotification: PropTypes.func.isRequired,
 	badges: PropTypes.array.isRequired,
 	getBadges: PropTypes.func.isRequired,
 	getFiles: PropTypes.func.isRequired,
