@@ -60,6 +60,7 @@
     "babel-plugin-named-asset-import": "^0.3.0",
     "babel-plugin-transform-react-jsx": "^6.24.1",
     "clipboard-copy": "^2.0.1",
+    "csv-stringify": "^5.1.2",
     "debug": "^4.0.1",
     "history": "^4.6.1",
     "lodash.debounce": "^4.0.8",
