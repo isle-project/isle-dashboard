@@ -2,11 +2,11 @@
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Alert, Card, Nav } from 'react-bootstrap';
+import { Alert, Nav } from 'react-bootstrap';
 import logger from 'debug';
 import FilesPage from './files_page.js';
 import RecentActivityPage from './recent_activity_page.js';
-import StatisticsPage from './statistics_page.js';
+import ProgressPage from './progress_page.js';
 import CohortsPage from './cohorts_page.js';
 import ActionsPage from './actions_page.js';
 import './namespace_data.css';
@@ -71,18 +71,12 @@ class NamespaceData extends Component {
 		}
 	}
 
-	renderStatisticsPage() {
-		return ( <Card className="namespace-data-page">
-			<h1>Statistics</h1>
-		</Card> );
-	}
-
 	renderPage() {
 		switch ( this.state.activePage ) {
 			case 1:
 				return <RecentActivityPage />;
 			case 2:
-				return <StatisticsPage />;
+				return <ProgressPage cohorts={this.props.namespace.cohorts} lessons={this.props.namespace.lessons} />;
 			case 3:
 				return <CohortsPage cohorts={this.props.namespace.cohorts} />;
 			case 4:
@@ -107,7 +101,7 @@ class NamespaceData extends Component {
 							<Nav.Link eventKey="1" title="Recent Activity" >Recent Activity</Nav.Link>
 						</Nav.Item>
 						<Nav.Item>
-							<Nav.Link eventKey="2" title="Statistics" >Statistics</Nav.Link>
+							<Nav.Link eventKey="2" title="Progress" >Progress</Nav.Link>
 						</Nav.Item>
 						<Nav.Item>
 							<Nav.Link eventKey="3" title="Cohorts" >Cohorts</Nav.Link>
