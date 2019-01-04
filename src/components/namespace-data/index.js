@@ -86,7 +86,7 @@ class NamespaceData extends Component {
 			case 4:
 				return <FilesPage files={this.state.files} handleUpload={this.handleUpload} />;
 			case 5:
-				return <ActionsPage />;
+				return <ActionsPage namespace={this.props.namespace} getNamespaceActions={this.props.getNamespaceActions} user={this.props.user} />;
 		}
 	}
 
@@ -134,6 +134,7 @@ NamespaceData.propTypes = {
 	badges: PropTypes.array.isRequired,
 	getBadges: PropTypes.func.isRequired,
 	getFiles: PropTypes.func.isRequired,
+	getNamespaceActions: PropTypes.func.isRequired,
 	namespace: PropTypes.object.isRequired,
 	uploadFile: PropTypes.func.isRequired,
 	user: PropTypes.object.isRequired
