@@ -69,15 +69,16 @@ function saveFactory( view ) {
 		return;
 	}
 	var doc = view.document;
-	// only get URL when necessary in case Blob.js hasn't overridden it yet
+
+	// Only get URL when necessary in case Blob.js hasn't overridden it yet:
 	function getURL() {
 		return view.URL || view.webkitURL || view;
 	}
 	function revoke( file ) {
 		function revoker() {
-			if ( typeof file === 'string' ) { // file is an object URL
+			if ( typeof file === 'string' ) { // File is an object URL...
 				getURL().revokeObjectURL(file);
-			} else { // file is a File
+			} else { // File is a File...
 				file.remove();
 			}
 		}
@@ -114,7 +115,7 @@ function saveFactory( view ) {
 					if ( !popup ) {
 						view.location.href = url;
 					}
-					url = void 0; // release reference before dispatching
+					url = void 0; // Release reference before dispatching...
 					self.readyState = self.DONE;
 					dispatchAll();
 				};
