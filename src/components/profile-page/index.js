@@ -11,7 +11,7 @@ import server from 'constants/server';
 import EditModal from './edit_modal.js';
 import EnterTokenModal from './enter_token_modal.js';
 import ProfilePicModal from './profile_pic_modal.js';
-import Statistics from './statistics.js';
+import TimeSpent from './time_spent.js';
 import ActionTypesDisplay from './action_types_display.js';
 import hoodie from './img/hoodie.jpg';
 import badge from './img/question.svg';
@@ -46,7 +46,8 @@ class ProfilePage extends Component {
 			showProfilePicModal: false,
 			selectedNamespace: null,
 			selectedNamespaceID: null,
-			selectedDataType: null
+			selectedDataType: null,
+			selectedStatsType: null
 
 		};
 	}
@@ -99,6 +100,29 @@ class ProfilePage extends Component {
 				this.props.getLessons( namespaceName );
 			}
 		});
+	}
+
+	handleStatsSelect = ( newValue, event ) => {
+		this.setState({
+			selectedStatsType: newValue
+		});
+	}
+
+	renderRightPanel() {
+		if (this.state.selectedStatsType === 'progress') {
+			return (
+				<div>This should be a progress statistics</div>
+			);
+		}
+
+		if (this.state.selectedStatsType === 'timeSpent') {
+			return (
+				<TimeSpent
+					user={this.props.user}
+					selectedNamespace={this.state.selectedNamespace}
+				/>
+			);
+		}
 	}
 
 
@@ -168,7 +192,7 @@ class ProfilePage extends Component {
 
 	renderStatisticDataToolbar() {
 		return (
-		<Nav variant="tabs" activeKey={this.state.selectedData} onSelect={this.handleDataSelect}>
+		<Nav variant="tabs" activeKey={this.state.selectedDataType} onSelect={this.handleDataSelect}>
 		<Nav.Item >
 			<Nav.Link eventKey="files" title="Files">
 				Files
@@ -180,6 +204,23 @@ class ProfilePage extends Component {
 			</Nav.Link>
 		</Nav.Item>
 		</Nav>
+		);
+	}
+
+	renderStatisticStatsToolbar() {
+		return (
+			<Nav variant="tabs" activeKey={this.state.selectedStatsType} onSelect={this.handleStatsSelect}>
+			<Nav.Item >
+				<Nav.Link eventKey="timeSpent" title="timeSpent">
+					Time spent
+				</Nav.Link>
+			</Nav.Item>
+			<Nav.Item >
+				<Nav.Link eventKey="progress" title="progress">
+					Progress
+				</Nav.Link>
+			</Nav.Item>
+			</Nav>
 		);
 	}
 
@@ -211,11 +252,11 @@ class ProfilePage extends Component {
 				<div className="profile-page-statistics-actions">
 					{this.renderLeftPanel()}
 				</div>
+				<div className="profile-page-statistics-select">
+					{ this.state.selectedNamespaceID ? this.renderStatisticStatsToolbar() : null }
+				</div>
 				<div className="profile-page-statistics-stats">
-					<Statistics
-						user={this.props.user}
-						selectedNamespace={this.state.selectedNamespace}
-					/>
+					{this.renderRightPanel()}
 				</div>
 			</div>
 		);

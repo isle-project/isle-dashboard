@@ -63,15 +63,17 @@
 	display: grid;
 	height: 100%;
 
-	grid-template-columns: 40px 60px auto 34% 58%;
+	grid-template-columns: 40px 60px auto 34% 8% 50%;
 	grid-template-rows: 52px 38px auto 10px;
 
 	grid-template-areas:
-	"marginLeft navicomment navicomment navi navi"
-	"marginLeft dataselect dataselect topactions topr"
-	"marginLeft actions actions actions statistics"
-	"marginLeft bottom bottom bottom bottom"
+	"marginLeft navicomment navicomment navi navi navi"
+	"marginLeft dataselect dataselect topactions topr statselect"
+	"marginLeft actions actions actions statistics statistics"
+	"marginLeft bottom bottom bottom bottom bottom"
 }
+
+
 
 
 /* END OF THE WHOLE PROFILE PAGE */
@@ -82,8 +84,6 @@
 	color: darkgrey;
 	border-top:solid 1px darkgray;
 }
-
-
 
 /* BEGINNING OF THE STATISTICS SECTION */
 .profile-page-statistics-navigation {
@@ -102,6 +102,49 @@
 	color: darkgrey;
 	border-top:solid 1px darkgray;
 }
+
+
+/* END OF THE WHOLE PROFILE PAGE */
+
+/* BEGINNING OF THE INNER STAT SELECTION */
+.profile-page-statistics-select {
+	grid-area: statselect;
+	font-family: Open Sans Condensed;
+	font-size: 28px;
+	color: darkgrey;
+	border-top:solid 1px darkgray;
+}
+
+
+/* for the inner section */
+.profile-page-statistics-select	 .nav-item  {
+	font-size: 12px;
+	font-weight: 700;
+	color: var(--primary);
+	padding-top: 0;
+}
+
+.profile-page-statistics-select	 .nav-link  {
+	color: var(--primaryhalf);
+	padding-left: 5px;
+	padding: 3px;
+}
+
+.profile-page-statistics-select .nav-link:hover  {
+	color: var(--primary);
+}
+
+.profile-page-statistics-select .nav-link:active {
+	color: var(--primaryhalf);
+}
+
+
+.profile-page-statistics-select .nav-item {
+	font-size: 22px;
+}
+
+/****************************************/
+
 
 
 .profile-page-statistics-navigation .nav-item  {
@@ -156,7 +199,6 @@
 .profile-page-statistics-top-actions .nav-link:active {
 	color: var(--primaryhalf);
 }
-
 
 
 .profile-page-statistics-top-actions .nav-item {
