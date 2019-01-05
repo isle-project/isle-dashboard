@@ -1,0 +1,134 @@
+.actions-page {
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+    background: white;
+    box-shadow: 0 0 2px darkslategray, 0 0 10px darkgray;
+    display: grid;
+    overflow-y: auto;
+
+   grid-template-columns: 100%;
+   grid-template-rows: 80px 40px auto;
+   grid-template-areas:
+   "actionsExport"
+   "actionsCohorts"
+   "actionsLessons"
+}
+
+
+.actions-page-export {
+    grid-area: actionsExport;
+    width: 100%;
+    height: 100%;
+  }
+
+
+  .actions-page-export-title {
+    width: 250px;
+    float: left;
+    font-size: 32px;
+    font-family: Open Sans Condensed;
+    font-weight: 700;
+    padding-left: 10px;
+  }
+
+
+.actions-page-cohorts {
+  grid-area: actionsCohorts;
+}
+
+.actions-page-lessons {
+    grid-area: actionsLessons;
+}
+
+
+.actions-page-lesson {
+    float: left;
+    width: 18.8%;
+    min-width: 300px;
+    height: 200px;
+    background: gainsboro;
+    color: darkgray;
+    margin-left: 1%;
+    margin-top: 20px;
+    box-shadow: 0 0 4px darkslategray;
+    cursor: pointer;
+    transition: all .5s;
+}
+
+.actions-page-lesson:hover {
+    transform: scale(1.03);
+    color: darkslategrey;
+    background: darkgray;
+}
+
+
+.actions-page-lesson-title {
+    text-align: center;
+    font-family: Open Sans Condensed;
+    font-weight: 700;
+    font-size: 32px;
+}
+
+
+/****************** BEGINNING LESSON ACTIONS PAGE SECTION *************************/
+
+.actions-page-lesson-action-page {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0px;
+    background: white;
+    border-left: solid 1px gray;
+    z-index: 100;
+    display: grid;
+
+    grid-template-columns: 140px auto 32px 32px;
+    grid-template-rows: 32px 48px auto;
+    grid-template-areas:
+    "lessonActionTitle lessonActionHeader lessonActionResize lessonActionExit"
+    "lessonActionPageTitle lessonActionFilter lessonActionFilter lessonActionFilter"
+    "left lessonActionsStats lessonActionsStats lessonActionsStats"
+}
+
+.lesson-action-page-resize {
+    grid-area: lessonActionResize;
+    font-weight: 800;
+    font-size: 24px;
+    cursor: pointer;
+    opacity: 0.3;
+}
+
+.lesson-action-page-resize:hover {
+    opacity: 1;
+}
+
+.lesson-action-page-exit {
+    grid-area: lessonActionExit;
+    font-weight: 800;
+    margin-top: 4px;
+    font-size: 20px;
+    cursor: pointer;
+    opacity: 0.3;
+}
+
+.lesson-action-page-exit:hover {
+    opacity: 1;
+}
+
+.lesson-action-page-title {
+    grid-area: lessonActionPageTitle;
+    font-family: Open Sans Condensed;
+    font-weight: 800;
+    font-size: 24px;
+    padding-left:12px;
+    border-bottom: solid 1px darkgray;
+}
+
+
+.lesson-action-page-filter {
+ grid-area: lessonActionFilter;
+ border-bottom: solid 1px darkgray;
+}
+/****************** END LESSON ACTIONS PAGE SECTION *************************/
