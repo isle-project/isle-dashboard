@@ -95,7 +95,7 @@
     "start": "node scripts/start.js",
     "build": "node --max_old_space_size=4096 scripts/build.js",
     "clean": "rm -rf ./node_modules",
-    "lint": "eslint src/**/*.js test/**/*.js",
+    "lint": "eslint src test",
     "test": "jest",
     "coverage": "jest && codecov"
   },
