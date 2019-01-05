@@ -172,8 +172,8 @@ CreateCohortModal.propTypes = {
 };
 
 CreateCohortModal.defaultProps = {
-	close(){},
-	onCreate(){},
+	close() {},
+	onCreate() {},
 	show: false
 };
 

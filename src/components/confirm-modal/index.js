@@ -34,9 +34,9 @@ ConfirmModal.propTypes = {
 };
 
 ConfirmModal.defaultProps = {
-	close(){},
+	close() {},
 	message: '',
-	onDelete(){},
+	onDelete() {},
 	show: false,
 	title: ''
 };

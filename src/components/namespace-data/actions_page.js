@@ -19,7 +19,7 @@ class ActionsPage extends Component {
 		});
 
 		let displayedMembers = [];
-		for (var i = 0; i < props.cohorts.length; i++) {
+		for ( let i = 0; i < props.cohorts.length; i++ ) {
 			displayedMembers = displayedMembers.concat( props.cohorts[i].members);
 		}
 
@@ -124,7 +124,7 @@ class ActionsPage extends Component {
 		let lessons = this.props.namespace.lessons;
 		let list = [];
 
-		for (var i = 0; i < lessons.length; i++) {
+		for ( let i = 0; i < lessons.length; i++ ) {
 			list.push(
 				this.renderLesson(lessons[i], i)
 			);

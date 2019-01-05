@@ -22,7 +22,7 @@ class CohortsPage extends Component {
 		});
 
 		let displayedMembers = [];
-		for (var i = 0; i < props.cohorts.length; i++) {
+		for ( let i = 0; i < props.cohorts.length; i++ ) {
 			displayedMembers = displayedMembers.concat( props.cohorts[i].members);
 		}
 
@@ -57,16 +57,18 @@ class CohortsPage extends Component {
 
 
 	renderMember( member, key ) {
-		// let mailto = "mailto:" + member.email;
-
 		return (
 			<Fragment key={key}>
-			<div className="cohort-member">
-				<div className="cohort-member-name">{member.name}</div>
-				<img onClick={()=>this.showUser(member)} src={server + '/thumbnail/'+member.picture} />
-				<div className="cohort-member-email"><a href={'mailto:' + member.email}>{member.email}</a></div>
-			</div>
-
+				<div className="cohort-member">
+					<div className="cohort-member-name">{member.name}</div>
+						<img
+							onClick={() => this.showUser( member )}
+							src={server + '/thumbnail/'+member.picture}
+						/>
+						<div className="cohort-member-email">
+							<a href={'mailto:' + member.email}>{member.email}</a>
+						</div>
+				</div>
 			</Fragment>
 		);
 	}
@@ -87,7 +89,7 @@ class CohortsPage extends Component {
 		let list = [];
 		let totalTime = 0;
 
-		for (var i = 0; i < lessons.length; i++) {
+		for ( let i = 0; i < lessons.length; i++) {
 			let id = lessons[i]._id;
 
 			if (member.lessonData && member.lessonData[id]) {

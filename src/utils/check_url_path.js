@@ -1,6 +1,6 @@
 // VARIABLES //
 
-var REGEXP_CHARS = /[‘“!#$%&+^<=>{}()[\]`]/;
+const REGEXP_CHARS = /[‘“!#$%&+^<=>{}()[\]`]/;
 
 
 // EXPORTS //

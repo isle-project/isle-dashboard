@@ -100,7 +100,7 @@ class EditNamespace extends Component {
 	}
 
 	handleUpdate = () => {
-		var msg = this.validateInputs();
+		const msg = this.validateInputs();
 		if ( msg === 'success' ) {
 			this.props.updateCurrentNamespace({
 				_id: this.props.namespace._id,

@@ -34,7 +34,7 @@ MsgModal.propTypes = {
 };
 
 MsgModal.defaultProps = {
-	close(){},
+	close() {},
 	message: '',
 	show: false,
 	title: ''
