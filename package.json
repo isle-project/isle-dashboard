@@ -46,6 +46,7 @@
     "postcss-safe-parser": "^4.0.1",
     "react-dev-utils": "7.0.0",
     "style-loader": "0.23.1",
+    "stylelint": "^9.9.0",
     "terser-webpack-plugin": "^1.2.1",
     "url-loader": "1.1.2",
     "webpack": "4.28.3",
@@ -95,7 +96,7 @@
     "start": "node scripts/start.js",
     "build": "node --max_old_space_size=4096 scripts/build.js",
     "clean": "rm -rf ./node_modules",
-    "lint": "eslint src test",
+    "lint": "eslint src test && stylelint \"src/**/*.css\"",
     "test": "jest",
     "coverage": "jest && codecov"
   },
