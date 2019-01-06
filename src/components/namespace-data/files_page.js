@@ -92,7 +92,7 @@ class FilesPage extends Component {
 			<FormGroup style={{
 				position: 'absolute',
 				top: '4px',
-				right: '32px',
+				right: '16px',
 				display: 'inline-block'
 			}}>
 					<FormLabel htmlFor="fileUpload" style={{ cursor: 'pointer' }}>
