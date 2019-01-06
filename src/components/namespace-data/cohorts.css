@@ -83,8 +83,8 @@
 
 .cohort-actual-member {
 	position: fixed;
-	width: 30vw;
-	min-width: 360px;
+	width: 33vw;
+	min-width: 400px;
 	height: calc(100% - 52px);
 	right: 0;
 	top: 52px;
@@ -99,7 +99,7 @@
 	animation: scale-up .4s;
 	overflow-y: hidden;
 
-	grid-template-columns: 8px 200px 8px auto 24px;
+	grid-template-columns: 8px 190px 8px auto 24px;
 	grid-template-rows: 10px 200px 80px auto;
 
 	grid-template-areas:
@@ -111,16 +111,16 @@
 
 .cohort-actual-member-portrait {
 	grid-area: portrait;
-	margin-top: 10px;
-	margin-left: 10px;
+	margin-top: 5px;
+	margin-left: 5px;
 	width: 180px;
 	height: 180px;
 }
 
 .cohort-actual-member-portrait-shadow {
 	grid-area: portrait;
-	margin-top: 10px;
-	margin-left: 10px;
+	margin-top: 5px;
+	margin-left: 5px;
 	width: 180px;
 	height: 180px;
 	box-shadow: inset 0 0 5px black;
