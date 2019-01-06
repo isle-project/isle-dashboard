@@ -268,7 +268,7 @@ class ProfilePage extends Component {
 
 		for ( let i = 0; i < 24; i++ ) {
 			let temp = badge;
-			let desc = 'Toggle visibility';
+			let desc = 'Hidden Badge';
 			let display = 'profile-page-badge-item-interior unknown';
 			let badgeState = 'badge-not-acquired';
 			if ( i < badges.length ) {
