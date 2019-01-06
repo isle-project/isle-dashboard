@@ -225,7 +225,7 @@
 }
 
 .cohort-actual-member-badges .user-info-badges {
-	margin-top: 25px;
+	margin-top: 8px;
 	grid-area: userInfoBadges;
 	height: 100%;
 }
