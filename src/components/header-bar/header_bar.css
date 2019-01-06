@@ -10,7 +10,6 @@
 
 .header-bar-title {
 	float: left;
-	font-size: 22px;
 	margin-top: 5px;
 	position: relative;
 	margin-left: 10px;
@@ -59,10 +58,6 @@
 .header-bar-link {
 	color: silver;
 	text-decoration: none;
-}
-
-.header-bar-link:hover {
-	color: white;
 }
 
 .header-bar-link:hover {

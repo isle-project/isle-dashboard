@@ -6,9 +6,7 @@
 	box-shadow: 0 0 2px darkslategray, 0 0 10px darkgray;
 	display: grid;
 	overflow-y: auto;
-
 	animation: slide-in-bck-center 1.3s;
-
 	grid-template-columns: 100%;
 	grid-template-rows: 80px 40px auto;
 	grid-template-areas:
@@ -51,7 +49,7 @@
 	margin-top: 20px;
 	box-shadow: 0 0 4px darkslategray;
 	cursor: pointer;
-	transition: all .5s;
+	transition: all 0.5s;
 }
 
 .actions-page-lesson:hover {
@@ -79,9 +77,7 @@
 	border-left: solid 1px gray;
 	z-index: 100;
 	display: grid;
-
-	animation: slide-in-top .7s;
-
+	animation: slide-in-top 0.7s;
 	grid-template-columns: 140px auto 32px 32px;
 	grid-template-rows: 32px 48px auto;
 	grid-template-areas:

@@ -5,7 +5,7 @@
 
 .progress-table {
 	font-family: Open Sans Condensed;
-	animation: slide-in-left .7s;
+	animation: slide-in-left 0.7s;
 }
 
 .progress-button-group {

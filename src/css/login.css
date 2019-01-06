@@ -1,4 +1,4 @@
-.login:before {
+.login::before {
 	content: "";
 	position: fixed;
 	top: 0;
@@ -6,7 +6,6 @@
 	right: 0;
 	bottom: 0;
 	z-index: -1;
-
 	display: block;
 	background-image: url('../img/aerial.jpg');
 	background-size: 100% 100%;
@@ -30,7 +29,7 @@
 	}
 
 	100% {
-		-webkit-filter: grayscale(0%) blur(0px);
+		-webkit-filter: grayscale(0%) blur(0);
 		-webkit-transform: scale(2) rotate(-6deg);
 		opacity: 1;
 	}
@@ -43,12 +42,12 @@
 */
 @-webkit-keyframes rotate {
 	0% {
-		-webkit-filter: saturate(100%) sepia(0%) blur(0px);
+		-webkit-filter: saturate(100%) sepia(0%) blur(0);
 		-webkit-transform: scale(2) rotate(-6deg);
 	}
 
 	100% {
-		-webkit-filter: saturate(20%) sepia(60%) blur(25px) ;
+		-webkit-filter: saturate(20%) sepia(60%) blur(25px);
 		-webkit-transform: scale(2.1) rotate(-12deg);
 	}
 }
@@ -67,8 +66,8 @@
 }
 
 .login-panel {
-	box-shadow: 0 0 8px rgba(0,0,0,0.3);
+	box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
 	border-radius: 6px;
 	opacity: 0.98;
-	background: rgba(255,255,255,0.75);
+	background: rgba(255, 255, 255, 0.75);
 }

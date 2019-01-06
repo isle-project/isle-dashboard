@@ -15,13 +15,12 @@
 	grid-template-columns: 360px auto 25% 20px;
 	grid-template-rows: 0.5vh 59vh 5vh auto 0;
 	overflow-x: hidden;
-
 	grid-template-areas:
 		"left header header right"
 		"left statistics statistics right"
 		"left middle middle right"
 		"left badges badges right"
-		"left badges badges right"
+		"left badges badges right";
 }
 
 
@@ -48,33 +47,25 @@
 	height: 25vh;
 	display: grid;
 	margin-left: 20px;
-	grid-template-columns: 360px auto 25% 20px;
 	filter: sepia(77%);
-
 	grid-template-columns: repeat(12, 1fr);
 	grid-template-rows: 20px 1fr 1fr, 1fr;
 	grid-gap: 0.5vw;
 	grid-row-gap: 1em;
-
 }
 
 .profile-page-statistics {
 	grid-area: statistics;
 	display: grid;
 	height: 100%;
-
 	grid-template-columns: 40px 60px auto 34% 8% 50%;
 	grid-template-rows: 52px 38px auto 10px;
-
 	grid-template-areas:
-	"marginLeft navicomment navicomment navi navi navi"
-	"marginLeft dataselect dataselect topactions topr statselect"
-	"marginLeft actions actions actions statistics statistics"
-	"marginLeft bottom bottom bottom bottom bottom"
+		"marginLeft navicomment navicomment navi navi navi"
+		"marginLeft dataselect dataselect topactions topr statselect"
+		"marginLeft actions actions actions statistics statistics"
+		"marginLeft bottom bottom bottom bottom bottom";
 }
-
-
-
 
 /* END OF THE WHOLE PROFILE PAGE */
 .profile-page-statistics-data-select {
@@ -113,25 +104,24 @@
 	font-size: 28px;
 	color: darkgrey;
 	padding-left: 10px;
-	border-top:solid 1px darkgray;
+	border-top: solid 1px darkgray;
 }
 
-
 /* for the inner section */
-.profile-page-statistics-select	 .nav-item  {
+.profile-page-statistics-select .nav-item {
 	font-size: 12px;
 	font-weight: 700;
 	color: var(--primary);
 	padding-top: 0;
 }
 
-.profile-page-statistics-select	 .nav-link  {
+.profile-page-statistics-select .nav-link {
 	color: var(--primaryhalf);
 	padding-left: 5px;
 	padding: 3px;
 }
 
-.profile-page-statistics-select .nav-link:hover  {
+.profile-page-statistics-select .nav-link:hover {
 	color: var(--primary);
 }
 
@@ -139,26 +129,23 @@
 	color: var(--primaryhalf);
 }
 
-
 .profile-page-statistics-select .nav-item {
 	font-size: 22px;
 }
 
 /****************************************/
 
-
-
-.profile-page-statistics-navigation .nav-item  {
+.profile-page-statistics-navigation .nav-item {
 	font-size: 22px;
 	font-weight: 700;
 	color: var(--primary);
 }
 
-.profile-page-statistics-navigation .nav-link  {
+.profile-page-statistics-navigation .nav-link {
 	color: var(--primaryhalf);
 }
 
-.profile-page-statistics-navigation .nav-link:hover  {
+.profile-page-statistics-navigation .nav-link:hover {
 	color: var(--primary);
 }
 
@@ -487,12 +474,12 @@
 
 /* END OF USER SECTION */
 
-
 .profile-pic-modal {
-	width: 465px;
 	height: 465px;
 	background: white;
 	border:solid 1px darkgray;
+	max-width: none !important;
+	width: 400px;
 }
 
 .profile-pic-modal img {
@@ -504,11 +491,6 @@
 	border:solid 1px silver;
 }
 
-.profile-pic-modal {
-	max-width: none !important;
-	width: 400px;
-}
-
 /******************************************************************************************
 /////////////////////////////////// ANIMATIONS ////////////////////////////////////////////
 */
@@ -517,6 +499,7 @@
 	0% {
 			transform: scale(0.01);
 	}
+
 	100% {
 			transform: scale(1);
 	}

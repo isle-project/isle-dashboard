@@ -1,5 +1,4 @@
 .gallery {
-	background: gainsboro;
 	position: absolute;
 	width: 100%;
 	top: 52px;
@@ -15,7 +14,7 @@
 	width: 100%;
 	background: white;
 	filter: saturate(20%);
-	transition: all .7;
+	transition: all 0.7;
 	box-shadow: 0 2px 2px -2px gray;
 }
 
