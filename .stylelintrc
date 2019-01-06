@@ -15,6 +15,7 @@
     "indentation": "tab",
     "length-zero-no-unit": null,
     "max-empty-lines": 2,
+    "no-descending-specificity": null,
     "rule-empty-line-before": [ "always", {
       "except": ["first-nested"],
       "ignore": ["after-comment"]
