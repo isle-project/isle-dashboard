@@ -12,9 +12,9 @@
 	grid-template-columns: 100%;
 	grid-template-rows: 80px 40px auto;
 	grid-template-areas:
-	"actionsExport"
-	"actionsCohorts"
-	"actionsLessons"
+		"actionsExport"
+		"actionsCohorts"
+		"actionsLessons";
 }
 
 .actions-page-export {
@@ -33,7 +33,7 @@
 }
 
 .actions-page-cohorts {
-  grid-area: actionsCohorts;
+	grid-area: actionsCohorts;
 }
 
 .actions-page-lessons {
@@ -85,9 +85,9 @@
 	grid-template-columns: 140px auto 32px 32px;
 	grid-template-rows: 32px 48px auto;
 	grid-template-areas:
-	"lessonActionTitle lessonActionHeader lessonActionResize lessonActionExit"
-	"lessonActionPageTitle lessonActionFilter lessonActionFilter lessonActionFilter"
-	"left lessonActionsStats lessonActionsStats lessonActionsStats"
+		"lessonActionTitle lessonActionHeader lessonActionResize lessonActionExit"
+		"lessonActionPageTitle lessonActionFilter lessonActionFilter lessonActionFilter"
+		"left lessonActionsStats lessonActionsStats lessonActionsStats";
 }
 
 .lesson-action-page-resize {
@@ -120,16 +120,16 @@
 	font-family: Open Sans Condensed;
 	font-weight: 800;
 	font-size: 24px;
-	padding-left:12px;
+	padding-left: 12px;
 	border-bottom: solid 1px darkgray;
 }
 
 .lesson-action-page-filter {
- grid-area: lessonActionFilter;
- border-bottom: solid 1px darkgray;
+	grid-area: lessonActionFilter;
+	border-bottom: solid 1px darkgray;
 }
-/****************** END LESSON ACTIONS PAGE SECTION *************************/
 
+/****************** END LESSON ACTIONS PAGE SECTION *************************/
 
 /**
  * ----------------------------------------
@@ -138,28 +138,31 @@
  */
 @-webkit-keyframes slide-in-bck-center {
 	0% {
-	  -webkit-transform: translateZ(600px);
-			  transform: translateZ(600px);
-	  opacity: 0;
+		-webkit-transform: translateZ(600px);
+		transform: translateZ(600px);
+		opacity: 0;
 	}
+
 	100% {
-	  -webkit-transform: translateZ(0);
-			  transform: translateZ(0);
-	  opacity: 1;
+		-webkit-transform: translateZ(0);
+		transform: translateZ(0);
+		opacity: 1;
 	}
-  }
-  @keyframes slide-in-bck-center {
+}
+
+@keyframes slide-in-bck-center {
 	0% {
-	  -webkit-transform: translateZ(600px);
-			  transform: translateZ(600px);
-	  opacity: 0;
+		-webkit-transform: translateZ(600px);
+		transform: translateZ(600px);
+		opacity: 0;
 	}
+
 	100% {
-	  -webkit-transform: translateZ(0);
-			  transform: translateZ(0);
-	  opacity: 1;
+		-webkit-transform: translateZ(0);
+		transform: translateZ(0);
+		opacity: 1;
 	}
-  }
+}
 
 
 /* ----------------------------------------------
@@ -172,27 +175,30 @@
  * animation slide-in-top
  * ----------------------------------------
  */
- @-webkit-keyframes slide-in-top {
+@-webkit-keyframes slide-in-top {
 	0% {
-	  -webkit-transform: translateY(-1000px);
-			  transform: translateY(-1000px);
-	  opacity: 0;
+		-webkit-transform: translateY(-1000px);
+		transform: translateY(-1000px);
+		opacity: 0;
 	}
+
 	100% {
-	  -webkit-transform: translateY(0);
-			  transform: translateY(0);
-	  opacity: 1;
+		-webkit-transform: translateY(0);
+		transform: translateY(0);
+		opacity: 1;
 	}
-  }
-  @keyframes slide-in-top {
+}
+
+@keyframes slide-in-top {
 	0% {
-	  -webkit-transform: translateY(-1000px);
-			  transform: translateY(-1000px);
-	  opacity: 0;
+		-webkit-transform: translateY(-1000px);
+		transform: translateY(-1000px);
+		opacity: 0;
 	}
+
 	100% {
-	  -webkit-transform: translateY(0);
-			  transform: translateY(0);
-	  opacity: 1;
+		-webkit-transform: translateY(0);
+		transform: translateY(0);
+		opacity: 1;
 	}
-  }
+}

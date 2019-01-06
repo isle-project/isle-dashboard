@@ -46,6 +46,7 @@
 		-webkit-filter: saturate(100%) sepia(0%) blur(0px);
 		-webkit-transform: scale(2) rotate(-6deg);
 	}
+
 	100% {
 		-webkit-filter: saturate(20%) sepia(60%) blur(25px) ;
 		-webkit-transform: scale(2.1) rotate(-12deg);

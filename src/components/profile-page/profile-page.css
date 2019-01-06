@@ -21,13 +21,12 @@
 		"left statistics statistics right"
 		"left middle middle right"
 		"left badges badges right"
-		"left badges badges right"
+		"left badges badges right";
 }
-
 
 .profile-page-left {
 	grid-area: left;
-	border-right:solid 1px silver;
+	border-right: solid 1px silver;
 	background-image: url(https://isle.heinz.cmu.edu/white_carbonfiber_1543854970404.png);
 	height: calc(100vh - 52px);
 }
@@ -35,7 +34,7 @@
 .profile-page-badge-title {
 	grid-area: middle;
 	margin-left: 10px;
-	border-top:solid inset 1px darkgray;
+	border-top: solid inset 1px darkgray;
 	font-family: Open Sans Condensed;
 	font-size: 28px;
 	margin-bottom: 8px;
@@ -55,7 +54,6 @@
 	grid-template-rows: 20px 1fr 1fr, 1fr;
 	grid-gap: 0.5vw;
 	grid-row-gap: 1em;
-
 }
 
 .profile-page-statistics {
@@ -67,14 +65,11 @@
 	grid-template-rows: 52px 38px auto 10px;
 
 	grid-template-areas:
-	"marginLeft navicomment navicomment navi navi navi"
-	"marginLeft dataselect dataselect topactions topr statselect"
-	"marginLeft actions actions actions statistics statistics"
-	"marginLeft bottom bottom bottom bottom bottom"
+		"marginLeft navicomment navicomment navi navi navi"
+		"marginLeft dataselect dataselect topactions topr statselect"
+		"marginLeft actions actions actions statistics statistics"
+		"marginLeft bottom bottom bottom bottom bottom";
 }
-
-
-
 
 /* END OF THE WHOLE PROFILE PAGE */
 .profile-page-statistics-data-select {
@@ -82,7 +77,7 @@
 	font-family: Open Sans Condensed;
 	font-size: 28px;
 	color: darkgrey;
-	border-top:solid 1px darkgray;
+	border-top: solid 1px darkgray;
 }
 
 /* BEGINNING OF THE STATISTICS SECTION */
@@ -144,8 +139,6 @@
 
 /****************************************/
 
-
-
 .profile-page-statistics-navigation .nav-item  {
 	font-size: 22px;
 	font-weight: 700;
@@ -164,8 +157,6 @@
 	color: var(--primaryhalf);
 }
 
-
-
 /************ end inner section *******/
 
 .profile-page-statistics-top-actions {
@@ -173,9 +164,8 @@
 	font-family: Open Sans Condensed;
 	font-size: 28px;
 	color: darkgrey;
-	border-top:solid 1px darkgray;
+	border-top: solid 1px darkgray;
 }
-
 
 /* for the inner section */
 .profile-page-statistics-top-actions .nav-item  {
@@ -248,10 +238,10 @@
 	grid-area: key;
 	width: 100%;
 }
+
 .profile-page-stats-value {
 	grid-area: value;
 	width: 100%;
-
 }
 
 /* BEGINNING OF THE STATS SECTION _ SUBSECTION OF STATISTICS */
@@ -275,10 +265,6 @@
 	box-shadow: 0 0 darkgray;
 	background-image: url(./img/badge_circle.svg);
 	background-size: 100% auto;
-	/*
-	-webkit-mask: url(./img/badge_circle.svg) no-repeat center;
-	mask: url(./img/badge_circle.svg) no-repeat center;
-	*/
 }
 
 .badge-svg {
@@ -320,7 +306,7 @@
 }
 
 .badge-acquired {
-	background:rgba(255,0,0, 0.5);
+	background: rgba(255,0,0, 0.5);
 	border-radius: 50%;
 	opacity: 1;
 }
@@ -371,7 +357,7 @@
 .profile-page-user-container {
 	position: relative;
 	left: 0;
-	top:0;
+	top: 0;
 	width: 100%;
 	height: 100%;
 
@@ -387,7 +373,7 @@
 		"mleft middle mright"
 		"mleft personal mright"
 		"mleft center mright"
-		"mleft footer mright"
+		"mleft footer mright";
 }
 
 .profile-page-user-portrait {
@@ -429,7 +415,7 @@
 .profile-page-user-personal {
 	grid-area: personal;
 	width: 340px;
-	background-image:url(https://isle.heinz.cmu.edu/white_carbonfiber_1543854970404.png);
+	background-image: url(https://isle.heinz.cmu.edu/white_carbonfiber_1543854970404.png);
 }
 
 .profile-page-user-personal-name {
