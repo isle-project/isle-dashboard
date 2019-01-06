@@ -99,7 +99,7 @@
 	animation: scale-up .4s;
 	overflow-y: hidden;
 
-	grid-template-columns: 8px 190px 8px auto 24px;
+	grid-template-columns: 8px 190px 8px auto 12px;
 	grid-template-rows: 10px 200px 80px auto;
 
 	grid-template-areas:
@@ -127,11 +127,12 @@
 }
 
 .cohort-actual-member-exit {
-	grid-area: exit;
+	position: absolute;
+	right: 10px;
+	top: 3px;
 	font-size: 20px;
 	font-weight: 800;
 	cursor: pointer;
-	padding-right: 12px;
 	text-align: right;
 	font-family: Open Sans;
 }
@@ -235,7 +236,8 @@
 	width: 32px;
 	height: 32px;
 	margin-top: 0.5vh;
-	margin-right: 0.5vw;
+	margin-right: 0.2vw;
+	margin-left: 0.2vw;
 	background: gainsboro;
 	border-radius: 16px;
 }
