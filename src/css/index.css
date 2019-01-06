@@ -3,18 +3,18 @@
 	--primary: #2e4468;
 	--primarydark: #4a618691;
 	--primaryhalf: #526c96;
-	--primarylight:  #2e4468af;
-	--primarysuperlight:  #2e4468;
+	--primarylight: #2e4468af;
+	--primarysuperlight: #2e4468;
 	--secondary: #3c763d;
 	--secondarymedium: #2b552c;
 	--secondarydark: #162c17;
 	--secondarylight:#77df79;
 	--secondaryhalf: #54a857;
 	--tertiary:  #2e4468;
-	--tertiarylight:  #7285a3;
+	--tertiarylight: #7285a3;
 	--quartary: #ca5800;
 	--quartarydark: #351802;
-	--quartarylight:  #c49978;
+	--quartarylight: #c49978;
 }
 
 body {

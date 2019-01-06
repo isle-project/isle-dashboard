@@ -24,16 +24,14 @@
 @-webkit-keyframes login-panel {
 	0% {
 		-webkit-filter: grayscale(70%) blur(3px);
-		-webkit-transform: scale(1) rotate(0deg);;
-				transform: scale(1);
+		-webkit-transform: scale(1) rotate(0deg);
+		transform: scale(1);
 		opacity: 0.3;
 	}
-
 
 	100% {
 		-webkit-filter: grayscale(0%) blur(0px);
 		-webkit-transform: scale(2) rotate(-6deg);
-
 		opacity: 1;
 	}
 }

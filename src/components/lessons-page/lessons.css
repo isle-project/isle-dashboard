@@ -51,7 +51,7 @@
 	color: gainsboro;
 	font-family: Open Sans Condensed;
 	font-size: 14px;
-	stroke:#b52808;
+	stroke: #b52808;
 	font-weight: 600;
 }
 
@@ -60,6 +60,6 @@
 	margin-left: 6px;
 	width: 16px;
 	height: 16px;
-	stroke:#b52808;
+	stroke: #b52808;
 	fill: white;
 }

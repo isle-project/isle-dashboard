@@ -92,7 +92,7 @@
 	font-family: Open Sans Condensed;
 	font-size: 28px;
 	color: darkgrey;
-	border-top:solid 1px darkgray;
+	border-top: solid 1px darkgray;
 }
 
 .profile-page-statistics-navigation-title {
@@ -100,21 +100,20 @@
 	font-family: Open Sans Condensed;
 	font-size: 28px;
 	color: darkgrey;
-	border-top:solid 1px darkgray;
+	border-top: solid 1px darkgray;
 }
-
 
 /* END OF THE WHOLE PROFILE PAGE */
 
 /* BEGINNING OF THE INNER STAT SELECTION */
+
 .profile-page-statistics-select {
 	grid-area: statselect;
 	font-family: Open Sans Condensed;
 	font-size: 28px;
 	color: darkgrey;
-	border-top:solid 1px darkgray;
+	border-top: solid 1px darkgray;
 }
-
 
 /* for the inner section */
 .profile-page-statistics-select	 .nav-item  {
@@ -211,7 +210,7 @@
 	font-family: Open Sans Condensed;
 	font-size: 28px;
 	color: darkgrey;
-	border-top:solid 1px darkgray;
+	border-top: solid 1px darkgray;
 	width: 100%;
 	height: 100%;
 }
@@ -219,7 +218,7 @@
 
 .profile-page-statistics-actions {
 	grid-area: actions;
-	border-right:solid 1px darkgray;
+	border-right: solid 1px darkgray;
 	width: 100%;
 	margin-top: 12px;
 	min-height: 0;
@@ -459,7 +458,7 @@
 
 .profile-page-user-score {
 	float: left;
-	border:solid 1px darkgray;
+	border: solid 1px darkgray;
 	font-family: Open Sans Condensed;
 	color: silver;
 	font-weight: 800;
@@ -478,7 +477,6 @@
 	color: darkgray;
 }
 
-
 .profile-page-user-footer {
 	grid-area: footer;
 }
@@ -491,7 +489,7 @@
 	width: 465px;
 	height: 465px;
 	background: white;
-	border:solid 1px darkgray;
+	border: solid 1px darkgray;
 }
 
 .profile-pic-modal img {
@@ -500,7 +498,7 @@
 }
 
 .avatarEditor {
-	border:solid 1px silver;
+	border: solid 1px silver;
 }
 
 .profile-pic-modal {
@@ -514,9 +512,10 @@
 
 @keyframes scale-up {
 	0% {
-			transform: scale(0.01);
+		transform: scale(0.01);
 	}
+
 	100% {
-			transform: scale(1);
+		transform: scale(1);
 	}
 }
