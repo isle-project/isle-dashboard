@@ -99,7 +99,7 @@
 	animation: scale-up .4s;
 
 	grid-template-columns: 8px 200px 8px auto 24px;
-	grid-template-rows: 10px 200px 90px auto 20px;
+	grid-template-rows: 10px 200px 90px auto 40px;
 
 	grid-template-areas:
 		"meleft header header header exit"
@@ -111,8 +111,19 @@
 
 .cohort-actual-member-portrait {
 	grid-area: portrait;
-	width: 200px;
-	height: 200px;
+	margin-top: 10px;
+	margin-left: 10px;
+	width: 180px;
+	height: 180px;
+}
+
+.cohort-actual-member-portrait-shadow {
+	grid-area: portrait;
+	margin-top: 10px;
+	margin-left: 10px;
+	width: 180px;
+	height: 180px;
+	box-shadow: inset 0 0 5px black;
 }
 
 .cohort-actual-member-exit {
@@ -120,7 +131,8 @@
 	font-size: 20px;
 	font-weight: 800;
 	cursor: pointer;
-	padding-right: 12px;
+	padding-right: 2px;
+	text-align: right;
 	font-family: Open Sans;
 }
 
@@ -128,12 +140,7 @@
 	color: red;
 }
 
-.cohort-actual-member-portrait-shadow {
-	grid-area: portrait;
-	width: 200px;
-	height: 200px;
-	box-shadow: inset 0 0 5px black;
-}
+
 
 .cohort-actual-member-registered {
 	grid-area: registered;
@@ -156,6 +163,7 @@
 	grid-template-columns: 100px auto;
 	grid-template-rows: 30px auto;
 
+
 	grid-template-areas:
 		"lessonsHeader lessonsTime"
 		"lessonsBody lessonsBody";
@@ -177,6 +185,7 @@
 	overflow-y: auto;
 	width: 100%;
 	height: 50vh;
+	padding-bottom: 60px;
 }
 
 /*************************** GENERAL USER INFO SECTION ***************************/
