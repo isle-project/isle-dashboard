@@ -164,7 +164,6 @@ class Gallery extends Component {
 								getIsleFile={this.props.getIsleFile}
 								openedNamespace={this.props.openedNamespace}
 								key={i}
-								colorIndex={i % 20}
 								onImport={() => {
 									this.showImportModal({
 										title: lessons[ i ].title,
