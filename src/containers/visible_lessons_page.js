@@ -193,7 +193,8 @@ function mapDispatchToProps( dispatch ) {
 					}
 					body = JSON.parse( body );
 					let lessons = body.lessons;
-					lessons = lessons.map( lesson => {
+					lessons = lessons.map((lesson, index) => {
+						lesson.colorIndex = index % 20;
 						lesson.url = server+'/'+namespaceName+'/'+lesson.title;
 						if ( !lesson.createdAt ) {
 							lesson.createdAt = new Date( 0 ).toLocaleString();

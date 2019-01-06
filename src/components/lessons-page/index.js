@@ -15,6 +15,7 @@ import sortLessons from 'utils/sort_lessons.js';
 import 'css/image.css';
 import 'react-grid-layout/css/styles.css';
 import 'react-resizable/css/styles.css';
+import './lessons.css';
 
 
 // VARIABLES //
@@ -122,7 +123,6 @@ class LessonsPage extends Component {
 						{...lessons[ i ]}
 						getLessons={this.props.getLessons}
 						key={i}
-						colorIndex={i % 20}
 						user={this.props.user}
 					/>
 					</div>);
@@ -133,6 +133,7 @@ class LessonsPage extends Component {
 				return ( <div key={`cell-${i}`}>
 					<Lesson
 						{...lessons[ i ]}
+						style={{ animation: 'scale-up .5s' }}
 						deleteLesson={this.props.deleteLesson}
 						updateLesson={this.props.updateLesson}
 						token={this.props.user.token}
@@ -142,7 +143,6 @@ class LessonsPage extends Component {
 						hideLessonInGallery={this.props.hideLessonInGallery}
 						getLessons={this.props.getLessons}
 						key={i}
-						colorIndex={i % 20}
 					/>
 				</div> );
 			})

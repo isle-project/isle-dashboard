@@ -4,15 +4,6 @@
 	margin-top: 25px;
 }
 
-@keyframes scale-up {
-	0% {
-		transform: scale(0.01);
-	}
-
-	100% {
-		transform: scale(1);
-	}
-}
 
 .cohort-member {
 	margin-left: 0px;
