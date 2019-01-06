@@ -1,4 +1,5 @@
 {
+  "extends": "stylelint-config-standard",
   "rules": {
     "block-closing-brace-empty-line-before": "never",
     "block-no-empty": true,
@@ -10,7 +11,9 @@
     "declaration-colon-space-after": [ "always", {
       "severity": "warning"
     } ],
+    "font-family-no-missing-generic-family-keyword": null,
     "indentation": "tab",
+    "length-zero-no-unit": null,
     "max-empty-lines": 2,
     "rule-empty-line-before": [ "always", {
       "except": ["first-nested"],
