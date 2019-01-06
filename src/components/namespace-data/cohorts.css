@@ -85,9 +85,9 @@
 	position: fixed;
 	width: 30vw;
 	min-width: 360px;
-	height: 92vh;
-	right: 8px;
-	top: 7vh;
+	height: calc(100% - 52px);
+	right: 0;
+	top: 52px;
 	background: white;
 	box-shadow: 0 0 6px darkgray;
 	z-index: 2;
@@ -100,14 +100,13 @@
 	overflow-y: hidden;
 
 	grid-template-columns: 8px 200px 8px auto 24px;
-	grid-template-rows: 10px 200px 90px auto 40px;
+	grid-template-rows: 10px 200px 80px auto;
 
 	grid-template-areas:
 		"meleft header header header exit"
 		"left portrait middle userBadges right"
 		"mleft name name totalTime right"
-		"mleft userInfo userInfo userInfo userInfo"
-		"badges f f f f";
+		"mleft userInfo userInfo userInfo userInfo";
 }
 
 .cohort-actual-member-portrait {
@@ -132,7 +131,7 @@
 	font-size: 20px;
 	font-weight: 800;
 	cursor: pointer;
-	padding-right: 2px;
+	padding-right: 12px;
 	text-align: right;
 	font-family: Open Sans;
 }
@@ -185,8 +184,7 @@
 	grid-area: lessonsBody;
 	overflow-y: auto;
 	width: 100%;
-	height: 50vh;
-	padding-bottom: 120px;
+	height: calc(100vh - 400px);
 }
 
 /*************************** GENERAL USER INFO SECTION ***************************/
