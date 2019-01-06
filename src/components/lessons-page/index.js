@@ -42,7 +42,7 @@ class LessonsPage extends Component {
 		) {
 			prevProps.getLessons( this.props.namespace.title );
 		}
-		if (
+		else if (
 			this.props.namespace.lessons !== prevProps.namespace.lessons
 		) {
 			const lessons = this.props.namespace.lessons || [];
