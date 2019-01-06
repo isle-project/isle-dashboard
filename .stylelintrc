@@ -1,16 +1,21 @@
 {
   "rules": {
+    "block-closing-brace-empty-line-before": "never",
     "block-no-empty": true,
     "color-no-invalid-hex": true,
     "comment-empty-line-before": [ "always", {
       "ignore": ["stylelint-commands", "after-comment"]
     } ],
-    "declaration-colon-space-after": "always",
+    "declaration-block-trailing-semicolon": "always",
+    "declaration-colon-space-after": [ "always", {
+      "severity": "warning"
+    } ],
     "indentation": "tab",
     "max-empty-lines": 2,
     "rule-empty-line-before": [ "always", {
       "except": ["first-nested"],
       "ignore": ["after-comment"]
-    } ]
+    } ],
+    "selector-max-empty-lines": 1
   }
 }
