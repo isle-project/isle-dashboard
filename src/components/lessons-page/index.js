@@ -53,16 +53,23 @@ class LessonsPage extends Component {
 				layouts
 			});
 		}
-		if (
-			this.props.search.phrase !== prevProps.search.phrase ||
-			this.props.search.direction !== prevProps.search.direction ||
-			this.props.search.type !== prevProps.search.type
+		else if (
+			this.props.search.phrase !== prevProps.search.phrase
 		) {
 			const lessons = this.props.namespace.lessons || [];
 			const filteredLessons = this.searchLessons( lessons, this.props.search.phrase );
 			const layouts = this.createLayout( filteredLessons );
 			this.setState({
 				filteredLessons,
+				layouts
+			});
+		}
+		else if (
+			this.props.search.direction !== prevProps.search.direction ||
+			this.props.search.type !== prevProps.search.type
+		) {
+			const layouts = this.createLayout( this.state.filteredLessons );
+			this.setState({
 				layouts
 			});
 		}
