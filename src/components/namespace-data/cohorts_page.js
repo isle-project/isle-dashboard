@@ -62,10 +62,11 @@ class CohortsPage extends Component {
 
 		return (
 			<Fragment key={key}>
-				<div className="cohort-member" style={{ animation: ani }}>
+				<div className="cohort-member"
+					onClick={() => this.showUser( member )}
+					style={{ animation: ani }}>
 					<div className="cohort-member-name">{member.name}</div>
 						<img
-							onClick={() => this.showUser( member )}
 							src={server + '/thumbnail/'+member.picture}
 						/>
 						<div className="cohort-member-email">
