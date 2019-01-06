@@ -57,7 +57,7 @@ class EnrolledLesson extends Component {
 
 	render() {
 		return (
-			<Card>
+			<Card className="animated-lesson-card">
 				<Card.Body style={{ padding: 0 }}>
 					<div style={{
 						filter: 'grayscale(30%)',

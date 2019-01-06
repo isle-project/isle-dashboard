@@ -120,25 +120,21 @@ class LessonsPage extends Component {
 		sortLessons( lessons, this.props.search );
 		if ( this.props.namespace.userStatus === 'enrolled' ) {
 			return lessons.map( ( e, i ) => {
-				return (<div key={`cell-${i}`}>
+				return (<div key={`cell-${e.title}`}>
 					<EnrolledLesson
 						{...lessons[ i ]}
 						getLessons={this.props.getLessons}
-						key={i}
 						user={this.props.user}
 					/>
 					</div>);
 			});
 		}
 
-		console.log(lessons);
-
 		return (
 			lessons.map( ( e, i ) => {
 				return ( <div key={`cell-${e.title}`}>
 					<Lesson
 						{...lessons[ i ]}
-						style={{ animation: 'scale-up .5s' }}
 						deleteLesson={this.props.deleteLesson}
 						updateLesson={this.props.updateLesson}
 						token={this.props.user.token}

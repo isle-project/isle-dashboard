@@ -63,3 +63,13 @@
 	stroke: #b52808;
 	fill: white;
 }
+
+.react-grid-item {
+	animation: none;
+	transform: none;
+}
+
+
+.animated-lesson-card {
+	animation: flip-in-hor-bottom .6s;
+}

@@ -148,7 +148,7 @@ class Lesson extends Component {
 
 	render() {
 		return (
-			<Card style={this.props.style}>
+			<Card className="animated-lesson-card">
 				<Card.Body style={{ padding: 0 }}>
 					<div style={{
 						filter: 'grayscale(30%)',
@@ -203,7 +203,6 @@ Lesson.propTypes = {
 	namespace: PropTypes.string.isRequired,
 	public: PropTypes.bool.isRequired,
 	showLessonInGallery: PropTypes.func.isRequired,
-	style: PropTypes.object.isRequired,
 	title: PropTypes.string.isRequired,
 	token: PropTypes.string.isRequired,
 	updateLesson: PropTypes.func.isRequired,
