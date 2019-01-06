@@ -5,6 +5,7 @@
 
 .progress-table {
 	font-family: Open Sans Condensed;
+	animation: slide-in-left .7s;
 }
 
 .progress-button-group {
@@ -12,3 +13,34 @@
 	top: 4px;
 	right: 16px;
 }
+
+
+/**
+ * ----------------------------------------
+ * animation slide-in-left
+ * ----------------------------------------
+ */
+@-webkit-keyframes slide-in-left {
+	0% {
+	  -webkit-transform: translateX(-1000px);
+			  transform: translateX(-1000px);
+	  opacity: 0;
+	}
+	100% {
+	  -webkit-transform: translateX(0);
+			  transform: translateX(0);
+	  opacity: 1;
+	}
+  }
+  @keyframes slide-in-left {
+	0% {
+	  -webkit-transform: translateX(-1000px);
+			  transform: translateX(-1000px);
+	  opacity: 0;
+	}
+	100% {
+	  -webkit-transform: translateX(0);
+			  transform: translateX(0);
+	  opacity: 1;
+	}
+  }

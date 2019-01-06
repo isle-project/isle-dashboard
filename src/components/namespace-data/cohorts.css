@@ -21,6 +21,7 @@
     margin-top: 10px;
     width: 160px;
     height: 120px;
+    border-radius: 6px;
     background: white;
     border:solid 1px darkgray;
     box-shadow: 0 0 2px darkslategray;

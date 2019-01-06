@@ -57,9 +57,12 @@ class CohortsPage extends Component {
 
 
 	renderMember( member, key ) {
+		let phase = 0.3 + key*0.05;
+		let ani = 'scale-up ' + phase + 's';
+
 		return (
 			<Fragment key={key}>
-				<div className="cohort-member">
+				<div className="cohort-member" style={{ animation: ani }}>
 					<div className="cohort-member-name">{member.name}</div>
 						<img
 							onClick={() => this.showUser( member )}
