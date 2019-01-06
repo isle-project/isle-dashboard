@@ -32,7 +32,7 @@
 	line-height: 12px;
 	float: left;
 	cursor: pointer;
-	transition: all .4s;
+	transition: all 0.4s;
 }
 
 .cohort-member:hover {
@@ -95,13 +95,10 @@
 	font-size: 16px;
 	font-weight: 600;
 	display: grid;
-
-	animation: scale-up .4s;
+	animation: scale-up 0.4s;
 	overflow-y: hidden;
-
 	grid-template-columns: 8px 190px 8px auto 12px;
 	grid-template-rows: 10px 200px 80px auto;
-
 	grid-template-areas:
 		"meleft header header header exit"
 		"left portrait middle userBadges right"
@@ -141,8 +138,6 @@
 	color: red;
 }
 
-
-
 .cohort-actual-member-registered {
 	grid-area: registered;
 	width: 100%;
@@ -163,8 +158,6 @@
 	display: grid;
 	grid-template-columns: 100px auto;
 	grid-template-rows: 30px auto;
-
-
 	grid-template-areas:
 		"lessonsHeader lessonsTime"
 		"lessonsBody lessonsBody";
@@ -195,7 +188,6 @@
 	height: 94%;
 	grid-template-columns: 1fr 1fr 1fr;
 	grid-template-rows: 90px 70px auto;
-
 	grid-template-areas:
 		"userInfoTime middle userInfoScore"
 		"userInfoHeader userInfoHeader userInfoHeader"
