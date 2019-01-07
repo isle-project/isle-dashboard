@@ -71,5 +71,5 @@
 
 
 .animated-lesson-card {
-	animation: flip-in-hor-bottom .6s;
+	animation: flip-in-hor-bottom 0.6s;
 }
