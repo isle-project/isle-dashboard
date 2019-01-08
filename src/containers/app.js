@@ -54,8 +54,8 @@ class App extends Component {
 	componentDidUpdate( prevProps ) {
 		const isLoggingOut = prevProps.isLoggedIn && !this.props.isLoggedIn;
 		const isLoggingIn = !prevProps.isLoggedIn && this.props.isLoggedIn;
+		const pathname = history.location.pathname;
 		if ( isLoggingIn ) {
-			const pathname = history.location.pathname;
 			if ( pathname && pathname !== '/' && pathname !== '/login' ) {
 				history.push( history.location.pathname );
 			} else {
@@ -63,8 +63,15 @@ class App extends Component {
 				history.push( path );
 			}
 		}
-		if ( isLoggingOut ) {
+		else if ( isLoggingOut ) {
 			history.push( '/login' );
+		}
+		else if (
+			this.props.isLoggedIn && pathname &&
+			( pathname === '/' || pathname === '/login' )
+		) {
+			const path = this.props.user.writeAccess ? '/lessons' : '/profile';
+			history.push( path );
 		}
 	}
 
@@ -74,7 +81,15 @@ class App extends Component {
 			AuthenticationBarrier =
 				<Fragment>
 					<Route
-						path="/"
+						path={[
+							'/create-namespace',
+							'/edit-namespace',
+							'/namespace-data',
+							'/profile',
+							'/lessons',
+							'/gallery',
+							'/enroll'
+						]}
 						component={AsyncHeaderBar}
 						history={history}
 					/>

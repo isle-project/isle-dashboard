@@ -55,6 +55,7 @@ class EditModal extends Component {
 			change = true;
 		}
 		if ( change ) {
+			debug( 'Update user...' );
 			request.post( server+'/update_user', {
 				form: form,
 				headers: {
@@ -101,7 +102,6 @@ class EditModal extends Component {
 
 	getPasswordValidationState = () => {
 		const { password, passwordRepeat } = this.state;
-		debug( `Password: ${password}; Repeat password: ${passwordRepeat}` );
 		if ( password.length < 6 || passwordRepeat.length === 0 ) {
 			return false;
 		}
