@@ -39,6 +39,30 @@ function mapDispatchToProps( dispatch ) {
 			dispatch( actions.changedNamespace({
 				title, description, owners, _id, userStatus: 'enrolled'
 			}) );
+			const namespaceName = title;
+			request.get( server+'/get_lessons', {
+				qs: {
+					namespaceName
+				}
+			}, function onLessons( error, response, body ) {
+				if ( error ) {
+					return error;
+				}
+				body = JSON.parse( body );
+				let lessons = body.lessons;
+				lessons = lessons.map((lesson, index) => {
+					lesson.colorIndex = index % 20;
+					lesson.url = server+'/'+namespaceName+'/'+lesson.title;
+					if ( !lesson.createdAt ) {
+						lesson.createdAt = new Date( 0 ).toLocaleString();
+					}
+					if ( !lesson.updatedAt ) {
+						lesson.updatedAt = lesson.createdAt;
+					}
+					return lesson;
+				});
+				dispatch( actions.retrievedLessons({ lessons, namespaceName }) );
+			});
 		},
 		onNamespace: ({ title, description, owners, _id }, userToken ) => {
 			dispatch( actions.changedNamespace({ title, description, owners, _id, userStatus: 'owner' }) );
@@ -55,6 +79,30 @@ function mapDispatchToProps( dispatch ) {
 				}
 				body = JSON.parse( body );
 				dispatch( actions.retrievedCohorts( body.cohorts ) );
+			});
+			const namespaceName = title;
+			request.get( server+'/get_lessons', {
+				qs: {
+					namespaceName
+				}
+			}, function onLessons( error, response, body ) {
+				if ( error ) {
+					return error;
+				}
+				body = JSON.parse( body );
+				let lessons = body.lessons;
+				lessons = lessons.map((lesson, index) => {
+					lesson.colorIndex = index % 20;
+					lesson.url = server+'/'+namespaceName+'/'+lesson.title;
+					if ( !lesson.createdAt ) {
+						lesson.createdAt = new Date( 0 ).toLocaleString();
+					}
+					if ( !lesson.updatedAt ) {
+						lesson.updatedAt = lesson.createdAt;
+					}
+					return lesson;
+				});
+				dispatch( actions.retrievedLessons({ lessons, namespaceName }) );
 			});
 		}
 	};

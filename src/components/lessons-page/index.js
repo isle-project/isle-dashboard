@@ -1,6 +1,7 @@
 // MODULES //
 
 import React, { Component } from 'react';
+import logger from 'debug';
 import { Jumbotron } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import { Responsive, WidthProvider } from 'react-grid-layout';
@@ -20,7 +21,55 @@ import './lessons.css';
 
 // VARIABLES //
 
+const debug = logger('isle-dashboard:lessons-page');
 const ResponsiveReactGridLayout = WidthProvider( Responsive );
+
+
+// FUNCTIONS //
+
+function searchLessons( lessons, phrase ) {
+	if ( !phrase ) {
+		return lessons;
+	}
+	const filteredLessons = [];
+	if ( isArray( lessons ) ) {
+		for ( let i = 0; i < lessons.length; i++ ) {
+			if (
+				contains( lowercase( lessons[ i ].title ), phrase ) ||
+				contains( lowercase( lessons[ i ].namespace ), phrase ) ||
+				contains( lowercase( lessons[ i ].description ), phrase )
+			) {
+				filteredLessons.push( lessons[ i ] );
+			}
+		}
+	}
+	return filteredLessons;
+}
+
+function createLayout( lessons ) {
+	debug( 'Create layout...' );
+	const elemH = 3.4;
+	let layouts = lessons.map( ( e, i ) => {
+		return {
+			lg: { i: `cell-${e.title}`, x: i*4 % 24, y: floor( i / 6 ) * elemH, w: 4, h: elemH },
+			md: { i: `cell-${e.title}`, x: i*4 % 20, y: floor( i / 5 ) * elemH, w: 4, h: elemH },
+			sm: { i: `cell-${e.title}`, x: i*4 % 16, y: floor( i / 4 ) * elemH, w: 4, h: elemH },
+			xs: { i: `cell-${e.title}`, x: i*4 % 12, y: floor( i / 3 ) * elemH, w: 4, h: elemH },
+			xxs: { i: `cell-${e.title}`, x: i*4 % 8, y: floor( i / 2 ) * elemH, w: 4, h: elemH },
+			tiny: { i: `cell-${e.title}`, x: i*4 % 4, y: floor( i / 1 ) * elemH, w: 4, h: elemH }
+		};
+	});
+	layouts = {
+		lg: pluck( layouts, 'lg' ),
+		md: pluck( layouts, 'md' ),
+		sm: pluck( layouts, 'sm' ),
+		xs: pluck( layouts, 'xs' ),
+		xxs: pluck( layouts, 'xxs' ),
+		tiny: pluck( layouts, 'tiny' )
+
+	};
+	return layouts;
+}
 
 
 // MAIN //
@@ -31,112 +80,62 @@ class LessonsPage extends Component {
 
 		this.state = {
 			filteredLessons: [],
-			layouts: {}
+			layouts: {},
+			unfilteredLessons: props.namespace.lessons,
+			search: props.search
 		};
-		props.getLessons( props.namespace.title );
 	}
 
-	componentDidUpdate( prevProps ) {
+	static getDerivedStateFromProps( nextProps, prevState ) {
 		if (
-			this.props.namespace.title !== prevProps.namespace.title
+			nextProps.namespace.lessons !== prevState.unfilteredLessons ||
+			nextProps.search.phrase !== prevState.search.phrase ||
+			nextProps.search.direction !== prevState.search.direction ||
+			nextProps.search.type !== prevState.search.type
 		) {
-			prevProps.getLessons( this.props.namespace.title );
-		}
-		else if (
-			this.props.namespace.lessons !== prevProps.namespace.lessons
-		) {
-			const lessons = this.props.namespace.lessons || [];
-			const filteredLessons = this.searchLessons( lessons, prevProps.search.phrase );
-			const layouts = this.createLayout( filteredLessons );
-			this.setState({
+			debug( 'Get derived state...' );
+			const lessons = nextProps.namespace.lessons || [];
+			const filteredLessons = searchLessons( lessons, nextProps.search.phrase );
+			sortLessons( filteredLessons, nextProps.search );
+			const layouts = createLayout( filteredLessons );
+			return {
 				filteredLessons,
-				layouts
-			});
+				layouts,
+				unfilteredLessons: nextProps.namespace.lessons,
+				search: nextProps.search
+			};
 		}
-		else if (
-			this.props.search.phrase !== prevProps.search.phrase
-		) {
-			const lessons = this.props.namespace.lessons || [];
-			const filteredLessons = this.searchLessons( lessons, this.props.search.phrase );
-			const layouts = this.createLayout( filteredLessons );
-			this.setState({
-				filteredLessons,
-				layouts
-			});
-		}
-		else if (
-			this.props.search.direction !== prevProps.search.direction ||
-			this.props.search.type !== prevProps.search.type
-		) {
-			const layouts = this.createLayout( this.state.filteredLessons );
-			this.setState({
-				layouts
-			});
-		}
+		return null;
 	}
 
-	createLayout( lessons ) {
-		const elemH = 3.4;
-		let layouts = lessons.map( ( e, i ) => {
-			return {
-				lg: { i: `cell-${e.title}`, x: i*4 % 24, y: floor( i / 6 ) * elemH, w: 4, h: elemH },
-				md: { i: `cell-${e.title}`, x: i*4 % 20, y: floor( i / 5 ) * elemH, w: 4, h: elemH },
-				sm: { i: `cell-${e.title}`, x: i*4 % 16, y: floor( i / 4 ) * elemH, w: 4, h: elemH },
-				xs: { i: `cell-${e.title}`, x: i*4 % 12, y: floor( i / 3 ) * elemH, w: 4, h: elemH },
-				xxs: { i: `cell-${e.title}`, x: i*4 % 8, y: floor( i / 2 ) * elemH, w: 4, h: elemH },
-				tiny: { i: `cell-${e.title}`, x: i*4 % 4, y: floor( i / 1 ) * elemH, w: 4, h: elemH }
-			};
-		});
-		layouts = {
-			lg: pluck( layouts, 'lg' ),
-			md: pluck( layouts, 'md' ),
-			sm: pluck( layouts, 'sm' ),
-			xs: pluck( layouts, 'xs' ),
-			xxs: pluck( layouts, 'xxs' ),
-			tiny: pluck( layouts, 'tiny' )
-
-		};
-		return layouts;
+	shouldComponentUpdate( nextProps, nextState ) {
+		if (
+			nextProps.search.direction !== this.props.search.direction ||
+			nextProps.search.type !== this.props.search.type ||
+			nextState.filteredLessons !== this.state.filteredLessons
+		) {
+			debug( 'Should update page...' );
+			return true;
+		}
+		return false;
 	}
 
 	preventOpeningLink = ( event ) => {
 		event.preventDefault();
 	};
 
-	searchLessons( lessons, phrase ) {
-		if ( !phrase ) {
-			return lessons;
-		}
-		const filteredLessons = [];
-		if ( isArray( lessons ) ) {
-			for ( let i = 0; i < lessons.length; i++ ) {
-				if (
-					contains( lowercase( lessons[ i ].title ), phrase ) ||
-					contains( lowercase( lessons[ i ].namespace ), phrase ) ||
-					contains( lowercase( lessons[ i ].description ), phrase )
-				) {
-					filteredLessons.push( lessons[ i ] );
-				}
-			}
-		}
-		return filteredLessons;
-	}
-
 	renderLessons() {
 		let lessons = this.state.filteredLessons;
-		sortLessons( lessons, this.props.search );
 		if ( this.props.namespace.userStatus === 'enrolled' ) {
 			return lessons.map( ( e, i ) => {
 				return (<div key={`cell-${e.title}`}>
 					<EnrolledLesson
 						{...lessons[ i ]}
-						getLessons={this.props.getLessons}
 						user={this.props.user}
 					/>
-					</div>);
+				</div>);
 			});
 		}
-
 		return (
 			lessons.map( ( e, i ) => {
 				return ( <div key={`cell-${e.title}`}>
