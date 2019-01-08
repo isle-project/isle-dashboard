@@ -7,20 +7,10 @@ import request from 'request';
 import createHashHistory from 'history/createHashHistory';
 import { Router, Route } from 'react-router-dom';
 import contains from '@stdlib/assert/contains';
-import NewPassword from 'components/new-password';
+import asyncComponent from 'components/async';
+import VisibleHeaderBar from 'containers/visible-header-bar';
 import server from 'constants/server';
 import NotificationSystem from './notification.js';
-import VisibleHeaderBar from './visible_header_bar.js';
-import VisibleForgotPassword from './visible_forgot_password.js';
-import VisibleCreateNamespace from './visible_create_namespace.js';
-import VisibleEditNamespace from './visible_edit_namespace.js';
-import VisibleLogin from './visible_login.js';
-import VisibleSignup from './visible_signup.js';
-import VisibleNamespaceData from './visible_namespace_data.js';
-import VisibleGallery from './visible_gallery.js';
-import VisibleLessonsPage from './visible_lessons_page.js';
-import VisibleProfilePage from './visible_profile_page.js';
-import VisibleEnrollPage from './visible_enroll_page.js';
 import * as actions from 'actions';
 import './app.css';
 
@@ -28,6 +18,17 @@ import './app.css';
 // VARIABLES //
 
 const history = createHashHistory();
+const AsyncForgotPassword = asyncComponent(() => import( 'containers/visible-forgot-password' ));
+const AsyncCreateNamespace = asyncComponent(() => import( 'containers/visible-create-namespace' ));
+const AsyncEditNamespace = asyncComponent(() => import( 'containers/visible-edit-namespace' ));
+const AsyncNewPassword = asyncComponent(() => import( 'components/new-password' ));
+const AsyncLogin = asyncComponent(() => import( 'containers/visible-login' ));
+const AsyncSignup = asyncComponent(() => import( 'containers/visible-signup' ));
+const AsyncNamespaceData = asyncComponent(() => import( 'containers/visible-namespace-data' ));
+const AsyncGallery = asyncComponent(() => import( 'containers/visible-gallery' ));
+const AsyncLessonsPage = asyncComponent(() => import( 'containers/visible-lessons-page' ));
+const AsyncProfilePage = asyncComponent(() => import( 'containers/visible-profile-page' ));
+const AsyncEnrollPage = asyncComponent(() => import( 'containers/visible-enroll-page' ));
 
 
 // MAIN //
@@ -75,31 +76,31 @@ class App extends Component {
 					<VisibleHeaderBar history={history} />
 					<Route
 						path="/create-namespace"
-						component={VisibleCreateNamespace}
+						component={AsyncCreateNamespace}
 					/>
 					<Route
 						path="/edit-namespace"
-						component={VisibleEditNamespace}
+						component={AsyncEditNamespace}
 					/>
 					<Route
 						path="/namespace-data"
-						component={VisibleNamespaceData}
+						component={AsyncNamespaceData}
 					/>
 					<Route
 						path="/profile"
-						component={VisibleProfilePage}
+						component={AsyncProfilePage}
 					/>
 					<Route
 						path="/lessons"
-						component={VisibleLessonsPage}
+						component={AsyncLessonsPage}
 					/>
 					<Route
 						path="/gallery"
-						component={VisibleGallery}
+						component={AsyncGallery}
 					/>
 					<Route
 						path="/enroll"
-						component={VisibleEnrollPage}
+						component={AsyncEnrollPage}
 					/>
 				</Fragment>;
 		}
@@ -107,11 +108,11 @@ class App extends Component {
 			<Router history={history}>
 				<div className="App">
 					{AuthenticationBarrier}
-					<Route exact path="/" component={VisibleLogin} />
-					<Route path="/login" component={VisibleLogin} />
-					<Route path="/new-password" component={NewPassword} />
-					<Route path="/signup" component={VisibleSignup} />
-					<Route path="/forgot-password" component={VisibleForgotPassword} />
+					<Route exact path="/" component={AsyncLogin} />
+					<Route path="/login" component={AsyncLogin} />
+					<Route path="/new-password" component={AsyncNewPassword} />
+					<Route path="/signup" component={AsyncSignup} />
+					<Route path="/forgot-password" component={AsyncForgotPassword} />
 					<NotificationSystem />
 				</div>
 			</Router>
