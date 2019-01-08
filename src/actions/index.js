@@ -91,6 +91,18 @@ export function updatedOwnedNamespace({ title, owners, description, _id }) {
 	};
 }
 
+export function addEnrolledNamespace({ title, owners, description, _id }) {
+	return {
+		type: types.ADD_ENROLLED_NAMESPACE,
+		payload: {
+			title,
+			description,
+			owners,
+			_id
+		}
+	};
+}
+
 export function appendCreatedNamespace( namespace ) {
 	return {
 		type: types.APPEND_CREATED_NAMESPACE,
