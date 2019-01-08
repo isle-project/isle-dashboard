@@ -35,22 +35,17 @@ class EnrollPage extends Component {
 		const elemH = 3.72;
 		let layouts = courses.map( ( e, i ) => {
 			return {
-				lg: { i: `cell-${i}`, x: i*6 % 24, y: floor( i / 6 ) * elemH, w: 6, h: elemH },
-				md: { i: `cell-${i}`, x: i*4 % 20, y: floor( i / 5 ) * elemH, w: 4, h: elemH },
-				sm: { i: `cell-${i}`, x: i*4 % 16, y: floor( i / 4 ) * elemH, w: 4, h: elemH },
-				xs: { i: `cell-${i}`, x: i*4 % 12, y: floor( i / 3 ) * elemH, w: 4, h: elemH },
-				xxs: { i: `cell-${i}`, x: i*4 % 8, y: floor( i / 2 ) * elemH, w: 4, h: elemH },
-				tiny: { i: `cell-${i}`, x: i*4 % 4, y: floor( i / 1 ) * elemH, w: 4, h: elemH }
+				lg: { i: `cell-${i}`, x: i*6 % 24, y: floor( i / 4 ) * elemH, w: 6, h: elemH },
+				md: { i: `cell-${i}`, x: i*6 % 18, y: floor( i / 3 ) * elemH, w: 6, h: elemH },
+				sm: { i: `cell-${i}`, x: i*6 % 12, y: floor( i / 2 ) * elemH, w: 6, h: elemH },
+				xs: { i: `cell-${i}`, x: i*6 % 6, y: floor( i / 1 ) * elemH, w: 6, h: elemH }
 			};
 		});
 		layouts = {
 			lg: pluck( layouts, 'lg' ),
 			md: pluck( layouts, 'md' ),
 			sm: pluck( layouts, 'sm' ),
-			xs: pluck( layouts, 'xs' ),
-			xxs: pluck( layouts, 'xxs' ),
-			tiny: pluck( layouts, 'tiny' )
-
+			xs: pluck( layouts, 'xs' )
 		};
 		return layouts;
 	}
@@ -106,8 +101,8 @@ class EnrollPage extends Component {
 			<ResponsiveReactGridLayout
 				margin={[30, 30]}
 				layouts={layouts}
-				breakpoints={{ lg: 1800, md: 1550, sm: 1200, xs: 900, xxs: 400, tiny: 0 }}
-				cols={{ lg: 24, md: 20, sm: 16, xs: 12, xxs: 8, tiny: 4 }}
+				breakpoints={{ lg: 1800, md: 1550, sm: 900, xs: 500 }}
+				cols={{ lg: 24, md: 18, sm: 12, xs: 6 }}
 				isResizable={false}
 				isDraggable={false}
 				rowHeight={60}
