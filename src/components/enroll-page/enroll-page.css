@@ -30,13 +30,27 @@
 
 
 .enroll-page-course-item {
+	padding-left: 20px;
+	padding-top: 8px;
+	border-radius: 12px;
 	box-shadow: 0 0 4px darkslategray, 6px 6px 12px darkgray;
-	background: rgba(255, 255, 255, 0.85);
+	background: rgba(255, 255, 255, 0.65);
 	transition: all 0.5s;
 	width: 100%;
 	height: 100%;
-	padding: 8px;
 	filter: saturate(20%);
+}
+
+.enroll-item-deactivated {
+	padding-left: 20px;
+	padding-top: 8px;
+	border-radius: 12px;
+	box-shadow: 0 0 4px darkslategray, 6px 6px 12px darkgray;
+	background: LightGoldenRodYellow;
+	transition: all 0.5s;
+	width: 100%;
+	height: 100%;
+	filter: saturate(100%);
 }
 
 
@@ -46,13 +60,8 @@
 }
 
 
-.enroll-page-course-item h1 {
+.enroll-page h1 {
 	font-size: 28px;
-}
-
-
-.enroll-page-course-description {
-
 }
 
 

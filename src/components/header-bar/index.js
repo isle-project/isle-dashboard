@@ -327,6 +327,9 @@ class HeaderBar extends Component {
 	}
 
 	renderHelp() {
+		if (!this.props.user.writeAccess) {
+			return null;
+		}
 		return ( <div className="header-bar-container">
 			<div key="help" className="header-bar-link-div" >
 				<a

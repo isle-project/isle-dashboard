@@ -25,6 +25,9 @@ class EnrollPage extends Component {
 	}
 
 	componentDidMount() {
+		if (!this.props.cohorts) {
+			this.props.fetchCohorts(this.props.user.token);
+		}
 	}
 
 
@@ -52,6 +55,17 @@ class EnrollPage extends Component {
 		return layouts;
 	}
 
+	checkEnrollable(namespaceTitle) {
+		let user = this.props.user;
+		for (let i = 0; i < user.enrolledNamespaces.length; i++) {
+			if (user.enrolledNamespaces[i].title === namespaceTitle) {
+				return false;
+			}
+		}
+		return true;
+	}
+
+
 	renderCourses() {
 		if (!this.props.cohorts) {
 			return null;
@@ -67,10 +81,17 @@ class EnrollPage extends Component {
 		let list = new Array(names.length);
 		for (let i = 0; i< names.length; i++) {
 			let title= names[i];
-			let {description, owners} = courses[ title ][0].namespace;
+			let {description, owners } = courses[ title ][0].namespace;
+
+			console.log('transfered course');
+			console.log( courses[ title ][0].namespace);
 
 			list[i] = <div className="enroll-page-course" key={`cell-${i}`}>
 					<Course
+						addUserToCohort={this.props.addUserToCohort}
+						enrollable={this.checkEnrollable(title)}
+						namespace={courses[ title ][0].namespace}
+						user={this.props.user}
 						title={title}
 						owners={owners}
 						cohorts={courses[title]}
@@ -113,7 +134,10 @@ class EnrollPage extends Component {
 // PROPERTIES //
 
 EnrollPage.propTypes = {
-	cohorts: PropTypes.array.isRequired
+	addUserToCohort: PropTypes.func.isRequired,
+	cohorts: PropTypes.array.isRequired,
+	fetchCohorts: PropTypes.func.isRequired,
+	user: PropTypes.object.isRequired
 };
 
 

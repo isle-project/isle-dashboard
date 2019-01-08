@@ -51,8 +51,13 @@ class Course extends Component {
 	}
 
 	handleEnroll = (event) => {
-		// alert( this.state.checked);
-		console.log(this.props.cohorts[this.state.checked]);
+		let cohortID = this.props.cohorts[this.state.checked]._id;
+
+		this.props.addUserToCohort(cohortID, this.props.user.token, this.props.namespace, () => {
+			this.setState({
+				showModal: false
+			});
+		});
 	}
 
 
@@ -87,13 +92,21 @@ class Course extends Component {
 	}
 
 	render() {
+		let cardClassName = 'enroll-page-course-item';
+		let buttonText = 'ENROLL';
+
+		if (this.props.enrollable === false) {
+			cardClassName = 'enroll-item-deactivated';
+			buttonText = 'ALREADY ENROLLED';
+		}
+
 		return (
 			<Fragment>
-			<div className="enroll-page-course-item">
+			<div className={cardClassName}>
 				<h1>{this.props.title}</h1>
 				<div className="enroll-page-course-description">{this.props.description}</div>
 				{ this.renderOwners() }
-				<Button size="sm" className="enroll-button" onClick={this.toggleModal}>ENROLL</Button>
+				<Button size="sm" className="enroll-button" disabled={!this.props.enrollable} onClick={this.toggleModal}>{ buttonText }</Button>
 			</div>
 				<Modal onHide={this.toggleModal} show={this.state.showModal}>
 					<Modal.Header closeButton>
@@ -121,9 +134,14 @@ class Course extends Component {
 // PROPERTIES //
 
 Course.propTypes = {
+	addUserToCohort: PropTypes.func.isRequired,
 	cohorts: PropTypes.array.isRequired,
 	description: PropTypes.string.isRequired,
-	title: PropTypes.string.isRequired
+	enrollable: PropTypes.bool.isRequired,
+	namespace: PropTypes.object.isRequired,
+	title: PropTypes.string.isRequired,
+	user: PropTypes.object.isRequired
+
 };
 
 
