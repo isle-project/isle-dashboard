@@ -24,6 +24,8 @@ The ISLE Dashboard is licensed under the MIT License:
 
 The codebase includes MIT-licensed code by the following authors:
 
+**SpinKit:**
+
 > The MIT License (MIT)
 >
 > Copyright (c) 2015 Tobias Ahlin
