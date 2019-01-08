@@ -3,9 +3,15 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { Button, ToggleButtonGroup, ToggleButton } from 'react-bootstrap';
+import logger from 'debug';
 import Select from 'react-select';
 import saveAs from 'utils/file_saver.js';
 import './actions_page.css';
+
+
+// VARIABLES //
+
+const debug = logger( 'isle-dashboard:namespace-data:actions-page' );
 
 
 // MAIN //
@@ -61,9 +67,7 @@ class ActionsPage extends Component {
 			selectedCohorts: cohorts,
 			displayedMembers: members
 		}, () => {
-			console.log( 'MEMBERS: ');
-			console.log( this.state.displayedMembers );
-			console.log( this.state.selectedCohorts );
+			debug( 'New number of displayed members: '+this.state.displayedMembers.length );
 		});
 	}
 
@@ -114,23 +118,20 @@ class ActionsPage extends Component {
 
 	renderLesson(lesson, id) {
 		return (
-			<div onClick={()=>this.showLessonActions(lesson)} className="actions-page-lesson">
+			<div onClick={()=> this.showLessonActions( lesson )} className="actions-page-lesson">
 				<div className="actions-page-lesson-title">{lesson.title}</div>
 			</div>
 		);
 	}
 
 	renderLessons() {
-		let lessons = this.props.namespace.lessons;
-		let list = [];
-
+		const lessons = this.props.namespace.lessons;
+		const list = [];
 		for ( let i = 0; i < lessons.length; i++ ) {
 			list.push(
 				this.renderLesson(lessons[i], i)
 			);
 		}
-
-
 		return (
 			<div className="actions-page">
 				<div className="actions-page-export">
@@ -145,39 +146,40 @@ class ActionsPage extends Component {
 
 	renderExportSection() {
 		return (
-		<Fragment>
-			<div className="actions-page-export-title">Export Actions</div>
-			<ToggleButtonGroup
-				name="options"
-				onChange={this.handleRadioChange}
-				type="radio"
-				size="small"
-				value={this.state.anonymized}
-			>
-				<ToggleButton
-					size="sm"
-					variant="light"
-					value={false}
-					style={{
-						fontSize: '12px',
-						color: this.state.anonymized ? '#A9A9A9' : 'black'
-					}}
-				>Original</ToggleButton>
-				<ToggleButton
-					size="sm"
-					variant="light"
-					value={true}
-					style={{
-						fontSize: '12px',
-						color: this.state.anonymized ? 'black' : '#A9A9A9'
-					}}
-				>Anonymized</ToggleButton>
-			</ToggleButtonGroup>
-			<Button onClick={this.retrieveActions}>Save all namespace actions</Button>
-		</Fragment>
+			<Fragment>
+				<div className="actions-page-export-title">Export Actions</div>
+				<ToggleButtonGroup
+					name="options"
+					onChange={this.handleRadioChange}
+					type="radio"
+					size="small"
+					value={this.state.anonymized}
+				>
+					<ToggleButton
+						size="sm"
+						variant="light"
+						value={false}
+						style={{
+							fontSize: '12px',
+							color: this.state.anonymized ? '#A9A9A9' : 'black'
+						}}
+					>Original</ToggleButton>
+					<ToggleButton
+						size="sm"
+						variant="light"
+						value={true}
+						style={{
+							fontSize: '12px',
+							color: this.state.anonymized ? 'black' : '#A9A9A9'
+						}}
+					>Anonymized</ToggleButton>
+				</ToggleButtonGroup>
+				<Button onClick={this.retrieveActions}>
+					Save all namespace actions
+				</Button>
+			</Fragment>
 		);
 	}
-
 
 	render() {
 		return ( <div className="namespace-data-page">

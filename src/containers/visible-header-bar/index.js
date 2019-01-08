@@ -14,7 +14,6 @@ export default connect( mapStateToProps, mapDispatchToProps )( HeaderBar );
 
 function mapStateToProps( state ) {
 	return {
-		cohorts: state.cohorts,
 		user: state.user,
 		namespace: state.namespace,
 		search: state.search

@@ -16,7 +16,7 @@
 // VARIABLES //
 
 const RE_AUTO_BOM = /^\s*(?:text\/\S*|application\/xml|\S*\/\S*\+xml)\s*;.*charset\s*=\s*utf-8/i;
-const ARBITRARY_REVOKE_TIMEOUT = 1000 * 40; // in ms
+const ARBITRARY_REVOKE_TIMEOUT = 1000 * 40; // Time in ms
 
 
 // FUNCTIONS //
@@ -104,7 +104,7 @@ function saveFactory( view ) {
 		function dispatchAll() {
 			dispatch( self, 'writestart progress write writeend'.split(' ') );
 		}
-		// on any filesys errors revert to saving with object URLs
+		// On any filesystem errors, revert to saving with object URLs:
 		function fsError() {
 			if ((isChromeIOS || (force && isSafari)) && view.FileReader) {
 				// Safari doesn't allow downloading of blob urls
