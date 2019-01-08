@@ -101,7 +101,7 @@ class EnrollPage extends Component {
 			<ResponsiveReactGridLayout
 				margin={[30, 30]}
 				layouts={layouts}
-				breakpoints={{ lg: 1600, md: 1300, sm: 800, xs: 500 }}
+				breakpoints={{ lg: 1800, md: 1400, sm: 900, xs: 500 }}
 				cols={{ lg: 24, md: 18, sm: 12, xs: 6 }}
 				isResizable={false}
 				isDraggable={false}

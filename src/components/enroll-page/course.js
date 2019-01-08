@@ -76,9 +76,16 @@ class Course extends Component {
 
 		for ( let i = 0; i < this.props.cohorts.length; i++) {
 			let cohort = this.props.cohorts[i];
+			let from = new Date(cohort.startDate).toLocaleDateString();
+			let to = new Date(cohort.endDate).toLocaleDateString();
+
+			let label = <Fragment>
+					<span>{cohort.title}</span><span className="enroll-cohort-date">{from} - {to}</span>
+				</Fragment>;
+
 			list.push(
 				<Form onClick={this.handleFormClick}>
-					<FormCheck id={i} data-pos={i} type="radio" checked={this.state.checked===i} label={cohort.title} name="radioGroup" />
+					<FormCheck id={i} data-pos={i} type="radio" checked={this.state.checked===i} label={label} name="radioGroup" />
 				</Form>
 			);
 		}
