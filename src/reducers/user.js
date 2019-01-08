@@ -103,6 +103,12 @@ export default function user( state = initialState, action ) {
 		return Object.assign({}, state, {
 			ownedNamespaces: arr
 		});
+	case types.ADD_ENROLLED_NAMESPACE:
+		arr = state.enrolledNamespaces.slice();
+		arr.push( action.payload );
+		return Object.assign({}, state, {
+			enrolledNamespaces: arr
+		});
 	case types.RECEIVED_FILES:
 		return Object.assign({}, state, {
 			files: groupBy( action.payload.files, ( v ) => {
