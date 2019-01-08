@@ -12,6 +12,7 @@ import EditModal from './edit_modal.js';
 import EnterTokenModal from './enter_token_modal.js';
 import ProfilePicModal from './profile_pic_modal.js';
 import TimeSpent from './time_spent.js';
+import ProgressStats from './progress.js';
 import ActionTypesDisplay from './action_types_display.js';
 import hoodie from './img/hoodie.jpg';
 import badge from './img/question.svg';
@@ -109,12 +110,14 @@ class ProfilePage extends Component {
 	}
 
 	renderRightPanel() {
-		if (this.state.selectedStatsType === 'progress') {
+		if ( this.state.selectedStatsType === 'progress' ) {
 			return (
-				<div>This should be a progress statistics</div>
+				<ProgressStats
+					user={this.props.user}
+					selectedNamespace={this.state.selectedNamespace}
+				/>
 			);
 		}
-
 		if (this.state.selectedStatsType === 'timeSpent') {
 			return (
 				<TimeSpent

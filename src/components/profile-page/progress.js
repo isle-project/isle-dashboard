@@ -1,10 +1,9 @@
 // MODULES //
 
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import Plotly from 'react-plotly.js';
 import isArray from '@stdlib/assert/is-array';
-import round from '@stdlib/math/base/special/round';
 import iterMean from '@stdlib/stats/iterators/mean';
 import array2iterator from '@stdlib/array/to-iterator';
 import formatTime from 'utils/format_time.js';
@@ -12,7 +11,7 @@ import formatTime from 'utils/format_time.js';
 
 // MAIN //
 
-class TimeSpentStats extends Component {
+class ProgressStats extends Component {
 	render() {
 		if ( !this.props.selectedNamespace ) {
 			return null;
@@ -22,29 +21,31 @@ class TimeSpentStats extends Component {
 			return null;
 		}
 		const data = this.props.user.lessonData;
-		let durations = [];
+		let values = [];
 		const names = [];
 		const texts = [];
 		for ( let i = 0; i < lessons.length; i++ ) {
 			const lesson = lessons[ i ];
 			if ( data[ lesson._id ] ) {
-				durations.push( data[ lesson._id ].spentTime );
+				values.push( data[ lesson._id ].progress );
 				names.push( lesson.title );
-				texts.push( `Completed: ${round( data[ lesson._id ].progress*100.0 )}%` );
+				texts.push( `Time spent: ${formatTime( data[ lesson._id ].spentTime )}%` );
 			}
 		}
-		const it = array2iterator( durations );
+		const it = array2iterator( values );
 		const avg = iterMean( it );
-		durations = durations.map( d => {
+		values = values.map( d => {
 			return d / ( 1000*60 );
 		});
 		return (
 			<div style={{ padding: '5px', overflow: 'hidden' }}>
-				<label>Average time spent: </label><span>{` ${formatTime( avg )}`}</span>
+				{avg ? <Fragment>
+					<label>Average progress: </label><span>{` ${ avg }`}</span>
+				</Fragment>: null}
 				<Plotly
 					data={[{
 						x: names,
-						y: durations,
+						y: lessons,
 						text: texts,
 						type: 'bar',
 						marker: {
@@ -68,7 +69,7 @@ class TimeSpentStats extends Component {
 							fixedrange: true
 						},
 						yaxis: {
-							title: 'Time (in min)',
+							title: 'Completed (in percent)',
 							fixedrange: true
 						},
 						autosize: true,
@@ -93,16 +94,16 @@ class TimeSpentStats extends Component {
 
 // PROPERTIES //
 
-TimeSpentStats.propTypes = {
+ProgressStats.propTypes = {
 	selectedNamespace: PropTypes.object,
 	user: PropTypes.object.isRequired
 };
 
-TimeSpentStats.defaultProps = {
+ProgressStats.defaultProps = {
 	selectedNamespace: null
 };
 
 
 // EXPORTS //
 
-export default TimeSpentStats;
+export default ProgressStats;
