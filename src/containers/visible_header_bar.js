@@ -24,7 +24,7 @@ function mapStateToProps( state ) {
 function mapDispatchToProps( dispatch ) {
 	return {
 		logout: () => {
-			localStorage.removeItem( 'isle-dashboard' );
+			localStorage.removeItem( 'ISLE_USER_'+server );
 			dispatch( actions.loggedOut() );
 		},
 		setSearchPhrase: ( str ) => {

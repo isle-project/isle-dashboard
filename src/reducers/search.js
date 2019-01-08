@@ -29,6 +29,8 @@ export default function search( state = initialState, action ) {
 		return Object.assign({}, state, {
 			direction: action.payload.direction
 		});
+	case types.LOGGED_OUT:
+		return initialState;
 	default:
 		return state;
 	}

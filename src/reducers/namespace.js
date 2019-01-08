@@ -67,6 +67,8 @@ export default function namespace( state = initialState, action ) {
 		return Object.assign({}, state, {
 			lessons
 		});
+	case types.LOGGED_OUT:
+		return initialState;
 	default:
 		return state;
 	}
