@@ -3,9 +3,15 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import request from 'request';
+import logger from 'debug';
 import server from 'constants/server';
 import Login from 'components/login';
 import * as actions from 'actions';
+
+
+// VARIABLES //
+
+const debug = logger( 'isle-dashboard:visible-login' );
 
 
 // EXPORTS //
@@ -21,11 +27,13 @@ function mapStateToProps( state ) {
 function mapDispatchToProps( dispatch ) {
 	return {
 		handleLogin: ( form, clbk ) => {
+			debug( 'Login user on server...' );
 			request.post( server+'/login', {
 				form
 			}, clbk );
 		},
 		fetchCredentials: ( obj ) => {
+			debug( 'Fetch user credentials...' );
 			localStorage.setItem( 'ISLE_USER_'+server, JSON.stringify( obj ) );
 			request.post( server+'/credentials_dashboard', {
 				headers: {
