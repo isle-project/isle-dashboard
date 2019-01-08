@@ -29,7 +29,7 @@ class ProgressStats extends Component {
 			if ( data[ lesson._id ] ) {
 				values.push( data[ lesson._id ].progress );
 				names.push( lesson.title );
-				texts.push( `Time spent: ${formatTime( data[ lesson._id ].spentTime )}%` );
+				texts.push( `Time spent: ${formatTime( data[ lesson._id ].spentTime )}` );
 			}
 		}
 		const it = array2iterator( values );
