@@ -34,18 +34,15 @@ class ProgressStats extends Component {
 		}
 		const it = array2iterator( values );
 		const avg = iterMean( it );
-		values = values.map( d => {
-			return d / ( 1000*60 );
-		});
 		return (
 			<div style={{ padding: '5px', overflow: 'hidden' }}>
 				{avg ? <Fragment>
-					<label>Average progress: </label><span>{` ${ avg }`}</span>
+					<label>Average progress: </label><span>{` ${ avg.toFixed( 3 ) }`}</span>
 				</Fragment>: null}
 				<Plotly
 					data={[{
 						x: names,
-						y: lessons,
+						y: values,
 						text: texts,
 						type: 'bar',
 						marker: {
