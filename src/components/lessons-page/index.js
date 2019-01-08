@@ -163,8 +163,6 @@ class LessonsPage extends Component {
 			</Jumbotron> );
 		}
 		let lessons = this.state.filteredLessons;
-		console.log('LESSONS');
-		console.log(lessons);
 		if ( isArray( lessons ) ) {
 			if ( lessons.length === 0 ) {
 				return ( <Jumbotron className="lessons-jumbotron">
