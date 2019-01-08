@@ -39,7 +39,7 @@ class App extends Component {
 			!contains( history.location.pathname, 'new-password' ) &&
 			!contains( history.location.pathname, 'signup' )
 		) {
-			let isle = localStorage.getItem( 'isle-dashboard' );
+			let isle = localStorage.getItem( 'isle-login' );
 			if ( isle ) {
 				isle = JSON.parse( isle );
 				this.props.handleLogin( isle );
