@@ -8,7 +8,6 @@ import createHashHistory from 'history/createHashHistory';
 import { Router, Route } from 'react-router-dom';
 import contains from '@stdlib/assert/contains';
 import asyncComponent from 'components/async';
-import VisibleHeaderBar from 'containers/visible-header-bar';
 import server from 'constants/server';
 import NotificationSystem from './notification.js';
 import * as actions from 'actions';
@@ -18,6 +17,7 @@ import './app.css';
 // VARIABLES //
 
 const history = createHashHistory();
+const AsyncHeaderBar = asyncComponent(() => import( 'containers/visible-header-bar' ));
 const AsyncForgotPassword = asyncComponent(() => import( 'containers/visible-forgot-password' ));
 const AsyncCreateNamespace = asyncComponent(() => import( 'containers/visible-create-namespace' ));
 const AsyncEditNamespace = asyncComponent(() => import( 'containers/visible-edit-namespace' ));
@@ -73,7 +73,11 @@ class App extends Component {
 		if ( this.props.isLoggedIn ) {
 			AuthenticationBarrier =
 				<Fragment>
-					<VisibleHeaderBar history={history} />
+					<Route
+						path="/"
+						component={AsyncHeaderBar}
+						history={history}
+					/>
 					<Route
 						path="/create-namespace"
 						component={AsyncCreateNamespace}

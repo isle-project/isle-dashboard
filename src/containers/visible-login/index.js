@@ -56,7 +56,6 @@ function mapDispatchToProps( dispatch ) {
 						return error;
 					}
 					body = JSON.parse( body );
-					console.log( body );
 					dispatch( actions.retrievedEnrollableCohorts( body.cohorts ) );
 				});
 			});

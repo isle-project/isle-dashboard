@@ -42,10 +42,6 @@ class CohortsPage extends Component {
 		this.setState({
 			selectedCohorts: cohorts,
 			displayedMembers: members
-		}, () => {
-			console.log( 'MEMBERS: ');
-			console.log( this.state.displayedMembers );
-			console.log( this.state.selectedCohorts );
 		});
 	}
 
@@ -55,11 +51,9 @@ class CohortsPage extends Component {
 		});
 	}
 
-
 	renderMember( member, key ) {
 		let phase = 0.3 + key*0.05;
 		let ani = 'scale-up ' + phase + 's';
-
 		return (
 			<Fragment key={key}>
 				<div className="cohort-member"
@@ -86,44 +80,39 @@ class CohortsPage extends Component {
 		return list;
 	}
 
-	renderMemberLessons(member) {
-		let lessons = this.props.lessons;
+	renderMemberLessons( member ) {
+		const lessons = this.props.lessons;
+		const list = [];
 		let progress = 0;
 		let spentTime = 0;
-		let list = [];
 		let totalTime = 0;
 
-		for ( let i = 0; i < lessons.length; i++) {
+		for ( let i = 0; i < lessons.length; i++ ) {
 			let id = lessons[i]._id;
-
-			if (member.lessonData && member.lessonData[id]) {
-				progress = round(member.lessonData[id].progress * 100);
-				spentTime = formatTime(member.lessonData[id].spentTime);
-				totalTime += member.lessonData[id].spentTime;
+			if ( member.lessonData && member.lessonData[ id ] ) {
+				const data = member.lessonData[ id ];
+				progress = round( data.progress * 100 );
+				spentTime = formatTime( data.spentTime );
+				totalTime += data.spentTime;
 			}
-
-
 			list.push(
 				<Fragment>
-				<div className="cohort-actual-member-lesson-title">{lessons[i].title}</div>
-				<ProgressBar className="cohort-actual-member-lesson-progress" style={{ float: 'left', fontSize: '10px', height: '12px'
-				}} now={progress} label={`${progress}%`} />
-				<span className="cohort-actual-member-lesson-time">{spentTime}</span>
+					<div className="cohort-actual-member-lesson-title">{lessons[i].title}</div>
+					<ProgressBar className="cohort-actual-member-lesson-progress" style={{ float: 'left', fontSize: '10px', height: '12px'
+					}} now={progress} label={`${progress}%`} />
+					<span className="cohort-actual-member-lesson-time">{spentTime}</span>
 				</Fragment>
 			);
 		}
-
-		console.log(totalTime);
-		totalTime = formatTime(totalTime);
-
+		totalTime = formatTime( totalTime );
 		return (
 			<Fragment>
-			<hr />
-			<div className="cohort-actual-member-lesson-header">COURSE INFO</div>
-			<div className="cohort-actual-member-lesson-total">COURSE TOTAL TIME: {totalTime}</div>
-			<div className="lessons-area">
-				{ list }
-			</div>
+				<hr />
+				<div className="cohort-actual-member-lesson-header">COURSE INFO</div>
+				<div className="cohort-actual-member-lesson-total">COURSE TOTAL TIME: {totalTime}</div>
+				<div className="lessons-area">
+					{list}
+				</div>
 			</Fragment>
 		);
 	}
@@ -135,33 +124,27 @@ class CohortsPage extends Component {
 	}
 
 	renderMemberBadges(member) {
-		let badges = this.props.badges;
-		console.log( member );
-		console.log( badges );
-
-		let time = formatTime(member.spentTime);
-		let list = [];
-
-		for (let i = 0; i < badges.length; i++) {
-			if (contains(member.badges, badges[i].name) ) {
-				console.log('ist enthalten');
-
+		const badges = this.props.badges;
+		const time = formatTime(member.spentTime);
+		const list = [];
+		for ( let i = 0; i < badges.length; i++ ) {
+			if ( contains(member.badges, badges[i].name ) ) {
 				list.push(
-				<Fragment>
-					<OverlayTrigger placement="bottom" overlay={<Tooltip id="isleTime">{ badges[i].description }</Tooltip>}>
-					<div className="cohort-user-badge" >
-						<img src={server + '/badges/' + badges[i].picture} />
-					</div>
-					</OverlayTrigger>
-				</Fragment>
-
+					<Fragment>
+						<OverlayTrigger
+							placement="bottom"
+							overlay={<Tooltip id="isleTime">{badges[i].description}</Tooltip>}
+						>
+							<div className="cohort-user-badge" >
+								<img src={server + '/badges/' + badges[i].picture} />
+							</div>
+						</OverlayTrigger>
+					</Fragment>
 				);
 			}
 		}
-
-		let isleTime = 'the time the user spent with ISLE';
-		let scoreComment = 'user score';
-
+		const isleTime = 'the time the user spent with ISLE';
+		const scoreComment = 'user score';
 		return (
 			<Fragment>
 				<div>General User Info</div>
@@ -172,9 +155,8 @@ class CohortsPage extends Component {
 					<span className="user-info-score">SCORE: {member.score}</span>
 				</OverlayTrigger>
 				<div></div>
-
 				<div className="user-info-badges">
-					<div className="user-info-seperator">Badges</div>
+					<div className="user-info-separator">Badges</div>
 					{list}
 				</div>
 			</Fragment>
@@ -187,7 +169,6 @@ class CohortsPage extends Component {
 		if ( member.createdAt ) {
 			date = new Date( member.createdAt ).toLocaleDateString();
 		}
-
 		return (
 			<div className="cohort-actual-member">
 				<div onClick={this.closeActualMember} className="cohort-actual-member-exit" >&#10005;</div>

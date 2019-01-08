@@ -344,9 +344,6 @@ class HeaderBar extends Component {
 		} else {
 			profilePic = icon;
 		}
-		console.log("'KOHORTEN");
-		console.log( this.props.cohorts );
-
 		return (
 			<header className="header-bar">
 				<h1 className="header-bar-title">
@@ -377,7 +374,7 @@ class HeaderBar extends Component {
 								<label className="label-display">ENROLLED COURSES</label>
 								{namespaceListGroup( this.props.user.enrolledNamespaces, this.enrolledClickFactory )}
 							</Fragment> : null}
-							<Button onClick={this.goToEnrolledPage} style={{marginTop: 10}} size="sm" block variant="success">Enroll</Button>
+							<Button onClick={this.goToEnrolledPage} style={{ marginTop: 10 }} size="sm" block variant="success">Enroll</Button>
 						</Popover>
 					</Overlay>
 					{this.renderEditButton()}
@@ -389,7 +386,7 @@ class HeaderBar extends Component {
 				<div className="header-bar-right-container">
 					{this.renderHelp()}
 					<Link to="/profile" className="header-bar-container">
-						<Image src={profilePic} className="header-bar-icon" />
+						<Image alt="Profile picture" src={profilePic} className="header-bar-icon" />
 						<span key="account" className="header-bar-link-div" >
 							<span onClick={this.setProfileLocation} className="header-bar-link">{this.props.user.name}</span>
 						</span>
@@ -414,7 +411,6 @@ class HeaderBar extends Component {
 // PROPERTIES //
 
 HeaderBar.propTypes = {
-	cohorts: PropTypes.array.isRequired,
 	history: PropTypes.object.isRequired,
 	logout: PropTypes.func.isRequired,
 	namespace: PropTypes.object.isRequired,

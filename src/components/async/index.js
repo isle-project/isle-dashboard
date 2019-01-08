@@ -11,7 +11,7 @@ function asyncComponent( importComponent ) {
 			super( props );
 
 			this.state = {
-			component: null
+				component: null
 			};
 		}
 
