@@ -3,7 +3,7 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import {
-	Button, ButtonGroup, Modal, FormLabel, Form, FormControl, FormGroup,
+	Button, ButtonGroup, Modal, FormLabel, Form, FormControl, FormCheck, FormGroup,
 	OverlayTrigger, Col, Row, Tooltip
 } from 'react-bootstrap';
 import { DateRangePicker } from 'react-dates';
@@ -46,7 +46,9 @@ class EditCohortModal extends Component {
 			endDate: moment( props.endDate ),
 			title: props.title,
 			members: props.members.map( user => user.email ),
-			showDeleteModal: false
+			showDeleteModal: false,
+			private: props.private
+
 		};
 	}
 
@@ -72,7 +74,8 @@ class EditCohortModal extends Component {
 			startDate: this.state.startDate.toDate(),
 			endDate: this.state.endDate.toDate(),
 			members: this.state.members.join( ',' ),
-			title: this.state.title
+			title: this.state.title,
+			private: this.state.private
 		};
 		this.props.onUpdate( updatedCohort );
 		this.props.onHide();
@@ -151,6 +154,15 @@ class EditCohortModal extends Component {
 							/>
 						</FormGroup>
 					</OverlayTrigger>
+				</Row>
+				<Row>
+				<OverlayTrigger placement="left" overlay={<Tooltip id="tickTooltip">If set to private the course will not show up in the students' enrollabe page</Tooltip>}>
+					<FormCheck checked={this.state.private} onChange={(event) => {
+						this.setState({
+							private: !this.state.private
+						});
+					}} type="checkbox" label="Tick to prevent students from enrolling" />
+				</OverlayTrigger>
 				</Row>
 			</Form>
 		);
