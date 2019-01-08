@@ -2,34 +2,33 @@
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import './enroll-page.css';
 import { Responsive, WidthProvider } from 'react-grid-layout';
 import pluck from '@stdlib/utils/pluck';
 import floor from '@stdlib/math/base/special/floor';
 import groupBy from '@stdlib/utils/group-by';
 import keys from '@stdlib/utils/keys';
 import Course from './course.js';
+import './enroll-page.css';
+
 
 // VARIABLES //
 
 const ResponsiveReactGridLayout = WidthProvider( Responsive );
+
 
 // MAIN //
 
 class EnrollPage extends Component {
 	constructor( props ) {
 		super( props );
-
-		this.state = {
-		};
+		this.state = {};
 	}
 
 	componentDidMount() {
-		if (!this.props.cohorts) {
-			this.props.fetchCohorts(this.props.user.token);
+		if ( !this.props.cohorts ) {
+			this.props.fetchCohorts( this.props.user.token );
 		}
 	}
-
 
 	createLayout( courses ) {
 		const elemH = 3.72;
@@ -50,53 +49,39 @@ class EnrollPage extends Component {
 		return layouts;
 	}
 
-	checkEnrollable(namespaceTitle) {
-		let user = this.props.user;
-		for (let i = 0; i < user.enrolledNamespaces.length; i++) {
-			if (user.enrolledNamespaces[i].title === namespaceTitle) {
+	checkEnrollable( namespaceTitle ) {
+		const user = this.props.user;
+		for ( let i = 0; i < user.enrolledNamespaces.length; i++ ) {
+			if ( user.enrolledNamespaces[i].title === namespaceTitle ) {
 				return false;
 			}
 		}
 		return true;
 	}
 
-
 	renderCourses() {
-		if (!this.props.cohorts) {
+		if ( !this.props.cohorts ) {
 			return null;
 		}
-		let cohorts = this.props.cohorts;
-		let courses = groupBy(cohorts, function groupCohort( cohort ) {
+		const cohorts = this.props.cohorts;
+		const courses = groupBy(cohorts, function groupCohort( cohort ) {
 			return cohort.namespace.title;
 		});
-
-		console.log( courses);
-
-		let names = keys(courses);
-		let list = new Array(names.length);
-		for (let i = 0; i< names.length; i++) {
-			let title= names[i];
-			let {description, owners } = courses[ title ][0].namespace;
-
-			console.log('transfered course');
-			console.log( courses[ title ][0].namespace);
-
-			list[i] = <div className="enroll-page-course" key={`cell-${i}`}>
-					<Course
-						addUserToCohort={this.props.addUserToCohort}
-						enrollable={this.checkEnrollable(title)}
-						namespace={courses[ title ][0].namespace}
-						user={this.props.user}
-						title={title}
-						owners={owners}
-						cohorts={courses[title]}
-						description={description} />
-				</div>;
+		const names = keys( courses );
+		const list = new Array( names.length );
+		for ( let i = 0; i< names.length; i++ ) {
+			const title= names[i];
+			list[ i ] = <div className="enroll-page-course" key={`cell-${i}`}>
+				<Course
+					addUserToCohort={this.props.addUserToCohort}
+					enrollable={this.checkEnrollable( title )}
+					namespace={courses[ title ][0].namespace}
+					user={this.props.user}
+					cohorts={courses[title]}
+				/>
+			</div>;
 		}
-
-		console.log( courses );
-		const layouts = this.createLayout(names);
-
+		const layouts = this.createLayout( names );
 		return (
 			<ResponsiveReactGridLayout
 				margin={[30, 30]}
@@ -111,7 +96,6 @@ class EnrollPage extends Component {
 			</ResponsiveReactGridLayout>
 		);
 	}
-
 
 	render() {
 		return (
