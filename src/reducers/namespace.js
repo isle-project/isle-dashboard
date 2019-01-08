@@ -11,7 +11,7 @@ const initialState = {
 	title: '',
 	description: '',
 	owners: '',
-	lessons: null,
+	lessons: [],
 	cohorts: [],
 	userStatus: null
 };
