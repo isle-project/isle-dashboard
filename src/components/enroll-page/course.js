@@ -2,7 +2,9 @@
 
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
-import { Button, Modal, FormGroup, FormCheck } from 'react-bootstrap';
+import { Button, Modal, Form, FormGroup, FormCheck } from 'react-bootstrap';
+import server from 'constants/server';
+
 // VARIABLES //
 
 
@@ -13,7 +15,8 @@ class Course extends Component {
 		super( props );
 
 		this.state = {
-			showModal: false
+			showModal: false,
+			checked: null
 		};
 	}
 
@@ -28,8 +31,13 @@ class Course extends Component {
 				let user = owners[i];
 				profiles.push(
 					<div className="enroll-page-course-teacher">
-						{user.name}
-						{ user.picture}
+						<img src={server + '/thumbnail/' + user.picture} />
+						<div className="enroll-page-course-teacher-info">
+							<div className="enroll-page-courses-teacher-name">{user.name}</div>
+							<div className="enroll-page-course-teacher-email">
+							<a href={'mailto:' + user.email}>{user.email}</a>
+							</div>
+						</div>
 					</div>
 				);
 			}
@@ -42,13 +50,31 @@ class Course extends Component {
 		);
 	}
 
+	handleEnroll = (event) => {
+		// alert( this.state.checked);
+		console.log(this.props.cohorts[this.state.checked]);
+	}
+
+
+	handleFormClick = (event) => {
+		const check = event.target.checked;
+		const pos = event.target.dataset.pos;
+		if (check) {
+			this.setState({
+				checked: Number(pos)
+			});
+		}
+	}
+
 	renderAvailableCohorts() {
 		let list = [];
 
 		for ( let i = 0; i < this.props.cohorts.length; i++) {
 			let cohort = this.props.cohorts[i];
 			list.push(
-				<FormCheck type="radio" label={cohort.title} name="radioGroup" />
+				<Form onClick={this.handleFormClick}>
+					<FormCheck id={i} data-pos={i} type="radio" checked={this.state.checked===i} label={cohort.title} name="radioGroup" />
+				</Form>
 			);
 		}
 		return list;
@@ -67,10 +93,10 @@ class Course extends Component {
 				<h1>{this.props.title}</h1>
 				<div className="enroll-page-course-description">{this.props.description}</div>
 				{ this.renderOwners() }
-				<Button onClick={this.toggleModal}>ENROLL</Button>
+				<Button size="sm" className="enroll-button" onClick={this.toggleModal}>ENROLL</Button>
 			</div>
 				<Modal onHide={this.toggleModal} show={this.state.showModal}>
-					<Modal.Header>
+					<Modal.Header closeButton>
 						<h1>{this.props.title}</h1>
 					</Modal.Header>
 					<Modal.Body>
@@ -82,7 +108,7 @@ class Course extends Component {
 								{ this.renderAvailableCohorts(this.props.cohorts)}
 							</FormGroup>
 						</div>
-						<Button>ENROLL TO THIS COURSE</Button>
+						<Button onClick={this.handleEnroll} size="sm" className="enroll-button-modal">ENROLL TO THIS COURSE</Button>
 					</Modal.Body>
 
 				</Modal>

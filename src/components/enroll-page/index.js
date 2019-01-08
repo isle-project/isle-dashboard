@@ -98,9 +98,9 @@ class EnrollPage extends Component {
 
 
 	render() {
-		console.log( this.props.cohorts);
 		return (
 			<div className="enroll-page">
+				<img className="enroll-page-background" src="https://isle.heinz.cmu.edu/pexels-photo-574283_1546971725423.jpeg" />
 				<div className="enroll-page-content">
 					{ this.renderCourses() }
 				</div>

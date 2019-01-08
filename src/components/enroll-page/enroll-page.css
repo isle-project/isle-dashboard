@@ -4,17 +4,28 @@
 	left: 0;
 	width: 100%;
 	height: calc(100% - 52px);
-	background-image: url(https://isle.heinz.cmu.edu/hall_1546955436875.jpg);
+	background: white;
+}
+
+.enroll-page-background {
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	background-image: url(https://isle.heinz.cmu.edu/pexels-photo-574283_1546971725423.jpeg);
 	background-size: 100% 100%;
+	animation: fade-in 8s forwards;
 }
 
 
 .enroll-page-content {
 	position: absolute;
-	left:0;
+	left: 0;
 	top: 0;
 	width: 100%;
 	height: 100%;
+	overflow-y: auto;
 }
 
 
@@ -25,11 +36,13 @@
 	width: 100%;
 	height: 100%;
 	padding: 8px;
+	filter: saturate(20%);
 }
 
 
 .enroll-page-course-item:hover {
 	background: white;
+	filter: saturate(100%);
 }
 
 
@@ -57,12 +70,58 @@
 
 
 .enroll-page-course-owners {
+	margin-top: 20px;
 	width: 100%;
 	height: 60%;
-	background: gainsboro;
+	font-size: 16px;
+	font-weight: 800;
 }
 
 .enroll-page-course-teacher {
-	width: 20%;
-	background: red;
+	width: 100%;
+	height: 33%;
+}
+
+.enroll-page-course-teacher img {
+	float: left;
+	width: auto;
+	height: 80%;
+	border:solid 1px darkgray;
+}
+
+
+.enroll-page-course-teacher-info {
+	padding-left: 10px;
+	float: left;
+}
+
+
+.enroll-page-courses-teacher-name {
+	color: #2e4468;
+
+	/* color: #007bff; */
+	font-weight: 600;
+}
+
+.enroll-page-course-teacher-email {
+	font-size: 14px;
+	font-weight: 400;
+	color: gray;
+	cursor: pointer;
+}
+
+.enroll-page-course-teacher-email:hover {
+	color: #007bff;
+	text-decoration: underline;
+}
+
+.enroll-button {
+	position: absolute;
+	bottom: 10px;
+	width: auto;
+	right: 10px;
+}
+
+.enroll-button-modal {
+	margin-top: 20px;
 }
