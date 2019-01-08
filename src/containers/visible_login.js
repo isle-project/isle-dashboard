@@ -26,7 +26,7 @@ function mapDispatchToProps( dispatch ) {
 			}, clbk );
 		},
 		fetchCredentials: ( obj ) => {
-			localStorage.setItem( 'isle-login', JSON.stringify( obj ) );
+			localStorage.setItem( 'ISLE_USER_'+server, JSON.stringify( obj ) );
 			request.post( server+'/credentials_dashboard', {
 				headers: {
 					'Authorization': 'JWT ' + obj.token
