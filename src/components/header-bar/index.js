@@ -91,6 +91,15 @@ class HeaderBar extends Component {
 		});
 	}
 
+	goToEnrolledPage = () => {
+		this.props.history.replace( '/enroll' );
+		this.setState({
+			location: 'Enroll',
+			showNamespacesOverlay: false
+		});
+	}
+
+
 	goToCourseEditPage() {
 		this.props.history.replace( '/edit-namespace' );
 		this.setState({
@@ -193,7 +202,7 @@ class HeaderBar extends Component {
 	}
 
 	renderCoursesButton() {
-		let disabled = true;
+		let disabled = false;
 		if (
 			this.props.user.ownedNamespaces.length > 0 || this.props.user.enrolledNamespaces.length > 0
 		) {
@@ -335,6 +344,9 @@ class HeaderBar extends Component {
 		} else {
 			profilePic = icon;
 		}
+		console.log("'KOHORTEN");
+		console.log( this.props.cohorts );
+
 		return (
 			<header className="header-bar">
 				<h1 className="header-bar-title">
@@ -361,8 +373,11 @@ class HeaderBar extends Component {
 								{namespaceListGroup( this.props.user.ownedNamespaces, this.ownedClickFactory )}
 								<div className="separator" />
 								</Fragment> : null}
-							<label className="label-display">ENROLLED COURSES</label>
-							{namespaceListGroup( this.props.user.enrolledNamespaces, this.enrolledClickFactory )}
+							{this.props.user.enrolledNamespaces.length > 0 ? <Fragment>
+								<label className="label-display">ENROLLED COURSES</label>
+								{namespaceListGroup( this.props.user.enrolledNamespaces, this.enrolledClickFactory )}
+							</Fragment> : null}
+							<Button onClick={this.goToEnrolledPage} style={{marginTop: 10}} size="sm" block variant="success">Enroll</Button>
 						</Popover>
 					</Overlay>
 					{this.renderEditButton()}
@@ -399,6 +414,7 @@ class HeaderBar extends Component {
 // PROPERTIES //
 
 HeaderBar.propTypes = {
+	cohorts: PropTypes.array.isRequired,
 	history: PropTypes.object.isRequired,
 	logout: PropTypes.func.isRequired,
 	namespace: PropTypes.object.isRequired,

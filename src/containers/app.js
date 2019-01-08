@@ -21,6 +21,7 @@ import VisibleNamespaceData from './visible_namespace_data.js';
 import VisibleGallery from './visible_gallery.js';
 import VisibleLessonsPage from './visible_lessons_page.js';
 import VisibleProfilePage from './visible_profile_page.js';
+import VisibleEnrollPage from './visible_enroll_page.js';
 import * as actions from 'actions';
 import './app.css';
 
@@ -104,6 +105,10 @@ class App extends Component {
 					<Route
 						path="/gallery"
 						component={VisibleGallery}
+					/>
+					<Route
+						path="/enroll"
+						component={VisibleEnrollPage}
 					/>
 				</Fragment>;
 		}

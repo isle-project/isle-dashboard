@@ -47,6 +47,18 @@ function mapDispatchToProps( dispatch ) {
 					...body
 				};
 				dispatch( actions.loggedIn( user ) );
+				request.get( server+'/get_enrollable_cohorts', {
+					headers: {
+						'Authorization': 'JWT ' + obj.token
+					}
+				}, function onCohorts( error, response, body ) {
+					if ( error ) {
+						return error;
+					}
+					body = JSON.parse( body );
+					console.log( body );
+					dispatch( actions.retrievedEnrollableCohorts( body.cohorts ) );
+				});
 			});
 		}
 	};

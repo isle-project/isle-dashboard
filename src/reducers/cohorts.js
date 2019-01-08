@@ -5,10 +5,10 @@ import * as types from 'constants/action_types.js';
 
 // EXPORTS //
 
-export default function badges( state = null, action ) {
+export default function cohorts( state = null, action ) {
 	switch ( action.type ) {
-	case types.RETRIEVED_BADGES:
-		return action.payload.badges;
+	case types.RETRIEVED_ENROLLABLE_COHORTS:
+		return action.payload.cohorts;
 	default:
 		return state;
 	}

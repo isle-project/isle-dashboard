@@ -208,3 +208,12 @@ export function retrievedBadges( badges ) {
 		}
 	};
 }
+
+export function retrievedEnrollableCohorts( cohorts ) {
+	return {
+		type: types.RETRIEVED_ENROLLABLE_COHORTS,
+		payload: {
+			cohorts
+		}
+	};
+}
