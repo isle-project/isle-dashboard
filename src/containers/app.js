@@ -8,7 +8,6 @@ import createHashHistory from 'history/createHashHistory';
 import { Router, Route } from 'react-router-dom';
 import contains from '@stdlib/assert/contains';
 import NewPassword from 'components/new-password';
-import CoursePage from 'components/course-page';
 import server from 'constants/server';
 import NotificationSystem from './notification.js';
 import VisibleHeaderBar from './visible_header_bar.js';
@@ -28,14 +27,6 @@ import './app.css';
 // VARIABLES //
 
 const history = createHashHistory();
-
-const VisibleCoursePage = ({ match }) => {
-	return <CoursePage namespace={match.params.namespace} />;
-};
-
-VisibleCoursePage.propTypes = {
-	match: PropTypes.object.isRequired
-};
 
 
 // MAIN //
@@ -116,10 +107,6 @@ class App extends Component {
 					<Route path="/new-password" component={NewPassword} />
 					<Route path="/signup" component={VisibleSignup} />
 					<Route path="/forgot-password" component={VisibleForgotPassword} />
-					<Route
-						path="/courses/:namespace"
-						component={VisibleCoursePage}
-					/>
 					<NotificationSystem />
 				</div>
 			</Router>
