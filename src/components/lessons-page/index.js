@@ -48,7 +48,7 @@ function searchLessons( lessons, phrase ) {
 
 function createLayout( lessons ) {
 	debug( 'Create layout...' );
-	const elemH = 3.4;
+	const elemH = 3.52;
 	let layouts = lessons.map( ( e, i ) => {
 		return {
 			lg: { i: `cell-${e.title}`, x: i*4 % 24, y: floor( i / 6 ) * elemH, w: 4, h: elemH },
