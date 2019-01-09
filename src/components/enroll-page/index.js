@@ -26,7 +26,7 @@ class EnrollPage extends Component {
 
 	componentDidMount() {
 		if ( !this.props.cohorts ) {
-			this.props.fetchCohorts( this.props.user.token );
+			this.props.fetchCohorts( this.props.user );
 		}
 	}
 

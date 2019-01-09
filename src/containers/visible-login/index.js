@@ -4,6 +4,9 @@ import React from 'react';
 import { connect } from 'react-redux';
 import request from 'request';
 import logger from 'debug';
+import isRegExpString from '@stdlib/assert/is-regexp-string';
+import reFromString from '@stdlib/utils/regexp-from-string';
+import contains from '@stdlib/assert/contains';
 import server from 'constants/server';
 import Login from 'components/login';
 import * as actions from 'actions';
@@ -42,17 +45,17 @@ function mapDispatchToProps( dispatch ) {
 				form: {
 					id: obj.id
 				}
-			}, function onLogin( error, response, body ) {
+			}, function onLogin( error, response, user ) {
 				if ( error ) {
 					return error;
 				}
-				body = JSON.parse( body );
-				if ( body.picture ) {
-					body.picture = server + '/avatar/' + body.picture;
+				user = JSON.parse( user );
+				if ( user.picture ) {
+					user.picture = server + '/avatar/' + user.picture;
 				}
-				let user = {
+				user = {
 					...obj,
-					...body
+					...user
 				};
 				dispatch( actions.loggedIn( user ) );
 				request.get( server+'/get_enrollable_cohorts', {
@@ -64,7 +67,15 @@ function mapDispatchToProps( dispatch ) {
 						return error;
 					}
 					body = JSON.parse( body );
-					dispatch( actions.retrievedEnrollableCohorts( body.cohorts ) );
+					let cohorts = body.cohorts;
+					cohorts = cohorts.filter( elem => {
+						let emailFilter = elem.emailFilter || '';
+						if ( isRegExpString( emailFilter ) ) {
+							emailFilter = reFromString( emailFilter );
+						}
+						return contains( user.email, emailFilter );
+					});
+					dispatch( actions.retrievedEnrollableCohorts( cohorts ) );
 				});
 			});
 		}

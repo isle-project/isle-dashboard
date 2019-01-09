@@ -4,6 +4,9 @@ import React from 'react';
 import { connect } from 'react-redux';
 import EnrollPage from 'components/enroll-page';
 import request from 'request';
+import contains from '@stdlib/assert/contains';
+import isRegExpString from '@stdlib/assert/is-regexp-string';
+import reFromString from '@stdlib/utils/regexp-from-string';
 import server from 'constants/server';
 import * as actions from 'actions';
 
@@ -70,22 +73,28 @@ function mapDispatchToProps(dispatch) {
 					});
 					dispatch( actions.retrievedLessons({ lessons, namespaceName }) );
 				});
-
-
 				return callback();
 			});
 		},
-		fetchCohorts(token) {
+		fetchCohorts( user ) {
 			request.get( server+'/get_enrollable_cohorts', {
 				headers: {
-					'Authorization': 'JWT ' + token
+					'Authorization': 'JWT ' + user.token
 				}
 			}, function onCohorts( error, response, body ) {
 				if ( error ) {
 					return error;
 				}
 				body = JSON.parse( body );
-				dispatch( actions.retrievedEnrollableCohorts( body.cohorts ) );
+				let cohorts = body.cohorts;
+				cohorts = cohorts.filter( elem => {
+					let emailFilter = elem.emailFilter || '';
+					if ( isRegExpString( emailFilter ) ) {
+						emailFilter = reFromString( emailFilter );
+					}
+					return contains( user.email, emailFilter || '' );
+				});
+				dispatch( actions.retrievedEnrollableCohorts( cohorts ) );
 			});
 		}
 	};

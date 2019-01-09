@@ -170,10 +170,10 @@ class EditCohortModal extends Component {
 				</Row>
 				<hr />
 			<Row>
-				<OverlayTrigger placement="right" overlay={<Tooltip id="ownerTooltip">Please enter the name of the cohort.</Tooltip>}>
+				<OverlayTrigger placement="right" overlay={<Tooltip id="ownerTooltip">Can be either a string or a regular expression string (starting and ending with /).</Tooltip>}>
 						<FormGroup>
 							<FormLabel>eMail filter</FormLabel>
-							<FormControl style={{width: '25vw'}}
+							<FormControl style={{ width: '25vw' }}
 								name="emailFilter"
 								type="text"
 								value={this.state.emailFilter}

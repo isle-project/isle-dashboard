@@ -158,11 +158,11 @@ class CreateCohortModal extends Component {
 			</Row>
 			<hr />
 			<Row>
-				<OverlayTrigger placement="right" overlay={<Tooltip id="ownerTooltip">Please enter the name of the cohort.</Tooltip>}>
+				<OverlayTrigger placement="right" overlay={<Tooltip id="ownerTooltip">Can be either a string or a regular expression string (starting and ending with /)</Tooltip>}>
 						<FormGroup>
 							<FormLabel>email filter</FormLabel>
 							<FormControl
-								style={{width: '25vw'}}
+								style={{ width: '25vw' }}
 								name="emailFilter"
 								type="text"
 								placeholder="Enter filter"
