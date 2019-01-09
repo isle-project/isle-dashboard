@@ -99,7 +99,7 @@ class ProgressPage extends Component {
 			}
 			members = members.concat( this.props.cohorts[ i ].members );
 		}
-		this.setState({
+		this.setState({ // eslint-disable-line react/no-did-mount-set-state
 			displayedMembers: members
 		});
 	}

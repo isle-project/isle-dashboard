@@ -17,7 +17,7 @@ function asyncComponent( importComponent ) {
 
 		async componentDidMount() {
 			const { default: component } = await importComponent();
-			this.setState({
+			this.setState({ // eslint-disable-line react/no-did-mount-set-state
 				component: component
 			});
 		}
