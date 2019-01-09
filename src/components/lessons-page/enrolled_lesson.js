@@ -40,7 +40,7 @@ class EnrolledLesson extends Component {
 				position: 'absolute',
 				top: 180,
 				width: '100%',
-				height: '26px',
+				height: '36px',
 				background: 'rgba(0, 0, 0, 0.75)'
 			}}>
 				<div className="enrolled-lesson-progress">
