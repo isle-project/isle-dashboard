@@ -47,7 +47,8 @@ class EditCohortModal extends Component {
 			title: props.title,
 			members: props.members.map( user => user.email ),
 			showDeleteModal: false,
-			private: props.private
+			private: props.private,
+			emailFilter: props.emailFilter
 
 		};
 	}
@@ -61,7 +62,7 @@ class EditCohortModal extends Component {
 		}, () => {
 			this.setState({
 				disabled: !validateInputs({
-					emails: this.state.owners,
+					emails: this.state.members,
 					title: this.state.title
 				})
 			});
@@ -71,6 +72,7 @@ class EditCohortModal extends Component {
 	handleUpdate = () => {
 		const updatedCohort = {
 			_id: this.props._id,
+			emailFilter: this.state.emailFilter,
 			startDate: this.state.startDate.toDate(),
 			endDate: this.state.endDate.toDate(),
 			members: this.state.members.join( ',' ),
@@ -139,6 +141,7 @@ class EditCohortModal extends Component {
 						</FormGroup>
 					</Col>
 				</Row>
+				<hr />
 				<Row>
 					<OverlayTrigger placement="right" overlay={<Tooltip id="ownerTooltip">Comma-separated list of email addresses denoting the students for this cohort</Tooltip>}>
 						<FormGroup>
@@ -155,8 +158,9 @@ class EditCohortModal extends Component {
 						</FormGroup>
 					</OverlayTrigger>
 				</Row>
+				<hr />
 				<Row>
-				<OverlayTrigger placement="left" overlay={<Tooltip id="tickTooltip">If set to private the course will not show up in the students' enrollabe page</Tooltip>}>
+				<OverlayTrigger placement="left" overlay={<Tooltip id="tickTooltip">If set to private the course will not show up in the students&#x27; enrollabe page</Tooltip>}>
 					<FormCheck checked={this.state.private} onChange={(event) => {
 						this.setState({
 							private: !this.state.private
@@ -164,6 +168,21 @@ class EditCohortModal extends Component {
 					}} type="checkbox" label="Tick to prevent students from enrolling" />
 				</OverlayTrigger>
 				</Row>
+				<hr />
+			<Row>
+				<OverlayTrigger placement="right" overlay={<Tooltip id="ownerTooltip">Please enter the name of the cohort.</Tooltip>}>
+						<FormGroup>
+							<FormLabel>eMail filter</FormLabel>
+							<FormControl style={{width: '25vw'}}
+								name="emailFilter"
+								type="text"
+								value={this.state.emailFilter}
+								placeholder="Enter filter"
+								onChange={this.handleInputChange}
+							/>
+						</FormGroup>
+					</OverlayTrigger>
+			</Row>
 			</Form>
 		);
 

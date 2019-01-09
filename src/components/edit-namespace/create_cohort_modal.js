@@ -45,7 +45,8 @@ class CreateCohortModal extends Component {
 			endDate,
 			disabled: true,
 			students: [],
-			private: false
+			private: false,
+			emailFilter: ''
 		};
 		this.state = initialState;
 
@@ -73,6 +74,7 @@ class CreateCohortModal extends Component {
 
 	onCreate = () => {
 		const cohort = {
+			emailFilter: this.state.emailFilter,
 			title: this.state.title,
 			startDate: this.state.startDate.toDate(),
 			endDate: this.state.endDate.toDate(),
@@ -126,6 +128,7 @@ class CreateCohortModal extends Component {
 					</FormGroup>
 				</Col>
 			</Row>
+			<hr />
 			<Row>
 				<OverlayTrigger placement="right" overlay={<Tooltip id="ownerTooltip">Comma-separated list of email addresses denoting the students for this cohort</Tooltip>}>
 					<FormGroup>
@@ -143,14 +146,30 @@ class CreateCohortModal extends Component {
 					</FormGroup>
 				</OverlayTrigger>
 			</Row>
+			<hr />
 			<Row>
-				<OverlayTrigger placement="left" overlay={<Tooltip id="tickTooltip">If set to private the course will not show up in the students' enrollabe page</Tooltip>}>
+				<OverlayTrigger placement="left" overlay={<Tooltip id="tickTooltip">If set to private the course will not show up in the students&#x27; enrollabe page</Tooltip>}>
 					<FormCheck checked={this.state.private} onChange={(event) => {
 						this.setState({
 							private: !this.state.private
 						});
 					}} type="checkbox" label="Tick to prevent students from enrolling" />
 				</OverlayTrigger>
+			</Row>
+			<hr />
+			<Row>
+				<OverlayTrigger placement="right" overlay={<Tooltip id="ownerTooltip">Please enter the name of the cohort.</Tooltip>}>
+						<FormGroup>
+							<FormLabel>email filter</FormLabel>
+							<FormControl
+								style={{width: '25vw'}}
+								name="emailFilter"
+								type="text"
+								placeholder="Enter filter"
+								onChange={this.handleInputChange}
+							/>
+						</FormGroup>
+					</OverlayTrigger>
 			</Row>
 		</Form> );
 	}
