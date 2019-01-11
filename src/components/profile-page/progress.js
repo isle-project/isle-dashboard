@@ -4,7 +4,8 @@ import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import Plotly from 'react-plotly.js';
 import isArray from '@stdlib/assert/is-array';
-import iterMean from '@stdlib/stats/iterators/mean';
+import iterMean from '@stdlib/stats/iter/mean';
+import iterStdev from '@stdlib/stats/iter/stdev';
 import array2iterator from '@stdlib/array/to-iterator';
 import formatTime from 'utils/format_time.js';
 
@@ -32,12 +33,16 @@ class ProgressStats extends Component {
 				texts.push( `Time spent: ${formatTime( data[ lesson._id ].spentTime )}` );
 			}
 		}
-		const it = array2iterator( values );
+		let it = array2iterator( values );
 		const avg = iterMean( it );
+		it = array2iterator( values );
+		const stdev = iterStdev( it );
 		return (
 			<div style={{ padding: '5px', overflow: 'hidden' }}>
 				{avg ? <Fragment>
-					<label>Average progress: </label><span>{` ${ avg.toFixed( 3 ) }`}</span>
+					<label>Average progress: </label>
+					<span>{` ${ avg.toFixed( 3 ) }`}</span>
+					<span>(SD: {stdev.toFixed( 3 )})</span>
 				</Fragment>: null}
 				<Plotly
 					data={[{

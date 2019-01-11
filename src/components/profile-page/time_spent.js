@@ -5,7 +5,8 @@ import PropTypes from 'prop-types';
 import Plotly from 'react-plotly.js';
 import isArray from '@stdlib/assert/is-array';
 import round from '@stdlib/math/base/special/round';
-import iterMean from '@stdlib/stats/iterators/mean';
+import iterMean from '@stdlib/stats/iter/mean';
+import iterStdev from '@stdlib/stats/iter/stdev';
 import array2iterator from '@stdlib/array/to-iterator';
 import formatTime from 'utils/format_time.js';
 
@@ -33,14 +34,18 @@ class TimeSpentStats extends Component {
 				texts.push( `Completed: ${round( data[ lesson._id ].progress*100.0 )}%` );
 			}
 		}
-		const it = array2iterator( durations );
+		let it = array2iterator( durations );
 		const avg = iterMean( it );
+		it = array2iterator( durations );
+		const stdev = iterStdev( it );
 		durations = durations.map( d => {
 			return d / ( 1000*60 );
 		});
 		return (
 			<div style={{ padding: '5px', overflow: 'hidden' }}>
-				<label>Average time spent: </label><span>{` ${formatTime( avg )}`}</span>
+				<label>Average time spent: </label>
+				<span>{` ${formatTime( avg )}`}</span>
+				<span>(SD: {stdev}.toFixed( 3 ))</span>
 				<Plotly
 					data={[{
 						x: names,
