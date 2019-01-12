@@ -49,7 +49,6 @@ class EditCohortModal extends Component {
 			showDeleteModal: false,
 			private: props.private,
 			emailFilter: props.emailFilter
-
 		};
 	}
 

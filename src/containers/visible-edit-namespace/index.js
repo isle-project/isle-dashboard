@@ -143,13 +143,16 @@ function mapDispatchToProps( dispatch ) {
 				headers: {
 					'Authorization': 'JWT ' + ns.token
 				}
-			}, ( err, res ) => {
+			}, ( err, res, body ) => {
 				if ( err ) {
 					return clbk( err );
 				}
-				dispatch( actions.changedNamespace( ns ) );
-				dispatch( actions.updatedOwnedNamespace( ns ) );
-				clbk( null, res );
+				if ( res.statusCode === 200 ) {
+					body = JSON.parse( body );
+					dispatch( actions.changedNamespace( body.namespace ) );
+					dispatch( actions.updatedOwnedNamespace( body.namespace ) );
+				}
+				return clbk( null, res );
 			});
 		}
 	};
