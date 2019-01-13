@@ -42,7 +42,7 @@ class ProgressStats extends Component {
 				{avg ? <Fragment>
 					<label>Average progress: </label>
 					<span>{` ${ avg.toFixed( 3 ) }`}</span>
-					<span>(SD: {stdev.toFixed( 3 )})</span>
+					<span>{` (SD: ${stdev.toFixed( 3 )})`}</span>
 				</Fragment>: null}
 				<Plotly
 					data={[{
