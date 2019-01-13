@@ -30,12 +30,7 @@ function mapDispatchToProps( dispatch ) {
 			}, ( err, res ) => {
 				if ( !err ) {
 					const body = JSON.parse( res.body );
-					let namespace = {
-						title,
-						description,
-						owners,
-						_id: body._id
-					};
+					const namespace = body.namespace;
 					props.onNamespace( namespace );
 					dispatch( actions.appendCreatedNamespace( namespace ) );
 					props.history.replace( '/lessons' );
