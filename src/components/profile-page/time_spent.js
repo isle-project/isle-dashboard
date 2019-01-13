@@ -45,7 +45,7 @@ class TimeSpentStats extends Component {
 			<div style={{ padding: '5px', overflow: 'hidden' }}>
 				<label>Average time spent: </label>
 				<span>{` ${formatTime( avg )}`}</span>
-				<span>(SD: {stdev}.toFixed( 3 ))</span>
+				<span>(SD: {stdev.toFixed( 3 )})</span>
 				<Plotly
 					data={[{
 						x: names,
