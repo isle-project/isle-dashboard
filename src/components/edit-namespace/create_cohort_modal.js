@@ -16,15 +16,11 @@ import TextSelect from 'components/text-select';
 
 function validateInputs({ emails, title }) {
 	let invalid = false;
-	if ( emails.length === 0 ) {
-		invalid = true;
-	} else {
-		emails.forEach( owner => {
-			if ( !isEmail( owner ) ) {
-				invalid = true;
-			}
-		});
-	}
+	emails.forEach( owner => {
+		if ( !isEmail( owner ) ) {
+			invalid = true;
+		}
+	});
 	if ( invalid ) {
 		return false;
 	}
