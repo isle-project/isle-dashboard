@@ -35,12 +35,21 @@ class TimeSpentStats extends Component {
 			}
 		}
 		let it = array2iterator( durations );
-		const avg = iterMean( it );
+		let avg = iterMean( it );
 		it = array2iterator( durations );
-		const stdev = iterStdev( it );
+		let stdev = iterStdev( it );
 		durations = durations.map( d => {
 			return d / ( 1000*60 );
 		});
+
+		if (!avg) {
+			avg = 0;
+		}
+
+		if (!stdev) {
+			stdev = 0;
+		}
+
 		return (
 			<div style={{ padding: '5px', overflow: 'hidden' }}>
 				<label>Average time spent: </label>
