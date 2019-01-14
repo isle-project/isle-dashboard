@@ -78,10 +78,11 @@ class LessonsPage extends Component {
 	constructor( props ) {
 		super( props );
 
+		const lessons = props.namespace.lessons;
 		this.state = {
-			filteredLessons: [],
-			layouts: {},
-			unfilteredLessons: props.namespace.lessons,
+			filteredLessons: lessons,
+			layouts: createLayout( lessons ),
+			unfilteredLessons: lessons,
 			search: props.search
 		};
 	}
@@ -157,17 +158,28 @@ class LessonsPage extends Component {
 
 	render() {
 		if ( !this.props.namespace.title ) {
+			let appendix = null;
+			if ( this.props.user.writeAccess ) {
+				appendix = <span>or create a new one under <i className="fa fa-pencil-alt"></i>.</span>;
+			} else {
+				appendix = ' .';
+			}
 			return ( <Jumbotron className="lessons-jumbotron" >
 				<h1>No Course Selected</h1>
-				<p>Open an existing course by selecting one from the dropdown menu above at <i className="fa fa-align-justify"></i> or create a new one under <i className="fa fa-pencil-alt"></i>.</p>
+				<p>Open an existing course by selecting one from the dropdown menu above at <i className="fa fa-align-justify">{appendix}</i>
+				</p>
 			</Jumbotron> );
 		}
 		let lessons = this.state.filteredLessons;
 		if ( isArray( lessons ) ) {
 			if ( lessons.length === 0 ) {
+				let description = 'The selected course does not contain any lessons. ';
+				if ( this.props.user.writeAccess ) {
+					description += 'You can upload lessons from the ISLE editor.';
+				}
 				return ( <Jumbotron className="lessons-jumbotron">
 					<h1>No Lessons Found</h1>
-					<p>The selected course does not contain any lessons. You can upload lessons from the ISLE editor.</p>
+					<p>{description}</p>
 				</Jumbotron> );
 			}
 			return (
