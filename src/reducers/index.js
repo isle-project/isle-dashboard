@@ -1,7 +1,7 @@
 // MODULES //
 
 import { combineReducers } from 'redux';
-import { routerReducer as routing } from 'react-router-redux';
+import { connectRouter } from 'connected-react-router';
 import badges from './badges';
 import cohorts from './cohorts';
 import namespace from './namespace';
@@ -11,20 +11,15 @@ import search from './search';
 import user from './user';
 
 
-// MAIN //
+// EXPORTS //
 
-const rootReducer = combineReducers({
+export default ( history ) => combineReducers({
 	badges,
 	cohorts,
 	gallery,
 	namespace,
 	notification,
-	routing,
+	router: connectRouter( history ),
 	search,
 	user
 });
-
-
-// EXPORTS //
-
-export default rootReducer;

@@ -1,5 +1,6 @@
 // MODULES //
 
+import { LOCATION_CHANGE } from 'connected-react-router';
 import lowercase from '@stdlib/string/lowercase';
 import * as types from 'constants/action_types.js';
 
@@ -30,6 +31,8 @@ export default function search( state = initialState, action ) {
 			direction: action.payload.direction
 		});
 	case types.LOGGED_OUT:
+		return initialState;
+	case LOCATION_CHANGE:
 		return initialState;
 	default:
 		return state;

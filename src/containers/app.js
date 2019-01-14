@@ -4,8 +4,8 @@ import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import request from 'request';
-import createHashHistory from 'history/createHashHistory';
-import { Router, Route } from 'react-router-dom';
+import { Route } from 'react-router-dom';
+import { ConnectedRouter } from 'connected-react-router';
 import contains from '@stdlib/assert/contains';
 import asyncComponent from 'components/async';
 import server from 'constants/server';
@@ -16,7 +16,6 @@ import './app.css';
 
 // VARIABLES //
 
-const history = createHashHistory();
 const AsyncHeaderBar = asyncComponent(() => import( 'containers/visible-header-bar' ));
 const AsyncForgotPassword = asyncComponent(() => import( 'containers/visible-forgot-password' ));
 const AsyncCreateNamespace = asyncComponent(() => import( 'containers/visible-create-namespace' ));
@@ -35,6 +34,7 @@ const AsyncEnrollPage = asyncComponent(() => import( 'containers/visible-enroll-
 
 class App extends Component {
 	componentDidMount() {
+		const history = this.props.history;
 		if (
 			!this.props.isLoggedIn &&
 			!contains( history.location.pathname, 'courses' ) &&
@@ -52,6 +52,7 @@ class App extends Component {
 	}
 
 	componentDidUpdate( prevProps ) {
+		const history = this.props.history;
 		const isLoggingOut = prevProps.isLoggedIn && !this.props.isLoggedIn;
 		const isLoggingIn = !prevProps.isLoggedIn && this.props.isLoggedIn;
 		const pathname = history.location.pathname;
@@ -91,7 +92,7 @@ class App extends Component {
 							'/enroll'
 						]}
 						component={AsyncHeaderBar}
-						history={history}
+						history={this.props.history}
 					/>
 					<Route
 						path="/create-namespace"
@@ -124,7 +125,7 @@ class App extends Component {
 				</Fragment>;
 		}
 		return (
-			<Router history={history}>
+			<ConnectedRouter history={this.props.history}>
 				<div className="App">
 					{AuthenticationBarrier}
 					<Route exact path="/" component={AsyncLogin} />
@@ -134,7 +135,7 @@ class App extends Component {
 					<Route path="/forgot-password" component={AsyncForgotPassword} />
 					<NotificationSystem />
 				</div>
-			</Router>
+			</ConnectedRouter>
 		);
 	}
 }
@@ -144,6 +145,7 @@ class App extends Component {
 
 App.propTypes = {
 	handleLogin: PropTypes.func.isRequired,
+	history: PropTypes.object.isRequired,
 	isLoggedIn: PropTypes.bool.isRequired,
 	user: PropTypes.object.isRequired
 };
