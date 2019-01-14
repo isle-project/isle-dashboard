@@ -13,6 +13,7 @@ const initialState = {
 	owners: '',
 	lessons: [],
 	cohorts: [],
+	files: [],
 	userStatus: null
 };
 
@@ -66,6 +67,22 @@ export default function namespace( state = initialState, action ) {
 		}
 		return Object.assign({}, state, {
 			lessons
+		});
+	case types.RECEIVED_NAMESPACE_FILES:
+		lessons = state.lessons;
+		let files = action.payload.files;
+		files = files.map( file => {
+			file.updatedAt = new Date( file.updatedAt );
+			for ( let i = 0; i < lessons.length; i++ ) {
+				if ( lessons[ i ]._id === file.lesson ) {
+					file.lesson = lessons[ i ];
+					break;
+				}
+			}
+			return file;
+		});
+		return Object.assign({}, state, {
+			files
 		});
 	case types.LOGGED_OUT:
 		return initialState;

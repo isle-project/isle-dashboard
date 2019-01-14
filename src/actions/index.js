@@ -149,6 +149,15 @@ export function receivedFiles( files ) {
 	};
 }
 
+export function receivedNamespaceFiles( files ) {
+	return {
+		type: types.RECEIVED_NAMESPACE_FILES,
+		payload: {
+			files
+		}
+	};
+}
+
 export function deletedLesson( lessonName ) {
 	return {
 		type: types.DELETED_LESSON,

@@ -3,10 +3,36 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import request from 'request';
+import noop from '@stdlib/utils/noop';
 import server from 'constants/server';
 import { withRouter } from 'react-router';
 import NamespaceData from 'components/namespace-data';
 import * as actions from 'actions';
+
+
+// FUNCTIONS //
+
+function getFilesRequest({ namespaceName, token, clbk = noop, dispatch }) {
+	request.get( server+'/get_files', {
+		qs: {
+			namespaceName
+		},
+		headers: {
+			'Authorization': 'JWT ' + token
+		}
+	}, function onFiles( err, res, body ) {
+		if ( err ) {
+			dispatch( actions.addNotification({
+				message: err.message,
+				level: 'error'
+			}) );
+			return clbk( err );
+		}
+		body = JSON.parse( body );
+		dispatch( actions.receivedNamespaceFiles( body.files ) );
+		clbk( null, body.files );
+	});
+}
 
 
 // EXPORTS //
@@ -36,24 +62,7 @@ function mapDispatchToProps( dispatch ) {
 			});
 		},
 		getFiles: ({ namespaceName, token }, clbk ) => {
-			request.get( server+'/get_files', {
-				qs: {
-					namespaceName
-				},
-				headers: {
-					'Authorization': 'JWT ' + token
-				}
-			}, function onFiles( err, res, body ) {
-				if ( err ) {
-					dispatch( actions.addNotification({
-						message: err.message,
-						level: 'error'
-					}) );
-					return clbk( err );
-				}
-				body = JSON.parse( body );
-				clbk( null, body.files );
-			});
+			getFilesRequest({ namespaceName, token, clbk, dispatch });
 		},
 		getNamespaceActions: ({ namespaceID, token }, clbk ) => {
 			request.post( server+'/get_namespace_actions', {
@@ -68,6 +77,30 @@ function mapDispatchToProps( dispatch ) {
 		addNotification: ({ message, level }) => {
 			dispatch( actions.addNotification({ message, level }) );
 		},
+		deleteFile: ( _id, namespaceName, token ) => {
+			request.get( server+'/delete_file', {
+				qs: {
+					_id
+				},
+				headers: {
+					'Authorization': 'JWT ' + token
+				}
+			}, ( err, res ) => {
+				if ( err || res.statusCode >= 400 ) {
+					let msg = res.body;
+					return dispatch( actions.addNotification({
+						message: msg,
+						level: 'error'
+					}) );
+				}
+				getFilesRequest({ namespaceName, token, dispatch });
+				return dispatch( actions.addNotification({
+					title: 'File Deleted',
+					message: 'File successfully deleted',
+					level: 'success'
+				}) );
+			});
+		},
 		uploadFile: ({ token, formData }) => {
 			const xhr = new XMLHttpRequest();
 			xhr.open( 'POST', server+'/upload_file', true );
@@ -81,6 +114,11 @@ function mapDispatchToProps( dispatch ) {
 						body = JSON.parse( xhr.responseText );
 						message = body.message;
 						level = 'success';
+						getFilesRequest({
+							namespaceName: formData.get( 'namespaceName' ),
+							token,
+							dispatch
+						});
 					} else {
 						message = xhr.responseText;
 						level = 'error';

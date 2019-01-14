@@ -24,8 +24,7 @@ class NamespaceData extends Component {
 		super( props );
 
 		this.state = {
-			activePage: 1,
-			files: null
+			activePage: 1
 		};
 	}
 
@@ -37,12 +36,17 @@ class NamespaceData extends Component {
 		debug( 'Uploading file...' );
 		const file = event.target.files[ 0 ];
 		const formData = new FormData();
-		formData.append( 'file', file );
+		formData.append( 'owner', this.props.user.id );
 		formData.append( 'namespaceName', this.props.namespace.title );
+		formData.append( 'file', file );
 		this.props.uploadFile({
 			token: this.props.user.token,
 			formData: formData
 		});
+	}
+
+	handleFileDeletion = ( _id ) => {
+		this.props.deleteFile( _id, this.props.namespace.title, this.props.user.token );
 	}
 
 	handleSelect = ( selectedKey ) => {
@@ -51,28 +55,11 @@ class NamespaceData extends Component {
 			this.props.getFiles({
 				namespaceName: this.props.namespace.title,
 				token: this.props.user.token
-			}, ( err, files ) => {
-				const lessons = this.props.namespace.lessons;
-				files = files.map( file => {
-					file.updatedAt = new Date( file.updatedAt );
-					for ( let i = 0; i < lessons.length; i++ ) {
-						if ( lessons[ i ]._id === file.lesson ) {
-							file.lesson = lessons[ i ];
-							break;
-						}
-					}
-					return file;
-				});
-				this.setState({
-					activePage: selectedKey,
-					files: files
-				});
-			});
-		} else {
-			this.setState({
-				activePage: selectedKey
 			});
 		}
+		this.setState({
+			activePage: selectedKey
+		});
 	}
 
 	renderPage() {
@@ -84,7 +71,7 @@ class NamespaceData extends Component {
 			case 3:
 				return <CohortsPage badges={this.props.badges} cohorts={this.props.namespace.cohorts} lessons={this.props.namespace.lessons} />;
 			case 4:
-				return <FilesPage files={this.state.files} handleUpload={this.handleUpload} />;
+				return <FilesPage files={this.props.namespace.files} handleUpload={this.handleUpload} handleFileDeletion={this.handleFileDeletion} />;
 			case 5:
 				return <ActionsPage namespace={this.props.namespace} getNamespaceActions={this.props.getNamespaceActions} user={this.props.user} cohorts={this.props.namespace.cohorts} />;
 		}
