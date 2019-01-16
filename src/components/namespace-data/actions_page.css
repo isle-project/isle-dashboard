@@ -78,7 +78,7 @@
 	z-index: 100;
 	display: grid;
 	animation: slide-in-top 0.7s;
-	grid-template-columns: 140px auto 32px 32px;
+	grid-template-columns: 200px auto 32px 32px;
 	grid-template-rows: 32px 48px auto;
 	grid-template-areas:
 		"lessonActionTitle lessonActionHeader lessonActionResize lessonActionExit"
