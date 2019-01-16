@@ -166,7 +166,7 @@ class LessonsPage extends Component {
 			}
 			return ( <Jumbotron className="lessons-jumbotron" >
 				<h1>No Course Selected</h1>
-				<p>Open an existing course by selecting one from the dropdown menu above at <i className="fa fa-align-justify">{appendix}</i>
+				<p>Open an existing course by selecting one from the dropdown menu above at <i className="fa fa-align-justify"></i>{appendix}
 				</p>
 			</Jumbotron> );
 		}
