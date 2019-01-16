@@ -193,7 +193,7 @@ class CohortsPage extends Component {
 		return (
 			<div className="namespace-data-page">
 				<OverlayTrigger placement="right" overlay={<Tooltip id="select">Select user cohorts</Tooltip>}>
-					<div style={{ width: '400px', height: '40px' }}>
+					<div style={{ width: '100%', height: '40px' }}>
 						<Select
 							value={this.state.selectedCohorts}
 							isMulti
