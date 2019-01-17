@@ -4,6 +4,13 @@ import hasOwnProp from '@stdlib/assert/has-own-property';
 import * as types from 'constants/action_types.js';
 
 
+// FUNCTIONS //
+
+function titleCompare( a, b ) {
+	return ( '' + a.title ).localeCompare( b.title );
+}
+
+
 // VARIABLES //
 
 const initialState = {
@@ -43,7 +50,7 @@ export default function namespace( state = initialState, action ) {
 		return state;
 	case types.RETRIEVED_COHORTS:
 		return Object.assign({}, state, {
-			cohorts: action.payload.cohorts
+			cohorts: action.payload.cohorts.sort( titleCompare )
 		});
 	case types.DELETED_LESSON:
 		lessons = state.lessons.slice();

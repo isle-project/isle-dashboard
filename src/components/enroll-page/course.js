@@ -73,7 +73,7 @@ class Course extends Component {
 					<span>{cohort.title}</span><span className="enroll-cohort-date">{from} - {to}</span>
 				</Fragment>;
 			list.push(
-				<Form onClick={this.handleFormClick}>
+				<Form key={i} onClick={this.handleFormClick}>
 					<FormCheck id={i} data-pos={i} type="radio" checked={this.state.checked===i} label={label} name="radioGroup" />
 				</Form>
 			);
@@ -118,7 +118,7 @@ class Course extends Component {
 						</div>
 						<div className="enroll-page-cohorts-list">
 							<FormGroup>
-								{ this.renderAvailableCohorts(this.props.cohorts)}
+								{this.renderAvailableCohorts(this.props.cohorts)}
 							</FormGroup>
 						</div>
 						<Button onClick={this.handleEnroll} size="sm" className="enroll-button-modal">ENROLL TO THIS COURSE</Button>
