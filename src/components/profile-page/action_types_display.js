@@ -54,7 +54,7 @@ class ActionTypesDisplay extends Component {
 				<td>{count}</td>
 			</tr>;
 		}
-		return ( <Table size="sm" striped >
+		return ( <Table size="sm" striped style={{ fontSize: '0.8rem' }}>
 			<thead>
 				<tr>
 					<th>Action Type</th>
