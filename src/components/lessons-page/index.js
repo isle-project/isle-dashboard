@@ -21,7 +21,7 @@ import './lessons.css';
 
 // VARIABLES //
 
-const debug = logger('isle-dashboard:lessons-page');
+const debug = logger( 'isle-dashboard:lessons-page' );
 const ResponsiveReactGridLayout = WidthProvider( Responsive );
 
 
@@ -78,7 +78,11 @@ class LessonsPage extends Component {
 	constructor( props ) {
 		super( props );
 
-		const lessons = props.namespace.lessons;
+		let lessons = props.namespace.lessons;
+		if ( props.namespace.userStatus === 'enrolled' ) {
+			debug( 'Filter out inactive lessons for enrolled students...' );
+			lessons = lessons.filter( e => e.active === true );
+		}
 		this.state = {
 			filteredLessons: lessons,
 			layouts: createLayout( lessons ),
@@ -95,7 +99,11 @@ class LessonsPage extends Component {
 			nextProps.search.type !== prevState.search.type
 		) {
 			debug( 'Get derived state...' );
-			const lessons = nextProps.namespace.lessons || [];
+			let lessons = nextProps.namespace.lessons || [];
+			if ( nextProps.namespace.userStatus === 'enrolled' ) {
+				debug( 'Filter out inactive lessons for enrolled students...' );
+				lessons = lessons.filter( e => e.active === true );
+			}
 			const filteredLessons = searchLessons( lessons, nextProps.search.phrase );
 			sortLessons( filteredLessons, nextProps.search );
 			const layouts = createLayout( filteredLessons );
