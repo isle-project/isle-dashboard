@@ -118,7 +118,7 @@ class NamespaceData extends Component {
 
 NamespaceData.propTypes = {
 	addNotification: PropTypes.func.isRequired,
-	badges: PropTypes.array.isRequired,
+	badges: PropTypes.array,
 	getBadges: PropTypes.func.isRequired,
 	getFiles: PropTypes.func.isRequired,
 	getNamespaceActions: PropTypes.func.isRequired,
@@ -128,6 +128,7 @@ NamespaceData.propTypes = {
 };
 
 NamespaceData.defaultProps = {
+	badges: null
 };
 
 

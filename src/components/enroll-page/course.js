@@ -22,10 +22,10 @@ class Course extends Component {
 		const profiles = [];
 		const owners = this.props.namespace.owners;
 		for ( let i = 0; i < owners.length; i++ ) {
-			if ( owners[i].writeAccess === true ) {
-				const user = owners[i];
+			if ( owners[ i ].writeAccess === true ) {
+				const user = owners[ i ];
 				profiles.push(
-					<div className="enroll-page-course-teacher">
+					<div key={`owner-${i}`} className="enroll-page-course-teacher">
 						<img src={server + '/thumbnail/' + user.picture} />
 						<div className="enroll-page-course-teacher-info">
 							<div className="enroll-page-courses-teacher-name">{user.name}</div>
