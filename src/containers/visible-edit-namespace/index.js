@@ -83,7 +83,7 @@ function mapDispatchToProps( dispatch ) {
 					message: 'Cohort successfully deleted',
 					level: 'success'
 				}) );
-				dispatch( actions.retrievedEnrollableCohorts(null) );
+				dispatch( actions.retrievedEnrollableCohorts( null ) );
 				clbk();
 			});
 		},
@@ -103,8 +103,7 @@ function mapDispatchToProps( dispatch ) {
 					message: 'Cohort successfully updated',
 					level: 'success'
 				}) );
-
-				dispatch( actions.retrievedEnrollableCohorts(null) );
+				dispatch( actions.retrievedEnrollableCohorts( null ) );
 				clbk( null, res );
 			});
 		},
