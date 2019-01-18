@@ -390,7 +390,7 @@ class HeaderBar extends Component {
 					{this.renderHelp()}
 					<Link to="/profile" className="header-bar-container">
 						<Image alt="Profile picture" src={profilePic} className="header-bar-icon" />
-						<span key="account" className="header-bar-link-div" >
+						<span id="header-bar-username" key="account" className="header-bar-link-div" >
 							<span onClick={this.setProfileLocation} className="header-bar-link">{this.props.user.name}</span>
 						</span>
 					</Link>
