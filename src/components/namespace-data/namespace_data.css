@@ -17,7 +17,7 @@
 
 .namespace-data-page-container {
 	box-shadow: 0 0 2px darkslategray;
-	padding: 1.25rem;
+	padding: 1rem;
 	margin: 8px;
 	background-image: url(https://isle.heinz.cmu.edu/white_carbonfiber_1543854970404.png);
 	height: calc(100vh - 125px);
