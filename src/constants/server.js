@@ -1,4 +1,11 @@
 export const LOCAL = 'http://localhost:17777';
 export const REMOTE = 'https://isle.heinz.cmu.edu';
 
-export default ( process.env.NODE_ENV === 'development' ? LOCAL : REMOTE ); // eslint-disable-line no-process-env
+let server;
+if ( process.env.NODE_ENV === 'development' ) { // eslint-disable-line no-process-env
+	server = process.env.REACT_APP_SERVER === 'remote' ? REMOTE : LOCAL; // eslint-disable-line no-process-env
+} else {
+	server = REMOTE;
+}
+
+export default server;

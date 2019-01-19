@@ -95,7 +95,8 @@
   "homepage": "http://isle.heinz.cmu.edu/dashboard",
   "scripts": {
     "analyze": "source-map-explorer build/static/js/main.*",
-    "start": "node scripts/start.js",
+    "start": "REACT_APP_SERVER=remote node scripts/start.js",
+    "start-local": "REACT_APP_SERVER=local node scripts/start.js",
     "build": "node --max_old_space_size=4096 scripts/build.js",
     "clean": "rm -rf ./node_modules",
     "lint": "eslint src test && stylelint \"src/**/*.css\"",
