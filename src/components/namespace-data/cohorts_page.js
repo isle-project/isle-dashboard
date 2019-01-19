@@ -18,7 +18,7 @@ class CohortsPage extends Component {
 		super( props );
 
 		const cohortOptions = props.cohorts.map( cohort => {
-			return { label: cohort.title, value: cohort };
+			return { label: cohort.title, value: cohort.title, data: cohort };
 		});
 
 		let displayedMembers = [];
@@ -37,7 +37,7 @@ class CohortsPage extends Component {
 	handleCohortChange = ( cohorts ) => {
 		let members = [];
 		for ( let i = 0; i < cohorts.length; i++ ) {
-			members = members.concat( cohorts[ i ].value.members );
+			members = members.concat( cohorts[ i ].data.members );
 		}
 		this.setState({
 			selectedCohorts: cohorts,
