@@ -1,7 +1,7 @@
 // MODULES //
 
 import React, { Component, Fragment } from 'react';
-import { Badge, Button, Modal, Form, FormControl } from 'react-bootstrap';
+import { Badge, Button, Modal, Form, FormControl, Col, Row } from 'react-bootstrap';
 import AvatarEditor from 'react-avatar-editor';
 import PropTypes from 'prop-types';
 import path from 'path';
@@ -29,7 +29,8 @@ class ProfilePicModal extends Component {
 		this.state = {
 			actualFile: props.user.picture,
 			zoom: 1.2,
-			ext: null
+			ext: null,
+			rotate: 0
 		};
 	}
 
@@ -93,19 +94,36 @@ class ProfilePicModal extends Component {
 					width={200}
 					height={200}
 					border={[80, 50]}
-					color={[255, 255, 255, 0.9]} // RGBA
+					crossOrigin='anonymous'
+					color={[110, 98, 98, 0.29]} // RGBA
 					scale={this.state.zoom}
-					rotate={0}
+					rotate={this.state.rotate}
 				/>
-				<Form.Group controlId="form-zoom">
-					<Form.Label>Zoom</Form.Label>
-					<FormControl
-						step={0.05} type="range" defaultValue={1} min={0.5} max={3}
-						onChange={this.changeZoom}
-					/>
+				<Form.Group as={Row} controlId="form-zoom">
+					<Form.Label column sm="2">Zoom</Form.Label>
+					<Col sm="10">
+						<FormControl
+							step={0.05} type="range" defaultValue={1} min={0.5} max={3}
+							onChange={this.changeZoom}
+						/>
+					</Col>
 				</Form.Group>
 			</Fragment>
 		);
+	}
+
+	rotateLeft = () => {
+		let oldRotate = this.state.rotate;
+		this.setState({
+			rotate: oldRotate - 90
+		});
+	}
+
+	rotateRight = () => {
+		let oldRotate = this.state.rotate;
+		this.setState({
+			rotate: oldRotate + 90
+		});
 	}
 
 	render() {
@@ -135,6 +153,19 @@ class ProfilePicModal extends Component {
 						</span>
 					</Form.Group>
 					{ this.renderAvatarEditor() }
+					<Form.Group as={Row} controlId="form-rotate">
+						<Form.Label column sm="2">Rotate</Form.Label>
+						<Col sm="5">
+							<Button block variant="secondary" onClick={this.rotateLeft}>
+								Left
+							</Button>
+						</Col>
+						<Col sm="5">
+							<Button block variant="secondary" style={{ float: 'right' }} onClick={this.rotateRight}>
+								Right
+							</Button>
+						</Col>
+					</Form.Group>
 				</Modal.Body>
 				<Modal.Footer>
 					<Button onClick={this.handleUpload}>
