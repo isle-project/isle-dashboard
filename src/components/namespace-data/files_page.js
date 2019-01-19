@@ -71,7 +71,7 @@ class FilesPage extends Component {
 				accessor: 'email',
 				maxWidth: 160,
 				filterMethod: ( filter, row ) => {
-					return row[ filter.id ].startsWith( filter.value );
+					return contains( lowercase( row[ filter.id ] ), lowercase( filter.value ) );
 				}
 			},
 			{

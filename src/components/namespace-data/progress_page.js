@@ -6,6 +6,9 @@ import ReactTable from 'react-table';
 import { Button, ButtonGroup, ProgressBar } from 'react-bootstrap';
 import stringify from 'csv-stringify';
 import round from '@stdlib/math/base/special/round';
+import isArray from '@stdlib/assert/is-array';
+import contains from '@stdlib/assert/contains';
+import lowercase from '@stdlib/string/lowercase';
 import server from 'constants/server';
 import saveAs from 'utils/file_saver.js';
 import formatTime from 'utils/format_time.js';
@@ -31,7 +34,44 @@ function accessorFactory( lessons, idx ) {
 	};
 }
 
-function createColumns( lessons ) {
+function sortFactory( lessons, idx ) {
+	return ( a, b ) => {
+		a = a[ lessons[ idx ]._id ];
+		b = b[ lessons[ idx ]._id ];
+		if ( !a && !b ) {
+			return 0;
+		}
+		if ( a && !b ) {
+			return 1;
+		}
+		if ( !a && b ) {
+			return -1;
+		}
+		if ( a.progress > b.progress ) {
+			return 1;
+		}
+		if ( a.progress < b.progress ) {
+			return -1;
+		}
+		return 0;
+	};
+}
+
+function filterMethodCategories( filter, row ) {
+	if ( filter.value === 'all' ) {
+		return true;
+	}
+	const id = filter.pivotId || filter.id;
+	if ( row[ id ] === void 0 ) {
+		return true;
+	}
+	if ( isArray( filter.value ) ) {
+		return contains( filter.value, String( row[ id ] ) );
+	}
+	return String( row[ id ] ) === filter.value;
+}
+
+function createColumns( lessons, cohorts ) {
 	const COLUMNS = [
 		{
 			Header: 'Pic',
@@ -43,32 +83,72 @@ function createColumns( lessons ) {
 			minWidth: 46,
 			filterable: false,
 			resizable: false,
+			sortable: false,
 			style: { color: 'darkslategrey' }
 		},
 		{
 			Header: 'Name',
 			accessor: 'name',
 			maxWidth: 150,
-			style: { marginTop: '8px', color: 'darkslategrey' }
-
+			style: { marginTop: '8px', color: 'darkslategrey' },
+			filterMethod: ( filter, row ) => {
+				return contains( lowercase( row[ filter.id ] ), lowercase( filter.value ) );
+			}
 		},
 		{
 			Header: 'email',
 			accessor: 'email',
 			maxWidth: 200,
-			style: { marginTop: '8px', color: 'darkslategrey' }
+			style: { marginTop: '8px', color: 'darkslategrey' },
+			filterMethod: ( filter, row ) => {
+				return contains( lowercase( row[ filter.id ] ), lowercase( filter.value ) );
+			}
 		},
 		{
 			Header: 'Cohort',
 			accessor: 'cohort',
-			style: { marginTop: '8px', color: 'darkslategrey' }
+			style: { marginTop: '8px', color: 'darkslategrey' },
+			filterMethod: filterMethodCategories,
+			Filter: ({ filter, onChange }) => {
+				let value;
+				if ( !filter ) {
+					value = 'all';
+				} else if ( isArray( filter.value ) ) {
+					value = filter.value.join( ', ' );
+				} else {
+					value = filter.value;
+				}
+				return (
+					<select
+						onChange={( event ) => {
+							const newValue = event.target.value;
+							onChange( newValue );
+						}}
+						style={{ width: '100%', backgroundColor: 'ghostwhite' }}
+						value={value}
+					>
+						<option value="all">Show All</option>
+						{cohorts.map( ( v, key ) => {
+							return (
+								<option
+									key={key}
+									value={`${v.title}`}
+								>{v.title}</option>
+							);
+						})}
+					</select>
+				);
+			}
 		}
 	];
 	for ( let i = 0; i < lessons.length; i++ ) {
 		COLUMNS.push({
 			id: 'lesson_'+i,
 			Header: lessons[ i ].title,
-			Cell: accessorFactory( lessons, i )
+			Cell: accessorFactory( lessons, i ),
+			accessor: 'lessonData',
+			filterable: false,
+			sortMethod: sortFactory( lessons, i )
 		});
 	}
 	return COLUMNS;
@@ -81,7 +161,7 @@ class ProgressPage extends Component {
 	constructor( props ) {
 		super( props );
 
-		this.columns = createColumns( props.lessons );
+		this.columns = createColumns( props.lessons, props.cohorts );
 		this.state = {
 			displayedMembers: []
 		};
