@@ -6,6 +6,7 @@ import ReactTable from 'react-table';
 import { Button, ButtonGroup, ProgressBar } from 'react-bootstrap';
 import stringify from 'csv-stringify';
 import round from '@stdlib/math/base/special/round';
+import min from '@stdlib/math/base/special/min';
 import isArray from '@stdlib/assert/is-array';
 import contains from '@stdlib/assert/contains';
 import lowercase from '@stdlib/string/lowercase';
@@ -22,7 +23,7 @@ function accessorFactory( lessons, idx ) {
 		let data = d.original.lessonData;
 		data = data[ lessons[ idx ]._id ];
 		if ( data ) {
-			const progress = round( data.progress*100 );
+			const progress = min( round( data.progress*100 ), 100 );
 			return ( <span>
 				<span style={{ fontSize: '12px', fontWeight: 800 }}>Duration: {formatTime( data.spentTime )}</span>
 				<ProgressBar style={{ fontSize: '10px', height: '12px'
@@ -200,7 +201,7 @@ class ProgressPage extends Component {
 				const lessonName = lessons[ j ]._id;
 				data = data[ lessonName ];
 				if ( data ) {
-					out[ i ][ lessons[ j ].title+'_progress' ] = round( data.progress*100 );
+					out[ i ][ lessons[ j ].title+'_progress' ] = min( round( data.progress*100 ), 100 );
 					out[ i ][ lessons[ j ].title+'_time' ] = round( data.spentTime / ( 1000*60 ) );
 				}
 			}
