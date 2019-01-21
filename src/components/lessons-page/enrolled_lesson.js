@@ -6,6 +6,7 @@ import {
 	Card, ButtonToolbar, ProgressBar, OverlayTrigger, Tooltip
 } from 'react-bootstrap';
 import round from '@stdlib/math/base/special/round';
+import min from '@stdlib/math/base/special/min';
 import COLORS from 'constants/colors';
 import formatTime from 'utils/format_time.js';
 import background from './architecture.jpeg';
@@ -29,7 +30,7 @@ class EnrolledLesson extends Component {
 		if ( data ) {
 			progress = data.progress;
 			progress *= 100;
-			progress = round( progress );
+			progress = min( round( progress ), 100.0 );
 			duration = data.spentTime;
 		} else {
 			progress = 0;
