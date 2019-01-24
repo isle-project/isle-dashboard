@@ -136,6 +136,8 @@ class LessonsPage extends Component {
 	renderLessons() {
 		let lessons = this.state.filteredLessons;
 		if ( this.props.namespace.userStatus === 'enrolled' ) {
+			console.log( lessons );
+			console.log( this.props.namespace );
 			return lessons.map( ( e, i ) => {
 				return (<div key={`cell-${e.title}`}>
 					<EnrolledLesson

@@ -94,14 +94,17 @@ class CohortsPage extends Component {
 				progress = round( data.progress * 100 );
 				spentTime = formatTime( data.spentTime );
 				totalTime += data.spentTime;
+			} else {
+				progress = 0;
+				spentTime = formatTime( 0 );
 			}
 			list.push(
-				<Fragment>
+				<div key={i} >
 					<div className="cohort-actual-member-lesson-title">{lessons[i].title}</div>
 					<ProgressBar className="cohort-actual-member-lesson-progress" style={{ float: 'left', fontSize: '10px', height: '12px'
 					}} now={progress} label={`${progress}%`} />
 					<span className="cohort-actual-member-lesson-time">{spentTime}</span>
-				</Fragment>
+				</div>
 			);
 		}
 		totalTime = formatTime( totalTime );
@@ -192,19 +195,18 @@ class CohortsPage extends Component {
 	render() {
 		return (
 			<div className="namespace-data-page">
-				<OverlayTrigger placement="right" overlay={<Tooltip id="select">Select user cohorts</Tooltip>}>
-					<div style={{ width: '100%', height: '40px' }}>
-						<Select
-							value={this.state.selectedCohorts}
-							isMulti
-							name="cohorts"
-							options={this.state.cohortOptions}
-							onChange={this.handleCohortChange}
-						/>
-					</div>
-				</OverlayTrigger>
+				<div style={{ width: '100%', height: '40px' }}>
+					<Select
+						value={this.state.selectedCohorts}
+						isMulti
+						name="cohorts"
+						placeholder="Select cohorts to display"
+						options={this.state.cohortOptions}
+						onChange={this.handleCohortChange}
+					/>
+				</div>
 				<div className="cohort-page">
-					{ this.renderCohort() }
+					{this.renderCohort()}
 				</div>
 				{this.state.actualMember ? this.renderActualMember() : null}
 			</div>
