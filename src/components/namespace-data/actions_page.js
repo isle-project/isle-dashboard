@@ -116,20 +116,14 @@ class ActionsPage extends Component {
 		});
 	}
 
-	renderLesson(lesson, id) {
-		return (
-			<div onClick={()=> this.showLessonActions( lesson )} className="actions-page-lesson">
-				<div className="actions-page-lesson-title">{lesson.title}</div>
-			</div>
-		);
-	}
-
 	renderLessons() {
 		const lessons = this.props.namespace.lessons;
 		const list = [];
 		for ( let i = 0; i < lessons.length; i++ ) {
 			list.push(
-				this.renderLesson(lessons[i], i)
+				<div key={i} onClick={()=> this.showLessonActions( lessons[i] )} className="actions-page-lesson">
+					<div className="actions-page-lesson-title">{lessons[i].title}</div>
+				</div>
 			);
 		}
 		return (
