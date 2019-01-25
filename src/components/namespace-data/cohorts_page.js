@@ -3,11 +3,12 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { ProgressBar, OverlayTrigger, Tooltip } from 'react-bootstrap';
-import round from '@stdlib/math/base/special/round';
 import Select from 'react-select';
+import round from '@stdlib/math/base/special/round';
+import min from '@stdlib/math/base/special/min';
+import contains from '@stdlib/assert/contains';
 import server from 'constants/server';
 import formatTime from 'utils/format_time.js';
-import contains from '@stdlib/assert/contains';
 import './cohorts.css';
 
 
@@ -91,7 +92,7 @@ class CohortsPage extends Component {
 			let id = lessons[i]._id;
 			if ( member.lessonData && member.lessonData[ id ] ) {
 				const data = member.lessonData[ id ];
-				progress = round( data.progress * 100 );
+				progress = min( round( data.progress * 100 ), 100 );
 				spentTime = formatTime( data.spentTime );
 				totalTime += data.spentTime;
 			} else {
