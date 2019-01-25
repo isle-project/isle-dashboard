@@ -3,11 +3,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import ReactTable from 'react-table';
-import Button from 'react-bootstrap/lib/Button';
-import FormLabel from 'react-bootstrap/lib/FormLabel';
-import FormControl from 'react-bootstrap/lib/FormControl';
-import FormGroup from 'react-bootstrap/lib/FormGroup';
-import Badge from 'react-bootstrap/lib/Badge';
+import Button from 'react-bootstrap/Button';
+import FormLabel from 'react-bootstrap/FormLabel';
+import FormControl from 'react-bootstrap/FormControl';
+import FormGroup from 'react-bootstrap/FormGroup';
+import Badge from 'react-bootstrap/Badge';
 import contains from '@stdlib/assert/contains';
 import lowercase from '@stdlib/string/lowercase';
 import ConfirmModal from 'components/confirm-modal';
