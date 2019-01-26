@@ -456,9 +456,9 @@
 .profile-pic-modal {
 	height: 465px;
 	background: white;
-	border: solid 1px darkgray;
 	max-width: none !important;
 	width: 400px;
+	margin-top: 10px;
 }
 
 .profile-pic-modal img {
