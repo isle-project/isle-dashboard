@@ -213,27 +213,34 @@ class HeaderBar extends Component {
 				float: 'left',
 				marginRight: '4px'
 			}}>
-				<OverlayTrigger placement="right" overlay={selectCourseTooltip}>
+				<OverlayTrigger placement="left" overlay={selectCourseTooltip}>
 					<Button
 						variant="secondary"
 						ref={( button ) => { this.overlayTarget = button; }}
 						disabled={disabled}
 						onClick={() => {
-						this.setState({
-							showNamespacesOverlay: !this.state.showNamespacesOverlay
-						});
-					}}>
+							this.setState({
+								showNamespacesOverlay: !this.state.showNamespacesOverlay
+							});
+						}}
+					>
 						<i className="fa fa-align-justify"></i>
 					</Button>
 				</OverlayTrigger>
 				<OverlayTrigger
-					disabled={!this.props.namespace.title}
-					placement="bottom" overlay={selectBackTooltip}
+					placement="right"
+					overlay={this.props.namespace.title ? selectBackTooltip : selectCourseTooltip}
 				>
 					<Button
 						variant="secondary"
-						disabled={!this.props.namespace.title}
-						onClick={this.goBackToLesson}
+						onClick={() => {
+							if ( !this.props.namespace.title ) {
+								return this.setState({
+									showNamespacesOverlay: !this.state.showNamespacesOverlay
+								});
+							}
+							this.goBackToLesson();
+						}}
 					>
 						<small>
 							{this.props.namespace.title || 'Your Courses'}
