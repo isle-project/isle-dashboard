@@ -97,11 +97,11 @@ class Lesson extends Component {
 
 		return (
 			<span className="lessons-upload">
-			<OverlayTrigger placement="bottom" overlay={<Tooltip id="toggle_visibility">created at</Tooltip>}>
+			<OverlayTrigger placement="top" overlay={<Tooltip id="toggle_visibility">created at</Tooltip>}>
 				<span className="lessons-uploaded-image"><img style={{ stroke: 'white', fill: 'red' }} src={upload} /></span>
 			</OverlayTrigger>
-			<OverlayTrigger placement="bottom" overlay={<Tooltip id="toggle_visibility">last updated at {updated}</Tooltip>}>
-			<span className="lessons-uploaded">{date}</span>
+			<OverlayTrigger placement="top" overlay={<Tooltip id="toggle_visibility">last updated at {updated}</Tooltip>}>
+				<span className="lessons-uploaded">{date}</span>
 			</OverlayTrigger>
 		</span>
 		);
@@ -117,21 +117,21 @@ class Lesson extends Component {
 			background: 'rgba(0, 0, 0, 0.75)'
 		}}>
 			<ButtonGroup style={{ marginRight: '5px' }} >
-				<OverlayTrigger placement="bottom" overlay={<Tooltip id="open_details">Open Details</Tooltip>}>
+				<OverlayTrigger placement="top" overlay={<Tooltip id="open_details">Open Details</Tooltip>}>
 					<Button size="small" variant="secondary" onClick={this.showDetailsModal}>
 						<i className="fa fa-cog"></i>
 					</Button>
 				</OverlayTrigger>
-				<OverlayTrigger placement="bottom" overlay={<Tooltip id="delete_lesson">Delete Lesson</Tooltip>}>
+				<OverlayTrigger placement="top" overlay={<Tooltip id="delete_lesson">Delete Lesson</Tooltip>}>
 					<Button size="small" variant="secondary" onClick={this.showDeleteModal} >
 						<i className="fa fa-trash-alt"></i>
 					</Button>
 				</OverlayTrigger>
 			</ButtonGroup>
-			<OverlayTrigger placement="bottom" overlay={<Tooltip id="toggle_availability">{this.props.active ? 'Disable lesson': 'Activate lesson'}</Tooltip>}>
+			<OverlayTrigger placement="top" overlay={<Tooltip id="toggle_availability">{this.props.active ? 'Disable lesson': 'Activate lesson'}</Tooltip>}>
 				<Badge className="lessons-status" onClick={this.toggleLessonState} variant={activeStyle} >{this.props.active ? 'Active' : 'Inactive'}</Badge>
 			</OverlayTrigger>
-			<OverlayTrigger placement="bottom" overlay={<Tooltip id="toggle_visibility">{this.props.public ? 'Remove lesson from gallery' : 'Show lesson in gallery' }</Tooltip>}>
+			<OverlayTrigger placement="top" overlay={<Tooltip id="toggle_visibility">{this.props.public ? 'Remove lesson from gallery' : 'Show lesson in gallery' }</Tooltip>}>
 				<Badge className="lessons-status" onClick={this.toggleLessonVisibility} variant={publicStyle}>{this.props.public ? 'Public' : 'Private'}</Badge>
 			</OverlayTrigger>
 			{ this.renderButtonToolbarDate() }

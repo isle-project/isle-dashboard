@@ -45,12 +45,14 @@ class EnrolledLesson extends Component {
 				background: 'rgba(0, 0, 0, 0.75)'
 			}}>
 				<div className="enrolled-lesson-progress">
-					<OverlayTrigger placement="bottom" overlay={<Tooltip id="open_details">Your Progress</Tooltip>}>
+					<OverlayTrigger placement="top" overlay={<Tooltip id="open_details">Your Progress</Tooltip>}>
 						<ProgressBar variant='success' now={progress} label={`${progress}%`} />
 					</OverlayTrigger>
 				</div>
 				<div className="enrolled-lesson-time" style={{ width: '35%', height: '100%' }} >
-					Time Spent: {formatTime( duration )}
+					<OverlayTrigger placement="top" overlay={<Tooltip id="open_details">In hours:minutes</Tooltip>}>
+						<span>Time Spent: {formatTime( duration )}</span>
+					</OverlayTrigger>
 				</div>
 			</ButtonToolbar>
 		);
