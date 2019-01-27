@@ -36,7 +36,6 @@ function searchLessons( lessons, phrase ) {
 		for ( let i = 0; i < lessons.length; i++ ) {
 			if (
 				contains( lowercase( lessons[ i ].title ), phrase ) ||
-				contains( lowercase( lessons[ i ].namespace ), phrase ) ||
 				contains( lowercase( lessons[ i ].description ), phrase )
 			) {
 				filteredLessons.push( lessons[ i ] );
@@ -168,7 +167,7 @@ class LessonsPage extends Component {
 		if ( !this.props.namespace.title ) {
 			let appendix = null;
 			if ( this.props.user.writeAccess ) {
-				appendix = <span>or create a new one under <i className="fa fa-pencil-alt"></i>.</span>;
+				appendix = <span>{' or create a new one under '}<i className="fa fa-pencil-alt"></i>.</span>;
 			} else {
 				appendix = ' .';
 			}
