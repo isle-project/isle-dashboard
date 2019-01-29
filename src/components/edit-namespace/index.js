@@ -34,7 +34,7 @@ function validateInputs({ emails, title, description }) {
 	if ( invalid ) {
 		return false;
 	}
-	return title.length >= 6 && description.length > 3;
+	return title.length >= 3 && description.length > 3;
 }
 
 
@@ -303,7 +303,7 @@ class EditNamespace extends Component {
 											/>
 										</FormGroup>
 									</OverlayTrigger>
-									<OverlayTrigger placement="right" overlay={<Tooltip id="ownerTooltip">Title with a minimum length of six characters.</Tooltip>}>
+									<OverlayTrigger placement="right" overlay={<Tooltip id="ownerTooltip">Title with a minimum length of three characters.</Tooltip>}>
 										<FormGroup>
 											<FormLabel>Title</FormLabel>
 											<FormControl
