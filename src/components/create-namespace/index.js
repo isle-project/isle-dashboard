@@ -70,7 +70,7 @@ class CreateNamespace extends Component {
 	}
 
 	validateTitle() {
-		return this.state.title.length >= 6;
+		return this.state.title.length >= 3;
 	}
 
 	validateDescription() {
@@ -116,7 +116,7 @@ class CreateNamespace extends Component {
 								isInvalid={this.state.title && !validTitle}
 							/>
 							<Form.Control.Feedback type="invalid">
-								Title must be at least six characters long.
+								Title must be at least three characters long.
 							</Form.Control.Feedback>
 						</FormGroup>
 					</OverlayTrigger>
