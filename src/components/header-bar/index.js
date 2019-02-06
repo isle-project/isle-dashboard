@@ -47,7 +47,8 @@ class HeaderBar extends Component {
 
 		this.state = {
 			showNamespacesOverlay: false,
-			location: 'Dashboard'
+			location: 'Dashboard',
+			searchPhrase: ''
 		};
 	}
 
@@ -56,7 +57,8 @@ class HeaderBar extends Component {
 			this.props.onEnrolledNamespace( this.props.user.enrolledNamespaces[ id ], this.props.user.token );
 			this.setState({
 				showNamespacesOverlay: false,
-				location: 'Course'
+				location: 'Course',
+				searchPhrase: ''
 			});
 		};
 	}
@@ -66,7 +68,8 @@ class HeaderBar extends Component {
 			this.props.onNamespace( this.props.user.ownedNamespaces[ id ], this.props.user.token );
 			this.setState({
 				showNamespacesOverlay: false,
-				location: 'Course'
+				location: 'Course',
+				searchPhrase: ''
 			});
 		};
 	}
@@ -117,7 +120,8 @@ class HeaderBar extends Component {
 	goToGallery() {
 		this.props.history.replace( '/gallery' );
 		this.setState({
-			location: 'Gallery'
+			location: 'Gallery',
+			searchPhrase: ''
 		});
 	}
 
@@ -128,6 +132,9 @@ class HeaderBar extends Component {
 			}, 750 );
 		}
 		const { value } = event.target;
+		this.setState({
+			searchPhrase: value
+		});
 		this.debouncedChange( value );
 	}
 
@@ -316,7 +323,7 @@ class HeaderBar extends Component {
 					className="header-bar-search"
 					type="text"
 					placeholder="Search"
-					defaultValue={this.props.search.phrase}
+					value={this.state.searchPhrase}
 					onChange={this.handleTextChange}
 				/>
 					<InputGroup.Append>
