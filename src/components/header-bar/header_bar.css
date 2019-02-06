@@ -30,6 +30,13 @@
 	font-variant: small-caps;
 }
 
+.header-bar-search {
+	background: white;
+	color: #2a3e54;
+	font-size: 80%;
+	font-weight: 40;
+}
+
 .header-bar-buttons {
 	margin-left: 10px;
 	margin-top: 8px;
