@@ -313,12 +313,7 @@ class HeaderBar extends Component {
 		return ( <FormGroup style={{ width: '16vw', float: 'left' }}>
 			<InputGroup>
 				<FormControl
-					style={{
-						background: 'white',
-						color: '#2a3e54',
-						fontSize: '80%',
-						fontWeight: 400
-					}}
+					className="header-bar-search"
 					type="text"
 					placeholder="Search"
 					defaultValue={this.props.search.phrase}
