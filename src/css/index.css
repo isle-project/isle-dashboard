@@ -176,3 +176,8 @@ label {
 	font-stretch: extra-expanded;
 	color: var(--primary);
 }
+
+.centered {
+	display: block;
+	margin: 0 auto;
+}
