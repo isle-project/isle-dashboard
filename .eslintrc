@@ -310,11 +310,13 @@
       "condition": "ignore",
       "logical": "ignore",
       "prop": "ignore"
-    } ]
+    } ],
+    "react-hooks/rules-of-hooks": 2
   },
   "plugins": [
     "import",
     "react",
+    "react-hooks",
     "jest"
   ],
   "settings": {
