@@ -42,19 +42,17 @@ class TimeSpentStats extends Component {
 			return d / ( 1000*60 );
 		});
 
-		if (!avg) {
+		if ( !avg ) {
 			avg = 0;
 		}
-
-		if (!stdev) {
+		if ( !stdev ) {
 			stdev = 0;
 		}
-
 		return (
 			<div style={{ padding: '5px', overflow: 'hidden' }}>
 				<label>Average time spent: </label>
 				<span>{` ${formatTime( avg )}`}</span>
-				<span>{` (SD: ${stdev.toFixed( 3 )})`}</span>
+				<span>{` (SD: ${formatTime( stdev )})`}</span>
 				<Plotly
 					data={[{
 						x: names,
