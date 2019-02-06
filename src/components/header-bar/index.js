@@ -52,6 +52,14 @@ class HeaderBar extends Component {
 		};
 	}
 
+	componentDidUpdate( prevProps ) {
+		if ( this.props.search.phrase !== prevProps.search.phrase ) {
+			this.setState({
+				searchPhrase: this.props.search.phrase
+			});
+		}
+	}
+
 	enrolledClickFactory = ( id ) => {
 		return () => {
 			this.props.onEnrolledNamespace( this.props.user.enrolledNamespaces[ id ], this.props.user.token );
@@ -323,7 +331,7 @@ class HeaderBar extends Component {
 					className="header-bar-search"
 					type="text"
 					placeholder="Search"
-					value={this.state.searchPhrase}
+					value={this.state.searchPhrase || ''}
 					onChange={this.handleTextChange}
 				/>
 					<InputGroup.Append>

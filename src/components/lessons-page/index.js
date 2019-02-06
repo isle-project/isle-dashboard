@@ -83,7 +83,7 @@ class LessonsPage extends Component {
 			lessons = lessons.filter( e => e.active === true );
 		}
 		this.state = {
-			filteredLessons: lessons,
+			filteredLessons: searchLessons( lessons, props.search.phrase ),
 			layouts: createLayout( lessons ),
 			unfilteredLessons: lessons,
 			search: props.search
