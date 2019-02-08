@@ -6,8 +6,8 @@
 
 #### Tests
 
-[![Build Status](https://travis-ci.org/Planeshifter/isle-dashboard.svg?branch=master)](https://travis-ci.org/Planeshifter/isle-dashboard)
-[![codecov](https://codecov.io/gh/Planeshifter/isle-dashboard/branch/master/graph/badge.svg)](https://codecov.io/gh/Planeshifter/isle-dashboard) [![Greenkeeper badge](https://badges.greenkeeper.io/Planeshifter/isle-dashboard.svg)](https://greenkeeper.io/)
+[![Build Status](https://travis-ci.com/isle-project/isle-dashboard.svg?branch=master)](https://travis-ci.org/isle-project/isle-dashboard)
+[![codecov](https://codecov.io/gh/isle-project/isle-dashboard/branch/master/graph/badge.svg)](https://codecov.io/gh/isle-project/isle-dashboard) [![Greenkeeper badge](https://badges.greenkeeper.io/isle-project/isle-dashboard.svg)](https://greenkeeper.io/)
 
 ## Introduction
 
@@ -46,14 +46,14 @@ See [LICENSE][license].
 - feedback by Delwar Hossain from the Noun Project
 - avatar by Hea Poh Lin from the Noun Project
 
-[license]: https://raw.githubusercontent.com/Planeshifter/isle-dashboard/master/LICENSE
+[license]: https://raw.githubusercontent.com/isle-project/isle-dashboard/master/LICENSE
 
-[dependencies-image]: https://img.shields.io/david/planeshifter/isle-dashboard/master.svg
-[dependencies-url]: https://david-dm.org/planeshifter/isle-dashboard/master
+[dependencies-image]: https://img.shields.io/david/isle-project/isle-dashboard/master.svg
+[dependencies-url]: https://david-dm.org/isle-project/isle-dashboard/master
 
-[dev-dependencies-image]: https://img.shields.io/david/dev/planeshifter/isle-dashboard/master.svg
-[dev-dependencies-url]: https://david-dm.org/planeshifter/isle-dashboard/master#info=devDependencies
+[dev-dependencies-image]: https://img.shields.io/david/dev/isle-project/isle-dashboard/master.svg
+[dev-dependencies-url]: https://david-dm.org/isle-project/isle-dashboard/master#info=devDependencies
 
 [docs]: http://isledocs.com/
-[isle-server]: https://github.com/Planeshifter/isle-server
-[isle-editor]: https://github.com/Planeshifter/isle-editor
+[isle-server]: https://github.com/isle-project/isle-server
+[isle-editor]: https://github.com/isle-project/isle-editor
