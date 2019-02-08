@@ -18,6 +18,29 @@ An online dashboard used to deploy, organize and monitor *integrated statistics 
 
 #### [Open Documentation][docs]
 
+#### Prerequisites
+
+Developing the ISLE dashboard has the following prerequisites:
+
+* [git][git]: version control
+* [Node.js][node-js]: JavaScript runtime (version `>= 9.0`)
+
+#### Download
+
+To acquire the source code, clone the git repository.
+
+``` bash
+$ git clone https://github.com/isle-project/isle-dashboard
+```
+
+#### Installation
+
+To install development dependencies,
+
+``` bash
+$ npm install
+```
+
 #### Bundle
 
 Execute the `npm run build` command to create a bundle of the ISLE dashboard, which can then be hosted on a server. Change the `homepage` field of the `package.json` file to point to the address where the dashboard will be hosted.
@@ -46,7 +69,9 @@ See [LICENSE][license].
 - feedback by Delwar Hossain from the Noun Project
 - avatar by Hea Poh Lin from the Noun Project
 
+[git]: http://git-scm.com/
 [license]: https://raw.githubusercontent.com/isle-project/isle-dashboard/master/LICENSE
+[node-js]: https://nodejs.org/en/
 
 [dependencies-image]: https://img.shields.io/david/isle-project/isle-dashboard/master.svg
 [dependencies-url]: https://david-dm.org/isle-project/isle-dashboard/master
