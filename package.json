@@ -1,6 +1,6 @@
 {
   "name": "isle-dashboard",
-  "description": "ISLE (Integrated Statistics Learning Environment) Instructor and Student Dashboard",
+  "description": "ISLE (Integrated Statistics Learning Environment) Instructor and Student Dashboard.",
   "license": "Apache-2.0",
   "version": "0.2.0",
   "author": {
