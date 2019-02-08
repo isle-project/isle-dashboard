@@ -77,7 +77,7 @@ See [LICENSE][license].
 [dependencies-url]: https://david-dm.org/isle-project/isle-dashboard/master
 
 [dev-dependencies-image]: https://img.shields.io/david/dev/isle-project/isle-dashboard/master.svg
-[dev-dependencies-url]: https://david-dm.org/isle-project/isle-dashboard/master#info=devDependencies
+[dev-dependencies-url]: https://david-dm.org/isle-project/isle-dashboard/master?type=dev
 
 [docs]: http://isledocs.com/
 [isle-server]: https://github.com/isle-project/isle-server
