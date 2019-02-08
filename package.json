@@ -3,6 +3,23 @@
   "description": "ISLE (Integrated Statistics Learning Environment) Instructor and Student Dashboard",
   "license": "Apache-2.0",
   "version": "0.2.0",
+  "author": {
+    "name": "Philipp Burckhardt",
+    "email": "pburckhardt@outlook.com",
+    "url": "https://github.com/planeshifter"
+  },
+  "contributors": [
+    {
+      "name": "Philipp Burckhardt",
+      "email": "pburckhardt@outlook.com",
+      "url": "https://github.com/planeshifter"
+    },
+    {
+      "name": "Frank Kovacs",
+      "email": "fkovacs@stat.cmu.edu",
+      "url": "https://github.com/frank113"
+    }
+  ],
   "private": true,
   "devDependencies": {
     "@babel/core": "^7.2.2",
