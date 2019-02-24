@@ -71,7 +71,7 @@ class NamespaceData extends Component {
 			case 3:
 				return <CohortsPage badges={this.props.badges} cohorts={this.props.namespace.cohorts} lessons={this.props.namespace.lessons} />;
 			case 4:
-				return <FilesPage files={this.props.namespace.files} handleUpload={this.handleUpload} handleFileDeletion={this.handleFileDeletion} />;
+				return <FilesPage files={this.props.namespace.files} namespace={this.props.namespace} handleUpload={this.handleUpload} handleFileDeletion={this.handleFileDeletion} />;
 			case 5:
 				return <ActionsPage namespace={this.props.namespace} getNamespaceActions={this.props.getNamespaceActions} user={this.props.user} cohorts={this.props.namespace.cohorts} />;
 		}
