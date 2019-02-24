@@ -264,7 +264,8 @@ class ProgressPage extends Component {
 
 ProgressPage.propTypes = {
 	addNotification: PropTypes.func.isRequired,
-	cohorts: PropTypes.array.isRequired
+	cohorts: PropTypes.array.isRequired,
+	namespace: PropTypes.object.isRequired
 };
 
 ProgressPage.defaultProps = {

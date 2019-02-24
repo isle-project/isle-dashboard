@@ -2,18 +2,41 @@
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import stringify from 'csv-stringify';
 import ReactTable from 'react-table';
+import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import Button from 'react-bootstrap/Button';
 import FormLabel from 'react-bootstrap/FormLabel';
 import FormControl from 'react-bootstrap/FormControl';
 import FormGroup from 'react-bootstrap/FormGroup';
 import Badge from 'react-bootstrap/Badge';
+import pick from '@stdlib/utils/pick';
 import contains from '@stdlib/assert/contains';
 import lowercase from '@stdlib/string/lowercase';
 import ConfirmModal from 'components/confirm-modal';
 import server from 'constants/server';
+import saveAs from 'utils/file_saver.js';
 import 'react-table/react-table.css';
 import './react_table_height.css';
+import './files_page.css';
+
+
+// VARIABLES //
+
+const EXPORT_COLUMNS = [ 'name', 'email', 'lesson', 'title', 'filename', 'type', 'createdAt', 'updatedAt' ];
+
+
+// FUNCTIONS //
+
+const prepareExportData = ( data ) => {
+	for ( let i = 0; i < data.length; i++ ) {
+		const row = pick( data[ i ], EXPORT_COLUMNS );
+		row.lesson = row.lesson.title;
+		row.filename = server+'/'+row.filename;
+		data[ i ] = row;
+	}
+	return data;
+};
 
 
 // MAIN //
@@ -130,8 +153,42 @@ class FilesPage extends Component {
 		];
 	}
 
+	saveJSON = () => {
+		let data = prepareExportData( this.props.files );
+		const blob = new Blob([ JSON.stringify( data ) ], {
+			type: 'application/json'
+		});
+		const name = `files_${this.props.namespace.title}.json`;
+		saveAs( blob, name );
+	}
+
+	saveCSV = () => {
+		let data = prepareExportData( this.props.files );
+		stringify( data, {
+			header: true
+		}, ( err, output ) => {
+			if ( err ) {
+				return this.props.addNotification({
+					title: 'Error encountered',
+					message: 'Encountered an error while creating CSV: '+err.message,
+					level: 'error',
+					position: 'tl'
+				});
+			}
+			const blob = new Blob([ output ], {
+				type: 'text/plain'
+			});
+			const name = `files_${this.props.namespace.title}.csv`;
+			saveAs( blob, name );
+		});
+	}
+
 	render() {
 		return ( <div className="namespace-data-page">
+			<ButtonGroup className="files-export-button-group" >
+				<Button size="sm" variant="secondary" onClick={this.saveCSV} >Save as CSV</Button>
+				<Button size="sm" variant="secondary" onClick={this.saveJSON} >Save as JSON</Button>
+			</ButtonGroup>
 			<FormGroup style={{
 				position: 'absolute',
 				top: '4px',
@@ -171,7 +228,8 @@ class FilesPage extends Component {
 FilesPage.propTypes = {
 	files: PropTypes.array.isRequired,
 	handleFileDeletion: PropTypes.func.isRequired,
-	handleUpload: PropTypes.func.isRequired
+	handleUpload: PropTypes.func.isRequired,
+	namespace: PropTypes.object.isRequired
 };
 
 FilesPage.defaultProps = {

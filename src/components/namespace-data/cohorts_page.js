@@ -221,7 +221,6 @@ class CohortsPage extends Component {
 CohortsPage.propTypes = {
 	badges: PropTypes.array.isRequired,
 	cohorts: PropTypes.array.isRequired
-
 };
 
 CohortsPage.defaultProps = {
