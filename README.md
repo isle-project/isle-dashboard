@@ -73,10 +73,10 @@ See [LICENSE][license].
 [license]: https://raw.githubusercontent.com/isle-project/isle-dashboard/master/LICENSE.md
 [node-js]: https://nodejs.org/en/
 
-[dependencies-image]: https://img.shields.io/david/isle-project/isle-dashboard/master.svg
+[dependencies-image]: https://img.shields.io/david/isle-project/isle-dashboard.svg
 [dependencies-url]: https://david-dm.org/isle-project/isle-dashboard/master
 
-[dev-dependencies-image]: https://img.shields.io/david/dev/isle-project/isle-dashboard/master.svg
+[dev-dependencies-image]: https://img.shields.io/david/dev/isle-project/isle-dashboard.svg
 [dev-dependencies-url]: https://david-dm.org/isle-project/isle-dashboard/master?type=dev
 
 [docs]: http://isledocs.com/
