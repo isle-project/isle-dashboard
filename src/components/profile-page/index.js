@@ -18,7 +18,26 @@ import hoodie from './img/hoodie.jpg';
 import badge from './img/question.svg';
 import badgeCircle from './img/badge_circle.svg';
 import './profile-page.css';
+import './message-page.css';
 
+let now = 'Mo, 7.7.2018, 13:48';
+
+const Messages = [
+	{
+	author: 'Philipp Burckhardt',
+	profile: 'https://isle.heinz.cmu.edu/avatar/5c28cd2e48f70e7ff2cd370f.jpeg',
+	title: 'Automatic grading will soon be enabled',
+	body: 'We are proud to present the new automatic grading system.',
+	createdAt: now
+	},
+	{
+	author: 'Philipp Burckhardt',
+	profile: 'https://isle.heinz.cmu.edu/avatar/5c28cd2e48f70e7ff2cd370f.jpeg',
+	title: 'Phishing activities, beware!!!',
+	body: 'It seems that we have been hacked. It may be very probable that Russians have stolen hundreds of passwords.',
+	createdAt: now
+	}
+];
 
 // FUNCTIONS //
 
@@ -139,6 +158,7 @@ class ProfilePage extends Component {
 		if (this.state.selectedDataType === 'files') {
 			return this.renderFiles();
 		}
+
 		if (this.state.selectedDataType === 'actions') {
 			const data = this.props.user.lessonData;
 			return ( <ActionTypesDisplay
@@ -146,6 +166,10 @@ class ProfilePage extends Component {
 				selectedNamespace={this.state.selectedNamespace}
 				selectedNamespaceID={this.state.selectedNamespaceID}
 			/> );
+		}
+
+		if (this.state.selectedDataType === 'messages') {
+			return this.renderMessages();
 		}
 	}
 
@@ -193,6 +217,43 @@ class ProfilePage extends Component {
 		return out;
 	}
 
+
+	getMessage(ndx) {
+		console.log( Messages[ndx].title);
+		return (
+			<div className="message-container">
+				<div className="message-data">
+					<div className="message-profile-pic">
+						<img src={Messages[ndx].profile} />
+					</div>
+
+					<div className="message-author">
+						{ Messages[ndx].author } wrote on { Messages[ndx].createdAt }
+					</div>
+				</div>
+
+				<div className="message-title">
+					{ Messages[ndx].title }
+				</div>
+				<div className="message-body">
+					{ Messages[ndx].body }
+				</div>
+			</div>
+		);
+	}
+
+	renderMessages() {
+		let msg = [];
+		for (let i = 0; i < Messages.length; i++) {
+			msg.push(this.getMessage(i));
+		}
+		console.log(msg);
+
+		return (
+			<div>{ msg }</div>
+		);
+	}
+
 	renderStatisticDataToolbar() {
 		return (
 		<Nav variant="tabs" activeKey={this.state.selectedDataType} onSelect={this.handleDataSelect}>
@@ -206,6 +267,14 @@ class ProfilePage extends Component {
 				Actions
 			</Nav.Link>
 		</Nav.Item>
+
+		<Nav.Item >
+			<Nav.Link eventKey="messages" title="Messages">
+				Messages
+			</Nav.Link>
+		</Nav.Item>
+
+
 		</Nav>
 		);
 	}
