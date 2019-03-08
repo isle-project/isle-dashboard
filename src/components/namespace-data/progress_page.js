@@ -197,7 +197,7 @@ class ProgressPage extends Component {
 				cohort: member.cohort
 			};
 			for ( let j = 0; j < lessons.length; j++ ) {
-				const data = member.lessonData;
+				let data = member.lessonData;
 				const lessonName = lessons[ j ]._id;
 				data = data[ lessonName ];
 				if ( data ) {
