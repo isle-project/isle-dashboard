@@ -101,8 +101,32 @@ function mapDispatchToProps( dispatch ) {
 				}) );
 			});
 		},
-		addAnnouncement: ({ namespaceName, token, announcement }) => {
-			request.post( server+'/add_announcement', {
+		deleteAnnouncement: ({ namespaceName, token, createdAt, index }) => {
+			request.post( server+'/delete_announcement', {
+				form: {
+					namespaceName,
+					createdAt
+				},
+				headers: {
+					'Authorization': 'JWT ' + token
+				}
+			}, ( err, res ) => {
+				if ( err || res.statusCode >= 400 ) {
+					return dispatch( actions.addNotification({
+						message: res.body,
+						level: 'error'
+					}) );
+				}
+				const obj = JSON.parse(res.body);
+				dispatch( actions.addNotification({
+					message: obj.message,
+					level: 'success'
+				}) );
+				dispatch( actions.deletedAnnouncement(index, namespaceName) );
+			});
+		},
+		editAnnouncement: ({ namespaceName, token, announcement }) => {
+			request.post( server+'/edit_announcement', {
 				form: {
 					namespaceName,
 					announcement
@@ -117,10 +141,36 @@ function mapDispatchToProps( dispatch ) {
 						level: 'error'
 					}) );
 				}
+				const obj = JSON.parse(res.body);
 				dispatch( actions.addNotification({
-					message: res.body,
+					message: obj.message,
 					level: 'success'
 				}) );
+				dispatch( actions.editedAnnouncement( announcement, namespaceName) );
+			});
+		},
+		addAnnouncement: ({ namespaceName, token, announcement }) => {
+			request.post( server+'/new_announcement', {
+				form: {
+					namespaceName,
+					announcement
+				},
+				headers: {
+					'Authorization': 'JWT ' + token
+				}
+			}, ( err, res ) => {
+				if ( err || res.statusCode >= 400 ) {
+					return dispatch( actions.addNotification({
+						message: res.body,
+						level: 'error'
+					}) );
+				}
+				const obj = JSON.parse(res.body);
+				dispatch( actions.addNotification({
+					message: obj.message,
+					level: 'success'
+				}) );
+				dispatch( actions.createdAnnouncement( announcement, namespaceName) );
 			});
 		},
 		uploadFile: ({ token, formData }) => {

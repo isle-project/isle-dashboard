@@ -9,16 +9,11 @@ import '../profile-page/message-page.css';
 import './message_admin_page.css';
 
 
-let Announcements = [];
-
 // MAIN //
 
 class RecentActivityPage extends Component {
 	constructor( props ) {
 		super( props );
-
-		console.log( this.props.user );
-
 		this.state = {
 			title: '',
 			body: '',
@@ -32,66 +27,62 @@ class RecentActivityPage extends Component {
 	}
 
 	editMessage(ndx) {
+		const announcement = this.props.namespace.announcements[ndx];
 		this.setState({
 			mode: 'Edit Message',
 			editItem: ndx,
-			title: Announcements[ndx].title,
-			body: Announcements[ndx].body
+			title: announcement.title,
+			body: announcement.body
 		});
 	}
 
 	deleteMessage(ndx) {
-		Announcements.splice(ndx, 1);
+		const announcement = this.props.namespace.announcements[ndx];
+		this.props.deleteAnnouncement(announcement.createdAt, ndx);
 		this.clear();
-		this.forceUpdate();
-	}
-
-	getMessage(ndx) {
-		let date = new Date(Announcements[ndx].createdAt).toDateString();
-
-		return (
-			<div>
-			<div className="message-container">
-				<div className="message-data">
-					<div className="message-profile-pic">
-						<img src={Announcements[ndx].picture} />
-					</div>
-
-					<div className="message-author-line">
-						<span className="message-author">{ Announcements[ndx].author } </span>
-						wrote on { date }
-					</div>
-				</div>
-
-				<div className="message-title">
-					{ Announcements[ndx].title }
-				</div>
-				<div className="message-body">
-					{ Announcements[ndx].body }
-				</div>
-			</div>
-
-			<div className="message-manip">
-				<div onClick={() => {
-					this.deleteMessage(ndx);
-				}} className="message-delete">DELETE</div>
-				<div onClick={() => {
-					this.editMessage(ndx);
-				}} className="message-edit">EDIT</div>
-			</div>
-		</div>
-
-		);
 	}
 
 	renderMessages() {
-		let msg = [];
-		for (let i = 0; i < Announcements.length; i++) {
-			msg.push( this.getMessage(i));
-		}
-
 		return (
-			<div>{ msg }</div>
+			<div>{ this.props.namespace.announcements.map((value, index) => {
+				const date = new Date(value.createdAt);
+				const dateString = date.toLocaleDateString() + '  -  ' + date.toLocaleTimeString( navigator.language, {
+					hour: '2-digit',
+					minute: '2-digit'
+				});
+				return (
+					<div key={index}>
+					<div className="message-container">
+						<div className="message-data">
+							<div className="message-profile-pic">
+								<img src={value.picture} />
+							</div>
+
+							<div className="message-author-line">
+								<span className="message-author">{ value.author } </span>
+								wrote on { dateString }
+							</div>
+						</div>
+
+						<div className="message-title">
+							{ value.title }
+						</div>
+						<div className="message-body">
+							{ value.body }
+						</div>
+					</div>
+
+					<div className="message-manip">
+						<div onClick={() => {
+							this.deleteMessage(index);
+						}} className="message-delete">DELETE</div>
+						<div onClick={() => {
+							this.editMessage(index);
+						}} className="message-edit">EDIT</div>
+					</div>
+				</div>
+				);
+			}) }</div>
 		);
 	}
 
@@ -103,15 +94,19 @@ class RecentActivityPage extends Component {
 				body: this.state.body,
 				author: this.props.user.name,
 				email: this.props.user.email,
-				picture: this.props.user.picture,
-				createdAt: now
+				picture: this.props.user.picture
 			};
 
 			if (this.state.editItem === null) {
-				Announcements.push(message);
+				// Announcements.push(message);
+				message.createdAt = now;
+				this.props.addAnnouncement(message);
 			}
 			else {
-				Announcements[this.state.editItem] = message;
+				// Announcements[this.state.editItem] = message;
+				const announcement = this.props.namespace.announcements[this.state.editItem];
+				message.createdAt = announcement.createdAt;
+				this.props.editAnnouncement(message);
 			}
 
 			this.clear();
@@ -190,6 +185,10 @@ class RecentActivityPage extends Component {
 // PROPERTIES //
 
 RecentActivityPage.propTypes = {
+	addAnnouncement: PropTypes.func.isRequired,
+	deleteAnnouncement: PropTypes.func.isRequired,
+	editAnnouncement: PropTypes.func.isRequired,
+	namespace: PropTypes.object.isRequired,
 	user: PropTypes.object.isRequired
 };
 

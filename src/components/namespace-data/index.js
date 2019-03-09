@@ -45,6 +45,31 @@ class NamespaceData extends Component {
 		});
 	}
 
+	handleAnnouncementDeletion = (createdAt, index) => {
+		this.props.deleteAnnouncement( {
+			namespaceName: this.props.namespace.title,
+			token: this.props.user.token,
+			index,
+			createdAt
+		});
+	}
+
+	handleAnnouncementEdit = ( announcement ) => {
+		this.props.editAnnouncement({
+			namespaceName: this.props.namespace.title,
+			token: this.props.user.token,
+			announcement
+		});
+	}
+
+	handleAnnouncementCreation = ( announcement ) => {
+		this.props.addAnnouncement({
+			namespaceName: this.props.namespace.title,
+			token: this.props.user.token,
+			announcement
+		});
+	}
+
 	handleFileDeletion = ( _id ) => {
 		this.props.deleteFile( _id, this.props.namespace.title, this.props.user.token );
 	}
@@ -65,7 +90,7 @@ class NamespaceData extends Component {
 	renderPage() {
 		switch ( this.state.activePage ) {
 			case 1:
-				return <RecentActivityPage user={this.props.user} />;
+				return <RecentActivityPage namespace={this.props.namespace} editAnnouncement={this.handleAnnouncementEdit} deleteAnnouncement={this.handleAnnouncementDeletion} addAnnouncement={this.handleAnnouncementCreation} user={this.props.user} />;
 			case 2:
 				return <ProgressPage addNotification={this.props.addNotification} namespace={this.props.namespace} cohorts={this.props.namespace.cohorts} lessons={this.props.namespace.lessons} />;
 			case 3:
@@ -117,8 +142,11 @@ class NamespaceData extends Component {
 // PROPERTIES //
 
 NamespaceData.propTypes = {
+	addAnnouncement: PropTypes.func.isRequired,
 	addNotification: PropTypes.func.isRequired,
 	badges: PropTypes.array,
+	deleteAnnouncement: PropTypes.func.isRequired,
+	editAnnouncement: PropTypes.func.isRequired,
 	getBadges: PropTypes.func.isRequired,
 	getFiles: PropTypes.func.isRequired,
 	getNamespaceActions: PropTypes.func.isRequired,

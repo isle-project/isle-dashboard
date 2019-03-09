@@ -35,9 +35,9 @@ function mapDispatchToProps( dispatch ) {
 		setLessonOrderDirection: ( direction ) => {
 			dispatch( actions.setLessonOrderDirection( direction ) );
 		},
-		onEnrolledNamespace: ({ title, description, owners, _id }) => {
+		onEnrolledNamespace: ({ title, description, announcements, owners, _id }) => {
 			dispatch( actions.changedNamespace({
-				title, description, owners, _id, userStatus: 'enrolled'
+				title, description, announcements, owners, _id, userStatus: 'enrolled'
 			}) );
 			const namespaceName = title;
 			request.get( server+'/get_lessons', {
@@ -64,8 +64,8 @@ function mapDispatchToProps( dispatch ) {
 				dispatch( actions.retrievedLessons({ lessons, namespaceName }) );
 			});
 		},
-		onNamespace: ({ title, description, owners, _id }, userToken ) => {
-			dispatch( actions.changedNamespace({ title, description, owners, _id, userStatus: 'owner' }) );
+		onNamespace: ({ title, description, announcements, owners, _id }, userToken ) => {
+			dispatch( actions.changedNamespace({ title, description, announcements, owners, _id, userStatus: 'owner' }) );
 			request.get( server+'/get_cohorts', {
 				headers: {
 					'Authorization': 'JWT ' + userToken

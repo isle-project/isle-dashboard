@@ -2,7 +2,7 @@
 
 import * as types from 'constants/action_types.js';
 import groupBy from '@stdlib/utils/group-by';
-
+import copy from '@stdlib/utils/copy';
 // VARIABLES //
 
 const initialState = {
@@ -24,8 +24,16 @@ const initialState = {
 };
 
 
-// EXPORTS //
+function getNamespace(namespaces, name) {
+	for (let i= 0; i < namespaces.length; i++) {
+		if (namespaces[i].title === name) {
+			return namespaces[i];
+		}
+	}
+	return null;
+}
 
+// EXPORTS //
 export default function user( state = initialState, action ) {
 	let arr;
 	switch ( action.type ) {
@@ -109,6 +117,72 @@ export default function user( state = initialState, action ) {
 		return Object.assign({}, state, {
 			enrolledNamespaces: arr
 		});
+	case types.CREATED_ANNOUNCEMENT: {
+		const enrolledNamespaces = copy(state.enrolledNamespaces);
+		let ns = getNamespace(enrolledNamespaces, action.payload.namespaceName);
+		if (ns) {
+			ns.announcements.unshift(action.payload.announcement);
+		}
+
+		const ownedNamespaces = copy(state.ownedNamespaces);
+		ns = getNamespace(ownedNamespaces, action.payload.namespaceName);
+		if (ns) {
+			ns.announcements.unshift(action.payload.announcement);
+		}
+
+		return Object.assign({}, state, {
+			enrolledNamespaces,
+			ownedNamespaces
+		});
+	}
+
+	case types.EDITED_ANNOUNCEMENT: {
+		const enrolledNamespaces = copy(state.enrolledNamespaces);
+		let ns = getNamespace(enrolledNamespaces, action.payload.namespaceName);
+		if (ns) {
+			for (let i = 0; i < ns.announcements.length; i++) {
+				if (ns.announcements[i].createdAt === action.payload.announcement.createdAt) {
+					ns.announcements[i] = action.payload.announcement;
+				}
+			}
+		}
+
+		const ownedNamespaces = copy(state.ownedNamespaces);
+		ns = getNamespace(ownedNamespaces, action.payload.namespaceName);
+		if (ns) {
+			for (let i = 0; i < ns.announcements.length; i++) {
+				if (ns.announcements[i].createdAt === action.payload.announcement.createdAt) {
+					ns.announcements[i] = action.payload.announcement;
+				}
+			}
+		}
+
+		return Object.assign({}, state, {
+			enrolledNamespaces,
+			ownedNamespaces
+		});
+	}
+
+	case types.DELETED_ANNOUNCEMENT:
+		{
+		const enrolledNamespaces = copy(state.enrolledNamespaces);
+		let ns = getNamespace(enrolledNamespaces, action.payload.namespaceName);
+		if (ns) {
+			ns.announcements.splice(action.payload.index, 1);
+		}
+
+		const ownedNamespaces = copy(state.ownedNamespaces);
+		ns = getNamespace(ownedNamespaces, action.payload.namespaceName);
+		if (ns) {
+			ns.announcements.splice(action.payload.index, 1);
+		}
+
+		return Object.assign({}, state, {
+			enrolledNamespaces,
+			ownedNamespaces
+		});
+	}
+
 	case types.RECEIVED_FILES:
 		return Object.assign({}, state, {
 			files: groupBy( action.payload.files, ( v ) => {

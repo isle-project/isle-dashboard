@@ -18,6 +18,7 @@ const initialState = {
 	title: '',
 	description: '',
 	owners: '',
+	announcements: [],
 	lessons: [],
 	cohorts: [],
 	files: [],
@@ -36,6 +37,7 @@ export default function namespace( state = initialState, action ) {
 			_id: action.payload._id,
 			title: action.payload.title,
 			description: action.payload.description,
+			announcements: action.payload.announcements,
 			owners: action.payload.owners,
 			userStatus: action.payload.userStatus
 		});
@@ -90,6 +92,33 @@ export default function namespace( state = initialState, action ) {
 		});
 		return Object.assign({}, state, {
 			files
+		});
+
+	case types.EDITED_ANNOUNCEMENT: {
+		const announcements = state.announcements.slice();
+		for (let i = 0; i < announcements.length; i++) {
+			if (announcements[i].createdAt === action.payload.announcement.createdAt) {
+				announcements[i] = action.payload.announcement;
+			}
+		}
+		return Object.assign({}, state, {
+			announcements: announcements
+		});
+	}
+	case types.CREATED_ANNOUNCEMENT: {
+		const announcements = state.announcements.slice();
+		announcements.unshift(action.payload.announcement);
+		return Object.assign({}, state, {
+			announcements: announcements
+		});
+	}
+
+	case types.DELETED_ANNOUNCEMENT:
+		const announcements = state.announcements.slice();
+		announcements.splice(action.payload.index, 1);
+
+		return Object.assign({}, state, {
+			announcements: announcements
 		});
 	case types.LOGGED_OUT:
 		return initialState;
