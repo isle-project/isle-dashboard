@@ -22,7 +22,9 @@ class RecentActivityPage extends Component {
 		this.state = {
 			title: null,
 			body: null,
-			modified: false
+			modified: false,
+			mode: 'New Message',
+			editItem: null
 		};
 	}
 
@@ -30,10 +32,26 @@ class RecentActivityPage extends Component {
 		return null;
 	}
 
+	editMessage(ndx) {
+		this.setState({
+			mode: 'Edit Message',
+			editItem: ndx,
+			title: Messages[ndx].title,
+			body: Messages[ndx].body
+		});
+	}
+
+	deleteMessage(ndx) {
+		Messages.splice(ndx, 1);
+		this.clear();
+		this.forceUpdate();
+	}
+
 	getMessage(ndx) {
 		let date = new Date(Messages[ndx].createdAt).toDateString();
 
 		return (
+			<div>
 			<div className="message-container">
 				<div className="message-data">
 					<div className="message-profile-pic">
@@ -53,6 +71,17 @@ class RecentActivityPage extends Component {
 					{ Messages[ndx].body }
 				</div>
 			</div>
+
+			<div className="message-manip">
+				<div onClick={() => {
+					this.deleteMessage(ndx);
+				}} className="message-delete">DELETE</div>
+				<div onClick={() => {
+					this.editMessage(ndx);
+				}} className="message-edit">EDIT</div>
+			</div>
+		</div>
+
 		);
 	}
 
@@ -79,12 +108,17 @@ class RecentActivityPage extends Component {
 				createdAt: now
 			};
 
-			Messages.push(message);
-			console.log( message );
-
-			this.setState({
-				modified: !this.state.modified
-			});
+			if (this.state.editItem === null) {
+				Messages.push(message);
+				console.log( message );
+				this.setState({
+					modified: !this.state.modified
+				});
+			}
+			else {
+				Messages[this.state.editItem] = message;
+				this.clear();
+			}
 	}
 
 	handleInputChange = (event) => {
@@ -99,7 +133,9 @@ class RecentActivityPage extends Component {
 	clear = () => {
 		this.setState({
 			title: null,
-			body: null
+			body: null,
+			mode: 'New Message',
+			editItem: null
 		});
 		this.forceUpdate();
 	}
@@ -115,7 +151,7 @@ class RecentActivityPage extends Component {
 						<Card>
 							<Card.Header>
 								<Card.Title as="h3">
-									New message
+									{this.state.mode}
 								</Card.Title>
 							</Card.Header>
 							<Card.Body>
@@ -137,7 +173,7 @@ class RecentActivityPage extends Component {
 											name="body"
 											type="text"
 											as="textarea" rows="10"
-											value={this.state.description}
+											value={this.state.body}
 											onChange={this.handleInputChange}
 										>
 										</FormControl>
