@@ -1,0 +1,58 @@
+.messages {
+	position: absolute;
+	width: 30%;
+	height: calc(100% - 80px);
+	background: white;
+	box-shadow: 0 0 2px darkslategray, 0 0 0 5px silver;
+	border-radius: 20px;
+	padding-left: 24px;
+	padding-top: 0px;
+	animation: slide-in-left 0.7s;
+	overflow: hidden;
+	overflow-y: auto;
+}
+
+
+.new_message {
+	position: absolute;
+	left: 32%;
+	width: 66.5%;
+	height: calc(100% - 80px);
+	background: white;
+	box-shadow: 0 0 2px darkslategray, 0 0 0 5px silver;
+	border-radius: 20px;
+	padding: 16px;
+	animation: slide-in-right 0.7s;
+}
+
+
+.message-manip {
+	width: 97%;
+	margin-top: 8px;
+	height: 32px;
+	font-family: Oswald Condensed;
+	font-weight: 600;
+}
+
+.message-edit {
+	float: right;
+	margin-right: 20px;
+	margin-top: 8px;
+}
+
+.message-edit:hover {
+	color: red;
+	cursor: pointer;
+}
+
+
+.message-delete {
+	float: right;
+	margin-right: 20px;
+	margin-top: 8px;
+}
+
+.message-delete:hover {
+	color: red;
+	cursor: pointer;
+}

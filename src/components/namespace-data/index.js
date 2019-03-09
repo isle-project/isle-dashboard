@@ -65,7 +65,7 @@ class NamespaceData extends Component {
 	renderPage() {
 		switch ( this.state.activePage ) {
 			case 1:
-				return <RecentActivityPage />;
+				return <RecentActivityPage user={this.props.user} />;
 			case 2:
 				return <ProgressPage addNotification={this.props.addNotification} namespace={this.props.namespace} cohorts={this.props.namespace.cohorts} lessons={this.props.namespace.lessons} />;
 			case 3:
@@ -89,7 +89,7 @@ class NamespaceData extends Component {
 				<div className="namespace-data-navbar">
 					<Nav variant="pills" activeKey={this.state.activePage} onSelect={this.handleSelect}>
 						<Nav.Item>
-							<Nav.Link eventKey="1" title="Recent Activity" >Recent Activity</Nav.Link>
+							<Nav.Link eventKey="1" title="Recent Activity" >Messages</Nav.Link>
 						</Nav.Item>
 						<Nav.Item>
 							<Nav.Link eventKey="2" title="Progress" >Progress</Nav.Link>
