@@ -22,24 +22,24 @@ import './message-page.css';
 
 let now = 'Mo, 7.7.2018, 13:48';
 
-const Messages = [
+const Announcement = [
 	{
 	author: 'Philipp Burckhardt',
-	profile: 'https://isle.heinz.cmu.edu/avatar/5c28cd2e48f70e7ff2cd370f.jpeg',
+	picture: 'https://isle.heinz.cmu.edu/avatar/5c28cd2e48f70e7ff2cd370f.jpeg',
 	title: 'Automatic grading will soon be enabled',
 	body: 'We are proud to present the new automatic grading system.',
 	createdAt: now
 	},
 	{
 	author: 'Philipp Burckhardt',
-	profile: 'https://isle.heinz.cmu.edu/avatar/5c28cd2e48f70e7ff2cd370f.jpeg',
+	picture: 'https://isle.heinz.cmu.edu/avatar/5c28cd2e48f70e7ff2cd370f.jpeg',
 	title: 'Phishing activities, beware!!!',
 	body: 'It seems that we have been hacked. It may be very probable that Russians have stolen hundreds of passwords.',
 	createdAt: now
 	},
 	{
 	author: 'Martin Burckhardt',
-	profile: 'https://isle.heinz.cmu.edu/avatar/595a9c3c8c7dcf6c3cbe0464.jpg',
+	picture: 'https://isle.heinz.cmu.edu/avatar/595a9c3c8c7dcf6c3cbe0464.jpg',
 	title: 'Too lazy!',
 	body: 'It seems that we have been hacked. It may be very probable that Russians have stolen hundreds of passwords.',
 	createdAt: now
@@ -230,20 +230,20 @@ class ProfilePage extends Component {
 			<div className="message-container">
 				<div className="message-data">
 					<div className="message-profile-pic">
-						<img src={Messages[ndx].profile} />
+						<img src={Announcement[ndx].picture} />
 					</div>
 
 					<div className="message-author-line">
-						<span className="message-author">{ Messages[ndx].author } </span>
-						wrote on { Messages[ndx].createdAt }
+						<span className="message-author">{ Announcement[ndx].author } </span>
+						wrote on { Announcement[ndx].createdAt }
 					</div>
 				</div>
 
 				<div className="message-title">
-					{ Messages[ndx].title }
+					{ Announcement[ndx].title }
 				</div>
 				<div className="message-body">
-					{ Messages[ndx].body }
+					{ Announcement[ndx].body }
 				</div>
 			</div>
 		);
@@ -251,7 +251,7 @@ class ProfilePage extends Component {
 
 	renderMessages() {
 		let msg = [];
-		for (let i = 0; i < Messages.length; i++) {
+		for (let i = 0; i < Announcement.length; i++) {
 			msg.push(this.getMessage(i));
 		}
 		console.log(msg);
