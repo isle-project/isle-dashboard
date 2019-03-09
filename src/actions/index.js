@@ -66,11 +66,42 @@ export function setLessonOrderDirection( direction ) {
 	};
 }
 
-export function changedNamespace({ title, owners, description, _id, userStatus }) {
+export function editedAnnouncement( announcement, namespaceName ) {
+	return {
+		type: types.EDITED_ANNOUNCEMENT,
+		payload: {
+			announcement,
+			namespaceName
+		}
+	};
+}
+
+export function createdAnnouncement( announcement, namespaceName ) {
+	return {
+		type: types.CREATED_ANNOUNCEMENT,
+		payload: {
+			announcement,
+			namespaceName
+		}
+	};
+}
+
+export function deletedAnnouncement( index, namespaceName ) {
+	return {
+		type: types.DELETED_ANNOUNCEMENT,
+		payload: {
+			index,
+			namespaceName
+		}
+	};
+}
+
+export function changedNamespace({ title, owners, announcements, description, _id, userStatus }) {
 	return {
 		type: types.CHANGED_NAMESPACE,
 		payload: {
 			title,
+			announcements,
 			description,
 			owners,
 			_id,

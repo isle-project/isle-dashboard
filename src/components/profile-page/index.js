@@ -20,32 +20,6 @@ import badgeCircle from './img/badge_circle.svg';
 import './profile-page.css';
 import './message-page.css';
 
-let now = 'Mo, 7.7.2018, 13:48';
-
-const Announcement = [
-	{
-	author: 'Philipp Burckhardt',
-	picture: 'https://isle.heinz.cmu.edu/avatar/5c28cd2e48f70e7ff2cd370f.jpeg',
-	title: 'Automatic grading will soon be enabled',
-	body: 'We are proud to present the new automatic grading system.',
-	createdAt: now
-	},
-	{
-	author: 'Philipp Burckhardt',
-	picture: 'https://isle.heinz.cmu.edu/avatar/5c28cd2e48f70e7ff2cd370f.jpeg',
-	title: 'Phishing activities, beware!!!',
-	body: 'It seems that we have been hacked. It may be very probable that Russians have stolen hundreds of passwords.',
-	createdAt: now
-	},
-	{
-	author: 'Martin Burckhardt',
-	picture: 'https://isle.heinz.cmu.edu/avatar/595a9c3c8c7dcf6c3cbe0464.jpg',
-	title: 'Too lazy!',
-	body: 'It seems that we have been hacked. It may be very probable that Russians have stolen hundreds of passwords.',
-	createdAt: now
-	}
-];
-
 // FUNCTIONS //
 
 function id2Name( lessons, id ) {
@@ -234,39 +208,36 @@ class ProfilePage extends Component {
 	}
 
 
-	getMessage(ndx) {
-		return (
-			<div className="message-container">
-				<div className="message-data">
-					<div className="message-profile-pic">
-						<img src={Announcement[ndx].picture} />
-					</div>
-
-					<div className="message-author-line">
-						<span className="message-author">{ Announcement[ndx].author } </span>
-						wrote on { Announcement[ndx].createdAt }
-					</div>
-				</div>
-
-				<div className="message-title">
-					{ Announcement[ndx].title }
-				</div>
-				<div className="message-body">
-					{ Announcement[ndx].body }
-				</div>
-			</div>
-		);
-	}
-
 	renderMessages() {
-		let msg = [];
-		for (let i = 0; i < Announcement.length; i++) {
-			msg.push(this.getMessage(i));
-		}
-		console.log(msg);
-
 		return (
-			<div>{ msg }</div>
+			<div>{ this.state.selectedNamespace.announcements.map( (value, index) => {
+				const date = new Date(value.createdAt);
+				const dateString = date.toLocaleDateString() + '  -  ' + date.toLocaleTimeString( navigator.language, {
+					hour: '2-digit',
+					minute: '2-digit'
+				});
+
+				return (
+					<div key={index} className="message-container">
+						<div className="message-data">
+							<div className="message-profile-pic">
+								<img src={value.picture} />
+							</div>
+							<div className="message-author-line">
+								<span className="message-author">{ value.author } </span>
+								wrote on { dateString }
+							</div>
+						</div>
+						<div className="message-title">
+							{ value.title }
+						</div>
+						<div className="message-body">
+							{ value.body }
+						</div>
+					</div>
+				);
+			})
+			}</div>
 		);
 	}
 
