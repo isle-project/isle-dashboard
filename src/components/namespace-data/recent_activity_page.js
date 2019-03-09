@@ -9,7 +9,7 @@ import '../profile-page/message-page.css';
 import './message_admin_page.css';
 
 
-let Messages = [];
+let Announcements = [];
 
 // MAIN //
 
@@ -20,9 +20,8 @@ class RecentActivityPage extends Component {
 		console.log( this.props.user );
 
 		this.state = {
-			title: null,
-			body: null,
-			modified: false,
+			title: '',
+			body: '',
 			mode: 'New Message',
 			editItem: null
 		};
@@ -36,39 +35,39 @@ class RecentActivityPage extends Component {
 		this.setState({
 			mode: 'Edit Message',
 			editItem: ndx,
-			title: Messages[ndx].title,
-			body: Messages[ndx].body
+			title: Announcements[ndx].title,
+			body: Announcements[ndx].body
 		});
 	}
 
 	deleteMessage(ndx) {
-		Messages.splice(ndx, 1);
+		Announcements.splice(ndx, 1);
 		this.clear();
 		this.forceUpdate();
 	}
 
 	getMessage(ndx) {
-		let date = new Date(Messages[ndx].createdAt).toDateString();
+		let date = new Date(Announcements[ndx].createdAt).toDateString();
 
 		return (
 			<div>
 			<div className="message-container">
 				<div className="message-data">
 					<div className="message-profile-pic">
-						<img src={Messages[ndx].profile} />
+						<img src={Announcements[ndx].picture} />
 					</div>
 
 					<div className="message-author-line">
-						<span className="message-author">{ Messages[ndx].author } </span>
+						<span className="message-author">{ Announcements[ndx].author } </span>
 						wrote on { date }
 					</div>
 				</div>
 
 				<div className="message-title">
-					{ Messages[ndx].title }
+					{ Announcements[ndx].title }
 				</div>
 				<div className="message-body">
-					{ Messages[ndx].body }
+					{ Announcements[ndx].body }
 				</div>
 			</div>
 
@@ -87,7 +86,7 @@ class RecentActivityPage extends Component {
 
 	renderMessages() {
 		let msg = [];
-		for (let i = 0; i < Messages.length; i++) {
+		for (let i = 0; i < Announcements.length; i++) {
 			msg.push( this.getMessage(i));
 		}
 
@@ -104,21 +103,18 @@ class RecentActivityPage extends Component {
 				body: this.state.body,
 				author: this.props.user.name,
 				email: this.props.user.email,
-				profile: this.props.user.picture,
+				picture: this.props.user.picture,
 				createdAt: now
 			};
 
 			if (this.state.editItem === null) {
-				Messages.push(message);
-				console.log( message );
-				this.setState({
-					modified: !this.state.modified
-				});
+				Announcements.push(message);
 			}
 			else {
-				Messages[this.state.editItem] = message;
-				this.clear();
+				Announcements[this.state.editItem] = message;
 			}
+
+			this.clear();
 	}
 
 	handleInputChange = (event) => {
@@ -132,12 +128,11 @@ class RecentActivityPage extends Component {
 
 	clear = () => {
 		this.setState({
-			title: null,
-			body: null,
+			title: '',
+			body: '',
 			mode: 'New Message',
 			editItem: null
 		});
-		this.forceUpdate();
 	}
 
 
@@ -181,9 +176,7 @@ class RecentActivityPage extends Component {
 								</Form>
 								<ButtonGroup>
 									<Button type="submit" disabled={this.state.disabled} onClick={this.createMessage}>Submit</Button>
-									<Button onClick={() => {
-										this.clear();
-									}} variant="danger">Clear</Button>
+									<Button onClick={this.clear} variant="danger">Clear</Button>
 								</ButtonGroup>
 							</Card.Body>
 						</Card>
