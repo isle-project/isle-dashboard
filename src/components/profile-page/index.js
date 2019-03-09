@@ -98,7 +98,6 @@ class ProfilePage extends Component {
 	}
 
 	handleSelect = ( newValue, event ) => {
-		console.log('NEW VALUE ' + newValue);
 		const namespaceName = event.target.title;
 		const id = event.target.dataset.id;
 		this.setState({
