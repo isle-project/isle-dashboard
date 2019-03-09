@@ -5,14 +5,16 @@
 	border-radius: 12px;
 	padding: 10px;
 	margin-bottom: 14px;
-	top: 52px;
-	background: whitesmoke;
+	top: 16px;
+	background: white;
+	color:  #2e4468;
 	box-shadow: 0 0 2px 1px darkgray;
 	transition: all 0.3s;
 }
 
 .message-container:hover {
 	background: white;
+	color: red;
 }
 
 .message-data {
@@ -34,7 +36,7 @@
 	border-radius: 8px;
 }
 
-.message-author {
+.message-author-line {
 	font-family: Oswald Condensed;
 	float: left;
 	font-size: 16px;
@@ -44,6 +46,13 @@
 	color: darkgray;
 }
 
+.message-author {
+	color: darkgray;
+}
+
+.message-author:hover {
+	color: red;
+}
 
 .message-title {
 	width: 100%;
@@ -58,4 +67,5 @@
 
 .message-body {
 	margin-bottom: 5px;
+	color: darkslategray;
 }
