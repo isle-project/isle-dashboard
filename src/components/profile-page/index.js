@@ -36,6 +36,13 @@ const Messages = [
 	title: 'Phishing activities, beware!!!',
 	body: 'It seems that we have been hacked. It may be very probable that Russians have stolen hundreds of passwords.',
 	createdAt: now
+	},
+	{
+	author: 'Martin Burckhardt',
+	profile: 'https://isle.heinz.cmu.edu/avatar/595a9c3c8c7dcf6c3cbe0464.jpg',
+	title: 'Too lazy!',
+	body: 'It seems that we have been hacked. It may be very probable that Russians have stolen hundreds of passwords.',
+	createdAt: now
 	}
 ];
 
@@ -219,7 +226,6 @@ class ProfilePage extends Component {
 
 
 	getMessage(ndx) {
-		console.log( Messages[ndx].title);
 		return (
 			<div className="message-container">
 				<div className="message-data">
@@ -227,8 +233,9 @@ class ProfilePage extends Component {
 						<img src={Messages[ndx].profile} />
 					</div>
 
-					<div className="message-author">
-						{ Messages[ndx].author } wrote on { Messages[ndx].createdAt }
+					<div className="message-author-line">
+						<span className="message-author">{ Messages[ndx].author } </span>
+						wrote on { Messages[ndx].createdAt }
 					</div>
 				</div>
 
