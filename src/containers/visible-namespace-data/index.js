@@ -101,6 +101,28 @@ function mapDispatchToProps( dispatch ) {
 				}) );
 			});
 		},
+		addAnnouncement: ({ namespaceName, token, announcement }) => {
+			request.post( server+'/add_announcement', {
+				form: {
+					namespaceName,
+					announcement
+				},
+				headers: {
+					'Authorization': 'JWT ' + token
+				}
+			}, ( err, res ) => {
+				if ( err || res.statusCode >= 400 ) {
+					return dispatch( actions.addNotification({
+						message: res.body,
+						level: 'error'
+					}) );
+				}
+				dispatch( actions.addNotification({
+					message: res.body,
+					level: 'success'
+				}) );
+			});
+		},
 		uploadFile: ({ token, formData }) => {
 			const xhr = new XMLHttpRequest();
 			xhr.open( 'POST', server+'/upload_file', true );
