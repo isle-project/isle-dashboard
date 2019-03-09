@@ -24,3 +24,35 @@
 	padding: 16px;
 	animation: slide-in-right 0.7s;
 }
+
+
+.message-manip {
+	width: 97%;
+	margin-top: 8px;
+	height: 32px;
+	font-family: Oswald Condensed;
+	font-weight: 600;
+}
+
+.message-edit {
+	float: right;
+	margin-right: 20px;
+	margin-top: 8px;
+}
+
+.message-edit:hover {
+	color: red;
+	cursor: pointer;
+}
+
+
+.message-delete {
+	float: right;
+	margin-right: 20px;
+	margin-top: 8px;
+}
+
+.message-delete:hover {
+	color: red;
+	cursor: pointer;
+}
