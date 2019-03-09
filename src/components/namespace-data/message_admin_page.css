@@ -1,7 +1,7 @@
 .messages {
 	position: absolute;
 	width: 30%;
-	height: 90%;
+	height: calc(100% - 80px);
 	background: white;
 	box-shadow: 0 0 2px darkslategray, 0 0 0 5px silver;
 	border-radius: 20px;
@@ -17,7 +17,7 @@
 	position: absolute;
 	left: 32%;
 	width: 66.5%;
-	height: 90%;
+	height: calc(100% - 80px);
 	background: white;
 	box-shadow: 0 0 2px darkslategray, 0 0 0 5px silver;
 	border-radius: 20px;
