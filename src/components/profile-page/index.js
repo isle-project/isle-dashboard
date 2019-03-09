@@ -67,14 +67,22 @@ class ProfilePage extends Component {
 	constructor( props ) {
 		super( props );
 
+		let selectedNamespace = null;
+		let selectedNamespaceID = null;
+		if (props.user.enrolledNamespaces.length > 0) {
+			selectedNamespace = props.user.enrolledNamespaces[0];
+			selectedNamespaceID = selectedNamespace._id;
+		}
+
+
 		this.state = {
 			showEditModal: false,
 			showTokenModal: false,
 			showProfilePicModal: false,
-			selectedNamespace: null,
-			selectedNamespaceID: null,
-			selectedDataType: null,
-			selectedStatsType: null
+			selectedNamespace: selectedNamespace,
+			selectedNamespaceID: selectedNamespaceID,
+			selectedDataType: 'messages',
+			selectedStatsType: 'progress'
 
 		};
 	}
@@ -116,6 +124,7 @@ class ProfilePage extends Component {
 	}
 
 	handleSelect = ( newValue, event ) => {
+		console.log('NEW VALUE ' + newValue);
 		const namespaceName = event.target.title;
 		const id = event.target.dataset.id;
 		this.setState({
@@ -264,24 +273,21 @@ class ProfilePage extends Component {
 	renderStatisticDataToolbar() {
 		return (
 		<Nav variant="tabs" activeKey={this.state.selectedDataType} onSelect={this.handleDataSelect}>
-		<Nav.Item >
-			<Nav.Link eventKey="files" title="Files">
-				Files
-			</Nav.Link>
-		</Nav.Item>
-		<Nav.Item >
-			<Nav.Link eventKey="actions" title="Actions">
-				Actions
-			</Nav.Link>
-		</Nav.Item>
-
-		<Nav.Item >
-			<Nav.Link eventKey="messages" title="Messages">
-				Messages
-			</Nav.Link>
-		</Nav.Item>
-
-
+			<Nav.Item >
+				<Nav.Link eventKey="messages" title="Messages">
+					Messages
+				</Nav.Link>
+			</Nav.Item>
+			<Nav.Item >
+				<Nav.Link eventKey="files" title="Files">
+					Files
+				</Nav.Link>
+			</Nav.Item>
+			<Nav.Item >
+				<Nav.Link eventKey="actions" title="Actions">
+					Actions
+				</Nav.Link>
+			</Nav.Item>
 		</Nav>
 		);
 	}
@@ -289,16 +295,16 @@ class ProfilePage extends Component {
 	renderStatisticStatsToolbar() {
 		return (
 			<Nav variant="tabs" activeKey={this.state.selectedStatsType} onSelect={this.handleStatsSelect}>
-			<Nav.Item >
-				<Nav.Link eventKey="timeSpent" title="timeSpent">
-					Time spent
-				</Nav.Link>
-			</Nav.Item>
-			<Nav.Item >
-				<Nav.Link eventKey="progress" title="progress">
-					Progress
-				</Nav.Link>
-			</Nav.Item>
+				<Nav.Item >
+					<Nav.Link eventKey="progress" title="progress">
+						Progress
+					</Nav.Link>
+				</Nav.Item>
+				<Nav.Item >
+					<Nav.Link eventKey="timeSpent" title="timeSpent">
+						Time spent
+					</Nav.Link>
+				</Nav.Item>
 			</Nav>
 		);
 	}
