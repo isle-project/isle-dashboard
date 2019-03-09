@@ -30,13 +30,14 @@
 	width: 97%;
 	margin-top: 8px;
 	height: 32px;
-	font-family: Oswald Condensed;
+	font-family: Open Sans Condensed;
 	font-weight: 600;
+	font-size: 18px;
 }
 
 .message-edit {
 	float: right;
-	margin-right: 20px;
+	margin-right: 16px;
 	margin-top: 8px;
 }
 
