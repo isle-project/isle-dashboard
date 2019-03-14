@@ -19,11 +19,12 @@ const initialState = {
 
 export default function namespace( state = initialState, action ) {
 	switch ( action.type ) {
-	case types.ADD_NOTIFICATION:
+	case types.ADD_NOTIFICATION: {
 		return Object.assign({}, initialState, {
 			...action.payload,
 			time: new Date()
 		});
+	}
 	default:
 		return state;
 	}
