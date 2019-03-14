@@ -20,6 +20,7 @@ import badgeCircle from './img/badge_circle.svg';
 import './profile-page.css';
 import './message-page.css';
 
+
 // FUNCTIONS //
 
 function id2Name( lessons, id ) {
@@ -43,12 +44,10 @@ class ProfilePage extends Component {
 
 		let selectedNamespace = null;
 		let selectedNamespaceID = null;
-		if (props.user.enrolledNamespaces.length > 0) {
-			selectedNamespace = props.user.enrolledNamespaces[0];
+		if ( props.user.enrolledNamespaces.length > 0 ) {
+			selectedNamespace = props.user.enrolledNamespaces[ 0 ];
 			selectedNamespaceID = selectedNamespace._id;
 		}
-
-
 		this.state = {
 			showEditModal: false,
 			showTokenModal: false,
@@ -57,7 +56,6 @@ class ProfilePage extends Component {
 			selectedNamespaceID: selectedNamespaceID,
 			selectedDataType: 'messages',
 			selectedStatsType: 'progress'
-
 		};
 	}
 
@@ -65,7 +63,7 @@ class ProfilePage extends Component {
 		if ( !this.props.user.files ) {
 			this.props.getFiles({ token: this.props.user.token });
 		}
-		this.props.addBadges(this.props.user.token);
+		this.props.addBadges( this.props.user.token );
 	}
 
 	renderInstructorButton() {
@@ -118,6 +116,9 @@ class ProfilePage extends Component {
 	}
 
 	renderRightPanel() {
+		if ( !this.state.selectedNamespace ) {
+			return null;
+		}
 		if ( this.state.selectedStatsType === 'progress' ) {
 			return (
 				<ProgressStats
@@ -126,7 +127,7 @@ class ProfilePage extends Component {
 				/>
 			);
 		}
-		if (this.state.selectedStatsType === 'timeSpent') {
+		if ( this.state.selectedStatsType === 'timeSpent' ) {
 			return (
 				<TimeSpent
 					user={this.props.user}
@@ -144,11 +145,13 @@ class ProfilePage extends Component {
 	}
 
 	renderLeftPanel() {
-		if (this.state.selectedDataType === 'files') {
+		if ( !this.state.selectedNamespace ) {
+			return null;
+		}
+		if ( this.state.selectedDataType === 'files' ) {
 			return this.renderFiles();
 		}
-
-		if (this.state.selectedDataType === 'actions') {
+		if ( this.state.selectedDataType === 'actions' ) {
 			const data = this.props.user.lessonData;
 			return ( <ActionTypesDisplay
 				lessonData={data}
@@ -156,8 +159,7 @@ class ProfilePage extends Component {
 				selectedNamespaceID={this.state.selectedNamespaceID}
 			/> );
 		}
-
-		if (this.state.selectedDataType === 'messages') {
+		if ( this.state.selectedDataType === 'messages' ) {
 			return this.renderMessages();
 		}
 	}
@@ -177,20 +179,17 @@ class ProfilePage extends Component {
 
 			let cl = 'fas fa-file-image fa-4x';
 			const pth = path.extname(file.filename);
-			switch (pth) {
+			switch ( pth ) {
 				case '.html':
 					cl = 'fab fa-html5 fa-4x';
 				break;
-
 				case '.pdf':
 					cl = 'far fa-file-pdf fa-4x';
 				break;
-
 				case '.jpg':
 					cl = 'fas fa-file-image fa-4x';
 				break;
 			}
-
 			out.push( <Media>
 				<div className="mr-3">
 					<a href={server+'/'+file.filename} target="_blank">
@@ -206,7 +205,6 @@ class ProfilePage extends Component {
 		return out;
 	}
 
-
 	renderMessages() {
 		return (
 			<div>{ this.state.selectedNamespace.announcements.map( (value, index) => {
@@ -215,7 +213,6 @@ class ProfilePage extends Component {
 					hour: '2-digit',
 					minute: '2-digit'
 				});
-
 				return (
 					<div key={index} className="message-container">
 						<div className="message-data">

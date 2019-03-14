@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import { Alert, Nav } from 'react-bootstrap';
 import logger from 'debug';
 import FilesPage from './files_page.js';
-import RecentActivityPage from './recent_activity_page.js';
+import AnnouncementsPage from './announcements_page.js';
 import ProgressPage from './progress_page.js';
 import CohortsPage from './cohorts_page.js';
 import ActionsPage from './actions_page.js';
@@ -90,7 +90,7 @@ class NamespaceData extends Component {
 	renderPage() {
 		switch ( this.state.activePage ) {
 			case 1:
-				return <RecentActivityPage namespace={this.props.namespace} editAnnouncement={this.handleAnnouncementEdit} deleteAnnouncement={this.handleAnnouncementDeletion} addAnnouncement={this.handleAnnouncementCreation} user={this.props.user} />;
+				return <AnnouncementsPage namespace={this.props.namespace} editAnnouncement={this.handleAnnouncementEdit} deleteAnnouncement={this.handleAnnouncementDeletion} addAnnouncement={this.handleAnnouncementCreation} user={this.props.user} />;
 			case 2:
 				return <ProgressPage addNotification={this.props.addNotification} namespace={this.props.namespace} cohorts={this.props.namespace.cohorts} lessons={this.props.namespace.lessons} />;
 			case 3:
@@ -114,7 +114,7 @@ class NamespaceData extends Component {
 				<div className="namespace-data-navbar">
 					<Nav variant="pills" activeKey={this.state.activePage} onSelect={this.handleSelect}>
 						<Nav.Item>
-							<Nav.Link eventKey="1" title="Recent Activity" >Messages</Nav.Link>
+							<Nav.Link eventKey="1" title="Announcements" >Announcements</Nav.Link>
 						</Nav.Item>
 						<Nav.Item>
 							<Nav.Link eventKey="2" title="Progress" >Progress</Nav.Link>
