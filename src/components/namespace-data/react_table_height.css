@@ -8,31 +8,19 @@
 	font-family: Open Sans Condensed;
 	font-weight: 800;
 	animation: slide-in-right 0.7s;
+	width: 100%;
 }
 
 .rt-th {
 	color: darkgrey;
 }
 
-.rt-table {
-	overflow: hidden !important;
-}
-
-.rt-tbody {
-	min-width: 0px !important;
-}
-
 .rt-thead {
-	min-width: 0px !important;
 	overflow-y: scroll;
 }
 
 .rt-thead::-webkit-scrollbar {
 	background: transparent;
-}
-
-.rt-tr {
-	min-width: 0px !important;
 }
 
 .rt-td {
