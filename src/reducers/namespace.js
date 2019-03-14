@@ -29,10 +29,8 @@ const initialState = {
 // EXPORTS //
 
 export default function namespace( state = initialState, action ) {
-	let lessons;
-
 	switch ( action.type ) {
-	case types.CHANGED_NAMESPACE:
+	case types.CHANGED_NAMESPACE: {
 		return Object.assign({}, state, {
 			_id: action.payload._id,
 			title: action.payload.title,
@@ -41,28 +39,32 @@ export default function namespace( state = initialState, action ) {
 			owners: action.payload.owners,
 			userStatus: action.payload.userStatus
 		});
-	case types.DELETED_CURRENT_NAMESPACE:
+	}
+	case types.DELETED_CURRENT_NAMESPACE: {
 		return initialState;
-	case types.RETRIEVED_LESSONS:
+	}
+	case types.RETRIEVED_LESSONS: {
 		if ( action.payload.namespaceName === state.title ) {
 			return Object.assign({}, state, {
 				lessons: action.payload.lessons
 			});
 		}
 		return state;
-	case types.RETRIEVED_COHORTS:
+	}
+	case types.RETRIEVED_COHORTS: {
 		return Object.assign({}, state, {
 			cohorts: action.payload.cohorts.sort( titleCompare )
 		});
-	case types.DELETED_LESSON:
-		lessons = state.lessons.slice();
+	}
+	case types.DELETED_LESSON: {
+		let lessons = state.lessons.slice();
 		lessons = lessons.filter( x => x.title !== action.payload.lessonName );
 		return Object.assign({}, state, {
 			lessons
 		});
-	/* eslint-disable no-case-declarations */
-	case types.UPDATED_LESSON:
-		lessons = state.lessons.slice();
+	}
+	case types.UPDATED_LESSON: {
+		let lessons = state.lessons.slice();
 		const { props, lessonName } = action.payload;
 		for ( let i = 0; i < lessons.length; i++ ) {
 			if ( lessons[ i ].title === lessonName ) {
@@ -77,8 +79,9 @@ export default function namespace( state = initialState, action ) {
 		return Object.assign({}, state, {
 			lessons
 		});
-	case types.RECEIVED_NAMESPACE_FILES:
-		lessons = state.lessons;
+	}
+	case types.RECEIVED_NAMESPACE_FILES: {
+		let lessons = state.lessons;
 		let files = action.payload.files;
 		files = files.map( file => {
 			file.updatedAt = new Date( file.updatedAt );
@@ -93,7 +96,7 @@ export default function namespace( state = initialState, action ) {
 		return Object.assign({}, state, {
 			files
 		});
-
+	}
 	case types.EDITED_ANNOUNCEMENT: {
 		const announcements = state.announcements.slice();
 		for (let i = 0; i < announcements.length; i++) {
@@ -112,16 +115,17 @@ export default function namespace( state = initialState, action ) {
 			announcements: announcements
 		});
 	}
-
-	case types.DELETED_ANNOUNCEMENT:
+	case types.DELETED_ANNOUNCEMENT: {
 		const announcements = state.announcements.slice();
 		announcements.splice(action.payload.index, 1);
 
 		return Object.assign({}, state, {
 			announcements: announcements
 		});
-	case types.LOGGED_OUT:
+	}
+	case types.LOGGED_OUT: {
 		return initialState;
+	}
 	default:
 		return state;
 	}

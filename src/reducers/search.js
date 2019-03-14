@@ -18,22 +18,27 @@ const initialState = {
 
 export default function search( state = initialState, action ) {
 	switch ( action.type ) {
-	case types.SEARCH_PHRASE_SET:
+	case types.SEARCH_PHRASE_SET: {
 		return Object.assign({}, state, {
 			phrase: lowercase( action.payload.phrase )
 		});
-	case types.LESSON_ORDER:
+	}
+	case types.LESSON_ORDER: {
 		return Object.assign({}, state, {
 			type: action.payload.type
 		});
-	case types.LESSON_ORDER_DIRECTION:
+	}
+	case types.LESSON_ORDER_DIRECTION: {
 		return Object.assign({}, state, {
 			direction: action.payload.direction
 		});
-	case types.LOGGED_OUT:
+	}
+	case types.LOGGED_OUT: {
 		return initialState;
-	case LOCATION_CHANGE:
+	}
+	case LOCATION_CHANGE: {
 		return initialState;
+	}
 	default:
 		return state;
 	}

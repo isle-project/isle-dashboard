@@ -15,11 +15,12 @@ function titleCompare( a, b ) {
 
 export default function cohorts( state = null, action ) {
 	switch ( action.type ) {
-	case types.RETRIEVED_ENROLLABLE_COHORTS:
+	case types.RETRIEVED_ENROLLABLE_COHORTS: {
 		if ( !isArray( action.payload.cohorts ) ) {
 			return action.payload.cohorts;
 		}
 		return action.payload.cohorts.sort( titleCompare );
+	}
 	default:
 		return state;
 	}

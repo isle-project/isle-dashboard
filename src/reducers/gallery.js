@@ -14,10 +14,11 @@ const initialState = {
 
 export default function namespace( state = initialState, action ) {
 	switch ( action.type ) {
-	case types.RETRIEVED_PUBLIC_LESSONS:
+	case types.RETRIEVED_PUBLIC_LESSONS: {
 		return Object.assign({}, state, {
 			lessons: action.payload.lessons
 		});
+	}
 	default:
 		return state;
 	}

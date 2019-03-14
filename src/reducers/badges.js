@@ -7,8 +7,9 @@ import * as types from 'constants/action_types.js';
 
 export default function badges( state = null, action ) {
 	switch ( action.type ) {
-	case types.RETRIEVED_BADGES:
+	case types.RETRIEVED_BADGES: {
 		return action.payload.badges;
+	}
 	default:
 		return state;
 	}
