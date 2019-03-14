@@ -20,6 +20,7 @@ function getResizedCanvas(canvas, newWidth, newHeight) {
 	return tmpCanvas;
 }
 
+
 // MAIN //
 
 class ProfilePicModal extends Component {
