@@ -10,6 +10,7 @@ import min from '@stdlib/math/base/special/min';
 import isArray from '@stdlib/assert/is-array';
 import contains from '@stdlib/assert/contains';
 import lowercase from '@stdlib/string/lowercase';
+import trim from '@stdlib/string/trim';
 import server from 'constants/server';
 import saveAs from 'utils/file_saver.js';
 import formatTime from 'utils/format_time.js';
@@ -88,9 +89,33 @@ function createColumns( lessons, cohorts ) {
 			style: { color: 'darkslategrey' }
 		},
 		{
-			Header: 'Name',
-			accessor: 'name',
-			maxWidth: 150,
+			Header: 'First',
+			id: 'first_name',
+			accessor: d => {
+				const parts = trim( d.name ).split( ' ' );
+				if ( parts.length > 1 ) {
+					parts.pop();
+					return parts.join( ' ' );
+				}
+				return parts[ 0 ];
+			},
+			maxWidth: 75,
+			style: { marginTop: '8px', color: 'darkslategrey' },
+			filterMethod: ( filter, row ) => {
+				return contains( lowercase( row[ filter.id ] ), lowercase( filter.value ) );
+			}
+		},
+		{
+			Header: 'Last',
+			id: 'last_name',
+			accessor: d => {
+				const parts = trim( d.name ).split( ' ' );
+				if ( parts.length > 1 ) {
+					return parts[ parts.length - 1 ];
+				}
+				return '';
+			},
+			maxWidth: 75,
 			style: { marginTop: '8px', color: 'darkslategrey' },
 			filterMethod: ( filter, row ) => {
 				return contains( lowercase( row[ filter.id ] ), lowercase( filter.value ) );

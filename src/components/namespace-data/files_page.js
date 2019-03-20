@@ -13,6 +13,7 @@ import Badge from 'react-bootstrap/Badge';
 import pick from '@stdlib/utils/pick';
 import contains from '@stdlib/assert/contains';
 import lowercase from '@stdlib/string/lowercase';
+import trim from '@stdlib/string/trim';
 import ConfirmModal from 'components/confirm-modal';
 import server from 'constants/server';
 import saveAs from 'utils/file_saver.js';
@@ -82,9 +83,34 @@ class FilesPage extends Component {
 				}
 			},
 			{
-				Header: 'Name',
-				accessor: 'name',
-				maxWidth: 160,
+				Header: 'First',
+				id: 'first_name',
+				accessor: d => {
+					const parts = trim( d.name ).split( ' ' );
+					if ( parts.length > 1 ) {
+						parts.pop();
+						return parts.join( ' ' );
+					}
+					return parts[ 0 ];
+				},
+				maxWidth: 75,
+				style: { marginTop: '8px', color: 'darkslategrey' },
+				filterMethod: ( filter, row ) => {
+					return contains( lowercase( row[ filter.id ] ), lowercase( filter.value ) );
+				}
+			},
+			{
+				Header: 'Last',
+				id: 'last_name',
+				accessor: d => {
+					const parts = trim( d.name ).split( ' ' );
+					if ( parts.length > 1 ) {
+						return parts[ parts.length - 1 ];
+					}
+					return '';
+				},
+				maxWidth: 75,
+				style: { marginTop: '8px', color: 'darkslategrey' },
 				filterMethod: ( filter, row ) => {
 					return contains( lowercase( row[ filter.id ] ), lowercase( filter.value ) );
 				}
