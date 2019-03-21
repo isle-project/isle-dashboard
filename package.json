@@ -90,7 +90,7 @@
     "webpack-manifest-plugin": "^2.0.3"
   },
   "devDependencies": {
-    "@babel/core": "^7.2.2",
+    "@babel/core": "^7.4.0",
     "@babel/preset-env": "^7.2.3",
     "@babel/preset-react": "^7.0.0",
     "autoprefixer": "9.5.0",
