@@ -44,8 +44,8 @@ function mapDispatchToProps( dispatch ) {
 		addNotification: ({ message, level }) => {
 			dispatch( actions.addNotification({ message, level }) );
 		},
-		onNamespace: ({ title, description, owners, _id }) => {
-			dispatch( actions.changedNamespace({ title, description, owners, _id }) );
+		onNamespace: ({ title, description, announcements, owners, _id }) => {
+			dispatch( actions.changedNamespace({ title, description, announcements, owners, _id }) );
 		}
 	};
 }
