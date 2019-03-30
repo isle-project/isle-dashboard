@@ -139,7 +139,7 @@ class EditCohortModal extends Component {
 				<hr />
 				<Row>
 					<OverlayTrigger placement="right" overlay={<Tooltip id="ownerTooltip">Comma-separated list of email addresses denoting the students for this cohort</Tooltip>}>
-						<FormGroup>
+						<FormGroup style={{ width: '100%' }}>
 							<FormLabel>Enrolled Students</FormLabel>
 							<TextSelect
 								onChange={this.handleStudentChange}
