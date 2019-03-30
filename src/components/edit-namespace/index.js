@@ -235,11 +235,11 @@ class EditNamespace extends Component {
 					title="Delete?"
 					onDelete={this.handleDelete}
 				/>
-				<CreateCohortModal
+				{ this.state.showCreateCohortModal ? <CreateCohortModal
 					show={this.state.showCreateCohortModal}
 					close={this.closeCreateCohortModal}
 					onCreate={this.createCohort}
-				/>
+				/> : null }
 				{ this.state.showEditCohortModal ? <EditCohortModal
 					show={this.state.showEditCohortModal}
 					{...this.state.selectedCohort}

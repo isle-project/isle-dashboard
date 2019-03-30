@@ -37,6 +37,7 @@ export default function namespace( state = initialState, action ) {
 			description: action.payload.description,
 			announcements: action.payload.announcements,
 			owners: action.payload.owners,
+			cohorts: action.payload.cohorts,
 			userStatus: action.payload.userStatus
 		});
 	}

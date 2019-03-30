@@ -96,12 +96,13 @@ export function deletedAnnouncement( index, namespaceName ) {
 	};
 }
 
-export function changedNamespace({ title, owners, announcements, description, _id, userStatus }) {
+export function changedNamespace({ title, owners, announcements = [], cohorts = [], description, _id, userStatus }) {
 	return {
 		type: types.CHANGED_NAMESPACE,
 		payload: {
 			title,
 			announcements,
+			cohorts,
 			description,
 			owners,
 			_id,
