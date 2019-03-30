@@ -7,7 +7,7 @@
 	margin-bottom: 14px;
 	top: 16px;
 	background: white;
-	color:  #2e4468;
+	color: #2e4468;
 	box-shadow: 0 0 2px 1px darkgray;
 	transition: all 0.3s;
 }
@@ -37,7 +37,7 @@
 }
 
 .message-author-line {
-	font-family: Oswald Condensed;
+	font-family: Open Sans Condensed;
 	float: left;
 	font-size: 16px;
 	height: 48px;
@@ -58,7 +58,7 @@
 	width: 100%;
 	font-size: 22px;
 	background: gainsboro;
-	font-family: "Oswald Condensed";
+	font-family: Open Sans Condensed;
 	margin-top: 8px;
 	margin-bottom: 8px;
 	border-radius: 8px;
