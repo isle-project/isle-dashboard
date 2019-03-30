@@ -4,7 +4,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import request from 'request';
 import logger from 'debug';
-import uniq from 'uniq';
 import isRegExpString from '@stdlib/assert/is-regexp-string';
 import reFromString from '@stdlib/utils/regexp-from-string';
 import contains from '@stdlib/assert/contains';
@@ -22,21 +21,32 @@ const debug = logger( 'isle-dashboard:visible-login' );
 
 const sanitizeUser = ( user ) => {
 	// Check for duplicated enrolled and owned namespaces:
-	let needsSanitizing = false;
-	uniq( user.ownedNamespaces, ( a, b ) => {
-		if ( a._id === b._id ) {
-			needsSanitizing = true;
-			return 0;
+	const ownedNamespaces = user.ownedNamespaces;
+	const newOwnedNamespaces = [];
+	let ids = new Set();
+	for ( let i = 0; i < ownedNamespaces.length; i++ ) {
+		if ( !ids.has( ownedNamespaces[ i ]._id ) ) {
+			ids.add( ownedNamespaces[ i ]._id );
+			newOwnedNamespaces.push( ownedNamespaces[ i ] );
 		}
-		return 1;
-	});
-	uniq( user.enrolledNamespaces, ( a, b ) => {
-		if ( a._id === b._id ) {
-			needsSanitizing = true;
-			return 0;
+	}
+	const enrolledNamespaces = user.enrolledNamespaces;
+	const newEnrolledNamespaces = [];
+	ids = new Set();
+	for ( let i = 0; i < enrolledNamespaces.length; i++ ) {
+		if ( !ids.has( enrolledNamespaces[ i ]._id ) ) {
+			ids.add( enrolledNamespaces[ i ]._id );
+			newEnrolledNamespaces.push( enrolledNamespaces[ i ] );
 		}
-		return 1;
-	});
+	}
+	const needsSanitizing = newOwnedNamespaces.length !== ownedNamespaces.length ||
+		newEnrolledNamespaces.length !== enrolledNamespaces.length;
+
+	if ( needsSanitizing ) {
+		user.ownedNamespaces = newOwnedNamespaces;
+		user.enrolledNamespaces = newEnrolledNamespaces;
+	}
+	debug( 'Does user need sanitizing? '+needsSanitizing );
 	return [ user, needsSanitizing ];
 };
 
