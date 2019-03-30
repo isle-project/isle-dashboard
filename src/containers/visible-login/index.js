@@ -4,6 +4,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import request from 'request';
 import logger from 'debug';
+import uniq from 'uniq';
 import isRegExpString from '@stdlib/assert/is-regexp-string';
 import reFromString from '@stdlib/utils/regexp-from-string';
 import contains from '@stdlib/assert/contains';
@@ -15,6 +16,29 @@ import * as actions from 'actions';
 // VARIABLES //
 
 const debug = logger( 'isle-dashboard:visible-login' );
+
+
+// FUNCTIONS //
+
+const sanitizeUser = ( user ) => {
+	// Check for duplicated enrolled and owned namespaces:
+	let needsSanitizing = false;
+	uniq( user.ownedNamespaces, ( a, b ) => {
+		if ( a._id === b._id ) {
+			needsSanitizing = true;
+			return 0;
+		}
+		return 1;
+	});
+	uniq( user.enrolledNamespaces, ( a, b ) => {
+		if ( a._id === b._id ) {
+			needsSanitizing = true;
+			return 0;
+		}
+		return 1;
+	});
+	return [ user, needsSanitizing ];
+};
 
 
 // EXPORTS //
@@ -57,7 +81,8 @@ function mapDispatchToProps( dispatch ) {
 					...obj,
 					...user
 				};
-				dispatch( actions.loggedIn( user ) );
+				let [ sanitizedUser, needsSanitizing ] = sanitizeUser( user );
+				dispatch( actions.loggedIn( sanitizedUser ) );
 				request.get( server+'/get_enrollable_cohorts', {
 					headers: {
 						'Authorization': 'JWT ' + obj.token
@@ -73,10 +98,24 @@ function mapDispatchToProps( dispatch ) {
 						if ( isRegExpString( emailFilter ) ) {
 							emailFilter = reFromString( emailFilter );
 						}
-						return contains( user.email, emailFilter );
+						return contains( sanitizedUser.email, emailFilter );
 					});
 					dispatch( actions.retrievedEnrollableCohorts( cohorts ) );
 				});
+				if ( needsSanitizing ) {
+					request.post( server+'/sanitize_user', {
+						headers: {
+							'Authorization': 'JWT ' + obj.token
+						},
+						form: {
+							id: obj.id
+						}
+					}, function onSanitize( error ) {
+						if ( error ) {
+							return dispatch( actions.addNotification({ message: error.message, level: 'error' }) );
+						}
+					});
+				}
 			});
 		}
 	};
