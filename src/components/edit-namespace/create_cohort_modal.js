@@ -42,7 +42,8 @@ class CreateCohortModal extends Component {
 			disabled: true,
 			students: [],
 			private: false,
-			emailFilter: ''
+			emailFilter: '',
+			title: ''
 		};
 		this.state = initialState;
 
