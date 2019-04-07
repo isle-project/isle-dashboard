@@ -49,9 +49,9 @@
     "testURL": "http://localhost/"
   },
   "dependencies": {
-    "@babel/plugin-proposal-class-properties": "^7.2.3",
+    "@babel/plugin-proposal-class-properties": "^7.4.0",
     "@babel/plugin-syntax-dynamic-import": "^7.2.0",
-    "@babel/runtime": "^7.3.4",
+    "@babel/runtime": "^7.4.2",
     "@stdlib/stdlib": "0.0.60",
     "acorn": "^6.0.5",
     "babel-plugin-add-module-exports": "^1.0.0",
@@ -90,8 +90,8 @@
     "webpack-manifest-plugin": "^2.0.3"
   },
   "devDependencies": {
-    "@babel/core": "^7.2.2",
-    "@babel/preset-env": "^7.2.3",
+    "@babel/core": "^7.4.0",
+    "@babel/preset-env": "^7.4.2",
     "@babel/preset-react": "^7.0.0",
     "autoprefixer": "9.5.0",
     "babel-core": "^7.0.0-bridge.0",
