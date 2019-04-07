@@ -17,6 +17,40 @@ import * as actions from 'actions';
 const debug = logger( 'isle-dashboard:visible-login' );
 
 
+// FUNCTIONS //
+
+const sanitizeUser = ( user ) => {
+	// Check for duplicated enrolled and owned namespaces:
+	const ownedNamespaces = user.ownedNamespaces;
+	const newOwnedNamespaces = [];
+	let ids = new Set();
+	for ( let i = 0; i < ownedNamespaces.length; i++ ) {
+		if ( !ids.has( ownedNamespaces[ i ]._id ) ) {
+			ids.add( ownedNamespaces[ i ]._id );
+			newOwnedNamespaces.push( ownedNamespaces[ i ] );
+		}
+	}
+	const enrolledNamespaces = user.enrolledNamespaces;
+	const newEnrolledNamespaces = [];
+	ids = new Set();
+	for ( let i = 0; i < enrolledNamespaces.length; i++ ) {
+		if ( !ids.has( enrolledNamespaces[ i ]._id ) ) {
+			ids.add( enrolledNamespaces[ i ]._id );
+			newEnrolledNamespaces.push( enrolledNamespaces[ i ] );
+		}
+	}
+	const needsSanitizing = newOwnedNamespaces.length !== ownedNamespaces.length ||
+		newEnrolledNamespaces.length !== enrolledNamespaces.length;
+
+	if ( needsSanitizing ) {
+		user.ownedNamespaces = newOwnedNamespaces;
+		user.enrolledNamespaces = newEnrolledNamespaces;
+	}
+	debug( 'Does user need sanitizing? '+needsSanitizing );
+	return [ user, needsSanitizing ];
+};
+
+
 // EXPORTS //
 
 const VisibleLogin = connect( mapStateToProps, mapDispatchToProps )( Login );
@@ -57,7 +91,8 @@ function mapDispatchToProps( dispatch ) {
 					...obj,
 					...user
 				};
-				dispatch( actions.loggedIn( user ) );
+				let [ sanitizedUser, needsSanitizing ] = sanitizeUser( user );
+				dispatch( actions.loggedIn( sanitizedUser ) );
 				request.get( server+'/get_enrollable_cohorts', {
 					headers: {
 						'Authorization': 'JWT ' + obj.token
@@ -73,10 +108,24 @@ function mapDispatchToProps( dispatch ) {
 						if ( isRegExpString( emailFilter ) ) {
 							emailFilter = reFromString( emailFilter );
 						}
-						return contains( user.email, emailFilter );
+						return contains( sanitizedUser.email, emailFilter );
 					});
 					dispatch( actions.retrievedEnrollableCohorts( cohorts ) );
 				});
+				if ( needsSanitizing ) {
+					request.post( server+'/sanitize_user', {
+						headers: {
+							'Authorization': 'JWT ' + obj.token
+						},
+						form: {
+							id: obj.id
+						}
+					}, function onSanitize( error ) {
+						if ( error ) {
+							return dispatch( actions.addNotification({ message: error.message, level: 'error' }) );
+						}
+					});
+				}
 			});
 		}
 	};

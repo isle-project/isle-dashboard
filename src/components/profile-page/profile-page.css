@@ -72,17 +72,18 @@
 	font-family: Open Sans Condensed;
 	font-size: 28px;
 	color: darkgrey;
-	border-top:solid 1px darkgray;
+	border-top: solid 1px darkgray;
 }
 
 /* BEGINNING OF THE STATISTICS SECTION */
 .profile-page-statistics-navigation {
+	overflow-y: auto;
 	grid-area: navi;
 	padding-left: 15px;
 	font-family: Open Sans Condensed;
 	font-size: 28px;
 	color: darkgrey;
-	border-top:solid 1px darkgray;
+	border-top: solid 1px darkgray;
 }
 
 .profile-page-statistics-navigation-title {
@@ -90,7 +91,7 @@
 	font-family: Open Sans Condensed;
 	font-size: 28px;
 	color: darkgrey;
-	border-top:solid 1px darkgray;
+	border-top: solid 1px darkgray;
 }
 
 
@@ -157,7 +158,6 @@
 	color: darkgrey;
 	border-top:solid 1px darkgray;
 }
-
 
 /* for the inner section */
 .profile-page-statistics-top-actions .nav-item {

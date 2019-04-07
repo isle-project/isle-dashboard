@@ -37,7 +37,9 @@ function getNamespace(namespaces, name) {
 	return null;
 }
 
+
 // EXPORTS //
+
 export default function user( state = initialState, action ) {
 	switch ( action.type ) {
 	case types.LOGGED_IN: {

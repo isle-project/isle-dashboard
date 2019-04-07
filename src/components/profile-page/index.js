@@ -190,7 +190,7 @@ class ProfilePage extends Component {
 					cl = 'fas fa-file-image fa-4x';
 				break;
 			}
-			out.push( <Media>
+			out.push( <Media key={i}>
 				<div className="mr-3">
 					<a href={server+'/'+file.filename} target="_blank">
 						<i className={cl} />

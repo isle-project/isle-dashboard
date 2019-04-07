@@ -60,7 +60,7 @@ class AnnouncementsPage extends Component {
 								</div>
 								<div className="message-author-line">
 									<span className="message-author">{ value.author }</span>
-									wrote on { dateString }
+									&nbsp;wrote on { dateString }
 								</div>
 							</div>
 							<div className="message-title">
