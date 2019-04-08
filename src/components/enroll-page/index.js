@@ -60,11 +60,12 @@ class EnrollPage extends Component {
 	}
 
 	renderCourses() {
-		if ( !this.props.cohorts ) {
+		let cohorts = this.props.cohorts;
+		if ( !cohorts ) {
 			return null;
 		}
-		const cohorts = this.props.cohorts;
-		const courses = groupBy(cohorts, function groupCohort( cohort ) {
+		cohorts = cohorts.filter( x => x.namespace );
+		const courses = groupBy( cohorts, function groupCohort( cohort ) {
 			return cohort.namespace.title;
 		});
 		const names = keys( courses );
