@@ -206,6 +206,9 @@ class ProfilePage extends Component {
 	}
 
 	renderMessages() {
+		if ( !this.state.selectedNamespace.announcements ) {
+			return null;
+		}
 		return (
 			<div>{ this.state.selectedNamespace.announcements.map( (value, index) => {
 				const date = new Date(value.createdAt);
