@@ -128,6 +128,8 @@
     "jest": "^24.3.0",
     "jest-cli": "^24.3.0",
     "json-loader": "0.5.7",
+    "mini-css-extract-plugin": "^0.6.0",
+    "optimize-css-assets-webpack-plugin": "^5.0.1",
     "pnp-webpack-plugin": "^1.1.0",
     "postcss-loader": "3.0.0",
     "postcss-safe-parser": "^4.0.1",
