@@ -226,7 +226,7 @@ class FilesPage extends Component {
 						<FormControl
 							id="fileUpload"
 							type="file"
-							accept=".pdf"
+							accept=".pdf,.html,.md,image/*,video/*,audio/*"
 							onChange={this.props.handleUpload}
 							style={{ display: 'none' }}
 						/>
