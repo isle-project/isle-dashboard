@@ -119,7 +119,7 @@ class AnnouncementsPage extends Component {
 		this.setState({
 			title: '',
 			body: '',
-			mode: 'New Message',
+			mode: 'New Announcement',
 			editItem: null
 		});
 	}
