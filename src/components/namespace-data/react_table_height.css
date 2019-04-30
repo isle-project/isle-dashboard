@@ -24,6 +24,10 @@
 	background: transparent;
 }
 
+.rt-tbody {
+	overflow-x: hidden !important;
+}
+
 .rt-td {
 	font-weight: 400;
 }
