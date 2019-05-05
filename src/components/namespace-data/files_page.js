@@ -180,7 +180,8 @@ class FilesPage extends Component {
 	}
 
 	saveJSON = () => {
-		let data = prepareExportData( this.props.files );
+		const currentFiles = this.reactTable.getResolvedState().sortedData;
+		let data = prepareExportData( currentFiles );
 		const blob = new Blob([ JSON.stringify( data ) ], {
 			type: 'application/json'
 		});
@@ -189,7 +190,8 @@ class FilesPage extends Component {
 	}
 
 	saveCSV = () => {
-		let data = prepareExportData( this.props.files );
+		const currentFiles = this.reactTable.getResolvedState().sortedData;
+		let data = prepareExportData( currentFiles );
 		stringify( data, {
 			header: true
 		}, ( err, output ) => {
@@ -236,6 +238,9 @@ class FilesPage extends Component {
 				filterable
 				data={this.props.files}
 				columns={this.columns}
+				ref={(r) => {
+					this.reactTable = r;
+				}}
 			/>
 			<ConfirmModal
 				show={this.state.showDeleteModal}
