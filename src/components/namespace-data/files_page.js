@@ -141,8 +141,10 @@ class FilesPage extends Component {
 			{
 				Header: 'Filename',
 				accessor: 'title',
-				filterable: false,
-				minWidth: 250
+				minWidth: 250,
+				filterMethod: ( filter, row ) => {
+					return contains( lowercase( row[ filter.id ] ), lowercase( filter.value ) );
+				}
 			},
 			{
 				Header: 'Access',
