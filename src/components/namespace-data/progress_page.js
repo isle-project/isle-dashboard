@@ -249,7 +249,6 @@ class ProgressPage extends Component {
 	assembleData() {
 		const displayedMembers = this.reactTable.getResolvedState().sortedData;
 		const len = displayedMembers.length;
-		console.log( displayedMembers );
 		const out = new Array( len );
 		const lessons = this.props.lessons;
 		for ( let i = 0; i < len; i++ ) {
