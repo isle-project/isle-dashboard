@@ -3,11 +3,13 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import ReactTable from 'react-table';
+import InputRange from 'react-input-range';
 import { Button, ButtonGroup, ProgressBar } from 'react-bootstrap';
 import stringify from 'csv-stringify';
 import round from '@stdlib/math/base/special/round';
 import min from '@stdlib/math/base/special/min';
 import isArray from '@stdlib/assert/is-array';
+import isUndefinedOrNull from '@stdlib/assert/is-undefined-or-null';
 import contains from '@stdlib/assert/contains';
 import lowercase from '@stdlib/string/lowercase';
 import trim from '@stdlib/string/trim';
@@ -15,9 +17,22 @@ import server from 'constants/server';
 import saveAs from 'utils/file_saver.js';
 import formatTime from 'utils/format_time.js';
 import './progress_page.css';
+import './input_range.css';
 
 
 // FUNCTIONS //
+
+function filterNumbersFactory( lessons, idx ) {
+	return ( filter, row ) => {
+		const data = row[ filter.id ];
+		const lessonData = data[ lessons[ idx ]._id ];
+		if ( isUndefinedOrNull( lessonData ) ) {
+			return ( filter.value.min === 0 && filter.value.max === 100 );
+		}
+		const progress = min( round( lessonData.progress*100 ), 100 );
+		return progress >= filter.value.min && progress <= filter.value.max;
+	};
+}
 
 function accessorFactory( lessons, idx ) {
 	return d => {
@@ -91,14 +106,7 @@ function createColumns( lessons, cohorts ) {
 		{
 			Header: 'First',
 			id: 'first_name',
-			accessor: d => {
-				const parts = trim( d.name ).split( ' ' );
-				if ( parts.length > 1 ) {
-					parts.pop();
-					return parts.join( ' ' );
-				}
-				return parts[ 0 ];
-			},
+			accessor: 'firstName',
 			maxWidth: 75,
 			style: { marginTop: '8px', color: 'darkslategrey' },
 			filterMethod: ( filter, row ) => {
@@ -108,13 +116,7 @@ function createColumns( lessons, cohorts ) {
 		{
 			Header: 'Last',
 			id: 'last_name',
-			accessor: d => {
-				const parts = trim( d.name ).split( ' ' );
-				if ( parts.length > 1 ) {
-					return parts[ parts.length - 1 ];
-				}
-				return '';
-			},
+			accessor: 'lastName',
 			maxWidth: 75,
 			style: { marginTop: '8px', color: 'darkslategrey' },
 			filterMethod: ( filter, row ) => {
@@ -173,8 +175,31 @@ function createColumns( lessons, cohorts ) {
 			Header: lessons[ i ].title,
 			Cell: accessorFactory( lessons, i ),
 			accessor: 'lessonData',
-			filterable: false,
-			sortMethod: sortFactory( lessons, i )
+			sortMethod: sortFactory( lessons, i ),
+			filterMethod: filterNumbersFactory( lessons, i ),
+			Filter: ({ filter, onChange }) => {
+				const defaultVal = {
+					max: 100,
+					min: 0
+				};
+				return (
+					<div style={{
+						paddingLeft: '4px',
+						paddingRight: '4px',
+						paddingTop: '8px'
+					}}>
+						<InputRange
+							allowSameValues
+							maxValue={100}
+							minValue={0}
+							value={filter ? filter.value : defaultVal}
+							onChange={( newValue ) => {
+								onChange( newValue );
+							}}
+						/>
+					</div>
+				);
+			}
 		});
 	}
 	return COLUMNS;
@@ -205,29 +230,46 @@ class ProgressPage extends Component {
 			}
 			members = members.concat( this.props.cohorts[ i ].members );
 		}
+		for ( let i = 0; i < members.length; i++ ) {
+			const d = members[ i ];
+			const parts = trim( d.name ).split( ' ' );
+			if ( parts.length > 1 ) {
+				d.lastName = parts.pop();
+				d.firstName = parts.join( ' ' );
+			} else {
+				d.firstName = parts[ 0 ];
+				d.lastName = '';
+			}
+		}
 		this.setState({ // eslint-disable-line react/no-did-mount-set-state
 			displayedMembers: members
 		});
 	}
 
 	assembleData() {
-		const len = this.state.displayedMembers.length;
+		const displayedMembers = this.reactTable.getResolvedState().sortedData;
+		const len = displayedMembers.length;
+		console.log( displayedMembers );
 		const out = new Array( len );
 		const lessons = this.props.lessons;
 		for ( let i = 0; i < len; i++ ) {
-			const member = this.state.displayedMembers[ i ];
+			const member = displayedMembers[ i ]._original;
 			out[ i ] = {
 				name: member.name,
+				firstName: member.firstName,
+				lastName: member.lastName,
 				email: member.email,
 				cohort: member.cohort
 			};
 			for ( let j = 0; j < lessons.length; j++ ) {
-				let data = member.lessonData;
 				const lessonName = lessons[ j ]._id;
-				data = data[ lessonName ];
+				let data = member.lessonData;
 				if ( data ) {
-					out[ i ][ lessons[ j ].title+'_progress' ] = min( round( data.progress*100 ), 100 );
-					out[ i ][ lessons[ j ].title+'_time' ] = round( data.spentTime / ( 1000*60 ) );
+					data = data[ lessonName ];
+					if ( data ) {
+						out[ i ][ lessons[ j ].title+'_progress' ] = min( round( data.progress*100 ), 100 );
+						out[ i ][ lessons[ j ].title+'_time' ] = round( data.spentTime / ( 1000*60 ) );
+					}
 				}
 			}
 		}
@@ -277,6 +319,9 @@ class ProgressPage extends Component {
 						filterable
 						data={this.state.displayedMembers}
 						columns={this.columns}
+						ref={(r) => {
+							this.reactTable = r;
+						}}
 					/>
 				</div>
 			</Fragment>
