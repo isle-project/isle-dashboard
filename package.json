@@ -81,7 +81,7 @@
     "react-notification-system": "^0.2.13",
     "react-plotly.js": "^2.2.0",
     "react-redux": "^7.0.0",
-    "react-router": "5.0.0",
+    "react-router": "5.0.1",
     "react-router-dom": "^5.0.0",
     "react-select": "^3.0.3",
     "react-table": "6.10.0",
