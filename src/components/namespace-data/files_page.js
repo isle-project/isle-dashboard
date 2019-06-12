@@ -4,12 +4,15 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import stringify from 'csv-stringify';
 import ReactTable from 'react-table';
+import InputRange from 'react-input-range';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import Button from 'react-bootstrap/Button';
 import FormLabel from 'react-bootstrap/FormLabel';
 import FormControl from 'react-bootstrap/FormControl';
 import FormGroup from 'react-bootstrap/FormGroup';
 import Badge from 'react-bootstrap/Badge';
+import roundn from '@stdlib/math/base/special/roundn';
+import ceil from '@stdlib/math/base/special/ceil';
 import pick from '@stdlib/utils/pick';
 import contains from '@stdlib/assert/contains';
 import lowercase from '@stdlib/string/lowercase';
@@ -46,11 +49,27 @@ class FilesPage extends Component {
 	constructor( props ) {
 		super( props );
 		this.columns = this.createColumns();
-
 		this.state = {
 			showDeleteModal: false,
-			deletionID: null
+			deletionID: null,
+			fileMaxSize: 0
 		};
+	}
+
+	componentDidUpdate( prevProps ) {
+		if ( prevProps.files !== this.props.files ) {
+			const files = this.props.files;
+			let fileMaxSize = 0;
+			for ( let i = 0; i < files.length; i++ ) {
+				const size = files[ i ].size;
+				if ( size && size > fileMaxSize ) {
+					fileMaxSize = size;
+				}
+			}
+			this.setState({
+				fileMaxSize
+			});
+		}
 	}
 
 	handleDelete = () => {
@@ -128,6 +147,41 @@ class FilesPage extends Component {
 				accessor: 'type',
 				filterMethod: ( filter, row ) => {
 					return contains( row[ filter.id ], filter.value );
+				}
+			},
+			{
+				Header: 'Size',
+				accessor: 'size',
+				filterMethod: ( filter, row ) => {
+					const id = filter.pivotId || filter.id;
+					const size = row[ id ];
+					return size >= filter.value.min && size <= filter.value.max;
+				},
+				Filter: ({ filter, onChange }) => {
+					const maxValue = ceil( this.state.fileMaxSize );
+					const defaultVal = {
+						max: maxValue,
+						min: 0
+					};
+					return (
+						<div style={{
+							paddingLeft: '4px',
+							paddingRight: '4px',
+							paddingTop: '8px'
+						}}>
+							<InputRange
+								allowSameValues
+								maxValue={maxValue}
+								minValue={0}
+								step={0.1}
+								value={filter ? filter.value : defaultVal}
+								onChange={( newValue ) => {
+									onChange( newValue );
+								}}
+								formatLabel={value => roundn( value, -2 )}
+							/>
+						</div>
+					);
 				}
 			},
 			{
