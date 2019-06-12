@@ -152,6 +152,7 @@ class FilesPage extends Component {
 			{
 				Header: 'Size',
 				accessor: 'size',
+				Cell: row => row.value ? `${roundn( row.value, -3 )}mb` : 'NA',
 				filterMethod: ( filter, row ) => {
 					const id = filter.pivotId || filter.id;
 					const size = row[ id ];
