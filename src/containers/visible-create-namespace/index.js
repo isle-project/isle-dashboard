@@ -28,17 +28,29 @@ function mapDispatchToProps( dispatch ) {
 					'Authorization': 'JWT ' + props.user.token
 				}
 			}, ( err, res ) => {
-				if ( !err ) {
-					const body = JSON.parse( res.body );
-					const namespace = body.namespace;
-					props.onNamespace( namespace );
-					dispatch( actions.appendCreatedNamespace( namespace ) );
-					props.history.replace( '/lessons' );
-					props.addNotification({
-						message: body.message,
-						level: body.successful ? 'success' : 'error'
-					});
+				if ( err ) {
+					return dispatch( actions.addNotification({
+						title: 'Error encountered',
+						message: err.message,
+						level: 'error'
+					}) );
 				}
+				const body = JSON.parse( res.body );
+				if ( !body.successful ) {
+					return dispatch( actions.addNotification({
+						title: 'Error encountered',
+						message: body.message,
+						level: 'error'
+					}) );
+				}
+				const namespace = body.namespace;
+				props.onNamespace( namespace );
+				dispatch( actions.appendCreatedNamespace( namespace ) );
+				props.history.replace( '/lessons' );
+				props.addNotification({
+					message: body.message,
+					level: body.successful ? 'success' : 'error'
+				});
 			});
 		},
 		addNotification: ({ message, level }) => {
