@@ -26,6 +26,10 @@ class EnterTokenModal extends Component {
 		this.props.authenticate({
 			writeAccessToken: this.state.token,
 			userToken: this.props.user.token
+		}, ( err, success ) => {
+			if ( success ) {
+				this.props.onHide();
+			}
 		});
 	}
 

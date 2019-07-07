@@ -90,7 +90,7 @@ function mapDispatchToProps( dispatch ) {
 		updateUser: ({ name, organization }) => {
 			dispatch( actions.updateUser({ name, organization }) );
 		},
-		authenticate: ({ userToken, writeAccessToken }) => {
+		authenticate: ({ userToken, writeAccessToken }, clbk ) => {
 			debug( 'Authenticate user with token: %s', userToken );
 			request.get( server+'/set_write_access', {
 				headers: {
@@ -101,21 +101,23 @@ function mapDispatchToProps( dispatch ) {
 				}
 			}, function onResponse( error, response, body ) {
 				if ( error ) {
-					return error;
+					return clbk( error );
 				}
 				if ( response.statusCode !== 200 ) {
 					dispatch( actions.addNotification({
 						message: 'The provided token is incorrect.',
 						level: 'error'
 					}) );
-				} else {
-					body = JSON.parse( body );
-					dispatch( actions.authenticated() );
-					dispatch( actions.addNotification({
-						message: body.message,
-						level: 'success'
-					}) );
+					return clbk( null, false );
 				}
+				body = JSON.parse( body );
+				dispatch( actions.authenticated() );
+				dispatch( actions.addNotification({
+					message: body.message+' You can now create your own courses on ISLE and have access to the gallery of public lessons.',
+					level: 'success',
+					autoDismiss: 10
+				}) );
+				return clbk( null, true );
 			});
 		},
 		getFiles: ({ token }) => {
