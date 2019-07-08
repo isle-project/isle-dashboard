@@ -12,6 +12,13 @@ import background from './architecture.jpeg';
 import upload from './upload.svg';
 
 
+// FUNCTIONS //
+
+function addDefaultSrc( event ) {
+	event.target.src = background;
+}
+
+
 // MAIN //
 
 class Lesson extends Component {
@@ -153,15 +160,23 @@ class Lesson extends Component {
 					<div style={{
 						filter: 'grayscale(30%)',
 						background: COLORS[ this.props.colorIndex ]
-					}} className="hovereffect">
+					}} className="hovereffect"
+						onMouseOver={() => {
+							this.img.src = this.props.url+'/preview.jpg';
+						}}
+					>
 						<img
 							className="img-responsive"
 							src={background}
+							ref={( div ) => {
+								this.img = div;
+							}}
 							alt=""
 							style={{
 								width: '100%',
 								height: 180
 							}}
+							onError={addDefaultSrc}
 						/>
 						<div className="overlay" >
 							<h2>{this.props.title}</h2>
