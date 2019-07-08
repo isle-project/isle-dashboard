@@ -113,7 +113,7 @@ class FilesPage extends Component {
 					return parts[ 0 ];
 				},
 				maxWidth: 75,
-				style: { marginTop: '8px', color: 'darkslategrey' },
+				style: { color: 'darkslategrey' },
 				filterMethod: ( filter, row ) => {
 					return contains( lowercase( row[ filter.id ] ), lowercase( filter.value ) );
 				}
@@ -129,7 +129,7 @@ class FilesPage extends Component {
 					return '';
 				},
 				maxWidth: 75,
-				style: { marginTop: '8px', color: 'darkslategrey' },
+				style: { color: 'darkslategrey' },
 				filterMethod: ( filter, row ) => {
 					return contains( lowercase( row[ filter.id ] ), lowercase( filter.value ) );
 				}
