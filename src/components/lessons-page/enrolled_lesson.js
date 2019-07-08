@@ -13,6 +13,13 @@ import background from './architecture.jpeg';
 import './lessons.css';
 
 
+// FUNCTIONS //
+
+function addDefaultSrc( event ) {
+	event.target.src = background;
+}
+
+
 // MAIN //
 
 class EnrolledLesson extends Component {
@@ -65,15 +72,21 @@ class EnrolledLesson extends Component {
 					<div style={{
 						filter: 'grayscale(30%)',
 						background: COLORS[ this.props.colorIndex ]
+					}} onMouseOver={() => {
+						this.img.src = this.props.url+'/preview.jpg';
 					}} className="hovereffect">
 						<img
 							className="img-responsive"
 							src={background}
+							ref={( div ) => {
+								this.img = div;
+							}}
 							alt=""
 							style={{
 								width: '100%',
 								height: 180
 							}}
+							onError={addDefaultSrc}
 						/>
 						<div className="overlay" >
 							<h2>{this.props.title}</h2>
