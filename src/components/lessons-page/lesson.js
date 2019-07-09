@@ -12,6 +12,11 @@ import background from './architecture.jpeg';
 import upload from './upload.svg';
 
 
+// VARIABLES //
+
+const DEFAULT_DESCRIPTION = 'No description supplied.';
+
+
 // FUNCTIONS //
 
 function addDefaultSrc( event ) {
@@ -180,7 +185,10 @@ class Lesson extends Component {
 						/>
 						<div className="overlay" >
 							<h2>{this.props.title}</h2>
-							<h3>{this.props.description}</h3>
+							{this.props.description !== DEFAULT_DESCRIPTION ?
+								<h3>{this.props.description}</h3> :
+								null
+							}
 							<span
 								ref={( link ) => {
 									this.link = link;
