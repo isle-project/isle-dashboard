@@ -11,3 +11,4 @@ TODO
   -   Need to be able to either specify number of clusters or let the algorithm choose according to some criterion (e.g., BIC)
   -   Use of von Mises mixture model; port to JavaScript? for now, provide R interface to receive document-term matrix and return a list of cluster assignments
 5.  For dendograms, add hierarchical clustering with *minmax linkage*
+6.  Directory structore or keyword tagging for lessons? Make it easier to navigate a larger course
