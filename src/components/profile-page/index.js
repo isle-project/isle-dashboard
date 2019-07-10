@@ -9,7 +9,6 @@ import isArray from '@stdlib/assert/is-array';
 import formatTime from 'utils/format_time.js';
 import server from 'constants/server';
 import EditModal from './edit_modal.js';
-import EnterTokenModal from './enter_token_modal.js';
 import ProfilePicModal from './profile_pic_modal.js';
 import TimeSpent from './time_spent.js';
 import ProgressStats from './progress.js';
@@ -50,7 +49,6 @@ class ProfilePage extends Component {
 		}
 		this.state = {
 			showEditModal: false,
-			showTokenModal: false,
 			showProfilePicModal: false,
 			selectedNamespace: selectedNamespace,
 			selectedNamespaceID: selectedNamespaceID,
@@ -66,26 +64,9 @@ class ProfilePage extends Component {
 		this.props.addBadges( this.props.user.token );
 	}
 
-	renderInstructorButton() {
-		if ( this.props.user.writeAccess ) {
-			return null;
-		}
-		return ( <Button
-			onClick={this.toggleTokenModal}
-			variant="success"
-			style={{ marginLeft: 10, marginTop: 15 }}
-		>Instructor Access</Button> );
-	}
-
 	toggleEditModal = () => {
 		this.setState({
 			showEditModal: !this.state.showEditModal
-		});
-	}
-
-	toggleTokenModal = () => {
-		this.setState({
-			showTokenModal: !this.state.showTokenModal
 		});
 	}
 
@@ -197,7 +178,9 @@ class ProfilePage extends Component {
 					</a>
 				</div>
 				<Media.Body>
-					<h4>{file.title}</h4>
+					<a href={server+'/'+file.filename} target="_blank">
+						<h4>{file.title}</h4>
+					</a>
 					<p>Date: {new Date( file.createdAt ).toLocaleDateString()}, Lesson: {lessonName}</p>
 				</Media.Body>
 			</Media> );
@@ -391,8 +374,9 @@ class ProfilePage extends Component {
 								</div>
 							</Card.Body>
 						</Card>
-						<Button style={{ marginTop: 15 }} onClick={this.toggleEditModal}>Edit Profile</Button>
-						{this.renderInstructorButton()}
+						<div>
+							<Button style={{ marginTop: 15 }} block onClick={this.toggleEditModal}>Edit Profile</Button>
+						</div>
 					</div>
 				</div>
 				<div className="profile-page-user-footer">
@@ -420,12 +404,6 @@ class ProfilePage extends Component {
 					addNotification={this.props.addNotification}
 					updateUser={this.props.updateUser}
 					onHide={this.toggleEditModal}
-				/>
-				<EnterTokenModal
-					user={this.props.user}
-					authenticate={this.props.authenticate}
-					show={this.state.showTokenModal}
-					onHide={this.toggleTokenModal}
 				/>
 				<ProfilePicModal
 					user={this.props.user}
