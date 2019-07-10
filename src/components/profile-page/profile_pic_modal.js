@@ -1,9 +1,9 @@
 // MODULES //
 
 import React, { Component, Fragment } from 'react';
-import { Badge, Button, Modal, Form, FormControl } from 'react-bootstrap';
-import AvatarEditor from 'react-avatar-editor';
 import PropTypes from 'prop-types';
+import { Badge, Button, Modal, Form, FormControl, Col, Row } from 'react-bootstrap';
+import AvatarEditor from 'react-avatar-editor';
 import path from 'path';
 
 
