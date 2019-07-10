@@ -258,7 +258,7 @@ class HeaderBar extends Component {
 						}}
 					>
 						<small>
-							{this.props.namespace.title || 'Your Courses'}
+							{this.props.namespace.title || 'Open Your Courses'}
 						</small>
 					</Button>
 				</OverlayTrigger>
@@ -394,7 +394,7 @@ class HeaderBar extends Component {
 								<label className="label-display">ENROLLED COURSES</label>
 								{namespaceListGroup( this.props.user.enrolledNamespaces, this.enrolledClickFactory )}
 							</Fragment> : null}
-							<Button onClick={this.goToEnrolledPage} style={{ marginTop: 10 }} size="sm" block variant="success">Enroll</Button>
+							<Button onClick={this.goToEnrolledPage} style={{ marginTop: 10 }} size="sm" block variant="outline-success">Enroll</Button>
 						</Popover>
 					</Overlay>
 					{this.renderEditButton()}
