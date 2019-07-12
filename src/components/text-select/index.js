@@ -2,14 +2,32 @@
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import copy from 'clipboard-copy';
 import CreatableSelect from 'react-select/creatable';
+import { components } from 'react-select';
+import Tooltip from 'react-bootstrap/Tooltip';
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import contains from '@stdlib/assert/contains';
 
 
 // VARIABLES //
 
-const components = {
-	DropdownIndicator: null
+const customComponents = {
+	DropdownIndicator: null,
+	MultiValueLabel: props => {
+		return (
+			<OverlayTrigger
+				overlay={<Tooltip id="copy_tooltip">Click to copy to clipboard</Tooltip>}
+				placement="bottom"
+			>
+				<span onClick={() => {
+					copy( props.data.label );
+				}} style={{ cursor: 'copy' }}>
+					<components.MultiValueLabel {...props} />
+				</span>
+			</OverlayTrigger>
+		);
+	}
 };
 
 const createOption = ( label ) => ({
@@ -34,10 +52,12 @@ class TextSelect extends Component {
 		this.props.onChange( value );
 	}
 
-	handleInputChange = ( inputValue ) => {
-		this.setState({
-			inputValue
-		});
+	handleInputChange = ( inputValue, action ) => {
+		if ( action.action !== 'input-blur' && action.action !== 'menu-close' ) {
+			this.setState({
+				inputValue
+			});
+		}
 	}
 
 	handleKeyDown = ( event ) => {
@@ -69,7 +89,7 @@ class TextSelect extends Component {
 		const { inputValue, value } = this.state;
 		return (
 			<CreatableSelect
-				components={components}
+				components={customComponents}
 				inputValue={inputValue}
 				isClearable={this.props.isClearable}
 				isMulti
