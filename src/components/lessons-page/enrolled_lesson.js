@@ -20,6 +20,11 @@ function addDefaultSrc( event ) {
 }
 
 
+// VARIABLES //
+
+const DEFAULT_DESCRIPTION = 'No description supplied.';
+
+
 // MAIN //
 
 class EnrolledLesson extends Component {
@@ -90,7 +95,10 @@ class EnrolledLesson extends Component {
 						/>
 						<div className="overlay" >
 							<h2>{this.props.title}</h2>
-							<h3>{this.props.description}</h3>
+							{this.props.description !== DEFAULT_DESCRIPTION ?
+								<h3>{this.props.description}</h3> :
+								null
+							}
 							<span
 								ref={( link ) => {
 									this.link = link;
