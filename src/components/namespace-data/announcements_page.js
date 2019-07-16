@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import {
 	Button, ButtonGroup, Card, FormLabel, FormControl, FormGroup, Form, OverlayTrigger, Tooltip
 } from 'react-bootstrap';
+import ConfirmModal from 'components/confirm-modal';
 import '../profile-page/message-page.css';
 import './message_admin_page.css';
 
@@ -18,7 +19,8 @@ class AnnouncementsPage extends Component {
 			title: '',
 			body: '',
 			mode: 'New Announcement',
-			editItem: null
+			editItem: null,
+			showDeleteModal: false
 		};
 	}
 
@@ -36,10 +38,12 @@ class AnnouncementsPage extends Component {
 		});
 	}
 
-	deleteMessage(ndx) {
+	deleteSelectedMessage = () => {
+		const ndx = this.state.editItem;
 		const announcement = this.props.namespace.announcements[ ndx ];
 		this.props.deleteAnnouncement( announcement.createdAt, ndx );
 		this.clear();
+		this.closeDeleteModal();
 	}
 
 	renderMessages() {
@@ -72,7 +76,10 @@ class AnnouncementsPage extends Component {
 						</div>
 						<div className="message-manip">
 							<div onClick={() => {
-								this.deleteMessage(index);
+								this.setState({
+									editItem: index,
+									showDeleteModal: true
+								});
 							}} className="message-delete">DELETE</div>
 							<div onClick={() => {
 								this.editMessage(index);
@@ -124,7 +131,16 @@ class AnnouncementsPage extends Component {
 		});
 	}
 
+	closeDeleteModal = () => {
+		this.setState({
+			editItem: null,
+			showDeleteModal: false
+		});
+	}
+
 	render() {
+		const isDisabled = this.state.title.length < 3 || this.state.body.length < 3;
+		const isEmpty = this.state.title.length === 0 && this.state.body.length === 0;
 		return ( <div className="namespace-data-page">
 			<div className="messages">
 				{ this.renderMessages() }
@@ -162,12 +178,21 @@ class AnnouncementsPage extends Component {
 							</FormGroup>
 						</Form>
 						<ButtonGroup>
-							<Button type="submit" disabled={this.state.disabled} onClick={this.createMessage}>Submit</Button>
-							<Button onClick={this.clear} variant="danger">Clear</Button>
+							<Button type="submit" disabled={isDisabled} onClick={this.createMessage}>
+								{ this.state.mode === 'New Announcement' ? 'Create' : 'Update' }
+							</Button>
+							<Button onClick={this.clear} disabled={isEmpty} variant="danger">Clear</Button>
 						</ButtonGroup>
 					</Card.Body>
 				</Card>
 			</div>
+			<ConfirmModal
+				show={this.state.showDeleteModal}
+				close={this.closeDeleteModal}
+				message="Are you sure that you want to delete this announcement?"
+				title="Delete?"
+				onDelete={this.deleteSelectedMessage}
+			/>
 		</div> );
 	}
 }
