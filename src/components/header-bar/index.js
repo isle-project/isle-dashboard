@@ -152,7 +152,7 @@ class HeaderBar extends Component {
 		}
 		return ( <OverlayTrigger placement="bottom" overlay={createCourseTooltip}>
 			<Button
-				style={{ float: 'left', marginRight: '4px' }}
+				style={{ float: 'left', marginRight: '4px', marginLeft: '4px', marginTop: '8px' }}
 				onClick={this.goToCreateCoursePage.bind( this )}
 			>
 				<i className="fa fa-pencil-alt"></i>
@@ -205,12 +205,14 @@ class HeaderBar extends Component {
 				<Button
 					onClick={this.goToGallery.bind( this )}
 					style={{
-						float: 'left',
-						marginRight: '4px'
+						marginTop: '8px',
+						marginRight: '4px',
+						marginLeft: '4px',
+						float: 'left'
 					}}
 				>
 					<i className="fa fa-eye"></i>
-					<small style={{ marginLeft: '4px' }}>Gallery</small>
+					<small className="gallery-label">Gallery</small>
 				</Button>
 			</OverlayTrigger>
 		);
@@ -228,7 +230,7 @@ class HeaderBar extends Component {
 				float: 'left',
 				marginRight: '4px'
 			}}>
-				<OverlayTrigger placement="left" overlay={selectCourseTooltip}>
+				<OverlayTrigger placement="right" overlay={selectCourseTooltip}>
 					<Button
 						variant="secondary"
 						ref={( button ) => { this.overlayTarget = button; }}
@@ -287,7 +289,7 @@ class HeaderBar extends Component {
 				break;
 		}
 		return (
-			<ButtonGroup style={{ marginLeft: 5, float: 'left' }} >
+			<ButtonGroup style={{ float: 'left', marginBottom: '4px' }} >
 				<DropdownButton variant="secondary" onSelect={( newValue ) => {
 					this.props.setLessonOrder( newValue );
 				}} id="dropdown" title={<small>{title}</small>} >
@@ -325,12 +327,12 @@ class HeaderBar extends Component {
 		) {
 			return null;
 		}
-		return ( <FormGroup style={{ width: '16vw', float: 'left' }}>
+		return ( <FormGroup style={{ width: '14vw', minWidth: '120px', float: 'left', marginBottom: '4px', marginRight: '5px' }}>
 			<InputGroup>
 				<FormControl
 					className="header-bar-search"
 					type="text"
-					placeholder="Search"
+					placeholder="Filter lessons by searching"
 					value={this.state.searchPhrase || ''}
 					onChange={this.handleTextChange}
 				/>
@@ -366,11 +368,7 @@ class HeaderBar extends Component {
 		}
 		return (
 			<header className="header-bar">
-				<h1 className="header-bar-title">
-					ISLE {this.state.location}
-				</h1>
 				<div className="header-bar-buttons" >
-					{this.renderGalleryButton()}
 					{this.renderCoursesButton()}
 					<Overlay
 						show={this.state.showNamespacesOverlay}
@@ -399,11 +397,19 @@ class HeaderBar extends Component {
 					</Overlay>
 					{this.renderEditButton()}
 					{this.renderDataButton()}
-					{this.renderCreateButton()}
 					{this.renderSearchField()}
 					{this.renderDropdownButton()}
 				</div>
+				<h1 className="header-bar-title">
+					ISLE {this.state.location}
+				</h1>
 				<div className="header-bar-right-container">
+					<div className="header-bar-container">
+						{this.renderGalleryButton()}
+					</div>
+					<div className="header-bar-container">
+						{this.renderCreateButton()}
+					</div>
 					{this.renderHelp()}
 					<Link to="/profile" className="header-bar-container">
 						<Image alt="Profile picture" src={profilePic} className="header-bar-icon" />
