@@ -7,6 +7,13 @@
 	background: white;
 }
 
+@media screen and (max-width: 800px) {
+	.enroll-page {
+		top: 104px;
+		height: calc(100% - 104px);
+	}
+}
+
 .enroll-page-background {
 	position: absolute;
 	left: 0;

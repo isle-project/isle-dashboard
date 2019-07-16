@@ -4,6 +4,12 @@
 	margin: 0 auto;
 }
 
+@media screen and (max-width: 800px) {
+	.namespace-data-div {
+		top: 110px;
+	}
+}
+
 .namespace-data-navbar {
 	box-shadow: 0 0 4px darkgray, 0 0 2px darkslategray;
 	padding-left: 6px;

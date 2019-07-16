@@ -23,6 +23,12 @@
 		"left badges badges right";
 }
 
+@media screen and (max-width: 800px) {
+	.profile-page-grid-container {
+		top: 104px;
+		height: calc(100% - 104px);
+	}
+}
 
 .profile-page-left {
 	grid-area: left;

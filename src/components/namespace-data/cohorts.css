@@ -62,7 +62,6 @@
 	text-decoration: underline;
 }
 
-
 .cohort-member-score::after {
 	content: " | ";
 }

@@ -21,6 +21,13 @@
 	background: url(https://isle.heinz.cmu.edu/white_carbonfiber_1543854970404.png);
 }
 
+@media screen and (max-width: 800px) {
+	.lessons-grid-container {
+		top: 104px;
+		height: calc(100% - 104px);
+	}
+}
+
 .enrolled-lesson-progress {
 	width: 58%;
 	height: 16px;
