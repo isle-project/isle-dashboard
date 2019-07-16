@@ -400,6 +400,7 @@ class ProfilePage extends Component {
 				</div>
 				<EditModal
 					user={this.props.user}
+					authenticate={this.props.authenticate}
 					show={this.state.showEditModal}
 					addNotification={this.props.addNotification}
 					updateUser={this.props.updateUser}
