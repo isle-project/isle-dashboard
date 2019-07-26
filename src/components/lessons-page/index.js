@@ -157,6 +157,7 @@ class LessonsPage extends Component {
 						showLessonInGallery={this.props.showLessonInGallery}
 						hideLessonInGallery={this.props.hideLessonInGallery}
 						getLessons={this.props.getLessons}
+						getIsleFile={this.props.getIsleFile}
 					/>
 				</div> );
 			})
@@ -214,6 +215,7 @@ LessonsPage.propTypes = {
 	activateLesson: PropTypes.func.isRequired,
 	deactivateLesson: PropTypes.func.isRequired,
 	deleteLesson: PropTypes.func.isRequired,
+	getIsleFile: PropTypes.func.isRequired,
 	getLessons: PropTypes.func.isRequired,
 	hideLessonInGallery: PropTypes.func.isRequired,
 	namespace: PropTypes.object.isRequired,

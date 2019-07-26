@@ -1,10 +1,11 @@
 // MODULES //
 
 import React, { Component, Fragment } from 'react';
+import PropTypes from 'prop-types';
 import {
 	Badge, Button, ButtonGroup, ButtonToolbar, Card, OverlayTrigger, Tooltip
 } from 'react-bootstrap';
-import PropTypes from 'prop-types';
+import copyToClipboard from 'clipboard-copy';
 import DetailsModal from './details_modal.js';
 import DeleteModal from './delete_modal.js';
 import COLORS from 'constants/colors';
@@ -100,13 +101,23 @@ class Lesson extends Component {
 		this.setState({ showDetailsModal: false });
 	}
 
+	getIsleFile = () => {
+		this.props.getIsleFile({
+			lessonName: this.props.title,
+			namespaceName: this.props.namespace,
+			token: this.props.token,
+			callback( err, body ) {
+				copyToClipboard( body );
+			}
+		});
+	}
+
 	renderButtonToolbarDate() {
 		let updated = new Date( this.props.updatedAt );
 		updated = updated.toLocaleDateString();
 
-		let date = new Date(this.props.createdAt);
+		let date = new Date( this.props.createdAt );
 		date = date.toLocaleDateString();
-
 		return (
 			<span className="lessons-upload">
 			<OverlayTrigger placement="top" overlay={<Tooltip id="toggle_visibility">created at</Tooltip>}>
@@ -130,13 +141,18 @@ class Lesson extends Component {
 		}}>
 			<ButtonGroup style={{ marginRight: '5px' }} >
 				<OverlayTrigger placement="top" overlay={<Tooltip id="open_details">Open Details</Tooltip>}>
-					<Button size="small" variant="secondary" onClick={this.showDetailsModal}>
+					<Button size="sm" variant="secondary" onClick={this.showDetailsModal}>
 						<i className="fa fa-cog"></i>
 					</Button>
 				</OverlayTrigger>
 				<OverlayTrigger placement="top" overlay={<Tooltip id="delete_lesson">Delete Lesson</Tooltip>}>
-					<Button size="small" variant="secondary" onClick={this.showDeleteModal} >
+					<Button size="sm" variant="secondary" onClick={this.showDeleteModal} >
 						<i className="fa fa-trash-alt"></i>
+					</Button>
+				</OverlayTrigger>
+				<OverlayTrigger placement="bottom" overlay={<Tooltip id="isle-file">Copy ISLE file to clipboard</Tooltip>}>
+					<Button variant="secondary" size="sm" onClick={this.getIsleFile} style={{ float: 'right' }}>
+						<i className="fa fa-clipboard"></i>
 					</Button>
 				</OverlayTrigger>
 			</ButtonGroup>
@@ -147,7 +163,6 @@ class Lesson extends Component {
 				<Badge className="lessons-status" onClick={this.toggleLessonVisibility} variant={publicStyle}>{this.props.public ? 'Public' : 'Private'}</Badge>
 			</OverlayTrigger>
 			{ this.renderButtonToolbarDate() }
-
 		</ButtonToolbar> );
 	}
 
