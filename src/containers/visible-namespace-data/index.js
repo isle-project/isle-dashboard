@@ -74,8 +74,8 @@ function mapDispatchToProps( dispatch ) {
 				}
 			}, clbk );
 		},
-		addNotification: ({ message, level }) => {
-			dispatch( actions.addNotification({ message, level }) );
+		addNotification: ( notification ) => {
+			dispatch( actions.addNotification( notification ) );
 		},
 		deleteFile: ( _id, namespaceName, token ) => {
 			request.get( server+'/delete_file', {

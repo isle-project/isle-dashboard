@@ -22,8 +22,8 @@ function mapStateToProps( state ) {
 
 function mapDispatchToProps( dispatch ) {
 	return {
-		addNotification: ({ message, level }) => {
-			dispatch( actions.addNotification({ message, level }) );
+		addNotification: ( notification ) => {
+			dispatch( actions.addNotification( notification ) );
 		},
 		createCohort: ( user, cohortInstance, clbk ) => {
 			request.post( server+'/create_cohort', {
