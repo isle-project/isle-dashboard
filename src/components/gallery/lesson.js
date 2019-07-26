@@ -25,7 +25,7 @@ class Lesson extends Component {
 			namespaceName: this.props.namespace,
 			token: this.props.token,
 			callback( err, body ) {
-				copyToClipboard( body);
+				copyToClipboard( body );
 			}
 		});
 	}
