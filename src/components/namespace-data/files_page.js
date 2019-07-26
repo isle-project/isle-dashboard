@@ -11,6 +11,7 @@ import FormLabel from 'react-bootstrap/FormLabel';
 import FormControl from 'react-bootstrap/FormControl';
 import FormGroup from 'react-bootstrap/FormGroup';
 import Badge from 'react-bootstrap/Badge';
+import copyToClipboard from 'clipboard-copy';
 import roundn from '@stdlib/math/base/special/roundn';
 import ceil from '@stdlib/math/base/special/ceil';
 import pick from '@stdlib/utils/pick';
@@ -83,7 +84,7 @@ class FilesPage extends Component {
 		});
 	}
 
-	createColumns() {
+	createColumns = () => {
 		return [
 			{
 				Header: 'Lesson',
@@ -202,16 +203,45 @@ class FilesPage extends Component {
 				}
 			},
 			{
-				Header: 'Access',
+				Header: 'Open',
 				accessor: 'filename',
 				Cell: ( row ) => {
 					return ( <a href={server+'/'+row.value} target="_blank">
-						Open
+						<Button size="sm" variant="outline-secondary">
+							<i className="fa fa-link"></i>
+						</Button>
 					</a> );
 				},
 				resizable: false,
 				filterable: false,
-				width: 60
+				sortable: false,
+				width: 45
+			},
+			{
+				Header: 'Copy',
+				id: 'copy-path',
+				accessor: 'filename',
+				Cell: ( row ) => {
+					return (
+						<Button variant="outline-secondary" size="sm"
+							onClick={() => {
+								copyToClipboard( server+'/'+row.value );
+								this.props.addNotification({
+									title: 'Copied',
+									message: 'Link copied to clipboard',
+									level: 'success',
+									position: 'tl'
+								});
+							}}
+						>
+							<i className="fa fa-clipboard"></i>
+						</Button>
+					);
+				},
+				resizable: false,
+				filterable: false,
+				sortable: false,
+				width: 45
 			},
 			{
 				Header: 'Del',
@@ -230,8 +260,8 @@ class FilesPage extends Component {
 				},
 				resizable: false,
 				filterable: false,
-				maxWidth: 60,
-				minWidth: 30
+				sortable: false,
+				width: 45
 			}
 		];
 	}
@@ -285,7 +315,7 @@ class FilesPage extends Component {
 						<FormControl
 							id="fileUpload"
 							type="file"
-							accept=".pdf,.html,.md,image/*,video/*,audio/*"
+							accept=".pdf,.html,.md,image/*,video/*,audio/*,.json,.csv"
 							onChange={this.props.handleUpload}
 							style={{ display: 'none' }}
 						/>
@@ -314,6 +344,7 @@ class FilesPage extends Component {
 // PROPERTIES //
 
 FilesPage.propTypes = {
+	addNotification: PropTypes.func.isRequired,
 	files: PropTypes.array.isRequired,
 	handleFileDeletion: PropTypes.func.isRequired,
 	handleUpload: PropTypes.func.isRequired,
