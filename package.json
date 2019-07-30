@@ -52,7 +52,7 @@
     "@babel/plugin-proposal-class-properties": "^7.4.4",
     "@babel/plugin-syntax-dynamic-import": "^7.2.0",
     "@babel/runtime": "^7.4.5",
-    "@stdlib/stdlib": "0.0.61",
+    "@stdlib/stdlib": "0.0.62",
     "acorn": "^6.2.0",
     "babel-plugin-add-module-exports": "^1.0.2",
     "babel-plugin-module-resolver": "^3.1.1",
