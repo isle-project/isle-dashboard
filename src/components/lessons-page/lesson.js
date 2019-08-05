@@ -150,7 +150,7 @@ class Lesson extends Component {
 						<i className="fa fa-trash-alt"></i>
 					</Button>
 				</OverlayTrigger>
-				<OverlayTrigger placement="bottom" overlay={<Tooltip id="isle-file">Copy ISLE file to clipboard</Tooltip>}>
+				<OverlayTrigger placement="top" overlay={<Tooltip id="isle-file">Copy ISLE file to clipboard</Tooltip>}>
 					<Button variant="secondary" size="sm" onClick={this.getIsleFile} style={{ float: 'right' }}>
 						<i className="fa fa-clipboard"></i>
 					</Button>
