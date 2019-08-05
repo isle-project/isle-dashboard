@@ -87,6 +87,14 @@ class FilesPage extends Component {
 	createColumns = () => {
 		return [
 			{
+				Header: 'Filename',
+				accessor: 'title',
+				minWidth: 250,
+				filterMethod: ( filter, row ) => {
+					return contains( lowercase( row[ filter.id ] ), lowercase( filter.value ) );
+				}
+			},
+			{
 				Header: 'Lesson',
 				accessor: 'lesson',
 				maxWidth: 160,
@@ -195,20 +203,12 @@ class FilesPage extends Component {
 				maxWidth: 120
 			},
 			{
-				Header: 'Filename',
-				accessor: 'title',
-				minWidth: 250,
-				filterMethod: ( filter, row ) => {
-					return contains( lowercase( row[ filter.id ] ), lowercase( filter.value ) );
-				}
-			},
-			{
 				Header: 'Open',
 				accessor: 'filename',
 				Cell: ( row ) => {
 					return ( <a href={server+'/'+row.value} target="_blank">
 						<Button size="sm" variant="outline-secondary">
-							<i className="fa fa-link"></i>
+							<i className="fa fa-external-link-alt"></i>
 						</Button>
 					</a> );
 				},
