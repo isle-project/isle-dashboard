@@ -263,12 +263,13 @@ class ProgressPage extends Component {
 			for ( let j = 0; j < lessons.length; j++ ) {
 				const lessonName = lessons[ j ]._id;
 				let data = member.lessonData;
-				if ( data ) {
+				if ( data && data[ lessonName ] ) {
 					data = data[ lessonName ];
-					if ( data ) {
-						out[ i ][ lessons[ j ].title+'_progress' ] = min( round( data.progress*100 ), 100 );
-						out[ i ][ lessons[ j ].title+'_time' ] = round( data.spentTime / ( 1000*60 ) );
-					}
+					out[ i ][ lessons[ j ].title+'_progress' ] = min( round( data.progress*100 ), 100 );
+					out[ i ][ lessons[ j ].title+'_time' ] = round( data.spentTime / ( 1000*60 ) );
+				} else {
+					out[ i ][ lessons[ j ].title+'_progress' ] = 0;
+					out[ i ][ lessons[ j ].title+'_time' ] = 0;
 				}
 			}
 		}
