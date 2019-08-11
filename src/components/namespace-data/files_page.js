@@ -95,6 +95,47 @@ class FilesPage extends Component {
 				}
 			},
 			{
+				Header: 'Open',
+				accessor: 'filename',
+				Cell: ( row ) => {
+					return ( <a href={server+'/'+row.value} target="_blank">
+						<Button size="sm" variant="outline-secondary">
+							<i className="fa fa-external-link-alt"></i>
+						</Button>
+					</a> );
+				},
+				resizable: false,
+				filterable: false,
+				sortable: false,
+				width: 45
+			},
+			{
+				Header: 'Copy',
+				id: 'copy-path',
+				accessor: 'filename',
+				Cell: ( row ) => {
+					return (
+						<Button variant="outline-secondary" size="sm"
+							onClick={() => {
+								copyToClipboard( server+'/'+row.value );
+								this.props.addNotification({
+									title: 'Copied',
+									message: 'Link copied to clipboard',
+									level: 'success',
+									position: 'tl'
+								});
+							}}
+						>
+							<i className="fa fa-clipboard"></i>
+						</Button>
+					);
+				},
+				resizable: false,
+				filterable: false,
+				sortable: false,
+				width: 45
+			},
+			{
 				Header: 'Lesson',
 				accessor: 'lesson',
 				maxWidth: 160,
@@ -201,47 +242,6 @@ class FilesPage extends Component {
 					return row.value.toLocaleDateString( 'en-US' );
 				},
 				maxWidth: 120
-			},
-			{
-				Header: 'Open',
-				accessor: 'filename',
-				Cell: ( row ) => {
-					return ( <a href={server+'/'+row.value} target="_blank">
-						<Button size="sm" variant="outline-secondary">
-							<i className="fa fa-external-link-alt"></i>
-						</Button>
-					</a> );
-				},
-				resizable: false,
-				filterable: false,
-				sortable: false,
-				width: 45
-			},
-			{
-				Header: 'Copy',
-				id: 'copy-path',
-				accessor: 'filename',
-				Cell: ( row ) => {
-					return (
-						<Button variant="outline-secondary" size="sm"
-							onClick={() => {
-								copyToClipboard( server+'/'+row.value );
-								this.props.addNotification({
-									title: 'Copied',
-									message: 'Link copied to clipboard',
-									level: 'success',
-									position: 'tl'
-								});
-							}}
-						>
-							<i className="fa fa-clipboard"></i>
-						</Button>
-					);
-				},
-				resizable: false,
-				filterable: false,
-				sortable: false,
-				width: 45
 			},
 			{
 				Header: 'Del',
