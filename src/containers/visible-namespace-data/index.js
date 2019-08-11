@@ -6,6 +6,10 @@ import request from 'request';
 import noop from '@stdlib/utils/noop';
 import server from 'constants/server';
 import { withRouter } from 'react-router';
+import copyToClipboard from 'clipboard-copy';
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
+import Tooltip from 'react-bootstrap/Tooltip';
+import Button from 'react-bootstrap/Button';
 import NamespaceData from 'components/namespace-data';
 import * as actions from 'actions';
 
@@ -195,12 +199,51 @@ function mapDispatchToProps( dispatch ) {
 						message = xhr.responseText;
 						level = 'error';
 					}
-					return dispatch( actions.addNotification({
+					const msg = {
 						title: 'File Upload',
 						message,
 						level,
 						position: 'tl'
-					}) );
+					};
+					if ( level === 'success' ) {
+						msg.autoDismiss = 10;
+						msg.children = <div style={{ marginBottom: 30 }}>
+							<OverlayTrigger placement="bottom" overlay={<Tooltip id="ownerTooltip">
+								Copy link to clipboard
+							</Tooltip>}>
+								<Button
+									size="sm"
+									variant="outline-secondary"
+									style={{ float: 'right', marginRight: '10px' }}
+									onClick={() => {
+										copyToClipboard( server+'/'+body.filename );
+										dispatch( actions.addNotification({
+											title: 'Copied',
+											message: 'Link copied to clipboard',
+											level: 'success',
+											position: 'tl'
+										}) );
+									}}
+								>
+									<i className="fa fa-clipboard"></i>
+								</Button>
+							</OverlayTrigger>
+							<OverlayTrigger placement="bottom" overlay={<Tooltip id="ownerTooltip">
+								Open uploaded file
+							</Tooltip>}>
+								<a
+									href={server+'/'+body.filename}
+									target="_blank"
+									style={{ float: 'right', marginRight: '10px' }}
+								>
+									<Button size="sm" variant="outline-secondary">
+										<i className="fa fa-external-link-alt"></i>
+									</Button>
+								</a>
+							</OverlayTrigger>
+						</div>;
+					}
+					return dispatch( actions.addNotification( msg ) );
 				}
 			};
 			xhr.send( formData );
