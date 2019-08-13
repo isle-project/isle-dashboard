@@ -10,6 +10,8 @@ import Button from 'react-bootstrap/Button';
 import FormLabel from 'react-bootstrap/FormLabel';
 import FormControl from 'react-bootstrap/FormControl';
 import FormGroup from 'react-bootstrap/FormGroup';
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
+import Tooltip from 'react-bootstrap/Tooltip';
 import Badge from 'react-bootstrap/Badge';
 import copyToClipboard from 'clipboard-copy';
 import roundn from '@stdlib/math/base/special/roundn';
@@ -98,11 +100,14 @@ class FilesPage extends Component {
 				Header: 'Open',
 				accessor: 'filename',
 				Cell: ( row ) => {
-					return ( <a href={server+'/'+row.value} target="_blank">
-						<Button size="sm" variant="outline-secondary">
-							<i className="fa fa-external-link-alt"></i>
-						</Button>
-					</a> );
+					return (
+						<OverlayTrigger placement="left" overlay={<Tooltip id="external-link-tooltip">Open the file.</Tooltip>}>
+							<a href={server+'/'+row.value} target="_blank">
+								<Button size="sm" variant="outline-secondary">
+									<i className="fa fa-external-link-alt"></i>
+								</Button>
+							</a>
+						</OverlayTrigger> );
 				},
 				resizable: false,
 				filterable: false,
@@ -115,19 +120,21 @@ class FilesPage extends Component {
 				accessor: 'filename',
 				Cell: ( row ) => {
 					return (
-						<Button variant="outline-secondary" size="sm"
-							onClick={() => {
-								copyToClipboard( server+'/'+row.value );
-								this.props.addNotification({
-									title: 'Copied',
-									message: 'Link copied to clipboard',
-									level: 'success',
-									position: 'tl'
-								});
-							}}
-						>
-							<i className="fa fa-clipboard"></i>
-						</Button>
+						<OverlayTrigger placement="right" overlay={<Tooltip id="copy-clipboard-tooltip">Copy link to clipboard.</Tooltip>}>
+							<Button variant="outline-secondary" size="sm"
+								onClick={() => {
+									copyToClipboard( server+'/'+row.value );
+									this.props.addNotification({
+										title: 'Copied',
+										message: 'Link copied to clipboard',
+										level: 'success',
+										position: 'tl'
+									});
+								}}
+							>
+								<i className="fa fa-clipboard"></i>
+							</Button>
+						</OverlayTrigger>
 					);
 				},
 				resizable: false,
@@ -140,12 +147,19 @@ class FilesPage extends Component {
 				accessor: 'lesson',
 				maxWidth: 160,
 				Cell: ( row ) => {
+					console.log( row.row.lesson );
 					if ( !row.row.lesson ) {
 						return <span>no lesson</span>;
 					}
-					return ( <a href={row.row.lesson.url} target="_blank">
-						{row.row.lesson.title}
-					</a> );
+					return (
+						<OverlayTrigger placement="right" overlay={<Tooltip id="open-lesson-tooltip">Open lesson in new tab.</Tooltip>}>
+							<div style={{ width: '100%', height: '100%' }} >
+								<a href={row.row.lesson.url} target="_blank">
+									{row.row.lesson.title}
+								</a>
+							</div>
+						</OverlayTrigger>
+					);
 				},
 				filterMethod: ( filter, row ) => {
 					return row[ filter.id ].title.startsWith( filter.value );
@@ -247,16 +261,20 @@ class FilesPage extends Component {
 				Header: 'Del',
 				accessor: '_id',
 				Cell: ( row ) => {
-					return ( <Button
-						size="sm" variant="outline-secondary"
-						onClick={() => {
-						this.setState({
-							deletionID: row.value,
-							showDeleteModal: true
-						});
-					}} >
-						<div className="fa fa-trash-alt" />
-					</Button> );
+					return (
+						<OverlayTrigger placement="left" overlay={<Tooltip id="delete-file-tooltip">Delete the file.</Tooltip>}>
+							<Button
+								size="sm" variant="outline-secondary"
+								onClick={() => {
+								this.setState({
+									deletionID: row.value,
+									showDeleteModal: true
+								});
+							}} >
+								<div className="fa fa-trash-alt" />
+							</Button>
+						</OverlayTrigger>
+					);
 				},
 				resizable: false,
 				filterable: false,
