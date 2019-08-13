@@ -147,7 +147,6 @@ class FilesPage extends Component {
 				accessor: 'lesson',
 				maxWidth: 160,
 				Cell: ( row ) => {
-					console.log( row.row.lesson );
 					if ( !row.row.lesson ) {
 						return <span>no lesson</span>;
 					}
