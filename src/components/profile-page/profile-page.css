@@ -368,10 +368,10 @@
 
 .profile-page-user-portrait {
 	grid-area: portrait;
+	cursor: pointer;
 }
 
 .profile-page-user-portrait img {
-	cursor: pointer;
 	margin-top: 8px;
 	display: block;
 	margin-left: auto;
