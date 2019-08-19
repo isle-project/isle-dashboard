@@ -313,11 +313,15 @@
     } ],
     "react-hooks/rules-of-hooks": 2
   },
+  "extends": [
+    "plugin:jsx-a11y/recommended"
+  ],
   "plugins": [
     "import",
     "react",
     "react-hooks",
-    "jest"
+    "jest",
+    "jsx-a11y"
   ],
   "settings": {
     "react": {
