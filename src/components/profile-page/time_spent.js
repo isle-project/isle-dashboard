@@ -50,7 +50,7 @@ class TimeSpentStats extends Component {
 		}
 		return (
 			<div style={{ padding: '5px', overflow: 'hidden' }}>
-				<label>Average time spent: </label>
+				<span className="title">Average time spent: </span>
 				<span>{` ${formatTime( avg )}`}</span>
 				<span>{` (SD: ${formatTime( stdev )})`}</span>
 				<Plotly

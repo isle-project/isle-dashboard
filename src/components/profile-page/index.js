@@ -203,7 +203,7 @@ class ProfilePage extends Component {
 					<div key={index} className="message-container">
 						<div className="message-data">
 							<div className="message-profile-pic">
-								<img src={value.picture} />
+								<img src={value.picture} alt="Message User Profile" />
 							</div>
 							<div className="message-author-line">
 								<span className="message-author">{ value.author } </span>
@@ -321,9 +321,9 @@ class ProfilePage extends Component {
 				<div style={{ animation: 'scale-up ' + ((i*0.05) + 0.1) + 's' }} className="profile-page-badge-item-nova" key={i}>
 					<OverlayTrigger placement="bottom" overlay={<Tooltip id="description">{ desc }</Tooltip>}>
 						<div className="profile-page-badge-item">
-							<img className="mask" src={badgeCircle} />
+							<img className="mask" src={badgeCircle} alt="" />
 							<div className={display} >
-							<img className={badgeState} src={temp} />
+								<img className={badgeState} src={temp} alt="User Badge" />
 							</div>
 						</div>
 					</OverlayTrigger>
@@ -346,8 +346,13 @@ class ProfilePage extends Component {
 		const nLessons = keys( user.lessonData ).length;
 		return (
 			<div className="profile-page-user-container">
-				<div className="profile-page-user-portrait">
-					<img onClick={this.toggleProfilePicModal} src={userPic} />
+				<div
+					role="button" className="profile-page-user-portrait"
+					onClick={this.toggleProfilePicModal}
+					onKeyPress={this.toggleProfilePicModal}
+					tabIndex={0}
+				>
+					<img alt="User Profile" src={userPic} />
 				</div>
 				<div className="profile-page-user-personal">
 					<div className="profile-page-user-personal-name">

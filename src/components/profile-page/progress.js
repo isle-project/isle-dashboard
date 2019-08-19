@@ -40,7 +40,7 @@ class ProgressStats extends Component {
 		return (
 			<div style={{ padding: '5px', overflow: 'hidden' }}>
 				{avg ? <Fragment>
-					<label>Average progress: </label>
+					<span className="title">Average progress: </span>
 					<span>{` ${ avg.toFixed( 3 ) }`}</span>
 					<span>{` (SD: ${stdev.toFixed( 3 )})`}</span>
 				</Fragment>: null}
