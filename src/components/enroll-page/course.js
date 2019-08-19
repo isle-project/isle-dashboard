@@ -26,7 +26,7 @@ class Course extends Component {
 				const user = owners[ i ];
 				profiles.push(
 					<div key={`owner-${i}`} className="enroll-page-course-teacher">
-						<img src={server + '/thumbnail/' + user.picture} />
+						<img src={server + '/thumbnail/' + user.picture} alt="Lesson Thumbnail" />
 						<div className="enroll-page-course-teacher-info">
 							<div className="enroll-page-courses-teacher-name">{user.name}</div>
 							<div className="enroll-page-course-teacher-email">

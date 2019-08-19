@@ -101,7 +101,7 @@ class EnrollPage extends Component {
 	render() {
 		return (
 			<div className="enroll-page">
-				<img className="enroll-page-background" src="https://isle.heinz.cmu.edu/pexels-photo-574283_1546971725423.jpeg" />
+				<img className="enroll-page-background" src="https://isle.heinz.cmu.edu/pexels-photo-574283_1546971725423.jpeg" alt="" />
 				<div className="enroll-page-content">
 					{ this.renderCourses() }
 				</div>
