@@ -23,22 +23,8 @@ function createBadgeNotification({ name, description, picture }) {
 				<h3>Received Badge: {name}</h3>
 				<div>
 					<div>
-						<div style={{
-							position: 'absolute',
-							left: '11%',
-							top: '13%',
-							width: '78%',
-							height: '70%',
-							borderRadius: '50%',
-							filter: 'saturate(20%)',
-							background: 'rgba(255,0,0,0.1)'
-						}} />
-						<img style={{ display: 'block',
-							marginLeft: 'auto',
-							marginRight: 'auto',
-							width: '80%'
-						}} src={pic}
-						/>
+						<div className="received-badge-before" />
+						<img className="received-badge" src={pic} alt="Received Badge" />
 					</div>
 					<p style={{ marginTop: 15 }}>You received a badge for:  <b>{description}</b></p>
 				</div>
