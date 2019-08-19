@@ -94,7 +94,7 @@ function createColumns( lessons, cohorts ) {
 			Header: 'Pic',
 			accessor: 'picture',
 			Cell: row => (
-				<img className="table-pic" src={`${server}/thumbnail/${row.original.picture}`} />
+				<img className="table-pic" src={`${server}/thumbnail/${row.original.picture}`} alt="Profile Pic" />
 			),
 			maxWidth: 46,
 			minWidth: 46,
@@ -148,7 +148,7 @@ function createColumns( lessons, cohorts ) {
 				}
 				return (
 					<select
-						onChange={( event ) => {
+						onBlur={( event ) => {
 							const newValue = event.target.value;
 							onChange( newValue );
 						}}

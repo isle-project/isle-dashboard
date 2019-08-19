@@ -57,12 +57,15 @@ class CohortsPage extends Component {
 		let ani = 'scale-up ' + phase + 's';
 		return (
 			<Fragment key={key}>
-				<div className="cohort-member"
+				<div className="cohort-member" role="button"
 					onClick={() => this.showUser( member )}
-					style={{ animation: ani }}>
+					onKeyPress={() => this.showUser( member )}
+					style={{ animation: ani }} tabIndex={0}
+				>
 					<div className="cohort-member-name">{member.name}</div>
 						<img
 							src={server + '/thumbnail/'+member.picture}
+							alt="Member Profile Pic"
 						/>
 						<div className="cohort-member-email">
 							<a href={'mailto:' + member.email}>{member.email}</a>
@@ -140,7 +143,7 @@ class CohortsPage extends Component {
 							overlay={<Tooltip id="isleTime">{badges[i].description}</Tooltip>}
 						>
 							<div className="cohort-user-badge" >
-								<img src={server + '/badges/' + badges[i].picture} />
+								<img src={server + '/badges/' + badges[i].picture} alt="User Badge" />
 							</div>
 						</OverlayTrigger>
 					</Fragment>
@@ -175,8 +178,8 @@ class CohortsPage extends Component {
 		}
 		return (
 			<div className="cohort-actual-member">
-				<div onClick={this.closeActualMember} className="cohort-actual-member-exit" >&#10005;</div>
-				<img className="cohort-actual-member-portrait" src={server + '/avatar/'+member.picture} />
+				<button onClick={this.closeActualMember} className="cohort-actual-member-exit" >&#10005;</button>
+				<img className="cohort-actual-member-portrait" src={server + '/avatar/'+member.picture} alt="User Profile Pic" />
 				<div className="cohort-actual-member-portrait-shadow" />
 				{date ? <div className="cohort-actual-member-registered">registered since {date}</div> : null}
 				<div className="cohort-actual-member-name">

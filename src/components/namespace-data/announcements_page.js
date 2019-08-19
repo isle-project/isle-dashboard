@@ -60,7 +60,7 @@ class AnnouncementsPage extends Component {
 						<div className="message-container">
 							<div className="message-data">
 								<div className="message-profile-pic">
-									<img src={value.picture} />
+									<img src={value.picture} alt="User Profile Pic" />
 								</div>
 								<div className="message-author-line">
 									<span className="message-author">{ value.author }</span>
@@ -75,15 +75,15 @@ class AnnouncementsPage extends Component {
 							</div>
 						</div>
 						<div className="message-manip">
-							<div onClick={() => {
+							<button onClick={() => {
 								this.setState({
 									editItem: index,
 									showDeleteModal: true
 								});
-							}} className="message-delete">DELETE</div>
-							<div onClick={() => {
+							}} className="message-delete">DELETE</button>
+							<button onClick={() => {
 								this.editMessage(index);
-							}} className="message-edit">EDIT</div>
+							}} className="message-edit">EDIT</button>
 						</div>
 					</div>
 					);

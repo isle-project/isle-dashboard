@@ -93,7 +93,7 @@ class ActionsPage extends Component {
 		return (
 			<div className="actions-page-lesson-action-page">
 				<div className="lesson-action-page-resize">	&#x1f5d6;</div>
-				<div onClick={this.hideLessonActions} className="lesson-action-page-exit">&#10005;</div>
+				<button onClick={this.hideLessonActions} className="lesson-action-page-exit">&#10005;</button>
 				<div className="lesson-action-page-title">{ this.state.actualLesson.title}</div>
 				<div className="lesson-action-page-filter">
 					{this.renderCohorts() }
@@ -121,9 +121,9 @@ class ActionsPage extends Component {
 		const list = [];
 		for ( let i = 0; i < lessons.length; i++ ) {
 			list.push(
-				<div key={i} onClick={()=> this.showLessonActions( lessons[i] )} className="actions-page-lesson">
+				<button key={i} onClick={()=> this.showLessonActions( lessons[i] )} className="actions-page-lesson">
 					<div className="actions-page-lesson-title">{lessons[i].title}</div>
-				</div>
+				</button>
 			);
 		}
 		return (
