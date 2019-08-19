@@ -37,8 +37,10 @@ class CohortsPage extends Component {
 
 	handleCohortChange = ( cohorts ) => {
 		let members = [];
-		for ( let i = 0; i < cohorts.length; i++ ) {
-			members = members.concat( cohorts[ i ].data.members );
+		if ( cohorts ) {
+			for ( let i = 0; i < cohorts.length; i++ ) {
+				members = members.concat( cohorts[ i ].data.members );
+			}
 		}
 		this.setState({
 			selectedCohorts: cohorts,
@@ -178,7 +180,7 @@ class CohortsPage extends Component {
 		}
 		return (
 			<div className="cohort-actual-member">
-				<button onClick={this.closeActualMember} className="cohort-actual-member-exit" >&#10005;</button>
+				<button onClick={this.closeActualMember} className="cohort-actual-member-exit empty-button" >&#10005;</button>
 				<img className="cohort-actual-member-portrait" src={server + '/avatar/'+member.picture} alt="User Profile Pic" />
 				<div className="cohort-actual-member-portrait-shadow" />
 				{date ? <div className="cohort-actual-member-registered">registered since {date}</div> : null}
