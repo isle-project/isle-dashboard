@@ -384,12 +384,12 @@ class HeaderBar extends Component {
 					>
 						<Popover id="popover-courses">
 							{ this.props.user.ownedNamespaces.length > 0 ? <Fragment>
-								<label className="label-display">OWNED COURSES</label>
+								<span className="label-display">OWNED COURSES</span>
 								{namespaceListGroup( this.props.user.ownedNamespaces, this.ownedClickFactory )}
 								<div className="separator" />
 								</Fragment> : null}
 							{this.props.user.enrolledNamespaces.length > 0 ? <Fragment>
-								<label className="label-display">ENROLLED COURSES</label>
+								<span className="label-display">ENROLLED COURSES</span>
 								{namespaceListGroup( this.props.user.enrolledNamespaces, this.enrolledClickFactory )}
 							</Fragment> : null}
 							<Button onClick={this.goToEnrolledPage} style={{ marginTop: 10 }} size="sm" block variant="outline-success">Enroll</Button>
@@ -414,17 +414,16 @@ class HeaderBar extends Component {
 					<Link to="/profile" className="header-bar-container">
 						<Image alt="Profile picture" src={profilePic} className="header-bar-icon" />
 						<span id="header-bar-username" key="account" className="header-bar-link-div" >
-							<span onClick={this.setProfileLocation} className="header-bar-link">{this.props.user.name}</span>
+							<span className="header-bar-link">{this.props.user.name}</span>
 						</span>
 					</Link>
 					<div className="header-bar-container">
 						<div key="logout" className="header-bar-link-div" >
-							<a
+							<button
 								key="logoutButton"
-								href="#"
-								className="header-bar-link"
+								className="header-bar-link empty-button"
 								onClick={this.props.logout}
-							> Log out </a>
+							> Log out </button>
 						</div>
 					</div>
 				</div>
