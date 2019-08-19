@@ -138,6 +138,10 @@ function createColumns( lessons, cohorts ) {
 			style: { marginTop: '8px', color: 'darkslategrey' },
 			filterMethod: filterMethodCategories,
 			Filter: ({ filter, onChange }) => {
+				const handleChange = ( event ) => {
+					const newValue = event.target.value;
+					onChange( newValue );
+				};
 				let value;
 				if ( !filter ) {
 					value = 'all';
@@ -148,10 +152,7 @@ function createColumns( lessons, cohorts ) {
 				}
 				return (
 					<select
-						onBlur={( event ) => {
-							const newValue = event.target.value;
-							onChange( newValue );
-						}}
+						onBlur={handleChange} onChange={handleChange}
 						style={{ width: '100%', backgroundColor: 'ghostwhite' }}
 						value={value}
 					>

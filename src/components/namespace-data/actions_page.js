@@ -93,7 +93,7 @@ class ActionsPage extends Component {
 		return (
 			<div className="actions-page-lesson-action-page">
 				<div className="lesson-action-page-resize">	&#x1f5d6;</div>
-				<button onClick={this.hideLessonActions} className="lesson-action-page-exit">&#10005;</button>
+				<button onClick={this.hideLessonActions} className="lesson-action-page-exit empty-button">&#10005;</button>
 				<div className="lesson-action-page-title">{ this.state.actualLesson.title}</div>
 				<div className="lesson-action-page-filter">
 					{this.renderCohorts() }
