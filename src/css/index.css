@@ -181,3 +181,15 @@ label {
 	display: block;
 	margin: 0 auto;
 }
+
+.title {
+	font-weight: 600;
+	font-stretch: extra-expanded;
+	color: var(--primary);
+}
+
+.empty-button {
+	background: none;
+	border: none;
+	cursor: pointer;
+}

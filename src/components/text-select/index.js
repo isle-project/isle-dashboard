@@ -15,20 +15,28 @@ import contains from '@stdlib/assert/contains';
 const customComponents = {
 	DropdownIndicator: null,
 	MultiValueLabel: props => {
+		const copyToClipboard = () => {
+			copy( props.data.label );
+		};
 		return (
 			<OverlayTrigger
 				overlay={<Tooltip id="copy_tooltip">Click to copy to clipboard</Tooltip>}
 				placement="bottom"
 			>
-				<span onClick={() => {
-					copy( props.data.label );
-				}} style={{ cursor: 'copy' }}>
+				<span
+					role="button" tabIndex={0}
+					onClick={copyToClipboard} onKeyPress={copyToClipboard}
+					style={{ cursor: 'copy' }}
+				>
 					<components.MultiValueLabel {...props} />
 				</span>
 			</OverlayTrigger>
 		);
 	}
 };
+
+
+// FUNCTIONS //
 
 const createOption = ( label ) => ({
 	label,
