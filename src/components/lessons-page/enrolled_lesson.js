@@ -30,8 +30,16 @@ const DEFAULT_DESCRIPTION = 'No description supplied.';
 class EnrolledLesson extends Component {
 	constructor( props ) {
 		super( props );
-
 		this.state = {};
+	}
+
+	showPreviewImage = () => {
+		this.img.src = this.props.url+'/preview.jpg';
+	}
+
+	openLesson = () => {
+		const win = window.open( this.props.url, '_blank' );
+		win.focus();
 	}
 
 	renderButtonToolbar() {
@@ -77,9 +85,9 @@ class EnrolledLesson extends Component {
 					<div style={{
 						filter: 'grayscale(30%)',
 						background: COLORS[ this.props.colorIndex ]
-					}} onMouseOver={() => {
-						this.img.src = this.props.url+'/preview.jpg';
-					}} className="hovereffect">
+					}} onMouseOver={this.showPreviewImage} onFocus={this.showPreviewImage}
+						className="hovereffect"
+					>
 						<img
 							className="img-responsive"
 							src={background}
@@ -93,7 +101,12 @@ class EnrolledLesson extends Component {
 							}}
 							onError={addDefaultSrc}
 						/>
-						<div className="overlay" >
+						<div
+							role="button"
+							className="overlay" tabIndex={0}
+							onClick={this.openLesson}
+							onKeyPress={this.openLesson}
+						>
 							<h2>{this.props.title}</h2>
 							{this.props.description !== DEFAULT_DESCRIPTION ?
 								<h3>{this.props.description}</h3> :
@@ -104,10 +117,6 @@ class EnrolledLesson extends Component {
 									this.link = link;
 								}}
 								className="info"
-								onClick={() => {
-									const win = window.open( this.props.url, '_blank' );
-									win.focus();
-								}}
 							>
 								Open Lesson
 							</span>

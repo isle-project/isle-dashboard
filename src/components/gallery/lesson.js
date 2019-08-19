@@ -30,6 +30,11 @@ class Lesson extends Component {
 		});
 	}
 
+	openLesson = () => {
+		const win = window.open( this.props.url, '_blank' );
+		win.focus();
+	}
+
 	renderButtonToolbarDate() {
 		if ( !this.props.updatedAt ) {
 			return null;
@@ -49,7 +54,7 @@ class Lesson extends Component {
 		return (
 			<div className="gallery-upload">
 				<OverlayTrigger placement="bottom" overlay={<Tooltip id="toggle_visibility">created at</Tooltip>}>
-					<span className="gallery-uploaded-image"><img style={{ stroke: 'white', fill: 'red' }} src={upload} /></span>
+					<span className="gallery-uploaded-image"><img style={{ stroke: 'white', fill: 'red' }} alt="Upload Time Icon" src={upload} /></span>
 				</OverlayTrigger>
 				<OverlayTrigger placement="bottom" overlay={<Tooltip id="toggle_visibility">updated at {updated}</Tooltip>}>
 				<span className="gallery-uploaded">{date}</span>
@@ -94,15 +99,16 @@ class Lesson extends Component {
 								background: COLORS[ this.props.colorIndex ]
 							}}
 						/>
-						<div className="overlay">
+						<div
+							role="button" className="overlay"
+							onClick={this.openLesson}
+							onKeyPress={this.openLesson}
+							tabIndex={0}
+						>
 							<h2>{this.props.namespace}: {this.props.title}</h2>
 							<h3>{this.props.description}</h3>
 							<span
 								className="info"
-								onClick={() => {
-									const win = window.open( this.props.url, '_blank' );
-									win.focus();
-								}}
 							>Open Lesson</span>
 						</div>
 					</div>
