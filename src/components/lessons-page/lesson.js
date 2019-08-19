@@ -11,6 +11,7 @@ import DeleteModal from './delete_modal.js';
 import COLORS from 'constants/colors';
 import background from './architecture.jpeg';
 import upload from './upload.svg';
+import './lesson.css';
 
 
 // VARIABLES //
@@ -112,6 +113,15 @@ class Lesson extends Component {
 		});
 	}
 
+	showPreviewImage = () => {
+		this.img.src = this.props.url+'/preview.jpg';
+	}
+
+	openLesson = () => {
+		const win = window.open( this.props.url, '_blank' );
+		win.focus();
+	}
+
 	renderButtonToolbarDate() {
 		let updated = new Date( this.props.updatedAt );
 		updated = updated.toLocaleDateString();
@@ -121,7 +131,9 @@ class Lesson extends Component {
 		return (
 			<span className="lessons-upload">
 			<OverlayTrigger placement="top" overlay={<Tooltip id="toggle_visibility">created at</Tooltip>}>
-				<span className="lessons-uploaded-image"><img style={{ stroke: 'white', fill: 'red' }} src={upload} /></span>
+				<span className="lessons-uploaded-image">
+					<img alt="Upload Date Icon" style={{ stroke: 'white', fill: 'red' }} src={upload} />
+				</span>
 			</OverlayTrigger>
 			<OverlayTrigger placement="top" overlay={<Tooltip id="toggle_visibility">last updated at {updated}</Tooltip>}>
 				<span className="lessons-uploaded">{date}</span>
@@ -133,12 +145,7 @@ class Lesson extends Component {
 	renderButtonToolbar() {
 		const activeStyle = this.props.active === true ? 'success' : 'warning';
 		const publicStyle = this.props.public === true ? 'success' : 'warning';
-		return ( <ButtonToolbar style={{
-			position: 'absolute',
-			top: 180,
-			width: '100%',
-			background: 'rgba(0, 0, 0, 0.75)'
-		}}>
+		return ( <ButtonToolbar className="lesson-button-toolbar">
 			<ButtonGroup style={{ marginRight: '5px' }} >
 				<OverlayTrigger placement="top" overlay={<Tooltip id="open_details">Open Details</Tooltip>}>
 					<Button size="sm" variant="secondary" onClick={this.showDetailsModal}>
@@ -181,9 +188,8 @@ class Lesson extends Component {
 						filter: 'grayscale(30%)',
 						background: COLORS[ this.props.colorIndex ]
 					}} className="hovereffect"
-						onMouseOver={() => {
-							this.img.src = this.props.url+'/preview.jpg';
-						}}
+						onMouseOver={this.showPreviewImage}
+						onFocus={this.showPreviewImage}
 					>
 						<img
 							className="img-responsive"
@@ -208,11 +214,10 @@ class Lesson extends Component {
 								ref={( link ) => {
 									this.link = link;
 								}}
+								role="button"
 								className="info"
-								onClick={() => {
-									const win = window.open( this.props.url, '_blank' );
-									win.focus();
-								}}
+								onClick={this.openLesson} onKeyPress={this.openLesson}
+								tabIndex={0}
 							>
 								Open Lesson
 							</span>
