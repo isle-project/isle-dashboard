@@ -17,7 +17,14 @@
         "test": {
             "plugins": [
                 "transform-es2015-modules-commonjs",
-                "css-modules-transform"
+                "css-modules-transform",
+                [
+                    "module-resolver", {
+                      "root": [
+                          "app"
+                        ]
+                      }
+                  ]
             ]
         }
     }

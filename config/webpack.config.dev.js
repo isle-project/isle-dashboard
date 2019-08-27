@@ -127,7 +127,6 @@ module.exports = {
 		// https://github.com/facebook/create-react-app/issues/253
 		modules: [
 			'node_modules',
-			resolve( './node_modules/@stdlib/stdlib/lib/node_modules' ),
 			paths.appSrc
 		].concat(
 			// It is guaranteed to exist because we tweak it in `env.js`
