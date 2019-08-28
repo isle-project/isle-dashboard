@@ -9,6 +9,7 @@ import 'react-dates/lib/css/_datepicker.css';
 import { withRouter } from 'react-router';
 import isArray from '@stdlib/assert/is-array';
 import isEmail from '@stdlib/assert/is-email-address';
+import trim from '@stdlib/string/trim';
 import TextSelect from 'components/text-select';
 import MsgModal from 'components/message-modal';
 import ConfirmModal from 'components/confirm-modal';
@@ -191,7 +192,7 @@ class EditNamespace extends Component {
 	}
 
 	handleOwnerChange = ( newValue ) => {
-		const owners = newValue.map( x => x.value );
+		const owners = newValue.map( x => trim( x.value ) );
 		this.setState({
 			owners: owners,
 			disabled: !validateInputs({
