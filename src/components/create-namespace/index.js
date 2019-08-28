@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import { Button, Card, FormLabel, FormControl, FormGroup, Form, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import logger from 'debug';
 import isEmail from '@stdlib/assert/is-email-address';
+import trim from '@stdlib/string/trim';
 import TextSelect from 'components/text-select';
 
 
@@ -45,7 +46,7 @@ class CreateNamespace extends Component {
 	}
 
 	handleOwnerChange = ( newValue ) => {
-		const owners = newValue.map( x => x.value );
+		const owners = newValue.map( x => trim( x.value ) );
 		this.setState({
 			owners: owners
 		});
