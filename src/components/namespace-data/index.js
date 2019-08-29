@@ -134,7 +134,7 @@ class NamespaceData extends Component {
 							<Nav.Link eventKey="4" title="Owner Files" >Owner Files</Nav.Link>
 						</Nav.Item>
 						<Nav.Item>
-							<Nav.Link eventKey="5" title="All Files" >All Files</Nav.Link>
+							<Nav.Link eventKey="5" title="Student Files" >Student Files</Nav.Link>
 						</Nav.Item>
 						<Nav.Item>
 							<Nav.Link eventKey="6" title="Actions" >Actions</Nav.Link>

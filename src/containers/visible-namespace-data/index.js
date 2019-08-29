@@ -17,9 +17,10 @@ import * as actions from 'actions';
 // FUNCTIONS //
 
 function getFilesRequest({ namespaceName, token, clbk = noop, dispatch, owner = false }) {
-	request.get( `${server}/get_${owner ? 'owner_' : ''}files`, {
+	request.get( `${server}/get_files`, {
 		qs: {
-			namespaceName
+			namespaceName,
+			owner
 		},
 		headers: {
 			'Authorization': 'JWT ' + token
