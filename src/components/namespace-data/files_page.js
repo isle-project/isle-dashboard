@@ -76,7 +76,7 @@ class FilesPage extends Component {
 	}
 
 	handleDelete = () => {
-		this.props.handleFileDeletion( this.state.deletionID );
+		this.props.handleFileDeletion( this.state.deletionID, this.props.ownerFiles );
 		this.toggleDeleteModal();
 	}
 
@@ -321,7 +321,7 @@ class FilesPage extends Component {
 				<Button size="sm" variant="secondary" onClick={this.saveCSV} >Save as CSV</Button>
 				<Button size="sm" variant="secondary" onClick={this.saveJSON} >Save as JSON</Button>
 			</ButtonGroup>
-			<FormGroup style={{
+			{ this.props.ownerFiles ? <FormGroup style={{
 				position: 'absolute',
 				top: '4px',
 				right: '16px',
@@ -337,7 +337,7 @@ class FilesPage extends Component {
 							style={{ display: 'none' }}
 						/>
 					</FormLabel>
-			</FormGroup>
+			</FormGroup> : null }
 			<ReactTable
 				filterable
 				data={this.props.files}
@@ -365,10 +365,12 @@ FilesPage.propTypes = {
 	files: PropTypes.array.isRequired,
 	handleFileDeletion: PropTypes.func.isRequired,
 	handleUpload: PropTypes.func.isRequired,
-	namespace: PropTypes.object.isRequired
+	namespace: PropTypes.object.isRequired,
+	ownerFiles: PropTypes.bool
 };
 
 FilesPage.defaultProps = {
+	ownerFiles: false
 };
 
 

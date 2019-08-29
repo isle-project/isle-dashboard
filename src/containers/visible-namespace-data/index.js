@@ -16,8 +16,8 @@ import * as actions from 'actions';
 
 // FUNCTIONS //
 
-function getFilesRequest({ namespaceName, token, clbk = noop, dispatch }) {
-	request.get( server+'/get_files', {
+function getFilesRequest({ namespaceName, token, clbk = noop, dispatch, owner = false }) {
+	request.get( `${server}/get_${owner ? 'owner_' : ''}files`, {
 		qs: {
 			namespaceName
 		},
@@ -68,6 +68,9 @@ function mapDispatchToProps( dispatch ) {
 		getFiles: ({ namespaceName, token }, clbk ) => {
 			getFilesRequest({ namespaceName, token, clbk, dispatch });
 		},
+		getOwnerFiles: ({ namespaceName, token }, clbk ) => {
+			getFilesRequest({ namespaceName, token, clbk, dispatch, owner: true });
+		},
 		getNamespaceActions: ({ namespaceID, token }, clbk ) => {
 			request.post( server+'/get_namespace_actions', {
 				form: {
@@ -81,7 +84,7 @@ function mapDispatchToProps( dispatch ) {
 		addNotification: ( notification ) => {
 			dispatch( actions.addNotification( notification ) );
 		},
-		deleteFile: ( _id, namespaceName, token ) => {
+		deleteFile: ( _id, namespaceName, token, owner ) => {
 			request.get( server+'/delete_file', {
 				qs: {
 					_id
@@ -97,7 +100,7 @@ function mapDispatchToProps( dispatch ) {
 						level: 'error'
 					}) );
 				}
-				getFilesRequest({ namespaceName, token, dispatch });
+				getFilesRequest({ namespaceName, token, dispatch, owner });
 				return dispatch( actions.addNotification({
 					title: 'File Deleted',
 					message: 'File successfully deleted',
@@ -193,7 +196,8 @@ function mapDispatchToProps( dispatch ) {
 						getFilesRequest({
 							namespaceName: formData.get( 'namespaceName' ),
 							token,
-							dispatch
+							dispatch,
+							owner: formData.get( 'owner' )
 						});
 					} else {
 						message = xhr.responseText;
