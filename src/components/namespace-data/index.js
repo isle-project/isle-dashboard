@@ -36,7 +36,7 @@ class NamespaceData extends Component {
 		debug( 'Uploading file...' );
 		const file = event.target.files[ 0 ];
 		const formData = new FormData();
-		formData.append( 'owner', this.props.user.id );
+		formData.append( 'owner', true );
 		formData.append( 'namespaceName', this.props.namespace.title );
 		formData.append( 'file', file );
 		this.props.uploadFile({
@@ -70,13 +70,19 @@ class NamespaceData extends Component {
 		});
 	}
 
-	handleFileDeletion = ( _id ) => {
-		this.props.deleteFile( _id, this.props.namespace.title, this.props.user.token );
+	handleFileDeletion = ( _id, ownerFiles ) => {
+		this.props.deleteFile( _id, this.props.namespace.title, this.props.user.token, ownerFiles );
 	}
 
 	handleSelect = ( selectedKey ) => {
 		selectedKey = Number( selectedKey );
 		if ( selectedKey === 4 ) {
+			this.props.getOwnerFiles({
+				namespaceName: this.props.namespace.title,
+				token: this.props.user.token
+			});
+		}
+		if ( selectedKey === 5 ) {
 			this.props.getFiles({
 				namespaceName: this.props.namespace.title,
 				token: this.props.user.token
@@ -96,8 +102,10 @@ class NamespaceData extends Component {
 			case 3:
 				return <CohortsPage badges={this.props.badges} cohorts={this.props.namespace.cohorts} lessons={this.props.namespace.lessons} />;
 			case 4:
-				return <FilesPage files={this.props.namespace.files} namespace={this.props.namespace} handleUpload={this.handleUpload} handleFileDeletion={this.handleFileDeletion} addNotification={this.props.addNotification} />;
+				return <FilesPage ownerFiles files={this.props.namespace.files} namespace={this.props.namespace} handleUpload={this.handleUpload} handleFileDeletion={this.handleFileDeletion} addNotification={this.props.addNotification} />;
 			case 5:
+				return <FilesPage files={this.props.namespace.files} namespace={this.props.namespace} handleUpload={this.handleUpload} handleFileDeletion={this.handleFileDeletion} addNotification={this.props.addNotification} />;
+			case 6:
 				return <ActionsPage namespace={this.props.namespace} getNamespaceActions={this.props.getNamespaceActions} user={this.props.user} cohorts={this.props.namespace.cohorts} />;
 		}
 	}
@@ -123,10 +131,13 @@ class NamespaceData extends Component {
 							<Nav.Link eventKey="3" title="Cohorts" >Cohorts</Nav.Link>
 						</Nav.Item>
 						<Nav.Item>
-							<Nav.Link eventKey="4" title="Files" >Files</Nav.Link>
+							<Nav.Link eventKey="4" title="Owner Files" >Owner Files</Nav.Link>
 						</Nav.Item>
 						<Nav.Item>
-							<Nav.Link eventKey="5" title="Actions" >Actions</Nav.Link>
+							<Nav.Link eventKey="5" title="All Files" >All Files</Nav.Link>
+						</Nav.Item>
+						<Nav.Item>
+							<Nav.Link eventKey="6" title="Actions" >Actions</Nav.Link>
 						</Nav.Item>
 					</Nav>
 				</div>
