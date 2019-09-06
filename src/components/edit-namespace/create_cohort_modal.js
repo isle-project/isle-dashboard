@@ -10,6 +10,7 @@ import { DateRangePicker } from 'react-dates';
 import moment from 'moment';
 import isEmail from '@stdlib/assert/is-email-address';
 import TextSelect from 'components/text-select';
+import './cohort_modal.css';
 
 
 // FUNCTIONS //
@@ -128,7 +129,7 @@ class CreateCohortModal extends Component {
 			<hr />
 			<Row>
 				<OverlayTrigger placement="right" overlay={<Tooltip id="ownerTooltip">Comma-separated list of email addresses denoting the students for this cohort</Tooltip>}>
-					<FormGroup style={{ width: '100%' }}>
+					<FormGroup className="cohort-modal-enrolled-group" >
 						<FormLabel>Enrolled Students</FormLabel>
 						<TextSelect
 							onChange={this.handleStudentChange}
