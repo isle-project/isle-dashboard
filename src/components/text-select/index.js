@@ -8,9 +8,25 @@ import { components } from 'react-select';
 import Tooltip from 'react-bootstrap/Tooltip';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import contains from '@stdlib/assert/contains';
+import merge from '@stdlib/utils/merge';
 
 
 // VARIABLES //
+
+const customStyles = {
+	clearIndicator: ( provided, state ) => ({
+		...provided,
+		cursor: 'pointer'
+	}),
+	multiValueRemove: ( provided, state ) => ({
+		...provided,
+		cursor: 'pointer'
+	}),
+	valueContainer: ( provided, state ) => ({
+		...provided,
+		cursor: 'text'
+	})
+};
 
 const customComponents = {
 	DropdownIndicator: null,
@@ -107,7 +123,7 @@ class TextSelect extends Component {
 				onKeyDown={this.handleKeyDown}
 				placeholder="Enter email addresses..."
 				value={value}
-				styles={this.props.styles}
+				styles={merge( customStyles, this.props.styles )}
 			/>
 		);
 	}
