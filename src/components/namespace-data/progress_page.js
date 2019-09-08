@@ -27,7 +27,7 @@ function filterNumbersFactory( lessons, idx ) {
 		const data = row[ filter.id ];
 		const lessonData = data[ lessons[ idx ]._id ];
 		if ( isUndefinedOrNull( lessonData ) ) {
-			return ( filter.value.min === 0 && filter.value.max === 100 );
+			return filter.value.min === 0;
 		}
 		const progress = min( round( lessonData.progress*100 ), 100 );
 		return progress >= filter.value.min && progress <= filter.value.max;
