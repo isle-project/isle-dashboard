@@ -105,7 +105,6 @@ class NewPassword extends Component {
 		const target = event.target;
 		const value = target.value;
 		const name = target.name;
-
 		this.setState({
 			[ name ]: value
 		});
@@ -114,12 +113,12 @@ class NewPassword extends Component {
 	getPasswordValidationState = () => {
 		const { password, passwordRepeat } = this.state;
 		if ( password.length < 6 || passwordRepeat.length === 0 ) {
-			return 'warning';
+			return false;
 		}
 		if ( password !== passwordRepeat ) {
-			return 'error';
+			return false;
 		}
-		return 'success';
+		return true;
 	}
 
 	close = () => {
@@ -127,6 +126,8 @@ class NewPassword extends Component {
 	}
 
 	render() {
+		const enteredPasswords = this.state.password || this.state.passwordRepeat;
+		const validPasswords = this.getPasswordValidationState();
 		return (
 			<div>
 				<div className="login">
@@ -144,19 +145,20 @@ class NewPassword extends Component {
 											<FormLabel>Token</FormLabel>
 										</Col>
 										<Col sm={10}>
-											<FormControl
-												name="token"
-												type="token"
-												onChange={this.handleInputChange}
-												value={this.state.token}
-											/>
+											<OverlayTrigger placement="right" overlay={createTooltip( 'User token. Do not change if pre-filled.' )}>
+												<FormControl
+													name="token"
+													type="token"
+													onChange={this.handleInputChange}
+													value={this.state.token}
+												/>
+											</OverlayTrigger>
 										</Col>
 									</Row>
 								</FormGroup>
 								<OverlayTrigger placement="right" overlay={createTooltip( 'Please enter a new password with at least six characters' )}>
 									<FormGroup
 										controlId="form-password"
-										validationState={this.getPasswordValidationState()}
 									>
 										<Row>
 											<Col sm={2}>
@@ -170,15 +172,18 @@ class NewPassword extends Component {
 													onChange={this.handleInputChange}
 													maxLength={30}
 													minLength={6}
+													autoComplete="new-password"
+													isInvalid={enteredPasswords && !validPasswords}
 												/>
-												<FormControl.Feedback />
+												<FormControl.Feedback type="invalid">
+													Please enter a new password with at least six characters.
+												</FormControl.Feedback>
 											</Col>
 										</Row>
 									</FormGroup>
 								</OverlayTrigger>
 								<FormGroup
 									controlId="form-password-confirmation"
-									validationState={this.getPasswordValidationState()}
 								>
 									<Row>
 										<Col sm={{ span: 10, offset: 2 }}>
@@ -189,8 +194,12 @@ class NewPassword extends Component {
 												onChange={this.handleInputChange}
 												maxLength={30}
 												minLength={6}
+												autoComplete="new-password"
+												isInvalid={enteredPasswords && !validPasswords}
 											/>
-											<FormControl.Feedback />
+											<FormControl.Feedback type="invalid">
+												Passwords do not match.
+											</FormControl.Feedback>
 										</Col>
 									</Row>
 								</FormGroup>
@@ -206,11 +215,11 @@ class NewPassword extends Component {
 						</Card.Body>
 					</Card>
 				</div>
-				<MsgModal
+				{ this.state.showModal ? <MsgModal
 					show={this.state.showModal}
 					close={this.close}
 					message={this.state.message}
-				/>
+				/> : null }
 				<Overlay
 					show={this.state.showSubmitOverlay}
 					target={this.state.overlayTarget}
