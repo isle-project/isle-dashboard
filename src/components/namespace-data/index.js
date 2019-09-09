@@ -23,8 +23,31 @@ class NamespaceData extends Component {
 	constructor( props ) {
 		super( props );
 
+		const subpage = props.match.params.subpage;
+		let activePage;
+		switch ( subpage ) {
+			default:
+			case 'announcements':
+				activePage = 1;
+				break;
+			case 'progress':
+				activePage = 2;
+				break;
+			case 'cohorts':
+				activePage = 3;
+				break;
+			case 'owner-files':
+				activePage = 4;
+				break;
+			case 'student-files':
+				activePage = 5;
+				break;
+			case 'actions':
+				activePage = 6;
+				break;
+		}
 		this.state = {
-			activePage: 1
+			activePage
 		};
 	}
 
@@ -76,6 +99,26 @@ class NamespaceData extends Component {
 
 	handleSelect = ( selectedKey ) => {
 		selectedKey = Number( selectedKey );
+		switch ( selectedKey ) {
+			case 1:
+				this.props.history.replace( '/namespace-data/announcements' );
+				break;
+			case 2:
+				this.props.history.replace( '/namespace-data/progress' );
+				break;
+			case 3:
+				this.props.history.replace( '/namespace-data/cohorts' );
+				break;
+			case 4:
+				this.props.history.replace( '/namespace-data/owner-files' );
+				break;
+			case 5:
+				this.props.history.replace( '/namespace-data/student-files' );
+				break;
+			case 6:
+				this.props.history.replace( '/namespace-data/actions' );
+				break;
+		}
 		if ( selectedKey === 4 ) {
 			this.props.getOwnerFiles({
 				namespaceName: this.props.namespace.title,

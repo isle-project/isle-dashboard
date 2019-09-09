@@ -5,7 +5,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { persistStore, persistReducer } from 'redux-persist';
-import storage from 'redux-persist/lib/storage'; // defaults to localStorage for web
+import storage from 'redux-persist/lib/storage'; // Defaults to localStorage
 import { PersistGate } from 'redux-persist/integration/react';
 import { createHashHistory } from 'history';
 import { createStore, applyMiddleware } from 'redux';
