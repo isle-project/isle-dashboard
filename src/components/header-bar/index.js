@@ -45,8 +45,6 @@ class HeaderBar extends Component {
 	constructor( props ) {
 		super( props );
 
-		console.log( props.match );
-
 		this.state = {
 			showNamespacesOverlay: false,
 			location: 'Dashboard',
@@ -60,6 +58,8 @@ class HeaderBar extends Component {
 			let subset = user.enrolledNamespaces.filter( x => x.title === match.params.namespace );
 			if ( subset.length > 0 ) {
 				this.props.onEnrolledNamespace( subset[ 0 ], user.token );
+
+				// eslint-disable-next-line react/no-did-mount-set-state
 				this.setState({
 					location: 'Course'
 				});
@@ -68,6 +68,8 @@ class HeaderBar extends Component {
 				subset = user.ownedNamespaces.filter( x => x.title === match.params.namespace );
 				if ( subset.length > 0 ) {
 					this.props.onNamespace( subset[ 0 ], user.token );
+
+					// eslint-disable-next-line react/no-did-mount-set-state
 					this.setState({
 						location: 'Course'
 					});
