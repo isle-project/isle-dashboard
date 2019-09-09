@@ -103,7 +103,11 @@ class App extends Component {
 						component={AsyncEditNamespace}
 					/>
 					<Route
-						path="/namespace-data"
+						path="/namespace-data" exact
+						component={AsyncNamespaceData}
+					/>
+					<Route
+						path="/namespace-data/:subpage"
 						component={AsyncNamespaceData}
 					/>
 					<Route
