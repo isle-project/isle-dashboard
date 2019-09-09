@@ -9,7 +9,7 @@ import * as types from 'constants/action_types.js';
 
 const initialState = {
 	phrase: null,
-	type: 'alphabetically',
+	type: 'created_at',
 	direction: 'ascending'
 };
 
