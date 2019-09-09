@@ -88,6 +88,7 @@ class App extends Component {
 							'/namespace-data',
 							'/profile',
 							'/lessons',
+							'/lessons/:namespace',
 							'/gallery',
 							'/enroll'
 						]}
@@ -115,7 +116,11 @@ class App extends Component {
 						component={AsyncProfilePage}
 					/>
 					<Route
-						path="/lessons"
+						path="/lessons" exact
+						component={AsyncLessonsPage}
+					/>
+					<Route
+						path="/lessons/:namespace"
 						component={AsyncLessonsPage}
 					/>
 					<Route
