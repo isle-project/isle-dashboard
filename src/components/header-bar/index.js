@@ -30,7 +30,7 @@ const namespaceListGroup = ( namespaces, clickFactory ) => (
 				key={id}
 				style={{ padding: '5px 10px' }}
 			>
-				<Link to="/lessons" onClick={clickFactory( id )}>
+				<Link to={`/lessons/${x.title}`} onClick={clickFactory( id )}>
 					{x.title}
 				</Link>
 			</ListGroupItem>
@@ -45,11 +45,35 @@ class HeaderBar extends Component {
 	constructor( props ) {
 		super( props );
 
+		console.log( props.match );
+
 		this.state = {
 			showNamespacesOverlay: false,
 			location: 'Dashboard',
 			searchPhrase: ''
 		};
+	}
+
+	componentDidMount() {
+		const { namespace, match, user } = this.props;
+		if ( namespace && namespace.title !== match.params.namespace ) {
+			let subset = user.enrolledNamespaces.filter( x => x.title === match.params.namespace );
+			if ( subset.length > 0 ) {
+				this.props.onEnrolledNamespace( subset[ 0 ], user.token );
+				this.setState({
+					location: 'Course'
+				});
+			}
+			else {
+				subset = user.ownedNamespaces.filter( x => x.title === match.params.namespace );
+				if ( subset.length > 0 ) {
+					this.props.onNamespace( subset[ 0 ], user.token );
+					this.setState({
+						location: 'Course'
+					});
+				}
+			}
+		}
 	}
 
 	componentDidUpdate( prevProps ) {
@@ -89,7 +113,7 @@ class HeaderBar extends Component {
 	}
 
 	goBackToLesson = () => {
-		this.props.history.replace( '/lessons' );
+		this.props.history.replace( `/lessons/${this.props.namespace.title}` );
 		this.setState({
 			location: 'Course'
 		});
@@ -109,7 +133,6 @@ class HeaderBar extends Component {
 			showNamespacesOverlay: false
 		});
 	}
-
 
 	goToCourseEditPage() {
 		this.props.history.replace( '/edit-namespace' );
