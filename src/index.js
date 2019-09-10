@@ -20,7 +20,8 @@ import 'css/index.css';
 
 const persistConfig = {
 	key: 'root',
-	storage
+	storage,
+	blacklist: ['router']
 };
 const history = createHashHistory();
 const rootReducer = createRootReducer( history );

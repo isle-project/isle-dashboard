@@ -85,10 +85,11 @@ class App extends Component {
 						path={[
 							'/create-namespace',
 							'/edit-namespace/:namespace',
+							'/edit-namespace',
 							'/namespace-data',
 							'/profile',
-							'/lessons',
 							'/lessons/:namespace',
+							'/lessons',
 							'/gallery',
 							'/enroll'
 						]}
