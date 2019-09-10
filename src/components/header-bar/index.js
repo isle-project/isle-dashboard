@@ -297,7 +297,7 @@ class HeaderBar extends Component {
 		const pth = this.props.history.location.pathname;
 		if (
 			( !this.props.namespace.title && pth === '/lessons' ) ||
-			( pth !== '/lessons' && pth!== '/gallery' )
+			( pth !== `/lessons/${this.props.namespace.title}` && pth!== '/gallery' )
 		) {
 			return null;
 		}
@@ -348,7 +348,7 @@ class HeaderBar extends Component {
 		const pth = this.props.history.location.pathname;
 		if (
 			( !this.props.namespace.title && pth === '/lessons' ) ||
-			( pth !== '/lessons' && pth!== '/gallery' )
+			( pth !== `/lessons/${this.props.namespace.title}` && pth!== '/gallery' )
 		) {
 			return null;
 		}
