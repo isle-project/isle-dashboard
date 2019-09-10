@@ -137,7 +137,7 @@ class HeaderBar extends Component {
 	}
 
 	goToCourseEditPage() {
-		this.props.history.replace( '/edit-namespace' );
+		this.props.history.replace( `/edit-namespace/${this.props.namespace.title}` );
 		this.setState({
 			location: 'Dashboard'
 		});

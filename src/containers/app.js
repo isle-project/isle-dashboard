@@ -84,7 +84,7 @@ class App extends Component {
 					<Route
 						path={[
 							'/create-namespace',
-							'/edit-namespace',
+							'/edit-namespace/:namespace',
 							'/namespace-data',
 							'/profile',
 							'/lessons',
@@ -100,7 +100,7 @@ class App extends Component {
 						component={AsyncCreateNamespace}
 					/>
 					<Route
-						path="/edit-namespace"
+						path="/edit-namespace/:namespace"
 						component={AsyncEditNamespace}
 					/>
 					<Route
