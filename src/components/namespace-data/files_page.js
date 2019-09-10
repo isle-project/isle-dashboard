@@ -252,7 +252,10 @@ class FilesPage extends Component {
 				Header: 'Date',
 				accessor: 'updatedAt',
 				Cell: ( row ) => {
-					return row.value.toLocaleDateString( 'en-US' );
+					if ( row.value && row.value.toLocaleDateString ) {
+						return row.value.toLocaleDateString( 'en-US' );
+					}
+					return '';
 				},
 				maxWidth: 120
 			},
