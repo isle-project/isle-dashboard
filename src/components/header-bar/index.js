@@ -2,6 +2,7 @@
 
 import React, { Component, Fragment } from 'react';
 import { Link } from 'react-router-dom';
+import logger from 'debug';
 import {
 	Button, ButtonGroup, DropdownButton, Dropdown, FormGroup, FormControl, Image, InputGroup,
 	Overlay, OverlayTrigger, Popover, ListGroupItem, ListGroup, Tooltip
@@ -16,6 +17,7 @@ import './header_bar.css';
 
 // VARIABLES //
 
+const debug = logger( 'isle:header-bar' );
 const createCourseTooltip = <Tooltip id="new_course">Create a new course</Tooltip>;
 const editCourseTooltip = <Tooltip id="edit_course">Edit course</Tooltip>;
 const courseDataTooltip = <Tooltip id="course_data">Course Data</Tooltip>;
@@ -53,27 +55,34 @@ class HeaderBar extends Component {
 	}
 
 	componentDidMount() {
+		debug( 'Header bar did mount...' );
 		const { namespace, match, user } = this.props;
-		if ( namespace && namespace.title !== match.params.namespace ) {
-			let subset = user.enrolledNamespaces.filter( x => x.title === match.params.namespace );
-			if ( subset.length > 0 ) {
-				this.props.onEnrolledNamespace( subset[ 0 ], user.token );
-
-				// eslint-disable-next-line react/no-did-mount-set-state
-				this.setState({
-					location: 'Course'
-				});
-			}
-			else {
-				subset = user.ownedNamespaces.filter( x => x.title === match.params.namespace );
+		if ( namespace ) {
+			if ( namespace.title !== match.params.namespace ) {
+				let subset = user.enrolledNamespaces.filter( x => x.title === match.params.namespace );
 				if ( subset.length > 0 ) {
-					this.props.onNamespace( subset[ 0 ], user.token );
+					this.props.onEnrolledNamespace( subset[ 0 ], user.token );
 
 					// eslint-disable-next-line react/no-did-mount-set-state
 					this.setState({
 						location: 'Course'
 					});
 				}
+				else {
+					subset = user.ownedNamespaces.filter( x => x.title === match.params.namespace );
+					if ( subset.length > 0 ) {
+						this.props.onNamespace( subset[ 0 ], user.token );
+
+						// eslint-disable-next-line react/no-did-mount-set-state
+						this.setState({
+							location: 'Course'
+						});
+					}
+				}
+			}
+			else {
+				// Retrieve (updated) lessons upon mounting in all cases:
+				this.props.onNamespace( namespace, user.token );
 			}
 		}
 	}
