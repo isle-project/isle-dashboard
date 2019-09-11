@@ -12,3 +12,4 @@ TODO
   -   Use of von Mises mixture model; port to JavaScript? for now, provide R interface to receive document-term matrix and return a list of cluster assignments
 5.  For dendograms, add hierarchical clustering with *minmax linkage*
 6.  Directory structure or keyword tagging for lessons? Make it easier to navigate a larger course
+7.  Make sure copying to clipboard works on Firefox
