@@ -61,6 +61,7 @@ function mapStateToProps( state ) {
 	};
 }
 
+
 function mapDispatchToProps( dispatch ) {
 	return {
 		handleLogin: ( form, clbk ) => {
@@ -69,7 +70,10 @@ function mapDispatchToProps( dispatch ) {
 				form
 			}, clbk );
 		},
-		fetchCredentials: ( obj ) => {
+		restoreLogin: ( user ) => {
+			dispatch( actions.loggedIn( user ) );
+		},
+		fetchCredentials: ( obj, clbk ) => {
 			debug( 'Fetch user credentials...' );
 			localStorage.setItem( 'ISLE_USER_'+server, JSON.stringify( obj ) );
 			request.post( server+'/credentials_dashboard', {
@@ -81,7 +85,7 @@ function mapDispatchToProps( dispatch ) {
 				}
 			}, function onLogin( error, response, user ) {
 				if ( error ) {
-					return error;
+					return clbk( error );
 				}
 				user = JSON.parse( user );
 				if ( user.picture ) {
@@ -93,25 +97,6 @@ function mapDispatchToProps( dispatch ) {
 				};
 				let [ sanitizedUser, needsSanitizing ] = sanitizeUser( user );
 				dispatch( actions.loggedIn( sanitizedUser ) );
-				request.get( server+'/get_enrollable_cohorts', {
-					headers: {
-						'Authorization': 'JWT ' + obj.token
-					}
-				}, function onCohorts( error, response, body ) {
-					if ( error ) {
-						return error;
-					}
-					body = JSON.parse( body );
-					let cohorts = body.cohorts;
-					cohorts = cohorts.filter( elem => {
-						let emailFilter = elem.emailFilter || '';
-						if ( isRegExpString( emailFilter ) ) {
-							emailFilter = reFromString( emailFilter );
-						}
-						return contains( sanitizedUser.email, emailFilter );
-					});
-					dispatch( actions.retrievedEnrollableCohorts( cohorts ) );
-				});
 				if ( needsSanitizing ) {
 					request.post( server+'/sanitize_user', {
 						headers: {
@@ -126,6 +111,28 @@ function mapDispatchToProps( dispatch ) {
 						}
 					});
 				}
+				return clbk( null, sanitizedUser );
+			});
+		},
+		getEnrollableCohorts: ( user ) => {
+			request.get( server+'/get_enrollable_cohorts', {
+				headers: {
+					'Authorization': 'JWT ' + user.token
+				}
+			}, function onCohorts( error, response, body ) {
+				if ( error ) {
+					return error;
+				}
+				body = JSON.parse( body );
+				let cohorts = body.cohorts;
+				cohorts = cohorts.filter( elem => {
+					let emailFilter = elem.emailFilter || '';
+					if ( isRegExpString( emailFilter ) ) {
+						emailFilter = reFromString( emailFilter );
+					}
+					return contains( user.email, emailFilter );
+				});
+				dispatch( actions.retrievedEnrollableCohorts( cohorts ) );
 			});
 		}
 	};
