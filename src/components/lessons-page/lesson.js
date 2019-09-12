@@ -239,7 +239,11 @@ class Lesson extends Component {
 							}}
 							onError={addDefaultSrc}
 						/>
-						<div className="overlay" >
+						<div
+							className="overlay"
+							onClick={this.openLesson} onKeyPress={this.openLesson}
+							tabIndex={0} role="button"
+						>
 							<h2>{this.props.title}</h2>
 							{this.props.description !== DEFAULT_DESCRIPTION ?
 								<h3>{this.props.description}</h3> :
@@ -249,10 +253,7 @@ class Lesson extends Component {
 								ref={( link ) => {
 									this.link = link;
 								}}
-								role="button"
 								className="info"
-								onClick={this.openLesson} onKeyPress={this.openLesson}
-								tabIndex={0}
 							>
 								Open Lesson
 							</span>
