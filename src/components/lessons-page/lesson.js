@@ -2,6 +2,7 @@
 
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
+import logger from 'debug';
 import {
 	Badge, Button, ButtonGroup, ButtonToolbar, Card, OverlayTrigger, Tooltip
 } from 'react-bootstrap';
@@ -17,6 +18,7 @@ import './lesson.css';
 // VARIABLES //
 
 const DEFAULT_DESCRIPTION = 'No description supplied.';
+const debug = logger( 'isle:lessons-page:lesson' );
 
 
 // FUNCTIONS //
@@ -34,7 +36,8 @@ class Lesson extends Component {
 
 		this.state = {
 			showDeleteModal: false,
-			showDetailsModal: false
+			showDetailsModal: false,
+			isleFile: null
 		};
 	}
 
@@ -103,13 +106,45 @@ class Lesson extends Component {
 	}
 
 	getIsleFile = () => {
-		this.props.getIsleFile({
-			lessonName: this.props.title,
-			namespaceName: this.props.namespace,
-			token: this.props.token,
-			callback( err, body ) {
-				copyToClipboard( body );
-			}
+		debug( 'Request ISLE source code from server...' );
+		if ( !this.state.isleFile ) {
+			this.props.getIsleFile({
+				lessonName: this.props.title,
+				namespaceName: this.props.namespace,
+				token: this.props.token,
+				callback: ( err, body ) => {
+					if ( err ) {
+						return this.props.addNotification({
+							message: err.message,
+							level: 'error'
+						});
+					}
+					this.setState({
+						isleFile: body
+					});
+				}
+			});
+		}
+	}
+
+	copyIsleFileToClipboard = () => {
+		if ( !this.state.isleFile ) {
+			return this.props.addNotification({
+				message: 'Source could not be fetched. Please try again in a few seconds.',
+				level: 'error'
+			});
+		}
+		const promise = copyToClipboard( this.state.isleFile );
+		promise.then( () => {
+			this.props.addNotification({
+				message: 'Source code has been copied to the clipboard',
+				level: 'success'
+			});
+		}).catch( err => {
+			this.props.addNotification({
+				message: err.message,
+				level: 'error'
+			});
 		});
 	}
 
@@ -158,7 +193,7 @@ class Lesson extends Component {
 					</Button>
 				</OverlayTrigger>
 				<OverlayTrigger placement="top" overlay={<Tooltip id="isle-file">Copy ISLE file to clipboard</Tooltip>}>
-					<Button variant="secondary" size="sm" onClick={this.getIsleFile} style={{ float: 'right' }}>
+					<Button variant="secondary" size="sm" onFocus={this.getIsleFile} onMouseEnter={this.getIsleFile} onClick={this.copyIsleFileToClipboard} style={{ float: 'right' }}>
 						<i className="fa fa-clipboard"></i>
 					</Button>
 				</OverlayTrigger>

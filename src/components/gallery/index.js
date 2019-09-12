@@ -208,6 +208,7 @@ class Gallery extends Component {
 								{...lessons[ i ]}
 								token={this.props.user.token}
 								getIsleFile={this.props.getIsleFile}
+								addNotification={this.props.addNotification}
 								openedNamespace={this.props.openedNamespace}
 								key={i}
 								onImport={() => {
@@ -231,6 +232,7 @@ class Gallery extends Component {
 // PROPERTIES //
 
 Gallery.propTypes = {
+	addNotification: PropTypes.func.isRequired,
 	copyLesson: PropTypes.func.isRequired,
 	findPublicLessons: PropTypes.func.isRequired,
 	gallery: PropTypes.object.isRequired,
