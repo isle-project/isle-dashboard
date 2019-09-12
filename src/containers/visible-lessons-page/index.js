@@ -22,6 +22,9 @@ function mapStateToProps( state ) {
 
 function mapDispatchToProps( dispatch ) {
 	return {
+		addNotification: ( notification ) => {
+			dispatch( actions.addNotification( notification ) );
+		},
 		showLessonInGallery: ({ lessonName, namespaceName, token }) => {
 			request.get( server+'/show_lesson', {
 				qs: {
@@ -219,16 +222,8 @@ function mapDispatchToProps( dispatch ) {
 				}
 			}, function onResponse( error, response, body ) {
 				if ( error ) {
-					dispatch( actions.addNotification({
-						message: error.message,
-						level: 'error'
-					}) );
 					return callback( error );
 				}
-				dispatch( actions.addNotification({
-					message: 'Source code has been copied to the clipboard',
-					level: 'success'
-				}) );
 				return callback( null, body );
 			});
 		}

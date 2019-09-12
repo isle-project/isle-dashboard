@@ -149,6 +149,7 @@ class LessonsPage extends Component {
 				return ( <div key={`cell-${e.title}`}>
 					<Lesson
 						{...lessons[ i ]}
+						addNotification={this.props.addNotification}
 						deleteLesson={this.props.deleteLesson}
 						updateLesson={this.props.updateLesson}
 						token={this.props.user.token}
@@ -213,6 +214,7 @@ class LessonsPage extends Component {
 
 LessonsPage.propTypes = {
 	activateLesson: PropTypes.func.isRequired,
+	addNotification: PropTypes.func.isRequired,
 	deactivateLesson: PropTypes.func.isRequired,
 	deleteLesson: PropTypes.func.isRequired,
 	getIsleFile: PropTypes.func.isRequired,

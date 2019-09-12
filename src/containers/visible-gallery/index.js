@@ -23,6 +23,9 @@ function mapStateToProps( state ) {
 
 function mapDispatchToProps( dispatch ) {
 	return {
+		addNotification: ( notification ) => {
+			dispatch( actions.addNotification( notification ) );
+		},
 		copyLesson: ({ sourceName, target, targetName, source, token }) => {
 			if ( sourceName && target && source ) {
 				request.get( server+'/copy_lesson', {
@@ -88,16 +91,8 @@ function mapDispatchToProps( dispatch ) {
 				}
 			}, function onResponse( error, response, body ) {
 				if ( error ) {
-					dispatch( actions.addNotification({
-						message: error.message,
-						level: 'error'
-					}) );
 					return callback( error );
 				}
-				dispatch( actions.addNotification({
-					message: 'Source code has been copied to the clipboard',
-					level: 'success'
-				}) );
 				return callback( null, body );
 			});
 		}

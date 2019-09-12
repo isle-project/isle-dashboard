@@ -5,6 +5,7 @@ import {
 	ButtonToolbar, Button, Card, OverlayTrigger, Tooltip
 } from 'react-bootstrap';
 import PropTypes from 'prop-types';
+import logger from 'debug';
 import 'css/image.css';
 import COLORS from 'constants/colors';
 import copyToClipboard from 'clipboard-copy';
@@ -12,21 +13,62 @@ import background from './bubble.jpg';
 import upload from './upload.svg';
 
 
+// VARIABLES //
+
+const debug = logger( 'isle:gallery:lesson' );
+
+
 // MAIN //
 
 class Lesson extends Component {
 	constructor( props ) {
 		super( props );
+
+		this.state = {
+			isleFile: null
+		};
 	}
 
 	getIsleFile = () => {
-		this.props.getIsleFile({
-			lessonName: this.props.title,
-			namespaceName: this.props.namespace,
-			token: this.props.token,
-			callback( err, body ) {
-				copyToClipboard( body );
-			}
+		debug( 'Request ISLE source code from server...' );
+		if ( !this.state.isleFile ) {
+			this.props.getIsleFile({
+				lessonName: this.props.title,
+				namespaceName: this.props.namespace,
+				token: this.props.token,
+				callback: ( err, body ) => {
+					if ( err ) {
+						return this.props.addNotification({
+							message: err.message,
+							level: 'error'
+						});
+					}
+					this.setState({
+						isleFile: body
+					});
+				}
+			});
+		}
+	}
+
+	copyIsleFileToClipboard = () => {
+		if ( !this.state.isleFile ) {
+			return this.props.addNotification({
+				message: 'Source could not be fetched. Please try again in a few seconds.',
+				level: 'error'
+			});
+		}
+		const promise = copyToClipboard( this.state.isleFile );
+		promise.then( () => {
+			this.props.addNotification({
+				message: 'Source code has been copied to the clipboard',
+				level: 'success'
+			});
+		}).catch( err => {
+			this.props.addNotification({
+				message: err.message,
+				level: 'error'
+			});
 		});
 	}
 
@@ -57,7 +99,7 @@ class Lesson extends Component {
 					<span className="gallery-uploaded-image"><img style={{ stroke: 'white', fill: 'red' }} alt="Upload Time Icon" src={upload} /></span>
 				</OverlayTrigger>
 				<OverlayTrigger placement="bottom" overlay={<Tooltip id="toggle_visibility">updated at {updated}</Tooltip>}>
-				<span className="gallery-uploaded">{date}</span>
+					<span className="gallery-uploaded">{date}</span>
 				</OverlayTrigger>
 			</div>
 		);
@@ -72,7 +114,7 @@ class Lesson extends Component {
 					</Button>
 				</OverlayTrigger>
 				<OverlayTrigger placement="bottom" overlay={<Tooltip id="IsleFile">Copy ISLE file to clipboard</Tooltip>}>
-					<Button size="sm" onClick={this.getIsleFile}>
+					<Button size="sm" onFocus={this.getIsleFile} onMouseEnter={this.getIsleFile} onClick={this.copyIsleFileToClipboard} >
 						<i className="fa fa-clipboard"></i>
 					</Button>
 				</OverlayTrigger>
