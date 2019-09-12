@@ -22,6 +22,14 @@ class Login extends Component {
 		};
 	}
 
+	componentDidMount() {
+		const { user } = this.props;
+		if ( user && user.loggedIn ) {
+			this.props.restoreLogin( user );
+			this.props.getEnrollableCohorts( user );
+		}
+	}
+
 	handleSubmit = ( event ) => {
 		event.preventDefault();
 		const form = {
@@ -47,7 +55,9 @@ class Login extends Component {
 				if ( !err ) {
 					const { message, type, token, id } = JSON.parse( res.body );
 					if ( message === 'ok' ) {
-						this.props.fetchCredentials({ token, id });
+						this.props.fetchCredentials({ token, id }, ( err, user ) => {
+							this.props.getEnrollableCohorts( user );
+						});
 					} else {
 						this.setState({
 							showInputOverlay: true,
