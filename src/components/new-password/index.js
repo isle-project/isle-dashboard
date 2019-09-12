@@ -61,9 +61,7 @@ class NewPassword extends Component {
 
 	handleSubmit = ( event ) => {
 		event.preventDefault();
-		if (
-			this.getPasswordValidationState() === 'success'
-		) {
+		if ( this.getPasswordValidationState() ) {
 			request.post( server+'/update_user_password', {
 				form: {
 					id: this.state.token,
