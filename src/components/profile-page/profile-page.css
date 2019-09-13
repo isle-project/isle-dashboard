@@ -256,7 +256,7 @@
 	transition: all 0.3s;
 	border-radius: 50%;
 	box-shadow: 0 0 darkgray;
-	background-image: url(./img/badge_circle.svg);
+	background-image: url(./img/badge_circle_background.svg);
 	background-size: 100% auto;
 }
 
