@@ -71,8 +71,6 @@ class HeaderBar extends Component {
 				}
 				else {
 					subset = user.ownedNamespaces.filter( x => x.title === match.params.namespace );
-					console.log( 'SUBSET: ');
-					console.log( subset );
 					if ( subset.length > 0 ) {
 						this.props.onNamespace( subset[ 0 ], user.token );
 
