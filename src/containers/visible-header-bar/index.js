@@ -2,10 +2,16 @@
 
 import React from 'react';
 import { connect } from 'react-redux';
+import logger from 'debug';
 import request from 'request';
 import HeaderBar from 'components/header-bar';
 import server from 'constants/server';
 import * as actions from 'actions';
+
+
+// VARIABLES //
+
+const debug = logger( 'isle:header-bar' );
 
 
 // EXPORTS //
@@ -35,6 +41,7 @@ function mapDispatchToProps( dispatch ) {
 				if ( error ) {
 					return error;
 				}
+				debug( 'Received response: '+body );
 				body = JSON.parse( body );
 				if ( !body.hasMostRecent ) {
 					request.post( server+'/credentials_dashboard', {
@@ -57,6 +64,7 @@ function mapDispatchToProps( dispatch ) {
 							token: user.token,
 							...newUser
 						};
+						debug( 'Updated user data...' );
 						dispatch( actions.loggedIn( newUser ) );
 					});
 				}
