@@ -28,9 +28,9 @@ const initialState = {
 
 // FUNCTIONS //
 
-function getNamespace(namespaces, name) {
-	for (let i= 0; i < namespaces.length; i++) {
-		if (namespaces[i].title === name) {
+function getNamespace( namespaces, name ) {
+	for ( let i= 0; i < namespaces.length; i++ ) {
+		if ( namespaces[i].title === name ) {
 			return namespaces[i];
 		}
 	}
