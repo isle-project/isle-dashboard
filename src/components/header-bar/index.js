@@ -8,6 +8,7 @@ import {
 	Overlay, OverlayTrigger, Popover, ListGroupItem, ListGroup, Tooltip
 } from 'react-bootstrap';
 import isObjectArray from '@stdlib/assert/is-object-array';
+import isObject from '@stdlib/assert/is-object';
 import contains from '@stdlib/assert/contains';
 import PropTypes from 'prop-types';
 import debounce from 'lodash.debounce';
@@ -70,6 +71,8 @@ class HeaderBar extends Component {
 				}
 				else {
 					subset = user.ownedNamespaces.filter( x => x.title === match.params.namespace );
+					console.log( 'SUBSET: ');
+					console.log( subset );
 					if ( subset.length > 0 ) {
 						this.props.onNamespace( subset[ 0 ], user.token );
 
@@ -85,6 +88,7 @@ class HeaderBar extends Component {
 				this.props.onNamespace( namespace, user.token );
 			}
 		}
+		document.addEventListener( 'visibilitychange', this.handleVisibilityChange );
 	}
 
 	componentDidUpdate( prevProps ) {
@@ -93,6 +97,15 @@ class HeaderBar extends Component {
 				searchPhrase: this.props.search.phrase
 			});
 		}
+	}
+
+	componentWillUnmount() {
+		document.removeEventListener( 'visibilitychange', this.handleVisibilityChange );
+	}
+
+	handleVisibilityChange = () => {
+		debug(`Your page is ${document.visibilityState}`);
+		this.props.userUpdateCheck( this.props.user );
 	}
 
 	enrolledClickFactory = ( id ) => {
@@ -215,7 +228,22 @@ class HeaderBar extends Component {
 	}
 
 	renderDataButton() {
-		if ( !this.props.namespace.title || this.props.namespace.userStatus === 'enrolled' ) {
+		if ( !this.props.namespace.title ) {
+			return null;
+		}
+		let isOwner = false;
+		for ( let i = 0; i < this.props.namespace.owners.length; i++ ) {
+			const owner = this.props.namespace.owners[ i ];
+			if ( isObject( owner ) ) {
+				if ( owner.email === this.props.user.email ) {
+					isOwner = true;
+				}
+			} else if ( owner === this.props.user.id ) {
+				// Case: Owners array is not yet populated but contains only string IDs:
+				isOwner = true;
+			}
+		}
+		if ( !isOwner ) {
 			return null;
 		}
 		return (
