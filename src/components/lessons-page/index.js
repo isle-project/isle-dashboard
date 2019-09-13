@@ -6,6 +6,7 @@ import { Jumbotron } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import { Responsive, WidthProvider } from 'react-grid-layout';
 import isArray from '@stdlib/assert/is-array';
+import isObject from '@stdlib/assert/is-object';
 import contains from '@stdlib/assert/contains';
 import lowercase from '@stdlib/string/lowercase';
 import pluck from '@stdlib/utils/pluck';
@@ -70,6 +71,22 @@ function createLayout( lessons ) {
 	return layouts;
 }
 
+function isOwner( user, namespace ) {
+	let bool = false;
+	for ( let i = 0; i < namespace.owners.length; i++ ) {
+		const owner = namespace.owners[ i ];
+		if ( isObject( owner ) ) {
+			if ( owner.email === user.email ) {
+				bool = true;
+			}
+		} else if ( owner === user.id ) {
+			// Case: Owners array is not yet populated but contains only string IDs:
+			bool = true;
+		}
+	}
+	return bool;
+}
+
 
 // MAIN //
 
@@ -78,7 +95,7 @@ class LessonsPage extends Component {
 		super( props );
 
 		let lessons = props.namespace.lessons;
-		if ( props.namespace.userStatus === 'enrolled' ) {
+		if ( !isOwner( props.user, props.namespace ) ) {
 			debug( 'Filter out inactive lessons for enrolled students...' );
 			lessons = lessons.filter( e => e.active === true );
 		}
@@ -99,7 +116,7 @@ class LessonsPage extends Component {
 		) {
 			debug( 'Get derived state...' );
 			let lessons = nextProps.namespace.lessons || [];
-			if ( nextProps.namespace.userStatus === 'enrolled' ) {
+			if ( !isOwner( nextProps.user, nextProps.namespace ) ) {
 				debug( 'Filter out inactive lessons for enrolled students...' );
 				lessons = lessons.filter( e => e.active === true );
 			}
@@ -134,7 +151,7 @@ class LessonsPage extends Component {
 
 	renderLessons() {
 		let lessons = this.state.filteredLessons;
-		if ( this.props.namespace.userStatus === 'enrolled' ) {
+		if ( !isOwner( this.props.user, this.props.namespace ) ) {
 			return lessons.map( ( e, i ) => {
 				return (<div key={`cell-${e.title}`}>
 					<EnrolledLesson

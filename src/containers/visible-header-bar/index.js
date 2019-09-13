@@ -22,6 +22,46 @@ function mapStateToProps( state ) {
 
 function mapDispatchToProps( dispatch ) {
 	return {
+		userUpdateCheck: ( user ) => {
+			request.get( server+'/user_update_check', {
+				headers: {
+					'Authorization': 'JWT ' + user.token
+				},
+				qs: {
+					id: user.id,
+					updatedAt: user.updatedAt
+				}
+			}, function onUserCheck( error, response, body ) {
+				if ( error ) {
+					return error;
+				}
+				body = JSON.parse( body );
+				if ( !body.hasMostRecent ) {
+					request.post( server+'/credentials_dashboard', {
+						headers: {
+							'Authorization': 'JWT ' + user.token
+						},
+						form: {
+							id: user.id
+						}
+					}, function onLogin( error, response, newUser ) {
+						if ( error ) {
+							return error;
+						}
+						newUser = JSON.parse( newUser );
+						if ( newUser.picture ) {
+							newUser.picture = server + '/avatar/' + newUser.picture;
+						}
+						newUser = {
+							id: user.id,
+							token: user.token,
+							...newUser
+						};
+						dispatch( actions.loggedIn( newUser ) );
+					});
+				}
+			});
+		},
 		logout: () => {
 			localStorage.removeItem( 'ISLE_USER_'+server );
 			dispatch( actions.loggedOut() );
@@ -37,7 +77,7 @@ function mapDispatchToProps( dispatch ) {
 		},
 		onEnrolledNamespace: ({ title, description, announcements, owners, _id }) => {
 			dispatch( actions.changedNamespace({
-				title, description, announcements, owners, _id, userStatus: 'enrolled'
+				title, description, announcements, owners, _id
 			}) );
 			const namespaceName = title;
 			request.get( server+'/get_lessons', {
@@ -65,7 +105,7 @@ function mapDispatchToProps( dispatch ) {
 			});
 		},
 		onNamespace: ({ title, description, announcements, owners, _id }, userToken ) => {
-			dispatch( actions.changedNamespace({ title, description, announcements, owners, _id, userStatus: 'owner' }) );
+			dispatch( actions.changedNamespace({ title, description, announcements, owners, _id }) );
 			request.get( server+'/get_cohorts', {
 				headers: {
 					'Authorization': 'JWT ' + userToken
