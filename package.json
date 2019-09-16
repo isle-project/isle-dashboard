@@ -142,7 +142,7 @@
     "terser-webpack-plugin": "^2.0.1",
     "url-loader": "2.1.0",
     "webpack": "^4.40.0",
-    "webpack-dev-server": "3.8.0",
+    "webpack-dev-server": "3.8.1",
     "workbox-webpack-plugin": "^4.0.0"
   },
   "browserslist": [
