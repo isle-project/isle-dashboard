@@ -14,6 +14,11 @@
 	right: 16px;
 }
 
+.sort-button-group {
+	position: absolute;
+	top: 4px;
+	right: 215px;
+}
 
 /**
  * ----------------------------------------
