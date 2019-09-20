@@ -136,6 +136,7 @@ class HeaderBar extends Component {
 
 	goBackToLesson = () => {
 		this.props.history.replace( `/lessons/${this.props.namespace.title}` );
+		this.props.onNamespace( this.props.namespace, this.props.user.token );
 		this.setState({
 			location: 'Course'
 		});
