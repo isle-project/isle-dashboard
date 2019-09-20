@@ -2,9 +2,10 @@
 
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
+import logger from 'debug';
 import ReactTable from 'react-table';
 import InputRange from 'react-input-range';
-import { Button, ButtonGroup, ProgressBar } from 'react-bootstrap';
+import { Button, ButtonGroup, ProgressBar, DropdownButton, Dropdown } from 'react-bootstrap';
 import stringify from 'csv-stringify';
 import round from '@stdlib/math/base/special/round';
 import min from '@stdlib/math/base/special/min';
@@ -18,6 +19,11 @@ import saveAs from 'utils/file_saver.js';
 import formatTime from 'utils/format_time.js';
 import './progress_page.css';
 import './input_range.css';
+
+
+// VARIABLES //
+
+const debug = logger( 'isle:progress-page' );
 
 
 // FUNCTIONS //
@@ -174,6 +180,7 @@ function createColumns( lessons, cohorts ) {
 		COLUMNS.push({
 			id: 'lesson_'+i,
 			Header: lessons[ i ].title,
+			_lesson: lessons[ i ],
 			Cell: accessorFactory( lessons, i ),
 			accessor: 'lessonData',
 			sortMethod: sortFactory( lessons, i ),
@@ -215,7 +222,9 @@ class ProgressPage extends Component {
 
 		this.columns = createColumns( props.lessons, props.cohorts );
 		this.state = {
-			displayedMembers: []
+			displayedMembers: [],
+			lessonSortDirection: 'ascending',
+			lessonOrder: 'createdAt'
 		};
 	}
 
@@ -307,9 +316,82 @@ class ProgressPage extends Component {
 		});
 	}
 
+	reorderColumns( lessonOrder, lessonSortDirection ) {
+		debug( 'Sort columns by '+lessonOrder+' in '+lessonSortDirection+' order' );
+		if ( lessonSortDirection === 'ascending' ) {
+			return this.columns.slice().sort( ( a, b ) => {
+				if ( !a._lesson || !b._lesson ) {
+					return 1;
+				}
+				if ( lessonOrder === 'title' ) {
+					return a._lesson.title.localeCompare( b._lesson.title );
+				}
+				return a._lesson[ lessonOrder ] > b._lesson[ lessonOrder ] ? 1 : -1;
+			});
+		}
+		return this.columns.slice().sort( ( a, b ) => {
+			if ( !a._lesson || !b._lesson ) {
+				return 1;
+			}
+			if ( lessonOrder === 'title' ) {
+				return b._lesson.title.localeCompare( a._lesson.title );
+			}
+			return a._lesson[ lessonOrder ] < b._lesson[ lessonOrder ] ? 1 : -1;
+		});
+	}
+
+	renderSortButton() {
+		let title;
+		switch ( this.state.lessonOrder ) {
+			case 'title':
+				title = 'Sort alphabetically';
+				break;
+			case 'createdAt':
+				title = 'Sort by create date';
+				break;
+			case 'updatedAt':
+				title = 'Sort by update date';
+				break;
+		}
+		return (
+			<ButtonGroup className="sort-button-group" >
+				<DropdownButton size="sm" variant="secondary" onSelect={( newValue ) => {
+					this.columns = this.reorderColumns( newValue, this.state.lessonSortDirection );
+					console.log( this.columns );
+					this.setState({ lessonOrder: newValue });
+				}} id="dropdown" title={<small>{title}</small>} >
+					<Dropdown.Item eventKey="title" >
+						<small>Sort alphabetically</small>
+					</Dropdown.Item>
+					<Dropdown.Item eventKey="createdAt" >
+						<small>Sort by create date</small>
+					</Dropdown.Item>
+					<Dropdown.Item eventKey="updatedAt" >
+						<small>Sort by update date</small>
+					</Dropdown.Item>
+				</DropdownButton>
+				<Button size="sm" variant="secondary" style={{ marginLeft: 2 }} onClick={() => {
+					if ( this.state.lessonSortDirection === 'ascending' ) {
+						this.columns = this.reorderColumns( this.state.lessonOrder, 'descending' );
+						this.setState({ lessonSortDirection: 'descending' });
+					} else {
+						this.columns = this.reorderColumns( this.state.lessonOrder, 'ascending' );
+						this.setState({ lessonSortDirection: 'ascending' });
+					}
+				}}>
+					{ this.state.lessonSortDirection === 'ascending' ?
+						<i className="fas fa-arrow-right" /> :
+						<i className="fas fa-arrow-left" />
+					}
+				</Button>
+			</ButtonGroup>
+		);
+	}
+
 	render() {
 		return (
 			<Fragment>
+				{this.renderSortButton()}
 				<ButtonGroup className="progress-button-group" >
 					<Button size="sm" variant="secondary" onClick={this.saveCSV} >Save as CSV</Button>
 					<Button size="sm" variant="secondary" onClick={this.saveJSON} >Save as JSON</Button>
@@ -336,6 +418,7 @@ class ProgressPage extends Component {
 ProgressPage.propTypes = {
 	addNotification: PropTypes.func.isRequired,
 	cohorts: PropTypes.array.isRequired,
+	lessons: PropTypes.array.isRequired,
 	namespace: PropTypes.object.isRequired
 };
 
