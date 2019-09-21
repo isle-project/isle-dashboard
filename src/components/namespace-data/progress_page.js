@@ -357,7 +357,6 @@ class ProgressPage extends Component {
 			<ButtonGroup className="sort-button-group" >
 				<DropdownButton size="sm" variant="secondary" onSelect={( newValue ) => {
 					this.columns = this.reorderColumns( newValue, this.state.lessonSortDirection );
-					console.log( this.columns );
 					this.setState({ lessonOrder: newValue });
 				}} id="dropdown" title={<small>{title}</small>} >
 					<Dropdown.Item eventKey="title" >
