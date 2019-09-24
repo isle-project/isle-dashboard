@@ -62,6 +62,7 @@ class HeaderBar extends Component {
 			if ( namespace.title !== match.params.namespace ) {
 				let subset = user.enrolledNamespaces.filter( x => x.title === match.params.namespace );
 				if ( subset.length > 0 ) {
+					debug( 'Open enrolled namespace...' );
 					this.props.onEnrolledNamespace( subset[ 0 ], user.token );
 
 					// eslint-disable-next-line react/no-did-mount-set-state
@@ -72,6 +73,7 @@ class HeaderBar extends Component {
 				else {
 					subset = user.ownedNamespaces.filter( x => x.title === match.params.namespace );
 					if ( subset.length > 0 ) {
+						debug( 'Open owned namespace...' );
 						this.props.onNamespace( subset[ 0 ], user.token );
 
 						// eslint-disable-next-line react/no-did-mount-set-state
@@ -333,7 +335,7 @@ class HeaderBar extends Component {
 		const pth = this.props.history.location.pathname;
 		if (
 			( !this.props.namespace.title && pth === '/lessons' ) ||
-			( pth !== `/lessons/${this.props.namespace.title}` && pth!== '/gallery' )
+			( pth !== `/lessons/${this.props.namespace.title}` && pth !== '/lessons' && pth !== '/gallery' )
 		) {
 			return null;
 		}
@@ -384,7 +386,7 @@ class HeaderBar extends Component {
 		const pth = this.props.history.location.pathname;
 		if (
 			( !this.props.namespace.title && pth === '/lessons' ) ||
-			( pth !== `/lessons/${this.props.namespace.title}` && pth!== '/gallery' )
+			( pth !== `/lessons/${this.props.namespace.title}` && pth !== '/lessons' && pth!== '/gallery' )
 		) {
 			return null;
 		}
