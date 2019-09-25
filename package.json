@@ -89,7 +89,7 @@
     "redux-persist": "^6.0.0",
     "request": "^2.87.0",
     "source-map-explorer": "^2.1.0",
-    "webpack-manifest-plugin": "^2.1.1"
+    "webpack-manifest-plugin": "^2.1.2"
   },
   "devDependencies": {
     "@babel/core": "^7.6.0",
