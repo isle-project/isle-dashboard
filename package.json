@@ -89,7 +89,7 @@
     "redux-persist": "^6.0.0",
     "request": "^2.87.0",
     "source-map-explorer": "^2.1.0",
-    "webpack-manifest-plugin": "^2.1.1"
+    "webpack-manifest-plugin": "^2.1.2"
   },
   "devDependencies": {
     "@babel/core": "^7.6.0",
@@ -116,7 +116,7 @@
     "enzyme-adapter-react-16": "^1.13.0",
     "eslint": "^6.4.0",
     "eslint-import-resolver-webpack": "^0.11.0",
-    "eslint-loader": "3.0.1",
+    "eslint-loader": "3.0.2",
     "eslint-plugin-import": "^2.18.2",
     "eslint-plugin-jest": "^22.17.0",
     "eslint-plugin-jsx-a11y": "^6.2.3",
@@ -139,7 +139,7 @@
     "style-loader": "1.0.0",
     "stylelint": "^11.0.0",
     "stylelint-config-standard": "^19.0.0",
-    "terser-webpack-plugin": "^2.1.0",
+    "terser-webpack-plugin": "^2.1.1",
     "url-loader": "2.1.0",
     "webpack": "^4.41.0",
     "webpack-dev-server": "3.8.1",
