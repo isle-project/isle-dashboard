@@ -114,7 +114,7 @@
     "dotenv": "8.1.0",
     "enzyme": "^3.9.0",
     "enzyme-adapter-react-16": "^1.13.0",
-    "eslint": "^6.4.0",
+    "eslint": "^6.5.0",
     "eslint-import-resolver-webpack": "^0.11.0",
     "eslint-loader": "3.0.2",
     "eslint-plugin-import": "^2.18.2",
