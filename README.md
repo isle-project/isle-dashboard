@@ -24,7 +24,7 @@ An online dashboard used to deploy, organize and monitor *integrated statistics 
 Developing the ISLE dashboard has the following prerequisites:
 
 * [git][git]: version control
-* [Node.js][node-js]: JavaScript runtime (version `>= 9.0`)
+* [Node.js][node-js]: JavaScript runtime (version `>= 10.0`)
 
 #### Download
 
