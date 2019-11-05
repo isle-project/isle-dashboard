@@ -40,7 +40,6 @@
 .hovereffect h2 {
 	-webkit-transition: all 0.4s ease-in-out;
 	transition: all 0.4s ease-in-out;
-	text-transform: uppercase;
 	color: #fff;
 	text-align: center;
 	position: relative;
