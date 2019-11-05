@@ -72,6 +72,21 @@ class Lesson extends Component {
 		});
 	}
 
+	copyLinkToClipboard = () => {
+		const promise = copyToClipboard( this.props.url );
+		promise.then( () => {
+			this.props.addNotification({
+				message: 'Link has been copied to the clipboard',
+				level: 'success'
+			});
+		}).catch( err => {
+			this.props.addNotification({
+				message: err.message,
+				level: 'error'
+			});
+		});
+	}
+
 	openLesson = () => {
 		const win = window.open( this.props.url, '_blank' );
 		win.focus();
@@ -116,6 +131,11 @@ class Lesson extends Component {
 				<OverlayTrigger placement="bottom" overlay={<Tooltip id="IsleFile">Copy ISLE file to clipboard</Tooltip>}>
 					<Button size="sm" onFocus={this.getIsleFile} onMouseEnter={this.getIsleFile} onClick={this.copyIsleFileToClipboard} >
 						<i className="fa fa-clipboard"></i>
+					</Button>
+				</OverlayTrigger>
+				<OverlayTrigger placement="bottom" overlay={<Tooltip id="IsleFile">Copy ISLE link to clipboard</Tooltip>}>
+					<Button size="sm" onClick={this.copyLinkToClipboard} style={{ marginLeft: 4 }} >
+						<i className="fa fa-link"></i>
 					</Button>
 				</OverlayTrigger>
 				{ this.renderButtonToolbarDate() }
