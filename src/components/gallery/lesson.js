@@ -72,8 +72,8 @@ class Lesson extends Component {
 		});
 	}
 
-	copyLinkToClipboard = () => {
-		const promise = copyToClipboard( this.props.url );
+	copyIncludeToClipboard = () => {
+		const promise = copyToClipboard( `<!-- #include "${this.props.url}" -->` );
 		promise.then( () => {
 			this.props.addNotification({
 				message: 'Link has been copied to the clipboard',
@@ -133,8 +133,8 @@ class Lesson extends Component {
 						<i className="fa fa-clipboard"></i>
 					</Button>
 				</OverlayTrigger>
-				<OverlayTrigger placement="bottom" overlay={<Tooltip id="IsleFile">Copy ISLE link to clipboard</Tooltip>}>
-					<Button size="sm" onClick={this.copyLinkToClipboard} style={{ marginLeft: 4 }} >
+				<OverlayTrigger placement="bottom" overlay={<Tooltip id="IsleFile">Copy ISLE include comment to clipboard</Tooltip>}>
+					<Button size="sm" onClick={this.copyIncludeToClipboard} style={{ marginLeft: 4 }} >
 						<i className="fa fa-link"></i>
 					</Button>
 				</OverlayTrigger>
