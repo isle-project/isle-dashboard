@@ -1,5 +1,5 @@
 export const LOCAL = 'http://localhost:17777';
-export const REMOTE = 'https://isle.heinz.cmu.edu';
+export const REMOTE = 'https://isle.stat.cmu.edu';
 
 let server;
 if ( process.env.NODE_ENV === 'development' ) { // eslint-disable-line no-process-env
