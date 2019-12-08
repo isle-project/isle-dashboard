@@ -51,7 +51,7 @@
   "dependencies": {
     "@babel/plugin-proposal-class-properties": "^7.7.4",
     "@babel/plugin-syntax-dynamic-import": "^7.7.4",
-    "@babel/runtime": "^7.7.5",
+    "@babel/runtime": "^7.7.6",
     "@stdlib/stdlib": "0.0.90",
     "acorn": "^7.1.0",
     "babel-plugin-add-module-exports": "^1.0.2",
