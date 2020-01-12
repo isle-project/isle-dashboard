@@ -61,6 +61,10 @@ class ProfilePage extends Component {
 		if ( !this.props.user.files ) {
 			this.props.getFiles({ token: this.props.user.token });
 		}
+		const course = this.state.selectedNamespace;
+		if ( !course.lessons ) {
+			this.props.getLessons( course.title );
+		}
 		this.props.addBadges( this.props.user.token );
 	}
 
@@ -97,6 +101,7 @@ class ProfilePage extends Component {
 	}
 
 	renderRightPanel() {
+		console.log( this.state.selectedNamespace );
 		if ( !this.state.selectedNamespace ) {
 			return null;
 		}
