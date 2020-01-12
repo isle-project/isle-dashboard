@@ -58,6 +58,7 @@ function mapDispatchToProps( dispatch ) {
 		},
 		onNamespace: ({ title, description, announcements, owners, _id }) => {
 			dispatch( actions.changedNamespace({ title, description, announcements, owners, _id }) );
+			dispatch( actions.retrievedLessons({ lessons: [], namespaceName: title }) );
 		}
 	};
 }
