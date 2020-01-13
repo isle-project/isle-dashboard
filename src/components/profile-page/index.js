@@ -62,7 +62,7 @@ class ProfilePage extends Component {
 			this.props.getFiles({ token: this.props.user.token });
 		}
 		const course = this.state.selectedNamespace;
-		if ( !course.lessons ) {
+		if ( course && !course.lessons ) {
 			this.props.getLessons( course.title );
 		}
 		this.props.addBadges( this.props.user.token );
