@@ -6,7 +6,9 @@ import { Button, Card, FormLabel, FormControl, FormGroup, Form, OverlayTrigger, 
 import logger from 'debug';
 import isEmail from '@stdlib/assert/is-email-address';
 import trim from '@stdlib/string/trim';
+import contains from '@stdlib/assert/contains';
 import TextSelect from 'components/text-select';
+import SERVER from 'constants/server';
 
 
 // VARIABLES //
@@ -71,7 +73,8 @@ class CreateNamespace extends Component {
 	}
 
 	validateTitle() {
-		return this.state.title.length >= 3;
+		const title = this.state.title;
+		return title.length >= 3 && !contains( title, ' ' );
 	}
 
 	validateDescription() {
@@ -106,28 +109,28 @@ class CreateNamespace extends Component {
 							/>
 						</FormGroup>
 					</OverlayTrigger>
-					<OverlayTrigger placement="right" overlay={<Tooltip id="ownerTooltip">Please enter a course title</Tooltip>}>
+					<OverlayTrigger placement="right" overlay={<Tooltip id="ownerTooltip" >Lessons will be accessible at <code>{SERVER+'/<course>/<lesson>'}</code></Tooltip>}>
 						<FormGroup>
-							<FormLabel>Title</FormLabel>
+							<FormLabel>Course</FormLabel>
 							<FormControl
 								name="title"
 								type="text"
-								placeholder="Enter title"
+								placeholder="Enter course identifier"
 								onChange={this.handleInputChange}
 								isInvalid={this.state.title && !validTitle}
 							/>
 							<Form.Control.Feedback type="invalid">
-								Title must be at least three characters long.
+								Course identifier must be at least three characters long and should not contain any spaces.
 							</Form.Control.Feedback>
 						</FormGroup>
 					</OverlayTrigger>
-					<OverlayTrigger placement="right" overlay={<Tooltip id="ownerTooltip">Please enter a course description.</Tooltip>}>
+					<OverlayTrigger placement="right" overlay={<Tooltip id="ownerTooltip">Please enter a full course title and/or course description.</Tooltip>}>
 						<FormGroup>
-							<FormLabel>Description</FormLabel>
+							<FormLabel>Title / Description</FormLabel>
 							<FormControl
 								name="description"
 								type="text"
-								placeholder="Enter description"
+								placeholder="Enter full course title and/or description"
 								onChange={this.handleInputChange}
 								isInvalid={this.state.description && !validDescription}
 							/>
