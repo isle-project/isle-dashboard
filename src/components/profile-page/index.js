@@ -101,7 +101,6 @@ class ProfilePage extends Component {
 	}
 
 	renderRightPanel() {
-		console.log( this.state.selectedNamespace );
 		if ( !this.state.selectedNamespace ) {
 			return null;
 		}
