@@ -8,7 +8,6 @@ import { components } from 'react-select';
 import Tooltip from 'react-bootstrap/Tooltip';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import contains from '@stdlib/assert/contains';
-import merge from '@stdlib/utils/merge';
 
 
 // VARIABLES //
@@ -123,7 +122,7 @@ class TextSelect extends Component {
 				onKeyDown={this.handleKeyDown}
 				placeholder="Enter email addresses..."
 				value={value}
-				styles={merge( customStyles, this.props.styles )}
+				styles={{ ...customStyles, ...this.props.styles }}
 			/>
 		);
 	}
