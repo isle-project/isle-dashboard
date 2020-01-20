@@ -28,6 +28,7 @@ const AsyncGallery = asyncComponent(() => import( 'containers/visible-gallery' )
 const AsyncLessonsPage = asyncComponent(() => import( 'containers/visible-lessons-page' ));
 const AsyncProfilePage = asyncComponent(() => import( 'containers/visible-profile-page' ));
 const AsyncEnrollPage = asyncComponent(() => import( 'containers/visible-enroll-page' ));
+const USER_STORAGE_ID = 'ISLE_USER_'+server;
 
 
 // MAIN //
@@ -41,12 +42,21 @@ class App extends Component {
 			!contains( history.location.pathname, 'new-password' ) &&
 			!contains( history.location.pathname, 'signup' )
 		) {
-			let isle = localStorage.getItem( 'ISLE_USER_'+server );
+			let isle = localStorage.getItem( USER_STORAGE_ID );
 			if ( isle ) {
 				isle = JSON.parse( isle );
 				this.props.handleLogin( isle );
 			} else {
 				history.replace( '/login' );
+			}
+		}
+		if ( this.props.isLoggedIn ) {
+			const isle = localStorage.getItem( USER_STORAGE_ID );
+			if ( !isle ) {
+				localStorage.setItem( USER_STORAGE_ID, JSON.stringify({
+					token: this.props.user.token,
+					id: this.props.user.id
+				}) );
 			}
 		}
 	}
