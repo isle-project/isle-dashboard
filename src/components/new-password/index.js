@@ -93,7 +93,7 @@ class NewPassword extends Component {
 					this.setState({
 						showSubmitOverlay: false
 					});
-				}, 2000 );
+				}, 4000 );
 			});
 		}
 		return false;

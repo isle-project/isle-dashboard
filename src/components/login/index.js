@@ -68,7 +68,7 @@ class Login extends Component {
 								this.setState({
 									showInputOverlay: false
 								});
-							}, 2000 );
+							}, 4000 );
 						});
 					}
 				}
