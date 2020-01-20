@@ -1,6 +1,6 @@
 {
   "name": "isle-dashboard",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "private": true,
   "description": "ISLE (Integrated Statistics Learning Environment) Instructor and Student Dashboard.",
   "homepage": "http://isle.stat.cmu.edu/dashboard",
