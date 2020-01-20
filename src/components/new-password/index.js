@@ -222,7 +222,6 @@ class NewPassword extends Component {
 					show={this.state.showSubmitOverlay}
 					target={this.state.overlayTarget}
 					placement="bottom"
-					container={this}
 					containerPadding={20}
 				>
 					<Popover id="popover-contained" title="Input fields are not valid">
