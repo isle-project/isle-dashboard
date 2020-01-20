@@ -80,7 +80,7 @@ class Signup extends Component {
 					this.setState({
 						showSubmitOverlay: false
 					});
-				}, 3000 );
+				}, 4000 );
 			});
 		}
 		return false;
