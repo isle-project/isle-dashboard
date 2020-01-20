@@ -22,7 +22,9 @@ const initialState = {
 	score: null,
 	spentTime: null,
 	files: null,
-	badges: null
+	badges: null,
+	id: null,
+	token: null
 };
 
 
