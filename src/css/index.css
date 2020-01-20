@@ -193,3 +193,7 @@ label {
 	border: none;
 	cursor: pointer;
 }
+
+#popover-contained {
+	padding: 5px;
+}

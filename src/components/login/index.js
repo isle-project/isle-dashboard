@@ -151,7 +151,6 @@ class Login extends Component {
 					show={this.state.showInputOverlay}
 					target={this.state.overlayTarget}
 					placement="right"
-					container={this}
 					containerPadding={20}
 				>
 					<Popover id="popover-contained" title="Not valid">
