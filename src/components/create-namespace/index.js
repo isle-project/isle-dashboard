@@ -48,6 +48,11 @@ class CreateNamespace extends Component {
 	}
 
 	handleOwnerChange = ( newValue ) => {
+		if ( !newValue ) {
+			return this.setState({
+				owners: []
+			});
+		}
 		const owners = newValue.map( x => trim( x.value ) );
 		this.setState({
 			owners: owners
@@ -78,7 +83,7 @@ class CreateNamespace extends Component {
 	}
 
 	validateDescription() {
-		return this.state.description.length > 3;
+		return this.state.description.length >= 3;
 	}
 
 	render() {
@@ -106,7 +111,11 @@ class CreateNamespace extends Component {
 							<TextSelect
 								onChange={this.handleOwnerChange}
 								defaultValue={this.state.owners}
+								isInvalid={!validOwners}
 							/>
+							<Form.Control.Feedback type="invalid">
+								Must provide at least one owner via email address
+							</Form.Control.Feedback>
 						</FormGroup>
 					</OverlayTrigger>
 					<OverlayTrigger placement="right" overlay={<Tooltip id="ownerTooltip" >Lessons will be accessible at <code>{SERVER+'/<course>/<lesson>'}</code></Tooltip>}>
@@ -119,9 +128,9 @@ class CreateNamespace extends Component {
 								onChange={this.handleInputChange}
 								isInvalid={this.state.title && !validTitle}
 							/>
-							<Form.Control.Feedback type="invalid">
+							<FormControl.Feedback type="invalid">
 								Course identifier must be at least three characters long and should not contain any spaces.
-							</Form.Control.Feedback>
+							</FormControl.Feedback>
 						</FormGroup>
 					</OverlayTrigger>
 					<OverlayTrigger placement="right" overlay={<Tooltip id="ownerTooltip">Please enter a full course title and/or course description.</Tooltip>}>
@@ -134,9 +143,9 @@ class CreateNamespace extends Component {
 								onChange={this.handleInputChange}
 								isInvalid={this.state.description && !validDescription}
 							/>
-							<Form.Control.Feedback type="invalid">
+							<FormControl.Feedback type="invalid">
 								Description must be at least three characters long.
-							</Form.Control.Feedback>
+							</FormControl.Feedback>
 						</FormGroup>
 					</OverlayTrigger>
 				</Form>

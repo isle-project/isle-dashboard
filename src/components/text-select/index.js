@@ -90,26 +90,45 @@ class TextSelect extends Component {
 		}
 		switch ( event.key ) {
 			case 'Enter':
-			case 'Tab':
+			case 'Tab': {
 				if ( contains( inputValue, ',' ) ) {
 					inputValue = inputValue.split( ',' );
 				} else {
 					inputValue = [ inputValue ];
 				}
+				let newValue;
+				if ( value ) {
+					newValue = value.concat( inputValue.map( createOption ) );
+				} else {
+					newValue = inputValue.map( createOption );
+				}
 				this.setState({
 					inputValue: '',
-					value: [
-						...value, ...inputValue.map( createOption )
-					]
+					value: newValue
 				}, () => {
 					this.props.onChange( this.state.value );
 				});
 				event.preventDefault();
+			}
 		}
 	}
 
 	render() {
 		const { inputValue, value } = this.state;
+		const isInvalid = this.props.isInvalid;
+		const control = ( provided, state ) => {
+			const out = {
+				...provided
+			};
+			if ( state.isFocused && isInvalid ) {
+				out.boxShadow = '0 0 0 0.2rem rgba(220,53,69,0.25)';
+			}
+			out.borderColor = isInvalid ? '#dc3545' : '#ddd';
+			out[ '&:hover' ] = {
+				borderColor: isInvalid ? '#dc3545' : '#ddd'
+			};
+			return out;
+		};
 		return (
 			<CreatableSelect
 				components={customComponents}
@@ -122,7 +141,7 @@ class TextSelect extends Component {
 				onKeyDown={this.handleKeyDown}
 				placeholder="Enter email addresses..."
 				value={value}
-				styles={{ ...customStyles, ...this.props.styles }}
+				styles={{ ...customStyles, control: control, ...this.props.styles }}
 			/>
 		);
 	}
@@ -134,6 +153,7 @@ class TextSelect extends Component {
 TextSelect.propTypes = {
 	defaultValue: PropTypes.array,
 	isClearable: PropTypes.bool,
+	isInvalid: PropTypes.bool,
 	onChange: PropTypes.func,
 	styles: PropTypes.object
 };
@@ -141,6 +161,7 @@ TextSelect.propTypes = {
 TextSelect.defaultProps = {
 	defaultValue: [],
 	isClearable: false,
+	isInvalid: false,
 	onChange() {},
 	styles: {}
 };
