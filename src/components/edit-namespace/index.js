@@ -8,35 +8,16 @@ import {
 import 'react-dates/lib/css/_datepicker.css';
 import { withRouter } from 'react-router';
 import isArray from '@stdlib/assert/is-array';
-import isEmail from '@stdlib/assert/is-email-address';
 import trim from '@stdlib/string/trim';
 import TextSelect from 'components/text-select';
 import MsgModal from 'components/message-modal';
 import ConfirmModal from 'components/confirm-modal';
+import { validateOwners, validateDescription, validateTitle } from 'components/create-namespace';
 import checkURLPath from 'utils/check_url_path.js';
 import EditCohortModal from './edit_cohort_modal.js';
 import CreateCohortModal from './create_cohort_modal.js';
+import SERVER from 'constants/server';
 import './edit_namespace.css';
-
-
-// FUNCTIONS //
-
-function validateInputs({ emails, title, description }) {
-	let invalid = false;
-	if ( emails.length === 0 ) {
-		invalid = true;
-	} else {
-		emails.forEach( owner => {
-			if ( !isEmail( owner ) ) {
-				invalid = true;
-			}
-		});
-	}
-	if ( invalid ) {
-		return false;
-	}
-	return title.length >= 3 && description.length > 3;
-}
 
 
 // MAIN //
@@ -51,7 +32,6 @@ class EditNamespace extends Component {
 			});
 		}
 		this.state = {
-			disabled: false,
 			title,
 			description,
 			owners,
@@ -68,36 +48,7 @@ class EditNamespace extends Component {
 		let value = target.value;
 		this.setState({
 			[ name ]: value
-		}, () => {
-			this.setState({
-				disabled: !validateInputs({
-					emails: this.state.owners,
-					description: this.state.description,
-					title: this.state.title
-				})
-			});
 		});
-	}
-
-	validateInputs = () => {
-		if ( this.state.owners === '' ) {
-			return 'Owners field cannot be empty';
-		}
-		const owners = this.state.owners;
-		let invalidOwner = false;
-		owners.forEach( owner => {
-			if ( isEmail( owner ) === false ) {
-				invalidOwner = true;
-			}
-		});
-		if ( invalidOwner ) {
-			return 'Owners must be valid email addresses';
-		}
-		const res = checkURLPath( this.state.title );
-		if ( res ) {
-			return 'Namespace title contains invalid characters: '+res[ 0 ]+'';
-		}
-		return 'success';
 	}
 
 	handleUpdate = () => {
@@ -192,14 +143,14 @@ class EditNamespace extends Component {
 	}
 
 	handleOwnerChange = ( newValue ) => {
+		if ( !newValue ) {
+			return this.setState({
+				owners: []
+			});
+		}
 		const owners = newValue.map( x => trim( x.value ) );
 		this.setState({
-			owners: owners,
-			disabled: !validateInputs({
-				emails: owners,
-				description: this.state.description,
-				title: this.state.title
-			})
+			owners: owners
 		});
 	}
 
@@ -283,6 +234,10 @@ class EditNamespace extends Component {
 				<Alert variant="danger">No namespace selected.</Alert>
 			</Container> );
 		}
+		const validTitle = validateTitle( this.state.title );
+		const invalidTitleChars = checkURLPath( this.state.title );
+		const validDescription = validateDescription( this.state.description );
+		const validOwners = validateOwners( this.state.owners );
 		return (
 			<Container className="edit-namespace-container" >
 				<Row>
@@ -301,33 +256,54 @@ class EditNamespace extends Component {
 											<TextSelect
 												onChange={this.handleOwnerChange}
 												defaultValue={this.state.owners}
+												isInvalid={!validateOwners( this.state.owners )}
 											/>
+											<FormControl.Feedback type="invalid">
+												Must provide at least one owner via email address
+											</FormControl.Feedback>
 										</FormGroup>
 									</OverlayTrigger>
-									<OverlayTrigger placement="right" overlay={<Tooltip id="ownerTooltip">Title with a minimum length of three characters.</Tooltip>}>
+									<OverlayTrigger placement="right" overlay={<Tooltip id="ownerTooltip">Lessons are accessible at <code>{SERVER+'/<course>/<lesson>'}</code></Tooltip>}>
 										<FormGroup>
-											<FormLabel>Title</FormLabel>
+											<FormLabel>Course Identifier</FormLabel>
 											<FormControl
 												name="title"
 												type="text"
 												value={this.state.title}
 												onChange={this.handleInputChange}
+												isInvalid={!validTitle}
 											/>
+											<FormControl.Feedback type="invalid">
+												{ invalidTitleChars ?
+													'Course identifier contains invalid character(s): '+invalidTitleChars[ 0 ] :
+													'Course identifier must be at least three characters long and should not contain any spaces.'
+												}
+											</FormControl.Feedback>
 										</FormGroup>
 									</OverlayTrigger>
-									<FormGroup>
-										<FormLabel>Description</FormLabel>
-										<FormControl
-											name="description"
-											type="text"
-											value={this.state.description}
-											onChange={this.handleInputChange}
-										>
-										</FormControl>
-									</FormGroup>
+									<OverlayTrigger placement="right" overlay={<Tooltip id="ownerTooltip">Full course title and/or course description.</Tooltip>}>
+										<FormGroup>
+											<FormLabel>Title / Description</FormLabel>
+											<FormControl
+												name="description"
+												type="text"
+												value={this.state.description}
+												onChange={this.handleInputChange}
+												isInvalid={!validDescription}
+											>
+											</FormControl>
+											<FormControl.Feedback type="invalid">
+												Description must be at least three characters long.
+											</FormControl.Feedback>
+										</FormGroup>
+									</OverlayTrigger>
 								</Form>
 								<ButtonGroup>
-									<Button type="submit" disabled={this.state.disabled} onClick={this.handleUpdate}>Update</Button>
+									<Button
+										type="submit"
+										disabled={!validOwners || !validTitle || !validDescription}
+										onClick={this.handleUpdate}
+									>Update</Button>
 									<Button onClick={() => {
 										this.setState({
 											showDeleteModal: true
