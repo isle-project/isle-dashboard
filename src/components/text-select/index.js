@@ -8,6 +8,7 @@ import { components } from 'react-select';
 import Tooltip from 'react-bootstrap/Tooltip';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import contains from '@stdlib/assert/contains';
+import './text_select.css';
 
 
 // VARIABLES //
@@ -41,7 +42,7 @@ const customComponents = {
 				<span
 					role="button" tabIndex={0}
 					onClick={copyToClipboard} onKeyPress={copyToClipboard}
-					style={{ cursor: 'copy' }}
+					className="text-select-copy"
 				>
 					<components.MultiValueLabel {...props} />
 				</span>

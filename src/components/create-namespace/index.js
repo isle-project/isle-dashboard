@@ -9,11 +9,40 @@ import trim from '@stdlib/string/trim';
 import contains from '@stdlib/assert/contains';
 import TextSelect from 'components/text-select';
 import SERVER from 'constants/server';
+import checkURLPath from '../../utils/check_url_path';
 
 
 // VARIABLES //
 
 const debug = logger( 'isle-dashboard:create-namespace' );
+
+
+// FUNCTIONS //
+
+export function validateOwners( owners ) {
+	let invalid = false;
+	if ( owners.length === 0 ) {
+		invalid = true;
+	} else {
+		owners.forEach( owner => {
+			if ( !isEmail( owner ) ) {
+				invalid = true;
+			}
+		});
+	}
+	if ( invalid ) {
+		return false;
+	}
+	return true;
+}
+
+export function validateTitle( title ) {
+	return title.length >= 3 && !contains( title, ' ' ) && !checkURLPath( title );
+}
+
+export function validateDescription( description ) {
+	return description.length >= 3;
+}
 
 
 // MAIN //
@@ -59,37 +88,11 @@ class CreateNamespace extends Component {
 		});
 	}
 
-	validateOwners() {
-		const owners = this.state.owners;
-		let invalid = false;
-		if ( owners.length === 0 ) {
-			invalid = true;
-		} else {
-			owners.forEach( owner => {
-				if ( !isEmail( owner ) ) {
-					invalid = true;
-				}
-			});
-		}
-		if ( invalid ) {
-			return false;
-		}
-		return true;
-	}
-
-	validateTitle() {
-		const title = this.state.title;
-		return title.length >= 3 && !contains( title, ' ' );
-	}
-
-	validateDescription() {
-		return this.state.description.length >= 3;
-	}
-
 	render() {
-		const validTitle = this.validateTitle();
-		const validDescription = this.validateDescription();
-		const validOwners = this.validateOwners();
+		const validTitle = validateTitle( this.state.title );
+		const invalidTitleChars = checkURLPath( this.state.title );
+		const validDescription = validateDescription( this.state.description );
+		const validOwners = validateOwners( this.state.owners );
 		debug( 'Validation status of input fields: ' );
 		debug( `Title: ${validTitle}` );
 		debug( `Description: ${validDescription}` );
@@ -113,9 +116,9 @@ class CreateNamespace extends Component {
 								defaultValue={this.state.owners}
 								isInvalid={!validOwners}
 							/>
-							<Form.Control.Feedback type="invalid">
+							<FormControl.Feedback type="invalid">
 								Must provide at least one owner via email address
-							</Form.Control.Feedback>
+							</FormControl.Feedback>
 						</FormGroup>
 					</OverlayTrigger>
 					<OverlayTrigger placement="right" overlay={<Tooltip id="ownerTooltip" >Lessons will be accessible at <code>{SERVER+'/<course>/<lesson>'}</code></Tooltip>}>
@@ -129,7 +132,10 @@ class CreateNamespace extends Component {
 								isInvalid={this.state.title && !validTitle}
 							/>
 							<FormControl.Feedback type="invalid">
-								Course identifier must be at least three characters long and should not contain any spaces.
+								{ invalidTitleChars ?
+									'Course identifier contains invalid character(s): '+invalidTitleChars[ 0 ] :
+									'Course identifier must be at least three characters long and should not contain any spaces.'
+								}
 							</FormControl.Feedback>
 						</FormGroup>
 					</OverlayTrigger>
