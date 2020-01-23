@@ -41,9 +41,13 @@ To install development dependencies,
 $ npm install
 ```
 
+#### Configuration
+
+Edit the [config/server.json](https://github.com/isle-project/isle-dashboard/blob/master/config/server.json) file to change the address where the [ISLE server][isle-server] and dashboard will be hosted.
+
 #### Bundle
 
-Execute the `npm run build` command to create a bundle of the ISLE dashboard, which can then be hosted on a server. Change the `homepage` field of the `package.json` file to point to the address where the dashboard will be hosted.
+Execute the `npm run build` command to create a bundle of the ISLE dashboard, which can then be hosted on the server. 
 
 #### Deploy
 
