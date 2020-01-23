@@ -1,7 +1,6 @@
 'use strict';
 
 const path = require('path');
-const resolve = path.resolve;
 const webpack = require('webpack');
 const PnpWebpackPlugin = require('pnp-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');

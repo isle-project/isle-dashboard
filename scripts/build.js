@@ -15,6 +15,7 @@ process.on('unhandledRejection', err => {
 require('../config/env');
 
 const path = require('path');
+const url = require( 'url' );
 const chalk = require('chalk');
 const fs = require('fs-extra');
 const webpack = require('webpack');
@@ -23,14 +24,12 @@ const config = require('../config/webpack.config.prod');
 const paths = require('../config/paths');
 const checkRequiredFiles = require('react-dev-utils/checkRequiredFiles');
 const formatWebpackMessages = require('react-dev-utils/formatWebpackMessages');
-const printHostingInstructions = require('react-dev-utils/printHostingInstructions');
 const FileSizeReporter = require('react-dev-utils/FileSizeReporter');
 const printBuildError = require('react-dev-utils/printBuildError');
 
 const measureFileSizesBeforeBuild =
 	FileSizeReporter.measureFileSizesBeforeBuild;
 const printFileSizesAfterBuild = FileSizeReporter.printFileSizesAfterBuild;
-const useYarn = fs.existsSync(paths.yarnLockFile);
 
 // These sizes are pretty large. We'll warn for bundles exceeding them.
 const WARN_AFTER_BUNDLE_GZIP_SIZE = 512 * 1024;
@@ -94,17 +93,18 @@ checkBrowsers(paths.appPath, isInteractive)
 			);
 			console.log();
 
-			const appPackage = require(paths.appPackageJson);
 			const publicUrl = paths.publicUrl;
 			const publicPath = config.output.publicPath;
 			const buildFolder = path.relative(process.cwd(), paths.appBuild);
-			printHostingInstructions(
-				appPackage,
-				publicUrl,
-				publicPath,
-				buildFolder,
-				useYarn
-			);
+
+			console.log( 'The build is ready to be deployed.' );
+			console.log();
+			console.log( 'The project was built assuming it is hosted at '+publicPath+' on '+publicUrl );
+			console.log();
+			console.log( 'To copy the contents of the "'+buildFolder+'" folder via the command-line: ' );
+			console.log();
+			console.log( 'scp -r '+buildFolder+'/* <user>@'+url.parse( publicUrl ).hostname+':<dirpath>' );
+			console.log();
 		},
 		err => {
 			console.log(chalk.red('Failed to compile.\n'));
@@ -133,7 +133,7 @@ function build(previousFileSizes) {
 				}
 				messages = formatWebpackMessages({
 					errors: [err.message],
-					warnings: [],
+					warnings: []
 				});
 			} else {
 				messages = formatWebpackMessages(
@@ -183,6 +183,6 @@ function build(previousFileSizes) {
 function copyPublicFolder() {
 	fs.copySync(paths.appPublic, paths.appBuild, {
 		dereference: true,
-		filter: file => file !== paths.appHtml,
+		filter: file => file !== paths.appHtml
 	});
 }
