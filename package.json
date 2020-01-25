@@ -3,7 +3,6 @@
   "version": "0.3.3",
   "private": true,
   "description": "ISLE (Integrated Statistics Learning Environment) Instructor and Student Dashboard.",
-  "homepage": "http://isle.stat.cmu.edu/dashboard",
   "bugs": {
     "url": "https://github.com/isle-project/isle-dashboard/issues"
   },
