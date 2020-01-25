@@ -52,43 +52,35 @@ class EditNamespace extends Component {
 	}
 
 	handleUpdate = () => {
-		const msg = this.validateInputs();
-		if ( msg === 'success' ) {
-			this.props.updateCurrentNamespace({
-				_id: this.props.namespace._id,
-				description: this.state.description,
-				title: this.state.title,
-				owners: this.state.owners,
-				token: this.props.user.token
-			}, ( err, res ) => {
-				if ( err ) {
-					this.props.addNotification({
-						message: err.message,
-						level: 'error'
-					});
-				}
-				else if ( res.statusCode >= 400 ) {
-					this.props.addNotification({
-						message: res.body,
-						level: 'error'
-					});
-				} else {
-					this.props.addNotification({
-						message: JSON.parse( res.body ).message,
-						level: 'success'
-					});
-					this.props.getCohorts({
-						namespaceID: this.props.namespace._id,
-						userToken: this.props.user.token
-					});
-				}
-			});
-		} else {
-			this.props.addNotification({
-				message: msg,
-				level: 'warning'
-			});
-		}
+		this.props.updateCurrentNamespace({
+			_id: this.props.namespace._id,
+			description: this.state.description,
+			title: this.state.title,
+			owners: this.state.owners,
+			token: this.props.user.token
+		}, ( err, res ) => {
+			if ( err ) {
+				this.props.addNotification({
+					message: err.message,
+					level: 'error'
+				});
+			}
+			else if ( res.statusCode >= 400 ) {
+				this.props.addNotification({
+					message: res.body,
+					level: 'error'
+				});
+			} else {
+				this.props.addNotification({
+					message: JSON.parse( res.body ).message,
+					level: 'success'
+				});
+				this.props.getCohorts({
+					namespaceID: this.props.namespace._id,
+					userToken: this.props.user.token
+				});
+			}
+		});
 	}
 
 	handleDelete = () => {
