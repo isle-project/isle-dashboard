@@ -9,14 +9,12 @@ import path from 'path';
 
 // FUNCTIONS //
 
-function getResizedCanvas(canvas, newWidth, newHeight) {
-	const tmpCanvas = document.createElement('canvas');
+function getResizedCanvas( canvas, newWidth, newHeight ) {
+	const tmpCanvas = document.createElement( 'canvas' );
 	tmpCanvas.width = newWidth;
 	tmpCanvas.height = newHeight;
-
-	const ctx = tmpCanvas.getContext('2d');
-	ctx.drawImage(canvas, 0, 0, canvas.width, canvas.height, 0, 0, newWidth, newHeight);
-
+	const ctx = tmpCanvas.getContext( '2d' );
+	ctx.drawImage( canvas, 0, 0, canvas.width, canvas.height, 0, 0, newWidth, newHeight );
 	return tmpCanvas;
 }
 
@@ -27,10 +25,16 @@ class ProfilePicModal extends Component {
 	constructor( props ) {
 		super( props );
 
+		let ext;
+		if ( props.user.picture ) {
+			ext = props.user.picture.substr( props.user.picture.lastIndexOf( '.' ) );
+		} else {
+			ext = null;
+		}
 		this.state = {
 			actualFile: props.user.picture,
 			zoom: 1.2,
-			ext: null,
+			ext,
 			rotate: 0
 		};
 	}
@@ -38,7 +42,9 @@ class ProfilePicModal extends Component {
 	componentDidUpdate( prevProps ) {
 		if ( this.props.user.picture !== prevProps.user.picture ) {
 			this.setState({
-				actualFile: this.props.user.picture
+				actualFile: this.props.user.picture,
+				rotate: 0,
+				zoom: 1.2
 			});
 		}
 	}
@@ -46,13 +52,13 @@ class ProfilePicModal extends Component {
 	handleUpload = () => {
 		if ( this.editor ) {
 			const canvas = this.editor.getImageScaledToCanvas();
-
 			canvas.toBlob( img => {
 				const avatarData = new FormData();
 				const thumbnailData = new FormData();
-				const tn = getResizedCanvas(canvas, 80, 80);
+				const tn = getResizedCanvas( canvas, 80, 80 );
 				tn.toBlob( thumbnail => {
-					const filename = this.props.user.id + this.state.ext;
+					const id = this.props.user.id;
+					const filename = `${id}_${this.state.zoom}_${this.state.rotate}${this.state.ext}`;
 					const thumbnailName = filename;
 					avatarData.append( 'avatar', img, filename );
 					thumbnailData.append( 'thumbnail', thumbnail, thumbnailName );
@@ -104,7 +110,9 @@ class ProfilePicModal extends Component {
 					<Form.Label column sm="2">Zoom</Form.Label>
 					<Col sm="10">
 						<FormControl
-							step={0.05} type="range" defaultValue={1} min={0.5} max={3}
+							step={0.05}
+							type="range"
+							defaultValue={1} min={0.5} max={3}
 							onChange={this.changeZoom}
 						/>
 					</Col>
@@ -114,14 +122,14 @@ class ProfilePicModal extends Component {
 	}
 
 	rotateLeft = () => {
-		let oldRotate = this.state.rotate;
+		const oldRotate = this.state.rotate;
 		this.setState({
 			rotate: oldRotate - 90
 		});
 	}
 
 	rotateRight = () => {
-		let oldRotate = this.state.rotate;
+		const oldRotate = this.state.rotate;
 		this.setState({
 			rotate: oldRotate + 90
 		});
@@ -170,7 +178,7 @@ class ProfilePicModal extends Component {
 				</Modal.Body>
 				<Modal.Footer>
 					<Button onClick={this.handleUpload}>
-						Upload
+						Save and Close
 					</Button>
 				</Modal.Footer>
 			</Modal>
