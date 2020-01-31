@@ -1,6 +1,24 @@
+/**
+* Copyright (C) 2016-2020 The ISLE Authors
+*
+* The isle-dashboard program is free software: you can redistribute it and/or modify
+* it under the terms of the GNU Affero General Public License as
+* published by the Free Software Foundation, either version 3 of the
+* License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+* GNU Affero General Public License for more details.
+*
+* You should have received a copy of the GNU Affero General Public License
+* along with this program.  If not, see <https://www.gnu.org/licenses/>.
+*/
+
 // MODULES //
 
 import React, { Component } from 'react';
+import Spinner from './spinner.js';
 
 
 // MAIN //
@@ -23,19 +41,8 @@ function asyncComponent( importComponent ) {
 		}
 
 		render() {
-			const spinner = <div className="sk-cube-grid">
-				<div className="sk-cube sk-cube1"></div>
-				<div className="sk-cube sk-cube2"></div>
-				<div className="sk-cube sk-cube3"></div>
-				<div className="sk-cube sk-cube4"></div>
-				<div className="sk-cube sk-cube5"></div>
-				<div className="sk-cube sk-cube6"></div>
-				<div className="sk-cube sk-cube7"></div>
-				<div className="sk-cube sk-cube8"></div>
-				<div className="sk-cube sk-cube9"></div>
-			</div>;
 			const C = this.state.component;
-			return C ? <C {...this.props} /> : spinner;
+			return C ? <C {...this.props} /> : <Spinner />;
 		}
 	}
 	return AsyncComponent;
