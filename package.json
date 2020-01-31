@@ -134,7 +134,7 @@
     "pnp-webpack-plugin": "^1.1.0",
     "postcss-loader": "3.0.0",
     "postcss-safe-parser": "^4.0.1",
-    "react-dev-utils": "10.0.0",
+    "react-dev-utils": "10.1.0",
     "style-loader": "1.1.3",
     "stylelint": "^13.0.0",
     "stylelint-config-standard": "^19.0.0",
