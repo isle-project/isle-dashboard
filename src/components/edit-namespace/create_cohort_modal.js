@@ -26,6 +26,7 @@ import {
 import { DateRangePicker } from 'react-dates';
 import moment from 'moment';
 import isEmail from '@stdlib/assert/is-email-address';
+import isArray from '@stdlib/assert/is-array';
 import TextSelect from 'components/text-select';
 import './cohort_modal.css';
 
@@ -100,7 +101,7 @@ class CreateCohortModal extends Component {
 	}
 
 	handleStudentChange = ( newValue ) => {
-		const students = newValue.map( x => x.value );
+		const students = isArray( newValue ) ? newValue.map( x => x.value ) : [];
 		this.setState({
 			students: students,
 			disabled: !validateInputs({
