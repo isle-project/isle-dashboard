@@ -21,6 +21,11 @@
 * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
+// MODULES //
+
+import React from 'react';
+
+
 // MAIN //
 
 const Spinner = () => {
