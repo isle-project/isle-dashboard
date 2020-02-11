@@ -27,6 +27,7 @@ import { DateRangePicker } from 'react-dates';
 import 'react-dates/lib/css/_datepicker.css';
 import moment from 'moment';
 import isEmail from '@stdlib/assert/is-email-address';
+import isArray from '@stdlib/assert/is-array';
 import ConfirmModal from 'components/confirm-modal';
 import TextSelect from 'components/text-select';
 import './cohort_modal.css';
@@ -109,7 +110,7 @@ class EditCohortModal extends Component {
 	}
 
 	handleStudentChange = ( newValue ) => {
-		const members = newValue.map( x => x.value );
+		const members = isArray( newValue ) ? newValue.map( x => x.value ) : [];
 		this.setState({
 			members: members,
 			disabled: !validateInputs({
