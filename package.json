@@ -88,7 +88,7 @@
     "redux": "^4.0.5",
     "redux-persist": "^6.0.0",
     "request": "^2.87.0",
-    "source-map-explorer": "^2.2.2",
+    "source-map-explorer": "^2.3.1",
     "webpack-manifest-plugin": "^2.2.0"
   },
   "devDependencies": {
