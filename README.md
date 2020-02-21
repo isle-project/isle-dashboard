@@ -7,7 +7,7 @@
 #### Tests
 
 [![Actions Status](https://github.com/isle-project/isle-dashboard/workflows/NodeCI/badge.svg)](https://github.com/isle-project/isle-dashboard/actions)
-[![codecov](https://codecov.io/gh/isle-project/isle-dashboard/branch/master/graph/badge.svg)](https://codecov.io/gh/isle-project/isle-dashboard) [![Greenkeeper badge](https://badges.greenkeeper.io/isle-project/isle-dashboard.svg)](https://greenkeeper.io/)
+[![codecov](https://codecov.io/gh/isle-project/isle-dashboard/branch/master/graph/badge.svg)](https://codecov.io/gh/isle-project/isle-dashboard)
 
 ## Introduction
 
