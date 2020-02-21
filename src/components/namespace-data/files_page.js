@@ -72,7 +72,8 @@ class FilesPage extends Component {
 		this.state = {
 			showDeleteModal: false,
 			deletionID: null,
-			fileMaxSize: 0
+			fileMaxSize: 0,
+			fileInputKey: 0
 		};
 	}
 
@@ -87,7 +88,8 @@ class FilesPage extends Component {
 				}
 			}
 			this.setState({
-				fileMaxSize
+				fileMaxSize,
+				fileInputKey: this.state.fileInputKey + 1
 			});
 		}
 	}
@@ -239,7 +241,7 @@ class FilesPage extends Component {
 					return size >= filter.value.min && size <= filter.value.max;
 				},
 				Filter: ({ filter, onChange }) => {
-					const maxValue = ceil( this.state.fileMaxSize );
+					const maxValue = ceil( this.state.fileMaxSize ) || 1;
 					const defaultVal = {
 						max: maxValue,
 						min: 0
@@ -351,6 +353,7 @@ class FilesPage extends Component {
 						<h3><Badge variant="success">Upload file</Badge></h3>
 						<FormControl
 							id="fileUpload"
+							key={this.state.fileInputKey}
 							type="file"
 							accept=".pdf,.html,.md,image/*,video/*,audio/*,.json,.csv"
 							onChange={this.props.handleUpload}
