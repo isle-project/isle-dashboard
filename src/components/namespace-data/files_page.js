@@ -25,7 +25,6 @@ import InputRange from 'react-input-range';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import Button from 'react-bootstrap/Button';
 import FormLabel from 'react-bootstrap/FormLabel';
-import FormControl from 'react-bootstrap/FormControl';
 import FormGroup from 'react-bootstrap/FormGroup';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
@@ -351,7 +350,7 @@ class FilesPage extends Component {
 			}}>
 					<FormLabel htmlFor="fileUpload" style={{ cursor: 'pointer' }}>
 						<h3><Badge variant="success">Upload file</Badge></h3>
-						<FormControl
+						<input
 							id="fileUpload"
 							key={this.state.fileInputKey}
 							type="file"
