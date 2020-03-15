@@ -38,6 +38,8 @@ const AsyncForgotPassword = asyncComponent(() => import( 'containers/visible-for
 const AsyncCreateNamespace = asyncComponent(() => import( 'containers/visible-create-namespace' ));
 const AsyncEditNamespace = asyncComponent(() => import( 'containers/visible-edit-namespace' ));
 const AsyncNewPassword = asyncComponent(() => import( 'components/new-password' ));
+const AsyncErrorLog = asyncComponent(() => import( 'components/logs/errors' ));
+const AsyncAccessLog = asyncComponent(() => import( 'components/logs/access' ));
 const AsyncLogin = asyncComponent(() => import( 'containers/visible-login' ));
 const AsyncSignup = asyncComponent(() => import( 'containers/visible-signup' ));
 const AsyncNamespaceData = asyncComponent(() => import( 'containers/visible-namespace-data' ));
@@ -118,7 +120,9 @@ class App extends Component {
 							'/lessons/:namespace',
 							'/lessons',
 							'/gallery',
-							'/enroll'
+							'/enroll',
+							'/errors',
+							'/logs'
 						]}
 						component={AsyncHeaderBar}
 						history={this.props.history}
@@ -158,6 +162,14 @@ class App extends Component {
 					<Route
 						path="/enroll"
 						component={AsyncEnrollPage}
+					/>
+					<Route
+						path="/errors"
+						component={AsyncErrorLog}
+					/>
+					<Route
+						path="/logs"
+						component={AsyncAccessLog}
 					/>
 				</Fragment>;
 		}
