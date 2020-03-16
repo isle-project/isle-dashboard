@@ -20,15 +20,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Nav } from 'react-bootstrap';
-import logger from 'debug';
 import ErrorsLog from './logs/errors';
 import AccessLog from './logs/access';
 import './admin_page.css';
-
-
-// VARIABLES //
-
-const debug = logger( 'isle-dashboard:admin-page' );
 
 
 // MAIN //
