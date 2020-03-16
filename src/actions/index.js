@@ -33,6 +33,7 @@ export function loggedIn( user ) {
 			organization: user.organization,
 			token: user.token,
 			writeAccess: user.writeAccess,
+			administrator: user.administrator,
 			id: user.id,
 			lessonData: user.lessonData,
 			picture: user.picture,
