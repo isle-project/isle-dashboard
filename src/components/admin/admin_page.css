@@ -1,0 +1,33 @@
+.admin-page-div {
+	position: relative;
+	top: 60px;
+	margin: 0 auto;
+}
+
+@media screen and (max-width: 800px) {
+	.admin-page-div {
+		top: 110px;
+	}
+}
+
+.admin-page-navbar {
+	box-shadow: 0 0 4px darkgray, 0 0 2px darkslategray;
+	padding-left: 6px;
+	padding-right: 6px;
+	margin: 8px;
+}
+
+.admin-page-container {
+	box-shadow: 0 0 2px darkslategray;
+	padding: 1rem;
+	margin: 8px;
+	background-image: url(https://isle.heinz.cmu.edu/white_carbonfiber_1543854970404.png);
+	height: calc(100vh - 125px);
+	overflow-x: hidden;
+}
+
+.admin-page-log-side-button {
+	position: absolute;
+	top: 60px;
+	right: 5vw;
+}

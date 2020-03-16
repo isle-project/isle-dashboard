@@ -40,6 +40,7 @@ const createCourseTooltip = <Tooltip id="new_course">Create a new course</Toolti
 const editCourseTooltip = <Tooltip id="edit_course">Edit course</Tooltip>;
 const courseDataTooltip = <Tooltip id="course_data">Course Data</Tooltip>;
 const galleryTooltip = <Tooltip id="open_gallery">Open gallery</Tooltip>;
+const adminTooltip = <Tooltip id="open_admin">Open admin panel</Tooltip>;
 const selectCourseTooltip = <Tooltip id="select_course">Select course</Tooltip>;
 const selectBackTooltip = <Tooltip id="to_course">Go to course lessons</Tooltip>;
 
@@ -198,6 +199,14 @@ class HeaderBar extends Component {
 		});
 	}
 
+	goToAdmin() {
+		this.props.history.replace( '/admin' );
+		this.setState({
+			location: 'Administrator Panel',
+			searchPhrase: ''
+		});
+	}
+
 	handleTextChange = ( event ) => {
 		if ( !this.debouncedChange ) {
 			this.debouncedChange = debounce( ( value ) => {
@@ -276,6 +285,23 @@ class HeaderBar extends Component {
 		);
 	}
 
+	renderAdminButton() {
+		if ( !this.props.user.administrator ) {
+			return null;
+		}
+		return (
+			<OverlayTrigger placement="bottom" overlay={adminTooltip}>
+				<Button
+					onClick={this.goToAdmin.bind( this )}
+					className="header-bar-container-button"
+				>
+					<i className="fa fa-cogs"></i>
+					<small className="admin-label">Admin</small>
+				</Button>
+			</OverlayTrigger>
+		);
+	}
+
 	renderGalleryButton() {
 		if ( !this.props.user.writeAccess ) {
 			return null;
@@ -284,12 +310,7 @@ class HeaderBar extends Component {
 			<OverlayTrigger placement="bottom" overlay={galleryTooltip}>
 				<Button
 					onClick={this.goToGallery.bind( this )}
-					style={{
-						marginTop: '8px',
-						marginRight: '4px',
-						marginLeft: '4px',
-						float: 'left'
-					}}
+					className="header-bar-container-button"
 				>
 					<i className="fa fa-eye"></i>
 					<small className="gallery-label">Gallery</small>
@@ -484,6 +505,9 @@ class HeaderBar extends Component {
 					ISLE {this.state.location}
 				</h1>
 				<div className="header-bar-right-container">
+					<div className="header-bar-container">
+						{this.renderAdminButton()}
+					</div>
 					<div className="header-bar-container">
 						{this.renderGalleryButton()}
 					</div>
