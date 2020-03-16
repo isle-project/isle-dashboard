@@ -4,7 +4,6 @@ import React, { Component, Fragment } from 'react';
 import { LazyLog, ScrollFollow } from 'react-lazylog';
 import qs from 'querystring';
 import Button from 'react-bootstrap/Button';
-import server from 'constants/server';
 import './errors_log.css';
 
 
@@ -12,7 +11,7 @@ import './errors_log.css';
 
 class ErrorLog extends Component {
 	render() {
-		const url = `${server}/logs/errors.log?${qs.stringify({ jwt: this.props.user.token })}`;
+		const url = `/logs/errors.log?${qs.stringify({ jwt: this.props.user.token })}`;
 		return (
 			<Fragment>
 				<a href={url} target="_blank" download >
