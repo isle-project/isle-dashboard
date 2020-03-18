@@ -22,6 +22,7 @@ import PropTypes from 'prop-types';
 import {
 	Card, ButtonToolbar, ProgressBar, OverlayTrigger, Tooltip
 } from 'react-bootstrap';
+import copyToClipboard from 'clipboard-copy';
 import round from '@stdlib/math/base/special/round';
 import min from '@stdlib/math/base/special/min';
 import COLORS from 'constants/colors';
@@ -57,6 +58,21 @@ class EnrolledLesson extends Component {
 	openLesson = () => {
 		const win = window.open( this.props.url, '_blank' );
 		win.focus();
+	}
+
+	copyLinkToClipboard = () => {
+		const promise = copyToClipboard( this.props.url );
+		promise.then( () => {
+			this.props.addNotification({
+				message: 'Link has been copied to the clipboard',
+				level: 'success'
+			});
+		}).catch( err => {
+			this.props.addNotification({
+				message: err.message,
+				level: 'error'
+			});
+		});
 	}
 
 	renderButtonToolbar() {
@@ -139,6 +155,14 @@ class EnrolledLesson extends Component {
 							</span>
 						</div>
 					</div>
+					<OverlayTrigger placement="top" overlay={<Tooltip id="copy_link">Copy link to clipboard</Tooltip>}>
+						<i
+							role="button" tabIndex={0}
+							className="lesson-link-icon fas fa-external-link-alt"
+							onClick={this.copyLinkToClipboard}
+							onKeyPress={this.copyLinkToClipboard}
+						></i>
+					</OverlayTrigger>
 					{this.renderButtonToolbar()}
 				</Card.Body>
 			</Card>

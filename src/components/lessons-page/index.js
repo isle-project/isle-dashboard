@@ -170,9 +170,10 @@ class LessonsPage extends Component {
 		let lessons = this.state.filteredLessons;
 		if ( !isOwner( this.props.user, this.props.namespace ) ) {
 			return lessons.map( ( e, i ) => {
-				return (<div key={`cell-${e.title}`}>
+				return (<div className="lesson-grid-item" key={`cell-${e.title}`}>
 					<EnrolledLesson
 						{...lessons[ i ]}
+						addNotification={this.props.addNotification}
 						user={this.props.user}
 					/>
 				</div>);
@@ -180,7 +181,7 @@ class LessonsPage extends Component {
 		}
 		return (
 			lessons.map( ( e, i ) => {
-				return ( <div key={`cell-${e.title}`}>
+				return ( <div className="lesson-grid-item" key={`cell-${e.title}`}>
 					<Lesson
 						{...lessons[ i ]}
 						addNotification={this.props.addNotification}
@@ -231,9 +232,10 @@ class LessonsPage extends Component {
 						layouts={this.state.layouts}
 						breakpoints={{ lg: 1800, md: 1550, sm: 1200, xs: 900, xxs: 400, tiny: 0 }}
 						cols={{ lg: 24, md: 20, sm: 16, xs: 12, xxs: 8, tiny: 4 }}
+						containerPadding={[10, 10]}
 						isResizable={false}
 						isDraggable={false}
-						rowHeight={55}
+						rowHeight={isOwner( this.props.user, this.props.namespace ) ? 54.5 : 55}
 					>
 					{this.renderLessons()}
 					</ResponsiveReactGridLayout>

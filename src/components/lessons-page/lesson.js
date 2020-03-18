@@ -165,6 +165,21 @@ class Lesson extends Component {
 		});
 	}
 
+	copyLinkToClipboard = () => {
+		const promise = copyToClipboard( this.props.url );
+		promise.then( () => {
+			this.props.addNotification({
+				message: 'Link has been copied to the clipboard',
+				level: 'success'
+			});
+		}).catch( err => {
+			this.props.addNotification({
+				message: err.message,
+				level: 'error'
+			});
+		});
+	}
+
 	showPreviewImage = () => {
 		this.img.src = this.props.url+'/preview.jpg';
 	}
@@ -276,6 +291,14 @@ class Lesson extends Component {
 							</span>
 						</div>
 					</div>
+					<OverlayTrigger placement="top" overlay={<Tooltip id="copy_link">Copy link to clipboard</Tooltip>}>
+						<i
+							role="button" tabIndex={0}
+							className="lesson-link-icon fas fa-external-link-alt"
+							onClick={this.copyLinkToClipboard}
+							onKeyPress={this.copyLinkToClipboard}
+						></i>
+					</OverlayTrigger>
 					{this.renderButtonToolbar()}
 					{this.renderModals()}
 				</Card.Body>

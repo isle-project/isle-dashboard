@@ -102,7 +102,8 @@ class EnrollPage extends Component {
 		const layouts = this.createLayout( names );
 		return (
 			<ResponsiveReactGridLayout
-				margin={[30, 30]}
+				margin={[20, 20]}
+				containerPadding={[10, 10]}
 				layouts={layouts}
 				breakpoints={{ lg: 1800, md: 1400, sm: 900, xs: 500 }}
 				cols={{ lg: 24, md: 18, sm: 12, xs: 6 }}
