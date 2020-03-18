@@ -215,6 +215,7 @@ class Gallery extends Component {
 					layouts={layouts}
 					breakpoints={{ lg: 1800, md: 1550, sm: 1200, xs: 900, xxs: 400, tiny: 0 }}
 					cols={{ lg: 24, md: 20, sm: 16, xs: 12, xxs: 8, tiny: 4 }}
+					containerPadding={[10, 10]}
 					isResizable={false}
 					isDraggable={false}
 					rowHeight={60}

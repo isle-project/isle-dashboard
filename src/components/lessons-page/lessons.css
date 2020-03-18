@@ -79,3 +79,20 @@
 .animated-lesson-card {
 	animation: flip-in-hor-bottom 0.6s;
 }
+
+.lesson-grid-item {
+	box-shadow: 0 0 2px 2px darkslategray;
+}
+
+.lesson-link-icon {
+	position: absolute;
+	top: 4px;
+	right: 4px;
+	z-index: 1000;
+	cursor: pointer;
+	color: darkgray;
+}
+
+.lesson-link-icon:hover {
+	color: white;
+}
