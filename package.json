@@ -72,7 +72,7 @@
     "query-string": "^6.11.1",
     "react": "16.13.1",
     "react-avatar-editor": "^11.0.4",
-    "react-bootstrap": "^1.0.0-beta.17",
+    "react-bootstrap": "^1.0.0",
     "react-dates": "^21.8.0",
     "react-dom": "16.13.1",
     "react-grid-layout": "^0.18.3",
