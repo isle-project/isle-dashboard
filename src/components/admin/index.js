@@ -22,6 +22,8 @@ import PropTypes from 'prop-types';
 import { Nav } from 'react-bootstrap';
 import ErrorsLog from './logs/errors';
 import AccessLog from './logs/access';
+import AdminTable from './admin_table.js';
+import UserTable from './user_table.js';
 import './admin_page.css';
 
 
@@ -41,6 +43,12 @@ class AdminPage extends Component {
 			case 'error-logs':
 				activePage = 2;
 				break;
+			case 'users':
+				activePage = 3;
+				break;
+			case 'admins':
+				activePage = 4;
+				break;
 		}
 		this.state = {
 			activePage
@@ -56,6 +64,12 @@ class AdminPage extends Component {
 			case 2:
 				this.props.history.replace( '/admin/error-logs' );
 				break;
+			case 3:
+				this.props.history.replace( '/admin/users' );
+				break;
+			case 4:
+				this.props.history.replace( '/admin/admins' );
+				break;
 		}
 		this.setState({
 			activePage: selectedKey
@@ -68,6 +82,10 @@ class AdminPage extends Component {
 				return <AccessLog user={this.props.user} />;
 			case 2:
 				return <ErrorsLog user={this.props.user} />;
+			case 3:
+				return <UserTable user={this.props.user} />;
+			case 4:
+				return <AdminTable user={this.props.user} />;
 		}
 	}
 
@@ -82,6 +100,12 @@ class AdminPage extends Component {
 						</Nav.Item>
 						<Nav.Item>
 							<Nav.Link eventKey="2" title="Error Log" >Error Log</Nav.Link>
+						</Nav.Item>
+						<Nav.Item>
+							<Nav.Link eventKey="3" title="Users" >Users</Nav.Link>
+						</Nav.Item>
+						<Nav.Item>
+							<Nav.Link eventKey="4" title="Administrators" >Administrators</Nav.Link>
 						</Nav.Item>
 					</Nav>
 				</div>
