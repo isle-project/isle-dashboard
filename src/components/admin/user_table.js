@@ -17,9 +17,13 @@
 
 // MODULES //
 
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import ReactTable from 'react-table';
+import Button from 'react-bootstrap/Button';
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
+import Tooltip from 'react-bootstrap/Tooltip';
+import ConfirmModal from 'components/confirm-modal';
 import contains from '@stdlib/assert/contains';
 import lowercase from '@stdlib/string/lowercase';
 import server from 'constants/server';
@@ -32,6 +36,34 @@ class UserPage extends Component {
 	constructor( props ) {
 		super( props );
 		this.columns = this.createColumns();
+
+		this.state = {
+			showDeleteModal: false,
+			deletedUser: null
+		};
+	}
+
+	toggleDeleteModal = () => {
+		this.setState({
+			showDeleteModal: !this.state.showDeleteModal
+		});
+	}
+
+	deleteSelectedUser = () => {
+		console.log( `Delete user ${this.state.deletedUser.name} with id ${this.state.deletedUser._id}` );
+		this.props.deleteUser({
+			id: this.state.deletedUser._id,
+			token: this.props.user.token
+		});
+	}
+
+	askToDeleteSelectedUserFactory = ( user ) => {
+		return () => {
+			this.setState({
+				showDeleteModal: !this.state.showDeleteModal,
+				deletedUser: user
+			});
+		};
 	}
 
 	createColumns = () => {
@@ -71,6 +103,7 @@ class UserPage extends Component {
 			{
 				Header: 'Organization',
 				accessor: 'organization',
+				style: { marginTop: '8px', color: 'darkslategrey' },
 				maxWidth: 200
 			},
 			{
@@ -79,6 +112,7 @@ class UserPage extends Component {
 				Cell: ( row ) => {
 					return new Date( row.value ).toLocaleString();
 				},
+				style: { marginTop: '8px', color: 'darkslategrey' },
 				maxWidth: 150
 			},
 			{
@@ -87,22 +121,66 @@ class UserPage extends Component {
 				Cell: ( row ) => {
 					return new Date( row.value ).toLocaleString();
 				},
+				style: { marginTop: '8px', color: 'darkslategrey' },
 				maxWidth: 150
+			},
+			{
+				Header: 'Actions',
+				Cell: ( row ) => {
+					console.log( row.row );
+					if ( row.row.email === this.props.user.email ) {
+						return null;
+					}
+					return ( <div>
+						<OverlayTrigger placement="bottom" overlay={<Tooltip id="edit_user_data">Edit User Data</Tooltip>}>
+							<Button
+								variant="outline-secondary"
+							>
+								<div className="fa fa-edit" />
+							</Button>
+						</OverlayTrigger>
+						<OverlayTrigger placement="bottom" overlay={<Tooltip id="impersonate_user">Impersonate User</Tooltip>}>
+							<Button
+								variant="outline-secondary"
+								style={{ marginLeft: 8 }}
+							>
+								<div className="fa fa-theater-masks" />
+							</Button>
+						</OverlayTrigger>
+						<OverlayTrigger placement="bottom" overlay={<Tooltip id="delete_user">Delete User</Tooltip>}>
+							<Button
+								variant="outline-secondary"
+								style={{ marginLeft: 8 }}
+								onClick={this.askToDeleteSelectedUserFactory( row.row._original )}
+							>
+								<div className="fa fa-trash-alt" />
+							</Button>
+						</OverlayTrigger>
+					</div> );
+				}
 			}
 		];
 	}
 
 	render() {
-		console.log( this.props.admin.users );
 		return (
-			<ReactTable
-				filterable
-				data={this.props.admin.users}
-				columns={this.columns}
-				ref={(r) => {
-					this.reactTable = r;
-				}}
-			/>
+			<Fragment>
+				<ReactTable
+					filterable
+					data={this.props.admin.users}
+					columns={this.columns}
+					ref={(r) => {
+						this.reactTable = r;
+					}}
+				/>
+				{ this.state.showDeleteModal ? <ConfirmModal
+					title="Delete User"
+					message={<span>Are you sure you want to delete the user <span style={{ color: 'red' }}>{this.state.deletedUser.name}</span>?</span>}
+					close={this.toggleDeleteModal}
+					show={this.state.showDeleteModal}
+					onDelete={this.deleteSelectedUser}
+				/> : null }
+			</Fragment>
 		);
 	}
 }

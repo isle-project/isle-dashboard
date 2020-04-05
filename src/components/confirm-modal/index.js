@@ -44,7 +44,7 @@ const ConfirmModal = ( props ) => (
 
 ConfirmModal.propTypes = {
 	close: PropTypes.func,
-	message: PropTypes.string,
+	message: PropTypes.node,
 	onDelete: PropTypes.func,
 	show: PropTypes.bool,
 	title: PropTypes.string
