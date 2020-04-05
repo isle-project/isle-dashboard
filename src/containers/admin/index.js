@@ -19,16 +19,42 @@
 
 import React from 'react';
 import { connect } from 'react-redux';
+import request from 'request';
 import AdminPage from 'components/admin';
+import server from 'constants/server';
+import * as actions from 'actions';
 
 
 // EXPORTS //
 
-const VisibleAdminPage = connect( mapStateToProps )( AdminPage );
+const VisibleAdminPage = connect( mapStateToProps, mapDispatchToProps )( AdminPage );
 
 function mapStateToProps( state ) {
 	return {
+		admin: state.admin,
 		user: state.user
+	};
+}
+
+function mapDispatchToProps( dispatch ) {
+	return {
+		getUsers: ( user ) => {
+			request.get( server+'/get_users', {
+				headers: {
+					'Authorization': 'JWT ' + user.token
+				}
+			}, ( err, res ) => {
+				if ( err ) {
+					return dispatch( actions.addNotification({
+						title: 'Error encountered',
+						message: err.message,
+						level: 'error'
+					}) );
+				}
+				const body = JSON.parse( res.body );
+				dispatch( actions.retrievedUsers( body.users ) );
+			});
+		}
 	};
 }
 

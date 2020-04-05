@@ -40,7 +40,7 @@ import ConfirmModal from 'components/confirm-modal';
 import server from 'constants/server';
 import saveAs from 'utils/file_saver.js';
 import 'react-table/react-table.css';
-import './react_table_height.css';
+import 'css/table.css';
 import './files_page.css';
 
 

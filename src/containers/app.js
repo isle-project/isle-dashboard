@@ -162,7 +162,11 @@ class App extends Component {
 						component={AsyncEnrollPage}
 					/>
 					<Route
-						path="/admin"
+						path="/admin" exact
+						component={AsyncAdminPage}
+					/>
+					<Route
+						path="/admin/:subpage"
 						component={AsyncAdminPage}
 					/>
 				</Fragment>;

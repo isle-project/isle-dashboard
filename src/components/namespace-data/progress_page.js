@@ -35,6 +35,8 @@ import server from 'constants/server';
 import saveAs from 'utils/file_saver.js';
 import formatTime from 'utils/format_time.js';
 import './progress_page.css';
+import 'react-table/react-table.css';
+import 'css/table.css';
 import './input_range.css';
 
 
