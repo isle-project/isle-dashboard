@@ -36,7 +36,6 @@ class AdminPage extends Component {
 		super( props );
 
 		const subpage = props.match.params.subpage;
-		console.log( props.match.params );
 		let activePage;
 		switch ( subpage ) {
 			default:
@@ -91,7 +90,7 @@ class AdminPage extends Component {
 			case 2:
 				return <ErrorsLog user={this.props.user} />;
 			case 3:
-				return <UserTable user={this.props.user} admin={this.props.admin} />;
+				return <UserTable user={this.props.user} admin={this.props.admin} deleteUser={this.props.deleteUser} />;
 			case 4:
 				return <AdminTable user={this.props.user} admin={this.props.admin} />;
 		}
@@ -130,6 +129,8 @@ class AdminPage extends Component {
 
 AdminPage.propTypes = {
 	admin: PropTypes.object.isRequired,
+	deleteUser: PropTypes.func.isRequired,
+	getUsers: PropTypes.func.isRequired,
 	user: PropTypes.object.isRequired
 };
 

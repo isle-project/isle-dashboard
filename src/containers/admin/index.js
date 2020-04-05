@@ -54,6 +54,24 @@ function mapDispatchToProps( dispatch ) {
 				const body = JSON.parse( res.body );
 				dispatch( actions.retrievedUsers( body.users ) );
 			});
+		},
+		deleteUser: ({ id, token }) => {
+			request.post( server+'/delete_user', {
+				form: { id },
+				headers: {
+					'Authorization': 'JWT ' + token
+				}
+			}, ( err, res ) => {
+				if ( err ) {
+					return dispatch( actions.addNotification({
+						title: 'Error encountered',
+						message: err.message,
+						level: 'error'
+					}) );
+				}
+				const body = JSON.parse( res.body );
+				console.log( body );
+			});
 		}
 	};
 }
