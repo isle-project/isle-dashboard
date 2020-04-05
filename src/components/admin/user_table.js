@@ -18,6 +18,7 @@
 // MODULES //
 
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import ReactTable from 'react-table';
 import contains from '@stdlib/assert/contains';
 import lowercase from '@stdlib/string/lowercase';
@@ -49,27 +50,17 @@ class UserPage extends Component {
 				style: { color: 'darkslategrey' }
 			},
 			{
-				Header: 'First',
-				id: 'first_name',
-				accessor: 'firstName',
-				maxWidth: 75,
+				Header: 'Name',
+				id: 'name',
+				accessor: 'name',
+				maxWidth: 200,
 				style: { marginTop: '8px', color: 'darkslategrey' },
 				filterMethod: ( filter, row ) => {
 					return contains( lowercase( row[ filter.id ] ), lowercase( filter.value ) );
 				}
 			},
 			{
-				Header: 'Last',
-				id: 'last_name',
-				accessor: 'lastName',
-				maxWidth: 75,
-				style: { marginTop: '8px', color: 'darkslategrey' },
-				filterMethod: ( filter, row ) => {
-					return contains( lowercase( row[ filter.id ] ), lowercase( filter.value ) );
-				}
-			},
-			{
-				Header: 'email',
+				Header: 'Email',
 				accessor: 'email',
 				maxWidth: 200,
 				style: { marginTop: '8px', color: 'darkslategrey' },
@@ -78,24 +69,35 @@ class UserPage extends Component {
 				}
 			},
 			{
+				Header: 'Organization',
+				accessor: 'organization',
+				maxWidth: 200
+			},
+			{
 				Header: 'Last Updated',
 				accessor: 'updatedAt',
 				Cell: ( row ) => {
-					if ( row.value && row.value.toLocaleDateString ) {
-						return row.value.toLocaleDateString( 'en-US' );
-					}
-					return '';
+					return new Date( row.value ).toLocaleString();
 				},
-				maxWidth: 120
+				maxWidth: 150
+			},
+			{
+				Header: 'Created At',
+				accessor: 'createdAt',
+				Cell: ( row ) => {
+					return new Date( row.value ).toLocaleString();
+				},
+				maxWidth: 150
 			}
 		];
 	}
 
 	render() {
+		console.log( this.props.admin.users );
 		return (
 			<ReactTable
 				filterable
-				data={[]}
+				data={this.props.admin.users}
 				columns={this.columns}
 				ref={(r) => {
 					this.reactTable = r;
@@ -109,6 +111,7 @@ class UserPage extends Component {
 // PROPERTIES //
 
 UserPage.propTypes = {
+	admin: PropTypes.object.isRequired
 };
 
 

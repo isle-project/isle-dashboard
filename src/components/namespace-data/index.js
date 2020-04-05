@@ -41,6 +41,7 @@ class NamespaceData extends Component {
 		super( props );
 
 		const subpage = props.match.params.subpage;
+		console.log( subpage );
 		let activePage;
 		switch ( subpage ) {
 			default:

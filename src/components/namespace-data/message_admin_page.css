@@ -25,7 +25,6 @@
 	animation: slide-in-right 0.7s;
 }
 
-
 .message-manip {
 	width: 97%;
 	margin-top: 8px;
@@ -45,7 +44,6 @@
 	color: red;
 	cursor: pointer;
 }
-
 
 .message-delete {
 	float: right;

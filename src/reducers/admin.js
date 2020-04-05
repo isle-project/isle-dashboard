@@ -17,28 +17,26 @@
 
 // MODULES //
 
-import { combineReducers } from 'redux';
-import { connectRouter } from 'connected-react-router';
-import admin from './admin';
-import badges from './badges';
-import cohorts from './cohorts';
-import namespace from './namespace';
-import notification from './notification';
-import gallery from './gallery';
-import search from './search';
-import user from './user';
+import * as types from 'constants/action_types.js';
+
+
+// VARIABLES //
+
+const initialState = {
+	users: []
+};
 
 
 // EXPORTS //
 
-export default ( history ) => combineReducers({
-	admin,
-	badges,
-	cohorts,
-	gallery,
-	namespace,
-	notification,
-	router: connectRouter( history ),
-	search,
-	user
-});
+export default function admin( state = initialState, action ) {
+	switch ( action.type ) {
+	case types.GET_USERS: {
+		return Object.assign({}, state, {
+			users: action.payload.users
+		});
+	}
+	default:
+		return state;
+	}
+}

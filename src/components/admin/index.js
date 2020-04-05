@@ -24,6 +24,8 @@ import ErrorsLog from './logs/errors';
 import AccessLog from './logs/access';
 import AdminTable from './admin_table.js';
 import UserTable from './user_table.js';
+import 'react-table/react-table.css';
+import 'css/table.css';
 import './admin_page.css';
 
 
@@ -34,6 +36,7 @@ class AdminPage extends Component {
 		super( props );
 
 		const subpage = props.match.params.subpage;
+		console.log( props.match.params );
 		let activePage;
 		switch ( subpage ) {
 			default:
@@ -53,6 +56,11 @@ class AdminPage extends Component {
 		this.state = {
 			activePage
 		};
+	}
+
+	componentDidMount() {
+		console.log( 'COMPNENT DID MOUNT');
+		this.props.getUsers( this.props.user );
 	}
 
 	handleSelect = ( selectedKey ) => {
@@ -83,9 +91,9 @@ class AdminPage extends Component {
 			case 2:
 				return <ErrorsLog user={this.props.user} />;
 			case 3:
-				return <UserTable user={this.props.user} />;
+				return <UserTable user={this.props.user} admin={this.props.admin} />;
 			case 4:
-				return <AdminTable user={this.props.user} />;
+				return <AdminTable user={this.props.user} admin={this.props.admin} />;
 		}
 	}
 
@@ -121,6 +129,7 @@ class AdminPage extends Component {
 // PROPERTIES //
 
 AdminPage.propTypes = {
+	admin: PropTypes.object.isRequired,
 	user: PropTypes.object.isRequired
 };
 

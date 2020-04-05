@@ -287,3 +287,12 @@ export function retrievedEnrollableCohorts( cohorts ) {
 		}
 	};
 }
+
+export function retrievedUsers( users ) {
+	return {
+		type: types.GET_USERS,
+		payload: {
+			users
+		}
+	};
+}
