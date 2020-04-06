@@ -208,7 +208,7 @@ class AnnouncementsPage extends Component {
 				close={this.closeDeleteModal}
 				message="Are you sure that you want to delete this announcement?"
 				title="Delete?"
-				onDelete={this.deleteSelectedMessage}
+				onConfirm={this.deleteSelectedMessage}
 			/>
 		</div> );
 	}

@@ -234,7 +234,7 @@ class EditCohortModal extends Component {
 					close={this.closeDeleteModal}
 					message="Are you sure that you want to delete this cohort?"
 					title="Delete?"
-					onDelete={this.handleDelete}
+					onConfirm={this.handleDelete}
 				/>
 			</Fragment>
 		);

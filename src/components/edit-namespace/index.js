@@ -194,7 +194,7 @@ class EditNamespace extends Component {
 					close={this.closeDeleteModal}
 					message="Are you sure that you want to delete this course?"
 					title="Delete?"
-					onDelete={this.handleDelete}
+					onConfirm={this.handleDelete}
 				/>
 				{ this.state.showCreateCohortModal ? <CreateCohortModal
 					show={this.state.showCreateCohortModal}

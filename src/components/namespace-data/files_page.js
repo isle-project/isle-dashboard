@@ -373,7 +373,7 @@ class FilesPage extends Component {
 				close={this.toggleDeleteModal}
 				message="Are you sure that you want to delete this file?"
 				title="Delete?"
-				onDelete={this.handleDelete}
+				onConfirm={this.handleDelete}
 			/>
 		</div> );
 	}
