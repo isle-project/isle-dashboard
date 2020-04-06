@@ -34,7 +34,7 @@ const ConfirmModal = ( props ) => (
 		</Modal.Body>
 		<Modal.Footer>
 			<Button onClick={props.close}>Cancel</Button>
-			<Button variant="danger" onClick={props.onDelete}>Confirm</Button>
+			<Button variant="danger" onClick={props.onConfirm}>Confirm</Button>
 		</Modal.Footer>
 	</Modal>
 );
@@ -45,7 +45,7 @@ const ConfirmModal = ( props ) => (
 ConfirmModal.propTypes = {
 	close: PropTypes.func,
 	message: PropTypes.node,
-	onDelete: PropTypes.func,
+	onConfirm: PropTypes.func,
 	show: PropTypes.bool,
 	title: PropTypes.string
 };
@@ -53,7 +53,7 @@ ConfirmModal.propTypes = {
 ConfirmModal.defaultProps = {
 	close() {},
 	message: '',
-	onDelete() {},
+	onConfirm() {},
 	show: false,
 	title: ''
 };
