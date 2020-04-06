@@ -252,6 +252,15 @@ export function updateUser({ name, organization }) {
 	};
 }
 
+export function deleteUser({ id }) {
+	return {
+		type: types.DELETED_USER,
+		payload: {
+			id
+		}
+	};
+}
+
 export function updateUserPicture( picture ) {
 	return {
 		type: types.USER_PICTURE_MODIFIED,
