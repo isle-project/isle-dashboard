@@ -36,6 +36,13 @@ export default function admin( state = initialState, action ) {
 			users: action.payload.users
 		});
 	}
+	case types.DELETED_USER: {
+		let users = state.users.slice();
+		users = users.filter( x => x._id !== action.payload.id );
+		return Object.assign({}, state, {
+			users
+		});
+	}
 	default:
 		return state;
 	}

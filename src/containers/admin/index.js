@@ -25,6 +25,11 @@ import server from 'constants/server';
 import * as actions from 'actions';
 
 
+// VARIABLES //
+
+const USER_STORAGE_ID = 'ISLE_USER_'+server;
+
+
 // EXPORTS //
 
 const VisibleAdminPage = connect( mapStateToProps, mapDispatchToProps )( AdminPage );
@@ -69,8 +74,32 @@ function mapDispatchToProps( dispatch ) {
 						level: 'error'
 					}) );
 				}
-				const body = JSON.parse( res.body );
-				console.log( body );
+				dispatch( actions.addNotification({
+					title: 'Deleted',
+					message: res.body.message,
+					level: 'success'
+				}) );
+				dispatch( actions.deleteUser({ id }) );
+			});
+		},
+		impersonateUser: ({ id, token }) => {
+			request.post( server+'/impersonate', {
+				form: { id },
+				headers: {
+					'Authorization': 'JWT ' + token
+				}
+			}, ( err, res ) => {
+				if ( err ) {
+					return dispatch( actions.addNotification({
+						title: 'Error encountered',
+						message: err.message,
+						level: 'error'
+					}) );
+				}
+				localStorage.setItem( USER_STORAGE_ID, JSON.stringify({
+					token: res.token,
+					id: res.id
+				}) );
 			});
 		}
 	};
