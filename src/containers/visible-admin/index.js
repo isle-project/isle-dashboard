@@ -76,7 +76,7 @@ function mapDispatchToProps( dispatch ) {
 				}
 				dispatch( actions.addNotification({
 					title: 'Deleted',
-					message: res.body.message,
+					message: 'User successfully deleted',
 					level: 'success'
 				}) );
 				dispatch( actions.deleteUser({ id }) );
