@@ -44,9 +44,16 @@ class UserPage extends Component {
 		this.columns = this.createColumns();
 
 		this.state = {
+			selectedUser: null,
 			showDeleteModal: false,
-			selectedUser: null
+			showImpersonateModal: false
 		};
+	}
+
+	toggleImpersonateModal = () => {
+		this.setState({
+			showImpersonateModal: !this.state.showImpersonateModal
+		});
 	}
 
 	toggleDeleteModal = () => {
