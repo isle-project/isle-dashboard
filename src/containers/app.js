@@ -38,7 +38,7 @@ const AsyncForgotPassword = asyncComponent(() => import( 'containers/visible-for
 const AsyncCreateNamespace = asyncComponent(() => import( 'containers/visible-create-namespace' ));
 const AsyncEditNamespace = asyncComponent(() => import( 'containers/visible-edit-namespace' ));
 const AsyncNewPassword = asyncComponent(() => import( 'components/new-password' ));
-const AsyncAdminPage = asyncComponent(() => import( 'containers/admin' ));
+const AsyncAdminPage = asyncComponent(() => import( 'containers/visible-admin' ));
 const AsyncLogin = asyncComponent(() => import( 'containers/visible-login' ));
 const AsyncSignup = asyncComponent(() => import( 'containers/visible-signup' ));
 const AsyncNamespaceData = asyncComponent(() => import( 'containers/visible-namespace-data' ));
