@@ -19,6 +19,7 @@
 
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
+import logger from 'debug';
 import ReactTable from 'react-table';
 import Button from 'react-bootstrap/Button';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
@@ -30,6 +31,11 @@ import server from 'constants/server';
 import 'react-table/react-table.css';
 
 
+// VARIABLES //
+
+const debug = logger( 'isle-dashboard:admin' );
+
+
 // MAIN //
 
 class UserPage extends Component {
@@ -39,7 +45,7 @@ class UserPage extends Component {
 
 		this.state = {
 			showDeleteModal: false,
-			deletedUser: null
+			selectedUser: null
 		};
 	}
 
@@ -49,19 +55,43 @@ class UserPage extends Component {
 		});
 	}
 
-	deleteSelectedUser = () => {
-		console.log( `Delete user ${this.state.deletedUser.name} with id ${this.state.deletedUser._id}` );
-		this.props.deleteUser({
-			id: this.state.deletedUser._id,
-			token: this.props.user.token
+	impersonateUser = () => {
+		this.setState({
+			showImpersonateModal: false
+		}, () => {
+			this.props.impersonateUser({
+				id: this.state.selectedUser._id,
+				token: this.props.user.token
+			});
 		});
+	}
+
+	deleteSelectedUser = () => {
+		debug( `Delete user ${this.state.selectedUser.name} with id ${this.state.selectedUser._id}` );
+		this.setState({
+			showDeleteModal: false
+		}, () => {
+			this.props.deleteUser({
+				id: this.state.selectedUser._id,
+				token: this.props.user.token
+			});
+		});
+	}
+
+	askToImpersonateSelectedUserFactory = ( user ) => {
+		return () => {
+			this.setState({
+				showImpersonateModal: !this.state.showImpersonateModal,
+				selectedUser: user
+			});
+		};
 	}
 
 	askToDeleteSelectedUserFactory = ( user ) => {
 		return () => {
 			this.setState({
 				showDeleteModal: !this.state.showDeleteModal,
-				deletedUser: user
+				selectedUser: user
 			});
 		};
 	}
@@ -127,7 +157,6 @@ class UserPage extends Component {
 			{
 				Header: 'Actions',
 				Cell: ( row ) => {
-					console.log( row.row );
 					if ( row.row.email === this.props.user.email ) {
 						return null;
 					}
@@ -143,6 +172,7 @@ class UserPage extends Component {
 							<Button
 								variant="outline-secondary"
 								style={{ marginLeft: 8 }}
+								onClick={this.askToImpersonateSelectedUserFactory( row.row._original )}
 							>
 								<div className="fa fa-theater-masks" />
 							</Button>
@@ -173,12 +203,19 @@ class UserPage extends Component {
 						this.reactTable = r;
 					}}
 				/>
+				{ this.state.showImpersonateModal ? <ConfirmModal
+					title="Impersonate User"
+					message={<span>Are you sure you want to impersonate the user <span style={{ color: 'red' }}>{this.state.selectedUser.name}</span>? (this will log you out of your current session)</span>}
+					close={this.toggleImpersonateModal}
+					show={this.state.showImpersonateModal}
+					onConfirm={this.impersonateUser}
+				/> : null }
 				{ this.state.showDeleteModal ? <ConfirmModal
 					title="Delete User"
-					message={<span>Are you sure you want to delete the user <span style={{ color: 'red' }}>{this.state.deletedUser.name}</span>?</span>}
+					message={<span>Are you sure you want to delete the user <span style={{ color: 'red' }}>{this.state.selectedUser.name}</span>?</span>}
 					close={this.toggleDeleteModal}
 					show={this.state.showDeleteModal}
-					onDelete={this.deleteSelectedUser}
+					onConfirm={this.deleteSelectedUser}
 				/> : null }
 			</Fragment>
 		);
@@ -189,7 +226,9 @@ class UserPage extends Component {
 // PROPERTIES //
 
 UserPage.propTypes = {
-	admin: PropTypes.object.isRequired
+	admin: PropTypes.object.isRequired,
+	deleteUser: PropTypes.func.isRequired,
+	impersonateUser: PropTypes.func.isRequired
 };
 
 

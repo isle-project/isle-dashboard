@@ -58,7 +58,6 @@ class AdminPage extends Component {
 	}
 
 	componentDidMount() {
-		console.log( 'COMPNENT DID MOUNT');
 		this.props.getUsers( this.props.user );
 	}
 
@@ -90,7 +89,11 @@ class AdminPage extends Component {
 			case 2:
 				return <ErrorsLog user={this.props.user} />;
 			case 3:
-				return <UserTable user={this.props.user} admin={this.props.admin} deleteUser={this.props.deleteUser} />;
+				return ( <UserTable
+					user={this.props.user} admin={this.props.admin}
+					deleteUser={this.props.deleteUser}
+					impersonateUser={this.props.impersonateUser}
+				/> );
 			case 4:
 				return <AdminTable user={this.props.user} admin={this.props.admin} />;
 		}
@@ -131,6 +134,7 @@ AdminPage.propTypes = {
 	admin: PropTypes.object.isRequired,
 	deleteUser: PropTypes.func.isRequired,
 	getUsers: PropTypes.func.isRequired,
+	impersonateUser: PropTypes.func.isRequired,
 	user: PropTypes.object.isRequired
 };
 
