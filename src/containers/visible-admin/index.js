@@ -19,15 +19,8 @@
 
 import React from 'react';
 import { connect } from 'react-redux';
-import request from 'request';
 import AdminPage from 'components/admin';
-import server from 'constants/server';
-import * as actions from 'actions';
-
-
-// VARIABLES //
-
-const USER_STORAGE_ID = 'ISLE_USER_'+server;
+import mapDispatchToProps from 'containers/map_dispatch_to_props.js';
 
 
 // EXPORTS //
@@ -38,70 +31,6 @@ function mapStateToProps( state ) {
 	return {
 		admin: state.admin,
 		user: state.user
-	};
-}
-
-function mapDispatchToProps( dispatch ) {
-	return {
-		getUsers: ( user ) => {
-			request.get( server+'/get_users', {
-				headers: {
-					'Authorization': 'JWT ' + user.token
-				}
-			}, ( err, res ) => {
-				if ( err ) {
-					return dispatch( actions.addNotification({
-						title: 'Error encountered',
-						message: err.message,
-						level: 'error'
-					}) );
-				}
-				const body = JSON.parse( res.body );
-				dispatch( actions.retrievedUsers( body.users ) );
-			});
-		},
-		deleteUser: ({ id, token }) => {
-			request.post( server+'/delete_user', {
-				form: { id },
-				headers: {
-					'Authorization': 'JWT ' + token
-				}
-			}, ( err, res ) => {
-				if ( err ) {
-					return dispatch( actions.addNotification({
-						title: 'Error encountered',
-						message: err.message,
-						level: 'error'
-					}) );
-				}
-				dispatch( actions.addNotification({
-					title: 'Deleted',
-					message: 'User successfully deleted',
-					level: 'success'
-				}) );
-				dispatch( actions.deleteUser({ id }) );
-			});
-		},
-		impersonateUser: ({ id, token }) => {
-			request.post( server+'/impersonate', {
-				form: { id },
-				headers: {
-					'Authorization': 'JWT ' + token
-				}
-			}, ( err, res ) => {
-				if ( err ) {
-					return dispatch( actions.addNotification({
-						title: 'Error encountered',
-						message: err.message,
-						level: 'error'
-					}) );
-				}
-				localStorage.setItem( USER_STORAGE_ID, JSON.stringify({
-					token: res.token,
-					id: res.id
-				}) );
-			});
-		}
 	};
 }
 
