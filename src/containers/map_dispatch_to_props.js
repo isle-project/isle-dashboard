@@ -109,22 +109,22 @@ function mapDispatchToProps( dispatch ) {
 				dispatch( actions.deleteUser({ id }) );
 			});
 		},
-		impersonateUser: ({ id, token }) => {
+		impersonateUser: ({ id, token, password }) => {
 			debug( 'Impersonating user with id '+id );
 			request.post( server+'/impersonate', {
-				form: { id },
+				form: { id, password },
 				headers: {
 					'Authorization': 'JWT ' + token
 				}
 			}, ( err, res ) => {
-				if ( err ) {
+				if ( err || res.statusCode !== 200 ) {
 					return dispatch( actions.addNotification({
 						title: 'Error encountered',
-						message: err.message,
+						message: err ? err.message : res.body,
 						level: 'error'
 					}) );
 				}
-				const body = JSON.parse( res.body);
+				const body = JSON.parse( res.body );
 				methods.fetchCredentials({
 					token: body.token,
 					id: body.id
