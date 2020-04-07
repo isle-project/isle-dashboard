@@ -59,6 +59,16 @@ class AdminPage extends Component {
 
 	componentDidMount() {
 		this.props.getUsers( this.props.user );
+
+		if ( !this.props.user.administrator ) {
+			this.props.history.replace( '/profile' );
+		}
+	}
+
+	componentDidUpdate() {
+		if ( !this.props.user.administrator ) {
+			this.props.history.replace( '/profile' );
+		}
 	}
 
 	handleSelect = ( selectedKey ) => {
