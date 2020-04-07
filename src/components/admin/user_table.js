@@ -21,6 +21,7 @@ import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import logger from 'debug';
 import ReactTable from 'react-table';
+import FormControl from 'react-bootstrap/FormControl';
 import Button from 'react-bootstrap/Button';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
@@ -46,7 +47,8 @@ class UserPage extends Component {
 		this.state = {
 			selectedUser: null,
 			showDeleteModal: false,
-			showImpersonateModal: false
+			showImpersonateModal: false,
+			password: ''
 		};
 	}
 
@@ -68,6 +70,7 @@ class UserPage extends Component {
 		}, () => {
 			this.props.impersonateUser({
 				id: this.state.selectedUser._id,
+				password: this.state.password,
 				token: this.props.user.token
 			});
 		});
@@ -101,6 +104,12 @@ class UserPage extends Component {
 				selectedUser: user
 			});
 		};
+	}
+
+	handlePassword = ( event ) => {
+		this.setState({
+			password: event.target.value
+		});
 	}
 
 	createColumns = () => {
@@ -212,7 +221,17 @@ class UserPage extends Component {
 				/>
 				{ this.state.showImpersonateModal ? <ConfirmModal
 					title="Impersonate User"
-					message={<span>Are you sure you want to impersonate the user <span style={{ color: 'red' }}>{this.state.selectedUser.name}</span>? (this will log you out of your current session)</span>}
+					message={<span>
+						Please enter your password to impersonate the user <span style={{ color: 'red' }}>{this.state.selectedUser.name}</span>. Notice that this will log you out of your current session.
+						<FormControl
+							name="password"
+							type="password"
+							placeholder="Enter Password"
+							onChange={this.handlePassword}
+							maxLength={30}
+							minLength={6}
+						/>
+					</span>}
 					close={this.toggleImpersonateModal}
 					show={this.state.showImpersonateModal}
 					onConfirm={this.impersonateUser}
