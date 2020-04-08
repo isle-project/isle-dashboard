@@ -19,18 +19,43 @@
 
 import React from 'react';
 import { connect } from 'react-redux';
+import request from 'request';
+import server from 'constants/server';
 import Login from 'components/login';
-import mapDispatchToProps from 'containers/map_dispatch_to_props.js';
+import * as actions from 'actions';
+import { fetchCredentialsInjector } from 'actions/authentication';
+import { getEnrollableCohortsInjector } from 'actions/cohort';
 
 
-// EXPORTS //
-
-const VisibleLogin = connect( mapStateToProps, mapDispatchToProps )( Login );
+// FUNCTIONS //
 
 function mapStateToProps( state ) {
 	return {
 		user: state.user
 	};
 }
+
+function mapDispatchToProps( dispatch ) {
+	return {
+		handleLogin: ( form, clbk ) => {
+			request.post( server+'/login', {
+				form
+			}, clbk );
+		},
+		restoreLogin: ( user ) => {
+			dispatch( actions.loggedIn( user ) );
+		},
+		fetchCredentials: fetchCredentialsInjector( dispatch ),
+		getEnrollableCohorts: getEnrollableCohortsInjector( dispatch )
+	};
+}
+
+
+// MAIN //
+
+const VisibleLogin = connect( mapStateToProps, mapDispatchToProps )( Login );
+
+
+// EXPORTS //
 
 export default VisibleLogin;

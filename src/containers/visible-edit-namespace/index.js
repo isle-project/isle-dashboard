@@ -19,15 +19,13 @@
 
 import React from 'react';
 import { connect } from 'react-redux';
-import request from 'request';
-import server from 'constants/server';
 import EditNamespace from 'components/edit-namespace';
-import * as actions from 'actions';
+import { createCohortInjector, deleteCohortInjector, getCohortsInjector, updateCohortInjector } from 'actions/cohort';
+import { deleteCurrentNamespaceInjector, updateCurrentNamespaceInjector } from 'actions/namespace';
+import { addNotificationInjector } from 'actions/notification';
 
 
-// EXPORTS //
-
-const VisibleEditNamespace = connect( mapStateToProps, mapDispatchToProps )( EditNamespace );
+// FUNCTIONS //
 
 function mapStateToProps( state ) {
 	return {
@@ -39,139 +37,22 @@ function mapStateToProps( state ) {
 
 function mapDispatchToProps( dispatch ) {
 	return {
-		addNotification: ( notification ) => {
-			dispatch( actions.addNotification( notification ) );
-		},
-		createCohort: ( user, cohortInstance, clbk ) => {
-			request.post( server+'/create_cohort', {
-				form: cohortInstance,
-				headers: {
-					'Authorization': 'JWT ' + user.token
-				}
-			}, ( err, res ) => {
-				if ( !err && res.statusCode === 200 ) {
-					dispatch( actions.addNotification({
-						message: 'Cohort successfully created',
-						level: 'success'
-					}) );
-					dispatch( actions.retrievedEnrollableCohorts(null) );
-					return clbk();
-				}
-				const message = err ? err.msg : res.body;
-				dispatch( actions.addNotification({
-					message: message,
-					level: 'error'
-				}) );
-			});
-		},
-		getCohorts: ({ namespaceID, userToken }) => {
-			request.get( server+'/get_cohorts', {
-				headers: {
-					'Authorization': 'JWT ' + userToken
-				},
-				qs: {
-					namespaceID
-				}
-			}, function onCohorts( error, response, body ) {
-				if ( error ) {
-					return error;
-				}
-				body = JSON.parse( body );
-				dispatch( actions.retrievedCohorts( body.cohorts ) );
-			});
-		},
-		deleteCohort: ( _id, token, clbk ) => {
-			request.get( server+'/delete_cohort', {
-				qs: {
-					_id
-				},
-				headers: {
-					'Authorization': 'JWT ' + token
-				}
-			}, ( err, res ) => {
-				if ( err || res.statusCode !== 200 ) {
-					let msg = res.body;
-					return dispatch( actions.addNotification({
-						message: msg,
-						level: 'error'
-					}) );
-				}
-				dispatch( actions.addNotification({
-					message: 'Cohort successfully deleted',
-					level: 'success'
-				}) );
-				dispatch( actions.retrievedEnrollableCohorts( null ) );
-				clbk();
-			});
-		},
-		updateCohort: ( cohort, userToken, clbk ) => {
-			request.post( server+'/update_cohort', {
-				form: {
-					cohort
-				},
-				headers: {
-					'Authorization': 'JWT ' + userToken
-				}
-			}, ( err, res ) => {
-				if ( err ) {
-					return clbk( err );
-				}
-				dispatch( actions.addNotification({
-					message: 'Cohort successfully updated',
-					level: 'success'
-				}) );
-				dispatch( actions.retrievedEnrollableCohorts( null ) );
-				clbk( null, res );
-			});
-		},
-		deleteCurrentNamespace: ( id, token, history ) => {
-			request.get( server+'/delete_namespace', {
-				qs: {
-					id
-				},
-				headers: {
-					'Authorization': 'JWT ' + token
-				}
-			}, ( err, res ) => {
-				if ( err || res.statusCode >= 400 ) {
-					let msg = res.body;
-					if ( res.statusCode === 403 ) {
-						msg = 'Only courses with no lessons can be deleted.';
-					}
-					return dispatch( actions.addNotification({
-						message: msg,
-						level: 'error'
-					}) );
-				}
-				history.replace( '/lessons' );
-				dispatch( actions.deletedCurrentNamespace( id ) );
-				dispatch( actions.addNotification({
-					message: 'Course successfully deleted',
-					level: 'success'
-				}) );
-			});
-		},
-		updateCurrentNamespace: ( ns, clbk ) => {
-			request.post( server+'/update_namespace', {
-				form: {
-					ns
-				},
-				headers: {
-					'Authorization': 'JWT ' + ns.token
-				}
-			}, ( err, res, body ) => {
-				if ( err ) {
-					return clbk( err );
-				}
-				if ( res.statusCode === 200 ) {
-					body = JSON.parse( body );
-					dispatch( actions.changedNamespace( body.namespace ) );
-					dispatch( actions.updatedOwnedNamespace( body.namespace ) );
-				}
-				return clbk( null, res );
-			});
-		}
+		addNotification: addNotificationInjector( dispatch ),
+		createCohort: createCohortInjector( dispatch ),
+		getCohorts: getCohortsInjector( dispatch ),
+		deleteCohort: deleteCohortInjector( dispatch ),
+		updateCohort: updateCohortInjector( dispatch ),
+		deleteCurrentNamespace: deleteCurrentNamespaceInjector( dispatch ),
+		updateCurrentNamespace: updateCurrentNamespaceInjector( dispatch )
 	};
 }
+
+
+// MAIN //
+
+const VisibleEditNamespace = connect( mapStateToProps, mapDispatchToProps )( EditNamespace );
+
+
+// EXPORTS //
 
 export default VisibleEditNamespace;

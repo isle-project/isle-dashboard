@@ -20,12 +20,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import AdminPage from 'components/admin';
-import mapDispatchToProps from 'containers/map_dispatch_to_props.js';
+import { getUsersInjector, deleteUserInjector, impersonateUserInjector } from 'actions/user';
 
 
-// EXPORTS //
-
-const VisibleAdminPage = connect( mapStateToProps, mapDispatchToProps )( AdminPage );
+// FUNCTIONS //
 
 function mapStateToProps( state ) {
 	return {
@@ -33,5 +31,21 @@ function mapStateToProps( state ) {
 		user: state.user
 	};
 }
+
+function mapDispatchToProps( dispatch ) {
+	return {
+		getUsers: getUsersInjector( dispatch ),
+		deleteUser: deleteUserInjector( dispatch ),
+		impersonateUser: impersonateUserInjector( dispatch )
+	};
+}
+
+
+// MAIN //
+
+const VisibleAdminPage = connect( mapStateToProps, mapDispatchToProps )( AdminPage );
+
+
+// EXPORTS //
 
 export default VisibleAdminPage;

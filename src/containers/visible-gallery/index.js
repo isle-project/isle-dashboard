@@ -19,10 +19,9 @@
 
 import React from 'react';
 import { connect } from 'react-redux';
-import request from 'request';
-import server from 'constants/server';
 import Gallery from 'components/gallery';
-import * as actions from 'actions';
+import { copyLessonInjector, getIsleFileInjector, getPublicLessonsInjector } from 'actions/lesson';
+import { addNotificationInjector } from 'actions/notification';
 
 
 // EXPORTS //
@@ -40,79 +39,10 @@ function mapStateToProps( state ) {
 
 function mapDispatchToProps( dispatch ) {
 	return {
-		addNotification: ( notification ) => {
-			dispatch( actions.addNotification( notification ) );
-		},
-		copyLesson: ({ sourceName, target, targetName, source, token }) => {
-			if ( sourceName && target && source ) {
-				request.get( server+'/copy_lesson', {
-					qs: {
-						target,
-						source,
-						sourceName,
-						targetName
-					},
-					headers: {
-						'Authorization': 'JWT ' + token
-					}
-				}, function onResponse( err, res ) {
-					if ( err ) {
-						return dispatch( actions.addNotification({
-							message: err.message,
-							level: 'error'
-						}) );
-					}
-					let msg = JSON.parse( res.body ).message;
-					if ( res.statusCode >= 400 ) {
-						return dispatch( actions.addNotification({
-							message: msg,
-							level: 'error'
-						}) );
-					}
-					dispatch( actions.addNotification({
-						message: msg,
-						level: 'success'
-					}) );
-				});
-			}
-		},
-		findPublicLessons: () => {
-			request.get( server+'/get_public_lessons', function onResponse( error, response, body ) {
-				if ( error ) {
-					return error;
-				}
-				body = JSON.parse( body );
-				let lessons = body.lessons;
-				lessons = lessons.map( (lesson, index) => {
-					lesson.colorIndex = index % 20;
-					lesson.url = server+'/'+lesson.namespace+'/'+lesson.title;
-					if ( !lesson.createdAt ) {
-						lesson.createdAt = new Date( 0 ).toLocaleString();
-					}
-					if ( !lesson.updatedAt ) {
-						lesson.updatedAt = lesson.createdAt;
-					}
-					return lesson;
-				});
-				dispatch( actions.retrievedPublicLessons( lessons ) );
-			});
-		},
-		getIsleFile: ({ lessonName, namespaceName, token, callback }) => {
-			request.get( server+'/get_isle_file', {
-				qs: {
-					lessonName,
-					namespaceName
-				},
-				headers: {
-					'Authorization': 'JWT ' + token
-				}
-			}, function onResponse( error, response, body ) {
-				if ( error ) {
-					return callback( error );
-				}
-				return callback( null, body );
-			});
-		}
+		addNotification: addNotificationInjector( dispatch ),
+		copyLesson: copyLessonInjector( dispatch ),
+		findPublicLessons: getPublicLessonsInjector( dispatch ),
+		getIsleFile: getIsleFileInjector( dispatch )
 	};
 }
 

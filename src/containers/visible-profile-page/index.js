@@ -24,35 +24,14 @@ import logger from 'debug';
 import ProfilePage from 'components/profile-page';
 import server from 'constants/server';
 import * as actions from 'actions';
-import contains from '@stdlib/assert/contains';
+import { getLessonsInjector } from 'actions/lesson';
+import { getBadgesInjector } from 'actions/badge';
 
 
 // VARIABLES //
 
 const debug = logger( 'isle-dashboard' );
 
-
-function createBadgeNotification({ name, description, picture }) {
-	let pic = server + '/badges/' + picture;
-	return {
-		children: (
-			<div>
-				<h3>Received Badge: {name}</h3>
-				<div>
-					<div>
-						<div className="received-badge-before" />
-						<img className="received-badge" src={pic} alt="Received Badge" />
-					</div>
-					<p style={{ marginTop: 15 }}>You received a badge for:  <b>{description}</b></p>
-				</div>
-			</div>
-		),
-		level: 'info',
-		position: 'tc',
-		dismissible: 'button',
-		autoDismiss: 0
-	};
-}
 
 // EXPORTS //
 
@@ -69,27 +48,7 @@ function mapDispatchToProps( dispatch ) {
 		addNotification: ( notification ) => {
 			dispatch( actions.addNotification( notification ) );
 		},
-		addBadges: ( userToken ) => {
-			request.get( server+'/get_user_badges', {
-				headers: {
-					'Authorization': 'JWT ' + userToken
-				}
-			}, function getBadges( error, response, body ) {
-				if ( error ) {
-					return error;
-				}
-				body = JSON.parse( body );
-				dispatch(actions.receivedUserBadges(body.badges) );
-				if ( body.addedBadges.length > 0 ) {
-					for ( let i = 0; i < body.badges.length; i++ ) {
-						const item = body.badges[i];
-						if ( contains( body.addedBadges, item.name ) ) {
-							dispatch( actions.addNotification( createBadgeNotification( item ) ) );
-						}
-					}
-				}
-			});
-		},
+		addBadges: getBadgesInjector( dispatch ),
 		updateUser: ({ name, organization }) => {
 			dispatch( actions.updateUser({ name, organization }) );
 		},
@@ -138,32 +97,7 @@ function mapDispatchToProps( dispatch ) {
 				}
 			});
 		},
-		getLessons: ( namespaceName ) => {
-			if ( namespaceName ) {
-				request.get( server+'/get_lessons', {
-					qs: {
-						namespaceName
-					}
-				}, function onLessons( error, response, body ) {
-					if ( error ) {
-						return error;
-					}
-					body = JSON.parse( body );
-					let lessons = body.lessons;
-					lessons = lessons.map( lesson => {
-						lesson.url = server+'/'+namespaceName+'/'+lesson.title;
-						if ( !lesson.createdAt ) {
-							lesson.createdAt = new Date( 0 ).toLocaleString();
-						}
-						if ( !lesson.updatedAt ) {
-							lesson.updatedAt = lesson.createdAt;
-						}
-						return lesson;
-					});
-					dispatch( actions.retrievedLessons({ lessons, namespaceName }) );
-				});
-			}
-		},
+		getLessons: getLessonsInjector( dispatch ),
 		uploadProfilePic: ({ token, avatarData, thumbnailData }) => {
 			const xhr = new XMLHttpRequest();
 			xhr.open( 'POST', server+'/upload_profile_pic', true );

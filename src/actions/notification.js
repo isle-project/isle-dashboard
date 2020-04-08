@@ -17,29 +17,33 @@
 
 // MODULES //
 
-import React from 'react';
-import { connect } from 'react-redux';
-import EnrollPage from 'components/enroll-page';
-import { addUserToCohortInjector, getEnrollableCohortsInjector } from 'actions/cohort';
+import { ADD_NOTIFICATION, ADD_ERROR_NOTIFICATION } from 'constants/action_types.js';
 
 
 // EXPORTS //
 
-const VisibleEnrollPage = connect( mapStateToProps, mapDispatchToProps )( EnrollPage );
-
-function mapStateToProps( state ) {
-	return {
-		cohorts: state.cohorts,
-		user: state.user
-	};
+export function addNotification( dispatch, notification ) {
+	dispatch({
+		type: ADD_NOTIFICATION,
+		payload: notification
+	});
 }
 
-function mapDispatchToProps(dispatch) {
-	return {
-		addUserToCohort: addUserToCohortInjector( dispatch ),
-		fetchCohorts: getEnrollableCohortsInjector( dispatch )
+export const addNotificationInjector = dispatch => {
+	return notification => {
+		addNotification( dispatch, notification );
 	};
+};
+
+export function addErrorNotification( dispatch, message ) {
+	dispatch({
+		type: ADD_ERROR_NOTIFICATION,
+		payload: message
+	});
 }
 
-
-export default VisibleEnrollPage;
+export const addErrorNotificationInjector = dispatch => {
+	return message => {
+		addErrorNotification( dispatch, message );
+	};
+};

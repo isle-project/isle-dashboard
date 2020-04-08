@@ -17,29 +17,37 @@
 
 // MODULES //
 
-import React from 'react';
-import { connect } from 'react-redux';
-import EnrollPage from 'components/enroll-page';
-import { addUserToCohortInjector, getEnrollableCohortsInjector } from 'actions/cohort';
+import { CREATED_ANNOUNCEMENT, EDITED_ANNOUNCEMENT, DELETED_ANNOUNCEMENT } from 'constants/action_types.js';
 
 
 // EXPORTS //
 
-const VisibleEnrollPage = connect( mapStateToProps, mapDispatchToProps )( EnrollPage );
-
-function mapStateToProps( state ) {
+export function editedAnnouncement( announcement, namespaceName ) {
 	return {
-		cohorts: state.cohorts,
-		user: state.user
+		type: EDITED_ANNOUNCEMENT,
+		payload: {
+			announcement,
+			namespaceName
+		}
 	};
 }
 
-function mapDispatchToProps(dispatch) {
+export function createdAnnouncement( announcement, namespaceName ) {
 	return {
-		addUserToCohort: addUserToCohortInjector( dispatch ),
-		fetchCohorts: getEnrollableCohortsInjector( dispatch )
+		type: CREATED_ANNOUNCEMENT,
+		payload: {
+			announcement,
+			namespaceName
+		}
 	};
 }
 
-
-export default VisibleEnrollPage;
+export function deletedAnnouncement( index, namespaceName ) {
+	return {
+		type: DELETED_ANNOUNCEMENT,
+		payload: {
+			index,
+			namespaceName
+		}
+	};
+}

@@ -42,6 +42,16 @@ export default function namespace( state = initialState, action ) {
 			time: new Date()
 		});
 	}
+	case types.ADD_ERROR_NOTIFICATION: {
+		return {
+			title: 'Error encountered',
+			message: action.payload,
+			level: 'error',
+			position: 'tl',
+			autoDismiss: 5,
+			time: new Date()
+		};
+	}
 	default:
 		return state;
 	}

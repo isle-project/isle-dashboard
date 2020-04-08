@@ -84,62 +84,6 @@ export function setLessonOrderDirection( direction ) {
 	};
 }
 
-export function editedAnnouncement( announcement, namespaceName ) {
-	return {
-		type: types.EDITED_ANNOUNCEMENT,
-		payload: {
-			announcement,
-			namespaceName
-		}
-	};
-}
-
-export function createdAnnouncement( announcement, namespaceName ) {
-	return {
-		type: types.CREATED_ANNOUNCEMENT,
-		payload: {
-			announcement,
-			namespaceName
-		}
-	};
-}
-
-export function deletedAnnouncement( index, namespaceName ) {
-	return {
-		type: types.DELETED_ANNOUNCEMENT,
-		payload: {
-			index,
-			namespaceName
-		}
-	};
-}
-
-export function changedNamespace({ title, owners, announcements = [], cohorts = [], description, _id }) {
-	return {
-		type: types.CHANGED_NAMESPACE,
-		payload: {
-			title,
-			announcements,
-			cohorts,
-			description,
-			owners,
-			_id
-		}
-	};
-}
-
-export function updatedOwnedNamespace({ title, owners, description, _id }) {
-	return {
-		type: types.UPDATED_OWNED_NAMESPACE,
-		payload: {
-			title,
-			description,
-			owners,
-			_id
-		}
-	};
-}
-
 export function addEnrolledNamespace({ title, owners, description, _id }) {
 	return {
 		type: types.ADD_ENROLLED_NAMESPACE,
@@ -152,39 +96,12 @@ export function addEnrolledNamespace({ title, owners, description, _id }) {
 	};
 }
 
-export function appendCreatedNamespace( namespace ) {
-	return {
-		type: types.APPEND_CREATED_NAMESPACE,
-		payload: {
-			namespace
-		}
-	};
-}
-
-export function retrievedCohorts( cohorts ) {
-	return {
-		type: types.RETRIEVED_COHORTS,
-		payload: {
-			cohorts
-		}
-	};
-}
-
 export function retrievedLessons({ lessons, namespaceName }) {
 	return {
 		type: types.RETRIEVED_LESSONS,
 		payload: {
 			lessons,
 			namespaceName
-		}
-	};
-}
-
-export function retrievedPublicLessons( lessons ) {
-	return {
-		type: types.RETRIEVED_PUBLIC_LESSONS,
-		payload: {
-			lessons
 		}
 	};
 }
@@ -207,34 +124,6 @@ export function receivedNamespaceFiles( files ) {
 	};
 }
 
-export function deletedLesson( lessonName ) {
-	return {
-		type: types.DELETED_LESSON,
-		payload: {
-			lessonName
-		}
-	};
-}
-
-export function updatedLesson( lessonName, props ) {
-	return {
-		type: types.UPDATED_LESSON,
-		payload: {
-			lessonName,
-			props
-		}
-	};
-}
-
-export function deletedCurrentNamespace( id ) {
-	return {
-		type: types.DELETED_CURRENT_NAMESPACE,
-		payload: {
-			id
-		}
-	};
-}
-
 export function addNotification( notification ) {
 	return {
 		type: types.ADD_NOTIFICATION,
@@ -252,56 +141,11 @@ export function updateUser({ name, organization }) {
 	};
 }
 
-export function deleteUser({ id }) {
-	return {
-		type: types.DELETED_USER,
-		payload: {
-			id
-		}
-	};
-}
-
 export function updateUserPicture( picture ) {
 	return {
 		type: types.USER_PICTURE_MODIFIED,
 		payload: {
 			picture
-		}
-	};
-}
-
-export function receivedUserBadges( badges ) {
-	return {
-		type: types.USER_RECEIVED_BADGES,
-		payload: {
-			badges
-		}
-	};
-}
-
-export function retrievedBadges( badges ) {
-	return {
-		type: types.RETRIEVED_BADGES,
-		payload: {
-			badges
-		}
-	};
-}
-
-export function retrievedEnrollableCohorts( cohorts ) {
-	return {
-		type: types.RETRIEVED_ENROLLABLE_COHORTS,
-		payload: {
-			cohorts
-		}
-	};
-}
-
-export function retrievedUsers( users ) {
-	return {
-		type: types.GET_USERS,
-		payload: {
-			users
 		}
 	};
 }

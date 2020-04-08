@@ -18,6 +18,7 @@
 // MODULES //
 
 import * as types from 'constants/action_types.js';
+import server from 'constants/server';
 
 
 // VARIABLES //
@@ -32,8 +33,20 @@ const initialState = {
 export default function namespace( state = initialState, action ) {
 	switch ( action.type ) {
 	case types.RETRIEVED_PUBLIC_LESSONS: {
+		let lessons = action.payload.lessons;
+		lessons = lessons.map( (lesson, index) => {
+			lesson.colorIndex = index % 20;
+			lesson.url = server+'/'+lesson.namespace+'/'+lesson.title;
+			if ( !lesson.createdAt ) {
+				lesson.createdAt = new Date( 0 ).toLocaleString();
+			}
+			if ( !lesson.updatedAt ) {
+				lesson.updatedAt = lesson.createdAt;
+			}
+			return lesson;
+		});
 		return Object.assign({}, state, {
-			lessons: action.payload.lessons
+			lessons
 		});
 	}
 	default:
