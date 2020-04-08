@@ -17,42 +17,37 @@
 
 // MODULES //
 
-import * as types from 'constants/action_types.js';
-
-
-// VARIABLES //
-
-const initialState = {
-	message: '',
-	level: '',
-	position: 'tl',
-	children: null,
-	time: null,
-	autoDismiss: 5
-};
+import { CREATED_ANNOUNCEMENT, EDITED_ANNOUNCEMENT, DELETED_ANNOUNCEMENT } from 'constants/action_types.js';
 
 
 // EXPORTS //
 
-export default function namespace( state = initialState, action ) {
-	switch ( action.type ) {
-	case types.ADD_NOTIFICATION: {
-		return Object.assign({}, initialState, {
-			...action.payload,
-			time: new Date()
-		});
-	}
-	case types.ADD_ERROR_NOTIFICATION: {
-		return {
-			title: 'Error encountered',
-			message: action.payload,
-			level: 'error',
-			position: 'tl',
-			autoDismiss: 5,
-			time: new Date()
-		};
-	}
-	default:
-		return state;
-	}
+export function editedAnnouncement( announcement, namespaceName ) {
+	return {
+		type: EDITED_ANNOUNCEMENT,
+		payload: {
+			announcement,
+			namespaceName
+		}
+	};
+}
+
+export function createdAnnouncement( announcement, namespaceName ) {
+	return {
+		type: CREATED_ANNOUNCEMENT,
+		payload: {
+			announcement,
+			namespaceName
+		}
+	};
+}
+
+export function deletedAnnouncement( index, namespaceName ) {
+	return {
+		type: DELETED_ANNOUNCEMENT,
+		payload: {
+			index,
+			namespaceName
+		}
+	};
 }

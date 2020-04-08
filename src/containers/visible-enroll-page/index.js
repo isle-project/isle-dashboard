@@ -20,6 +20,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import EnrollPage from 'components/enroll-page';
+import { addUserToCohortInjector, getEnrollableCohortsInjector } from 'actions/cohort';
 
 
 // EXPORTS //
@@ -35,7 +36,8 @@ function mapStateToProps( state ) {
 
 function mapDispatchToProps() {
 	return {
-
+		addUserToCohort: addUserToCohortInjector( dispatch ),
+		fetchCohorts: getEnrollableCohortsInjector( dispatch )
 	};
 }
 

@@ -19,6 +19,9 @@
 
 import * as types from 'constants/action_types.js';
 import isArray from '@stdlib/assert/is-array';
+import isRegExpString from '@stdlib/assert/is-regexp-string';
+import reFromString from '@stdlib/utils/regexp-from-string';
+import contains from '@stdlib/assert/contains';
 
 
 // FUNCTIONS //
@@ -33,9 +36,17 @@ function titleCompare( a, b ) {
 export default function cohorts( state = null, action ) {
 	switch ( action.type ) {
 	case types.RETRIEVED_ENROLLABLE_COHORTS: {
-		if ( !isArray( action.payload.cohorts ) ) {
-			return action.payload.cohorts;
+		let cohorts = action.payload.cohorts;
+		if ( !isArray( cohorts ) ) {
+			return cohorts;
 		}
+		cohorts = cohorts.filter( elem => {
+			let emailFilter = elem.emailFilter || '';
+			if ( isRegExpString( emailFilter ) ) {
+				emailFilter = reFromString( emailFilter );
+			}
+			return contains( action.payload.user.email, emailFilter || '' );
+		});
 		return action.payload.cohorts.sort( titleCompare );
 	}
 	default:

@@ -17,42 +17,33 @@
 
 // MODULES //
 
-import * as types from 'constants/action_types.js';
-
-
-// VARIABLES //
-
-const initialState = {
-	message: '',
-	level: '',
-	position: 'tl',
-	children: null,
-	time: null,
-	autoDismiss: 5
-};
+import { ADD_NOTIFICATION, ADD_ERROR_NOTIFICATION } from 'constants/action_types.js';
 
 
 // EXPORTS //
 
-export default function namespace( state = initialState, action ) {
-	switch ( action.type ) {
-	case types.ADD_NOTIFICATION: {
-		return Object.assign({}, initialState, {
-			...action.payload,
-			time: new Date()
-		});
-	}
-	case types.ADD_ERROR_NOTIFICATION: {
-		return {
-			title: 'Error encountered',
-			message: action.payload,
-			level: 'error',
-			position: 'tl',
-			autoDismiss: 5,
-			time: new Date()
-		};
-	}
-	default:
-		return state;
-	}
+export function addNotification( dispatch, notification ) {
+	dispatch({
+		type: ADD_NOTIFICATION,
+		payload: notification
+	});
 }
+
+export const addNotificationInjector = dispatch => {
+	return notification => {
+		addNotification( dispatch, notification );
+	};
+};
+
+export function addErrorNotification( dispatch, message ) {
+	dispatch({
+		type: ADD_ERROR_NOTIFICATION,
+		payload: message
+	});
+}
+
+export const addErrorNotificationInjector = dispatch => {
+	return message => {
+		addErrorNotification( dispatch, message );
+	};
+};

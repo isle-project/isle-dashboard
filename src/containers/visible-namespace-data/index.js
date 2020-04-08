@@ -20,6 +20,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import request from 'request';
+import qs from 'querystring';
 import noop from '@stdlib/utils/noop';
 import server from 'constants/server';
 import { withRouter } from 'react-router';
@@ -33,27 +34,27 @@ import * as actions from 'actions';
 
 // FUNCTIONS //
 
-function getFilesRequest({ namespaceName, token, clbk = noop, dispatch, owner = false }) {
-	request.get( `${server}/get_files`, {
-		qs: {
+async function getFilesRequest({ namespaceName, token, clbk = noop, dispatch, owner = false }) {
+	try {
+		const url = `${server}/get_files?${qs.stringify({
 			namespaceName,
 			owner
-		},
-		headers: {
-			'Authorization': 'JWT ' + token
-		}
-	}, function onFiles( err, res, body ) {
-		if ( err ) {
-			dispatch( actions.addNotification({
-				message: err.message,
-				level: 'error'
-			}) );
-			return clbk( err );
-		}
-		body = JSON.parse( body );
+		})}`;
+		const res = await fetch( url, {
+			headers: {
+				'Authorization': 'JWT ' + token
+			}
+		});
+		const body = await res.json();
 		dispatch( actions.receivedNamespaceFiles( body.files ) );
 		clbk( null, body.files );
-	});
+	} catch ( err ) {
+		clbk( err );
+		dispatch( actions.addNotification({
+			message: err.message,
+			level: 'error'
+		}) );
+	}
 }
 
 
