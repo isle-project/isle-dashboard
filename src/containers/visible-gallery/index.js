@@ -24,9 +24,7 @@ import { copyLessonInjector, getIsleFileInjector, getPublicLessonsInjector } fro
 import { addNotificationInjector } from 'actions/notification';
 
 
-// EXPORTS //
-
-const VisibleGallery = connect( mapStateToProps, mapDispatchToProps )( Gallery );
+// FUNCTIONS //
 
 function mapStateToProps( state ) {
 	return {
@@ -45,5 +43,13 @@ function mapDispatchToProps( dispatch ) {
 		getIsleFile: getIsleFileInjector( dispatch )
 	};
 }
+
+
+// MAIN //
+
+const VisibleGallery = connect( mapStateToProps, mapDispatchToProps )( Gallery );
+
+
+// EXPORTS //
 
 export default VisibleGallery;

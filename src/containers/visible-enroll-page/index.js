@@ -23,9 +23,7 @@ import EnrollPage from 'components/enroll-page';
 import { addUserToCohortInjector, getEnrollableCohortsInjector } from 'actions/cohort';
 
 
-// EXPORTS //
-
-const VisibleEnrollPage = connect( mapStateToProps, mapDispatchToProps )( EnrollPage );
+// FUNCTIONS //
 
 function mapStateToProps( state ) {
 	return {
@@ -41,5 +39,12 @@ function mapDispatchToProps() {
 	};
 }
 
+
+// MAIN //
+
+const VisibleEnrollPage = connect( mapStateToProps, mapDispatchToProps )( EnrollPage );
+
+
+// EXPORTS //
 
 export default VisibleEnrollPage;

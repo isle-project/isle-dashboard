@@ -21,9 +21,9 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import CreateNamespace from 'components/create-namespace';
-import * as actions from 'actions';
 import { changedNamespace, createNamespaceInjector } from 'actions/namespace';
 import { addNotificationInjector } from 'actions/notification';
+import { retrievedLessons } from 'actions/lesson';
 
 
 // FUNCTIONS //
@@ -40,7 +40,7 @@ function mapDispatchToProps( dispatch ) {
 		addNotification: addNotificationInjector( dispatch ),
 		onNamespace: ({ title, description, announcements, owners, _id }) => {
 			dispatch( changedNamespace({ title, description, announcements, owners, _id }) );
-			dispatch( actions.retrievedLessons({ lessons: [], namespaceName: title }) );
+			dispatch( retrievedLessons({ lessons: [], namespaceName: title }) );
 		}
 	};
 }
