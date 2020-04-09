@@ -19,15 +19,11 @@
 
 import React from 'react';
 import { connect } from 'react-redux';
-import request from 'request';
 import ForgotPassword from 'components/forgot-password';
-import server from 'constants/server';
-import * as actions from 'actions';
+import { forgotPasswordInjector } from 'actions/user';
 
 
-// EXPORTS //
-
-const VisibleForgotPassword = connect( mapStateToProps, mapDispatchToProps )( ForgotPassword );
+// FUNCTIONS //
 
 function mapStateToProps( state ) {
 	return {
@@ -37,22 +33,16 @@ function mapStateToProps( state ) {
 
 function mapDispatchToProps( dispatch ) {
 	return {
-		forgotPassword: ({ email }) => {
-			request.get( server+'/forgot_password', {
-				qs: {
-					email
-				}
-			}, ( error, res ) => {
-				if ( error ) {
-					return dispatch( actions.addNotification({ message: error.message, level: 'error' }) );
-				}
-				if ( res.statusCode >= 400 ) {
-					return dispatch( actions.addNotification({ message: res.body, level: 'error' }) );
-				}
-				dispatch( actions.addNotification({ message: 'Check your email inbox for a link to choose a new password.', level: 'success' }) );
-			});
-		}
+		forgotPassword: forgotPasswordInjector( dispatch )
 	};
 }
+
+
+// MAIN //
+
+const VisibleForgotPassword = connect( mapStateToProps, mapDispatchToProps )( ForgotPassword );
+
+
+// EXPORTS //
 
 export default VisibleForgotPassword;
