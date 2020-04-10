@@ -196,7 +196,7 @@ export const getFilesInjector = ( dispatch ) => {
 	};
 };
 
-export const getOwnFilesInjector = ( dispatch ) => {
+export const getOwnerFilesInjector = ( dispatch ) => {
 	return ({ namespaceName, token }, clbk ) => {
 		getFilesRequest({ namespaceName, token, clbk, dispatch, owner: true });
 	};
