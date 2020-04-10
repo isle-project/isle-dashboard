@@ -19,12 +19,10 @@
 
 import React from 'react';
 import { connect } from 'react-redux';
-import request from 'request';
-import server from 'constants/server';
 import Login from 'components/login';
-import * as actions from 'actions';
 import { fetchCredentialsInjector } from 'actions/authentication';
 import { getEnrollableCohortsInjector } from 'actions/cohort';
+import { handleLogin, restoreLoginInjector } from 'actions/user';
 
 
 // FUNCTIONS //
@@ -37,14 +35,8 @@ function mapStateToProps( state ) {
 
 function mapDispatchToProps( dispatch ) {
 	return {
-		handleLogin: ( form, clbk ) => {
-			request.post( server+'/login', {
-				form
-			}, clbk );
-		},
-		restoreLogin: ( user ) => {
-			dispatch( actions.loggedIn( user ) );
-		},
+		handleLogin: handleLogin,
+		restoreLogin: restoreLoginInjector( dispatch ),
 		fetchCredentials: fetchCredentialsInjector( dispatch ),
 		getEnrollableCohorts: getEnrollableCohortsInjector( dispatch )
 	};
