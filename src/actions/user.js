@@ -290,3 +290,63 @@ export const restoreLoginInjector = ( dispatch ) => {
 		restoreLogin( dispatch, user );
 	};
 };
+
+export const logout = ( dispatch ) => {
+	localStorage.removeItem( 'ISLE_USER_'+server );
+	dispatch( loggedOut() );
+};
+
+export const logoutInjector = ( dispatch ) => {
+	return () => {
+		logout( dispatch );
+	};
+};
+
+export const userUpdateCheck = ( dispatch, user ) => {
+	request.get( server+'/user_update_check', {
+		headers: {
+			'Authorization': 'JWT ' + user.token
+		},
+		qs: {
+			id: user.id,
+			updatedAt: user.updatedAt
+		}
+	}, function onUserCheck( error, response, body ) {
+		if ( error ) {
+			return error;
+		}
+		debug( 'Received response: '+body );
+		body = JSON.parse( body );
+		if ( !body.hasMostRecent ) {
+			request.post( server+'/credentials_dashboard', {
+				headers: {
+					'Authorization': 'JWT ' + user.token
+				},
+				form: {
+					id: user.id
+				}
+			}, function onLogin( error, response, newUser ) {
+				if ( error ) {
+					return error;
+				}
+				newUser = JSON.parse( newUser );
+				if ( newUser.picture ) {
+					newUser.picture = server + '/avatar/' + newUser.picture;
+				}
+				newUser = {
+					id: user.id,
+					token: user.token,
+					...newUser
+				};
+				debug( 'Updated user data...' );
+				dispatch( loggedIn( newUser ) );
+			});
+		}
+	});
+};
+
+export const userUpdateCheckInjector = ( dispatch ) => {
+	return ( user ) => {
+		userUpdateCheck( dispatch, user );
+	};
+};
