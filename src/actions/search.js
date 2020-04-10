@@ -22,7 +22,7 @@ import { SEARCH_PHRASE_SET, LESSON_ORDER, LESSON_ORDER_DIRECTION } from 'constan
 
 // EXPORTS //
 
-export function searchPhraseSet( phrase ) {
+export function setSearchPhrase( phrase ) {
 	return {
 		type: SEARCH_PHRASE_SET,
 		payload: {
@@ -48,3 +48,21 @@ export function setLessonOrderDirection( direction ) {
 		}
 	};
 }
+
+export const setSearchPhraseInjector = ( dispatch ) => {
+	return ( str ) => {
+		dispatch( setSearchPhrase( str ) );
+	};
+};
+
+export const setLessonOrderInjector = ( dispatch ) => {
+	return ( order ) => {
+		dispatch( setLessonOrder( order ) );
+	};
+};
+
+export const setLessonOrderDirInjector = ( dispatch ) => {
+	return ( direction ) => {
+		dispatch( setLessonOrderDirection( direction ) );
+	};
+};
