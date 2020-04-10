@@ -44,11 +44,12 @@ export function addEnrolledNamespace({ title, owners, description, _id }) {
 	};
 }
 
-export function retrievedEnrollableCohorts( cohorts ) {
+export function retrievedEnrollableCohorts( cohorts, user ) {
 	return {
 		type: RETRIEVED_ENROLLABLE_COHORTS,
 		payload: {
-			cohorts
+			cohorts,
+			user
 		}
 	};
 }
