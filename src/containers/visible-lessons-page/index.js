@@ -19,11 +19,10 @@
 
 import React from 'react';
 import { connect } from 'react-redux';
-import request from 'request';
-import server from 'constants/server';
 import LessonsPage from 'components/lessons-page';
-import * as actions from 'actions';
-import { deleteLessonInjector, getIsleFileInjector, getLessonsInjector } from 'actions/lesson';
+import { activateLessonInjector, deactivateLessonInjector, deleteLessonInjector, getIsleFileInjector, getLessonsInjector,
+	showLessonInGalleryInjector, hideLessonInGalleryInjector, updateLessonInjector } from 'actions/lesson';
+import { addNotificationInjector } from 'actions/notification';
 
 
 // EXPORTS //
@@ -40,136 +39,12 @@ function mapStateToProps( state ) {
 
 function mapDispatchToProps( dispatch ) {
 	return {
-		addNotification: ( notification ) => {
-			dispatch( actions.addNotification( notification ) );
-		},
-		showLessonInGallery: ({ lessonName, namespaceName, token }) => {
-			request.get( server+'/show_lesson', {
-				qs: {
-					namespaceName,
-					lessonName
-				},
-				headers: {
-					'Authorization': 'JWT ' + token
-				}
-			}, function onShow( err, res ) {
-				if ( err ) {
-					return dispatch( actions.addNotification({
-						message: err.message,
-						level: 'error'
-					}) );
-				}
-				dispatch( actions.addNotification({
-					message: JSON.parse( res.body ).message,
-					level: 'success'
-				}) );
-				dispatch( actions.updatedLesson( lessonName, { public: true }) );
-			});
-		},
-		hideLessonInGallery: ({ lessonName, namespaceName, token }) => {
-			request.get( server+'/hide_lesson', {
-				qs: {
-					namespaceName,
-					lessonName
-				},
-				headers: {
-					'Authorization': 'JWT ' + token
-				}
-			}, function onHide( err, res ) {
-				if ( err ) {
-					return dispatch( actions.addNotification({
-						message: err.message,
-						level: 'error'
-					}) );
-				}
-				dispatch( actions.addNotification({
-					message: JSON.parse( res.body ).message,
-					level: 'success'
-				}) );
-				dispatch( actions.updatedLesson( lessonName, { public: false }) );
-			});
-		},
-		activateLesson: ({ lessonName, namespaceName, token }) => {
-			request.get( server+'/activate_lesson', {
-				qs: {
-					namespaceName,
-					lessonName
-				},
-				headers: {
-					'Authorization': 'JWT ' + token
-				}
-			}, function onActivate( err, res ) {
-				if ( err ) {
-					return dispatch( actions.addNotification({
-						message: err.message,
-						level: 'error'
-					}) );
-				}
-				dispatch( actions.addNotification({
-					message: JSON.parse( res.body ).message,
-					level: 'success'
-				}) );
-				dispatch( actions.updatedLesson( lessonName, { active: true }) );
-			});
-		},
-		deactivateLesson: ({ lessonName, namespaceName, token }) => {
-			request.get( server+'/deactivate_lesson', {
-				qs: {
-					namespaceName,
-					lessonName
-				},
-				headers: {
-					'Authorization': 'JWT ' + token
-				}
-			}, function onDeactivate( err, res ) {
-				if ( err ) {
-					return dispatch( actions.addNotification({
-						message: err.message,
-						level: 'error'
-					}) );
-				}
-				dispatch( actions.addNotification({
-					message: JSON.parse( res.body ).message,
-					level: 'success'
-				}) );
-				dispatch( actions.updatedLesson( lessonName, { active: false }) );
-			});
-		},
-		updateLesson: ({ lessonName, namespaceName, newTitle, newDescription, token }, clbk ) => {
-			if ( namespaceName && lessonName ) {
-				request.get( server+'/update_lesson', {
-					qs: {
-						namespaceName,
-						lessonName,
-						newTitle,
-						newDescription
-					},
-					headers: {
-						'Authorization': 'JWT ' + token
-					}
-				}, function onUpdate( err, res ) {
-					if ( err ) {
-						return dispatch( actions.addNotification({
-							message: err.message,
-							level: 'error'
-						}) );
-					}
-					let msg = JSON.parse( res.body ).message;
-					if ( res.statusCode >= 400 ) {
-						return dispatch( actions.addNotification({
-							message: msg,
-							level: 'error'
-						}) );
-					}
-					dispatch( actions.deletedLesson( lessonName ) );
-					dispatch( actions.addNotification({
-						message: msg,
-						level: 'success'
-					}) );
-					clbk();
-				});
-			}
-		},
+		addNotification: addNotificationInjector( dispatch ),
+		showLessonInGallery: showLessonInGalleryInjector( dispatch ),
+		hideLessonInGallery: hideLessonInGalleryInjector( dispatch ),
+		activateLesson: activateLessonInjector( dispatch ),
+		deactivateLesson: deactivateLessonInjector( dispatch ),
+		updateLesson: updateLessonInjector( dispatch ),
 		deleteLesson: deleteLessonInjector( dispatch ),
 		getLessons: getLessonsInjector( dispatch ),
 		getIsleFile: getIsleFileInjector( dispatch )
