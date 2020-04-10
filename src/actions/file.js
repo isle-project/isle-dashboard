@@ -190,6 +190,12 @@ export const uploadFile = ( dispatch, { token, formData }) => {
 	xhr.send( formData );
 };
 
+export const uploadFileInjector = ( dispatch ) => {
+	return ({ token, formData }) => {
+		uploadFile( dispatch, { token, formData } );
+	};
+};
+
 export const getFilesInjector = ( dispatch ) => {
 	return ( { namespaceName, token }, clbk ) => {
 		getFilesRequest({ namespaceName, token, clbk, dispatch });
