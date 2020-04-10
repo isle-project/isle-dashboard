@@ -20,14 +20,12 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import request from 'request';
 import { Route } from 'react-router-dom';
 import { ConnectedRouter } from 'connected-react-router';
 import contains from '@stdlib/assert/contains';
 import asyncComponent from 'components/async';
 import server from 'constants/server';
 import NotificationSystem from './notification.js';
-import * as actions from 'actions';
 import './app.css';
 
 
@@ -191,7 +189,6 @@ class App extends Component {
 // PROPERTIES //
 
 App.propTypes = {
-	handleLogin: PropTypes.func.isRequired,
 	history: PropTypes.object.isRequired,
 	isLoggedIn: PropTypes.bool.isRequired,
 	user: PropTypes.object.isRequired
@@ -200,40 +197,11 @@ App.propTypes = {
 
 // EXPORTS //
 
-export default connect( mapStateToProps, mapDispatchToProps )( App );
+export default connect( mapStateToProps )( App );
 
 function mapStateToProps( state ) {
 	return {
 		isLoggedIn: state.user.loggedIn,
-		user: state.user,
-		namespace: state.namespace
-	};
-}
-
-function mapDispatchToProps( dispatch ) {
-	return {
-		handleLogin: ( obj ) => {
-			request.post( server+'/credentials_dashboard', {
-				headers: {
-					'Authorization': 'JWT ' + obj.token
-				},
-				form: {
-					id: obj.id
-				}
-			}, function onLogin( error, response, body ) {
-				if ( error ) {
-					return error;
-				}
-				body = JSON.parse( body );
-				if ( body.picture ) {
-					body.picture = server + '/avatar/' + body.picture;
-				}
-				let user = {
-					...obj,
-					...body
-				};
-				dispatch( actions.loggedIn( user ) );
-			});
-		}
+		user: state.user
 	};
 }
