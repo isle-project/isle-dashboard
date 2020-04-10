@@ -203,3 +203,147 @@ export const deleteLessonInjector = ( dispatch ) => {
 		deleteLesson( dispatch, { lessonName, namespaceName, token } );
 	};
 };
+
+export const showLessonInGallery = ( dispatch, { lessonName, namespaceName, token }) => {
+	request.get( server+'/show_lesson', {
+		qs: {
+			namespaceName,
+			lessonName
+		},
+		headers: {
+			'Authorization': 'JWT ' + token
+		}
+	}, function onShow( err, res ) {
+		if ( err ) {
+			return addErrorNotification( dispatch, err.message );
+		}
+		addNotification( dispatch, {
+			message: JSON.parse( res.body ).message,
+			level: 'success'
+		});
+		dispatch( updatedLesson( lessonName, { public: true }) );
+	});
+};
+
+export const showLessonInGalleryInjector = ( dispatch ) => {
+	return ({ lessonName, namespaceName, token }) => {
+		showLessonInGallery( dispatch, { lessonName, namespaceName, token });
+	};
+};
+
+export const hideLessonInGallery = ( dispatch, { lessonName, namespaceName, token }) => {
+	request.get( server+'/hide_lesson', {
+		qs: {
+			namespaceName,
+			lessonName
+		},
+		headers: {
+			'Authorization': 'JWT ' + token
+		}
+	}, function onHide( err, res ) {
+		if ( err ) {
+			return addErrorNotification( dispatch, err.message );
+		}
+		addNotification( dispatch, {
+			message: JSON.parse( res.body ).message,
+			level: 'success'
+		});
+		dispatch( updatedLesson( lessonName, { public: false }) );
+	});
+};
+
+export const hideLessonInGalleryInjector = ( dispatch ) => {
+	return ({ lessonName, namespaceName, token }) => {
+		hideLessonInGallery( dispatch, { lessonName, namespaceName, token });
+	};
+};
+
+export const activateLesson = ( dispatch, { lessonName, namespaceName, token }) => {
+	request.get( server+'/activate_lesson', {
+		qs: {
+			namespaceName,
+			lessonName
+		},
+		headers: {
+			'Authorization': 'JWT ' + token
+		}
+	}, function onActivate( err, res ) {
+		if ( err ) {
+			return addErrorNotification( dispatch, err.message );
+		}
+		addNotification( dispatch, {
+			message: JSON.parse( res.body ).message,
+			level: 'success'
+		});
+		dispatch( updatedLesson( lessonName, { active: true }) );
+	});
+};
+
+export const activateLessonInjector = ( dispatch ) => {
+	return ({ lessonName, namespaceName, token }) => {
+		activateLesson( dispatch, { lessonName, namespaceName, token });
+	};
+};
+
+export const deactivateLesson = ( dispatch, { lessonName, namespaceName, token }) => {
+	request.get( server+'/deactivate_lesson', {
+		qs: {
+			namespaceName,
+			lessonName
+		},
+		headers: {
+			'Authorization': 'JWT ' + token
+		}
+	}, function onDeactivate( err, res ) {
+		if ( err ) {
+			return addErrorNotification( dispatch, err.message );
+		}
+		addNotification( dispatch, {
+			message: JSON.parse( res.body ).message,
+			level: 'success'
+		});
+		dispatch( updatedLesson( lessonName, { active: false }) );
+	});
+};
+
+export const deactivateLessonInjector = ( dispatch ) => {
+	return ({ lessonName, namespaceName, token }) => {
+		deactivateLesson( dispatch, { lessonName, namespaceName, token });
+	};
+};
+
+export const updateLesson = ( dispatch, { lessonName, namespaceName, newTitle, newDescription, token }, clbk ) => {
+	if ( namespaceName && lessonName ) {
+		request.get( server+'/update_lesson', {
+			qs: {
+				namespaceName,
+				lessonName,
+				newTitle,
+				newDescription
+			},
+			headers: {
+				'Authorization': 'JWT ' + token
+			}
+		}, function onUpdate( err, res ) {
+			if ( err ) {
+				return addErrorNotification( dispatch, err.message );
+			}
+			const msg = JSON.parse( res.body ).message;
+			if ( res.statusCode >= 400 ) {
+				return addErrorNotification( dispatch, msg );
+			}
+			dispatch( deletedLesson( lessonName ) );
+			addNotification( dispatch, {
+				message: msg,
+				level: 'success'
+			});
+			clbk();
+		});
+	}
+};
+
+export const updateLessonInjector = ( dispatch ) => {
+	return ({ lessonName, namespaceName, newTitle, newDescription, token }) => {
+		updateLesson( dispatch, { lessonName, namespaceName, newTitle, newDescription, token });
+	};
+};

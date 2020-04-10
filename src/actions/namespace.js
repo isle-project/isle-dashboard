@@ -157,3 +157,14 @@ export const updateCurrentNamespaceInjector = ( dispatch ) => {
 		updateCurrentNamespace( dispatch, id, ns, clbk );
 	};
 };
+
+export const getNamespaceActions = ({ namespaceID, token }, clbk ) => {
+	request.post( server+'/get_namespace_actions', {
+		form: {
+			namespaceID
+		},
+		headers: {
+			'Authorization': 'JWT ' + token
+		}
+	}, clbk );
+};

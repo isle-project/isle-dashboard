@@ -17,7 +17,10 @@
 
 // MODULES //
 
+import request from 'request';
+import server from 'constants/server';
 import { CREATED_ANNOUNCEMENT, EDITED_ANNOUNCEMENT, DELETED_ANNOUNCEMENT } from 'constants/action_types.js';
+import { addNotification, addErrorNotification } from 'actions/notification';
 
 
 // EXPORTS //
@@ -51,3 +54,88 @@ export function deletedAnnouncement( index, namespaceName ) {
 		}
 	};
 }
+
+export const addAnnouncement = ( dispatch, { namespaceName, token, announcement }) => {
+	request.post( server+'/new_announcement', {
+		form: {
+			namespaceName,
+			announcement
+		},
+		headers: {
+			'Authorization': 'JWT ' + token
+		}
+	}, ( err, res ) => {
+		if ( err || res.statusCode >= 400 ) {
+			return addErrorNotification( dispatch, err.message || res.body );
+		}
+		const obj = JSON.parse(res.body);
+		dispatch( addNotification({
+			message: obj.message,
+			level: 'success'
+		}) );
+		dispatch( createdAnnouncement( announcement, namespaceName ) );
+	});
+};
+
+export const addAnnouncementInjector = dispatch => {
+	return ( { namespaceName, token, announcement } ) => {
+		addAnnouncement( dispatch, { namespaceName, token, announcement } );
+	};
+};
+
+export const deleteAnnouncement = ( dispatch, { namespaceName, token, createdAt, index }) => {
+	request.post( server+'/delete_announcement', {
+		form: {
+			namespaceName,
+			createdAt
+		},
+		headers: {
+			'Authorization': 'JWT ' + token
+		}
+	}, ( err, res ) => {
+		if ( err || res.statusCode >= 400 ) {
+			return addErrorNotification( dispatch, err.message || res.body );
+		}
+		const obj = JSON.parse(res.body);
+		addNotification( dispatch, {
+			message: obj.message,
+			level: 'success'
+		});
+		dispatch( deletedAnnouncement( index, namespaceName ) );
+	});
+};
+
+
+export const deleteAnnouncementInjector = dispatch => {
+	return ( { namespaceName, token, createdAt, index } ) => {
+		deleteAnnouncement( dispatch, { namespaceName, token, createdAt, index } );
+	};
+};
+
+export const editAnnouncement = ( dispatch, { namespaceName, token, announcement }) => {
+	request.post( server+'/edit_announcement', {
+		form: {
+			namespaceName,
+			announcement
+		},
+		headers: {
+			'Authorization': 'JWT ' + token
+		}
+	}, ( err, res ) => {
+		if ( err || res.statusCode >= 400 ) {
+			return addErrorNotification( dispatch, err.message || res.body );
+		}
+		const obj = JSON.parse(res.body);
+		addNotification( dispatch, {
+			message: obj.message,
+			level: 'success'
+		});
+		dispatch( editedAnnouncement( announcement, namespaceName ) );
+	});
+};
+
+export const editAnnouncementInjector = dispatch => {
+	return ( { namespaceName, token, announcement } ) => {
+		editAnnouncement( dispatch, { namespaceName, token, announcement } );
+	};
+};

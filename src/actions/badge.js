@@ -20,7 +20,7 @@
 import request from 'request';
 import contains from '@stdlib/assert/contains';
 import server from 'constants/server';
-import { addNotification } from 'actions/notification';
+import { addNotification, addErrorNotification } from 'actions/notification';
 import { RETRIEVED_BADGES, USER_RECEIVED_BADGES } from 'constants/action_types.js';
 
 
@@ -69,7 +69,7 @@ export function retrievedBadges( badges ) {
 	};
 }
 
-export const getBadges = ( dispatch, userToken ) => {
+export const getUserBadges = ( dispatch, userToken ) => {
 	request.get( server+'/get_user_badges', {
 		headers: {
 			'Authorization': 'JWT ' + userToken
@@ -91,8 +91,24 @@ export const getBadges = ( dispatch, userToken ) => {
 	});
 };
 
-export const getBadgesInjector = ( dispatch ) => {
+export const getUserBadgesInjector = ( dispatch ) => {
 	return ( userToken ) => {
-		getBadges( dispatch, userToken );
+		getUserBadges( dispatch, userToken );
+	};
+};
+
+export const getAvailableBadges = ( dispatch ) => {
+	request.get( server+'/get_available_badges', function onBadges( err, res, body ) {
+		if ( err ) {
+			return addErrorNotification( dispatch, err.message );
+		}
+		body = JSON.parse( body );
+		dispatch( retrievedBadges( body ) );
+	});
+};
+
+export const getAvailableBadgesInjector = ( dispatch ) => {
+	return () => {
+		getAvailableBadges( dispatch );
 	};
 };
