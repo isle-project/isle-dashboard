@@ -23,7 +23,7 @@ import server from 'constants/server';
 import { fetchCredentials } from 'actions/authentication.js';
 import { getEnrollableCohorts } from 'actions/cohort.js';
 import { addNotification, addErrorNotification } from 'actions/notification.js';
-import { DELETED_USER, GET_USERS } from 'constants/action_types.js';
+import { AUTHENTICATED, USER_PICTURE_MODIFIED, DELETED_USER, GET_USERS, LOGGED_IN, LOGGED_OUT, USER_UPDATED } from 'constants/action_types.js';
 
 
 // VARIABLES //
@@ -32,6 +32,50 @@ const debug = logger( 'isle-dashboard:actions:user' );
 
 
 // EXPORTS //
+
+export function loggedIn( user ) {
+	return {
+		type: LOGGED_IN,
+		payload: {
+			email: user.email,
+			name: user.name,
+			enrolledNamespaces: user.enrolledNamespaces,
+			ownedNamespaces: user.ownedNamespaces,
+			organization: user.organization,
+			token: user.token,
+			writeAccess: user.writeAccess,
+			administrator: user.administrator,
+			id: user.id,
+			lessonData: user.lessonData,
+			picture: user.picture,
+			createdAt: user.createdAt,
+			updatedAt: user.updatedAt,
+			score: user.score,
+			spentTime: user.spentTime
+		}
+	};
+}
+
+export function loggedOut() {
+	return {
+		type: LOGGED_OUT
+	};
+}
+
+export function authenticated() {
+	return {
+		type: AUTHENTICATED
+	};
+}
+
+export function updateUserPicture( picture ) {
+	return {
+		type: USER_PICTURE_MODIFIED,
+		payload: {
+			picture
+		}
+	};
+}
 
 export const getUsers = async ( dispatch, user ) => {
 	try {
@@ -112,5 +156,137 @@ export const deleteUser = async ( dispatch, { id, token }) => {
 export const deleteUserInjector = dispatch => {
 	return ({ id, token }) => {
 		deleteUser( dispatch, { id, token } );
+	};
+};
+
+export const uploadProfilePic = ( dispatch, { token, avatarData, thumbnailData }) => {
+	const xhr = new XMLHttpRequest();
+	xhr.open( 'POST', server+'/upload_profile_pic', true );
+	xhr.setRequestHeader( 'Authorization', 'JWT ' + token );
+	xhr.onreadystatechange = () => {
+		if ( xhr.readyState === XMLHttpRequest.DONE ) {
+			let message;
+			let level;
+			let body;
+			if ( xhr.status === 200 ) {
+				body = JSON.parse( xhr.responseText );
+				message = body.message;
+				level = 'success';
+				body.filename = server + '/avatar/' + body.filename;
+				dispatch( updateUserPicture( body.filename ) );
+			} else {
+				message = xhr.responseText;
+				level = 'error';
+			}
+			return addNotification( dispatch, {
+				title: 'Profile Picture Upload',
+				message,
+				level,
+				position: 'tl'
+			});
+		}
+	};
+	xhr.send( avatarData );
+
+	const xhr2 = new XMLHttpRequest();
+	xhr2.open( 'POST', server+'/upload_thumbnail_pic', true );
+	xhr2.setRequestHeader( 'Authorization', 'JWT ' + token );
+	xhr2.send( thumbnailData );
+};
+
+export const uploadProfilePicInjector = ( dispatch ) => {
+	return ({ token, avatarData, thumbnailData }) => {
+		uploadProfilePic( dispatchEvent, { token, avatarData, thumbnailData });
+	};
+};
+
+export const authenticate = ( dispatch, { userToken, writeAccessToken }, clbk ) => {
+	debug( 'Authenticate user with token: %s', userToken );
+	request.get( server+'/set_write_access', {
+		headers: {
+			'Authorization': 'JWT ' + userToken
+		},
+		qs: {
+			token: writeAccessToken
+		}
+	}, function onResponse( error, response, body ) {
+		if ( error ) {
+			return clbk( error );
+		}
+		if ( response.statusCode !== 200 ) {
+			addErrorNotification( dispatch, 'The provided token is incorrect.' );
+			return clbk( null, false );
+		}
+		body = JSON.parse( body );
+		dispatch( authenticated() );
+		addNotification( dispatch, {
+			message: body.message+' You can now create your own courses on ISLE and have access to the gallery of public lessons.',
+			level: 'success',
+			autoDismiss: 10
+		});
+		return clbk( null, true );
+	});
+};
+
+export const forgotPassword = ( dispatch, { email }) => {
+	request.get( server+'/forgot_password', {
+		qs: {
+			email
+		}
+	}, ( error, res ) => {
+		if ( error ) {
+			return addErrorNotification( dispatch, error.message );
+		}
+		if ( res.statusCode >= 400 ) {
+			return addErrorNotification( dispatch, res.body );
+		}
+		addNotification( dispatch, {
+			message: 'Check your email inbox for a link to choose a new password.',
+			level: 'success'
+		});
+	});
+};
+
+export const forgotPasswordInjector = ( dispatch ) => {
+	return ({ email }) => {
+		forgotPassword( dispatch, { email } );
+	};
+};
+
+export const updateUser = ( dispatch, { name, organization }) => {
+	dispatch({
+		type: USER_UPDATED,
+		payload: {
+			name,
+			organization
+		}
+	});
+};
+
+export const updateUserInjector = ( dispatch ) => {
+	return ({ name, organization }) => {
+		updateUser( dispatch, { name, organization });
+	};
+};
+
+export const createUser = ( form, clbk ) => {
+	request.post( server+'/create_user', {
+		form
+	}, clbk );
+};
+
+export const handleLogin = ( form, clbk ) => {
+	request.post( server+'/login', {
+		form
+	}, clbk );
+};
+
+export const restoreLogin = ( dispatch, user ) => {
+	dispatch( loggedIn( user ) );
+};
+
+export const restoreLoginInjector = ( dispatch ) => {
+	return ( user ) => {
+		restoreLogin( dispatch, user );
 	};
 };
