@@ -228,6 +228,12 @@ export const authenticate = ( dispatch, { userToken, writeAccessToken }, clbk ) 
 	});
 };
 
+export const authenticateInjector = ( dispatch ) => {
+	return ( { userToken, writeAccessToken }, clbk ) => {
+		authenticateInjector( dispatch, { userToken, writeAccessToken }, clbk );
+	};
+};
+
 export const forgotPassword = ( dispatch, { email }) => {
 	request.get( server+'/forgot_password', {
 		qs: {
