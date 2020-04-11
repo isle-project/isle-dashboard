@@ -88,7 +88,6 @@ class NamespaceData extends Component {
 	handleAnnouncementDeletion = (createdAt, index) => {
 		this.props.deleteAnnouncement( {
 			namespaceName: this.props.namespace.title,
-			token: this.props.user.token,
 			index,
 			createdAt
 		});
@@ -97,7 +96,6 @@ class NamespaceData extends Component {
 	handleAnnouncementEdit = ( announcement ) => {
 		this.props.editAnnouncement({
 			namespaceName: this.props.namespace.title,
-			token: this.props.user.token,
 			announcement
 		});
 	}
@@ -105,7 +103,6 @@ class NamespaceData extends Component {
 	handleAnnouncementCreation = ( announcement ) => {
 		this.props.addAnnouncement({
 			namespaceName: this.props.namespace.title,
-			token: this.props.user.token,
 			announcement
 		});
 	}
