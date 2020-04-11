@@ -62,6 +62,12 @@ function getNamespace( namespaces, name ) {
 
 export default function user( state = initialState, action ) {
 	switch ( action.type ) {
+	case types.RECEIVED_TOKEN: {
+		return Object.assign({}, state, {
+			token: action.payload.token,
+			id: action.payload.id
+		});
+	}
 	case types.LOGGED_IN: {
 		return Object.assign({}, state, {
 			email: action.payload.email,
@@ -69,10 +75,8 @@ export default function user( state = initialState, action ) {
 			enrolledNamespaces: action.payload.enrolledNamespaces,
 			ownedNamespaces: action.payload.ownedNamespaces,
 			organization: action.payload.organization,
-			token: action.payload.token,
 			writeAccess: action.payload.writeAccess,
 			administrator: action.payload.administrator,
-			id: action.payload.id,
 			picture: action.payload.picture,
 			lessonData: action.payload.lessonData,
 			createdAt: action.payload.createdAt,

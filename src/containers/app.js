@@ -25,6 +25,7 @@ import { ConnectedRouter } from 'connected-react-router';
 import contains from '@stdlib/assert/contains';
 import asyncComponent from 'components/async';
 import server from 'constants/server';
+import { handleLoginInjector } from 'actions/user';
 import NotificationSystem from './notification.js';
 import './app.css';
 
@@ -197,11 +198,17 @@ App.propTypes = {
 
 // EXPORTS //
 
-export default connect( mapStateToProps )( App );
+export default connect( mapStateToProps, mapDispatchToProps )( App );
 
 function mapStateToProps( state ) {
 	return {
 		isLoggedIn: state.user.loggedIn,
 		user: state.user
+	};
+}
+
+function mapDispatchToProps( dispatch ) {
+	return {
+		handleLogin: handleLoginInjector( dispatch )
 	};
 }
