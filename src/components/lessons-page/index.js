@@ -187,7 +187,6 @@ class LessonsPage extends Component {
 						addNotification={this.props.addNotification}
 						deleteLesson={this.props.deleteLesson}
 						updateLesson={this.props.updateLesson}
-						token={this.props.user.token}
 						deactivateLesson={this.props.deactivateLesson}
 						activateLesson={this.props.activateLesson}
 						showLessonInGallery={this.props.showLessonInGallery}

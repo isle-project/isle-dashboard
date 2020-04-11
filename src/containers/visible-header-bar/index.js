@@ -53,9 +53,9 @@ function mapDispatchToProps( dispatch ) {
 			const namespaceName = title;
 			getLessons( dispatch, namespaceName );
 		},
-		onNamespace: ({ title, description, announcements, owners, _id }, userToken ) => {
+		onNamespace: ({ title, description, announcements, owners, _id }) => {
 			dispatch( changedNamespace({ title, description, announcements, owners, _id }) );
-			getCohorts( dispatch, { namespaceID: _id, userToken });
+			getCohorts( dispatch, { namespaceID: _id });
 			const namespaceName = title;
 			getLessons( dispatch, namespaceName );
 		}

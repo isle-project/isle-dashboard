@@ -80,7 +80,6 @@ class ProfilePicModal extends Component {
 					avatarData.append( 'avatar', img, filename );
 					thumbnailData.append( 'thumbnail', thumbnail, thumbnailName );
 					this.props.uploadProfilePic({
-						token: this.props.user.token,
 						avatarData: avatarData,
 						thumbnailData: thumbnailData
 					});
