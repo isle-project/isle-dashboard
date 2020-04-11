@@ -17,8 +17,9 @@
 
 // MODULES //
 
-import request from 'request';
+import axios from 'axios';
 import logger from 'debug';
+import qs from 'querystring';
 import server from 'constants/server';
 import { fetchCredentials } from 'actions/authentication.js';
 import { getEnrollableCohorts } from 'actions/cohort.js';
@@ -77,50 +78,39 @@ export function updateUserPicture( picture ) {
 	};
 }
 
-export const getUsers = async ( dispatch, user ) => {
+export const getUsers = async ( dispatch ) => {
 	try {
-		const res = await request.get( server+'/get_users', {
-			headers: {
-				'Authorization': 'JWT ' + user.token
-			}
-		});
-		const { users } = JSON.parse( res.body );
+		const res = await axios.get( server+'/get_users' );
 		dispatch({
 			type: GET_USERS,
 			payload: {
-				users
+				users: res.data.users
 			}
 		});
 	} catch ( err ) {
-		return addErrorNotification( dispatch, err.message );
+		return addErrorNotification( dispatch, err );
 	}
 };
 
 export const getUsersInjector = dispatch => {
-	return users => {
-		getUsers( dispatch, users );
+	return () => {
+		getUsers( dispatch );
 	};
 };
 
-export const impersonateUser = ( dispatch, { id, token, password }) => {
+export const impersonateUser = async ( dispatch, { id, token, password }) => {
 	debug( 'Impersonating user with id '+id );
-	request.post( server+'/impersonate', {
-		form: { id, password },
-		headers: {
-			'Authorization': 'JWT ' + token
-		}
-	}, ( err, res ) => {
-		if ( err || res.statusCode !== 200 ) {
-			return addErrorNotification( dispatch, err ? err.message : res.body );
-		}
-		const body = JSON.parse( res.body );
+	try {
+		const res = await axios.post( server+'/impersonate', { id, password });
 		fetchCredentials( dispatch, {
-			token: body.token,
-			id: body.id
+			token: res.data.token,
+			id: res.data.id
 		}, ( err, user ) => {
 			getEnrollableCohorts( dispatch, user );
 		});
-	});
+	} catch ( err ) {
+		addErrorNotification( dispatch, err );
+	}
 };
 
 export const impersonateUserInjector = dispatch => {
@@ -129,14 +119,9 @@ export const impersonateUserInjector = dispatch => {
 	};
 };
 
-export const deleteUser = async ( dispatch, { id, token }) => {
+export const deleteUser = async ( dispatch, { id }) => {
 	try {
-		await request.post( server+'/delete_user', {
-			form: { id },
-			headers: {
-				'Authorization': 'JWT ' + token
-			}
-		});
+		await axios.post( server+'/delete_user', { id });
 		addNotification( dispatch, {
 			title: 'Deleted',
 			message: 'User successfully deleted',
@@ -149,13 +134,13 @@ export const deleteUser = async ( dispatch, { id, token }) => {
 			}
 		});
 	} catch ( err ) {
-		return addNotification( dispatch, err.message );
+		addErrorNotification( dispatch, err );
 	}
 };
 
 export const deleteUserInjector = dispatch => {
-	return ({ id, token }) => {
-		deleteUser( dispatch, { id, token } );
+	return ({ id }) => {
+		deleteUser( dispatch, { id } );
 	};
 };
 
@@ -196,36 +181,28 @@ export const uploadProfilePic = ( dispatch, { token, avatarData, thumbnailData }
 
 export const uploadProfilePicInjector = ( dispatch ) => {
 	return ({ token, avatarData, thumbnailData }) => {
-		uploadProfilePic( dispatchEvent, { token, avatarData, thumbnailData });
+		uploadProfilePic( dispatch, { token, avatarData, thumbnailData });
 	};
 };
 
-export const authenticate = ( dispatch, { userToken, writeAccessToken }, clbk ) => {
+export const authenticate = async ( dispatch, { userToken, writeAccessToken }, clbk ) => {
 	debug( 'Authenticate user with token: %s', userToken );
-	request.get( server+'/set_write_access', {
-		headers: {
-			'Authorization': 'JWT ' + userToken
-		},
-		qs: {
-			token: writeAccessToken
-		}
-	}, function onResponse( error, response, body ) {
-		if ( error ) {
-			return clbk( error );
-		}
-		if ( response.statusCode !== 200 ) {
-			addErrorNotification( dispatch, 'The provided token is incorrect.' );
-			return clbk( null, false );
-		}
-		body = JSON.parse( body );
+	try {
+		const res = await axios.get( server+'/set_write_access?'+qs.stringify({ token: writeAccessToken }) );
 		dispatch( authenticated() );
 		addNotification( dispatch, {
-			message: body.message+' You can now create your own courses on ISLE and have access to the gallery of public lessons.',
+			message: res.data.message+' You can now create your own courses on ISLE and have access to the gallery of public lessons.',
 			level: 'success',
 			autoDismiss: 10
 		});
 		return clbk( null, true );
-	});
+	} catch ( err ) {
+		clbk( err );
+		if ( err.statusCode !== 200 ) {
+			addErrorNotification( dispatch, 'The provided token is incorrect.' );
+			return clbk( null, false );
+		}
+	}
 };
 
 export const authenticateInjector = ( dispatch ) => {
@@ -234,28 +211,21 @@ export const authenticateInjector = ( dispatch ) => {
 	};
 };
 
-export const forgotPassword = ( dispatch, { email }) => {
-	request.get( server+'/forgot_password', {
-		qs: {
-			email
-		}
-	}, ( error, res ) => {
-		if ( error ) {
-			return addErrorNotification( dispatch, error.message );
-		}
-		if ( res.statusCode >= 400 ) {
-			return addErrorNotification( dispatch, res.body );
-		}
+export const forgotPassword = async ( dispatch, { email }) => {
+	try {
+		await axios.get( server+'/forgot_password?'+qs.stringify({ email }) );
 		addNotification( dispatch, {
 			message: 'Check your email inbox for a link to choose a new password.',
 			level: 'success'
 		});
-	});
+	} catch ( err ) {
+		addErrorNotification( dispatch, err );
+	}
 };
 
 export const forgotPasswordInjector = ( dispatch ) => {
 	return ({ email }) => {
-		forgotPassword( dispatch, { email } );
+		forgotPassword( dispatch, { email });
 	};
 };
 
@@ -276,15 +246,12 @@ export const updateUserInjector = ( dispatch ) => {
 };
 
 export const createUser = ( form, clbk ) => {
-	request.post( server+'/create_user', {
-		form
-	}, clbk );
+	axios.post( server+'/create_user', form, clbk );
 };
 
-export const handleLogin = ( form, clbk ) => {
-	request.post( server+'/login', {
-		form
-	}, clbk );
+export const handleLogin = async ( form, clbk ) => {
+	await axios.post( server+'/login', form );
+	clbk();
 };
 
 export const restoreLogin = ( dispatch, user ) => {
@@ -308,47 +275,32 @@ export const logoutInjector = ( dispatch ) => {
 	};
 };
 
-export const userUpdateCheck = ( dispatch, user ) => {
-	request.get( server+'/user_update_check', {
-		headers: {
-			'Authorization': 'JWT ' + user.token
-		},
-		qs: {
+export const userUpdateCheck = async ( dispatch, user ) => {
+	try {
+		const res = await axios.get( server+'/user_update_check?'+qs.stringify({
 			id: user.id,
 			updatedAt: user.updatedAt
-		}
-	}, function onUserCheck( error, response, body ) {
-		if ( error ) {
-			return error;
-		}
-		debug( 'Received response: '+body );
-		body = JSON.parse( body );
-		if ( !body.hasMostRecent ) {
-			request.post( server+'/credentials_dashboard', {
-				headers: {
-					'Authorization': 'JWT ' + user.token
-				},
-				form: {
-					id: user.id
-				}
-			}, function onLogin( error, response, newUser ) {
-				if ( error ) {
-					return error;
-				}
-				newUser = JSON.parse( newUser );
-				if ( newUser.picture ) {
-					newUser.picture = server + '/avatar/' + newUser.picture;
-				}
-				newUser = {
-					id: user.id,
-					token: user.token,
-					...newUser
-				};
-				debug( 'Updated user data...' );
-				dispatch( loggedIn( newUser ) );
+		}) );
+		debug( 'Received response: '+res.data );
+		if ( !res.data.hasMostRecent ) {
+			const res = await axios.post( server+'/credentials_dashboard', {
+				id: user.id
 			});
+			const newUser = res.data;
+			if ( newUser.picture ) {
+				newUser.picture = server + '/avatar/' + newUser.picture;
+			}
+			newUser = {
+				id: user.id,
+				token: user.token,
+				...newUser
+			};
+			debug( 'Updated user data...' );
+			dispatch( loggedIn( newUser ) );
 		}
-	});
+	} catch ( err ) {
+		addErrorNotification( dispatch, err );
+	}
 };
 
 export const userUpdateCheckInjector = ( dispatch ) => {
