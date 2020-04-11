@@ -67,7 +67,7 @@ export const addAnnouncement = async ( dispatch, { namespaceName, announcement }
 		});
 		dispatch( createdAnnouncement( announcement, namespaceName ) );
 	} catch ( err ) {
-		addErrorNotification( dispatch, err.message );
+		addErrorNotification( dispatch, err );
 	}
 };
 
@@ -89,7 +89,7 @@ export const deleteAnnouncement = async ( dispatch, { namespaceName, createdAt, 
 		});
 		dispatch( deletedAnnouncement( index, namespaceName ) );
 	} catch ( err ) {
-		return addErrorNotification( dispatch, err.message );
+		addErrorNotification( dispatch, err );
 	}
 };
 
@@ -111,7 +111,7 @@ export const editAnnouncement = async ( dispatch, { namespaceName, announcement 
 		});
 		dispatch( editedAnnouncement( announcement, namespaceName ) );
 	} catch ( err ) {
-		return addErrorNotification( dispatch, err.message );
+		addErrorNotification( dispatch, err );
 	}
 };
 
