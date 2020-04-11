@@ -52,7 +52,6 @@ class Lesson extends Component {
 			this.props.getIsleFile({
 				lessonName: this.props.title,
 				namespaceName: this.props.namespace,
-				token: this.props.token,
 				callback: ( err, body ) => {
 					this.setState({
 						isleFile: body
@@ -202,7 +201,6 @@ Lesson.propTypes = {
 	namespace: PropTypes.string.isRequired,
 	onImport: PropTypes.func.isRequired,
 	title: PropTypes.string.isRequired,
-	token: PropTypes.string.isRequired,
 	url: PropTypes.string.isRequired
 };
 
