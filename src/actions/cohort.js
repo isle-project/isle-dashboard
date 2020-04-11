@@ -85,9 +85,9 @@ export const getEnrollableCohortsInjector = dispatch => {
 	};
 };
 
-export const getCohorts = ( dispatch, { namespaceID }) => {
+export const getCohorts = async ( dispatch, { namespaceID }) => {
 	try {
-		const res = axios.get( server+'/get_cohorts?'+qs.stringify({ namespaceID }) );
+		const res = await axios.get( server+'/get_cohorts?'+qs.stringify({ namespaceID }) );
 		dispatch( retrievedCohorts( res.data.cohorts ) );
 	} catch ( err ) {
 		addErrorNotification( dispatch, err );
@@ -143,29 +143,27 @@ export const deleteCohortInjector = ( dispatch ) => {
 	};
 };
 
-export const createCohort = async ( dispatch, cohort ) => {
+export const createCohort = async ( dispatch, cohort, namespaceID ) => {
 	try {
-		await axios.post( server+'/create_cohort', { cohort });
+		await axios.post( server+'/create_cohort', cohort );
 		addNotification( dispatch, {
 			message: 'Cohort successfully created',
 			level: 'success'
 		});
 		dispatch( retrievedEnrollableCohorts( null ) );
-		getCohorts({
-			namespaceID: cohort.namespaceID
-		});
+		getCohorts( dispatch, { namespaceID });
 	} catch ( err ) {
 		addErrorNotification( dispatch, err );
 	}
 };
 
 export const createCohortInjector = ( dispatch ) => {
-	return ( cohort ) => {
-		createCohort( dispatch, cohort );
+	return ( cohort, namespaceID ) => {
+		createCohort( dispatch, cohort, namespaceID );
 	};
 };
 
-export const updateCohort = async ( dispatch, cohort ) => {
+export const updateCohort = async ( dispatch, cohort, namespaceID ) => {
 	try {
 		await axios.post( server+'/update_cohort', { cohort });
 		addNotification( dispatch, {
@@ -173,16 +171,14 @@ export const updateCohort = async ( dispatch, cohort ) => {
 			level: 'success'
 		});
 		dispatch( retrievedEnrollableCohorts( null ) );
-		getCohorts({
-			namespaceID: cohort.namespaceID
-		});
+		getCohorts( dispatch, { namespaceID });
 	} catch ( err ) {
 		addErrorNotification( dispatch, err );
 	}
 };
 
 export const updateCohortInjector = ( dispatch ) => {
-	return ( cohort, userToken, clbk ) => {
-		updateCohort( dispatch, cohort, userToken, clbk );
+	return ( cohort, namespaceID ) => {
+		updateCohort( dispatch, cohort, namespaceID );
 	};
 };

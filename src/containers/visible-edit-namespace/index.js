@@ -20,7 +20,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import EditNamespace from 'components/edit-namespace';
-import { createCohortInjector, deleteCohortInjector, getCohortsInjector, updateCohortInjector } from 'actions/cohort';
+import { createCohortInjector, deleteCohortInjector, updateCohortInjector } from 'actions/cohort';
 import { deleteCurrentNamespaceInjector, updateCurrentNamespaceInjector } from 'actions/namespace';
 import { addNotificationInjector } from 'actions/notification';
 

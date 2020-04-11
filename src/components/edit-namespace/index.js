@@ -101,7 +101,7 @@ class EditNamespace extends Component {
 
 	createCohort = ( cohort ) => {
 		cohort.namespaceID = this.props.namespace._id;
-		this.props.createCohort( cohort );
+		this.props.createCohort( cohort, this.props.namespace._id );
 		this.closeCreateCohortModal();
 	}
 
@@ -110,7 +110,7 @@ class EditNamespace extends Component {
 	}
 
 	updateCohort = ( cohort ) => {
-		this.props.updateCohort( cohort );
+		this.props.updateCohort( cohort, this.props.namespace._id );
 	}
 
 	handleOwnerChange = ( newValue ) => {
