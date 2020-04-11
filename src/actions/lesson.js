@@ -132,12 +132,12 @@ export const getLessonsInjector = ( dispatch ) => {
 export const copyLesson = async ( dispatch, { sourceName, target, targetName, source }) => {
 	if ( sourceName && target && source ) {
 		try {
-			const res = await axios.get( server+'/copy_lesson?'+qs.stringify({
+			const res = await axios.post( server+'/copy_lesson', {
 				target,
 				source,
 				sourceName,
 				targetName
-			}) );
+			});
 			addNotification( dispatch, {
 				message: res.data.message,
 				level: 'success'
@@ -157,10 +157,10 @@ export const copyLessonInjector = ( dispatch ) => {
 export const deleteLesson = async ( dispatch, { lessonName, namespaceName }) => {
 	if ( namespaceName && lessonName ) {
 		try {
-			const res = await axios.get( server+'/delete_lesson?'+qs.stringify({
+			const res = await axios.post( server+'/delete_lesson', {
 				namespaceName,
 				lessonName
-			}) );
+			});
 			dispatch( deletedLesson( lessonName ) );
 			addNotification( dispatch, {
 				message: res.data.message,
@@ -180,10 +180,10 @@ export const deleteLessonInjector = ( dispatch ) => {
 
 export const showLessonInGallery = async ( dispatch, { lessonName, namespaceName }) => {
 	try {
-		const res = await axios.get( server+'/show_lesson?'+qs.stringify({
+		const res = await axios.post( server+'/show_lesson', {
 			namespaceName,
 			lessonName
-		}) );
+		});
 		addNotification( dispatch, {
 			message: res.data.message,
 			level: 'success'
@@ -202,10 +202,10 @@ export const showLessonInGalleryInjector = ( dispatch ) => {
 
 export const hideLessonInGallery = async ( dispatch, { lessonName, namespaceName }) => {
 	try {
-		const res = await axios.get( server+'/hide_lesson?'+qs.stringify({
+		const res = await axios.post( server+'/hide_lesson', {
 			namespaceName,
 			lessonName
-		}) );
+		});
 		addNotification( dispatch, {
 			message: res.data.message,
 			level: 'success'
@@ -224,10 +224,10 @@ export const hideLessonInGalleryInjector = ( dispatch ) => {
 
 export const activateLesson = async ( dispatch, { lessonName, namespaceName }) => {
 	try {
-		const res = await axios.get( server+'/activate_lesson?'+qs.stringify({
+		const res = await axios.post( server+'/activate_lesson?', {
 			namespaceName,
 			lessonName
-		}) );
+		});
 		addNotification( dispatch, {
 			message: res.data.message,
 			level: 'success'
@@ -246,10 +246,10 @@ export const activateLessonInjector = ( dispatch ) => {
 
 export const deactivateLesson = async ( dispatch, { lessonName, namespaceName }) => {
 	try {
-		const res = await axios.get( server+'/deactivate_lesson?'+qs.stringify({
+		const res = await axios.post( server+'/deactivate_lesson', {
 			namespaceName,
 			lessonName
-		}) );
+		});
 		addNotification( dispatch, {
 			message: res.data.message,
 			level: 'success'
@@ -269,12 +269,12 @@ export const deactivateLessonInjector = ( dispatch ) => {
 export const updateLesson = async ( dispatch, { lessonName, namespaceName, newTitle, newDescription }) => {
 	if ( namespaceName && lessonName ) {
 		try {
-			const res = await axios.get( server+'/update_lesson?'+qs.stringify({
+			const res = await axios.post( server+'/update_lesson', {
 				namespaceName,
 				lessonName,
 				newTitle,
 				newDescription
-			}) );
+			});
 			dispatch( deletedLesson( lessonName ) );
 			addNotification( dispatch, {
 				message: res.data.message,

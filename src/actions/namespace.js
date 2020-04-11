@@ -99,7 +99,7 @@ export const createNamespaceInjector = dispatch => {
 
 export const deleteCurrentNamespace = async ( dispatch, id, history ) => {
 	try {
-		await axios.get( server+'/delete_namespace?'+qs.stringify({ id }) );
+		await axios.post( server+'/delete_namespace', { id });
 		history.replace( '/lessons' );
 		dispatch( deletedCurrentNamespace( id ) );
 		addNotification( dispatch, {
@@ -142,7 +142,7 @@ export const updateCurrentNamespaceInjector = ( dispatch ) => {
 
 export const getNamespaceActions = async ( dispatch, { namespaceID, namespaceTitle } ) => {
 	try {
-		const res = await axios.post( server+'/get_namespace_actions', { namespaceID });
+		const res = await axios.get( server+'/get_namespace_actions?'+qs.stringify({ namespaceID }) );
 		const blob = new Blob([ res.data ], {
 			type: 'application/json'
 		});

@@ -102,7 +102,7 @@ export const getCohortsInjector = ( dispatch ) => {
 
 export const addUserToCohort = async ( dispatch, cohortID, namespace ) => {
 	try {
-		const res = await axios.get( server+'/add_to_cohort?'+qs.stringify({ cohortID }) );
+		const res = await axios.post( server+'/add_to_cohort', { cohortID });
 		addNotification( dispatch, {
 			message: res.data.message,
 			level: 'success'
@@ -123,7 +123,7 @@ export const addUserToCohortInjector = ( dispatch ) => {
 
 export const deleteCohort = async ( dispatch, _id, namespaceID ) => {
 	try {
-		await axios.get( server+'/delete_cohort?'+qs.stringify({ _id }) );
+		await axios.post( server+'/delete_cohort', { _id });
 		addNotification( dispatch, {
 			message: 'Cohort successfully deleted',
 			level: 'success'
