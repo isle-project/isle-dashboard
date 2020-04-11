@@ -70,7 +70,6 @@ class Login extends Component {
 		else {
 			try {
 				const res = await this.props.handleLogin( form );
-				console.log( res );
 				const { message, type, token, id } = res.data;
 				if ( message === 'ok' ) {
 					const user = await this.props.fetchCredentials({ token, id });
@@ -92,7 +91,17 @@ class Login extends Component {
 					});
 				}
 			} catch ( err ) {
-				console.error( err );
+				this.setState({
+					showInputOverlay: true,
+					overlayTarget: this.emailInput,
+					invalidInputMessage: err.message
+				}, () => {
+					setTimeout( () => {
+						this.setState({
+							showInputOverlay: false
+						});
+					}, 4000 );
+				});
 			}
 		}
 	}
