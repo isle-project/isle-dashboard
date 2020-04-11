@@ -112,8 +112,8 @@ export const deleteCurrentNamespace = async ( dispatch, id, history ) => {
 };
 
 export const deleteCurrentNamespaceInjector = ( dispatch ) => {
-	return ( id, token, history ) => {
-		deleteCurrentNamespace( dispatch, id, token, history );
+	return ( id, history ) => {
+		deleteCurrentNamespace( dispatch, id, history );
 	};
 };
 
