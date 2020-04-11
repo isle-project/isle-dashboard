@@ -86,6 +86,16 @@ export function updateUserPicture( picture ) {
 	};
 }
 
+export const updatedUser = ({ name, organization }) => {
+	return {
+		type: USER_UPDATED,
+		payload: {
+			name,
+			organization
+		}
+	};
+};
+
 export const getUsers = async ( dispatch ) => {
 	try {
 		const res = await axios.get( server+'/get_users' );
@@ -218,14 +228,20 @@ export const forgotPasswordInjector = ( dispatch ) => {
 	};
 };
 
-export const updateUser = ( dispatch, { name, organization }) => {
-	dispatch({
-		type: USER_UPDATED,
-		payload: {
+export const updateUser = async ( dispatch, { name, organization }) => {
+	try {
+		const res = await axios.post( server+'/update_user', { name, organization });
+		dispatch( updatedUser({
 			name,
 			organization
-		}
-	});
+		}) );
+		addNotification( dispatch, {
+			message: res.data.message,
+			level: 'success'
+		});
+	} catch ( err ) {
+		addErrorNotification( dispatch, err );
+	}
 };
 
 export const updateUserInjector = ( dispatch ) => {

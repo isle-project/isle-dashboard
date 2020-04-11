@@ -20,10 +20,8 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { Button, Card, FormLabel, FormControl, FormGroup, Form, OverlayTrigger, Tooltip, Modal } from 'react-bootstrap';
-import request from 'request';
 import logger from 'debug';
 import EnterTokenModal from './enter_token_modal.js';
-import server from './../../constants/server';
 
 
 // FUNCTIONS //
@@ -57,7 +55,10 @@ class EditModal extends Component {
 
 	handleUpdate = () => {
 		const { name, password, passwordRepeat, organization } = this.state;
-		let form = {};
+		const form = {
+			name,
+			organization
+		};
 		let change = false;
 		if ( password ) {
 			if ( passwordRepeat === password ) {
@@ -65,39 +66,16 @@ class EditModal extends Component {
 				form.password = password;
 			}
 		}
-		if ( name !== this.props.user.name ) {
-			form.name = name;
-			change = true;
-		}
-		if ( organization !== this.props.user.organization ) {
-			form.organization = organization;
+		if (
+			name !== this.props.user.name ||
+			organization !== this.props.user.organization
+		) {
 			change = true;
 		}
 		if ( change ) {
 			debug( 'Update user...' );
-			request.post( server+'/update_user', {
-				form: form,
-				headers: {
-					'Authorization': 'JWT ' + this.props.user.token
-				}
-			}, ( err, res ) => {
-				if ( err ) {
-					this.props.addNotification({
-						message: err.message,
-						level: 'error'
-					});
-				} else {
-					this.props.updateUser({
-						name,
-						organization
-					});
-					this.props.onHide();
-					this.props.addNotification({
-						message: JSON.parse( res.body ).message,
-						level: 'success'
-					});
-				}
-			});
+			this.props.updateUser( form );
+			this.props.onHide();
 		}
 	}
 
@@ -113,7 +91,7 @@ class EditModal extends Component {
 
 	getNameValidationState = () => {
 		const { name } = this.state;
-		if ( name.length > 3 ) {
+		if ( name && name.length > 3 ) {
 			return true;
 		}
 		return false;
@@ -268,7 +246,6 @@ class EditModal extends Component {
 // PROPERTIES //
 
 EditModal.propTypes = {
-	addNotification: PropTypes.func.isRequired,
 	onHide: PropTypes.func.isRequired,
 	show: PropTypes.bool.isRequired,
 	updateUser: PropTypes.func.isRequired,
