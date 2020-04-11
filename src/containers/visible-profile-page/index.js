@@ -38,7 +38,7 @@ function mapStateToProps( state ) {
 function mapDispatchToProps( dispatch ) {
 	return {
 		addNotification: addNotificationInjector( dispatch ),
-		addBadges: getUserBadgesInjector( dispatch ),
+		getUserBadges: getUserBadgesInjector( dispatch ),
 		updateUser: updateUserInjector( dispatch ),
 		authenticate: authenticateInjector( dispatch ),
 		getFiles: getFilesInjector( dispatch ),
