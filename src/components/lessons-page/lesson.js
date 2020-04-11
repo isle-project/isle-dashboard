@@ -100,8 +100,6 @@ class Lesson extends Component {
 			token: this.props.token,
 			newTitle,
 			newDescription
-		}, () => {
-			this.props.getLessons( this.props.namespace );
 		});
 		this.closeDetailsModal();
 	}
