@@ -434,7 +434,6 @@ class ProfilePage extends Component {
 				/>
 				<ProfilePicModal
 					user={this.props.user}
-					authenticate={this.props.authenticate}
 					show={this.state.showProfilePicModal}
 					onHide={this.toggleProfilePicModal}
 					uploadProfilePic={this.props.uploadProfilePic}
