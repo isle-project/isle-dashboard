@@ -17,7 +17,7 @@
 
 // MODULES //
 
-import request from 'request';
+import axios from 'axios';
 import server from 'constants/server';
 import { CREATED_ANNOUNCEMENT, EDITED_ANNOUNCEMENT, DELETED_ANNOUNCEMENT } from 'constants/action_types.js';
 import { addNotification, addErrorNotification } from 'actions/notification';
@@ -55,87 +55,68 @@ export function deletedAnnouncement( index, namespaceName ) {
 	};
 }
 
-export const addAnnouncement = ( dispatch, { namespaceName, token, announcement }) => {
-	request.post( server+'/new_announcement', {
-		form: {
+export const addAnnouncement = async ( dispatch, { namespaceName, announcement }) => {
+	try {
+		const res = await axios.post( server+'/new_announcement', {
 			namespaceName,
 			announcement
-		},
-		headers: {
-			'Authorization': 'JWT ' + token
-		}
-	}, ( err, res ) => {
-		if ( err || res.statusCode >= 400 ) {
-			return addErrorNotification( dispatch, err.message || res.body );
-		}
-		const obj = JSON.parse(res.body);
-		dispatch( addNotification({
-			message: obj.message,
+		});
+		addNotification( dispatch, {
+			message: res.data.message,
 			level: 'success'
-		}) );
+		});
 		dispatch( createdAnnouncement( announcement, namespaceName ) );
-	});
+	} catch ( err ) {
+		addErrorNotification( dispatch, err.message );
+	}
 };
 
 export const addAnnouncementInjector = dispatch => {
-	return ( { namespaceName, token, announcement } ) => {
-		addAnnouncement( dispatch, { namespaceName, token, announcement } );
+	return ( { namespaceName, announcement } ) => {
+		addAnnouncement( dispatch, { namespaceName, announcement } );
 	};
 };
 
-export const deleteAnnouncement = ( dispatch, { namespaceName, token, createdAt, index }) => {
-	request.post( server+'/delete_announcement', {
-		form: {
+export const deleteAnnouncement = async ( dispatch, { namespaceName, createdAt, index }) => {
+	try {
+		const res = await axios.post( server+'/delete_announcement', {
 			namespaceName,
 			createdAt
-		},
-		headers: {
-			'Authorization': 'JWT ' + token
-		}
-	}, ( err, res ) => {
-		if ( err || res.statusCode >= 400 ) {
-			return addErrorNotification( dispatch, err.message || res.body );
-		}
-		const obj = JSON.parse(res.body);
+		});
 		addNotification( dispatch, {
-			message: obj.message,
+			message: res.data.message,
 			level: 'success'
 		});
 		dispatch( deletedAnnouncement( index, namespaceName ) );
-	});
+	} catch ( err ) {
+		return addErrorNotification( dispatch, err.message );
+	}
 };
 
-
 export const deleteAnnouncementInjector = dispatch => {
-	return ( { namespaceName, token, createdAt, index } ) => {
-		deleteAnnouncement( dispatch, { namespaceName, token, createdAt, index } );
+	return ( { namespaceName, createdAt, index } ) => {
+		deleteAnnouncement( dispatch, { namespaceName, createdAt, index } );
 	};
 };
 
-export const editAnnouncement = ( dispatch, { namespaceName, token, announcement }) => {
-	request.post( server+'/edit_announcement', {
-		form: {
+export const editAnnouncement = async ( dispatch, { namespaceName, announcement }) => {
+	try {
+		const res = await axios.post( server+'/edit_announcement', {
 			namespaceName,
 			announcement
-		},
-		headers: {
-			'Authorization': 'JWT ' + token
-		}
-	}, ( err, res ) => {
-		if ( err || res.statusCode >= 400 ) {
-			return addErrorNotification( dispatch, err.message || res.body );
-		}
-		const obj = JSON.parse(res.body);
+		});
 		addNotification( dispatch, {
-			message: obj.message,
+			message: res.data.message,
 			level: 'success'
 		});
 		dispatch( editedAnnouncement( announcement, namespaceName ) );
-	});
+	} catch ( err ) {
+		return addErrorNotification( dispatch, err.message );
+	}
 };
 
 export const editAnnouncementInjector = dispatch => {
-	return ( { namespaceName, token, announcement } ) => {
-		editAnnouncement( dispatch, { namespaceName, token, announcement } );
+	return ( { namespaceName, announcement } ) => {
+		editAnnouncement( dispatch, { namespaceName, announcement } );
 	};
 };

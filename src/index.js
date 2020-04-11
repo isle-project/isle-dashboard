@@ -24,6 +24,7 @@ import { Provider } from 'react-redux';
 import { persistStore, persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage'; // Defaults to localStorage
 import { PersistGate } from 'redux-persist/integration/react';
+import axios from 'axios';
 import { createHashHistory } from 'history';
 import { createStore, applyMiddleware } from 'redux';
 import { routerMiddleware } from 'connected-react-router';
@@ -49,6 +50,14 @@ const persistedReducer = persistReducer( persistConfig, rootReducer );
 const middleware = routerMiddleware( history );
 const store = createStore( persistedReducer, applyMiddleware( middleware ) );
 const persistor = persistStore( store );
+
+axios.interceptors.request.use( ( config ) => {
+	const token = store.getState().user.token;
+	if ( token ) {
+		config.headers.Authorization = `JWT ${token}`;
+	}
+	return config;
+});
 
 
 // MAIN //
