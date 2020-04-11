@@ -25,7 +25,7 @@ import { addAnnouncementInjector, deleteAnnouncementInjector, editAnnouncementIn
 import { getAvailableBadgesInjector } from 'actions/badge';
 import { deleteFileInjector, getFilesInjector, getOwnerFilesInjector, uploadFileInjector } from 'actions/file';
 import { addNotificationInjector } from 'actions/notification';
-import { getNamespaceActions } from 'actions/namespace';
+import { getNamespaceActionsInjector } from 'actions/namespace';
 
 
 // FUNCTIONS //
@@ -43,7 +43,7 @@ function mapDispatchToProps( dispatch ) {
 		getBadges: getAvailableBadgesInjector( dispatch ),
 		getFiles: getFilesInjector( dispatch ),
 		getOwnerFiles: getOwnerFilesInjector( dispatch ),
-		getNamespaceActions: getNamespaceActions,
+		getNamespaceActions: getNamespaceActionsInjector( dispatch ),
 		addNotification: addNotificationInjector( dispatch ),
 		deleteFile: deleteFileInjector( dispatch ),
 		deleteAnnouncement: deleteAnnouncementInjector( dispatch ),

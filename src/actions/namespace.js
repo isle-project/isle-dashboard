@@ -146,7 +146,7 @@ export const getNamespaceActions = async ( dispatch, { namespaceID, namespaceTit
 		const blob = new Blob([ res.data ], {
 			type: 'application/json'
 		});
-		const name = `actions_${this.props.namespace.title}.json`;
+		const name = `actions_${namespaceTitle}.json`;
 		saveAs( blob, name );
 	} catch ( err ) {
 		addErrorNotification( dispatch, err );
@@ -154,7 +154,7 @@ export const getNamespaceActions = async ( dispatch, { namespaceID, namespaceTit
 };
 
 export const getNamespaceActionsInjector = ( dispatch ) => {
-	return ({ namespaceID }) => {
-		getNamespaceActions( dispatch, { namespaceID });
+	return ({ namespaceID, namespaceTitle }) => {
+		getNamespaceActions( dispatch, { namespaceID, namespaceTitle });
 	};
 };
