@@ -116,24 +116,18 @@ class Lesson extends Component {
 		this.setState({ showDetailsModal: false });
 	}
 
-	getIsleFile = () => {
+	getIsleFile = async () => {
 		debug( 'Request ISLE source code from server...' );
 		if ( !this.state.isleFile ) {
-			this.props.getIsleFile({
+			const data = await this.props.getIsleFile({
 				lessonName: this.props.title,
-				namespaceName: this.props.namespace,
-				callback: ( err, body ) => {
-					if ( err ) {
-						return this.props.addNotification({
-							message: err.message,
-							level: 'error'
-						});
-					}
-					this.setState({
-						isleFile: body
-					});
-				}
+				namespaceName: this.props.namespace
 			});
+			if ( data ) {
+				this.setState({
+					isleFile: data
+				});
+			}
 		}
 	}
 

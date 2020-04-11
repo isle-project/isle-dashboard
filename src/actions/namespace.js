@@ -127,7 +127,7 @@ export const updateCurrentNamespace = async ( dispatch, ns ) => {
 			level: 'success'
 		});
 		getCohorts( dispatch, {
-			namespaceID: ns
+			namespaceID: ns._id
 		});
 	} catch ( err ) {
 		addErrorNotification( dispatch, err );
@@ -135,8 +135,8 @@ export const updateCurrentNamespace = async ( dispatch, ns ) => {
 };
 
 export const updateCurrentNamespaceInjector = ( dispatch ) => {
-	return ( id, ns, clbk ) => {
-		updateCurrentNamespace( dispatch, id, ns, clbk );
+	return ( id, ns ) => {
+		updateCurrentNamespace( dispatch, id, ns );
 	};
 };
 

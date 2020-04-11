@@ -79,21 +79,22 @@ export const getPublicLessonsInjector = ( dispatch ) => {
 	};
 };
 
-export const getIsleFile = async ( dispatch, { lessonName, namespaceName, callback }) => {
+export const getIsleFile = async ( dispatch, { lessonName, namespaceName }) => {
 	try {
 		const res = await axios.get( server+'/get_isle_file?'+qs.stringify({
 			lessonName,
 			namespaceName
 		}) );
-		callback( null, res.data );
+		return res.data;
 	} catch ( err ) {
 		addErrorNotification( dispatch, err );
+		return null;
 	}
 };
 
 export const getIsleFileInjector = ( dispatch ) => {
-	return ({ lessonName, namespaceName, callback }) => {
-		getIsleFile( dispatch, { lessonName, namespaceName, callback });
+	return ({ lessonName, namespaceName }) => {
+		return getIsleFile( dispatch, { lessonName, namespaceName });
 	};
 };
 
