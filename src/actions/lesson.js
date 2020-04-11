@@ -79,7 +79,7 @@ export const getPublicLessonsInjector = ( dispatch ) => {
 	};
 };
 
-export const getIsleFile = async ( dispatch, { lessonName, namespaceName, token, callback }) => {
+export const getIsleFile = async ( dispatch, { lessonName, namespaceName, callback }) => {
 	try {
 		const res = await axios.get( server+'/get_isle_file?'+qs.stringify({
 			lessonName,
@@ -92,8 +92,8 @@ export const getIsleFile = async ( dispatch, { lessonName, namespaceName, token,
 };
 
 export const getIsleFileInjector = ( dispatch ) => {
-	return ({ lessonName, namespaceName, token, callback }) => {
-		getIsleFile( dispatch, { lessonName, namespaceName, token, callback });
+	return ({ lessonName, namespaceName, callback }) => {
+		getIsleFile( dispatch, { lessonName, namespaceName, callback });
 	};
 };
 
@@ -128,7 +128,7 @@ export const getLessonsInjector = ( dispatch ) => {
 	};
 };
 
-export const copyLesson = async ( dispatch, { sourceName, target, targetName, source, token }) => {
+export const copyLesson = async ( dispatch, { sourceName, target, targetName, source }) => {
 	if ( sourceName && target && source ) {
 		try {
 			const res = await axios.get( server+'/copy_lesson?'+qs.stringify({
@@ -148,12 +148,12 @@ export const copyLesson = async ( dispatch, { sourceName, target, targetName, so
 };
 
 export const copyLessonInjector = ( dispatch ) => {
-	return ({ sourceName, target, targetName, source, token }) => {
-		copyLesson( dispatch, { sourceName, target, targetName, source, token } );
+	return ({ sourceName, target, targetName, source }) => {
+		copyLesson( dispatch, { sourceName, target, targetName, source } );
 	};
 };
 
-export const deleteLesson = async ( dispatch, { lessonName, namespaceName, token }) => {
+export const deleteLesson = async ( dispatch, { lessonName, namespaceName }) => {
 	if ( namespaceName && lessonName ) {
 		try {
 			const res = await axios.get( server+'/delete_lesson?'+qs.stringify({
@@ -172,12 +172,12 @@ export const deleteLesson = async ( dispatch, { lessonName, namespaceName, token
 };
 
 export const deleteLessonInjector = ( dispatch ) => {
-	return ({ lessonName, namespaceName, token }) => {
-		deleteLesson( dispatch, { lessonName, namespaceName, token } );
+	return ({ lessonName, namespaceName }) => {
+		deleteLesson( dispatch, { lessonName, namespaceName } );
 	};
 };
 
-export const showLessonInGallery = async ( dispatch, { lessonName, namespaceName, token }) => {
+export const showLessonInGallery = async ( dispatch, { lessonName, namespaceName }) => {
 	try {
 		const res = await axios.get( server+'/show_lesson?'+qs.stringify({
 			namespaceName,
@@ -194,12 +194,12 @@ export const showLessonInGallery = async ( dispatch, { lessonName, namespaceName
 };
 
 export const showLessonInGalleryInjector = ( dispatch ) => {
-	return ({ lessonName, namespaceName, token }) => {
-		showLessonInGallery( dispatch, { lessonName, namespaceName, token });
+	return ({ lessonName, namespaceName }) => {
+		showLessonInGallery( dispatch, { lessonName, namespaceName });
 	};
 };
 
-export const hideLessonInGallery = async ( dispatch, { lessonName, namespaceName, token }) => {
+export const hideLessonInGallery = async ( dispatch, { lessonName, namespaceName }) => {
 	try {
 		const res = await axios.get( server+'/hide_lesson?'+qs.stringify({
 			namespaceName,
@@ -216,12 +216,12 @@ export const hideLessonInGallery = async ( dispatch, { lessonName, namespaceName
 };
 
 export const hideLessonInGalleryInjector = ( dispatch ) => {
-	return ({ lessonName, namespaceName, token }) => {
-		hideLessonInGallery( dispatch, { lessonName, namespaceName, token });
+	return ({ lessonName, namespaceName }) => {
+		hideLessonInGallery( dispatch, { lessonName, namespaceName });
 	};
 };
 
-export const activateLesson = async ( dispatch, { lessonName, namespaceName, token }) => {
+export const activateLesson = async ( dispatch, { lessonName, namespaceName }) => {
 	try {
 		const res = await axios.get( server+'/activate_lesson?'+qs.stringify({
 			namespaceName,
@@ -238,12 +238,12 @@ export const activateLesson = async ( dispatch, { lessonName, namespaceName, tok
 };
 
 export const activateLessonInjector = ( dispatch ) => {
-	return ({ lessonName, namespaceName, token }) => {
-		activateLesson( dispatch, { lessonName, namespaceName, token });
+	return ({ lessonName, namespaceName }) => {
+		activateLesson( dispatch, { lessonName, namespaceName });
 	};
 };
 
-export const deactivateLesson = async ( dispatch, { lessonName, namespaceName, token }) => {
+export const deactivateLesson = async ( dispatch, { lessonName, namespaceName }) => {
 	try {
 		const res = await axios.get( server+'/deactivate_lesson?'+qs.stringify({
 			namespaceName,
@@ -260,8 +260,8 @@ export const deactivateLesson = async ( dispatch, { lessonName, namespaceName, t
 };
 
 export const deactivateLessonInjector = ( dispatch ) => {
-	return ({ lessonName, namespaceName, token }) => {
-		deactivateLesson( dispatch, { lessonName, namespaceName, token });
+	return ({ lessonName, namespaceName }) => {
+		deactivateLesson( dispatch, { lessonName, namespaceName });
 	};
 };
 

@@ -65,7 +65,7 @@ const sanitizeUser = ( user ) => {
 
 // MAIN //
 
-export const fetchCredentials = async ( dispatch, obj, clbk ) => {
+export const fetchCredentials = async ( dispatch, obj ) => {
 	debug( 'Fetch user credentials...' );
 	localStorage.setItem( 'ISLE_USER_'+server, JSON.stringify( obj ) );
 	try {
@@ -91,14 +91,15 @@ export const fetchCredentials = async ( dispatch, obj, clbk ) => {
 				addErrorNotification( dispatch, err );
 			}
 		}
-		return clbk( null, sanitizedUser );
+		return sanitizedUser;
 	} catch ( err ) {
-		clbk( err );
+		addErrorNotification( dispatch, err );
+		return null;
 	}
 };
 
 export const fetchCredentialsInjector = dispatch => {
-	return ( obj, clbk ) => {
-		fetchCredentials( dispatch, obj, clbk );
+	return ( obj ) => {
+		return fetchCredentials( dispatch, obj );
 	};
 };

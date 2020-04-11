@@ -24,7 +24,7 @@ import server from 'constants/server';
 import { fetchCredentials } from 'actions/authentication.js';
 import { getEnrollableCohorts } from 'actions/cohort.js';
 import { addNotification, addErrorNotification } from 'actions/notification.js';
-import { AUTHENTICATED, USER_PICTURE_MODIFIED, DELETED_USER, GET_USERS, LOGGED_IN, LOGGED_OUT, USER_UPDATED } from 'constants/action_types.js';
+import { AUTHENTICATED, USER_PICTURE_MODIFIED, DELETED_USER, GET_USERS, LOGGED_IN, LOGGED_OUT, RECEIVED_TOKEN, USER_UPDATED } from 'constants/action_types.js';
 
 
 // VARIABLES //
@@ -43,16 +43,24 @@ export function loggedIn( user ) {
 			enrolledNamespaces: user.enrolledNamespaces,
 			ownedNamespaces: user.ownedNamespaces,
 			organization: user.organization,
-			token: user.token,
 			writeAccess: user.writeAccess,
 			administrator: user.administrator,
-			id: user.id,
 			lessonData: user.lessonData,
 			picture: user.picture,
 			createdAt: user.createdAt,
 			updatedAt: user.updatedAt,
 			score: user.score,
 			spentTime: user.spentTime
+		}
+	};
+}
+
+export function receivedToken({ token, id }) {
+	return {
+		type: RECEIVED_TOKEN,
+		payload: {
+			token,
+			id
 		}
 	};
 }
@@ -98,24 +106,24 @@ export const getUsersInjector = dispatch => {
 	};
 };
 
-export const impersonateUser = async ( dispatch, { id, token, password }) => {
+export const impersonateUser = async ( dispatch, { id, password }) => {
 	debug( 'Impersonating user with id '+id );
 	try {
 		const res = await axios.post( server+'/impersonate', { id, password });
-		fetchCredentials( dispatch, {
-			token: res.data.token,
+		const user = await fetchCredentials( dispatch, {
 			id: res.data.id
-		}, ( err, user ) => {
-			getEnrollableCohorts( dispatch, user );
 		});
+		if ( user ) {
+			getEnrollableCohorts( dispatch, user );
+		}
 	} catch ( err ) {
 		addErrorNotification( dispatch, err );
 	}
 };
 
 export const impersonateUserInjector = dispatch => {
-	return ({ id, token, password }) => {
-		impersonateUser( dispatch, { id, token, password } );
+	return ({ id, password }) => {
+		impersonateUser( dispatch, { id, password } );
 	};
 };
 
@@ -185,8 +193,7 @@ export const uploadProfilePicInjector = ( dispatch ) => {
 	};
 };
 
-export const authenticate = async ( dispatch, { userToken, writeAccessToken }, clbk ) => {
-	debug( 'Authenticate user with token: %s', userToken );
+export const authenticate = async ( dispatch, { writeAccessToken }) => {
 	try {
 		const res = await axios.get( server+'/set_write_access?'+qs.stringify({ token: writeAccessToken }) );
 		dispatch( authenticated() );
@@ -195,19 +202,16 @@ export const authenticate = async ( dispatch, { userToken, writeAccessToken }, c
 			level: 'success',
 			autoDismiss: 10
 		});
-		return clbk( null, true );
+		return true;
 	} catch ( err ) {
-		clbk( err );
-		if ( err.statusCode !== 200 ) {
-			addErrorNotification( dispatch, 'The provided token is incorrect.' );
-			return clbk( null, false );
-		}
+		addErrorNotification( dispatch, err );
+		return false;
 	}
 };
 
 export const authenticateInjector = ( dispatch ) => {
-	return ( { userToken, writeAccessToken }, clbk ) => {
-		authenticateInjector( dispatch, { userToken, writeAccessToken }, clbk );
+	return ({ writeAccessToken }) => {
+		authenticateInjector( dispatch, { writeAccessToken });
 	};
 };
 
@@ -245,13 +249,20 @@ export const updateUserInjector = ( dispatch ) => {
 	};
 };
 
-export const createUser = ( form, clbk ) => {
-	axios.post( server+'/create_user', form, clbk );
+export const createUser = ( form ) => {
+	return axios.post( server+'/create_user', form );
 };
 
-export const handleLogin = async ( form, clbk ) => {
-	await axios.post( server+'/login', form );
-	clbk();
+export const handleLogin = async ( dispatch, form ) => {
+	const res = await axios.post( server+'/login', form );
+	dispatch( receivedToken( res.data ) );
+	return res;
+};
+
+export const handleLoginInjector = ( dispatch ) => {
+	return ( form ) => {
+		return handleLogin( dispatch, form );
+	};
 };
 
 export const restoreLogin = ( dispatch, user ) => {
