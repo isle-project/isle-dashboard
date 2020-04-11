@@ -190,7 +190,7 @@ export const uploadProfilePicInjector = ( dispatch ) => {
 
 export const authenticate = async ( dispatch, { writeAccessToken }) => {
 	try {
-		const res = await axios.get( server+'/set_write_access?'+qs.stringify({ token: writeAccessToken }) );
+		const res = await axios.post( server+'/set_write_access', { token: writeAccessToken });
 		dispatch( authenticated() );
 		addNotification( dispatch, {
 			message: res.data.message+' You can now create your own courses on ISLE and have access to the gallery of public lessons.',

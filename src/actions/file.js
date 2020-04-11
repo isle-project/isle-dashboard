@@ -78,7 +78,7 @@ export const getUserFiles = async ( dispatch ) => {
 
 export const deleteFile = async ( dispatch, _id, namespaceName, owner ) => {
 	try {
-		await axios.get( `${server}/delete_file?${qs.stringify({ _id })}` );
+		await axios.post( `${server}/delete_file`, { _id });
 		getFilesRequest( dispatch, { namespaceName, owner });
 		addNotification( dispatch, {
 			title: 'File Deleted',
