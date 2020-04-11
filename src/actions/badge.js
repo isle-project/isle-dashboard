@@ -17,7 +17,7 @@
 
 // MODULES //
 
-import request from 'request';
+import axios from 'axios';
 import contains from '@stdlib/assert/contains';
 import server from 'constants/server';
 import { addNotification, addErrorNotification } from 'actions/notification';
@@ -27,7 +27,7 @@ import { RETRIEVED_BADGES, USER_RECEIVED_BADGES } from 'constants/action_types.j
 // FUNCTIONS //
 
 function createBadgeNotification({ name, description, picture }) {
-	let pic = server + '/badges/' + picture;
+	const pic = server + '/badges/' + picture;
 	return {
 		children: (
 			<div>
@@ -69,42 +69,37 @@ export function retrievedBadges( badges ) {
 	};
 }
 
-export const getUserBadges = ( dispatch, userToken ) => {
-	request.get( server+'/get_user_badges', {
-		headers: {
-			'Authorization': 'JWT ' + userToken
-		}
-	}, function getBadges( error, response, body ) {
-		if ( error ) {
-			return error;
-		}
-		body = JSON.parse( body );
-		dispatch( receivedUserBadges(body.badges) );
-		if ( body.addedBadges.length > 0 ) {
-			for ( let i = 0; i < body.badges.length; i++ ) {
-				const item = body.badges[i];
-				if ( contains( body.addedBadges, item.name ) ) {
+export const getUserBadges = async ( dispatch ) => {
+	try {
+		const res = await axios.get( server+'/get_user_badges' );
+		const { badges, addedBadges } = res.data;
+		dispatch( receivedUserBadges( badges ) );
+		if ( addedBadges.length > 0 ) {
+			for ( let i = 0; i < badges.length; i++ ) {
+				const item = badges[i];
+				if ( contains( addedBadges, item.name ) ) {
 					addNotification( dispatch, createBadgeNotification( item ) );
 				}
 			}
 		}
-	});
+	} catch ( err ) {
+		addErrorNotification( dispatch, err );
+	}
 };
 
 export const getUserBadgesInjector = ( dispatch ) => {
-	return ( userToken ) => {
-		getUserBadges( dispatch, userToken );
+	return () => {
+		getUserBadges( dispatch );
 	};
 };
 
-export const getAvailableBadges = ( dispatch ) => {
-	request.get( server+'/get_available_badges', function onBadges( err, res, body ) {
-		if ( err ) {
-			return addErrorNotification( dispatch, err.message );
-		}
-		body = JSON.parse( body );
-		dispatch( retrievedBadges( body ) );
-	});
+export const getAvailableBadges = async ( dispatch ) => {
+	try {
+		const res = await axios.get( server+'/get_available_badges' );
+		dispatch( retrievedBadges( res.data ) );
+	} catch ( err ) {
+		addErrorNotification( dispatch, err );
+	}
 };
 
 export const getAvailableBadgesInjector = ( dispatch ) => {
