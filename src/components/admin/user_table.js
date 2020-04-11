@@ -70,8 +70,7 @@ class UserPage extends Component {
 		}, () => {
 			this.props.impersonateUser({
 				id: this.state.selectedUser._id,
-				password: this.state.password,
-				token: this.props.user.token
+				password: this.state.password
 			});
 		});
 	}
@@ -82,8 +81,7 @@ class UserPage extends Component {
 			showDeleteModal: false
 		}, () => {
 			this.props.deleteUser({
-				id: this.state.selectedUser._id,
-				token: this.props.user.token
+				id: this.state.selectedUser._id
 			});
 		});
 	}

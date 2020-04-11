@@ -39,15 +39,13 @@ class EnterTokenModal extends Component {
 		});
 	}
 
-	handleSubmit = () => {
-		this.props.authenticate({
-			writeAccessToken: this.state.token,
-			userToken: this.props.user.token
-		}, ( err, success ) => {
-			if ( success ) {
-				this.props.onHide();
-			}
+	handleSubmit = async () => {
+		const success = await this.props.authenticate({
+			writeAccessToken: this.state.token
 		});
+		if ( success ) {
+			this.props.onHide();
+		}
 	}
 
 	render() {
@@ -101,8 +99,7 @@ class EnterTokenModal extends Component {
 EnterTokenModal.propTypes = {
 	authenticate: PropTypes.func.isRequired,
 	onHide: PropTypes.func.isRequired,
-	show: PropTypes.bool.isRequired,
-	user: PropTypes.object.isRequired
+	show: PropTypes.bool.isRequired
 };
 
 

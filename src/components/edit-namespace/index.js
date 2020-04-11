@@ -78,7 +78,7 @@ class EditNamespace extends Component {
 	}
 
 	handleDelete = () => {
-		this.props.deleteCurrentNamespace( this.props.namespace._id, this.props.user.token, this.props.history );
+		this.props.deleteCurrentNamespace( this.props.namespace._id, this.props.history );
 	}
 
 	close = () => {

@@ -64,8 +64,7 @@ class ImportModal extends Component {
 			sourceName: this.props.title,
 			source: this.props.namespace,
 			target: this.state.selected.value,
-			targetName: this.state.targetName,
-			token: this.props.token
+			targetName: this.state.targetName
 		});
 		this.props.close();
 	}
@@ -125,7 +124,6 @@ ImportModal.propTypes = {
 	openedNamespace: PropTypes.object.isRequired,
 	show: PropTypes.bool.isRequired,
 	title: PropTypes.string.isRequired,
-	token: PropTypes.string.isRequired,
 	userNamespaces: PropTypes.array.isRequired
 };
 

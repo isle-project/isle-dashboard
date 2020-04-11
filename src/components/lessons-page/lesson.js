@@ -61,8 +61,7 @@ class Lesson extends Component {
 	toggleLessonState = () => {
 		const query = {
 			lessonName: this.props.title,
-			namespaceName: this.props.namespace,
-			token: this.props.token
+			namespaceName: this.props.namespace
 		};
 		if ( this.props.active ) {
 			this.props.deactivateLesson( query );
@@ -74,8 +73,7 @@ class Lesson extends Component {
 	toggleLessonVisibility = () => {
 		const query = {
 			lessonName: this.props.title,
-			namespaceName: this.props.namespace,
-			token: this.props.token
+			namespaceName: this.props.namespace
 		};
 		if ( this.props.public ) {
 			this.props.hideLessonInGallery( query );
@@ -87,8 +85,7 @@ class Lesson extends Component {
 	delete = () => {
 		this.props.deleteLesson({
 			lessonName: this.props.title,
-			namespaceName: this.props.namespace,
-			token: this.props.token
+			namespaceName: this.props.namespace
 		});
 		this.closeDeleteModal();
 	}
@@ -97,7 +94,6 @@ class Lesson extends Component {
 		this.props.updateLesson({
 			lessonName: this.props.title,
 			namespaceName: this.props.namespace,
-			token: this.props.token,
 			newTitle,
 			newDescription
 		});
@@ -126,7 +122,6 @@ class Lesson extends Component {
 			this.props.getIsleFile({
 				lessonName: this.props.title,
 				namespaceName: this.props.namespace,
-				token: this.props.token,
 				callback: ( err, body ) => {
 					if ( err ) {
 						return this.props.addNotification({
@@ -321,7 +316,6 @@ Lesson.propTypes = {
 	public: PropTypes.bool.isRequired,
 	showLessonInGallery: PropTypes.func.isRequired,
 	title: PropTypes.string.isRequired,
-	token: PropTypes.string.isRequired,
 	updateLesson: PropTypes.func.isRequired,
 	url: PropTypes.string.isRequired
 };
