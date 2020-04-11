@@ -76,13 +76,13 @@ class ProfilePage extends Component {
 
 	componentDidMount() {
 		if ( !this.props.user.files ) {
-			this.props.getFiles({ token: this.props.user.token });
+			this.props.getFiles({});
 		}
 		const course = this.state.selectedNamespace;
 		if ( course && !course.lessons ) {
 			this.props.getLessons( course.title );
 		}
-		this.props.addBadges( this.props.user.token );
+		this.props.getUserBadges();
 	}
 
 	toggleEditModal = () => {
@@ -448,11 +448,11 @@ class ProfilePage extends Component {
 // PROPERTIES //
 
 ProfilePage.propTypes = {
-	addBadges: PropTypes.func.isRequired,
 	addNotification: PropTypes.func.isRequired,
 	authenticate: PropTypes.func.isRequired,
 	getFiles: PropTypes.func.isRequired,
 	getLessons: PropTypes.func.isRequired,
+	getUserBadges: PropTypes.func.isRequired,
 	updateUser: PropTypes.func.isRequired,
 	uploadProfilePic: PropTypes.func.isRequired,
 	user: PropTypes.object.isRequired

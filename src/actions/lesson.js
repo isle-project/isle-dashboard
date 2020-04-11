@@ -17,7 +17,8 @@
 
 // MODULES //
 
-import request from 'request';
+import axios from 'axios';
+import qs from 'querystring';
 import server from 'constants/server';
 import { addNotification, addErrorNotification } from 'actions/notification';
 import { DELETED_LESSON, UPDATED_LESSON, RETRIEVED_LESSONS, RETRIEVED_PUBLIC_LESSONS } from 'constants/action_types.js';
@@ -63,15 +64,13 @@ export function retrievedPublicLessons( lessons ) {
 	};
 }
 
-export const getPublicLessons = ( dispatch ) => {
-	request.get( server+'/get_public_lessons', function onResponse( error, response, body ) {
-		if ( error ) {
-			return error;
-		}
-		body = JSON.parse( body );
-		let lessons = body.lessons;
-		dispatch( retrievedPublicLessons( lessons ) );
-	});
+export const getPublicLessons = async ( dispatch ) => {
+	try {
+		const res = await axios.get( server+'/get_public_lessons' );
+		dispatch( retrievedPublicLessons( res.data.lessons ) );
+	} catch ( err ) {
+		addErrorNotification( dispatch, err );
+	}
 };
 
 export const getPublicLessonsInjector = ( dispatch ) => {
@@ -80,21 +79,16 @@ export const getPublicLessonsInjector = ( dispatch ) => {
 	};
 };
 
-export const getIsleFile = ( dispatch, { lessonName, namespaceName, token, callback }) => {
-	request.get( server+'/get_isle_file', {
-		qs: {
+export const getIsleFile = async ( dispatch, { lessonName, namespaceName, token, callback }) => {
+	try {
+		const res = await axios.get( server+'/get_isle_file?'+qs.stringify({
 			lessonName,
 			namespaceName
-		},
-		headers: {
-			'Authorization': 'JWT ' + token
-		}
-	}, function onResponse( error, response, body ) {
-		if ( error ) {
-			return callback( error );
-		}
-		return callback( null, body );
-	});
+		}) );
+		callback( null, res.data );
+	} catch ( err ) {
+		addErrorNotification( dispatch, err );
+	}
 };
 
 export const getIsleFileInjector = ( dispatch ) => {
@@ -103,18 +97,13 @@ export const getIsleFileInjector = ( dispatch ) => {
 	};
 };
 
-export const getLessons = ( dispatch, namespaceName ) => {
+export const getLessons = async ( dispatch, namespaceName ) => {
 	if ( namespaceName ) {
-		request.get( server+'/get_lessons', {
-			qs: {
+		try {
+			const res = await axios.get( server+'/get_lessons?'+qs.stringify({
 				namespaceName
-			}
-		}, function onLessons( error, response, body ) {
-			if ( error ) {
-				return error;
-			}
-			body = JSON.parse( body );
-			let lessons = body.lessons;
+			}) );
+			let lessons = res.data.lessons;
 			lessons = lessons.map(( lesson, index ) => {
 				lesson.colorIndex = index % 20;
 				lesson.url = server+'/'+namespaceName+'/'+lesson.title;
@@ -127,7 +116,9 @@ export const getLessons = ( dispatch, namespaceName ) => {
 				return lesson;
 			});
 			dispatch( retrievedLessons({ lessons, namespaceName }) );
-		});
+		} catch ( err ) {
+			addErrorNotification( dispatch, err );
+		}
 	}
 };
 
@@ -137,31 +128,22 @@ export const getLessonsInjector = ( dispatch ) => {
 	};
 };
 
-export const copyLesson = ( dispatch, { sourceName, target, targetName, source, token }) => {
+export const copyLesson = async ( dispatch, { sourceName, target, targetName, source, token }) => {
 	if ( sourceName && target && source ) {
-		request.get( server+'/copy_lesson', {
-			qs: {
+		try {
+			const res = await axios.get( server+'/copy_lesson?'+qs.stringify({
 				target,
 				source,
 				sourceName,
 				targetName
-			},
-			headers: {
-				'Authorization': 'JWT ' + token
-			}
-		}, function onResponse( err, res ) {
-			if ( err ) {
-				return addErrorNotification( dispatch, err.message );
-			}
-			let msg = JSON.parse( res.body ).message;
-			if ( res.statusCode >= 400 ) {
-				return addErrorNotification( dispatch, msg );
-			}
+			}) );
 			addNotification( dispatch, {
-				message: msg,
+				message: res.data.message,
 				level: 'success'
 			});
-		});
+		} catch ( err ) {
+			addErrorNotification( dispatch, err );
+		}
 	}
 };
 
@@ -171,30 +153,21 @@ export const copyLessonInjector = ( dispatch ) => {
 	};
 };
 
-export const deleteLesson = ( dispatch, { lessonName, namespaceName, token }) => {
+export const deleteLesson = async ( dispatch, { lessonName, namespaceName, token }) => {
 	if ( namespaceName && lessonName ) {
-		request.get( server+'/delete_lesson', {
-			qs: {
+		try {
+			const res = await axios.get( server+'/delete_lesson?'+qs.stringify({
 				namespaceName,
 				lessonName
-			},
-			headers: {
-				'Authorization': 'JWT ' + token
-			}
-		}, function onDelete( err, res ) {
-			if ( err ) {
-				return addErrorNotification( dispatch, err.message );
-			}
-			let msg = JSON.parse( res.body ).message;
-			if ( res.statusCode >= 400 ) {
-				return addErrorNotification( dispatch, err.message );
-			}
+			}) );
 			dispatch( deletedLesson( lessonName ) );
 			addNotification( dispatch, {
-				message: msg,
+				message: res.data.message,
 				level: 'success'
 			});
-		});
+		} catch ( err ) {
+			addErrorNotification( dispatch, err );
+		}
 	}
 };
 
@@ -204,25 +177,20 @@ export const deleteLessonInjector = ( dispatch ) => {
 	};
 };
 
-export const showLessonInGallery = ( dispatch, { lessonName, namespaceName, token }) => {
-	request.get( server+'/show_lesson', {
-		qs: {
+export const showLessonInGallery = async ( dispatch, { lessonName, namespaceName, token }) => {
+	try {
+		const res = await axios.get( server+'/show_lesson?'+qs.stringify({
 			namespaceName,
 			lessonName
-		},
-		headers: {
-			'Authorization': 'JWT ' + token
-		}
-	}, function onShow( err, res ) {
-		if ( err ) {
-			return addErrorNotification( dispatch, err.message );
-		}
+		}) );
 		addNotification( dispatch, {
-			message: JSON.parse( res.body ).message,
+			message: res.data.message,
 			level: 'success'
 		});
 		dispatch( updatedLesson( lessonName, { public: true }) );
-	});
+	} catch ( err ) {
+		addErrorNotification( dispatch, err );
+	}
 };
 
 export const showLessonInGalleryInjector = ( dispatch ) => {
@@ -231,25 +199,20 @@ export const showLessonInGalleryInjector = ( dispatch ) => {
 	};
 };
 
-export const hideLessonInGallery = ( dispatch, { lessonName, namespaceName, token }) => {
-	request.get( server+'/hide_lesson', {
-		qs: {
+export const hideLessonInGallery = async ( dispatch, { lessonName, namespaceName, token }) => {
+	try {
+		const res = await axios.get( server+'/hide_lesson?'+qs.stringify({
 			namespaceName,
 			lessonName
-		},
-		headers: {
-			'Authorization': 'JWT ' + token
-		}
-	}, function onHide( err, res ) {
-		if ( err ) {
-			return addErrorNotification( dispatch, err.message );
-		}
+		}) );
 		addNotification( dispatch, {
-			message: JSON.parse( res.body ).message,
+			message: res.data.message,
 			level: 'success'
 		});
 		dispatch( updatedLesson( lessonName, { public: false }) );
-	});
+	} catch ( err ) {
+		addErrorNotification( dispatch, err );
+	}
 };
 
 export const hideLessonInGalleryInjector = ( dispatch ) => {
@@ -258,25 +221,20 @@ export const hideLessonInGalleryInjector = ( dispatch ) => {
 	};
 };
 
-export const activateLesson = ( dispatch, { lessonName, namespaceName, token }) => {
-	request.get( server+'/activate_lesson', {
-		qs: {
+export const activateLesson = async ( dispatch, { lessonName, namespaceName, token }) => {
+	try {
+		const res = await axios.get( server+'/activate_lesson?'+qs.stringify({
 			namespaceName,
 			lessonName
-		},
-		headers: {
-			'Authorization': 'JWT ' + token
-		}
-	}, function onActivate( err, res ) {
-		if ( err ) {
-			return addErrorNotification( dispatch, err.message );
-		}
+		}) );
 		addNotification( dispatch, {
-			message: JSON.parse( res.body ).message,
+			message: res.data.message,
 			level: 'success'
 		});
 		dispatch( updatedLesson( lessonName, { active: true }) );
-	});
+	} catch ( err ) {
+		addErrorNotification( dispatch, err );
+	}
 };
 
 export const activateLessonInjector = ( dispatch ) => {
@@ -285,25 +243,20 @@ export const activateLessonInjector = ( dispatch ) => {
 	};
 };
 
-export const deactivateLesson = ( dispatch, { lessonName, namespaceName, token }) => {
-	request.get( server+'/deactivate_lesson', {
-		qs: {
+export const deactivateLesson = async ( dispatch, { lessonName, namespaceName, token }) => {
+	try {
+		const res = await axios.get( server+'/deactivate_lesson?'+qs.stringify({
 			namespaceName,
 			lessonName
-		},
-		headers: {
-			'Authorization': 'JWT ' + token
-		}
-	}, function onDeactivate( err, res ) {
-		if ( err ) {
-			return addErrorNotification( dispatch, err.message );
-		}
+		}) );
 		addNotification( dispatch, {
-			message: JSON.parse( res.body ).message,
+			message: res.data.message,
 			level: 'success'
 		});
 		dispatch( updatedLesson( lessonName, { active: false }) );
-	});
+	} catch ( err ) {
+		addErrorNotification( dispatch, err );
+	}
 };
 
 export const deactivateLessonInjector = ( dispatch ) => {
@@ -312,38 +265,29 @@ export const deactivateLessonInjector = ( dispatch ) => {
 	};
 };
 
-export const updateLesson = ( dispatch, { lessonName, namespaceName, newTitle, newDescription, token }, clbk ) => {
+export const updateLesson = async ( dispatch, { lessonName, namespaceName, newTitle, newDescription }) => {
 	if ( namespaceName && lessonName ) {
-		request.get( server+'/update_lesson', {
-			qs: {
+		try {
+			const res = await axios.get( server+'/update_lesson?'+qs.stringify({
 				namespaceName,
 				lessonName,
 				newTitle,
 				newDescription
-			},
-			headers: {
-				'Authorization': 'JWT ' + token
-			}
-		}, function onUpdate( err, res ) {
-			if ( err ) {
-				return addErrorNotification( dispatch, err.message );
-			}
-			const msg = JSON.parse( res.body ).message;
-			if ( res.statusCode >= 400 ) {
-				return addErrorNotification( dispatch, msg );
-			}
+			}) );
 			dispatch( deletedLesson( lessonName ) );
 			addNotification( dispatch, {
-				message: msg,
+				message: res.data.message,
 				level: 'success'
 			});
-			clbk();
-		});
+			getLessons( dispatch, namespaceName );
+		} catch ( err ) {
+			addErrorNotification( dispatch, err );
+		}
 	}
 };
 
 export const updateLessonInjector = ( dispatch ) => {
-	return ({ lessonName, namespaceName, newTitle, newDescription, token }) => {
-		updateLesson( dispatch, { lessonName, namespaceName, newTitle, newDescription, token });
+	return ({ lessonName, namespaceName, newTitle, newDescription }) => {
+		updateLesson( dispatch, { lessonName, namespaceName, newTitle, newDescription });
 	};
 };

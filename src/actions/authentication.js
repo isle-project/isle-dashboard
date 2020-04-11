@@ -17,11 +17,11 @@
 
 // MODULES //
 
-import request from 'request';
+import axios from 'axios';
 import logger from 'debug';
 import server from 'constants/server';
 import { addErrorNotification } from 'actions/notification.js';
-import { LOGGED_IN } from 'constants/action_types.js';
+import { loggedIn } from 'actions/user';
 
 
 // VARIABLES //
@@ -65,21 +65,14 @@ const sanitizeUser = ( user ) => {
 
 // MAIN //
 
-export const fetchCredentials = ( dispatch, obj, clbk ) => {
+export const fetchCredentials = async ( dispatch, obj, clbk ) => {
 	debug( 'Fetch user credentials...' );
 	localStorage.setItem( 'ISLE_USER_'+server, JSON.stringify( obj ) );
-	request.post( server+'/credentials_dashboard', {
-		headers: {
-			'Authorization': 'JWT ' + obj.token
-		},
-		form: {
+	try {
+		const res = await axios.post( server+'/credentials_dashboard', {
 			id: obj.id
-		}
-	}, function onLogin( error, response, user ) {
-		if ( error ) {
-			return clbk( error );
-		}
-		user = JSON.parse( user );
+		});
+		let user = res.data;
 		if ( user.picture ) {
 			user.picture = server + '/avatar/' + user.picture;
 		}
@@ -88,42 +81,20 @@ export const fetchCredentials = ( dispatch, obj, clbk ) => {
 			...user
 		};
 		let [ sanitizedUser, needsSanitizing ] = sanitizeUser( user );
-		dispatch({
-			type: LOGGED_IN,
-			payload: {
-				email: user.email,
-				name: user.name,
-				enrolledNamespaces: user.enrolledNamespaces,
-				ownedNamespaces: user.ownedNamespaces,
-				organization: user.organization,
-				token: user.token,
-				writeAccess: user.writeAccess,
-				administrator: user.administrator,
-				id: user.id,
-				lessonData: user.lessonData,
-				picture: user.picture,
-				createdAt: user.createdAt,
-				updatedAt: user.updatedAt,
-				score: user.score,
-				spentTime: user.spentTime
-			}
-		});
+		dispatch( loggedIn( user ) );
 		if ( needsSanitizing ) {
-			request.post( server+'/sanitize_user', {
-				headers: {
-					'Authorization': 'JWT ' + obj.token
-				},
-				form: {
+			try {
+				axios.post( server+'/sanitize_user', {
 					id: obj.id
-				}
-			}, function onSanitize( error ) {
-				if ( error ) {
-					return addErrorNotification( error.message );
-				}
-			});
+				});
+			} catch ( err ) {
+				addErrorNotification( dispatch, err );
+			}
 		}
 		return clbk( null, sanitizedUser );
-	});
+	} catch ( err ) {
+		clbk( err );
+	}
 };
 
 export const fetchCredentialsInjector = dispatch => {

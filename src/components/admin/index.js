@@ -58,8 +58,7 @@ class AdminPage extends Component {
 	}
 
 	componentDidMount() {
-		this.props.getUsers( this.props.user );
-
+		this.props.getUsers();
 		if ( !this.props.user.administrator ) {
 			this.props.history.replace( '/profile' );
 		}

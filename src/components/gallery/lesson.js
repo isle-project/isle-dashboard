@@ -54,12 +54,6 @@ class Lesson extends Component {
 				namespaceName: this.props.namespace,
 				token: this.props.token,
 				callback: ( err, body ) => {
-					if ( err ) {
-						return this.props.addNotification({
-							message: err.message,
-							level: 'error'
-						});
-					}
 					this.setState({
 						isleFile: body
 					});
