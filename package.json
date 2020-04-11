@@ -89,7 +89,6 @@
     "react-table": "6.11.5",
     "redux": "^4.0.5",
     "redux-persist": "^6.0.0",
-    "request": "^2.87.0",
     "source-map-explorer": "^2.4.2",
     "webpack-manifest-plugin": "^2.2.0"
   },
