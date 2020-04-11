@@ -17,9 +17,12 @@
 
 // MODULES //
 
-import request from 'request';
+import axios from 'axios';
+import qs from 'querystring';
+import saveAs from 'utils/file_saver.js';
 import server from 'constants/server';
 import { addNotification, addErrorNotification } from 'actions/notification';
+import { getCohorts } from 'actions/cohort';
 import { APPEND_CREATED_NAMESPACE, CHANGED_NAMESPACE, DELETED_CURRENT_NAMESPACE, UPDATED_OWNED_NAMESPACE } from 'constants/action_types.js';
 
 
@@ -69,29 +72,23 @@ export function updatedOwnedNamespace({ title, owners, description, _id }) {
 	};
 }
 
-export const createNamespace = ( dispatch, { title, description, owners, props }) => {
-	request.post( server+'/create_namespace', {
-		form: { title, description, owners },
-		headers: {
-			'Authorization': 'JWT ' + props.user.token
+export const createNamespace = async ( dispatch, { title, description, owners, props }) => {
+	try {
+		const res = await axios.post( server+'/create_namespace', { title, description, owners });
+		if ( !res.data.successful ) {
+			return addErrorNotification( dispatch, res.data.message );
 		}
-	}, ( err, res ) => {
-		if ( err ) {
-			return addErrorNotification( dispatch, err.message );
-		}
-		const body = JSON.parse( res.body );
-		if ( !body.successful ) {
-			return addErrorNotification( dispatch, body.message );
-		}
-		const namespace = body.namespace;
+		const namespace = res.data.namespace;
 		props.onNamespace( namespace );
 		dispatch( appendCreatedNamespace( namespace ) );
 		props.history.replace( '/lessons' );
 		addNotification( dispatch, {
-			message: body.message,
-			level: body.successful ? 'success' : 'error'
+			message: res.data.message,
+			level: res.data.successful ? 'success' : 'error'
 		});
-	});
+	} catch ( err ) {
+		addErrorNotification( dispatch, err );
+	}
 };
 
 export const createNamespaceInjector = dispatch => {
@@ -100,29 +97,18 @@ export const createNamespaceInjector = dispatch => {
 	};
 };
 
-export const deleteCurrentNamespace = ( dispatch, id, token, history ) => {
-	request.get( server+'/delete_namespace', {
-		qs: {
-			id
-		},
-		headers: {
-			'Authorization': 'JWT ' + token
-		}
-	}, ( err, res ) => {
-		if ( err || res.statusCode >= 400 ) {
-			let msg = res.body;
-			if ( res.statusCode === 403 ) {
-				msg = 'Only courses with no lessons can be deleted.';
-			}
-			return addErrorNotification( dispatch, msg );
-		}
+export const deleteCurrentNamespace = async ( dispatch, id, history ) => {
+	try {
+		await axios.get( server+'/delete_namespace?'+qs.stringify({ id }) );
 		history.replace( '/lessons' );
 		dispatch( deletedCurrentNamespace( id ) );
 		addNotification( dispatch, {
 			message: 'Course successfully deleted',
 			level: 'success'
 		});
-	});
+	} catch ( err ) {
+		return addErrorNotification( dispatch, err );
+	}
 };
 
 export const deleteCurrentNamespaceInjector = ( dispatch ) => {
@@ -131,25 +117,21 @@ export const deleteCurrentNamespaceInjector = ( dispatch ) => {
 	};
 };
 
-export const updateCurrentNamespace = ( dispatch, ns, clbk ) => {
-	request.post( server+'/update_namespace', {
-		form: {
-			ns
-		},
-		headers: {
-			'Authorization': 'JWT ' + ns.token
-		}
-	}, ( err, res, body ) => {
-		if ( err ) {
-			return clbk( err );
-		}
-		if ( res.statusCode === 200 ) {
-			body = JSON.parse( body );
-			dispatch( changedNamespace( body.namespace ) );
-			dispatch( updatedOwnedNamespace( body.namespace ) );
-		}
-		return clbk( null, res );
-	});
+export const updateCurrentNamespace = async ( dispatch, ns ) => {
+	try {
+		const res = await axios.post( server+'/update_namespace', { ns });
+		dispatch( changedNamespace( res.data.namespace ) );
+		dispatch( updatedOwnedNamespace( res.data.namespace ) );
+		addNotification( dispatch, {
+			message: res.data.message,
+			level: 'success'
+		});
+		getCohorts( dispatch, {
+			namespaceID: ns
+		});
+	} catch ( err ) {
+		addErrorNotification( dispatch, err );
+	}
 };
 
 export const updateCurrentNamespaceInjector = ( dispatch ) => {
@@ -158,13 +140,21 @@ export const updateCurrentNamespaceInjector = ( dispatch ) => {
 	};
 };
 
-export const getNamespaceActions = ({ namespaceID, token }, clbk ) => {
-	request.post( server+'/get_namespace_actions', {
-		form: {
-			namespaceID
-		},
-		headers: {
-			'Authorization': 'JWT ' + token
-		}
-	}, clbk );
+export const getNamespaceActions = async ( dispatch, { namespaceID, namespaceTitle } ) => {
+	try {
+		const res = await axios.post( server+'/get_namespace_actions', { namespaceID });
+		const blob = new Blob([ res.data ], {
+			type: 'application/json'
+		});
+		const name = `actions_${this.props.namespace.title}.json`;
+		saveAs( blob, name );
+	} catch ( err ) {
+		addErrorNotification( dispatch, err );
+	}
+};
+
+export const getNamespaceActionsInjector = ( dispatch ) => {
+	return ({ namespaceID }) => {
+		getNamespaceActions( dispatch, { namespaceID });
+	};
 };

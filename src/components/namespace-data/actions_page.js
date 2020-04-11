@@ -5,7 +5,6 @@ import PropTypes from 'prop-types';
 import { Button, ToggleButtonGroup, ToggleButton } from 'react-bootstrap';
 import logger from 'debug';
 import Select from 'react-select';
-import saveAs from 'utils/file_saver.js';
 import './actions_page.css';
 
 
@@ -42,13 +41,7 @@ class ActionsPage extends Component {
 	retrieveActions = () => {
 		this.props.getNamespaceActions({
 			namespaceID: this.props.namespace._id,
-			token: this.props.user.token
-		}, ( err, res, body ) => {
-			const blob = new Blob([ body ], {
-				type: 'application/json'
-			});
-			const name = `actions_${this.props.namespace.title}.json`;
-			saveAs( blob, name );
+			namespaceTitle: this.props.namespace.title
 		});
 	}
 
