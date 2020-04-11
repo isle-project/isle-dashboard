@@ -35,10 +35,17 @@ export const addNotificationInjector = dispatch => {
 	};
 };
 
-export function addErrorNotification( dispatch, message ) {
+export function addErrorNotification( dispatch, err ) {
+	let msg;
+	if ( err.response ) {
+		msg = 'Server response: ' + err.response.status + '.\n';
+		msg += err.response.data;
+	} else {
+		msg = err.message;
+	}
 	dispatch({
 		type: ADD_ERROR_NOTIFICATION,
-		payload: message
+		payload: msg
 	});
 }
 
