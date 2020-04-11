@@ -20,7 +20,6 @@
 import React from 'react';
 import axios from 'axios';
 import qs from 'querystring';
-import noop from '@stdlib/utils/noop';
 import server from 'constants/server';
 import copyToClipboard from 'clipboard-copy';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
@@ -32,7 +31,7 @@ import { RECEIVED_FILES, RECEIVED_NAMESPACE_FILES } from 'constants/action_types
 
 // FUNCTIONS //
 
-async function getFilesRequest({ namespaceName, clbk = noop, dispatch, owner = false }) {
+async function getFilesRequest( dispatch, { namespaceName, owner = false }) {
 	try {
 		const url = `${server}/get_files?${qs.stringify({
 			namespaceName,
@@ -41,9 +40,7 @@ async function getFilesRequest({ namespaceName, clbk = noop, dispatch, owner = f
 		const res = await axios.get( url );
 		const files = res.data.files;
 		dispatch( receivedNamespaceFiles( files ) );
-		clbk( null, files );
 	} catch ( err ) {
-		clbk( err );
 		addErrorNotification( dispatch, err );
 	}
 }
@@ -82,7 +79,7 @@ export const getUserFiles = async ( dispatch ) => {
 export const deleteFile = async ( dispatch, _id, namespaceName, owner ) => {
 	try {
 		await axios.get( `${server}/delete_file?${qs.stringify({ _id })}` );
-		getFilesRequest({ namespaceName, dispatch, owner });
+		getFilesRequest( dispatch, { namespaceName, owner });
 		addNotification( dispatch, {
 			title: 'File Deleted',
 			message: 'File successfully deleted',
@@ -102,9 +99,8 @@ export const deleteFileInjector = ( dispatch ) => {
 export const uploadFile = async ( dispatch, { formData }) => {
 	try {
 		const res = await axios.post( server+'/upload_file', formData );
-		getFilesRequest({
+		getFilesRequest( dispatch, {
 			namespaceName: formData.get( 'namespaceName' ),
-			dispatch,
 			owner: formData.get( 'owner' )
 		});
 		const msg = {
@@ -162,13 +158,13 @@ export const uploadFileInjector = ( dispatch ) => {
 };
 
 export const getFilesInjector = ( dispatch ) => {
-	return ( { namespaceName }, clbk ) => {
-		getFilesRequest({ namespaceName, clbk, dispatch });
+	return ({ namespaceName }) => {
+		getFilesRequest( dispatch, { namespaceName });
 	};
 };
 
 export const getOwnerFilesInjector = ( dispatch ) => {
-	return ({ namespaceName }, clbk ) => {
-		getFilesRequest({ namespaceName, clbk, dispatch, owner: true });
+	return ({ namespaceName }) => {
+		getFilesRequest( dispatch, { namespaceName, owner: true });
 	};
 };

@@ -17,7 +17,8 @@
 
 // MODULES //
 
-import request from 'request';
+import axios from 'axios';
+import qs from 'querystring';
 import logger from 'debug';
 import server from 'constants/server';
 import { getLessons } from 'actions/lesson';
@@ -67,20 +68,15 @@ export function retrievedCohorts( cohorts, user ) {
 
 // EXPORTS //
 
-export const getEnrollableCohorts = ( dispatch, user ) => {
-	request.get( server+'/get_enrollable_cohorts', {
-		headers: {
-			'Authorization': 'JWT ' + user.token
-		}
-	}, function onCohorts( error, response, body ) {
-		if ( error ) {
-			return error;
-		}
-		body = JSON.parse( body );
-		let cohorts = body.cohorts;
+export const getEnrollableCohorts = async ( dispatch, user ) => {
+	try {
+		const res = await axios.get( server+'/get_enrollable_cohorts' );
+		const cohorts = res.data.cohorts;
 		debug( 'Retrieved '+cohorts.length+' cohorts...' );
 		dispatch( retrievedEnrollableCohorts( cohorts, user ) );
-	});
+	} catch ( err ) {
+		addErrorNotification( dispatch, err );
+	}
 };
 
 export const getEnrollableCohortsInjector = dispatch => {
@@ -89,21 +85,13 @@ export const getEnrollableCohortsInjector = dispatch => {
 	};
 };
 
-export const getCohorts = ( dispatch, { namespaceID, userToken }) => {
-	request.get( server+'/get_cohorts', {
-		headers: {
-			'Authorization': 'JWT ' + userToken
-		},
-		qs: {
-			namespaceID
-		}
-	}, function onCohorts( error, response, body ) {
-		if ( error ) {
-			return error;
-		}
-		body = JSON.parse( body );
-		dispatch( retrievedCohorts( body.cohorts ) );
-	});
+export const getCohorts = ( dispatch, { namespaceID }) => {
+	try {
+		const res = axios.get( server+'/get_cohorts?'+qs.stringify({ namespaceID }) );
+		dispatch( retrievedCohorts( res.data.cohorts ) );
+	} catch ( err ) {
+		addErrorNotification( dispatch, err );
+	}
 };
 
 export const getCohortsInjector = ( dispatch ) => {
@@ -112,113 +100,85 @@ export const getCohortsInjector = ( dispatch ) => {
 	};
 };
 
-export const addUserToCohort = ( dispatch, cohortID, userToken, namespace, callback ) => {
-	request.get( server+'/add_to_cohort', {
-		headers: {
-			'Authorization': 'JWT ' + userToken
-		},
-		qs: {
-			cohortID
-		}
-	}, function onAdded( error, response, body ) {
-		if ( error ) {
-			addErrorNotification( dispatch, {
-				message: error.message,
-				level: 'error'
-			});
-			return callback();
-		}
-		body = JSON.parse( body );
+export const addUserToCohort = async ( dispatch, cohortID, namespace ) => {
+	try {
+		const res = await axios.get( server+'/add_to_cohort?'+qs.stringify({ cohortID }) );
 		addNotification( dispatch, {
-			message: body.message,
+			message: res.data.message,
 			level: 'success'
 		});
 		dispatch( addEnrolledNamespace( namespace ) );
 		const namespaceName = namespace.title;
 		getLessons( dispatch, namespaceName );
-		return callback();
-	});
+	} catch ( err ) {
+		addErrorNotification( dispatch, err );
+	}
 };
 
 export const addUserToCohortInjector = ( dispatch ) => {
-	return ( cohortID, userToken, namespace, callback ) => {
-		addUserToCohort( dispatch, cohortID, userToken, namespace, callback );
+	return ( cohortID, namespace ) => {
+		addUserToCohort( dispatch, cohortID, namespace );
 	};
 };
 
-export const deleteCohort = ( dispatch, _id, token, clbk ) => {
-	request.get( server+'/delete_cohort', {
-		qs: {
-			_id
-		},
-		headers: {
-			'Authorization': 'JWT ' + token
-		}
-	}, ( err, res ) => {
-		if ( err || res.statusCode !== 200 ) {
-			let msg = res.body;
-			return addErrorNotification( dispatch, msg );
-		}
+export const deleteCohort = async ( dispatch, _id, namespaceID ) => {
+	try {
+		await axios.get( server+'/delete_cohort?'+qs.stringify({ _id }) );
 		addNotification( dispatch, {
 			message: 'Cohort successfully deleted',
 			level: 'success'
 		});
 		dispatch( retrievedEnrollableCohorts( null ) );
-		clbk();
-	});
+		getCohorts( dispatch, {
+			namespaceID
+		});
+	} catch ( err ) {
+		addErrorNotification( dispatch, err );
+	}
 };
 
 export const deleteCohortInjector = ( dispatch ) => {
-	return ( _id, token, clbk ) => {
-		deleteCohort( dispatch, _id, token, clbk );
+	return ( _id, namespaceID ) => {
+		deleteCohort( dispatch, _id, namespaceID );
 	};
 };
 
-export const createCohort = ( dispatch, user, cohortInstance, clbk ) => {
-	request.post( server+'/create_cohort', {
-		form: cohortInstance,
-		headers: {
-			'Authorization': 'JWT ' + user.token
-		}
-	}, ( err, res ) => {
-		if ( !err && res.statusCode === 200 ) {
-			addNotification( dispatch, {
-				message: 'Cohort successfully created',
-				level: 'success'
-			});
-			dispatch( retrievedEnrollableCohorts(null) );
-			return clbk();
-		}
-		const message = err ? err.msg : res.body;
-		addErrorNotification( dispatch, message );
-	});
+export const createCohort = async ( dispatch, cohort ) => {
+	try {
+		await axios.post( server+'/create_cohort', { cohort });
+		addNotification( dispatch, {
+			message: 'Cohort successfully created',
+			level: 'success'
+		});
+		dispatch( retrievedEnrollableCohorts( null ) );
+		getCohorts({
+			namespaceID: cohort.namespaceID
+		});
+	} catch ( err ) {
+		addErrorNotification( dispatch, err );
+	}
 };
 
 export const createCohortInjector = ( dispatch ) => {
-	return ( user, cohortInstance, clbk ) => {
-		createCohort( dispatch, user, cohortInstance, clbk );
+	return ( cohort ) => {
+		createCohort( dispatch, cohort );
 	};
 };
 
-export const updateCohort = ( dispatch, cohort, userToken, clbk ) => {
-	request.post( server+'/update_cohort', {
-		form: {
-			cohort
-		},
-		headers: {
-			'Authorization': 'JWT ' + userToken
-		}
-	}, ( err, res ) => {
-		if ( err ) {
-			return clbk( err );
-		}
+export const updateCohort = async ( dispatch, cohort ) => {
+	try {
+		await axios.post( server+'/update_cohort', { cohort });
 		addNotification( dispatch, {
 			message: 'Cohort successfully updated',
 			level: 'success'
 		});
 		dispatch( retrievedEnrollableCohorts( null ) );
-		clbk( null, res );
-	});
+		getCohorts({
+			namespaceID: cohort.namespaceID
+		});
+	} catch ( err ) {
+		addErrorNotification( dispatch, err );
+	}
 };
 
 export const updateCohortInjector = ( dispatch ) => {

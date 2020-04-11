@@ -135,14 +135,12 @@ class NamespaceData extends Component {
 		}
 		if ( selectedKey === 4 ) {
 			this.props.getOwnerFiles({
-				namespaceName: this.props.namespace.title,
-				token: this.props.user.token
+				namespaceName: this.props.namespace.title
 			});
 		}
 		if ( selectedKey === 5 ) {
 			this.props.getFiles({
-				namespaceName: this.props.namespace.title,
-				token: this.props.user.token
+				namespaceName: this.props.namespace.title
 			});
 		}
 		this.setState({

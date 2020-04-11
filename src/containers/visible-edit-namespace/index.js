@@ -39,7 +39,6 @@ function mapDispatchToProps( dispatch ) {
 	return {
 		addNotification: addNotificationInjector( dispatch ),
 		createCohort: createCohortInjector( dispatch ),
-		getCohorts: getCohortsInjector( dispatch ),
 		deleteCohort: deleteCohortInjector( dispatch ),
 		updateCohort: updateCohortInjector( dispatch ),
 		deleteCurrentNamespace: deleteCurrentNamespaceInjector( dispatch ),
