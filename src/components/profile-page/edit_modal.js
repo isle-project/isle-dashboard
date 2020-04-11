@@ -135,6 +135,7 @@ class EditModal extends Component {
 			showTokenModal: !this.state.showTokenModal
 		});
 	}
+
 	renderInstructorButton() {
 		if ( this.props.user.writeAccess ) {
 			return null;

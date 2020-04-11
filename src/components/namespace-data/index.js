@@ -80,7 +80,6 @@ class NamespaceData extends Component {
 		formData.append( 'owner', 'true' );
 		formData.append( 'file', file, file.name );
 		this.props.uploadFile({
-			token: this.props.user.token,
 			formData: formData
 		});
 	}
@@ -108,7 +107,7 @@ class NamespaceData extends Component {
 	}
 
 	handleFileDeletion = ( _id, ownerFiles ) => {
-		this.props.deleteFile( _id, this.props.namespace.title, this.props.user.token, ownerFiles );
+		this.props.deleteFile( _id, this.props.namespace.title, ownerFiles );
 	}
 
 	handleSelect = ( selectedKey ) => {

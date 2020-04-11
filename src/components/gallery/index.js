@@ -160,7 +160,6 @@ class Gallery extends Component {
 			show={this.state.showImportModal}
 			close={this.closeImportModal}
 			userNamespaces={this.props.user.ownedNamespaces}
-			token={this.props.user.token}
 			copyLesson={this.props.copyLesson}
 			openedNamespace={this.props.openedNamespace}
 		/> );
@@ -224,7 +223,6 @@ class Gallery extends Component {
 						return ( <div key={`cell-${i}`}>
 							<Lesson
 								{...lessons[ i ]}
-								token={this.props.user.token}
 								getIsleFile={this.props.getIsleFile}
 								addNotification={this.props.addNotification}
 								openedNamespace={this.props.openedNamespace}

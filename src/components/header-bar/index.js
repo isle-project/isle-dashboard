@@ -81,7 +81,7 @@ class HeaderBar extends Component {
 				let subset = user.enrolledNamespaces.filter( x => x.title === match.params.namespace );
 				if ( subset.length > 0 ) {
 					debug( 'Open enrolled namespace...' );
-					this.props.onEnrolledNamespace( subset[ 0 ], user.token );
+					this.props.onEnrolledNamespace( subset[ 0 ] );
 
 					// eslint-disable-next-line react/no-did-mount-set-state
 					this.setState({
@@ -92,7 +92,7 @@ class HeaderBar extends Component {
 					subset = user.ownedNamespaces.filter( x => x.title === match.params.namespace );
 					if ( subset.length > 0 ) {
 						debug( 'Open owned namespace...' );
-						this.props.onNamespace( subset[ 0 ], user.token );
+						this.props.onNamespace( subset[ 0 ] );
 
 						// eslint-disable-next-line react/no-did-mount-set-state
 						this.setState({
@@ -103,7 +103,7 @@ class HeaderBar extends Component {
 			}
 			else {
 				// Retrieve (updated) lessons upon mounting in all cases:
-				this.props.onNamespace( namespace, user.token );
+				this.props.onNamespace( namespace );
 			}
 		}
 		document.addEventListener( 'visibilitychange', this.handleVisibilityChange );
