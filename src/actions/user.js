@@ -206,7 +206,7 @@ export const authenticate = async ( dispatch, { writeAccessToken }) => {
 
 export const authenticateInjector = ( dispatch ) => {
 	return ({ writeAccessToken }) => {
-		authenticateInjector( dispatch, { writeAccessToken });
+		return authenticate( dispatch, { writeAccessToken });
 	};
 };
 
