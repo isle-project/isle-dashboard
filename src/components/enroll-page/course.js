@@ -63,17 +63,16 @@ class Course extends Component {
 
 	handleEnroll = () => {
 		const cohortID = this.props.cohorts[ this.state.checked ]._id;
-		this.props.addUserToCohort( cohortID, this.props.user.token, this.props.namespace, () => {
-			this.setState({
-				showModal: false
-			});
+		this.props.addUserToCohort( cohortID, this.props.namespace );
+		this.setState({
+			showModal: false
 		});
 	}
 
 	handleFormClick = (event) => {
 		const check = event.target.checked;
 		const pos = event.target.dataset.pos;
-		if (check) {
+		if ( check ) {
 			this.setState({
 				checked: Number(pos)
 			});
@@ -153,8 +152,7 @@ Course.propTypes = {
 	addUserToCohort: PropTypes.func.isRequired,
 	cohorts: PropTypes.array.isRequired,
 	enrollable: PropTypes.bool.isRequired,
-	namespace: PropTypes.object.isRequired,
-	user: PropTypes.object.isRequired
+	namespace: PropTypes.object.isRequired
 };
 
 

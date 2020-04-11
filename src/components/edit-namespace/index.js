@@ -101,31 +101,16 @@ class EditNamespace extends Component {
 
 	createCohort = ( cohort ) => {
 		cohort.namespaceID = this.props.namespace._id;
-		this.props.createCohort( this.props.user, cohort, () => {
-			this.closeCreateCohortModal();
-			this.props.getCohorts({
-				userToken: this.props.user.token,
-				namespaceID: this.props.namespace._id
-			});
-		});
+		this.props.createCohort( cohort );
+		this.closeCreateCohortModal();
 	}
 
 	deleteCohort = ( cohortID ) => {
-		this.props.deleteCohort( cohortID, this.props.user.token, () => {
-			this.props.getCohorts({
-				userToken: this.props.user.token,
-				namespaceID: this.props.namespace._id
-			});
-		});
+		this.props.deleteCohort( cohortID, this.props.namespace._id );
 	}
 
 	updateCohort = ( cohort ) => {
-		this.props.updateCohort( cohort, this.props.user.token, () => {
-			this.props.getCohorts({
-				userToken: this.props.user.token,
-				namespaceID: this.props.namespace._id
-			});
-		});
+		this.props.updateCohort( cohort );
 	}
 
 	handleOwnerChange = ( newValue ) => {
@@ -335,7 +320,6 @@ EditNamespace.propTypes = {
 	createCohort: PropTypes.func.isRequired,
 	deleteCohort: PropTypes.func.isRequired,
 	deleteCurrentNamespace: PropTypes.func.isRequired,
-	getCohorts: PropTypes.func.isRequired,
 	history: PropTypes.object.isRequired,
 	namespace: PropTypes.object.isRequired,
 	updateCohort: PropTypes.func.isRequired,
