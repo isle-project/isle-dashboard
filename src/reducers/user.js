@@ -17,9 +17,9 @@
 
 // MODULES //
 
-import * as types from 'constants/action_types.js';
 import groupBy from '@stdlib/utils/group-by';
 import copy from '@stdlib/utils/copy';
+import * as types from 'constants/action_types.js';
 
 
 // VARIABLES //
