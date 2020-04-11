@@ -58,36 +58,34 @@ class Signup extends Component {
 		};
 	}
 
-	handleSubmit = ( event ) => {
+	handleSubmit = async ( event ) => {
 		event.preventDefault();
 		if (
 			this.getEmailValidationState() &&
 			this.getNameValidationState() &&
 			this.getPasswordValidationState()
 		) {
-			this.props.createUser( extractUserData( this.state ), ( err, res ) => {
-				if ( err ) {
-					debug( 'Encountered an error: ' + err.message );
-					return this.setState({
-						message: 'The server appears to be down. Please try again later.',
-						successful: false,
-						showModal: true
-					});
-				}
-				if ( res.statusCode !== 200 ) {
-					return this.setState({
-						message: res.body,
-						successful: false,
-						showModal: true
-					});
-				}
-				const body = JSON.parse( res.body );
-				return this.setState({
-					message: body.message,
+			try {
+				const res = await this.props.createUser( extractUserData( this.state ) );
+				this.setState({
+					message: res.data.message,
 					successful: true,
 					showModal: true
 				});
-			});
+			} catch ( err ) {
+				let message;
+				if ( err.response ) {
+					message = err.response.data;
+				} else {
+					message = err.message;
+				}
+				debug( 'Encountered an error: ' + message );
+				this.setState({
+					message,
+					successful: false,
+					showModal: true
+				});
+			}
 		} else {
 			this.setState({
 				showSubmitOverlay: true,
@@ -100,7 +98,6 @@ class Signup extends Component {
 				}, 4000 );
 			});
 		}
-		return false;
 	}
 
 	handleInputChange = ( event ) => {

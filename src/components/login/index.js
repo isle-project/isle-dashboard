@@ -47,7 +47,7 @@ class Login extends Component {
 		}
 	}
 
-	handleSubmit = ( event ) => {
+	handleSubmit = async ( event ) => {
 		event.preventDefault();
 		const form = {
 			password: this.state.password,
@@ -68,28 +68,32 @@ class Login extends Component {
 			});
 		}
 		else {
-			this.props.handleLogin( form, ( err, res ) => {
-				if ( !err ) {
-					const { message, type, token, id } = JSON.parse( res.body );
-					if ( message === 'ok' ) {
-						this.props.fetchCredentials({ token, id }, ( err, user ) => {
-							this.props.getEnrollableCohorts( user );
-						});
-					} else {
-						this.setState({
-							showInputOverlay: true,
-							overlayTarget: type === 'no_user' ? this.emailInput : this.passwordInput,
-							invalidInputMessage: message
-						}, () => {
-							setTimeout( () => {
-								this.setState({
-									showInputOverlay: false
-								});
-							}, 4000 );
-						});
+			try {
+				const res = await this.props.handleLogin( form );
+				console.log( res );
+				const { message, type, token, id } = res.data;
+				if ( message === 'ok' ) {
+					const user = await this.props.fetchCredentials({ token, id });
+					if ( user ) {
+						this.props.getEnrollableCohorts( user );
 					}
 				}
-			});
+				else {
+					this.setState({
+						showInputOverlay: true,
+						overlayTarget: type === 'no_user' ? this.emailInput : this.passwordInput,
+						invalidInputMessage: message
+					}, () => {
+						setTimeout( () => {
+							this.setState({
+								showInputOverlay: false
+							});
+						}, 4000 );
+					});
+				}
+			} catch ( err ) {
+				console.error( err );
+			}
 		}
 	}
 

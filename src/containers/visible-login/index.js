@@ -22,7 +22,7 @@ import { connect } from 'react-redux';
 import Login from 'components/login';
 import { fetchCredentialsInjector } from 'actions/authentication';
 import { getEnrollableCohortsInjector } from 'actions/cohort';
-import { handleLogin, restoreLoginInjector } from 'actions/user';
+import { handleLoginInjector, restoreLoginInjector } from 'actions/user';
 
 
 // FUNCTIONS //
@@ -35,7 +35,7 @@ function mapStateToProps( state ) {
 
 function mapDispatchToProps( dispatch ) {
 	return {
-		handleLogin: handleLogin,
+		handleLogin: handleLoginInjector( dispatch ),
 		restoreLogin: restoreLoginInjector( dispatch ),
 		fetchCredentials: fetchCredentialsInjector( dispatch ),
 		getEnrollableCohorts: getEnrollableCohortsInjector( dispatch )
