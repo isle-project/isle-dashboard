@@ -152,44 +152,29 @@ export const deleteUserInjector = dispatch => {
 	};
 };
 
-export const uploadProfilePic = ( dispatch, { token, avatarData, thumbnailData }) => {
-	const xhr = new XMLHttpRequest();
-	xhr.open( 'POST', server+'/upload_profile_pic', true );
-	xhr.setRequestHeader( 'Authorization', 'JWT ' + token );
-	xhr.onreadystatechange = () => {
-		if ( xhr.readyState === XMLHttpRequest.DONE ) {
-			let message;
-			let level;
-			let body;
-			if ( xhr.status === 200 ) {
-				body = JSON.parse( xhr.responseText );
-				message = body.message;
-				level = 'success';
-				body.filename = server + '/avatar/' + body.filename;
-				dispatch( updateUserPicture( body.filename ) );
-			} else {
-				message = xhr.responseText;
-				level = 'error';
-			}
-			return addNotification( dispatch, {
-				title: 'Profile Picture Upload',
-				message,
-				level,
-				position: 'tl'
-			});
-		}
-	};
-	xhr.send( avatarData );
+export const uploadProfilePic = async ( dispatch, { token, avatarData, thumbnailData }) => {
+	try {
+		let res = await axios.post( server+'/upload_profile_pic', avatarData );
+		const message = res.data.message;
+		let filename = res.data.filename;
+		filename = server + '/avatar/' + filename;
+		dispatch( updateUserPicture( filename ) );
 
-	const xhr2 = new XMLHttpRequest();
-	xhr2.open( 'POST', server+'/upload_thumbnail_pic', true );
-	xhr2.setRequestHeader( 'Authorization', 'JWT ' + token );
-	xhr2.send( thumbnailData );
+		res = await axios.post( server+'/upload_thumbnail_pic', thumbnailData );
+		addNotification( dispatch, {
+			title: 'Profile Picture Upload',
+			message,
+			level: 'success',
+			position: 'tl'
+		});
+	} catch ( err ) {
+		addErrorNotification( dispatch, err );
+	}
 };
 
 export const uploadProfilePicInjector = ( dispatch ) => {
-	return ({ token, avatarData, thumbnailData }) => {
-		uploadProfilePic( dispatch, { token, avatarData, thumbnailData });
+	return ({ avatarData, thumbnailData }) => {
+		uploadProfilePic( dispatch, { avatarData, thumbnailData });
 	};
 };
 
