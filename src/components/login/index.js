@@ -70,31 +70,19 @@ class Login extends Component {
 		else {
 			try {
 				const res = await this.props.handleLogin( form );
-				const { message, type, token, id } = res.data;
+				const { message, token, id } = res.data;
 				if ( message === 'ok' ) {
 					const user = await this.props.fetchCredentials({ token, id });
 					if ( user ) {
 						this.props.getEnrollableCohorts( user );
 					}
 				}
-				else {
-					this.setState({
-						showInputOverlay: true,
-						overlayTarget: type === 'no_user' ? this.emailInput : this.passwordInput,
-						invalidInputMessage: message
-					}, () => {
-						setTimeout( () => {
-							this.setState({
-								showInputOverlay: false
-							});
-						}, 4000 );
-					});
-				}
 			} catch ( err ) {
+				const msg = err.response.data;
 				this.setState({
 					showInputOverlay: true,
-					overlayTarget: this.emailInput,
-					invalidInputMessage: err.message
+					overlayTarget: msg === 'Password is not correct.' ? this.passwordInput : this.emailInput,
+					invalidInputMessage: msg
 				}, () => {
 					setTimeout( () => {
 						this.setState({
