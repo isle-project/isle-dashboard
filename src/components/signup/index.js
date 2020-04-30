@@ -19,6 +19,7 @@
 
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
+import { withTranslation } from 'react-i18next';
 import { Button, Card, Col, Row, FormLabel, FormControl, FormGroup, Form, OverlayTrigger, Overlay, Popover, Tooltip } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import logger from 'debug';
@@ -135,13 +136,14 @@ class Signup extends Component {
 	}
 
 	renderEmail() {
-		return ( <OverlayTrigger placement="right" overlay={createTooltip( 'Please enter a valid email address.' )}>
+		const { t } = this.props;
+		return ( <OverlayTrigger placement="right" overlay={createTooltip( t('email-tooltip') )}>
 			<FormGroup
 				controlId="form-email"
 			>
 				<Row>
 					<Col sm={3}>
-						<FormLabel>Email</FormLabel>
+						<FormLabel>{t('email')}</FormLabel>
 					</Col>
 					<Col sm={9}>
 						<FormControl
@@ -153,7 +155,7 @@ class Signup extends Component {
 							isInvalid={this.state.email && !this.getEmailValidationState()}
 						/>
 						<Form.Control.Feedback type="invalid">
-							Not a valid email address.
+							{t('invalid-email')}
 						</Form.Control.Feedback>
 					</Col>
 				</Row>
@@ -162,14 +164,15 @@ class Signup extends Component {
 	}
 
 	renderName() {
+		const { t } = this.props;
 		return (
-			<OverlayTrigger placement="right" overlay={createTooltip( 'Please enter your name.' )}>
+			<OverlayTrigger placement="right" overlay={createTooltip( t('name-tooltip') )}>
 				<FormGroup
 					controlId="form-name"
 				>
 					<Row>
 						<Col sm={3}>
-							<FormLabel>Name</FormLabel>
+							<FormLabel>{t('name')}</FormLabel>
 						</Col>
 						<Col sm={9}>
 							<FormControl
@@ -180,7 +183,7 @@ class Signup extends Component {
 								isInvalid={this.state.name && !this.getNameValidationState()}
 							/>
 							<Form.Control.Feedback type="invalid">
-								Name must contain four characters.
+								{t('invalid-name')}
 							</Form.Control.Feedback>
 						</Col>
 					</Row>
@@ -190,17 +193,18 @@ class Signup extends Component {
 	}
 
 	renderPasswordFields() {
+		const { t } = this.props;
 		const validPasswords = this.getPasswordValidationState();
 		const enteredPasswords = this.state.password || this.state.passwordRepeat;
 		return (
 			<Fragment>
-				<OverlayTrigger placement="right" overlay={createTooltip( 'Please enter a password of your choosing with at least six characters' )}>
+				<OverlayTrigger placement="right" overlay={createTooltip( t('password-tooltip') )}>
 					<FormGroup
 						controlId="form-password"
 					>
 						<Row>
 							<Col sm={3}>
-								<FormLabel>Password</FormLabel>
+								<FormLabel>{t('password')}</FormLabel>
 							</Col>
 							<Col sm={9}>
 								<FormControl
@@ -214,7 +218,7 @@ class Signup extends Component {
 									isInvalid={enteredPasswords && !validPasswords}
 								/>
 								<Form.Control.Feedback type="invalid">
-									Please enter a new password with at least six characters.
+									{t('invalid-password')}
 								</Form.Control.Feedback>
 							</Col>
 						</Row>
@@ -246,6 +250,7 @@ class Signup extends Component {
 	}
 
 	render() {
+		const { t } = this.props;
 		return (
 			<Fragment>
 				<div className="login">
@@ -266,14 +271,14 @@ class Signup extends Component {
 										className="centered"
 										type="submit"
 										onClick={this.handleSubmit}
-									>Sign up</Button>
+									>{t('register')}</Button>
 								</FormGroup>
 							</Form>
 						</Card.Body>
 						<Card.Footer style={{ background: 'rgba(255,255,255,0.6)', textAlign: 'right' }}>
-							<Link to="/forgot-password">Forgot password?</Link>
+							<Link to="/forgot-password">{t('forgot-password')}</Link>
 							<span> | </span>
-							<Link to="/login">Log in</Link>
+							<Link to="/login">{t('login')}</Link>
 						</Card.Footer>
 					</Card>
 				</div>
@@ -290,7 +295,7 @@ class Signup extends Component {
 					containerPadding={20}
 				>
 					<Popover id="popover-contained" title="Input fields are not valid">
-						Please make sure that all input values are valid before submitting.
+						{t('signup-not-valid')}
 					</Popover>
 				</Overlay>
 			</Fragment>
@@ -308,4 +313,4 @@ Signup.propTypes = {
 
 // EXPORTS //
 
-export default Signup;
+export default withTranslation()( Signup );

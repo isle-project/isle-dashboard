@@ -1,0 +1,15 @@
+{
+	"register": "Registrieren",
+	"login": "Anmelden",
+	"forgot-password": "Passwort vergessen?",
+	"signup-not-valid": "Bitte stelle sicher dass alle Eingabefelder korrekt ausgefüllt sind.",
+	"email": "Email",
+	"email-tooltip": "Bitte gib eine valide E-Mail-Adresse ein",
+	"invalid-email": "Keine valide E-Mail-Adresse.",
+	"invalid-name": "Name muss aus mindestens vier Buchstaben bestehen.",
+	"name": "Name",
+	"name-tooltip": "Bitte gib Deinen Namen ein.",
+	"password": "Passwort",
+	"password-tooltip": "Bitte gib ein Password Deiner Wahl ein, das aus mindestens sechs Buchstaben besteht.",
+	"invalid-password": "Dein Passwort muss aus mindestens sechs Buchstaben bestehen."
+}
