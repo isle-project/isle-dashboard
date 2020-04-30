@@ -10,6 +10,6 @@
 	"name": "Name",
 	"name-tooltip": "Bitte gib Deinen Namen ein.",
 	"password": "Passwort",
-	"password-tooltip": "Bitte gib ein Password Deiner Wahl ein, das aus mindestens sechs Buchstaben besteht.",
+	"password-tooltip": "Bitte gib ein Passwort Deiner Wahl ein (mindestens sechs Buchstaben).",
 	"invalid-password": "Dein Passwort muss aus mindestens sechs Buchstaben bestehen."
 }
