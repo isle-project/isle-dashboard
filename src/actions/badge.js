@@ -17,6 +17,7 @@
 
 // MODULES //
 
+import React from 'react';
 import axios from 'axios';
 import contains from '@stdlib/assert/contains';
 import server from 'constants/server';
