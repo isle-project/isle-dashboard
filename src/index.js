@@ -30,6 +30,7 @@ import { createStore, applyMiddleware } from 'redux';
 import { routerMiddleware } from 'connected-react-router';
 import createRootReducer from 'reducers';
 import App from 'containers/app.js';
+import './helpers/i18n';
 import 'css/animations.css';
 import 'css/index.css';
 
