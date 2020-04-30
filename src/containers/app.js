@@ -27,6 +27,7 @@ import asyncComponent from 'components/async';
 import server from 'constants/server';
 import { handleLoginInjector } from 'actions/user';
 import NotificationSystem from './notification.js';
+import LanguageSwitcher from './language_switcher.js';
 import './app.css';
 
 
@@ -180,6 +181,7 @@ class App extends Component {
 					<Route path="/signup" component={AsyncSignup} />
 					<Route path="/forgot-password" component={AsyncForgotPassword} />
 					<NotificationSystem />
+					<LanguageSwitcher />
 				</div>
 			</ConnectedRouter>
 		);

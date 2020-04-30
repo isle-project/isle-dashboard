@@ -24,3 +24,9 @@ h1 {
 	font-weight: bold;
 	letter-spacing: 1px;
 }
+
+.language-switcher {
+	position: fixed;
+	bottom: 4px;
+	right: 4px;
+}
