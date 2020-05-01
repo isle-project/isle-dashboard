@@ -7,5 +7,8 @@
 	"email": "Email",
 	"enter-email": "Enter Email",
 	"email-address": "Email Address",
-	"reset": "Reset"
+	"reset": "Reset",
+	"courses": "Courses",
+	"data": "Data",
+	"statistics": "Statistics"
 }
