@@ -19,6 +19,8 @@
 
 import React, { Component, Fragment } from 'react';
 import i18next from 'i18next';
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
+import Tooltip from 'react-bootstrap/Tooltip';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 
@@ -52,9 +54,9 @@ class LanguageSwitcher extends Component {
 			return null;
 		}
 		return (
-			<Modal show >
-				<Modal.Header>
-					Choose Language
+			<Modal show onHide={this.toggleSelectModal} >
+				<Modal.Header closeButton >
+					<Modal.Title as="h3">Choose Language</Modal.Title>
 				</Modal.Header>
 				<Modal.Body>
 					<Button block onClick={this.changeLanguageFactory( 'en' )}>English - EN</Button>
@@ -68,9 +70,14 @@ class LanguageSwitcher extends Component {
 	render() {
 		return (
 			<Fragment>
-				<Button onClick={this.toggleSelectModal} className="language-switcher" variant="outline-secondary" size="sm" >
-					<i className="fas fa-globe"></i>
-				</Button>
+				<OverlayTrigger placement="left" overlay={<Tooltip id="language-switcher">Change language</Tooltip>} >
+					<Button
+						onClick={this.toggleSelectModal} className="language-switcher"
+						variant="light" size="sm" aria-label="Change language"
+					>
+						<i className="fas fa-globe"></i>
+					</Button>
+				</OverlayTrigger>
 				{this.renderSelectModal()}
 			</Fragment>
 		);
