@@ -5,3 +5,7 @@
 	width: 100%;
 	background: rgba(0, 0, 0, 0.75);
 }
+
+.badge-success {
+	background-color: #0a8927;
+}
