@@ -139,6 +139,7 @@ class EditModal extends Component {
 							onClick={this.props.onHide}
 							style={{ float: 'right' }}
 							variant="outline-secondary"
+							aria-label="Close edit modal"
 						>
 							<span aria-hidden="true">x</span>
 						</Button>
