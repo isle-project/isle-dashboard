@@ -202,17 +202,20 @@ class Lesson extends Component {
 		return ( <ButtonToolbar className="lesson-button-toolbar">
 			<ButtonGroup style={{ marginRight: '5px' }} >
 				<OverlayTrigger placement="top" overlay={<Tooltip id="open_details">Open Details</Tooltip>}>
-					<Button size="sm" variant="secondary" onClick={this.showDetailsModal}>
+					<Button size="sm" variant="secondary" onClick={this.showDetailsModal} aria-label="Open Details" >
 						<i className="fa fa-cog"></i>
 					</Button>
 				</OverlayTrigger>
 				<OverlayTrigger placement="top" overlay={<Tooltip id="delete_lesson">Delete Lesson</Tooltip>}>
-					<Button size="sm" variant="secondary" onClick={this.showDeleteModal} >
+					<Button size="sm" variant="secondary" onClick={this.showDeleteModal} aria-label="Delete Lesson" >
 						<i className="fa fa-trash-alt"></i>
 					</Button>
 				</OverlayTrigger>
 				<OverlayTrigger placement="top" overlay={<Tooltip id="isle-file">Copy ISLE file to clipboard</Tooltip>}>
-					<Button variant="secondary" size="sm" onFocus={this.getIsleFile} onMouseEnter={this.getIsleFile} onClick={this.copyIsleFileToClipboard} style={{ float: 'right' }}>
+					<Button variant="secondary" size="sm" onFocus={this.getIsleFile} onMouseEnter={this.getIsleFile}
+						onClick={this.copyIsleFileToClipboard} style={{ float: 'right' }}
+						aria-label="Copy ISLE file to clipboard"
+					>
 						<i className="fa fa-clipboard"></i>
 					</Button>
 				</OverlayTrigger>
@@ -284,6 +287,7 @@ class Lesson extends Component {
 							className="lesson-link-icon fas fa-external-link-alt"
 							onClick={this.copyLinkToClipboard}
 							onKeyPress={this.copyLinkToClipboard}
+							aria-label="Copy link to clipboard"
 						></i>
 					</OverlayTrigger>
 					{this.renderButtonToolbar()}

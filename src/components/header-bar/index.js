@@ -228,6 +228,7 @@ class HeaderBar extends Component {
 			<Button
 				style={{ float: 'left', marginRight: '4px', marginLeft: '4px', marginTop: '8px' }}
 				onClick={this.goToCreateCoursePage.bind( this )}
+				aria-label="Create a new course"
 			>
 				<i className="fa fa-pencil-alt"></i>
 			</Button>
@@ -247,6 +248,7 @@ class HeaderBar extends Component {
 				<Button
 					style={{ float: 'left', marginRight: '4px' }}
 					onClick={this.goToCourseEditPage.bind( this )}
+					aria-label="Edit Course"
 				>
 					<i className="fa fa-edit"></i>
 				</Button>
@@ -278,6 +280,7 @@ class HeaderBar extends Component {
 				<Button
 					style={{ float: 'left', marginRight: '4px' }}
 					onClick={this.goToCourseDataPage.bind( this )}
+					aria-label="Course Data"
 				>
 					<i className="fa fa-chart-pie"></i>
 				</Button>
@@ -341,6 +344,7 @@ class HeaderBar extends Component {
 								showNamespacesOverlay: !this.state.showNamespacesOverlay
 							});
 						}}
+						aria-label="Select course"
 					>
 						<i className="fa fa-align-justify"></i>
 					</Button>
@@ -410,7 +414,7 @@ class HeaderBar extends Component {
 					} else {
 						this.props.setLessonOrderDirection( 'ascending' );
 					}
-				}}>
+				}} aria-label={this.props.search.direction === 'ascending' ? 'Sort in descending order' : 'Sort in ascending order'}>
 					{ this.props.search.direction === 'ascending' ?
 						<i className="fas fa-arrow-down" /> :
 						<i className="fas fa-arrow-up" />
