@@ -8,8 +8,8 @@ import Backend from 'i18next-xhr-backend';
 
 // MAIN //
 
-i18n.use( LanguageDetector )
-	.use( Backend )
+i18n.use( Backend )
+	.use( LanguageDetector )
 	.use( initReactI18next )
 	.init({
 		debug: true,
@@ -20,6 +20,9 @@ i18n.use( LanguageDetector )
 		},
 		react: {
 			useSuspense: false
+		},
+		interpolation: {
+			escapeValue: false // Not needed for React!
 		}
 	});
 
