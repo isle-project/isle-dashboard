@@ -20,6 +20,7 @@
 import React, { Component, Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import logger from 'debug';
+import { withTranslation } from 'react-i18next';
 import {
 	Button, ButtonGroup, DropdownButton, Dropdown, FormGroup, FormControl, Image, InputGroup,
 	Overlay, OverlayTrigger, Popover, ListGroupItem, ListGroup, Tooltip
@@ -329,6 +330,7 @@ class HeaderBar extends Component {
 		) {
 			disabled = false;
 		}
+		const { t } = this.props;
 		return (
 			<ButtonGroup style={{
 				float: 'left',
@@ -365,7 +367,7 @@ class HeaderBar extends Component {
 						}}
 					>
 						<small>
-							{this.props.namespace.title || 'Open Your Courses'}
+							{this.props.namespace.title || t('open-your-courses')}
 						</small>
 					</Button>
 				</OverlayTrigger>
@@ -465,6 +467,7 @@ class HeaderBar extends Component {
 	}
 
 	render() {
+		const { t } = this.props;
 		let profilePic;
 		if ( this.props.user.picture ) {
 			profilePic = this.props.user.picture;
@@ -531,7 +534,7 @@ class HeaderBar extends Component {
 								key="logoutButton"
 								className="header-bar-link empty-button"
 								onClick={this.props.logout}
-							> Log out </button>
+							>{t('common:logout')}</button>
 						</div>
 					</div>
 				</div>
@@ -559,4 +562,4 @@ HeaderBar.propTypes = {
 
 // EXPORTS //
 
-export default HeaderBar;
+export default withTranslation( [ 'header_bar', 'common' ] )( HeaderBar );
