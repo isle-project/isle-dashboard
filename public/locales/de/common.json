@@ -5,10 +5,12 @@
 	"login": "Anmelden",
 	"enter-email": "E-Mail eingeben",
 	"password": "Passwort",
+	"logout": "Abmelden",
 	"email": "E-Mail",
 	"email-address": "E-Mail-Adresse",
 	"reset": "Zurücksetzen",
 	"courses": "Kurse",
 	"data": "Daten",
-	"statistics": "Statistiken"
+	"statistics": "Statistiken",
+	"badges": "Abzeichen"
 }

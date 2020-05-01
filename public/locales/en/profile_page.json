@@ -6,5 +6,6 @@
 	"time-spent": "Time Spent",
 	"no-lessons": "No. of Lessons",
 	"score": "Score",
-	"edit-profile": "Edit Profile"
+	"edit-profile": "Edit Profile",
+	"registered-since": "registered since {{date}}"
 }

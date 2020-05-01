@@ -4,11 +4,13 @@
 	"register": "Sign Up",
 	"password": "Password",
 	"login": "Sign in",
+	"logout": "Log out",
 	"email": "Email",
 	"enter-email": "Enter Email",
 	"email-address": "Email Address",
 	"reset": "Reset",
 	"courses": "Courses",
 	"data": "Data",
-	"statistics": "Statistics"
+	"statistics": "Statistics",
+	"badges": "Badges"
 }
