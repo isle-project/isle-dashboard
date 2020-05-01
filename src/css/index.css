@@ -169,6 +169,8 @@ h5 {
 
 .btn-primary {
 	filter: saturate(80%);
+	background-color: #0070f4;
+	border-color: #0070f4;
 }
 
 label {
