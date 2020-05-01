@@ -29,4 +29,5 @@ h1 {
 	position: fixed;
 	bottom: 4px;
 	right: 4px;
+	opacity: 0.75;
 }
