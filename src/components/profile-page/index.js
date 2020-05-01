@@ -387,7 +387,7 @@ class ProfilePage extends Component {
 									{user.name} <br />
 									{user.organization ? <small>{user.organization}</small>: null }
 								</Card.Title>
-								{date ? <div>{t('registered-since', { date, interpolation: { escapeValue: false }})}</div> : null}
+								{date ? <div>{t('registered-since', { date })}</div> : null}
 							</Card.Header>
 							<Card.Body>
 								<div className="profile-page-user-values">
