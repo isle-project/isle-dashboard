@@ -17,6 +17,9 @@ i18n.use( LanguageDetector )
 		fallbackLng: 'en',
 		backend: {
 			loadPath: '/locales/{{lng}}/{{ns}}.json'
+		},
+		react: {
+			useSuspense: false
 		}
 	});
 

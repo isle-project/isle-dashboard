@@ -19,6 +19,7 @@
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { withTranslation } from 'react-i18next';
 import { Button, Card, FormLabel, FormControl, FormGroup, Form } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import isEmail from '@stdlib/assert/is-email-address';
@@ -44,19 +45,20 @@ class ForgotPassword extends Component {
 	}
 
 	render() {
+		const { t } = this.props;
 		return (
 			<div className="login">
 				<Card style={{ boxShadow: '0 0 8px rgba(0,0,0,0.3)', borderRadius: '6px', opacity: 0.98, background: 'rgba(255,255,255,0.75)' }}>
 					<Card.Header>
-						<Card.Title as="h3">Forgot password?</Card.Title>
+						<Card.Title as="h3">{t('common:forgot-password')}</Card.Title>
 					</Card.Header>
 					<Card.Body>
 						<Form inline>
 							<FormGroup controlId="form-email">
-								<FormLabel>Email Address</FormLabel>
+								<FormLabel>{t('common:email-address')}</FormLabel>
 								<FormControl
 									type="email"
-									placeholder="Enter Email"
+									placeholder={t('common:enter-email')}
 									value={this.state.email}
 									onChange={( event )=>{
 										const target = event.target;
@@ -70,14 +72,14 @@ class ForgotPassword extends Component {
 										marginRight: '6px'
 									}}
 								/>
-								<Button disabled={!isEmail( this.state.email )} onClick={this.handleClick} variant="primary" type="submit">Reset</Button>
+								<Button disabled={!isEmail( this.state.email )} onClick={this.handleClick} variant="primary" type="submit">{t('common:reset')}</Button>
 							</FormGroup>
 						</Form>
 					</Card.Body>
 					<Card.Footer style={{ background: 'rgba(255,255,255,0.6)', textAlign: 'right' }}>
-						<Link to="/signup">Sign up</Link>
+						<Link to="/signup">{t('common:register')}</Link>
 						<span> | </span>
-						<Link to="/login">Log in</Link>
+						<Link to="/login">{t('common:login')}</Link>
 					</Card.Footer>
 				</Card>
 			</div>
@@ -95,4 +97,4 @@ ForgotPassword.propTypes = {
 
 // EXPORTS //
 
-export default ForgotPassword;
+export default withTranslation( [ 'forgot_password', 'common' ] )( ForgotPassword );

@@ -1,9 +1,8 @@
 {
-	"register": "Registrieren",
-	"login": "Anmelden",
-	"forgot-password": "Passwort vergessen?",
+	"confirm-password": "Passwort bestätigen",
+	"choose-password": "Passwort wählen",
 	"signup-not-valid": "Bitte stelle sicher dass alle Eingabefelder korrekt ausgefüllt sind.",
-	"email": "Email",
+	"enter-name": "Namen eingeben",
 	"email-tooltip": "Bitte gib eine valide E-Mail-Adresse ein",
 	"invalid-email": "Keine valide E-Mail-Adresse.",
 	"invalid-name": "Name muss aus mindestens vier Buchstaben bestehen.",

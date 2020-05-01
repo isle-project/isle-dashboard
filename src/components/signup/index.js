@@ -143,14 +143,14 @@ class Signup extends Component {
 			>
 				<Row>
 					<Col sm={3}>
-						<FormLabel>{t('email')}</FormLabel>
+						<FormLabel>{t('common:email')}</FormLabel>
 					</Col>
 					<Col sm={9}>
 						<FormControl
 							name="email"
 							type="email"
 							autoComplete="username email"
-							placeholder="Enter Email"
+							placeholder={t('common:enter-email')}
 							onChange={this.handleInputChange}
 							isInvalid={this.state.email && !this.getEmailValidationState()}
 						/>
@@ -178,7 +178,7 @@ class Signup extends Component {
 							<FormControl
 								name="name"
 								type="text"
-								placeholder="Enter Name"
+								placeholder={t('enter-name')}
 								onChange={this.handleInputChange}
 								isInvalid={this.state.name && !this.getNameValidationState()}
 							/>
@@ -204,14 +204,14 @@ class Signup extends Component {
 					>
 						<Row>
 							<Col sm={3}>
-								<FormLabel>{t('password')}</FormLabel>
+								<FormLabel>{t('common:password')}</FormLabel>
 							</Col>
 							<Col sm={9}>
 								<FormControl
 									name="password"
 									type="password"
 									autoComplete="new-password"
-									placeholder="Choose Password"
+									placeholder={t('choose-password')}
 									onChange={this.handleInputChange}
 									maxLength={30}
 									minLength={6}
@@ -233,7 +233,7 @@ class Signup extends Component {
 								name="passwordRepeat"
 								type="password"
 								autoComplete="new-password"
-								placeholder="Confirm Password"
+								placeholder={t('confirm-password')}
 								onChange={this.handleInputChange}
 								maxLength={30}
 								minLength={6}
@@ -271,14 +271,14 @@ class Signup extends Component {
 										className="centered"
 										type="submit"
 										onClick={this.handleSubmit}
-									>{t('register')}</Button>
+									>{t('common:register')}</Button>
 								</FormGroup>
 							</Form>
 						</Card.Body>
 						<Card.Footer style={{ background: 'rgba(255,255,255,0.6)', textAlign: 'right' }}>
-							<Link to="/forgot-password">{t('forgot-password')}</Link>
+							<Link to="/forgot-password">{t('common:forgot-password')}</Link>
 							<span> | </span>
-							<Link to="/login">{t('login')}</Link>
+							<Link to="/login">{t('common:login')}</Link>
 						</Card.Footer>
 					</Card>
 				</div>
@@ -313,4 +313,4 @@ Signup.propTypes = {
 
 // EXPORTS //
 
-export default withTranslation()( Signup );
+export default withTranslation( [ 'signup', 'common' ] )( Signup );
