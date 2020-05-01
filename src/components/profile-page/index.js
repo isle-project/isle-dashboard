@@ -19,6 +19,7 @@
 
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
+import { withTranslation } from 'react-i18next';
 import { Button, Card, Media, Nav, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import path from 'path';
 import keys from '@stdlib/utils/keys';
@@ -245,21 +246,22 @@ class ProfilePage extends Component {
 	}
 
 	renderStatisticDataToolbar() {
+		const { t } = this.props;
 		return (
 		<Nav variant="tabs" activeKey={this.state.selectedDataType} onSelect={this.handleDataSelect}>
 			<Nav.Item >
-				<Nav.Link eventKey="messages" title="Messages">
-					Messages
+				<Nav.Link eventKey="messages" title={t('messages')}>
+					{t('messages')}
 				</Nav.Link>
 			</Nav.Item>
 			<Nav.Item >
-				<Nav.Link eventKey="files" title="Files">
-					Files
+				<Nav.Link eventKey="files" title={t('files')}>
+					{t('files')}
 				</Nav.Link>
 			</Nav.Item>
 			<Nav.Item >
-				<Nav.Link eventKey="actions" title="Actions">
-					Actions
+				<Nav.Link eventKey="actions" title={t('actions')}>
+					{t('actions')}
 				</Nav.Link>
 			</Nav.Item>
 		</Nav>
@@ -267,16 +269,17 @@ class ProfilePage extends Component {
 	}
 
 	renderStatisticStatsToolbar() {
+		const { t } = this.props;
 		return (
 			<Nav variant="tabs" activeKey={this.state.selectedStatsType} onSelect={this.handleStatsSelect}>
 				<Nav.Item >
-					<Nav.Link eventKey="progress" title="progress">
-						Progress
+					<Nav.Link eventKey="progress" title={t('progress')}>
+						{t('progress')}
 					</Nav.Link>
 				</Nav.Item>
 				<Nav.Item >
-					<Nav.Link eventKey="timeSpent" title="timeSpent">
-						Time spent
+					<Nav.Link eventKey="timeSpent" title={t('time-spent')} >
+						{t('time-spent')}
 					</Nav.Link>
 				</Nav.Item>
 			</Nav>
@@ -284,10 +287,11 @@ class ProfilePage extends Component {
 	}
 
 	renderStatisticSection() {
-		const courses = this.props.user.enrolledNamespaces;
+		const { t, user } = this.props;
+		const courses = user.enrolledNamespaces;
 		return (
 			<div className="profile-page-statistics">
-				<div className="profile-page-statistics-navigation-title">Courses</div>
+				<div className="profile-page-statistics-navigation-title">{t('common:courses')}</div>
 				<div className="profile-page-statistics-navigation">
 				<Nav variant="tabs" activeKey={this.state.selectedNamespaceID} onSelect={this.handleSelect}>
 					{courses.map( ( course, i ) => {
@@ -301,12 +305,12 @@ class ProfilePage extends Component {
 					})}
 				</Nav>
 				</div>
-				<div className="profile-page-statistics-data-select">Data</div>
+				<div className="profile-page-statistics-data-select">{t('common:data')}</div>
 				<div className="profile-page-statistics-top-actions">
 					{ this.state.selectedNamespaceID ? this.renderStatisticDataToolbar() : null }
 				</div>
 				<div className="profile-page-statistics-title2">
-					Statistics
+					{t('common:statistics')}
 				</div>
 				<div className="profile-page-statistics-actions">
 					{this.renderLeftPanel()}
@@ -355,7 +359,7 @@ class ProfilePage extends Component {
 	}
 
 	renderUserSection() {
-		const user = this.props.user;
+		const { t, user } = this.props;
 		let date = null;
 		if ( user.createdAt ) {
 			date = new Date( user.createdAt ).toLocaleDateString();
@@ -387,13 +391,13 @@ class ProfilePage extends Component {
 							</Card.Header>
 							<Card.Body>
 								<div className="profile-page-user-values">
-									<div className="profile-page-user-legend">Score</div>
+									<div className="profile-page-user-legend">{t('score')}</div>
 									<div className="profile-page-user-value">
 										{user.score}
 									</div>
-									<div className="profile-page-user-legend">No. of Lessons</div>
+									<div className="profile-page-user-legend">{t('no-lessons')}</div>
 									<div className="profile-page-user-value">{nLessons}</div>
-									<div className="profile-page-user-legend">Time spent</div>
+									<div className="profile-page-user-legend">{t('time-spent')}</div>
 									<div className="profile-page-user-value">
 										{formatTime( user.spentTime )}
 									</div>
@@ -401,7 +405,7 @@ class ProfilePage extends Component {
 							</Card.Body>
 						</Card>
 						<div>
-							<Button style={{ marginTop: 15 }} block onClick={this.toggleEditModal}>Edit Profile</Button>
+							<Button style={{ marginTop: 15 }} block onClick={this.toggleEditModal}>{t('edit-profile')}</Button>
 						</div>
 					</div>
 				</div>
@@ -412,6 +416,7 @@ class ProfilePage extends Component {
 	}
 
 	render() {
+		const { t } = this.props;
 		return (
 			<Fragment>
 				<div className="profile-page-grid-container">
@@ -419,7 +424,7 @@ class ProfilePage extends Component {
 						{this.renderUserSection()}
 					</div>
 					{this.renderStatisticSection()}
-					<div className="profile-page-badge-title">Badges</div>
+					<div className="profile-page-badge-title">{t('badges')}</div>
 					<div className="profile-page-badge-container">
 						{this.renderBadgesSection()}
 					</div>
@@ -463,4 +468,4 @@ ProfilePage.defaultProps = {
 
 // EXPORTS //
 
-export default ProfilePage;
+export default withTranslation( [ 'profile_page', 'common' ] )( ProfilePage );

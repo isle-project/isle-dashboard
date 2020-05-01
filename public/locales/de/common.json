@@ -7,5 +7,8 @@
 	"password": "Passwort",
 	"email": "E-Mail",
 	"email-address": "E-Mail-Adresse",
-	"reset": "Zurücksetzen"
+	"reset": "Zurücksetzen",
+	"courses": "Kurse",
+	"data": "Daten",
+	"statistics": "Statistiken"
 }
