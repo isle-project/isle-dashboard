@@ -1,9 +1,9 @@
 {
-	"register": "Sign Up",
+	"confirm-password": "Confirm Password",
 	"login": "Log in",
-	"forgot-password": "Forgot password?",
+	"enter-name": "Enter Name",
+	"choose-password": "Choose Password",
 	"signup-not-valid": "Please make sure that all input values are valid before submitting.",
-	"email": "Email",
 	"email-tooltip": "Please enter a valid email address.",
 	"invalid-email": "Not a valid email address.",
 	"invalid-name": "Name must contain four characters.",

@@ -19,6 +19,7 @@
 
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
+import { withTranslation } from 'react-i18next';
 import {
 	Button, Card, Col, Row, FormLabel, FormControl, FormGroup,
 	Form, Overlay, Popover
@@ -105,6 +106,7 @@ class Login extends Component {
 	}
 
 	render() {
+		const { t } = this.props;
 		return (
 			<Fragment>
 				<div className="login"><Card className="login-panel">
@@ -118,14 +120,14 @@ class Login extends Component {
 							<FormGroup controlId="form-email">
 								<Row>
 									<Col sm={3}>
-										<FormLabel>Email</FormLabel>
+										<FormLabel>{t('common:email')}</FormLabel>
 									</Col>
 									<Col sm={9}>
 										<FormControl
 											name="email"
 											type="email"
 											autoComplete="isle-email"
-											placeholder="Email"
+											placeholder={t('common:email')}
 											onChange={this.handleInputChange}
 											ref={( input ) => { this.emailInput = input; }}
 										/>
@@ -135,14 +137,14 @@ class Login extends Component {
 							<FormGroup controlId="form-password">
 								<Row>
 									<Col sm={3}>
-										<FormLabel>Password</FormLabel>
+										<FormLabel>{t('common:password')}</FormLabel>
 									</Col>
 									<Col sm={9}>
 										<FormControl
 											name="password"
 											type="password"
 											autoComplete="isle-password"
-											placeholder="Password"
+											placeholder={t('common:password')}
 											onChange={this.handleInputChange}
 											ref={( input ) => { this.passwordInput = input; }}
 										/>
@@ -155,14 +157,14 @@ class Login extends Component {
 									variant="primary"
 									onClick={this.handleSubmit}
 									type="submit"
-								>Sign in</Button>
+								>{t('common:login')}</Button>
 							</FormGroup>
 						</Form>
 					</Card.Body>
 					<Card.Footer style={{ background: 'rgba(255,255,255,0.6)', textAlign: 'right' }}>
-						<Link to="/forgot-password">Forgot password?</Link>
+						<Link to="/forgot-password">{t('common:forgot-password')}</Link>
 						<span> | </span>
-						<Link to="/signup">Sign up</Link>
+						<Link to="/signup">{t('common:register')}</Link>
 					</Card.Footer>
 				</Card></div>
 				<Overlay
@@ -191,4 +193,4 @@ Login.propTypes = {
 
 // EXPORTS //
 
-export default Login;
+export default withTranslation( [ 'login', 'common' ] )( Login );
