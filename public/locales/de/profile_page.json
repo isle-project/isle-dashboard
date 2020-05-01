@@ -6,5 +6,6 @@
 	"time-spent": "Verbrachte Zeit",
 	"no-lessons": "Anzahl Lektionen",
 	"score": "Punkte",
-	"edit-profile": "Profil editieren"
+	"edit-profile": "Profil editieren",
+	"registered-since": "registriert seit {{date}}"
 }
