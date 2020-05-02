@@ -118,11 +118,12 @@ class EditModal extends Component {
 		if ( this.props.user.writeAccess ) {
 			return null;
 		}
+		const t = this.props.t;
 		return ( <Button
 			onClick={this.toggleTokenModal}
 			variant="outline-success"
 			style={{ float: 'right', marginRight: 5 }}
-		>Get Instructor Access</Button> );
+		>{t('get-instructor-access')}</Button> );
 	}
 
 	render() {
@@ -161,7 +162,7 @@ class EditModal extends Component {
 								disabled
 							/>
 						</FormGroup>
-						<OverlayTrigger placement="right" overlay={createTooltip( 'Update your name' )}>
+						<OverlayTrigger placement="right" overlay={createTooltip( t('update-name') )}>
 							<FormGroup
 								controlId="form-name"
 							>
@@ -178,7 +179,7 @@ class EditModal extends Component {
 								</Form.Control.Feedback>
 							</FormGroup>
 						</OverlayTrigger>
-						<OverlayTrigger placement="right" overlay={createTooltip( 'Update your organization' )}>
+						<OverlayTrigger placement="right" overlay={createTooltip( t('update-organization') )}>
 							<FormGroup
 								controlId="form-organization"
 							>
@@ -191,7 +192,7 @@ class EditModal extends Component {
 								/>
 							</FormGroup>
 						</OverlayTrigger>
-						<OverlayTrigger placement="right" overlay={createTooltip( 'Please enter a password of your choosing with at least six characters' )}>
+						<OverlayTrigger placement="right" overlay={createTooltip( t('enter-password') )}>
 							<FormGroup
 								controlId="form-password"
 							>

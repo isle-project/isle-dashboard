@@ -4,7 +4,9 @@
 	"click-to-upload": "Click to upload a new profile picture.",
 	"close-edit-modal": "Close edit modal",
 	"edit-profile": "Edit Profile",
+	"enter-password": "Please enter a password of your choosing with at least six characters",
 	"files": "Files",
+	"get-instructor-access": "Get Instructor Access",
 	"invalid-name": "Name needs to be at least four characters long.",
 	"invalid-password": "Passwords do not match.",
 	"left": "Left",
@@ -21,5 +23,7 @@
 	"score": "Score",
 	"select-file": "Select file",
 	"time-spent": "Time Spent",
+	"update-name": "Update Name",
+	"update-organization": "Update your organization",
 	"zoom": "Zoom"
 }
