@@ -16,7 +16,7 @@ i18n.use( Backend )
 		lng: 'en',
 		fallbackLng: 'en',
 		backend: {
-			loadPath: '/locales/{{lng}}/{{ns}}.json'
+			loadPath: './locales/{{lng}}/{{ns}}.json'
 		},
 		react: {
 			useSuspense: false
