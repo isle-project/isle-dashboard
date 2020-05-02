@@ -298,7 +298,7 @@ export const userUpdateCheck = async ( dispatch, user ) => {
 			const res = await axios.post( server+'/credentials_dashboard', {
 				id: user.id
 			});
-			const newUser = res.data;
+			let newUser = res.data;
 			if ( newUser.picture ) {
 				newUser.picture = server + '/avatar/' + newUser.picture;
 			}
