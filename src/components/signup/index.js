@@ -172,7 +172,7 @@ class Signup extends Component {
 				>
 					<Row>
 						<Col sm={3}>
-							<FormLabel>{t('name')}</FormLabel>
+							<FormLabel>{t('common:name')}</FormLabel>
 						</Col>
 						<Col sm={9}>
 							<FormControl

@@ -12,5 +12,8 @@
 	"courses": "Kurse",
 	"data": "Daten",
 	"statistics": "Statistiken",
-	"badges": "Abzeichen"
+	"badges": "Abzeichen",
+	"organization": "Organisation",
+	"update": "Update",
+	"name": "Name"
 }

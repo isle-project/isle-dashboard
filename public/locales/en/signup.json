@@ -7,7 +7,6 @@
 	"email-tooltip": "Please enter a valid email address.",
 	"invalid-email": "Not a valid email address.",
 	"invalid-name": "Name must contain four characters.",
-	"name": "Name",
 	"name-tooltip": "Please enter your name.",
 	"password": "Password",
 	"password-tooltip": "Please enter a password of your choosing with at least six characters",
