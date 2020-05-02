@@ -129,20 +129,23 @@ class EditModal extends Component {
 		const validPasswords = this.getPasswordValidationState();
 		const validName = this.getNameValidationState();
 		const enteredPasswords = this.state.password || this.state.passwordRepeat;
+		const t = this.props.t;
 		return (
 			<Fragment>
 				<Modal show={this.props.show} onHide={this.props.onHide} >
 				<Modal.Header>
 					<Modal.Title as="h3" style={{ width: '100%' }}>
-						Profile
-						<Button
-							onClick={this.props.onHide}
-							style={{ float: 'right' }}
-							variant="outline-secondary"
-							aria-label="Close edit modal"
-						>
-							<span aria-hidden="true">x</span>
-						</Button>
+						{t('profile')}
+						<OverlayTrigger placement="right" overlay={createTooltip( t('close-edit-modal') )}>
+							<Button
+								onClick={this.props.onHide}
+								style={{ float: 'right' }}
+								variant="outline-secondary"
+								aria-label={t('close-edit-modal')}
+							>
+								<span aria-hidden="true">x</span>
+							</Button>
+						</OverlayTrigger>
 						{this.renderInstructorButton()}
 					</Modal.Title>
 				</Modal.Header>
@@ -150,7 +153,7 @@ class EditModal extends Component {
 						<FormGroup
 							controlId="form-email"
 						>
-							<FormLabel>Email Address</FormLabel>
+							<FormLabel>{t('common:email')}</FormLabel>
 							<FormControl
 								name="email"
 								type="email"
@@ -162,7 +165,7 @@ class EditModal extends Component {
 							<FormGroup
 								controlId="form-name"
 							>
-								<FormLabel>Name</FormLabel>
+								<FormLabel>{t('common:name')}</FormLabel>
 								<FormControl
 									name="name"
 									type="text"
@@ -171,7 +174,7 @@ class EditModal extends Component {
 									isInvalid={!validName}
 								/>
 								<Form.Control.Feedback type="invalid">
-									Name needs to be at least four characters long.
+									{t('invalid-name')}
 								</Form.Control.Feedback>
 							</FormGroup>
 						</OverlayTrigger>
@@ -179,7 +182,7 @@ class EditModal extends Component {
 							<FormGroup
 								controlId="form-organization"
 							>
-								<FormLabel>Organization</FormLabel>
+								<FormLabel>{t('common:organization')}</FormLabel>
 								<FormControl
 									name="organization"
 									type="text"
@@ -192,13 +195,13 @@ class EditModal extends Component {
 							<FormGroup
 								controlId="form-password"
 							>
-								<FormLabel>Password</FormLabel>
+								<FormLabel>{t('common:password')}</FormLabel>
 								<FormControl
 									name="password"
 									type="password"
 									value={this.state.password}
 									autoComplete="new-password"
-									placeholder="Choose a new password"
+									placeholder={t('choose-new-password')}
 									onChange={this.handleInputChange}
 									maxLength={30}
 									minLength={6}
@@ -217,19 +220,21 @@ class EditModal extends Component {
 								type="password"
 								value={this.state.passwordRepeat}
 								autoComplete="new-password"
-								placeholder="Repeat new password"
+								placeholder={t('repeat-new-password')}
 								onChange={this.handleInputChange}
 								maxLength={30}
 								minLength={6}
 								isInvalid={enteredPasswords && !validPasswords}
 							/>
 							<Form.Control.Feedback type="invalid">
-								Passwords do not match.
+								{t('invalid-password')}
 							</Form.Control.Feedback>
 						</FormGroup>
 					</Form>
 					<Card>
-						<Button block disabled={!this.state.changed || !validName || ( !validPasswords && enteredPasswords )} onClick={this.handleUpdate}>Update</Button>
+						<Button block disabled={!this.state.changed || !validName || ( !validPasswords && enteredPasswords )} onClick={this.handleUpdate}>
+							{t('common:update')}
+						</Button>
 					</Card>
 				</Modal>
 				<EnterTokenModal
@@ -249,6 +254,7 @@ class EditModal extends Component {
 EditModal.propTypes = {
 	onHide: PropTypes.func.isRequired,
 	show: PropTypes.bool.isRequired,
+	t: PropTypes.func.isRequired,
 	updateUser: PropTypes.func.isRequired,
 	user: PropTypes.object.isRequired
 };

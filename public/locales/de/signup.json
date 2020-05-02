@@ -6,7 +6,6 @@
 	"email-tooltip": "Bitte gib eine valide E-Mail-Adresse ein",
 	"invalid-email": "Keine valide E-Mail-Adresse.",
 	"invalid-name": "Name muss aus mindestens vier Buchstaben bestehen.",
-	"name": "Name",
 	"name-tooltip": "Bitte gib Deinen Namen ein.",
 	"password": "Passwort",
 	"password-tooltip": "Bitte gib ein Passwort Deiner Wahl ein (mindestens sechs Buchstaben).",

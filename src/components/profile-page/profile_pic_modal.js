@@ -106,6 +106,7 @@ class ProfilePicModal extends Component {
 	}
 
 	renderAvatarEditor = () => {
+		const t = this.props.t;
 		return (
 			<Fragment>
 				<AvatarEditor
@@ -122,7 +123,7 @@ class ProfilePicModal extends Component {
 					rotate={0}
 				/>
 				<Form.Group as={Row} controlId="form-zoom">
-					<Form.Label column sm="2">Zoom</Form.Label>
+					<Form.Label column sm="2">{t('zoom')}</Form.Label>
 					<Col sm="10">
 						<FormControl
 							step={0.05}
@@ -151,6 +152,7 @@ class ProfilePicModal extends Component {
 	}
 
 	render() {
+		const { t } = this.props;
 		return (
 			<Modal
 				onHide={this.props.onHide}
@@ -158,12 +160,12 @@ class ProfilePicModal extends Component {
 				dialogClassName="profile-pic-modal"
 			>
 				<Modal.Header closeButton >
-					<Modal.Title as="h3">Profile Picture</Modal.Title>
+					<Modal.Title as="h3">{t('profile-picture')}</Modal.Title>
 				</Modal.Header>
 				<Modal.Body style={{ paddingBottom: 0 }}>
 					<Form.Group style={{ marginBottom: 0 }}>
 						<Form.Label htmlFor="imageUpload" style={{ cursor: 'pointer' }}>
-							<h3><Badge variant="success">Select file</Badge></h3>
+							<h3><Badge variant="success">{t('select-file')}</Badge></h3>
 						</Form.Label>
 						<FormControl
 							id="imageUpload"
@@ -173,14 +175,27 @@ class ProfilePicModal extends Component {
 							accept="image/*"
 						/>
 						<span style={{ paddingLeft: 10 }}>
-							Click to upload a new profile picture.
+							{t('click-to-upload')}
 						</span>
 					</Form.Group>
 					{ this.renderAvatarEditor() }
+					<Form.Group as={Row} controlId="form-rotate">
+						<Form.Label column sm="2">{t('rotate')}</Form.Label>
+						<Col sm="5">
+							<Button block variant="secondary" onClick={this.rotateLeft}>
+								{t('left')}
+							</Button>
+						</Col>
+						<Col sm="5">
+							<Button block variant="secondary" style={{ float: 'right' }} onClick={this.rotateRight}>
+								{t('right')}
+							</Button>
+						</Col>
+					</Form.Group>
 				</Modal.Body>
 				<Modal.Footer>
 					<Button onClick={this.handleUpload}>
-						Save and Close
+						{t('save-and-close')}
 					</Button>
 				</Modal.Footer>
 			</Modal>
@@ -194,6 +209,7 @@ class ProfilePicModal extends Component {
 ProfilePicModal.propTypes = {
 	onHide: PropTypes.func.isRequired,
 	show: PropTypes.bool.isRequired,
+	t: PropTypes.func.isRequired,
 	uploadProfilePic: PropTypes.func.isRequired,
 	user: PropTypes.object.isRequired
 };

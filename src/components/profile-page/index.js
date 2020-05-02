@@ -436,12 +436,14 @@ class ProfilePage extends Component {
 					addNotification={this.props.addNotification}
 					updateUser={this.props.updateUser}
 					onHide={this.toggleEditModal}
+					t={t}
 				/>
 				<ProfilePicModal
 					user={this.props.user}
 					show={this.state.showProfilePicModal}
 					onHide={this.toggleProfilePicModal}
 					uploadProfilePic={this.props.uploadProfilePic}
+					t={t}
 				/>
 			</Fragment>
 		);

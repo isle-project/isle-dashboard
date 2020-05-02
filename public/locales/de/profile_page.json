@@ -7,5 +7,18 @@
 	"no-lessons": "Anzahl Lektionen",
 	"score": "Punkte",
 	"edit-profile": "Profil editieren",
-	"registered-since": "registriert seit {{date}}"
+	"profile": "Profil",
+	"registered-since": "registriert seit {{date}}",
+	"choose-new-password": "Wähle ein neues Passwort",
+	"repeat-new-password": "Wiederhole das neue Passwort",
+	"close-edit-modal": "Schliesse das Fenster",
+	"profile-picture": "Profilbild",
+	"invalid-name": "Name muss aus mindestens vier Buchstaben bestehen.",
+	"select-file": "Datei wählen",
+	"click-to-upload": "Klicken um Bild hochzuladen",
+	"rotate": "Drehen",
+	"left": "Links",
+	"right": "Rechts",
+	"save-and-close": "Speichern und Schliessen",
+	"zoom": "Zoom"
 }
