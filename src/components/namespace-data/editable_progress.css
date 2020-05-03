@@ -1,0 +1,14 @@
+.editable-progress-submit {
+	color: #28a745;
+	width: 30%;
+	margin-left: 4px;
+	font-size: 18px;
+}
+
+.editable-progress-input {
+	width: 70%;
+	max-width: 80px;
+	height: 20px;
+	font-size: 14px;
+	font-weight: 600;
+}

@@ -320,3 +320,16 @@ export const userUpdateCheckInjector = ( dispatch ) => {
 		userUpdateCheck( dispatch, user );
 	};
 };
+
+export const adjustProgress = async ({ email, lessonID, progress }) => {
+	const res = await axios.post( server+'/user_adjust_progress', {
+		email, lessonID, progress
+	});
+	console.log( res );
+};
+
+export const adjustProgressInjector = ( dispatch ) => {
+	return ( { email, lessonID, progress } ) => {
+		adjustProgress( dispatch, { email, lessonID, progress } );
+	};
+};
