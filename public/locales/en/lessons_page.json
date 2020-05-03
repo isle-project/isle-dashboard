@@ -17,5 +17,15 @@
 	"delete": "Delete",
 	"delete-modal-body": "Are you sure that you want to delete the lesson with the name \"{{name}}\"?",
 	"source-file-error": "Source could not be fetched. Please try again in a few seconds.",
-	"source-file-copied": "Source code has been copied to the clipboard"
+	"source-file-copied": "Source code has been copied to the clipboard",
+	"last-updated": "last updated at ",
+	"created-at": "created at",
+	"active": "Active",
+	"inactive": "Inactive",
+	"public": "Public",
+	"private": "Private",
+	"remove-from-gallery": "Remove lesson from gallery",
+	"show-in-gallery": "Show lesson in gallery",
+	"disable-lesson": "Disable lesson",
+	"activate-lesson": "Activate lesson"
 }

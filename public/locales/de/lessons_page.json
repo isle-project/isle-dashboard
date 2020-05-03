@@ -17,5 +17,15 @@
 	"delete": "Löschen",
 	"delete-modal-body": "Bist Du sicher, dass Du die Lektion mit dem Namen \"{{name}}\" löschen möchtest?",
 	"source-file-error": "Quelldatei konnte nicht kopiert werden. Bitte versuche es in ein paar Sekunden nochmal.",
-	"source-file-copied": "Quelldatei erfolgreich in die Zwischenablage kopiert"
+	"source-file-copied": "Quelldatei erfolgreich in die Zwischenablage kopiert",
+	"last-updated": "zuletzt aktualisiert am",
+	"created-at": "erstellt am",
+	"active": "Aktiv",
+	"inactive": "Inaktiv",
+	"public": "Öffentlich",
+	"private": "Privat",
+	"remove-from-gallery": "Lektion aus der Gallerie entfernen",
+	"show-in-gallery": "Lektion in die Gallerie aufnehmen",
+	"disable-lesson": "Lektion deaktivieren",
+	"activate-lesson": "Lektion aktivieren"
 }
