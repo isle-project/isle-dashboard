@@ -37,14 +37,6 @@ import './header_bar.css';
 // VARIABLES //
 
 const debug = logger( 'isle:header-bar' );
-const createCourseTooltip = <Tooltip id="new_course">Create a new course</Tooltip>;
-const editCourseTooltip = <Tooltip id="edit_course">Edit course</Tooltip>;
-const courseDataTooltip = <Tooltip id="course_data">Course Data</Tooltip>;
-const galleryTooltip = <Tooltip id="open_gallery">Open gallery</Tooltip>;
-const adminTooltip = <Tooltip id="open_admin">Open admin panel</Tooltip>;
-const selectCourseTooltip = <Tooltip id="select_course">Select course</Tooltip>;
-const selectBackTooltip = <Tooltip id="to_course">Go to course lessons</Tooltip>;
-
 const namespaceListGroup = ( namespaces, clickFactory ) => (
 	<ListGroup>
 		{namespaces.map( ( x, id ) => (
@@ -225,11 +217,12 @@ class HeaderBar extends Component {
 		if ( !this.props.user.writeAccess ) {
 			return null;
 		}
-		return ( <OverlayTrigger placement="bottom" overlay={createCourseTooltip}>
+		const { t } = this.props;
+		return ( <OverlayTrigger placement="bottom" overlay={<Tooltip id="new_course">{t('create-course')}</Tooltip>}>
 			<Button
 				style={{ float: 'left', marginRight: '4px', marginLeft: '4px', marginTop: '8px' }}
 				onClick={this.goToCreateCoursePage.bind( this )}
-				aria-label="Create a new course"
+				aria-label={t('create-course')}
 			>
 				<i className="fa fa-pencil-alt"></i>
 			</Button>
@@ -244,12 +237,13 @@ class HeaderBar extends Component {
 		if ( !contains( owners, this.props.user.email ) ) {
 			return null;
 		}
+		const { t } = this.props;
 		return (
-			<OverlayTrigger placement="bottom" overlay={editCourseTooltip}>
+			<OverlayTrigger placement="bottom" overlay={<Tooltip id="edit_course">{t('edit-course')}</Tooltip>}>
 				<Button
 					style={{ float: 'left', marginRight: '4px' }}
 					onClick={this.goToCourseEditPage.bind( this )}
-					aria-label="Edit Course"
+					aria-label={t('edit-course')}
 				>
 					<i className="fa fa-edit"></i>
 				</Button>
@@ -276,12 +270,13 @@ class HeaderBar extends Component {
 		if ( !isOwner ) {
 			return null;
 		}
+		const { t } = this.props;
 		return (
-			<OverlayTrigger placement="bottom" overlay={courseDataTooltip}>
+			<OverlayTrigger placement="bottom" overlay={<Tooltip id="course_data">{t('course-data')}</Tooltip>}>
 				<Button
 					style={{ float: 'left', marginRight: '4px' }}
 					onClick={this.goToCourseDataPage.bind( this )}
-					aria-label="Course Data"
+					aria-label={t('course-data')}
 				>
 					<i className="fa fa-chart-pie"></i>
 				</Button>
@@ -293,14 +288,15 @@ class HeaderBar extends Component {
 		if ( !this.props.user.administrator ) {
 			return null;
 		}
+		const { t } = this.props;
 		return (
-			<OverlayTrigger placement="bottom" overlay={adminTooltip}>
+			<OverlayTrigger placement="bottom" overlay={<Tooltip id="open_admin">{t('open-admin')}</Tooltip>}>
 				<Button
 					onClick={this.goToAdmin.bind( this )}
 					className="header-bar-container-button"
 				>
 					<i className="fa fa-cogs"></i>
-					<small className="admin-label">Admin</small>
+					<small className="admin-label">{t('admin')}</small>
 				</Button>
 			</OverlayTrigger>
 		);
@@ -310,14 +306,15 @@ class HeaderBar extends Component {
 		if ( !this.props.user.writeAccess ) {
 			return null;
 		}
+		const { t } = this.props;
 		return (
-			<OverlayTrigger placement="bottom" overlay={galleryTooltip}>
+			<OverlayTrigger placement="bottom" overlay={<Tooltip id="open_gallery">{t('open-gallery')}</Tooltip>}>
 				<Button
 					onClick={this.goToGallery.bind( this )}
 					className="header-bar-container-button"
 				>
 					<i className="fa fa-eye"></i>
-					<small className="gallery-label">Gallery</small>
+					<small className="gallery-label">{t('gallery')}</small>
 				</Button>
 			</OverlayTrigger>
 		);
@@ -331,6 +328,7 @@ class HeaderBar extends Component {
 			disabled = false;
 		}
 		const { t } = this.props;
+		const selectCourseTooltip = <Tooltip id="select_course">{t('select-course')}</Tooltip>;
 		return (
 			<ButtonGroup style={{
 				float: 'left',
@@ -346,14 +344,16 @@ class HeaderBar extends Component {
 								showNamespacesOverlay: !this.state.showNamespacesOverlay
 							});
 						}}
-						aria-label="Select course"
+						aria-label={t('select-course')}
 					>
 						<i className="fa fa-align-justify"></i>
 					</Button>
 				</OverlayTrigger>
 				<OverlayTrigger
 					placement="right"
-					overlay={this.props.namespace.title ? selectBackTooltip : selectCourseTooltip}
+					overlay={this.props.namespace.title ?
+						<Tooltip id="to_course">{t('goto-course-lessons')}</Tooltip> :
+						selectCourseTooltip}
 				>
 					<Button
 						variant="secondary"
@@ -384,15 +384,16 @@ class HeaderBar extends Component {
 			return null;
 		}
 		let title;
+		const { t } = this.props;
 		switch ( this.props.search.type ) {
 			case 'alphabetically':
-				title = 'Sort alphabetically';
+				title = t('sort-alphabetically');
 				break;
 			case 'created_at':
-				title = 'Sort by create date';
+				title = t('sort-create-date');
 				break;
 			case 'updated_at':
-				title = 'Sort by update date';
+				title = t('sort-update-date');
 				break;
 		}
 		return (
@@ -401,13 +402,13 @@ class HeaderBar extends Component {
 					this.props.setLessonOrder( newValue );
 				}} id="dropdown" title={<small>{title}</small>} >
 					<Dropdown.Item eventKey="alphabetically">
-						<small>Sort alphabetically</small>
+						<small>{t('sort-alphabetically')}</small>
 					</Dropdown.Item>
 					<Dropdown.Item eventKey="created_at">
-						<small>Sort by create date</small>
+						<small>{t('sort-create-date')}</small>
 					</Dropdown.Item>
 					<Dropdown.Item eventKey="updated_at">
-						<small>Sort by update date</small>
+						<small>{t('sort-update-date')}</small>
 					</Dropdown.Item>
 				</DropdownButton>
 				<Button variant="secondary" style={{ marginLeft: 2 }} onClick={() => {
@@ -434,12 +435,13 @@ class HeaderBar extends Component {
 		) {
 			return null;
 		}
+		const { t } = this.props;
 		return ( <FormGroup style={{ width: '14vw', minWidth: '120px', float: 'left', marginBottom: '4px', marginRight: '5px' }}>
 			<InputGroup>
 				<FormControl
 					className="header-bar-search"
 					type="text"
-					placeholder="Filter lessons by searching"
+					placeholder={t('search-placeholder')}
 					value={this.state.searchPhrase || ''}
 					onChange={this.handleTextChange}
 				/>
@@ -453,15 +455,16 @@ class HeaderBar extends Component {
 	}
 
 	renderHelp() {
-		if (!this.props.user.writeAccess) {
+		if ( !this.props.user.writeAccess ) {
 			return null;
 		}
+		const { t } = this.props;
 		return ( <div className="header-bar-container">
 			<div key="help" className="header-bar-link-div" >
 				<a
 					href="http://isledocs.com/" target="_blank"
 					className="header-bar-link"
-				>Help</a>
+				>{t('help')}</a>
 			</div>
 		</div> );
 	}
@@ -492,15 +495,17 @@ class HeaderBar extends Component {
 					>
 						<Popover id="popover-courses">
 							{ this.props.user.ownedNamespaces.length > 0 ? <Fragment>
-								<span className="label-display">OWNED COURSES</span>
+								<span className="label-display">{t('owned-courses')}</span>
 								{namespaceListGroup( this.props.user.ownedNamespaces, this.ownedClickFactory )}
 								<div className="separator" />
 								</Fragment> : null}
 							{this.props.user.enrolledNamespaces.length > 0 ? <Fragment>
-								<span className="label-display">ENROLLED COURSES</span>
+								<span className="label-display">{t('enrolled-courses')}</span>
 								{namespaceListGroup( this.props.user.enrolledNamespaces, this.enrolledClickFactory )}
 							</Fragment> : null}
-							<Button onClick={this.goToEnrolledPage} style={{ marginTop: 10 }} size="sm" block variant="outline-success">Enroll</Button>
+							<Button onClick={this.goToEnrolledPage} style={{ marginTop: 10 }} size="sm" block variant="outline-success" >
+								{t('enroll')}
+							</Button>
 						</Popover>
 					</Overlay>
 					{this.renderEditButton()}
