@@ -20,6 +20,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Responsive, WidthProvider } from 'react-grid-layout';
+import { withTranslation } from 'react-i18next';
 import pluck from '@stdlib/utils/pluck';
 import floor from '@stdlib/math/base/special/floor';
 import groupBy from '@stdlib/utils/group-by';
@@ -96,6 +97,7 @@ class EnrollPage extends Component {
 					namespace={courses[ title ][0].namespace}
 					user={this.props.user}
 					cohorts={courses[title]}
+					t={this.props.t}
 				/>
 			</div>;
 		}
@@ -141,4 +143,4 @@ EnrollPage.propTypes = {
 
 // EXPORTS //
 
-export default EnrollPage;
+export default withTranslation( [ 'enroll_page', 'common' ] )( EnrollPage );

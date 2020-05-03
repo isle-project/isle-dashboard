@@ -89,9 +89,11 @@ class Course extends Component {
 					<span>{cohort.title}</span><span className="enroll-cohort-date">{from} - {to}</span>
 				</Fragment>;
 			list.push(
-				<Form key={i} onClick={this.handleFormClick}>
-					<FormCheck id={i} data-pos={i} type="radio" checked={this.state.checked===i} label={label} name="radioGroup" />
-				</Form>
+				<FormCheck
+					id={i} key={i} data-pos={i} type="radio"
+					checked={this.state.checked===i} label={label} name="radioGroup"
+					onChange={this.handleFormClick}
+				/>
 			);
 		}
 		return list;
@@ -104,11 +106,12 @@ class Course extends Component {
 	}
 
 	render() {
+		const { t } = this.props;
 		let cardClassName = 'enroll-page-course-item';
-		let buttonText = 'ENROLL';
+		let buttonText = t('enroll');
 		if ( this.props.enrollable === false ) {
 			cardClassName = 'enroll-item-deactivated';
-			buttonText = 'ALREADY ENROLLED';
+			buttonText = t('already-enrolled');
 		}
 		return (
 			<Fragment>
@@ -130,14 +133,14 @@ class Course extends Component {
 					</Modal.Header>
 					<Modal.Body>
 						<div className="enroll-page-cohort-information">
-							Please select the cohort you belong to.
+							({t('select-cohort')})
 						</div>
 						<div className="enroll-page-cohorts-list">
 							<FormGroup>
 								{this.renderAvailableCohorts(this.props.cohorts)}
 							</FormGroup>
 						</div>
-						<Button onClick={this.handleEnroll} size="sm" className="enroll-button-modal">ENROLL TO THIS COURSE</Button>
+						<Button onClick={this.handleEnroll} size="sm" className="enroll-button-modal">{t('enroll-in-course')}</Button>
 					</Modal.Body>
 				</Modal>
 			</Fragment>
@@ -152,7 +155,8 @@ Course.propTypes = {
 	addUserToCohort: PropTypes.func.isRequired,
 	cohorts: PropTypes.array.isRequired,
 	enrollable: PropTypes.bool.isRequired,
-	namespace: PropTypes.object.isRequired
+	namespace: PropTypes.object.isRequired,
+	t: PropTypes.func.isRequired
 };
 
 
