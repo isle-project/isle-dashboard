@@ -325,7 +325,11 @@ export const adjustProgress = async ( dispatch, { email, lessonID, namespaceID, 
 	const res = await axios.post( server+'/user_adjust_progress', {
 		email, lessonID, namespaceID, progress
 	});
-	console.log( res );
+	addNotification( dispatch, {
+		title: 'Updated',
+		message: res.data.message,
+		level: 'success'
+	});
 };
 
 export const adjustProgressInjector = ( dispatch ) => {
