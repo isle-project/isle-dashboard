@@ -19,6 +19,7 @@
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { withTranslation } from 'react-i18next';
 import copy from 'clipboard-copy';
 import CreatableSelect from 'react-select/creatable';
 import { components } from 'react-select';
@@ -43,29 +44,6 @@ const customStyles = {
 		...provided,
 		cursor: 'text'
 	})
-};
-
-const customComponents = {
-	DropdownIndicator: null,
-	MultiValueLabel: props => {
-		const copyToClipboard = () => {
-			copy( props.data.label );
-		};
-		return (
-			<OverlayTrigger
-				overlay={<Tooltip id="copy_tooltip">Click to copy to clipboard</Tooltip>}
-				placement="bottom"
-			>
-				<span
-					role="button" tabIndex={0}
-					onClick={copyToClipboard} onKeyPress={copyToClipboard}
-					className="text-select-copy"
-				>
-					<components.MultiValueLabel {...props} />
-				</span>
-			</OverlayTrigger>
-		);
-	}
 };
 
 
@@ -147,6 +125,28 @@ class TextSelect extends Component {
 			};
 			return out;
 		};
+		const customComponents = {
+			DropdownIndicator: null,
+			MultiValueLabel: props => {
+				const copyToClipboard = () => {
+					copy( props.data.label );
+				};
+				return (
+					<OverlayTrigger
+						overlay={<Tooltip id="copy_tooltip">{this.props.t('copy-tooltip')}</Tooltip>}
+						placement="bottom"
+					>
+						<span
+							role="button" tabIndex={0}
+							onClick={copyToClipboard} onKeyPress={copyToClipboard}
+							className="text-select-copy"
+						>
+							<components.MultiValueLabel {...props} />
+						</span>
+					</OverlayTrigger>
+				);
+			}
+		};
 		return (
 			<CreatableSelect
 				components={customComponents}
@@ -157,9 +157,10 @@ class TextSelect extends Component {
 				onChange={this.handleChange}
 				onInputChange={this.handleInputChange}
 				onKeyDown={this.handleKeyDown}
-				placeholder="Enter email addresses..."
+				placeholder={this.props.t('select-placeholder')}
 				value={value}
 				styles={{ ...customStyles, control: control, ...this.props.styles }}
+				t={this.props.t}
 			/>
 		);
 	}
@@ -187,4 +188,4 @@ TextSelect.defaultProps = {
 
 // EXPORTS //
 
-export default TextSelect;
+export default withTranslation( [ 'text_select', 'common' ] )( TextSelect );
