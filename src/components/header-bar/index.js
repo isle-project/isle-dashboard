@@ -78,7 +78,7 @@ class HeaderBar extends Component {
 
 					// eslint-disable-next-line react/no-did-mount-set-state
 					this.setState({
-						location: 'Course'
+						location: this.props.t('common:course')
 					});
 				}
 				else {
@@ -89,7 +89,7 @@ class HeaderBar extends Component {
 
 						// eslint-disable-next-line react/no-did-mount-set-state
 						this.setState({
-							location: 'Course'
+							location: this.props.this.props.t('common:course')
 						});
 					}
 				}
@@ -124,7 +124,7 @@ class HeaderBar extends Component {
 			this.props.onEnrolledNamespace( this.props.user.enrolledNamespaces[ id ], this.props.user.token );
 			this.setState({
 				showNamespacesOverlay: false,
-				location: 'Course',
+				location: this.props.t('common:course'),
 				searchPhrase: ''
 			});
 		};
@@ -135,7 +135,7 @@ class HeaderBar extends Component {
 			this.props.onNamespace( this.props.user.ownedNamespaces[ id ], this.props.user.token );
 			this.setState({
 				showNamespacesOverlay: false,
-				location: 'Course',
+				location: this.props.t('common:course'),
 				searchPhrase: ''
 			});
 		};
@@ -143,7 +143,7 @@ class HeaderBar extends Component {
 
 	setProfileLocation = () => {
 		this.setState({
-			location: 'Profile'
+			location: this.props.t('common:profile')
 		});
 	}
 
@@ -151,7 +151,7 @@ class HeaderBar extends Component {
 		this.props.history.replace( `/lessons/${this.props.namespace.title}` );
 		this.props.onNamespace( this.props.namespace, this.props.user.token );
 		this.setState({
-			location: 'Course'
+			location: this.props.t('common:course')
 		});
 	}
 
@@ -165,7 +165,7 @@ class HeaderBar extends Component {
 	goToEnrolledPage = () => {
 		this.props.history.replace( '/enroll' );
 		this.setState({
-			location: 'Enroll',
+			location: this.props.t('common:enroll'),
 			showNamespacesOverlay: false
 		});
 	}
@@ -180,14 +180,14 @@ class HeaderBar extends Component {
 	goToCourseDataPage() {
 		this.props.history.replace( '/namespace-data' );
 		this.setState({
-			location: 'Course Data'
+			location: this.props.t('course-data')
 		});
 	}
 
 	goToGallery() {
 		this.props.history.replace( '/gallery' );
 		this.setState({
-			location: 'Gallery',
+			location: this.props.t('gallery'),
 			searchPhrase: ''
 		});
 	}
@@ -417,7 +417,8 @@ class HeaderBar extends Component {
 					} else {
 						this.props.setLessonOrderDirection( 'ascending' );
 					}
-				}} aria-label={this.props.search.direction === 'ascending' ? 'Sort in descending order' : 'Sort in ascending order'}>
+				}} aria-label={this.props.search.direction === 'ascending' ?
+					t('sort-descending') : t('sort-ascending')}>
 					{ this.props.search.direction === 'ascending' ?
 						<i className="fas fa-arrow-down" /> :
 						<i className="fas fa-arrow-up" />

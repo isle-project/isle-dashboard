@@ -9,11 +9,14 @@
 	"email": "E-Mail",
 	"email-address": "E-Mail-Adresse",
 	"reset": "Zurücksetzen",
+	"course": "Kurs",
 	"courses": "Kurse",
 	"data": "Daten",
 	"statistics": "Statistiken",
 	"badges": "Abzeichen",
 	"organization": "Organisation",
 	"update": "Update",
-	"name": "Name"
+	"name": "Name",
+	"profile": "Profil",
+	"enroll": "Einschreiben"
 }

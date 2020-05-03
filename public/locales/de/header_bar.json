@@ -16,5 +16,8 @@
 	"enroll": "Einschreiben",
 	"goto-course-lessons": "Kurslektionen anzeigen",
 	"open-admin": "Administratorseite öffnen",
-	"admin": "Admin"
+	"admin": "Admin",
+	"admin-panel": "Administratorseite",
+	"sort-descending": "Absteigend sortieren",
+	"sort-ascending": "Ansteigend sortieren"
 }
