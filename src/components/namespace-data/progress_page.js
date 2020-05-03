@@ -22,7 +22,7 @@ import PropTypes from 'prop-types';
 import logger from 'debug';
 import ReactTable from 'react-table';
 import InputRange from 'react-input-range';
-import { Button, ButtonGroup, ProgressBar, DropdownButton, Dropdown } from 'react-bootstrap';
+import { Button, ButtonGroup, DropdownButton, Dropdown } from 'react-bootstrap';
 import stringify from 'csv-stringify';
 import round from '@stdlib/math/base/special/round';
 import min from '@stdlib/math/base/special/min';
@@ -33,6 +33,7 @@ import lowercase from '@stdlib/string/lowercase';
 import trim from '@stdlib/string/trim';
 import server from 'constants/server';
 import saveAs from 'utils/file_saver.js';
+import EditableProgress from './editable_progress.js';
 import formatTime from 'utils/format_time.js';
 import './progress_page.css';
 import 'react-table/react-table.css';
@@ -59,16 +60,29 @@ function filterNumbersFactory( lessons, idx ) {
 	};
 }
 
-function accessorFactory( lessons, idx ) {
+function accessorFactory( lessons, idx, adjustProgress ) {
 	return d => {
 		let data = d.original.lessonData;
-		data = data[ lessons[ idx ]._id ];
+		const lessonID = lessons[ idx ]._id;
+		data = data[ lessonID ];
 		if ( data ) {
 			const progress = min( round( data.progress*100 ), 100 );
-			return ( <span>
-				<span style={{ fontSize: '12px', fontWeight: 800 }}>Duration: {formatTime( data.spentTime )}</span>
-				<ProgressBar style={{ fontSize: '10px', height: '12px'
-				}} now={progress} label={`${progress}%`} />
+			return (
+				<span>
+					<span style={{ fontSize: '12px', fontWeight: 800 }}>Duration: {formatTime( data.spentTime )}</span>
+					<br />
+					<EditableProgress
+						progress={progress}
+						email={d.original.email}
+						lessonID={lessonID}
+						onSubmit={( newProgress ) => {
+							adjustProgress({
+								email: d.original.email,
+								lessonID: lessonID,
+								progress: newProgress
+							});
+						}}
+					/>
 				</span>
 			);
 		}
@@ -113,7 +127,7 @@ function filterMethodCategories( filter, row ) {
 	return String( row[ id ] ) === filter.value;
 }
 
-function createColumns( lessons, cohorts ) {
+function createColumns( lessons, cohorts, adjustProgress ) {
 	const COLUMNS = [
 		{
 			Header: 'Pic',
@@ -239,7 +253,7 @@ class ProgressPage extends Component {
 	constructor( props ) {
 		super( props );
 
-		this.columns = createColumns( props.lessons, props.cohorts );
+		this.columns = createColumns( props.lessons, props.cohorts, props.adjustProgress );
 		this.state = {
 			displayedMembers: [],
 			lessonSortDirection: 'ascending',

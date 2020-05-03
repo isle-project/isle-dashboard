@@ -26,6 +26,7 @@ import { getAvailableBadgesInjector } from 'actions/badge';
 import { deleteFileInjector, getFilesInjector, getOwnerFilesInjector, uploadFileInjector } from 'actions/file';
 import { addNotificationInjector } from 'actions/notification';
 import { getNamespaceActionsInjector } from 'actions/namespace';
+import { adjustProgressInjector } from 'actions/user';
 
 
 // FUNCTIONS //
@@ -40,6 +41,7 @@ function mapStateToProps( state ) {
 
 function mapDispatchToProps( dispatch ) {
 	return {
+		adjustProgress: adjustProgressInjector( dispatch ),
 		getBadges: getAvailableBadgesInjector( dispatch ),
 		getFiles: getFilesInjector( dispatch ),
 		getOwnerFiles: getOwnerFilesInjector( dispatch ),

@@ -152,7 +152,7 @@ class NamespaceData extends Component {
 			case 1:
 				return <AnnouncementsPage namespace={this.props.namespace} editAnnouncement={this.handleAnnouncementEdit} deleteAnnouncement={this.handleAnnouncementDeletion} addAnnouncement={this.handleAnnouncementCreation} user={this.props.user} />;
 			case 2:
-				return <ProgressPage addNotification={this.props.addNotification} namespace={this.props.namespace} cohorts={this.props.namespace.cohorts} lessons={this.props.namespace.lessons} />;
+				return <ProgressPage adjustProgress={this.props.adjustProgress} addNotification={this.props.addNotification} namespace={this.props.namespace} cohorts={this.props.namespace.cohorts} lessons={this.props.namespace.lessons} />;
 			case 3:
 				return <CohortsPage badges={this.props.badges} cohorts={this.props.namespace.cohorts} lessons={this.props.namespace.lessons} />;
 			case 4:
@@ -209,6 +209,7 @@ class NamespaceData extends Component {
 NamespaceData.propTypes = {
 	addAnnouncement: PropTypes.func.isRequired,
 	addNotification: PropTypes.func.isRequired,
+	adjustProgress: PropTypes.func.isRequired,
 	badges: PropTypes.array,
 	deleteAnnouncement: PropTypes.func.isRequired,
 	editAnnouncement: PropTypes.func.isRequired,
