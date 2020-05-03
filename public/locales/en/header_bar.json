@@ -1,3 +1,20 @@
 {
-	"open-your-courses": "Open Your Courses"
+	"open-your-courses": "Open Your Courses",
+	"search-placeholder": "Filter lessons by searching",
+	"help": "Help",
+	"owned-courses": "OWNED COURSES",
+	"enrolled-courses": "ENROLLED COURSES",
+	"sort-alphabetically": "Sort alphabetically",
+	"sort-create-date": "Sort by create date",
+	"sort-update-date": "Sort by update date",
+	"create-course": "Create a new course",
+	"edit-course": "Edit course",
+	"course-data": "Course Data",
+	"open-gallery": "Open gallery",
+	"gallery": "Gallery",
+	"select-course": "Select course",
+	"enroll": "Enroll",
+	"goto-course-lessons": "Go to course lessons",
+	"open-admin": "Open admin panel",
+	"admin": "Admin"
 }

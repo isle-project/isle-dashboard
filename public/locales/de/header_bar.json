@@ -1,3 +1,20 @@
 {
-	"open-your-courses": "Kurse anzeigen"
+	"open-your-courses": "Kurse anzeigen",
+	"search-placeholder": "Durchsuche Lektionen des Kurses",
+	"help": "Hilfe",
+	"owned-courses": "Eigene Kurse",
+	"enrolled-courses": "Eingeschriebene Kurse",
+	"sort-alphabetically": "Alphabetisch sortieren",
+	"sort-create-date": "Sortieren nach Erzeugungsdatum",
+	"sort-update-date": "Sortieren nach Aktualisierungsdatum",
+	"create-course": "Neuen Kurs erzeugen",
+	"edit-course": "Kurs editieren",
+	"course-data": "Kursdaten",
+	"open-gallery": "Gallerie öffnen",
+	"gallery": "Gallerie",
+	"select-course": "Kurs auswählen",
+	"enroll": "Einschreiben",
+	"goto-course-lessons": "Kurslektionen anzeigen",
+	"open-admin": "Administratorseite öffnen",
+	"admin": "Admin"
 }
