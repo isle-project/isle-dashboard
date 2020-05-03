@@ -2,6 +2,7 @@
 
 import React, { Component, Fragment } from 'react';
 import ProgressBar from 'react-bootstrap/ProgressBar';
+import clamp from '@stdlib/math/base/special/clamp';
 import './editable_progress.css';
 
 
@@ -20,13 +21,14 @@ class EditableProgress extends Component {
 
 	toggleEditing = () => {
 		this.setState({
-			isEditing: !this.state.isEditing
+			isEditing: !this.state.isEditing,
+			newProgress: this.props.progress
 		});
 	}
 
 	handleChange = ( event ) => {
 		this.setState({
-			newProgress: event.target.value,
+			newProgress: clamp( event.target.value, 0, 100 ),
 			hasChanged: true
 		});
 	}
@@ -40,7 +42,6 @@ class EditableProgress extends Component {
 	}
 
 	render() {
-		const { progress } = this.props;
 		return (
 			this.state.isEditing ?
 			<Fragment>
@@ -52,6 +53,12 @@ class EditableProgress extends Component {
 					onChange={this.handleChange}
 					className="editable-progress-input"
 				/>
+				<i
+					role="button" tabIndex={0}
+					onClick={this.toggleEditing}
+					onKeyPress={this.toggleEditing}
+					className="fas fa-window-close editable-progress-close"
+				></i>
 				<span className="editable-progress-submit" style={{ display: this.state.hasChanged ? 'inline' : 'none' }}>
 					<i
 						role="button" tabIndex={0}
@@ -64,8 +71,8 @@ class EditableProgress extends Component {
 				style={{
 					fontSize: '10px', height: '12px'
 				}}
-				now={progress}
-				label={`${progress}%`}
+				now={this.state.newProgress}
+				label={`${this.state.newProgress}%`}
 				onClick={this.toggleEditing}
 			/>
 		);
