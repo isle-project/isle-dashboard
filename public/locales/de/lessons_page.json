@@ -14,7 +14,6 @@
 	"open-details": "Details anzeigen",
 	"lesson-details": "Lektion Details",
 	"delete-lesson": "Lektion löschen",
-	"delete": "Löschen",
 	"delete-modal-body": "Bist Du sicher, dass Du die Lektion mit dem Namen \"{{name}}\" löschen möchtest?",
 	"source-file-error": "Quelldatei konnte nicht kopiert werden. Bitte versuche es in ein paar Sekunden nochmal.",
 	"source-file-copied": "Quelldatei erfolgreich in die Zwischenablage kopiert",

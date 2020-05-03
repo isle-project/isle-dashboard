@@ -14,7 +14,6 @@
 	"open-details": "Open Details",
 	"lesson-details": "Lesson Details",
 	"delete-lesson": "Delete Lesson",
-	"delete": "Delete",
 	"delete-modal-body": "Are you sure that you want to delete the lesson with the name \"{{name}}\"?",
 	"source-file-error": "Source could not be fetched. Please try again in a few seconds.",
 	"source-file-copied": "Source code has been copied to the clipboard",

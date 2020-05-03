@@ -19,6 +19,7 @@
 
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
+import { withTranslation } from 'react-i18next';
 import {
 	Alert, Badge, Button, ButtonGroup, Card, Container, Col, Row, FormLabel, FormControl, FormGroup, Form, ListGroup, ListGroupItem, OverlayTrigger, Tooltip
 } from 'react-bootstrap';
@@ -142,6 +143,7 @@ class EditNamespace extends Component {
 	}
 
 	renderModals() {
+		const { t } = this.props;
 		return (
 			<Fragment>
 				<MsgModal
@@ -154,8 +156,8 @@ class EditNamespace extends Component {
 				<ConfirmModal
 					show={this.state.showDeleteModal}
 					close={this.closeDeleteModal}
-					message="Are you sure that you want to delete this course?"
-					title="Delete?"
+					message={t('delete-course')}
+					title={`${t('delete')}?`}
 					onConfirm={this.handleDelete}
 				/>
 				{ this.state.showCreateCohortModal ? <CreateCohortModal
@@ -175,6 +177,7 @@ class EditNamespace extends Component {
 	}
 
 	renderCohortList() {
+		const { t } = this.props;
 		return ( <ListGroup>
 			{this.props.cohorts.map( ( cohort, idx ) => {
 				return (
@@ -188,7 +191,7 @@ class EditNamespace extends Component {
 					>
 						<label>{cohort.title}</label>
 						<span style={{ marginLeft: 5, color: 'black' }} >
-							(no of students:
+							({t('no-students')}:
 						</span>
 						<Badge variant="primary">{cohort.members.length}</Badge>
 						<span style={{ color: 'black' }} >)</span>
@@ -200,9 +203,10 @@ class EditNamespace extends Component {
 	}
 
 	render() {
+		const { t } = this.props;
 		if ( !this.props.namespace._id ) {
 			return ( <Container className="edit-namespace-container" >
-				<Alert variant="danger">No namespace selected.</Alert>
+				<Alert variant="danger">{t('no-course-selected')}</Alert>
 			</Container> );
 		}
 		const validTitle = validateTitle( this.state.title );
@@ -216,27 +220,27 @@ class EditNamespace extends Component {
 						<Card>
 							<Card.Header>
 								<Card.Title as="h2">
-									Edit Course
+									{t('edit-course')}
 								</Card.Title>
 							</Card.Header>
 							<Card.Body>
 								<Form style={{ padding: '20px' }}>
-									<OverlayTrigger placement="right" overlay={<Tooltip id="ownerTooltip">Enter list of email addresses denoting the administrators for this course</Tooltip>}>
+									<OverlayTrigger placement="right" overlay={<Tooltip id="ownerTooltip">{t('owner-tooltip')}</Tooltip>}>
 										<FormGroup>
-											<FormLabel>Owners</FormLabel>
+											<FormLabel>{t('owners')}</FormLabel>
 											<TextSelect
 												onChange={this.handleOwnerChange}
 												defaultValue={this.state.owners}
 												isInvalid={!validateOwners( this.state.owners )}
 											/>
 											<FormControl.Feedback type="invalid">
-												Must provide at least one owner via email address
+												{t('invalid-owners')}
 											</FormControl.Feedback>
 										</FormGroup>
 									</OverlayTrigger>
-									<OverlayTrigger placement="right" overlay={<Tooltip id="ownerTooltip">Lessons are accessible at <code>{SERVER+'/<course>/<lesson>'}</code></Tooltip>}>
+									<OverlayTrigger placement="right" overlay={<Tooltip id="courseTooltip">{t('accessible-at')}<code>{SERVER+'/<course>/<lesson>'}</code></Tooltip>}>
 										<FormGroup>
-											<FormLabel>Course Identifier</FormLabel>
+											<FormLabel>{t('course-identifier')}</FormLabel>
 											<FormControl
 												name="title"
 												type="text"
@@ -252,9 +256,9 @@ class EditNamespace extends Component {
 											</FormControl.Feedback>
 										</FormGroup>
 									</OverlayTrigger>
-									<OverlayTrigger placement="right" overlay={<Tooltip id="ownerTooltip">Full course title and/or course description.</Tooltip>}>
+									<OverlayTrigger placement="right" overlay={<Tooltip id="titleTooltip">{t('title-tooltip')}</Tooltip>}>
 										<FormGroup>
-											<FormLabel>Title / Description</FormLabel>
+											<FormLabel>{t('title-description')}</FormLabel>
 											<FormControl
 												name="description"
 												type="text"
@@ -264,7 +268,7 @@ class EditNamespace extends Component {
 											>
 											</FormControl>
 											<FormControl.Feedback type="invalid">
-												Description must be at least three characters long.
+												{t('invalid-description')}
 											</FormControl.Feedback>
 										</FormGroup>
 									</OverlayTrigger>
@@ -274,12 +278,12 @@ class EditNamespace extends Component {
 										type="submit"
 										disabled={!validOwners || !validTitle || !validDescription}
 										onClick={this.handleUpdate}
-									>Update</Button>
+									>{t('common:update')}</Button>
 									<Button onClick={() => {
 										this.setState({
 											showDeleteModal: true
 										});
-									}} variant="danger">Delete</Button>
+									}} variant="danger">{t('common:delete')}</Button>
 								</ButtonGroup>
 							</Card.Body>
 							{ this.renderModals() }
@@ -288,7 +292,7 @@ class EditNamespace extends Component {
 					<Col md={6} >
 						<Card>
 							<Card.Header>
-								<Card.Title as="h2">Manage Cohorts
+								<Card.Title as="h2">{t('manage-cohorts')}
 									<Button size="small" variant="success" style={{ float: 'right', marginTop: 7 }}
 										onClick={() => {
 											this.setState({
@@ -296,7 +300,7 @@ class EditNamespace extends Component {
 											});
 										}}
 									>
-										Create Cohort
+										{t('create-cohort')}
 									</Button>
 								</Card.Title>
 							</Card.Header>
@@ -322,6 +326,7 @@ EditNamespace.propTypes = {
 	deleteCurrentNamespace: PropTypes.func.isRequired,
 	history: PropTypes.object.isRequired,
 	namespace: PropTypes.object.isRequired,
+	t: PropTypes.func.isRequired,
 	updateCohort: PropTypes.func.isRequired,
 	updateCurrentNamespace: PropTypes.func.isRequired,
 	user: PropTypes.object.isRequired
@@ -334,4 +339,4 @@ EditNamespace.defaultProps = {
 
 // EXPORTS //
 
-export default withRouter( EditNamespace );
+export default withTranslation( [ 'edit_namespace', 'common' ] )( withRouter( EditNamespace ) );
