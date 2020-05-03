@@ -1,0 +1,16 @@
+{
+	"edit-course": "Kurs Editieren",
+	"create-cohort": "Kohorte Erzeugen",
+	"owner-tooltip": "Liste von E-Mail-Adressen der Kurs-Administratoren",
+	"invalid-owners": "Mindestens ein Kurs-Administrator muss via E-Mail festgelegt sein",
+	"invalid-description": "Beschreibung muss aus mindestens drei Buchstaben bestehen.",
+	"owners": "Kurs-Administratoren",
+	"course-identifier": "Kurs-Kennzeichen",
+	"manage-cohorts": "Kohorten verwalten",
+	"no-course-selected": "Kein Kurs ausgewählt",
+	"delete-course": "Bist Du sicher, dass Du diesen Kurs löschen möchtest?",
+	"title-tooltip": "Vollständiger Kurstitel und/oder Kursbeschreibung.",
+	"title-description": "Titel / Beschreibung",
+	"no-students": "Anzahl Studenten",
+	"accessible-at": "Lektionen sind aufrufbar bei "
+}

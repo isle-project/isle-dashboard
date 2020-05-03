@@ -27,14 +27,14 @@ import { Button, Modal } from 'react-bootstrap';
 const DeleteModal = ( props ) => (
 	<Modal show={props.show} onHide={props.close}>
 		<Modal.Header>
-			<Modal.Title>{props.t('delete')}?</Modal.Title>
+			<Modal.Title>{props.t('common:delete')}?</Modal.Title>
 		</Modal.Header>
 		<Modal.Body>
 			{props.t('delete-modal-body', { name: props.title })}
 		</Modal.Body>
 		<Modal.Footer>
 			<Button onClick={props.close}>{props.t('common:cancel')}</Button>
-			<Button variant="danger" onClick={props.delete} >{props.t('delete')}</Button>
+			<Button variant="danger" onClick={props.delete} >{props.t('common:delete')}</Button>
 		</Modal.Footer>
 	</Modal>
 );
