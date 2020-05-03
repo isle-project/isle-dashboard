@@ -240,7 +240,7 @@ class Signup extends Component {
 								isInvalid={enteredPasswords && !validPasswords}
 							/>
 							<Form.Control.Feedback type="invalid">
-								Passwords do not match.
+								{t('invalid-password-match')}
 							</Form.Control.Feedback>
 						</Col>
 					</Row>

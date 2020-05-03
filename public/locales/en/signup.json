@@ -10,5 +10,6 @@
 	"name-tooltip": "Please enter your name.",
 	"password": "Password",
 	"password-tooltip": "Please enter a password of your choosing with at least six characters",
-	"invalid-password": "Your password has to contain at least six characters."
+	"invalid-password": "Your password has to contain at least six characters.",
+	"invalid-password-match": "Passwords do not match."
 }

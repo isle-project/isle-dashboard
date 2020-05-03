@@ -1,0 +1,14 @@
+{
+	"no-course-selected": "Kein Kurs ausgewählt",
+	"no-course-description": "Öffne einen bestehenden Kurs durch Selektieren im Dropdown-Menü oben bei ",
+	"create-new-one": " oder erstelle einen neuen bei ",
+	"no-lessons-found": "Keine Lektionen gefunden",
+	"upload-from-editor": "Du kannst Lektionen mittels des ISLE Editors hochladen.",
+	"no-lessons": "Der ausgewählte Kurs enthält keine Lektionen.",
+	"open-lesson": "Lektion öffnen",
+	"your-progress": "Dein Fortschritt",
+	"copy-link": "Link in die Zwischenablage kopieren",
+	"link-copied": "Link erfolgreich in die Zwischenablage kopiert",
+	"time-spent": "Verbrachte Zeit",
+	"time-format": "In Stunden:Minuten"
+}
