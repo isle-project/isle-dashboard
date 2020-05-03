@@ -23,7 +23,7 @@ import saveAs from 'utils/file_saver.js';
 import server from 'constants/server';
 import { addNotification, addErrorNotification } from 'actions/notification';
 import { getCohorts } from 'actions/cohort';
-import { APPEND_CREATED_NAMESPACE, CHANGED_NAMESPACE, DELETED_CURRENT_NAMESPACE, UPDATED_OWNED_NAMESPACE } from 'constants/action_types.js';
+import { APPEND_CREATED_NAMESPACE, CHANGED_NAMESPACE, DELETED_CURRENT_NAMESPACE, UPDATED_OWNED_NAMESPACE, UPDATED_STUDENT_PROGRESS } from 'constants/action_types.js';
 
 
 // EXPORTS //
@@ -56,6 +56,15 @@ export function deletedCurrentNamespace( id ) {
 		type: DELETED_CURRENT_NAMESPACE,
 		payload: {
 			id
+		}
+	};
+}
+
+export function updateStudentProgress({ email, lessonID, progress, cohort }) {
+	return {
+		type: UPDATED_STUDENT_PROGRESS,
+		payload: {
+			email, lessonID, progress, cohort
 		}
 	};
 }
@@ -156,5 +165,23 @@ export const getNamespaceActions = async ( dispatch, { namespaceID, namespaceTit
 export const getNamespaceActionsInjector = ( dispatch ) => {
 	return ({ namespaceID, namespaceTitle }) => {
 		getNamespaceActions( dispatch, { namespaceID, namespaceTitle });
+	};
+};
+
+export const adjustProgress = async ( dispatch, { email, lessonID, namespaceID, progress, cohort }) => {
+	const res = await axios.post( server+'/user_adjust_progress', {
+		email, lessonID, namespaceID, progress
+	});
+	addNotification( dispatch, {
+		title: 'Updated',
+		message: res.data.message,
+		level: 'success'
+	});
+	dispatch( updateStudentProgress({ email, lessonID, progress, cohort }) );
+};
+
+export const adjustProgressInjector = ( dispatch ) => {
+	return ( { email, lessonID, namespaceID, progress, cohort } ) => {
+		adjustProgress( dispatch, { email, lessonID, namespaceID, progress, cohort } );
 	};
 };
