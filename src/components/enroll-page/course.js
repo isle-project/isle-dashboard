@@ -19,7 +19,7 @@
 
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
-import { Button, Modal, Form, FormGroup, FormCheck } from 'react-bootstrap';
+import { Button, Modal, FormGroup, FormCheck } from 'react-bootstrap';
 import server from 'constants/server';
 
 
