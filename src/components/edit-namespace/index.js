@@ -227,7 +227,7 @@ class EditNamespace extends Component {
 								<Form style={{ padding: '20px' }}>
 									<OverlayTrigger placement="right" overlay={<Tooltip id="ownerTooltip">{t('owner-tooltip')}</Tooltip>}>
 										<FormGroup>
-											<FormLabel>{t('owners')}</FormLabel>
+											<FormLabel>{t('common:owners')}</FormLabel>
 											<TextSelect
 												onChange={this.handleOwnerChange}
 												defaultValue={this.state.owners}
@@ -339,4 +339,4 @@ EditNamespace.defaultProps = {
 
 // EXPORTS //
 
-export default withTranslation( [ 'edit_namespace', 'common' ] )( withRouter( EditNamespace ) );
+export default withTranslation( [ 'namespace', 'common' ] )( withRouter( EditNamespace ) );

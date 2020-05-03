@@ -19,6 +19,7 @@
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { withTranslation } from 'react-i18next';
 import { Button, Card, FormLabel, FormControl, FormGroup, Form, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import logger from 'debug';
 import isEmail from '@stdlib/assert/is-email-address';
@@ -114,6 +115,7 @@ class CreateNamespace extends Component {
 		debug( `Title: ${validTitle}` );
 		debug( `Description: ${validDescription}` );
 		debug( `Owners: ${validOwners}` );
+		const { t } = this.props;
 		return (
 			<Card style={{
 				position: 'relative',
@@ -122,29 +124,29 @@ class CreateNamespace extends Component {
 				margin: '0 auto'
 			}}>
 				<Card.Header>
-					<Card.Title as="h2" >Create Course</Card.Title>
+					<Card.Title as="h2" >{t('create-course')}</Card.Title>
 				</Card.Header>
 				<Form style={{ padding: '20px' }}>
-					<OverlayTrigger placement="right" overlay={<Tooltip id="ownerTooltip">Enter list of email addresses denoting the administrators for this course</Tooltip>}>
+					<OverlayTrigger placement="right" overlay={<Tooltip id="ownerTooltip">{t('owner-tooltip')}</Tooltip>}>
 						<FormGroup>
-							<FormLabel>Owners</FormLabel>
+							<FormLabel>{t('common:owners')}</FormLabel>
 							<TextSelect
 								onChange={this.handleOwnerChange}
 								defaultValue={this.state.owners}
 								isInvalid={!validOwners}
 							/>
 							<FormControl.Feedback type="invalid">
-								Must provide at least one owner via email address
+								{t('invalid-owners')}
 							</FormControl.Feedback>
 						</FormGroup>
 					</OverlayTrigger>
-					<OverlayTrigger placement="right" overlay={<Tooltip id="ownerTooltip" >Lessons will be accessible at <code>{SERVER+'/<course>/<lesson>'}</code></Tooltip>}>
+					<OverlayTrigger placement="right" overlay={<Tooltip id="courseTooltip" >{t('accessible-at')}<code>{SERVER+'/<course>/<lesson>'}</code></Tooltip>}>
 						<FormGroup>
-							<FormLabel>Course</FormLabel>
+							<FormLabel>{t('common:course')}</FormLabel>
 							<FormControl
 								name="title"
 								type="text"
-								placeholder="Enter course identifier"
+								placeholder={t('course-placeholder')}
 								onChange={this.handleInputChange}
 								isInvalid={this.state.title && !validTitle}
 							/>
@@ -156,18 +158,18 @@ class CreateNamespace extends Component {
 							</FormControl.Feedback>
 						</FormGroup>
 					</OverlayTrigger>
-					<OverlayTrigger placement="right" overlay={<Tooltip id="ownerTooltip">Please enter a full course title and/or course description.</Tooltip>}>
+					<OverlayTrigger placement="right" overlay={<Tooltip id="titleTooltip">{t('title-tooltip')}</Tooltip>}>
 						<FormGroup>
-							<FormLabel>Title / Description</FormLabel>
+							<FormLabel>{t('title-description')}</FormLabel>
 							<FormControl
 								name="description"
 								type="text"
-								placeholder="Enter full course title and/or description"
+								placeholder={t('title-placeholder')}
 								onChange={this.handleInputChange}
 								isInvalid={this.state.description && !validDescription}
 							/>
 							<FormControl.Feedback type="invalid">
-								Description must be at least three characters long.
+								{t('invalid-description')}
 							</FormControl.Feedback>
 						</FormGroup>
 					</OverlayTrigger>
@@ -177,7 +179,7 @@ class CreateNamespace extends Component {
 					onClick={this.handleSubmit}
 					disabled={!validOwners || !validTitle || !validDescription}
 					block
-				>Create</Button>
+				>{t('common:create')}</Button>
 			</Card>
 		);
 	}
@@ -197,4 +199,4 @@ CreateNamespace.defaultProps = {
 
 // EXPORTS //
 
-export default CreateNamespace;
+export default withTranslation( [ 'namespace', 'common' ] )( CreateNamespace );

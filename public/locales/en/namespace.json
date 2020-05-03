@@ -1,10 +1,10 @@
 {
+	"create-course": "Create Course",
 	"edit-course": "Edit Course",
 	"create-cohort": "Create Cohort",
 	"owner-tooltip": "Enter list of email addresses denoting the administrators for this course",
 	"invalid-owners": "Must provide at least one owner via email address",
 	"invalid-description": "Description must be at least three characters long.",
-	"owners": "Owners",
 	"course-identifier": "Course Identifier",
 	"manage-cohorts": "Manage Cohorts",
 	"no-course-selected": "No Course Selected",
@@ -12,5 +12,7 @@
 	"title-tooltip": "Full course title and/or course description.",
 	"title-description": "Title / Description",
 	"no-students": "no of students",
-	"accessible-at": "Lessons are accessible at "
+	"accessible-at": "Lessons are accessible at ",
+	"course-placeholder": "Enter course identifier",
+	"title-placeholder": "Enter full course title and/or description"
 }
