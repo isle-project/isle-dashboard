@@ -85,16 +85,17 @@ class DetailsModal extends Component {
 	}
 
 	render() {
+		const { t } = this.props;
 		return (
 			<Modal show={this.props.show} onHide={this.props.close}>
 				<Form action={SERVER} method="get" onSubmit={this.onSubmit}>
 					<Modal.Header>
-						<Modal.Title as="h3">Lesson Details</Modal.Title>
+						<Modal.Title as="h3">{t('lesson-details')}</Modal.Title>
 					</Modal.Header>
 					<Modal.Body>
 						<FormGroup>
 							<Col sm={2}>
-								<FormLabel>Title</FormLabel>
+								<FormLabel>{t('common:title')}</FormLabel>
 							</Col>
 							<Col sm={10}>
 								<FormControl
@@ -107,7 +108,7 @@ class DetailsModal extends Component {
 						</FormGroup>
 						<FormGroup>
 							<Col sm={2}>
-								<FormLabel>Description</FormLabel>
+								<FormLabel>{t('common:description')}</FormLabel>
 							</Col>
 							<Col sm={10}>
 								<FormControl
@@ -120,12 +121,12 @@ class DetailsModal extends Component {
 						</FormGroup>
 					</Modal.Body>
 					<Modal.Footer>
-						<Button onClick={this.props.close}>Cancel</Button>
+						<Button onClick={this.props.close}>{t('common:cancel')}</Button>
 						<Button
 							variant="success"
 							type="submit"
 							disabled={this.state.disabled}
-						>Save</Button>
+						>{t('common:save')}</Button>
 					</Modal.Footer>
 				</Form>
 			</Modal>

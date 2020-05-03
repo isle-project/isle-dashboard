@@ -1,5 +1,9 @@
 {
 	"choose-language": "Sprache auswählen",
+	"cancel": "Abbrechen",
+	"save": "Speichern",
+	"description": "Beschreibung",
+	"title": "Titel",
 	"forgot-password": "Passwort vergessen?",
 	"register": "Registrieren",
 	"login": "Anmelden",

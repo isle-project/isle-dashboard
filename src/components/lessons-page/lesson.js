@@ -134,14 +134,14 @@ class Lesson extends Component {
 	copyIsleFileToClipboard = () => {
 		if ( !this.state.isleFile ) {
 			return this.props.addNotification({
-				message: 'Source could not be fetched. Please try again in a few seconds.',
+				message: this.props.t('source-file-error'),
 				level: 'error'
 			});
 		}
 		const promise = copyToClipboard( this.state.isleFile );
 		promise.then( () => {
 			this.props.addNotification({
-				message: 'Source code has been copied to the clipboard',
+				message: this.props.t('source-file-copied'),
 				level: 'success'
 			});
 		}).catch( err => {
@@ -156,7 +156,7 @@ class Lesson extends Component {
 		const promise = copyToClipboard( this.props.url );
 		promise.then( () => {
 			this.props.addNotification({
-				message: 'Link has been copied to the clipboard',
+				message: this.props.t('link-copied'),
 				level: 'success'
 			});
 		}).catch( err => {
@@ -197,24 +197,25 @@ class Lesson extends Component {
 	}
 
 	renderButtonToolbar() {
+		const { t } = this.props;
 		const activeStyle = this.props.active === true ? 'success' : 'warning';
 		const publicStyle = this.props.public === true ? 'success' : 'warning';
 		return ( <ButtonToolbar className="lesson-button-toolbar">
 			<ButtonGroup style={{ marginRight: '5px' }} >
-				<OverlayTrigger placement="top" overlay={<Tooltip id="open_details">Open Details</Tooltip>}>
-					<Button size="sm" variant="secondary" onClick={this.showDetailsModal} aria-label="Open Details" >
+				<OverlayTrigger placement="top" overlay={<Tooltip id="open_details">{t('open-details')}</Tooltip>}>
+					<Button size="sm" variant="secondary" onClick={this.showDetailsModal} aria-label={t('open-details')} >
 						<i className="fa fa-cog"></i>
 					</Button>
 				</OverlayTrigger>
-				<OverlayTrigger placement="top" overlay={<Tooltip id="delete_lesson">Delete Lesson</Tooltip>}>
-					<Button size="sm" variant="secondary" onClick={this.showDeleteModal} aria-label="Delete Lesson" >
+				<OverlayTrigger placement="top" overlay={<Tooltip id="delete_lesson">{t('delete-lesson')}</Tooltip>}>
+					<Button size="sm" variant="secondary" onClick={this.showDeleteModal} aria-label={t('delete-lesson')} >
 						<i className="fa fa-trash-alt"></i>
 					</Button>
 				</OverlayTrigger>
-				<OverlayTrigger placement="top" overlay={<Tooltip id="isle-file">Copy ISLE file to clipboard</Tooltip>}>
+				<OverlayTrigger placement="top" overlay={<Tooltip id="isle-file">{t('copy-link')}</Tooltip>}>
 					<Button variant="secondary" size="sm" onFocus={this.getIsleFile} onMouseEnter={this.getIsleFile}
 						onClick={this.copyIsleFileToClipboard} style={{ float: 'right' }}
-						aria-label="Copy ISLE file to clipboard"
+						aria-label={t('copy-link')}
 					>
 						<i className="fa fa-clipboard"></i>
 					</Button>
@@ -238,6 +239,7 @@ class Lesson extends Component {
 	}
 
 	render() {
+		const { t } = this.props;
 		return (
 			<Card className="animated-lesson-card">
 				<Card.Body style={{ padding: 0 }}>
@@ -277,17 +279,17 @@ class Lesson extends Component {
 								}}
 								className="info"
 							>
-								Open Lesson
+								{t('open-lesson')}
 							</span>
 						</div>
 					</div>
-					<OverlayTrigger placement="top" overlay={<Tooltip id="copy_link">Copy link to clipboard</Tooltip>}>
+					<OverlayTrigger placement="top" overlay={<Tooltip id="copy_link">{t('copy-link')}</Tooltip>}>
 						<i
 							role="button" tabIndex={0}
 							className="lesson-link-icon fas fa-external-link-alt"
 							onClick={this.copyLinkToClipboard}
 							onKeyPress={this.copyLinkToClipboard}
-							aria-label="Copy link to clipboard"
+							aria-label={t('copy-link')}
 						></i>
 					</OverlayTrigger>
 					{this.renderButtonToolbar()}
@@ -313,6 +315,7 @@ Lesson.propTypes = {
 	namespace: PropTypes.string.isRequired,
 	public: PropTypes.bool.isRequired,
 	showLessonInGallery: PropTypes.func.isRequired,
+	t: PropTypes.func.isRequired,
 	title: PropTypes.string.isRequired,
 	updateLesson: PropTypes.func.isRequired,
 	url: PropTypes.string.isRequired
