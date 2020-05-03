@@ -1,4 +1,8 @@
 {
+	"cancel": "Cancel",
+	"save": "Save",
+	"description": "Description",
+	"title": "Title",
 	"choose-language": "Choose language",
 	"forgot-password": "Forgot password?",
 	"register": "Sign Up",

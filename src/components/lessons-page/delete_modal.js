@@ -27,14 +27,14 @@ import { Button, Modal } from 'react-bootstrap';
 const DeleteModal = ( props ) => (
 	<Modal show={props.show} onHide={props.close}>
 		<Modal.Header>
-			<Modal.Title>Delete?</Modal.Title>
+			<Modal.Title>{props.t('delete')}?</Modal.Title>
 		</Modal.Header>
 		<Modal.Body>
-			Are you sure that you want to delete the lesson with the name &quot;{props.title}&quot;?
+			{props.t('delete-modal-body', { name: props.title })}
 		</Modal.Body>
 		<Modal.Footer>
-			<Button onClick={props.close}>Cancel</Button>
-			<Button variant="danger" onClick={props.delete} >Delete</Button>
+			<Button onClick={props.close}>{props.t('common:cancel')}</Button>
+			<Button variant="danger" onClick={props.delete} >{props.t('delete')}</Button>
 		</Modal.Footer>
 	</Modal>
 );
@@ -46,6 +46,7 @@ DeleteModal.propTypes = {
 	close: PropTypes.func.isRequired,
 	delete: PropTypes.func.isRequired,
 	show: PropTypes.bool.isRequired,
+	t: PropTypes.func.isRequired,
 	title: PropTypes.string.isRequired
 };
 

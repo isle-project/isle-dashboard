@@ -10,5 +10,12 @@
 	"copy-link": "Copy link to clipboard",
 	"link-copied": "Link has been copied to the clipboard",
 	"time-spent": "Time Spent",
-	"time-format": "In hours:minutes"
+	"time-format": "In hours:minutes",
+	"open-details": "Open Details",
+	"lesson-details": "Lesson Details",
+	"delete-lesson": "Delete Lesson",
+	"delete": "Delete",
+	"delete-modal-body": "Are you sure that you want to delete the lesson with the name \"{{name}}\"?",
+	"source-file-error": "Source could not be fetched. Please try again in a few seconds.",
+	"source-file-copied": "Source code has been copied to the clipboard"
 }
