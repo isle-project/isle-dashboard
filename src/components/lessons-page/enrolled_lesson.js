@@ -64,7 +64,7 @@ class EnrolledLesson extends Component {
 		const promise = copyToClipboard( this.props.url );
 		promise.then( () => {
 			this.props.addNotification({
-				message: 'Link has been copied to the clipboard',
+				message: this.props.t('link-copied'),
 				level: 'success'
 			});
 		}).catch( err => {
@@ -89,6 +89,7 @@ class EnrolledLesson extends Component {
 			progress = 0;
 			duration = 0;
 		}
+		const { t } = this.props;
 		return (
 			<ButtonToolbar style={{
 				position: 'absolute',
@@ -98,13 +99,13 @@ class EnrolledLesson extends Component {
 				background: 'rgba(0, 0, 0, 0.75)'
 			}}>
 				<div className="enrolled-lesson-progress">
-					<OverlayTrigger placement="top" overlay={<Tooltip id="open_details">Your Progress</Tooltip>}>
+					<OverlayTrigger placement="top" overlay={<Tooltip id="open_details">{t('your-progress')}</Tooltip>}>
 						<ProgressBar variant='success' now={progress} label={`${progress}%`} />
 					</OverlayTrigger>
 				</div>
 				<div className="enrolled-lesson-time" style={{ width: '35%', height: '100%' }} >
-					<OverlayTrigger placement="top" overlay={<Tooltip id="open_details">In hours:minutes</Tooltip>}>
-						<span>Time Spent: {formatTime( duration )}</span>
+					<OverlayTrigger placement="top" overlay={<Tooltip id="open_details">{t('time-format')}</Tooltip>}>
+						<span>{t('time-spent')}: {formatTime( duration )}</span>
 					</OverlayTrigger>
 				</div>
 			</ButtonToolbar>
@@ -112,6 +113,7 @@ class EnrolledLesson extends Component {
 	}
 
 	render() {
+		const { t } = this.props;
 		return (
 			<Card className="animated-lesson-card">
 				<Card.Body style={{ padding: 0 }}>
@@ -151,11 +153,11 @@ class EnrolledLesson extends Component {
 								}}
 								className="info"
 							>
-								Open Lesson
+								{t('open-lesson')}
 							</span>
 						</div>
 					</div>
-					<OverlayTrigger placement="top" overlay={<Tooltip id="copy_link">Copy link to clipboard</Tooltip>}>
+					<OverlayTrigger placement="top" overlay={<Tooltip id="copy_link">{t('copy-link')}</Tooltip>}>
 						<i
 							role="button" tabIndex={0}
 							className="lesson-link-icon fas fa-external-link-alt"
@@ -177,6 +179,7 @@ EnrolledLesson.propTypes = {
 	'_id': PropTypes.string.isRequired,
 	colorIndex: PropTypes.number.isRequired,
 	description: PropTypes.string.isRequired,
+	t: PropTypes.func.isRequired,
 	title: PropTypes.string.isRequired,
 	url: PropTypes.string.isRequired,
 	user: PropTypes.object.isRequired

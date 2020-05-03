@@ -19,6 +19,7 @@
 
 import React, { Component } from 'react';
 import logger from 'debug';
+import { withTranslation } from 'react-i18next';
 import { Jumbotron } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import { Responsive, WidthProvider } from 'react-grid-layout';
@@ -175,6 +176,7 @@ class LessonsPage extends Component {
 						{...lessons[ i ]}
 						addNotification={this.props.addNotification}
 						user={this.props.user}
+						t={this.props.t}
 					/>
 				</div>);
 			});
@@ -193,6 +195,7 @@ class LessonsPage extends Component {
 						hideLessonInGallery={this.props.hideLessonInGallery}
 						getLessons={this.props.getLessons}
 						getIsleFile={this.props.getIsleFile}
+						t={this.props.t}
 					/>
 				</div> );
 			})
@@ -200,28 +203,29 @@ class LessonsPage extends Component {
 	}
 
 	render() {
+		const { t } = this.props;
 		if ( !this.props.namespace.title ) {
 			let appendix = null;
 			if ( this.props.user.writeAccess ) {
-				appendix = <span>{' or create a new one under '}<i className="fa fa-pencil-alt"></i>.</span>;
+				appendix = <span>{t('create-new-one')}<i className="fa fa-pencil-alt"></i>.</span>;
 			} else {
 				appendix = ' .';
 			}
 			return ( <Jumbotron className="lessons-jumbotron" >
-				<h1>No Course Selected</h1>
-				<p>Open an existing course by selecting one from the dropdown menu above at <i className="fa fa-align-justify"></i>{appendix}
+				<h1>{t('no-course-selected')}</h1>
+				<p>{t('no-course-description')}<i className="fa fa-align-justify"></i>{appendix}
 				</p>
 			</Jumbotron> );
 		}
 		let lessons = this.state.filteredLessons;
 		if ( isArray( lessons ) ) {
 			if ( lessons.length === 0 ) {
-				let description = 'The selected course does not contain any lessons. ';
+				let description = t('no-lessons');
 				if ( this.props.user.writeAccess ) {
-					description += 'You can upload lessons from the ISLE editor.';
+					description += t('upload-from-editor');
 				}
 				return ( <Jumbotron className="lessons-jumbotron">
-					<h1>No Lessons Found</h1>
+					<h1>{t('no-lessons-found')}</h1>
 					<p>{description}</p>
 				</Jumbotron> );
 			}
@@ -270,4 +274,4 @@ LessonsPage.defaultProps = {
 
 // EXPORTS //
 
-export default LessonsPage;
+export default withTranslation( [ 'lessons_page', 'common' ] )( LessonsPage );
