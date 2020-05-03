@@ -60,36 +60,6 @@ function filterNumbersFactory( lessons, idx ) {
 	};
 }
 
-function accessorFactory( lessons, idx, adjustProgress ) {
-	return d => {
-		let data = d.original.lessonData;
-		const lessonID = lessons[ idx ]._id;
-		data = data[ lessonID ];
-		if ( data ) {
-			const progress = min( round( data.progress*100 ), 100 );
-			return (
-				<span>
-					<span style={{ fontSize: '12px', fontWeight: 800 }}>Duration: {formatTime( data.spentTime )}</span>
-					<br />
-					<EditableProgress
-						progress={progress}
-						email={d.original.email}
-						lessonID={lessonID}
-						onSubmit={( newProgress ) => {
-							adjustProgress({
-								email: d.original.email,
-								lessonID: lessonID,
-								progress: newProgress
-							});
-						}}
-					/>
-				</span>
-			);
-		}
-		return <span></span>;
-	};
-}
-
 function sortFactory( lessons, idx ) {
 	return ( a, b ) => {
 		a = a[ lessons[ idx ]._id ];
@@ -127,125 +97,6 @@ function filterMethodCategories( filter, row ) {
 	return String( row[ id ] ) === filter.value;
 }
 
-function createColumns( lessons, cohorts, adjustProgress ) {
-	const COLUMNS = [
-		{
-			Header: 'Pic',
-			accessor: 'picture',
-			Cell: row => (
-				<img className="table-pic" src={`${server}/thumbnail/${row.original.picture}`} alt="Profile Pic" />
-			),
-			maxWidth: 46,
-			minWidth: 46,
-			filterable: false,
-			resizable: false,
-			sortable: false,
-			style: { color: 'darkslategrey' }
-		},
-		{
-			Header: 'First',
-			id: 'first_name',
-			accessor: 'firstName',
-			maxWidth: 75,
-			style: { marginTop: '8px', color: 'darkslategrey' },
-			filterMethod: ( filter, row ) => {
-				return contains( lowercase( row[ filter.id ] ), lowercase( filter.value ) );
-			}
-		},
-		{
-			Header: 'Last',
-			id: 'last_name',
-			accessor: 'lastName',
-			maxWidth: 75,
-			style: { marginTop: '8px', color: 'darkslategrey' },
-			filterMethod: ( filter, row ) => {
-				return contains( lowercase( row[ filter.id ] ), lowercase( filter.value ) );
-			}
-		},
-		{
-			Header: 'email',
-			accessor: 'email',
-			maxWidth: 200,
-			style: { marginTop: '8px', color: 'darkslategrey' },
-			filterMethod: ( filter, row ) => {
-				return contains( lowercase( row[ filter.id ] ), lowercase( filter.value ) );
-			}
-		},
-		{
-			Header: 'Cohort',
-			accessor: 'cohort',
-			style: { marginTop: '8px', color: 'darkslategrey' },
-			filterMethod: filterMethodCategories,
-			Filter: ({ filter, onChange }) => {
-				const handleChange = ( event ) => {
-					const newValue = event.target.value;
-					onChange( newValue );
-				};
-				let value;
-				if ( !filter ) {
-					value = 'all';
-				} else if ( isArray( filter.value ) ) {
-					value = filter.value.join( ', ' );
-				} else {
-					value = filter.value;
-				}
-				return (
-					<select
-						onBlur={handleChange} onChange={handleChange}
-						style={{ width: '100%', backgroundColor: 'ghostwhite' }}
-						value={value}
-					>
-						<option value="all">Show All</option>
-						{cohorts.map( ( v, key ) => {
-							return (
-								<option
-									key={key}
-									value={`${v.title}`}
-								>{v.title}</option>
-							);
-						})}
-					</select>
-				);
-			}
-		}
-	];
-	for ( let i = 0; i < lessons.length; i++ ) {
-		COLUMNS.push({
-			id: 'lesson_'+i,
-			Header: lessons[ i ].title,
-			_lesson: lessons[ i ],
-			Cell: accessorFactory( lessons, i, adjustProgress ),
-			accessor: 'lessonData',
-			sortMethod: sortFactory( lessons, i ),
-			filterMethod: filterNumbersFactory( lessons, i ),
-			Filter: ({ filter, onChange }) => {
-				const defaultVal = {
-					max: 100,
-					min: 0
-				};
-				return (
-					<div style={{
-						paddingLeft: '4px',
-						paddingRight: '4px',
-						paddingTop: '8px'
-					}}>
-						<InputRange
-							allowSameValues
-							maxValue={100}
-							minValue={0}
-							value={filter ? filter.value : defaultVal}
-							onChange={( newValue ) => {
-								onChange( newValue );
-							}}
-						/>
-					</div>
-				);
-			}
-		});
-	}
-	return COLUMNS;
-}
-
 
 // MAIN //
 
@@ -253,7 +104,7 @@ class ProgressPage extends Component {
 	constructor( props ) {
 		super( props );
 
-		this.columns = createColumns( props.lessons, props.cohorts, props.adjustProgress );
+		this.columns = this.createColumns( props.lessons, props.cohorts );
 		this.state = {
 			displayedMembers: [],
 			lessonSortDirection: 'ascending',
@@ -287,6 +138,156 @@ class ProgressPage extends Component {
 		this.setState({ // eslint-disable-line react/no-did-mount-set-state
 			displayedMembers: members
 		});
+	}
+
+	createColumns( lessons, cohorts ) {
+		const COLUMNS = [
+			{
+				Header: 'Pic',
+				accessor: 'picture',
+				Cell: row => (
+					<img className="table-pic" src={`${server}/thumbnail/${row.original.picture}`} alt="Profile Pic" />
+				),
+				maxWidth: 46,
+				minWidth: 46,
+				filterable: false,
+				resizable: false,
+				sortable: false,
+				style: { color: 'darkslategrey' }
+			},
+			{
+				Header: 'First',
+				id: 'first_name',
+				accessor: 'firstName',
+				maxWidth: 75,
+				style: { marginTop: '8px', color: 'darkslategrey' },
+				filterMethod: ( filter, row ) => {
+					return contains( lowercase( row[ filter.id ] ), lowercase( filter.value ) );
+				}
+			},
+			{
+				Header: 'Last',
+				id: 'last_name',
+				accessor: 'lastName',
+				maxWidth: 75,
+				style: { marginTop: '8px', color: 'darkslategrey' },
+				filterMethod: ( filter, row ) => {
+					return contains( lowercase( row[ filter.id ] ), lowercase( filter.value ) );
+				}
+			},
+			{
+				Header: 'email',
+				accessor: 'email',
+				maxWidth: 200,
+				style: { marginTop: '8px', color: 'darkslategrey' },
+				filterMethod: ( filter, row ) => {
+					return contains( lowercase( row[ filter.id ] ), lowercase( filter.value ) );
+				}
+			},
+			{
+				Header: 'Cohort',
+				accessor: 'cohort',
+				style: { marginTop: '8px', color: 'darkslategrey' },
+				filterMethod: filterMethodCategories,
+				Filter: ({ filter, onChange }) => {
+					const handleChange = ( event ) => {
+						const newValue = event.target.value;
+						onChange( newValue );
+					};
+					let value;
+					if ( !filter ) {
+						value = 'all';
+					} else if ( isArray( filter.value ) ) {
+						value = filter.value.join( ', ' );
+					} else {
+						value = filter.value;
+					}
+					return (
+						<select
+							onBlur={handleChange} onChange={handleChange}
+							style={{ width: '100%', backgroundColor: 'ghostwhite' }}
+							value={value}
+						>
+							<option value="all">Show All</option>
+							{cohorts.map( ( v, key ) => {
+								return (
+									<option
+										key={key}
+										value={`${v.title}`}
+									>{v.title}</option>
+								);
+							})}
+						</select>
+					);
+				}
+			}
+		];
+		for ( let i = 0; i < lessons.length; i++ ) {
+			COLUMNS.push({
+				id: 'lesson_'+i,
+				Header: lessons[ i ].title,
+				_lesson: lessons[ i ],
+				Cell: this.accessorFactory( lessons, i ),
+				accessor: 'lessonData',
+				sortMethod: sortFactory( lessons, i ),
+				filterMethod: filterNumbersFactory( lessons, i ),
+				Filter: ({ filter, onChange }) => {
+					const defaultVal = {
+						max: 100,
+						min: 0
+					};
+					return (
+						<div style={{
+							paddingLeft: '4px',
+							paddingRight: '4px',
+							paddingTop: '8px'
+						}}>
+							<InputRange
+								allowSameValues
+								maxValue={100}
+								minValue={0}
+								value={filter ? filter.value : defaultVal}
+								onChange={( newValue ) => {
+									onChange( newValue );
+								}}
+							/>
+						</div>
+					);
+				}
+			});
+		}
+		return COLUMNS;
+	}
+
+	accessorFactory = ( lessons, idx ) => {
+		return d => {
+			let data = d.original.lessonData;
+			const lessonID = lessons[ idx ]._id;
+			data = data[ lessonID ];
+			if ( data ) {
+				const progress = min( round( data.progress*100 ), 100 );
+				return (
+					<span>
+						<span style={{ fontSize: '12px', fontWeight: 800 }}>Duration: {formatTime( data.spentTime )}</span>
+						<br />
+						<EditableProgress
+							progress={progress}
+							email={d.original.email}
+							lessonID={lessonID}
+							onSubmit={( newProgress ) => {
+								this.props.adjustProgress({
+									email: d.original.email,
+									lessonID: lessonID,
+									namespaceID: this.props.namespace._id,
+									progress: newProgress
+								});
+							}}
+						/>
+					</span>
+				);
+			}
+			return <span></span>;
+		};
 	}
 
 	assembleData() {

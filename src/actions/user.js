@@ -321,15 +321,15 @@ export const userUpdateCheckInjector = ( dispatch ) => {
 	};
 };
 
-export const adjustProgress = async ( dispatch, { email, lessonID, progress }) => {
+export const adjustProgress = async ( dispatch, { email, lessonID, namespaceID, progress }) => {
 	const res = await axios.post( server+'/user_adjust_progress', {
-		email, lessonID, progress
+		email, lessonID, namespaceID, progress
 	});
 	console.log( res );
 };
 
 export const adjustProgressInjector = ( dispatch ) => {
-	return ( { email, lessonID, progress } ) => {
-		adjustProgress( dispatch, { email, lessonID, progress } );
+	return ( { email, lessonID, namespaceID, progress } ) => {
+		adjustProgress( dispatch, { email, lessonID, namespaceID, progress } );
 	};
 };
