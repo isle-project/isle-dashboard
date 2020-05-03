@@ -214,7 +214,7 @@ function createColumns( lessons, cohorts, adjustProgress ) {
 			id: 'lesson_'+i,
 			Header: lessons[ i ].title,
 			_lesson: lessons[ i ],
-			Cell: accessorFactory( lessons, i ),
+			Cell: accessorFactory( lessons, i, adjustProgress ),
 			accessor: 'lessonData',
 			sortMethod: sortFactory( lessons, i ),
 			filterMethod: filterNumbersFactory( lessons, i ),

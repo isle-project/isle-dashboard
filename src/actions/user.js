@@ -321,7 +321,7 @@ export const userUpdateCheckInjector = ( dispatch ) => {
 	};
 };
 
-export const adjustProgress = async ({ email, lessonID, progress }) => {
+export const adjustProgress = async ( dispatch, { email, lessonID, progress }) => {
 	const res = await axios.post( server+'/user_adjust_progress', {
 		email, lessonID, progress
 	});
