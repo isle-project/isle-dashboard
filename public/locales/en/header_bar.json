@@ -16,5 +16,8 @@
 	"enroll": "Enroll",
 	"goto-course-lessons": "Go to course lessons",
 	"open-admin": "Open admin panel",
-	"admin": "Admin"
+	"admin": "Admin",
+	"admin-panel": "Administrator Panel",
+	"sort-descending": "Sort in descending order",
+	"sort-ascending": "Sort in ascending order"
 }

@@ -108,7 +108,7 @@ class Course extends Component {
 	render() {
 		const { t } = this.props;
 		let cardClassName = 'enroll-page-course-item';
-		let buttonText = t('enroll');
+		let buttonText = t('common:enroll');
 		if ( this.props.enrollable === false ) {
 			cardClassName = 'enroll-item-deactivated';
 			buttonText = t('already-enrolled');
