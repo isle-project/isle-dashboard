@@ -279,6 +279,7 @@ class ProgressPage extends Component {
 									email: d.original.email,
 									lessonID: lessonID,
 									namespaceID: this.props.namespace._id,
+									cohort: d.original.cohort,
 									progress: newProgress
 								});
 							}}
