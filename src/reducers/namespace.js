@@ -59,6 +59,24 @@ export default function namespace( state = initialState, action ) {
 	case types.DELETED_CURRENT_NAMESPACE: {
 		return initialState;
 	}
+	case types.UPDATED_STUDENT_PROGRESS: {
+		const { cohort, email, lessonID, progress } = action.payload;
+		const cohorts = state.cohorts;
+		for ( let i = 0; i < cohorts.length; i++ ) {
+			if ( cohorts[ i ].title === cohort ) {
+				const members = cohorts[ i ].members;
+				for ( let j = 0; j < members.length; j++ ) {
+					if ( members[ j ].email === email ) {
+						const member = members[ j ];
+						member.lessonData[ lessonID ].progress = progress / 100;
+						break;
+					}
+				}
+				break;
+			}
+		}
+		return Object.assign({}, state, { cohorts });
+	}
 	case types.RETRIEVED_LESSONS: {
 		if ( action.payload.namespaceName === state.title ) {
 			return Object.assign({}, state, {

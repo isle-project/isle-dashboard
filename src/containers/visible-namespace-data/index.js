@@ -25,8 +25,7 @@ import { addAnnouncementInjector, deleteAnnouncementInjector, editAnnouncementIn
 import { getAvailableBadgesInjector } from 'actions/badge';
 import { deleteFileInjector, getFilesInjector, getOwnerFilesInjector, uploadFileInjector } from 'actions/file';
 import { addNotificationInjector } from 'actions/notification';
-import { getNamespaceActionsInjector } from 'actions/namespace';
-import { adjustProgressInjector } from 'actions/user';
+import { getNamespaceActionsInjector, adjustProgressInjector } from 'actions/namespace';
 
 
 // FUNCTIONS //

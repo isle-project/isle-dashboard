@@ -321,19 +321,3 @@ export const userUpdateCheckInjector = ( dispatch ) => {
 	};
 };
 
-export const adjustProgress = async ( dispatch, { email, lessonID, namespaceID, progress }) => {
-	const res = await axios.post( server+'/user_adjust_progress', {
-		email, lessonID, namespaceID, progress
-	});
-	addNotification( dispatch, {
-		title: 'Updated',
-		message: res.data.message,
-		level: 'success'
-	});
-};
-
-export const adjustProgressInjector = ( dispatch ) => {
-	return ( { email, lessonID, namespaceID, progress } ) => {
-		adjustProgress( dispatch, { email, lessonID, namespaceID, progress } );
-	};
-};
