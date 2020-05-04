@@ -1,6 +1,7 @@
 {
 	"accessible-at": "Lektionen sind aufrufbar bei ",
 	"cohort-period": "Von ... bis",
+	"cohort-title-placeholder": "Kohortnamen eingeben...",
 	"cohort-title-tooltip": "Bitte gib den Namen der Kohorte ein.",
 	"course-identifier": "Kurs-Kennzeichen",
 	"course-placeholder": "Kurs-Kennzeichen eingeben",
@@ -12,6 +13,7 @@
 	"email-filter": "E-Mail-Filter",
 	"enrolled-students": "Eingeschriebene Studenten",
 	"enrolled-tooltip": "Komma-separierte Liste von E-Mail-Adressen der Studenten in dieser Kohorte",
+	"filter-placeholder": "E-Mail-Filter eingeben",
 	"filter-tooltip": "Kann entweder ein Text-String oder ein Regular Expression String sein (beginnend und endend in /)",
 	"invalid-description": "Beschreibung muss aus mindestens drei Buchstaben bestehen.",
 	"invalid-owners": "Mindestens ein Kurs-Administrator muss via E-Mail festgelegt sein",
@@ -19,6 +21,7 @@
 	"no-course-selected": "Kein Kurs ausgewählt",
 	"no-students": "Anzahl Studenten",
 	"owner-tooltip": "Liste von E-Mail-Adressen der Kurs-Administratoren",
+	"prevent-label": "Klicken um Einschreiben von Stundenten zu unterbinden",
 	"prevent-tooltip": "Wenn angeklickt, wird der Kurs nicht in die Liste der Kurse, in die sich Studenten selbst einschreiben können, aufgenommen",
 	"title-description": "Titel / Beschreibung",
 	"title-placeholder": "Vollständigen Kurstitel und/oder Kursbeschreibung eingeben",

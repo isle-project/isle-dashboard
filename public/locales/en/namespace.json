@@ -1,6 +1,7 @@
 {
 	"accessible-at": "Lessons are accessible at ",
 	"cohort-period": "From ... To",
+	"cohort-title-placeholder": "Enter cohort name...",
 	"cohort-title-tooltip": "Please enter the name of the cohort.",
 	"course-identifier": "Course Identifier",
 	"course-placeholder": "Enter course identifier",
@@ -12,6 +13,7 @@
 	"email-filter": "Email Filter",
 	"enrolled-students": "Enrolled Students",
 	"enrolled-tooltip": "Comma-separated list of email addresses denoting the students for this cohort",
+	"filter-placeholder": "Enter email filter",
 	"filter-tooltip": "Can be either a string or a regular expression string (starting and ending with /)",
 	"invalid-description": "Description must be at least three characters long.",
 	"invalid-owners": "Must provide at least one owner via email address",
@@ -19,6 +21,7 @@
 	"no-course-selected": "No Course Selected",
 	"no-students": "no of students",
 	"owner-tooltip": "Enter list of email addresses denoting the administrators for this course",
+	"prevent-label": "Tick to prevent students from enrolling",
 	"prevent-tooltip": "If ticked, the course will not show up in the list of courses students can enroll into themselves",
 	"title-description": "Title / Description",
 	"title-placeholder": "Enter full course title and/or description",
