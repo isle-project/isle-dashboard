@@ -23,11 +23,11 @@ import { connect } from 'react-redux';
 import { Route } from 'react-router-dom';
 import { ConnectedRouter } from 'connected-react-router';
 import contains from '@stdlib/assert/contains';
+import LanguageSwitcher from 'components/language-switcher';
 import asyncComponent from 'components/async';
 import server from 'constants/server';
 import { handleLoginInjector } from 'actions/user';
 import NotificationSystem from './notification.js';
-import LanguageSwitcher from './language_switcher.js';
 import './app.css';
 
 

@@ -73,7 +73,7 @@ class LanguageSwitcher extends Component {
 		const { t } = this.props;
 		return (
 			<Fragment>
-				<OverlayTrigger placement="left" overlay={<Tooltip id="language-switcher">Change language</Tooltip>} >
+				<OverlayTrigger placement="left" overlay={<Tooltip id="language-switcher">{t('change-language')}</Tooltip>} >
 					<Button
 						onClick={this.toggleSelectModal} className="language-switcher"
 						variant="light" size="sm" aria-label={t('choose-language')}
