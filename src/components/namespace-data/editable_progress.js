@@ -15,8 +15,19 @@ class EditableProgress extends Component {
 		this.state = {
 			isEditing: false,
 			hasChanged: false,
-			newProgress: props.progress
+			newProgress: props.progress,
+			originalProgress: props.progress
 		};
+	}
+
+	static getDerivedStateFromProps( nextProps, prevState ) {
+		if ( nextProps.progress !== prevState.originalProgress ) {
+			return {
+				newProgress: nextProps.progress,
+				originalProgress: nextProps.progress
+			};
+		}
+		return null;
 	}
 
 	toggleEditing = () => {
