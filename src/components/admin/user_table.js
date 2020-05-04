@@ -231,6 +231,7 @@ class UserPage extends Component {
 							onChange={this.handlePassword}
 							maxLength={30}
 							minLength={6}
+							style={{ marginTop: 8 }}
 						/>
 					</span>}
 					close={this.toggleImpersonateModal}
