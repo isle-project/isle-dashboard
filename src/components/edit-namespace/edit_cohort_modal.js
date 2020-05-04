@@ -121,13 +121,14 @@ class EditCohortModal extends Component {
 	}
 
 	render() {
+		const { t } = this.props;
 		const content = (
 			<Form style={{ padding: '10px' }}>
 				<Row>
 					<Col md={6}>
-						<OverlayTrigger placement="right" overlay={<Tooltip id="ownerTooltip">Title with a minimum length of four characters.</Tooltip>}>
+						<OverlayTrigger placement="right" overlay={<Tooltip id="titleTooltip">{t('cohort-title-tooltip')}</Tooltip>}>
 							<FormGroup>
-								<FormLabel>Title</FormLabel>
+								<FormLabel>{t('common:title')}</FormLabel>
 								<FormControl
 									name="title"
 									type="text"
@@ -139,7 +140,7 @@ class EditCohortModal extends Component {
 					</Col>
 					<Col md={6}>
 						<FormGroup>
-							<FormLabel> From ... To </FormLabel>
+							<FormLabel>{t('cohort-period')}</FormLabel>
 							<br />
 							<DateRangePicker
 								startDateId="panel_start_date_input"
@@ -157,9 +158,9 @@ class EditCohortModal extends Component {
 				</Row>
 				<hr />
 				<Row>
-					<OverlayTrigger placement="right" overlay={<Tooltip id="ownerTooltip">Comma-separated list of email addresses denoting the students for this cohort</Tooltip>}>
+					<OverlayTrigger placement="right" overlay={<Tooltip id="enrolledTooltip">{t('enrolled-tooltip')}</Tooltip>}>
 						<FormGroup className="cohort-modal-enrolled-group" >
-							<FormLabel>Enrolled Students</FormLabel>
+							<FormLabel>{t('enrolled-students')}</FormLabel>
 							<TextSelect
 								onChange={this.handleStudentChange}
 								defaultValue={this.state.members}
@@ -174,24 +175,24 @@ class EditCohortModal extends Component {
 				</Row>
 				<hr />
 				<Row>
-				<OverlayTrigger placement="left" overlay={<Tooltip id="tickTooltip">If set to private the course will not show up in the students&#x27; enrollabe page</Tooltip>}>
+				<OverlayTrigger placement="left" overlay={<Tooltip id="preventTooltip">{t('prevent-tooltip')}</Tooltip>}>
 					<FormCheck checked={this.state.private} onChange={(event) => {
 						this.setState({
 							private: !this.state.private
 						});
-					}} type="checkbox" label="Tick to prevent students from enrolling" />
+					}} type="checkbox" label={t('prevent-label')} />
 				</OverlayTrigger>
 				</Row>
 				<hr />
 			<Row>
-				<OverlayTrigger placement="right" overlay={<Tooltip id="ownerTooltip">Can be either a string or a regular expression string (starting and ending with /).</Tooltip>}>
+				<OverlayTrigger placement="right" overlay={<Tooltip id="filterTooltip">{t('filter-tooltip')}</Tooltip>}>
 						<FormGroup>
-							<FormLabel>eMail filter</FormLabel>
+							<FormLabel>{t('email-filter')}</FormLabel>
 							<FormControl style={{ width: '25vw' }}
 								name="emailFilter"
 								type="text"
 								value={this.state.emailFilter}
-								placeholder="Enter filter"
+								placeholder={t('filter-placeholder')}
 								onChange={this.handleInputChange}
 							/>
 						</FormGroup>
@@ -205,7 +206,7 @@ class EditCohortModal extends Component {
 				<Modal size="lg" show={this.props.show} onHide={this.props.onHide} >
 					<Modal.Header closeButton>
 						<Modal.Title as="h3">
-							{`Edit Cohort: ${this.props.title}`}
+							{t('edit-cohort', { title: this.props.title })}
 						</Modal.Title>
 					</Modal.Header>
 					<Modal.Body>
@@ -217,23 +218,23 @@ class EditCohortModal extends Component {
 								this.setState({
 									showDeleteModal: true
 								});
-							}} variant="danger">Delete</Button>
+							}} variant="danger">{t('common:delete')}</Button>
 							<Button
 								onClick={this.props.onHide}
-							>Cancel</Button>
+							>{t('common:cancel')}</Button>
 							<Button
 								variant="success"
 								disabled={this.state.disabled}
 								onClick={this.handleUpdate}
-							>Save</Button>
+							>{t('common:save')}</Button>
 						</ButtonGroup>
 					</Modal.Footer>
 				</Modal>
 				<ConfirmModal
 					show={this.state.showDeleteModal}
 					close={this.closeDeleteModal}
-					message="Are you sure that you want to delete this cohort?"
-					title="Delete?"
+					message={t('delete-cohort')}
+					title={`${t('delete')}?`}
 					onConfirm={this.handleDelete}
 				/>
 			</Fragment>
@@ -252,6 +253,7 @@ EditCohortModal.propTypes = {
 	onUpdate: PropTypes.func,
 	show: PropTypes.bool.isRequired,
 	startDate: PropTypes.string.isRequired,
+	t: PropTypes.func.isRequired,
 	title: PropTypes.string.isRequired
 };
 
