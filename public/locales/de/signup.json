@@ -1,14 +1,14 @@
 {
-	"confirm-password": "Passwort bestätigen",
 	"choose-password": "Passwort wählen",
-	"signup-not-valid": "Bitte stelle sicher dass alle Eingabefelder korrekt ausgefüllt sind.",
-	"enter-name": "Namen eingeben",
+	"confirm-password": "Passwort bestätigen",
 	"email-tooltip": "Bitte gib eine valide E-Mail-Adresse ein",
+	"enter-name": "Namen eingeben",
 	"invalid-email": "Keine valide E-Mail-Adresse.",
 	"invalid-name": "Name muss aus mindestens vier Buchstaben bestehen.",
-	"name-tooltip": "Bitte gib Deinen Namen ein.",
-	"password": "Passwort",
-	"password-tooltip": "Bitte gib ein Passwort Deiner Wahl ein (mindestens sechs Buchstaben).",
+	"invalid-password-match": "Passwörter sind nicht identisch",
 	"invalid-password": "Dein Passwort muss aus mindestens sechs Buchstaben bestehen.",
-	"invalid-password-match": "Passwörter sind nicht identisch"
+	"name-tooltip": "Bitte gib Deinen Namen ein.",
+	"password-tooltip": "Bitte gib ein Passwort Deiner Wahl ein (mindestens sechs Buchstaben).",
+	"password": "Passwort",
+	"signup-not-valid": "Bitte stelle sicher dass alle Eingabefelder korrekt ausgefüllt sind."
 }
