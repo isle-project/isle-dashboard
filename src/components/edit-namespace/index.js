@@ -151,7 +151,7 @@ class EditNamespace extends Component {
 					close={this.close}
 					message={this.state.message}
 					successful={this.state.successful}
-					title="Update Course"
+					title={t('update-course')}
 				/>
 				<ConfirmModal
 					show={this.state.showDeleteModal}
@@ -164,6 +164,7 @@ class EditNamespace extends Component {
 					show={this.state.showCreateCohortModal}
 					close={this.closeCreateCohortModal}
 					onCreate={this.createCohort}
+					t={this.props.t}
 				/> : null }
 				{ this.state.showEditCohortModal ? <EditCohortModal
 					show={this.state.showEditCohortModal}
@@ -171,6 +172,7 @@ class EditNamespace extends Component {
 					onDelete={this.deleteCohort}
 					onHide={this.closeEditCohortModal}
 					onUpdate={this.updateCohort}
+					t={this.props.t}
 				/> : null }
 			</Fragment>
 		);
@@ -195,7 +197,7 @@ class EditNamespace extends Component {
 						</span>
 						<Badge variant="primary">{cohort.members.length}</Badge>
 						<span style={{ color: 'black' }} >)</span>
-						<Button size="sm" onClick={this.cohortModalFactory( idx )} style={{ float: 'right' }}>Edit</Button>
+						<Button size="sm" onClick={this.cohortModalFactory( idx )} style={{ float: 'right' }}>{t('common:edit')}</Button>
 					</ListGroupItem>
 				);
 			})}
@@ -286,7 +288,7 @@ class EditNamespace extends Component {
 									}} variant="danger">{t('common:delete')}</Button>
 								</ButtonGroup>
 							</Card.Body>
-							{ this.renderModals() }
+							{this.renderModals()}
 						</Card>
 					</Col>
 					<Col md={6} >

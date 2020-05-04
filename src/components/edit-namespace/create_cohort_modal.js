@@ -112,12 +112,13 @@ class CreateCohortModal extends Component {
 	}
 
 	renderBody() {
+		const { t } = this.props;
 		return ( <Form style={{ paddingLeft: 20, paddingRight: 20 }}>
 			<Row>
 				<Col md={6}>
-					<OverlayTrigger placement="right" overlay={<Tooltip id="ownerTooltip">Please enter the name of the cohort.</Tooltip>}>
+					<OverlayTrigger placement="right" overlay={<Tooltip id="titleTooltip">{t('cohort-title-tooltip')}</Tooltip>}>
 						<FormGroup>
-							<FormLabel>Title</FormLabel>
+							<FormLabel>{t('common:title')}</FormLabel>
 							<FormControl
 								name="title"
 								type="text"
@@ -129,7 +130,7 @@ class CreateCohortModal extends Component {
 				</Col>
 				<Col md={6}>
 					<FormGroup>
-						<FormLabel>From ... To </FormLabel>
+						<FormLabel>{t('cohort-period')}</FormLabel>
 						<DateRangePicker
 							startDateId="start_date_input"
 							endDateId="end_date_input"
@@ -146,9 +147,9 @@ class CreateCohortModal extends Component {
 			</Row>
 			<hr />
 			<Row>
-				<OverlayTrigger placement="right" overlay={<Tooltip id="ownerTooltip">Comma-separated list of email addresses denoting the students for this cohort</Tooltip>}>
+				<OverlayTrigger placement="right" overlay={<Tooltip id="enrolledTooltip">{t('enrolled-tooltip')}</Tooltip>}>
 					<FormGroup className="cohort-modal-enrolled-group" >
-						<FormLabel>Enrolled Students</FormLabel>
+						<FormLabel>{t('enrolled-students')}</FormLabel>
 						<TextSelect
 							onChange={this.handleStudentChange}
 							defaultValue={this.state.students}
@@ -164,7 +165,7 @@ class CreateCohortModal extends Component {
 			</Row>
 			<hr />
 			<Row>
-				<OverlayTrigger placement="left" overlay={<Tooltip id="tickTooltip">If set to private the course will not show up in the students&#x27; enrollabe page</Tooltip>}>
+				<OverlayTrigger placement="left" overlay={<Tooltip id="preventTooltip">{t('prevent-tooltip')}</Tooltip>}>
 					<FormCheck checked={this.state.private} onChange={(event) => {
 						this.setState({
 							private: !this.state.private
@@ -174,9 +175,9 @@ class CreateCohortModal extends Component {
 			</Row>
 			<hr />
 			<Row>
-				<OverlayTrigger placement="right" overlay={<Tooltip id="ownerTooltip">Can be either a string or a regular expression string (starting and ending with /)</Tooltip>}>
+				<OverlayTrigger placement="right" overlay={<Tooltip id="filterTooltip">{t('filter-tooltip')}</Tooltip>}>
 					<FormGroup>
-						<FormLabel>email filter</FormLabel>
+						<FormLabel>{t('email-filter')}</FormLabel>
 						<FormControl
 							style={{ width: '25vw' }}
 							name="emailFilter"
@@ -191,17 +192,18 @@ class CreateCohortModal extends Component {
 	}
 
 	render() {
+		const { t } = this.props;
 		return (
 			<Modal size="lg" show={this.props.show} onHide={this.onClose}>
 				<Modal.Header closeButton>
-					<Modal.Title as="h3">Create a new Cohort</Modal.Title>
+					<Modal.Title as="h3">{t('create-new-cohort')}</Modal.Title>
 				</Modal.Header>
 				<Modal.Body>
 					{this.renderBody()}
 				</Modal.Body>
 				<Modal.Footer>
-					<Button onClick={this.onClose}>Cancel</Button>
-					<Button variant="success" disabled={this.state.disabled} onClick={this.onCreate}>Create</Button>
+					<Button onClick={this.onClose}>{t('common:cancel')}</Button>
+					<Button variant="success" disabled={this.state.disabled} onClick={this.onCreate}>{t('common:create')}</Button>
 				</Modal.Footer>
 			</Modal>
 		);
@@ -214,7 +216,8 @@ class CreateCohortModal extends Component {
 CreateCohortModal.propTypes = {
 	close: PropTypes.func,
 	onCreate: PropTypes.func,
-	show: PropTypes.bool
+	show: PropTypes.bool,
+	t: PropTypes.func.isRequired
 };
 
 CreateCohortModal.defaultProps = {

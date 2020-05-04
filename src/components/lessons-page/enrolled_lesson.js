@@ -19,6 +19,7 @@
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { withTranslation } from 'react-i18next';
 import {
 	Card, ButtonToolbar, ProgressBar, OverlayTrigger, Tooltip
 } from 'react-bootstrap';
@@ -179,7 +180,6 @@ EnrolledLesson.propTypes = {
 	'_id': PropTypes.string.isRequired,
 	colorIndex: PropTypes.number.isRequired,
 	description: PropTypes.string.isRequired,
-	t: PropTypes.func.isRequired,
 	title: PropTypes.string.isRequired,
 	url: PropTypes.string.isRequired,
 	user: PropTypes.object.isRequired
@@ -188,4 +188,4 @@ EnrolledLesson.propTypes = {
 
 // EXPORTS //
 
-export default EnrolledLesson;
+export default withTranslation( [ 'lessons_page', 'common' ] )( EnrolledLesson );
