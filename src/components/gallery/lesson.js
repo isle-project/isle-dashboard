@@ -19,9 +19,11 @@
 
 import React, { Component } from 'react';
 import { withTranslation } from 'react-i18next';
-import {
-	ButtonToolbar, Button, Card, OverlayTrigger, Tooltip
-} from 'react-bootstrap';
+import ButtonToolbar from 'react-bootstrap/ButtonToolbar';
+import Button from 'react-bootstrap/Button';
+import Card from 'react-bootstrap/Card';
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
+import Tooltip from 'react-bootstrap/Tooltip';
 import PropTypes from 'prop-types';
 import logger from 'debug';
 import 'css/image.css';

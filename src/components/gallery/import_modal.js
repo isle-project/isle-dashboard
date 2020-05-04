@@ -19,9 +19,11 @@
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import {
-	Button, FormLabel, FormControl, FormGroup, Modal
-} from 'react-bootstrap';
+import Button from 'react-bootstrap/Button';
+import FormLabel from 'react-bootstrap/FormLabel';
+import FormControl from 'react-bootstrap/FormControl';
+import FormGroup from 'react-bootstrap/FormGroup';
+import Modal from 'react-bootstrap/Modal';
 import SelectInput from 'react-select';
 import isArray from '@stdlib/assert/is-array';
 

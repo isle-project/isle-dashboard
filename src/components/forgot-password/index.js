@@ -20,7 +20,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withTranslation } from 'react-i18next';
-import { Button, Card, FormLabel, FormControl, FormGroup, Form } from 'react-bootstrap';
+import Button from 'react-bootstrap/Button';
+import Card from 'react-bootstrap/Card';
+import FormLabel from 'react-bootstrap/FormLabel';
+import FormControl from 'react-bootstrap/FormControl';
+import FormGroup from 'react-bootstrap/FormGroup';
+import Form from 'react-bootstrap/Form';
 import { Link } from 'react-router-dom';
 import isEmail from '@stdlib/assert/is-email-address';
 import 'css/login.css';
