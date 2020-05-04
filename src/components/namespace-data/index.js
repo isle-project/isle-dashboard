@@ -166,13 +166,13 @@ class NamespaceData extends Component {
 	}
 
 	render() {
+		const { t } = this.props;
 		if ( !this.props.namespace._id ) {
 			return ( <div className="namespace-data-div">
-				<Alert variant="danger">No namespace selected.</Alert>
+				<Alert variant="danger">{t('common:no-course-selected')}</Alert>
 			</div> );
 		}
 		const page = this.renderPage();
-		const { t } = this.props;
 		return (
 			<div className="namespace-data-div">
 				<div className="namespace-data-navbar">
