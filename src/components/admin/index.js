@@ -19,7 +19,8 @@
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Nav } from 'react-bootstrap';
+import { withTranslation } from 'react-i18next';
+import Nav from 'react-bootstrap/Nav';
 import ErrorsLog from './logs/errors';
 import AccessLog from './logs/access';
 import AdminTable from './admin_table.js';
@@ -110,21 +111,22 @@ class AdminPage extends Component {
 
 	render() {
 		const page = this.renderPage();
+		const { t } = this.props;
 		return (
 			<div className="admin-page-div">
 				<div className="admin-page-navbar">
 					<Nav variant="pills" activeKey={this.state.activePage} onSelect={this.handleSelect}>
 						<Nav.Item>
-							<Nav.Link eventKey="1" title="Access Log" >Access Log</Nav.Link>
+							<Nav.Link eventKey="1" title="Access Log" >{t('access-log')}</Nav.Link>
 						</Nav.Item>
 						<Nav.Item>
-							<Nav.Link eventKey="2" title="Error Log" >Error Log</Nav.Link>
+							<Nav.Link eventKey="2" title="Error Log" >{t('error-log')}</Nav.Link>
 						</Nav.Item>
 						<Nav.Item>
-							<Nav.Link eventKey="3" title="Users" >Users</Nav.Link>
+							<Nav.Link eventKey="3" title="Users" >{t('users')}</Nav.Link>
 						</Nav.Item>
 						<Nav.Item>
-							<Nav.Link eventKey="4" title="Administrators" >Administrators</Nav.Link>
+							<Nav.Link eventKey="4" title="Administrators" >{t('admins')}</Nav.Link>
 						</Nav.Item>
 					</Nav>
 				</div>
@@ -150,4 +152,4 @@ AdminPage.propTypes = {
 
 // EXPORTS //
 
-export default AdminPage;
+export default withTranslation( [ 'admin', 'common' ] )( AdminPage );

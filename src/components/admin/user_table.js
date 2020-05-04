@@ -20,6 +20,7 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import logger from 'debug';
+import { withTranslation } from 'react-i18next';
 import ReactTable from 'react-table';
 import FormControl from 'react-bootstrap/FormControl';
 import Button from 'react-bootstrap/Button';
@@ -111,6 +112,7 @@ class UserPage extends Component {
 	}
 
 	createColumns = () => {
+		const { t } = this.props;
 		return [
 			{
 				Header: 'Pic',
@@ -126,7 +128,7 @@ class UserPage extends Component {
 				style: { color: 'darkslategrey' }
 			},
 			{
-				Header: 'Name',
+				Header: t('common:name'),
 				id: 'name',
 				accessor: 'name',
 				maxWidth: 200,
@@ -136,7 +138,7 @@ class UserPage extends Component {
 				}
 			},
 			{
-				Header: 'Email',
+				Header: t('common:email'),
 				accessor: 'email',
 				maxWidth: 200,
 				style: { marginTop: '8px', color: 'darkslategrey' },
@@ -145,13 +147,13 @@ class UserPage extends Component {
 				}
 			},
 			{
-				Header: 'Organization',
+				Header: t('common:organization'),
 				accessor: 'organization',
 				style: { marginTop: '8px', color: 'darkslategrey' },
 				maxWidth: 200
 			},
 			{
-				Header: 'Last Updated',
+				Header: t('last-updated'),
 				accessor: 'updatedAt',
 				Cell: ( row ) => {
 					return new Date( row.value ).toLocaleString();
@@ -160,7 +162,7 @@ class UserPage extends Component {
 				maxWidth: 150
 			},
 			{
-				Header: 'Created At',
+				Header: t('created-at'),
 				accessor: 'createdAt',
 				Cell: ( row ) => {
 					return new Date( row.value ).toLocaleString();
@@ -169,20 +171,20 @@ class UserPage extends Component {
 				maxWidth: 150
 			},
 			{
-				Header: 'Actions',
+				Header: t('common:actions'),
 				Cell: ( row ) => {
 					if ( row.row.email === this.props.user.email ) {
 						return null;
 					}
 					return ( <div>
-						<OverlayTrigger placement="bottom" overlay={<Tooltip id="edit_user_data">Edit User Data</Tooltip>}>
+						<OverlayTrigger placement="bottom" overlay={<Tooltip id="edit_user_data">{t('edit-user-data')}</Tooltip>}>
 							<Button
 								variant="outline-secondary"
 							>
 								<div className="fa fa-edit" />
 							</Button>
 						</OverlayTrigger>
-						<OverlayTrigger placement="bottom" overlay={<Tooltip id="impersonate_user">Impersonate User</Tooltip>}>
+						<OverlayTrigger placement="bottom" overlay={<Tooltip id="impersonate_user">{t('impersonate-user')}</Tooltip>}>
 							<Button
 								variant="outline-secondary"
 								style={{ marginLeft: 8 }}
@@ -191,7 +193,7 @@ class UserPage extends Component {
 								<div className="fa fa-theater-masks" />
 							</Button>
 						</OverlayTrigger>
-						<OverlayTrigger placement="bottom" overlay={<Tooltip id="delete_user">Delete User</Tooltip>}>
+						<OverlayTrigger placement="bottom" overlay={<Tooltip id="delete_user">{t('delete-user')}</Tooltip>}>
 							<Button
 								variant="outline-secondary"
 								style={{ marginLeft: 8 }}
@@ -207,6 +209,7 @@ class UserPage extends Component {
 	}
 
 	render() {
+		const { t } = this.props;
 		return (
 			<Fragment>
 				<ReactTable
@@ -218,13 +221,13 @@ class UserPage extends Component {
 					}}
 				/>
 				{ this.state.showImpersonateModal ? <ConfirmModal
-					title="Impersonate User"
+					title={t('impersonate-user')}
 					message={<span>
-						Please enter your password to impersonate the user <span style={{ color: 'red' }}>{this.state.selectedUser.name}</span>. Notice that this will log you out of your current session.
+						{t('enter-password')}<span style={{ color: 'red' }}>{this.state.selectedUser.name}</span>.{t('automatic-logout')}
 						<FormControl
 							name="password"
 							type="password"
-							placeholder="Enter Password"
+							placeholder={t('password-placeholder')}
 							onChange={this.handlePassword}
 							maxLength={30}
 							minLength={6}
@@ -235,8 +238,8 @@ class UserPage extends Component {
 					onConfirm={this.impersonateUser}
 				/> : null }
 				{ this.state.showDeleteModal ? <ConfirmModal
-					title="Delete User"
-					message={<span>Are you sure you want to delete the user <span style={{ color: 'red' }}>{this.state.selectedUser.name}</span>?</span>}
+					title={t('delete-user')}
+					message={<span>{t('delete-user-confirm')}<span style={{ color: 'red' }}>{this.state.selectedUser.name}</span>?</span>}
 					close={this.toggleDeleteModal}
 					show={this.state.showDeleteModal}
 					onConfirm={this.deleteSelectedUser}
@@ -252,10 +255,11 @@ class UserPage extends Component {
 UserPage.propTypes = {
 	admin: PropTypes.object.isRequired,
 	deleteUser: PropTypes.func.isRequired,
-	impersonateUser: PropTypes.func.isRequired
+	impersonateUser: PropTypes.func.isRequired,
+	t: PropTypes.func.isRequired
 };
 
 
 // EXPORTS //
 
-export default UserPage;
+export default withTranslation( [ 'admin', 'common' ] )( UserPage );
