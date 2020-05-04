@@ -20,7 +20,6 @@
 	"invalid-description": "Beschreibung muss aus mindestens drei Buchstaben bestehen.",
 	"invalid-owners": "Mindestens ein Kurs-Administrator muss via E-Mail festgelegt sein",
 	"manage-cohorts": "Kohorten verwalten",
-	"no-course-selected": "Kein Kurs ausgewählt",
 	"no-students": "Anzahl Studenten",
 	"owner-tooltip": "Liste von E-Mail-Adressen der Kurs-Administratoren",
 	"prevent-label": "Klicken um Einschreiben von Stundenten zu unterbinden",

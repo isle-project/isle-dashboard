@@ -20,7 +20,6 @@
 import React, { Component } from 'react';
 import logger from 'debug';
 import { withTranslation } from 'react-i18next';
-import { Jumbotron } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import { Responsive, WidthProvider } from 'react-grid-layout';
 import isArray from '@stdlib/assert/is-array';
@@ -31,6 +30,8 @@ import pluck from '@stdlib/utils/pluck';
 import floor from '@stdlib/math/base/special/floor';
 import Lesson from './lesson.js';
 import EnrolledLesson from './enrolled_lesson.js';
+import NoCourseBanner from './no_course_banner.js';
+import NoLessonBanner from './no_lesson_banner.js';
 import sortLessons from 'utils/sort_lessons.js';
 import 'css/image.css';
 import 'react-grid-layout/css/styles.css';
@@ -201,31 +202,13 @@ class LessonsPage extends Component {
 	}
 
 	render() {
-		const { t } = this.props;
 		if ( !this.props.namespace.title ) {
-			let appendix = null;
-			if ( this.props.user.writeAccess ) {
-				appendix = <span>{t('create-new-one')}<i className="fa fa-pencil-alt"></i>.</span>;
-			} else {
-				appendix = ' .';
-			}
-			return ( <Jumbotron className="lessons-jumbotron" >
-				<h1>{t('no-course-selected')}</h1>
-				<p>{t('no-course-description')}<i className="fa fa-align-justify"></i>{appendix}
-				</p>
-			</Jumbotron> );
+			return <NoCourseBanner user={this.props.user} />;
 		}
 		let lessons = this.state.filteredLessons;
 		if ( isArray( lessons ) ) {
 			if ( lessons.length === 0 ) {
-				let description = t('no-lessons');
-				if ( this.props.user.writeAccess ) {
-					description += t('upload-from-editor');
-				}
-				return ( <Jumbotron className="lessons-jumbotron">
-					<h1>{t('no-lessons-found')}</h1>
-					<p>{description}</p>
-				</Jumbotron> );
+				return <NoLessonBanner user={this.props.user} />;
 			}
 			return (
 				<div className="lessons-grid-container">
