@@ -2,7 +2,9 @@
 
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
-import { Button, ToggleButtonGroup, ToggleButton } from 'react-bootstrap';
+import Button from 'react-bootstrap/Button';
+import ToggleButtonGroup from 'react-bootstrap/ToggleButtonGroup';
+import ToggleButton from 'react-bootstrap/ToggleButton';
 import logger from 'debug';
 import Select from 'react-select';
 import './actions_page.css';

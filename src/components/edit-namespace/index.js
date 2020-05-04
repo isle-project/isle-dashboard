@@ -20,10 +20,22 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { withTranslation } from 'react-i18next';
-import {
-	Alert, Badge, Button, ButtonGroup, Card, Container, Col, Row, FormLabel, FormControl, FormGroup, Form, ListGroup, ListGroupItem, OverlayTrigger, Tooltip
-} from 'react-bootstrap';
-import 'react-dates/lib/css/_datepicker.css';
+import Alert from 'react-bootstrap/Alert';
+import Badge from 'react-bootstrap/Badge';
+import Button from 'react-bootstrap/Button';
+import ButtonGroup from 'react-bootstrap/ButtonGroup';
+import Card from 'react-bootstrap/Card';
+import Container from 'react-bootstrap/Container';
+import Col from 'react-bootstrap/Col';
+import Row from 'react-bootstrap/Row';
+import FormControl from 'react-bootstrap/FormControl';
+import FormLabel from 'react-bootstrap/FormLabel';
+import FormGroup from 'react-bootstrap/FormGroup';
+import Form from 'react-bootstrap/Form';
+import ListGroup from 'react-bootstrap/ListGroup';
+import ListGroupItem from 'react-bootstrap/ListGroupItem';
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
+import Tooltip from 'react-bootstrap/Tooltip';
 import { withRouter } from 'react-router';
 import isArray from '@stdlib/assert/is-array';
 import trim from '@stdlib/string/trim';
@@ -35,6 +47,7 @@ import checkURLPath from 'utils/check_url_path.js';
 import EditCohortModal from './edit_cohort_modal.js';
 import CreateCohortModal from './create_cohort_modal.js';
 import SERVER from 'constants/server';
+import 'react-dates/lib/css/_datepicker.css';
 import './edit_namespace.css';
 
 
