@@ -21,9 +21,13 @@ import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import logger from 'debug';
 import { withTranslation } from 'react-i18next';
-import {
-	Badge, Button, ButtonGroup, ButtonToolbar, Card, OverlayTrigger, Tooltip
-} from 'react-bootstrap';
+import Badge from 'react-bootstrap/Badge';
+import Button from 'react-bootstrap/Button';
+import ButtonGroup from 'react-bootstrap/ButtonGroup';
+import ButtonToolbar from 'react-bootstrap/ButtonToolbar';
+import Card from 'react-bootstrap/Card';
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
+import Tooltip from 'react-bootstrap/Tooltip';
 import copyToClipboard from 'clipboard-copy';
 import DetailsModal from './details_modal.js';
 import DeleteModal from './delete_modal.js';

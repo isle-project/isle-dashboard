@@ -20,9 +20,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withTranslation } from 'react-i18next';
-import {
-	Card, ButtonToolbar, ProgressBar, OverlayTrigger, Tooltip
-} from 'react-bootstrap';
+import Card from 'react-bootstrap/Card';
+import ButtonToolbar from 'react-bootstrap/ButtonToolbar';
+import ProgressBar from 'react-bootstrap/ProgressBar';
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
+import Tooltip from 'react-bootstrap/Tooltip';
 import copyToClipboard from 'clipboard-copy';
 import round from '@stdlib/math/base/special/round';
 import min from '@stdlib/math/base/special/min';

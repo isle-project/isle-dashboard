@@ -19,9 +19,13 @@
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import {
-	Button, Col, FormLabel, Form, FormControl, FormGroup, Modal
-} from 'react-bootstrap';
+import Button from 'react-bootstrap/Button';
+import Col from 'react-bootstrap/Col';
+import FormControl from 'react-bootstrap/FormControl';
+import FormLabel from 'react-bootstrap/FormLabel';
+import FormGroup from 'react-bootstrap/FormGroup';
+import Form from 'react-bootstrap/Form';
+import Modal from 'react-bootstrap/Modal';
 import logger from 'debug';
 import SERVER from 'constants/server';
 
