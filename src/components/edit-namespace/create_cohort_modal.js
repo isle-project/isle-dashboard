@@ -19,10 +19,17 @@
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import {
-	Button, Col, FormLabel, Form, FormCheck, FormControl,
-	FormGroup, OverlayTrigger, Modal, Row, Tooltip
-} from 'react-bootstrap';
+import Button from 'react-bootstrap/Button';
+import Col from 'react-bootstrap/Col';
+import Row from 'react-bootstrap/Row';
+import FormLabel from 'react-bootstrap/FormLabel';
+import Form from 'react-bootstrap/Form';
+import FormCheck from 'react-bootstrap/FormCheck';
+import FormControl from 'react-bootstrap/FormControl';
+import FormGroup from 'react-bootstrap/FormGroup';
+import Modal from 'react-bootstrap/Modal';
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
+import Tooltip from 'react-bootstrap/Tooltip';
 import { DateRangePicker } from 'react-dates';
 import moment from 'moment';
 import isEmail from '@stdlib/assert/is-email-address';

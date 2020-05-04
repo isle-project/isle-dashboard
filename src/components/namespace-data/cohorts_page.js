@@ -19,7 +19,9 @@
 
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
-import { ProgressBar, OverlayTrigger, Tooltip } from 'react-bootstrap';
+import ProgressBar from 'react-bootstrap/ProgressBar';
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
+import Tooltip from 'react-bootstrap/Tooltip';
 import Select from 'react-select';
 import round from '@stdlib/math/base/special/round';
 import min from '@stdlib/math/base/special/min';

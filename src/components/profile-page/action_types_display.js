@@ -19,7 +19,7 @@
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Table } from 'react-bootstrap';
+import Table from 'react-bootstrap/Table';
 import objectKeys from '@stdlib/utils/keys';
 
 

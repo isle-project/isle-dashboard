@@ -19,7 +19,13 @@
 
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
-import { Badge, Button, Modal, Form, FormControl, Col, Row } from 'react-bootstrap';
+import Badge from 'react-bootstrap/Badge';
+import Button from 'react-bootstrap/Button';
+import Modal from 'react-bootstrap/Modal';
+import Form from 'react-bootstrap/Form';
+import FormControl from 'react-bootstrap/FormControl';
+import Col from 'react-bootstrap/Col';
+import Row from 'react-bootstrap/Row';
 import AvatarEditor from 'react-avatar-editor';
 import path from 'path';
 

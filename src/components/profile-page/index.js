@@ -20,7 +20,12 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { withTranslation } from 'react-i18next';
-import { Button, Card, Media, Nav, OverlayTrigger, Tooltip } from 'react-bootstrap';
+import Button from 'react-bootstrap/Button';
+import Card from 'react-bootstrap/Card';
+import Media from 'react-bootstrap/Media';
+import Nav from 'react-bootstrap/Nav';
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
+import Tooltip from 'react-bootstrap/Tooltip';
 import path from 'path';
 import keys from '@stdlib/utils/keys';
 import isArray from '@stdlib/assert/is-array';
