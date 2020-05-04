@@ -14,10 +14,5 @@
 	"open-your-courses": "Open Your Courses",
 	"owned-courses": "Owned Courses",
 	"search-placeholder": "Filter lessons by searching",
-	"select-course": "Select course",
-	"sort-alphabetically": "Sort alphabetically",
-	"sort-ascending": "Sort in ascending order",
-	"sort-create-date": "Sort by create date",
-	"sort-descending": "Sort in descending order",
-	"sort-update-date": "Sort by update date"
+	"select-course": "Select course"
 }

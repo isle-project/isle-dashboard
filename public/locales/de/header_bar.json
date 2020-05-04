@@ -14,10 +14,5 @@
 	"open-your-courses": "Kurse anzeigen",
 	"owned-courses": "Eigene Kurse",
 	"search-placeholder": "Durchsuche Lektionen des Kurses",
-	"select-course": "Kurs auswählen",
-	"sort-alphabetically": "Alphabetisch sortieren",
-	"sort-ascending": "Ansteigend sortieren",
-	"sort-create-date": "Sortieren nach Erzeugungsdatum",
-	"sort-descending": "Absteigend sortieren",
-	"sort-update-date": "Sortieren nach Aktualisierungsdatum"
+	"select-course": "Kurs auswählen"
 }

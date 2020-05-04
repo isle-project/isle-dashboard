@@ -1,0 +1,15 @@
+{
+	"announcement-text": "Ankündigungstext",
+	"announcement-title": "Titel bestehend aus mindestens drei Buchstaben.",
+	"delete-announcement": "Bist Du sicher, dass Du diese Ankündigung löschen möchtest?",
+	"duration": "Dauer",
+	"edit-announcement": "Ankündigung editieren",
+	"first-name": "Vorname",
+	"last-name": "Nachname",
+	"new-announcement": "Neue Ankündigung",
+	"owner-files": "Kurs-Administrator-Dateien",
+	"save-as-csv": "CSV",
+	"save-as-json": "JSON speichern",
+	"student-files": "Studenten-Dateien",
+	"wrote-on": "schrieb am {{date}}"
+}

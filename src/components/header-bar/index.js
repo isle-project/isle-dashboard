@@ -387,13 +387,13 @@ class HeaderBar extends Component {
 		const { t } = this.props;
 		switch ( this.props.search.type ) {
 			case 'alphabetically':
-				title = t('sort-alphabetically');
+				title = t('common:sort-alphabetically');
 				break;
 			case 'created_at':
-				title = t('sort-create-date');
+				title = t('common:sort-create-date');
 				break;
 			case 'updated_at':
-				title = t('sort-update-date');
+				title = t('common:sort-update-date');
 				break;
 		}
 		return (
@@ -402,13 +402,13 @@ class HeaderBar extends Component {
 					this.props.setLessonOrder( newValue );
 				}} id="dropdown" title={<small>{title}</small>} >
 					<Dropdown.Item eventKey="alphabetically">
-						<small>{t('sort-alphabetically')}</small>
+						<small>{t('common:sort-alphabetically')}</small>
 					</Dropdown.Item>
 					<Dropdown.Item eventKey="created_at">
-						<small>{t('sort-create-date')}</small>
+						<small>{t('common:sort-create-date')}</small>
 					</Dropdown.Item>
 					<Dropdown.Item eventKey="updated_at">
-						<small>{t('sort-update-date')}</small>
+						<small>{t('common:sort-update-date')}</small>
 					</Dropdown.Item>
 				</DropdownButton>
 				<Button variant="secondary" style={{ marginLeft: 2 }} onClick={() => {
@@ -418,7 +418,7 @@ class HeaderBar extends Component {
 						this.props.setLessonOrderDirection( 'ascending' );
 					}
 				}} aria-label={this.props.search.direction === 'ascending' ?
-					t('sort-descending') : t('sort-ascending')}>
+					t('common:sort-descending') : t('common:sort-ascending')}>
 					{ this.props.search.direction === 'ascending' ?
 						<i className="fas fa-arrow-down" /> :
 						<i className="fas fa-arrow-up" />
