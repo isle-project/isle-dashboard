@@ -18,9 +18,10 @@
 // MODULES //
 
 import React, { Component } from 'react';
-import { Pagination, Jumbotron } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import { withTranslation } from 'react-i18next';
+import Pagination from 'react-bootstrap/Pagination';
+import Jumbotron from 'react-bootstrap/Jumbotron';
 import { Responsive, WidthProvider } from 'react-grid-layout';
 import isArray from '@stdlib/assert/is-array';
 import contains from '@stdlib/assert/contains';
