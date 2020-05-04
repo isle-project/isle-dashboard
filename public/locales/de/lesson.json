@@ -3,7 +3,6 @@
 	"active": "Aktiv",
 	"copy-file": "Kopiere Quellcode der Lektion in die Zwischenablage",
 	"copy-include": "Kopiere ISLE Inklusionsbefehl in die Zwischenablage",
-	"copy-link": "Link in die Zwischenablage kopieren",
 	"created-at": "erstellt am",
 	"delete-lesson": "Lektion löschen",
 	"delete-modal-body": "Bist Du sicher, dass Du die Lektion mit dem Namen \"{{name}}\" löschen möchtest?",

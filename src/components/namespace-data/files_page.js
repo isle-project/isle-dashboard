@@ -19,6 +19,7 @@
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { withTranslation } from 'react-i18next';
 import stringify from 'csv-stringify';
 import ReactTable from 'react-table';
 import InputRange from 'react-input-range';
@@ -105,9 +106,10 @@ class FilesPage extends Component {
 	}
 
 	createColumns = () => {
+		const { t } = this.props;
 		return [
 			{
-				Header: 'Filename',
+				Header: t('filename'),
 				accessor: 'title',
 				minWidth: 250,
 				filterMethod: ( filter, row ) => {
@@ -115,11 +117,11 @@ class FilesPage extends Component {
 				}
 			},
 			{
-				Header: 'Open',
+				Header: t('common:open'),
 				accessor: 'filename',
 				Cell: ( row ) => {
 					return (
-						<OverlayTrigger placement="left" overlay={<Tooltip id="external-link-tooltip">Open the file.</Tooltip>}>
+						<OverlayTrigger placement="left" overlay={<Tooltip id="external-link-tooltip">{t('open-file')}</Tooltip>}>
 							<a href={server+'/'+row.value} target="_blank">
 								<Button size="sm" variant="outline-secondary">
 									<i className="fa fa-external-link-alt"></i>
@@ -133,12 +135,12 @@ class FilesPage extends Component {
 				width: 45
 			},
 			{
-				Header: 'Copy',
+				Header: t('common:copy'),
 				id: 'copy-path',
 				accessor: 'filename',
 				Cell: ( row ) => {
 					return (
-						<OverlayTrigger placement="right" overlay={<Tooltip id="copy-clipboard-tooltip">Copy link to clipboard.</Tooltip>}>
+						<OverlayTrigger placement="right" overlay={<Tooltip id="copy-clipboard-tooltip">{t('common:copy-link')}</Tooltip>}>
 							<Button variant="outline-secondary" size="sm"
 								onClick={() => {
 									copyToClipboard( server+'/'+row.value );
@@ -161,15 +163,15 @@ class FilesPage extends Component {
 				width: 45
 			},
 			{
-				Header: 'Lesson',
+				Header: t('common:lesson'),
 				accessor: 'lesson',
 				maxWidth: 160,
 				Cell: ( row ) => {
 					if ( !row.row.lesson ) {
-						return <span>no lesson</span>;
+						return <span>{t('no-lesson')}</span>;
 					}
 					return (
-						<OverlayTrigger placement="right" overlay={<Tooltip id="open-lesson-tooltip">Open lesson in new tab.</Tooltip>}>
+						<OverlayTrigger placement="right" overlay={<Tooltip id="open-lesson-tooltip">{t('open-lesson-new-tab')}</Tooltip>}>
 							<div style={{ width: '100%', height: '100%' }} >
 								<a href={row.row.lesson.url} target="_blank">
 									{row.row.lesson.title}
@@ -183,7 +185,7 @@ class FilesPage extends Component {
 				}
 			},
 			{
-				Header: 'First',
+				Header: t('first-name'),
 				id: 'first_name',
 				accessor: d => {
 					const parts = trim( d.name ).split( ' ' );
@@ -200,7 +202,7 @@ class FilesPage extends Component {
 				}
 			},
 			{
-				Header: 'Last',
+				Header: t('last-name'),
 				id: 'last_name',
 				accessor: d => {
 					const parts = trim( d.name ).split( ' ' );
@@ -216,7 +218,7 @@ class FilesPage extends Component {
 				}
 			},
 			{
-				Header: 'Email',
+				Header: t('common:email'),
 				accessor: 'email',
 				maxWidth: 160,
 				filterMethod: ( filter, row ) => {
@@ -224,14 +226,14 @@ class FilesPage extends Component {
 				}
 			},
 			{
-				Header: 'Type',
+				Header: t('type'),
 				accessor: 'type',
 				filterMethod: ( filter, row ) => {
 					return contains( row[ filter.id ], filter.value );
 				}
 			},
 			{
-				Header: 'Size',
+				Header: t('size'),
 				accessor: 'size',
 				Cell: row => row.value ? `${roundn( row.value, -3 )}mb` : 'NA',
 				filterMethod: ( filter, row ) => {
@@ -267,7 +269,7 @@ class FilesPage extends Component {
 				}
 			},
 			{
-				Header: 'Date',
+				Header: t('common:date'),
 				accessor: 'updatedAt',
 				Cell: ( row ) => {
 					if ( row.value && row.value.toLocaleDateString ) {
@@ -282,7 +284,7 @@ class FilesPage extends Component {
 				accessor: '_id',
 				Cell: ( row ) => {
 					return (
-						<OverlayTrigger placement="left" overlay={<Tooltip id="delete-file-tooltip">Delete the file.</Tooltip>}>
+						<OverlayTrigger placement="left" overlay={<Tooltip id="delete-file-tooltip">{t('delete-file-tooltip')}</Tooltip>}>
 							<Button
 								size="sm" variant="outline-secondary"
 								onClick={() => {
@@ -337,10 +339,11 @@ class FilesPage extends Component {
 	}
 
 	render() {
+		const { t } = this.props;
 		return ( <div className="namespace-data-page">
 			<ButtonGroup className="files-export-button-group" >
-				<Button size="sm" variant="secondary" onClick={this.saveCSV} >Save as CSV</Button>
-				<Button size="sm" variant="secondary" onClick={this.saveJSON} >Save as JSON</Button>
+				<Button size="sm" variant="secondary" onClick={this.saveCSV} >{t('save-as-csv')}</Button>
+				<Button size="sm" variant="secondary" onClick={this.saveJSON} >{t('save-as-json')}</Button>
 			</ButtonGroup>
 			{ this.props.ownerFiles ? <FormGroup style={{
 				position: 'absolute',
@@ -349,7 +352,7 @@ class FilesPage extends Component {
 				display: 'inline-block'
 			}}>
 					<FormLabel htmlFor="fileUpload" style={{ cursor: 'pointer' }}>
-						<h3><Badge variant="success">Upload file</Badge></h3>
+						<h3><Badge variant="success">{t('upload-file')}</Badge></h3>
 						<input
 							id="fileUpload"
 							key={this.state.fileInputKey}
@@ -371,8 +374,8 @@ class FilesPage extends Component {
 			<ConfirmModal
 				show={this.state.showDeleteModal}
 				close={this.toggleDeleteModal}
-				message="Are you sure that you want to delete this file?"
-				title="Delete?"
+				message={t('delete-file')}
+				title={`${t('common:delete')}?`}
 				onConfirm={this.handleDelete}
 			/>
 		</div> );
@@ -398,4 +401,4 @@ FilesPage.defaultProps = {
 
 // EXPORTS //
 
-export default FilesPage;
+export default withTranslation( [ 'namespace_data', 'common' ] )( FilesPage );
