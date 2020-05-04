@@ -1,0 +1,9 @@
+{
+	"import": "Import",
+	"import-lesson": "Import lesson ",
+	"import-lesson-description": "Please select the course that the lesson should be copied into.",
+	"lesson-name": "Lesson Name",
+	"no-lessons-description": "No lessons have been made available to the gallery yet or are satisfying your search criteria.",
+	"no-lessons-title": "No Lessons Found",
+	"select-course": "Select Course"
+}

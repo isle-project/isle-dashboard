@@ -18,6 +18,7 @@
 // MODULES //
 
 import React, { Component } from 'react';
+import { withTranslation } from 'react-i18next';
 import {
 	ButtonToolbar, Button, Card, OverlayTrigger, Tooltip
 } from 'react-bootstrap';
@@ -64,14 +65,14 @@ class Lesson extends Component {
 	copyIsleFileToClipboard = () => {
 		if ( !this.state.isleFile ) {
 			return this.props.addNotification({
-				message: 'Source could not be fetched. Please try again in a few seconds.',
+				message: this.props.t('source-file-error'),
 				level: 'error'
 			});
 		}
 		const promise = copyToClipboard( this.state.isleFile );
 		promise.then( () => {
 			this.props.addNotification({
-				message: 'Source code has been copied to the clipboard',
+				message: this.props.t('source-file-copied'),
 				level: 'success'
 			});
 		}).catch( err => {
@@ -86,7 +87,7 @@ class Lesson extends Component {
 		const promise = copyToClipboard( `<!-- #include "${this.props.url}" -->` );
 		promise.then( () => {
 			this.props.addNotification({
-				message: 'Link has been copied to the clipboard',
+				message: this.props.t('include-copied'),
 				level: 'success'
 			});
 		}).catch( err => {
@@ -118,12 +119,13 @@ class Lesson extends Component {
 				date = updated;
 			}
 		}
+		const { t } = this.props;
 		return (
 			<div className="gallery-upload">
-				<OverlayTrigger placement="bottom" overlay={<Tooltip id="toggle_visibility">created at</Tooltip>}>
+				<OverlayTrigger placement="bottom" overlay={<Tooltip id="toggle_visibility">{t('created-at')}</Tooltip>}>
 					<span className="gallery-uploaded-image"><img style={{ stroke: 'white', fill: 'red' }} alt="Upload Time Icon" src={upload} /></span>
 				</OverlayTrigger>
-				<OverlayTrigger placement="bottom" overlay={<Tooltip id="toggle_visibility">updated at {updated}</Tooltip>}>
+				<OverlayTrigger placement="bottom" overlay={<Tooltip id="toggle_visibility">{t('last-updated')}{updated}</Tooltip>}>
 					<span className="gallery-uploaded">{date}</span>
 				</OverlayTrigger>
 			</div>
@@ -131,19 +133,20 @@ class Lesson extends Component {
 	}
 
 	renderButtonToolbar() {
+		const { t } = this.props;
 		return ( <div className="gallery-toolbar">
 			<ButtonToolbar size="sm" style={{ marginLeft: 16, marginTop: 3 }}>
-				<OverlayTrigger placement="bottom" overlay={<Tooltip id="ImportFile">Import lesson to own course</Tooltip>}>
+				<OverlayTrigger placement="bottom" overlay={<Tooltip id="ImportFile">{t('import-tooltip')}</Tooltip>}>
 					<Button size="sm" style={{ marginLeft: 4, marginRight: 4 }} onClick={this.props.onImport}>
-						Import
+						{t('import')}
 					</Button>
 				</OverlayTrigger>
-				<OverlayTrigger placement="bottom" overlay={<Tooltip id="IsleFile">Copy ISLE file to clipboard</Tooltip>}>
+				<OverlayTrigger placement="bottom" overlay={<Tooltip id="IsleFile">{t('copy-file')}</Tooltip>}>
 					<Button size="sm" onFocus={this.getIsleFile} onMouseEnter={this.getIsleFile} onClick={this.copyIsleFileToClipboard} >
 						<i className="fa fa-clipboard"></i>
 					</Button>
 				</OverlayTrigger>
-				<OverlayTrigger placement="bottom" overlay={<Tooltip id="IsleFile">Copy ISLE include comment to clipboard</Tooltip>}>
+				<OverlayTrigger placement="bottom" overlay={<Tooltip id="IsleFile">{t('copy-include')}</Tooltip>}>
 					<Button size="sm" onClick={this.copyIncludeToClipboard} style={{ marginLeft: 4 }} >
 						<i className="fa fa-link"></i>
 					</Button>
@@ -154,6 +157,7 @@ class Lesson extends Component {
 	}
 
 	render() {
+		const { t } = this.props;
 		return (
 			<Card className="gallery-card">
 				<Card.Body>
@@ -181,7 +185,7 @@ class Lesson extends Component {
 							<h3>{this.props.description}</h3>
 							<span
 								className="info"
-							>Open Lesson</span>
+							>{t('open-lesson')}</span>
 						</div>
 					</div>
 					{this.renderButtonToolbar()}
@@ -207,4 +211,4 @@ Lesson.propTypes = {
 
 // EXPORTS //
 
-export default Lesson;
+export default withTranslation( [ 'lesson', 'common' ] )( Lesson );

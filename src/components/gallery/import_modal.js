@@ -76,17 +76,18 @@ class ImportModal extends Component {
 	}
 
 	render() {
+		const { t } = this.props;
 		return (
 			<Modal show={this.props.show} onHide={this.props.close}>
 				<Modal.Header>
 					<Modal.Title>
-						Import lesson <span style={{ color: 'darkred' }}>{this.props.namespace}: {this.props.title}</span>
+						{t('import-lesson')}<span style={{ color: 'darkred' }}>{this.props.namespace}: {this.props.title}</span>
 					</Modal.Title>
 				</Modal.Header>
 				<Modal.Body>
-					<p>Please select the course that the lesson should be copied into.</p>
+					<p>{t('import-lesson-description')}</p>
 					<FormGroup>
-						<FormLabel>Select Course</FormLabel>
+						<FormLabel>{t('select-course')}</FormLabel>
 						<SelectInput
 							options={this.props.userNamespaces.map( ns => {
 								return { value: ns.title, label: ns.title };
@@ -96,7 +97,7 @@ class ImportModal extends Component {
 						/>
 					</FormGroup>
 					<FormGroup>
-						<FormLabel>Lesson Name</FormLabel>
+						<FormLabel>{t('lesson-name')}</FormLabel>
 						<FormControl
 							name="targetName"
 							type="text"
@@ -106,8 +107,8 @@ class ImportModal extends Component {
 					</FormGroup>
 				</Modal.Body>
 				<Modal.Footer>
-					<Button onClick={this.props.close}>Cancel</Button>
-					<Button variant="success" onClick={this.handleImport} >Import</Button>
+					<Button onClick={this.props.close}>{t('common:cancel')}</Button>
+					<Button variant="success" onClick={this.handleImport} >{t('import')}</Button>
 				</Modal.Footer>
 			</Modal>
 		);
@@ -123,6 +124,7 @@ ImportModal.propTypes = {
 	namespace: PropTypes.string.isRequired,
 	openedNamespace: PropTypes.object.isRequired,
 	show: PropTypes.bool.isRequired,
+	t: PropTypes.func.isRequired,
 	title: PropTypes.string.isRequired,
 	userNamespaces: PropTypes.array.isRequired
 };
