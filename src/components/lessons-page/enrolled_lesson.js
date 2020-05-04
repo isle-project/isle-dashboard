@@ -154,11 +154,11 @@ class EnrolledLesson extends Component {
 								}}
 								className="info"
 							>
-								{t('open-lesson')}
+								{t('common:open-lesson')}
 							</span>
 						</div>
 					</div>
-					<OverlayTrigger placement="top" overlay={<Tooltip id="copy_link">{t('copy-link')}</Tooltip>}>
+					<OverlayTrigger placement="top" overlay={<Tooltip id="copy_link">{t('common:copy-link')}</Tooltip>}>
 						<i
 							role="button" tabIndex={0}
 							className="lesson-link-icon fas fa-external-link-alt"
@@ -188,4 +188,4 @@ EnrolledLesson.propTypes = {
 
 // EXPORTS //
 
-export default withTranslation( [ 'lessons_page', 'common' ] )( EnrolledLesson );
+export default withTranslation( [ 'lesson', 'common' ] )( EnrolledLesson );

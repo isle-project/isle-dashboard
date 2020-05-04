@@ -215,10 +215,10 @@ class Lesson extends Component {
 						<i className="fa fa-trash-alt"></i>
 					</Button>
 				</OverlayTrigger>
-				<OverlayTrigger placement="top" overlay={<Tooltip id="isle-file">{t('copy-link')}</Tooltip>}>
+				<OverlayTrigger placement="top" overlay={<Tooltip id="isle-file">{t('copy-file')}</Tooltip>}>
 					<Button variant="secondary" size="sm" onFocus={this.getIsleFile} onMouseEnter={this.getIsleFile}
 						onClick={this.copyIsleFileToClipboard} style={{ float: 'right' }}
-						aria-label={t('copy-link')}
+						aria-label={t('copy-file')}
 					>
 						<i className="fa fa-clipboard"></i>
 					</Button>
@@ -326,4 +326,4 @@ Lesson.propTypes = {
 
 // EXPORTS //
 
-export default withTranslation( [ 'lessons_page', 'common' ] )( Lesson );
+export default withTranslation( [ 'lesson', 'common' ] )( Lesson );

@@ -20,6 +20,7 @@
 import React, { Component } from 'react';
 import { Pagination, Jumbotron } from 'react-bootstrap';
 import PropTypes from 'prop-types';
+import { withTranslation } from 'react-i18next';
 import { Responsive, WidthProvider } from 'react-grid-layout';
 import isArray from '@stdlib/assert/is-array';
 import contains from '@stdlib/assert/contains';
@@ -162,6 +163,7 @@ class Gallery extends Component {
 			userNamespaces={this.props.user.ownedNamespaces}
 			copyLesson={this.props.copyLesson}
 			openedNamespace={this.props.openedNamespace}
+			t={this.props.t}
 		/> );
 	}
 
@@ -196,11 +198,12 @@ class Gallery extends Component {
 	}
 
 	render() {
+		const { t } = this.props;
 		let lessons = this.state.filteredLessons;
 		if ( !isArray( lessons ) || lessons.length === 0 ) {
 			return ( <Jumbotron className="gallery-jumbotron">
-				<h1>No Lessons Found</h1>
-				<p>The selected course does not contain any lessons. You can upload lessons from the ISLE editor.</p>
+				<h1>{t('no-lessons-title')}</h1>
+				<p>{t('no-lessons-description')}</p>
 			</Jumbotron> );
 		}
 		lessons = this.selectPageLessons( lessons );
@@ -261,4 +264,4 @@ Gallery.propTypes = {
 
 // EXPORTS //
 
-export default Gallery;
+export default withTranslation( [ 'gallery', 'common' ] )( Gallery );
