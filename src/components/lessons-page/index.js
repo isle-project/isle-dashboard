@@ -176,7 +176,6 @@ class LessonsPage extends Component {
 						{...lessons[ i ]}
 						addNotification={this.props.addNotification}
 						user={this.props.user}
-						t={this.props.t}
 					/>
 				</div>);
 			});
@@ -195,7 +194,6 @@ class LessonsPage extends Component {
 						hideLessonInGallery={this.props.hideLessonInGallery}
 						getLessons={this.props.getLessons}
 						getIsleFile={this.props.getIsleFile}
-						t={this.props.t}
 					/>
 				</div> );
 			})

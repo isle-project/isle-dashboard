@@ -20,6 +20,7 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import logger from 'debug';
+import { withTranslation } from 'react-i18next';
 import {
 	Badge, Button, ButtonGroup, ButtonToolbar, Card, OverlayTrigger, Tooltip
 } from 'react-bootstrap';
@@ -317,7 +318,6 @@ Lesson.propTypes = {
 	namespace: PropTypes.string.isRequired,
 	public: PropTypes.bool.isRequired,
 	showLessonInGallery: PropTypes.func.isRequired,
-	t: PropTypes.func.isRequired,
 	title: PropTypes.string.isRequired,
 	updateLesson: PropTypes.func.isRequired,
 	url: PropTypes.string.isRequired
@@ -326,4 +326,4 @@ Lesson.propTypes = {
 
 // EXPORTS //
 
-export default Lesson;
+export default withTranslation( [ 'lessons_page', 'common' ] )( Lesson );

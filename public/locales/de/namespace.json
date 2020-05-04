@@ -1,7 +1,14 @@
 {
 	"create-course": "Kurs erzeugen",
+	"cohort-title-tooltip": "Bitte gib den Namen der Kohorte ein.",
+	"cohort-period": "Von ... bis",
 	"edit-course": "Kurs editieren",
+	"email-filter": "E-Mail-Filter",
+	"filter-tooltip": "Kann entweder ein Text-String oder ein Regular Expression String sein (beginnend und endend in /)",
+	"enrolled-students": "Eingeschriebene Studenten",
+	"enrolled-tooltip": "Komma-separierte Liste von E-Mail-Adressen der Studenten in dieser Kohorte",
 	"create-cohort": "Kohorte erzeugen",
+	"create-new-cohort": "Erzeuge eine neue Kohorte",
 	"owner-tooltip": "Liste von E-Mail-Adressen der Kurs-Administratoren",
 	"invalid-owners": "Mindestens ein Kurs-Administrator muss via E-Mail festgelegt sein",
 	"invalid-description": "Beschreibung muss aus mindestens drei Buchstaben bestehen.",
@@ -12,6 +19,7 @@
 	"title-tooltip": "Vollständiger Kurstitel und/oder Kursbeschreibung.",
 	"title-description": "Titel / Beschreibung",
 	"no-students": "Anzahl Studenten",
+	"prevent-tooltip": "Wenn angeklickt, wird der Kurs nicht in die Liste der Kurse, in die sich Studenten selbst einschreiben können, aufgenommen",
 	"accessible-at": "Lektionen sind aufrufbar bei ",
 	"course-placeholder": "Kurs-Kennzeichen eingeben",
 	"title-placeholder": "Vollständigen Kurstitel und/oder Kursbeschreibung eingeben"
