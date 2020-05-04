@@ -1,15 +1,15 @@
 {
-	"confirm-password": "Confirm Password",
-	"login": "Log in",
-	"enter-name": "Enter Name",
 	"choose-password": "Choose Password",
-	"signup-not-valid": "Please make sure that all input values are valid before submitting.",
+	"confirm-password": "Confirm Password",
 	"email-tooltip": "Please enter a valid email address.",
+	"enter-name": "Enter Name",
 	"invalid-email": "Not a valid email address.",
 	"invalid-name": "Name must contain four characters.",
-	"name-tooltip": "Please enter your name.",
-	"password": "Password",
-	"password-tooltip": "Please enter a password of your choosing with at least six characters",
+	"invalid-password-match": "Passwords do not match.",
 	"invalid-password": "Your password has to contain at least six characters.",
-	"invalid-password-match": "Passwords do not match."
+	"login": "Log in",
+	"name-tooltip": "Please enter your name.",
+	"password-tooltip": "Please enter a password of your choosing with at least six characters",
+	"password": "Password",
+	"signup-not-valid": "Please make sure that all input values are valid before submitting."
 }
