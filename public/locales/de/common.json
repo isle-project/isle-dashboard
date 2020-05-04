@@ -1,7 +1,9 @@
 {
+	"actions": "Aktionen",
 	"badges": "Abzeichen",
 	"cancel": "Abbrechen",
 	"choose-language": "Sprache auswählen",
+	"confirm": "Bestätigen",
 	"course": "Kurs",
 	"courses": "Kurse",
 	"create": "Erstellen",
@@ -24,6 +26,7 @@
 	"register": "Registrieren",
 	"reset": "Zurücksetzen",
 	"save": "Speichern",
+	"save-file": "Datei speichern",
 	"statistics": "Statistiken",
 	"title": "Titel",
 	"update": "Update"

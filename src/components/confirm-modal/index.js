@@ -19,6 +19,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { withTranslation } from 'react-i18next';
 import { Button, Modal } from 'react-bootstrap';
 
 
@@ -33,8 +34,8 @@ const ConfirmModal = ( props ) => (
 			{props.message}
 		</Modal.Body>
 		<Modal.Footer>
-			<Button onClick={props.close}>Cancel</Button>
-			<Button variant="danger" onClick={props.onConfirm}>Confirm</Button>
+			<Button onClick={props.close}>{props.t('cancel')}</Button>
+			<Button variant="danger" onClick={props.onConfirm}>{props.t('confirm')}</Button>
 		</Modal.Footer>
 	</Modal>
 );
@@ -61,4 +62,4 @@ ConfirmModal.defaultProps = {
 
 // EXPORTS //
 
-export default ConfirmModal;
+export default withTranslation( [ 'common' ] )( ConfirmModal );

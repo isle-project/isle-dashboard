@@ -1,7 +1,9 @@
 {
+	"actions": "Actions",
 	"badges": "Badges",
 	"cancel": "Cancel",
 	"choose-language": "Choose language",
+	"confirm": "Confirm",
 	"course": "Course",
 	"courses": "Courses",
 	"create": "Create",
@@ -24,6 +26,7 @@
 	"register": "Sign Up",
 	"reset": "Reset",
 	"save": "Save",
+	"save-file": "Save File",
 	"statistics": "Statistics",
 	"title": "Title",
 	"update": "Update"

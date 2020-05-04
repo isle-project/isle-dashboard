@@ -1,0 +1,15 @@
+{
+	"access-log": "Zugriffslog",
+	"admins": "Administratoren",
+	"automatic-logout": " Beachte, dass Du aus der momentanen Sitzung ausgeloggt wirst.",
+	"created-at": "Erstellt am",
+	"delete-user": "Nutzer löschen",
+	"delete-user-confirm": "Bist Du sicher, dass Du den folgenden Nutzer löschen möchtest: ",
+	"edit-user-data": "Nutzerdaten editieren",
+	"enter-password": "Bitte gib Dein Passwort ein um Dich als folgender Nutzer anzumelden: ",
+	"error-log": "Fehlerlog",
+	"impersonate-user": "Anmelden als",
+	"last-updated": "Zuletzt aktualisiert",
+	"password-placeholder": "Passwort eingeben",
+	"users": "Nutzer"
+}

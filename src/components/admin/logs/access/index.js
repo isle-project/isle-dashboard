@@ -2,6 +2,7 @@
 
 import React, { Component, Fragment } from 'react';
 import { LazyLog, ScrollFollow } from 'react-lazylog';
+import { withTranslation } from 'react-i18next';
 import qs from 'querystring';
 import Button from 'react-bootstrap/Button';
 import './access_log.css';
@@ -11,11 +12,12 @@ import './access_log.css';
 
 class AccessLog extends Component {
 	render() {
-		const url = `/logs/access.log?${qs.stringify({ jwt: this.props.user.token })}`;
+		const { user, t } = this.props;
+		const url = `/logs/access.log?${qs.stringify({ jwt: user.token })}`;
 		return (
 			<Fragment>
 				<a href={url} target="_blank" download >
-					<Button variant="success" className="admin-page-log-side-button" >Save File</Button>
+					<Button variant="success" className="admin-page-log-side-button" >{t('common:save-file')}</Button>
 				</a>
 				<div className="access-log-wrapper" >
 					<ScrollFollow
@@ -26,7 +28,7 @@ class AccessLog extends Component {
 								url={url}
 								stream follow={follow} onScroll={onScroll}
 								selectableLines
-								text="Access Log"
+								text={t('access-log')}
 							/>
 						)}
 					/>
@@ -39,4 +41,4 @@ class AccessLog extends Component {
 
 // EXPORTS //
 
-export default AccessLog;
+export default withTranslation( [ 'admin', 'common' ] )( AccessLog );
