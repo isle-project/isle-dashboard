@@ -20,6 +20,7 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import logger from 'debug';
+import { withTranslation } from 'react-i18next';
 import ReactTable from 'react-table';
 import InputRange from 'react-input-range';
 import { Button, ButtonGroup, DropdownButton, Dropdown } from 'react-bootstrap';
@@ -141,6 +142,7 @@ class ProgressPage extends Component {
 	}
 
 	createColumns( lessons, cohorts ) {
+		const { t } = this.props;
 		const COLUMNS = [
 			{
 				Header: 'Pic',
@@ -156,7 +158,7 @@ class ProgressPage extends Component {
 				style: { color: 'darkslategrey' }
 			},
 			{
-				Header: 'First',
+				Header: t('first-name'),
 				id: 'first_name',
 				accessor: 'firstName',
 				maxWidth: 75,
@@ -166,7 +168,7 @@ class ProgressPage extends Component {
 				}
 			},
 			{
-				Header: 'Last',
+				Header: t('last-name'),
 				id: 'last_name',
 				accessor: 'lastName',
 				maxWidth: 75,
@@ -176,7 +178,7 @@ class ProgressPage extends Component {
 				}
 			},
 			{
-				Header: 'email',
+				Header: t('common:email'),
 				accessor: 'email',
 				maxWidth: 200,
 				style: { marginTop: '8px', color: 'darkslategrey' },
@@ -185,7 +187,7 @@ class ProgressPage extends Component {
 				}
 			},
 			{
-				Header: 'Cohort',
+				Header: t('common:cohort'),
 				accessor: 'cohort',
 				style: { marginTop: '8px', color: 'darkslategrey' },
 				filterMethod: filterMethodCategories,
@@ -260,6 +262,7 @@ class ProgressPage extends Component {
 	}
 
 	accessorFactory = ( lessons, idx ) => {
+		const { t } = this.props;
 		return d => {
 			let data = d.original.lessonData;
 			const lessonID = lessons[ idx ]._id;
@@ -268,7 +271,7 @@ class ProgressPage extends Component {
 				const progress = min( round( data.progress*100 ), 100 );
 				return (
 					<span>
-						<span style={{ fontSize: '12px', fontWeight: 800 }}>Duration: {formatTime( data.spentTime )}</span>
+						<span style={{ fontSize: '12px', fontWeight: 800 }}>{t('duration')}: {formatTime( data.spentTime )}</span>
 						<br />
 						<EditableProgress
 							progress={progress}
@@ -376,16 +379,17 @@ class ProgressPage extends Component {
 	}
 
 	renderSortButton() {
+		const { t } = this.props;
 		let title;
 		switch ( this.state.lessonOrder ) {
 			case 'title':
-				title = 'Sort alphabetically';
+				title = t('common:sort-alphabetically');
 				break;
 			case 'createdAt':
-				title = 'Sort by create date';
+				title = t('common:sort-create-date');
 				break;
 			case 'updatedAt':
-				title = 'Sort by update date';
+				title = t('common:sort-update-date');
 				break;
 		}
 		return (
@@ -395,13 +399,13 @@ class ProgressPage extends Component {
 					this.setState({ lessonOrder: newValue });
 				}} id="dropdown" title={<small>{title}</small>} >
 					<Dropdown.Item eventKey="title" >
-						<small>Sort alphabetically</small>
+						<small>{t('common:sort-alphabetically')}</small>
 					</Dropdown.Item>
 					<Dropdown.Item eventKey="createdAt" >
-						<small>Sort by create date</small>
+						<small>{t('common:sort-create-date')}</small>
 					</Dropdown.Item>
 					<Dropdown.Item eventKey="updatedAt" >
-						<small>Sort by update date</small>
+						<small>{t('common:sort-update-date')}</small>
 					</Dropdown.Item>
 				</DropdownButton>
 				<Button size="sm" variant="secondary" style={{ marginLeft: 2 }} onClick={() => {
@@ -423,12 +427,13 @@ class ProgressPage extends Component {
 	}
 
 	render() {
+		const { t } = this.props;
 		return (
 			<Fragment>
 				{this.renderSortButton()}
 				<ButtonGroup className="progress-button-group" >
-					<Button size="sm" variant="secondary" onClick={this.saveCSV} >Save as CSV</Button>
-					<Button size="sm" variant="secondary" onClick={this.saveJSON} >Save as JSON</Button>
+					<Button size="sm" variant="secondary" onClick={this.saveCSV} >{t('save-as-csv')}</Button>
+					<Button size="sm" variant="secondary" onClick={this.saveJSON} >{t('save-as-json')}</Button>
 				</ButtonGroup>
 				<div className="namespace-data-page">
 					<ReactTable
@@ -462,4 +467,4 @@ ProgressPage.defaultProps = {
 
 // EXPORTS //
 
-export default ProgressPage;
+export default withTranslation( [ 'namespace_data', 'common' ] )( ProgressPage );

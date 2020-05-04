@@ -19,8 +19,9 @@
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Alert, Nav } from 'react-bootstrap';
 import logger from 'debug';
+import { withTranslation } from 'react-i18next';
+import { Alert, Nav } from 'react-bootstrap';
 import FilesPage from './files_page.js';
 import AnnouncementsPage from './announcements_page.js';
 import ProgressPage from './progress_page.js';
@@ -171,27 +172,28 @@ class NamespaceData extends Component {
 			</div> );
 		}
 		const page = this.renderPage();
+		const { t } = this.props;
 		return (
 			<div className="namespace-data-div">
 				<div className="namespace-data-navbar">
 					<Nav variant="pills" activeKey={this.state.activePage} onSelect={this.handleSelect}>
 						<Nav.Item>
-							<Nav.Link eventKey="1" title="Announcements" >Announcements</Nav.Link>
+							<Nav.Link eventKey="1" title="Announcements" >{t('common:announcements')}</Nav.Link>
 						</Nav.Item>
 						<Nav.Item>
-							<Nav.Link eventKey="2" title="Progress" >Progress</Nav.Link>
+							<Nav.Link eventKey="2" title="Progress" >{t('common:progress')}</Nav.Link>
 						</Nav.Item>
 						<Nav.Item>
-							<Nav.Link eventKey="3" title="Cohorts" >Cohorts</Nav.Link>
+							<Nav.Link eventKey="3" title="Cohorts" >{t('common:cohorts')}</Nav.Link>
 						</Nav.Item>
 						<Nav.Item>
-							<Nav.Link eventKey="4" title="Owner Files" >Owner Files</Nav.Link>
+							<Nav.Link eventKey="4" title="Owner Files" >{t('owner-files')}</Nav.Link>
 						</Nav.Item>
 						<Nav.Item>
-							<Nav.Link eventKey="5" title="Student Files" >Student Files</Nav.Link>
+							<Nav.Link eventKey="5" title="Student Files" >{t('student-files')}</Nav.Link>
 						</Nav.Item>
 						<Nav.Item>
-							<Nav.Link eventKey="6" title="Actions" >Actions</Nav.Link>
+							<Nav.Link eventKey="6" title="Actions" >{t('common:actions')}</Nav.Link>
 						</Nav.Item>
 					</Nav>
 				</div>
@@ -228,4 +230,4 @@ NamespaceData.defaultProps = {
 
 // EXPORTS //
 
-export default NamespaceData;
+export default withTranslation( [ 'namespace_data', 'common' ] )( NamespaceData );

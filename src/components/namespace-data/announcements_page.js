@@ -19,6 +19,7 @@
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { withTranslation } from 'react-i18next';
 import {
 	Button, ButtonGroup, Card, FormLabel, FormControl, FormGroup, Form, OverlayTrigger, Tooltip
 } from 'react-bootstrap';
@@ -35,7 +36,7 @@ class AnnouncementsPage extends Component {
 		this.state = {
 			title: '',
 			body: '',
-			mode: 'New Announcement',
+			mode: 'new-announcement',
 			editItem: null,
 			showDeleteModal: false
 		};
@@ -48,7 +49,7 @@ class AnnouncementsPage extends Component {
 	editMessage( ndx ) {
 		const announcement = this.props.namespace.announcements[ ndx ];
 		this.setState({
-			mode: 'Edit Announcement',
+			mode: 'edit-announcement',
 			editItem: ndx,
 			title: announcement.title,
 			body: announcement.body
@@ -64,6 +65,7 @@ class AnnouncementsPage extends Component {
 	}
 
 	renderMessages() {
+		const { t } = this.props;
 		return (
 			<div>
 				{this.props.namespace.announcements.map( ( value, index ) => {
@@ -81,7 +83,7 @@ class AnnouncementsPage extends Component {
 								</div>
 								<div className="message-author-line">
 									<span className="message-author">{ value.author }</span>
-									&nbsp;wrote on { dateString }
+									&nbsp;{t('wrote-on', { date: dateString })}
 								</div>
 							</div>
 							<div className="message-title">
@@ -97,10 +99,10 @@ class AnnouncementsPage extends Component {
 									editItem: index,
 									showDeleteModal: true
 								});
-							}} className="message-delete">DELETE</button>
+							}} className="message-delete">{t('common:delete')}</button>
 							<button onClick={() => {
 								this.editMessage(index);
-							}} className="message-edit">EDIT</button>
+							}} className="message-edit">{t('common:edit')}</button>
 						</div>
 					</div>
 					);
@@ -143,7 +145,7 @@ class AnnouncementsPage extends Component {
 		this.setState({
 			title: '',
 			body: '',
-			mode: 'New Announcement',
+			mode: 'new-announcement',
 			editItem: null
 		});
 	}
@@ -156,6 +158,7 @@ class AnnouncementsPage extends Component {
 	}
 
 	render() {
+		const { t } = this.props;
 		const isDisabled = this.state.title.length < 3 || this.state.body.length < 3;
 		const isEmpty = this.state.title.length === 0 && this.state.body.length === 0;
 		return ( <div className="namespace-data-page">
@@ -166,14 +169,14 @@ class AnnouncementsPage extends Component {
 				<Card>
 					<Card.Header>
 						<Card.Title as="h3">
-							{this.state.mode}
+							{t(this.state.mode)}
 						</Card.Title>
 					</Card.Header>
 					<Card.Body>
 						<Form style={{ padding: '20px' }}>
-							<OverlayTrigger placement="right" overlay={<Tooltip id="ownerTooltip">Title with a minimum length of three characters.</Tooltip>}>
+							<OverlayTrigger placement="bottom" overlay={<Tooltip id="titleTooltip">{t('announcement-title')}</Tooltip>}>
 								<FormGroup>
-									<FormLabel>Title</FormLabel>
+									<FormLabel>{t('common:title')}</FormLabel>
 									<FormControl
 										name="title"
 										type="text"
@@ -183,7 +186,7 @@ class AnnouncementsPage extends Component {
 								</FormGroup>
 							</OverlayTrigger>
 							<FormGroup>
-								<FormLabel>Body</FormLabel>
+								<FormLabel>{t('announcement-text')}</FormLabel>
 								<FormControl
 									name="body"
 									type="text"
@@ -196,9 +199,9 @@ class AnnouncementsPage extends Component {
 						</Form>
 						<ButtonGroup>
 							<Button type="submit" disabled={isDisabled} onClick={this.createMessage}>
-								{ this.state.mode === 'New Announcement' ? 'Create' : 'Update' }
+								{ this.state.mode === 'new-announcement' ? t('common:create') : t('common:update') }
 							</Button>
-							<Button onClick={this.clear} disabled={isEmpty} variant="danger">Clear</Button>
+							<Button onClick={this.clear} disabled={isEmpty} variant="danger">{t('common:clear')}</Button>
 						</ButtonGroup>
 					</Card.Body>
 				</Card>
@@ -206,8 +209,8 @@ class AnnouncementsPage extends Component {
 			<ConfirmModal
 				show={this.state.showDeleteModal}
 				close={this.closeDeleteModal}
-				message="Are you sure that you want to delete this announcement?"
-				title="Delete?"
+				message={t('delete-announcement')}
+				title={`${t('common:delete')}?`}
 				onConfirm={this.deleteSelectedMessage}
 			/>
 		</div> );
@@ -231,4 +234,4 @@ AnnouncementsPage.defaultProps = {
 
 // EXPORTS //
 
-export default AnnouncementsPage;
+export default withTranslation( [ 'namespace_data', 'common' ] )( AnnouncementsPage );
