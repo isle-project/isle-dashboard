@@ -286,13 +286,13 @@ class Lesson extends Component {
 							</span>
 						</div>
 					</div>
-					<OverlayTrigger placement="top" overlay={<Tooltip id="copy_link">{t('copy-link')}</Tooltip>}>
+					<OverlayTrigger placement="top" overlay={<Tooltip id="copy_link">{t('common:copy-link')}</Tooltip>}>
 						<i
 							role="button" tabIndex={0}
 							className="lesson-link-icon fas fa-external-link-alt"
 							onClick={this.copyLinkToClipboard}
 							onKeyPress={this.copyLinkToClipboard}
-							aria-label={t('copy-link')}
+							aria-label={t('common:copy-link')}
 						></i>
 					</OverlayTrigger>
 					{this.renderButtonToolbar()}

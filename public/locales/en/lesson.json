@@ -3,7 +3,6 @@
 	"active": "Active",
 	"copy-file": "Copy ISLE file to clipboard",
 	"copy-include": "Copy ISLE include comment to clipboard",
-	"copy-link": "Copy link to clipboard",
 	"created-at": "created at",
 	"delete-lesson": "Delete Lesson",
 	"delete-modal-body": "Are you sure that you want to delete the lesson with the name \"{{name}}\"?",
