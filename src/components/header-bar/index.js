@@ -21,10 +21,20 @@ import React, { Component, Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import logger from 'debug';
 import { withTranslation } from 'react-i18next';
-import {
-	Button, ButtonGroup, DropdownButton, Dropdown, FormGroup, FormControl, Image, InputGroup,
-	Overlay, OverlayTrigger, Popover, ListGroupItem, ListGroup, Tooltip
-} from 'react-bootstrap';
+import Button from 'react-bootstrap/Button';
+import ButtonGroup from 'react-bootstrap/ButtonGroup';
+import DropdownButton from 'react-bootstrap/DropdownButton';
+import Dropdown from 'react-bootstrap/Dropdown';
+import FormGroup from 'react-bootstrap/FormGroup';
+import FormControl from 'react-bootstrap/FormControl';
+import Image from 'react-bootstrap/Image';
+import InputGroup from 'react-bootstrap/InputGroup';
+import Overlay from 'react-bootstrap/Overlay';
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
+import Popover from 'react-bootstrap/Popover';
+import ListGroupItem from 'react-bootstrap/ListGroupItem';
+import ListGroup from 'react-bootstrap/ListGroup';
+import Tooltip from 'react-bootstrap/Tooltip';
 import isObjectArray from '@stdlib/assert/is-object-array';
 import isObject from '@stdlib/assert/is-object';
 import contains from '@stdlib/assert/contains';

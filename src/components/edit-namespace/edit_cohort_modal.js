@@ -19,17 +19,25 @@
 
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
-import {
-	Button, ButtonGroup, Modal, FormLabel, Form, FormControl, FormCheck, FormGroup,
-	OverlayTrigger, Col, Row, Tooltip
-} from 'react-bootstrap';
+import Button from 'react-bootstrap/Button';
+import ButtonGroup from 'react-bootstrap/ButtonGroup';
+import Modal from 'react-bootstrap/Modal';
+import FormControl from 'react-bootstrap/FormControl';
+import FormCheck from 'react-bootstrap/FormCheck';
+import FormGroup from 'react-bootstrap/FormGroup';
+import FormLabel from 'react-bootstrap/FormLabel';
+import Form from 'react-bootstrap/Form';
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
+import Tooltip from 'react-bootstrap/Tooltip';
+import Col from 'react-bootstrap/Col';
+import Row from 'react-bootstrap/Row';
 import { DateRangePicker } from 'react-dates';
-import 'react-dates/lib/css/_datepicker.css';
 import moment from 'moment';
 import isEmail from '@stdlib/assert/is-email-address';
 import isArray from '@stdlib/assert/is-array';
 import ConfirmModal from 'components/confirm-modal';
 import TextSelect from 'components/text-select';
+import 'react-dates/lib/css/_datepicker.css';
 import './cohort_modal.css';
 
 
