@@ -20,6 +20,7 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import Plotly from 'react-plotly.js';
+import clamp from '@stdlib/math/base/special/clamp';
 import isArray from '@stdlib/assert/is-array';
 import iterMean from '@stdlib/stats/iter/mean';
 import iterStdev from '@stdlib/stats/iter/stdev';
@@ -45,7 +46,7 @@ class ProgressStats extends Component {
 		for ( let i = 0; i < lessons.length; i++ ) {
 			const lesson = lessons[ i ];
 			if ( data[ lesson._id ] ) {
-				values.push( data[ lesson._id ].progress );
+				values.push( clamp( data[ lesson._id ].progress * 100, 0, 100 ) );
 				names.push( lesson.title );
 				texts.push( `Time spent: ${formatTime( data[ lesson._id ].spentTime )}` );
 			}
