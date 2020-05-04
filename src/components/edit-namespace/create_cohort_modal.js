@@ -122,7 +122,7 @@ class CreateCohortModal extends Component {
 							<FormControl
 								name="title"
 								type="text"
-								placeholder="Enter title"
+								placeholder={t('cohort-title-placeholder')}
 								onChange={this.handleInputChange}
 							/>
 						</FormGroup>
@@ -166,11 +166,11 @@ class CreateCohortModal extends Component {
 			<hr />
 			<Row>
 				<OverlayTrigger placement="left" overlay={<Tooltip id="preventTooltip">{t('prevent-tooltip')}</Tooltip>}>
-					<FormCheck checked={this.state.private} onChange={(event) => {
+					<FormCheck checked={this.state.private} onChange={() => {
 						this.setState({
 							private: !this.state.private
 						});
-					}} type="checkbox" label="Tick to prevent students from enrolling" />
+					}} type="checkbox" label={t('prevent-label')} />
 				</OverlayTrigger>
 			</Row>
 			<hr />
@@ -182,7 +182,7 @@ class CreateCohortModal extends Component {
 							style={{ width: '25vw' }}
 							name="emailFilter"
 							type="text"
-							placeholder="Enter filter"
+							placeholder={t('filter-placeholder')}
 							onChange={this.handleInputChange}
 						/>
 					</FormGroup>
