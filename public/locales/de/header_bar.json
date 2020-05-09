@@ -14,5 +14,7 @@
 	"open-your-courses": "Kurse anzeigen",
 	"owned-courses": "Eigene Kurse",
 	"search-placeholder": "Durchsuche Lektionen des Kurses",
-	"select-course": "Kurs auswählen"
+	"select-course": "Kurs auswählen",
+	"search-field": "Suchfeld",
+	"search-field-icon": "Suchicon"
 }

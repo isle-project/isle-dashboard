@@ -140,7 +140,7 @@ class TextSelect extends Component {
 							role="button" tabIndex={0}
 							onClick={copyToClipboard} onKeyPress={copyToClipboard}
 							className="text-select-copy"
-							aria-label="Copy email to clipboard"
+							aria-label={this.props.t('copy-tooltip')}
 						>
 							<components.MultiValueLabel {...props} />
 						</span>
