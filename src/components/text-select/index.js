@@ -149,6 +149,7 @@ class TextSelect extends Component {
 		};
 		return (
 			<CreatableSelect
+				id={this.props.id}
 				components={customComponents}
 				inputValue={inputValue}
 				isClearable={this.props.isClearable}
