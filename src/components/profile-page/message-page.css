@@ -43,11 +43,11 @@
 	height: 48px;
 	margin-left: 6px;
 	padding-top: 12px;
-	color: darkgray;
+	color: #2e4468;
 }
 
 .message-author {
-	color: darkgray;
+	color: #2e4468;
 }
 
 .message-author:hover {
