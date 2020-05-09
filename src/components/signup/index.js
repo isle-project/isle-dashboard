@@ -239,7 +239,10 @@ class Signup extends Component {
 					controlId="form-repeat-password"
 				>
 					<Row>
-						<Col sm={{ span: 9, offset: 3 }}>
+						<Col sm={3}>
+							<FormLabel>{t('common:repeat')}</FormLabel>
+						</Col>
+						<Col sm={{ span: 9 }}>
 							<FormControl
 								name="passwordRepeat"
 								type="password"
