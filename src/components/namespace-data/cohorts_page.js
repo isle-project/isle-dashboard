@@ -225,6 +225,7 @@ class CohortsPage extends Component {
 						value={this.state.selectedCohorts}
 						isMulti
 						name="cohorts"
+						aria-label="Select cohorts"
 						placeholder="Select cohorts to display"
 						options={this.state.cohortOptions}
 						onChange={this.handleCohortChange}

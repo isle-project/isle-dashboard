@@ -173,6 +173,18 @@ h5 {
 	border-color: #0070f4;
 }
 
+.nav-link {
+	color: #0363c9;
+}
+
+.nav-link.active {
+	background-color: #0070f4;
+}
+
+.progress-bar {
+	background-color: #0363c9;
+}
+
 label {
 	font-weight: 600;
 	font-stretch: extra-expanded;
