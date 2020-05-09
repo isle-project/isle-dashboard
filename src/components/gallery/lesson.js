@@ -144,12 +144,12 @@ class Lesson extends Component {
 					</Button>
 				</OverlayTrigger>
 				<OverlayTrigger placement="bottom" overlay={<Tooltip id="IsleFile">{t('copy-file')}</Tooltip>}>
-					<Button size="sm" onFocus={this.getIsleFile} onMouseEnter={this.getIsleFile} onClick={this.copyIsleFileToClipboard} >
+					<Button name="Copy file" size="sm" onFocus={this.getIsleFile} onMouseEnter={this.getIsleFile} onClick={this.copyIsleFileToClipboard} >
 						<i className="fa fa-clipboard"></i>
 					</Button>
 				</OverlayTrigger>
 				<OverlayTrigger placement="bottom" overlay={<Tooltip id="IsleFile">{t('copy-include')}</Tooltip>}>
-					<Button size="sm" onClick={this.copyIncludeToClipboard} style={{ marginLeft: 4 }} >
+					<Button name="Copy link" size="sm" onClick={this.copyIncludeToClipboard} style={{ marginLeft: 4 }} >
 						<i className="fa fa-link"></i>
 					</Button>
 				</OverlayTrigger>

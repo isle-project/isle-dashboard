@@ -458,7 +458,7 @@ class HeaderBar extends Component {
 					onChange={this.handleTextChange}
 				/>
 					<InputGroup.Append>
-						<Button disabled variant="secondary" style={{ cursor: 'auto' }}>
+						<Button name="Search" disabled variant="secondary" style={{ cursor: 'auto' }}>
 							<i className="fa fa-search"></i>
 						</Button>
 					</InputGroup.Append>
