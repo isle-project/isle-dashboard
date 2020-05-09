@@ -49,10 +49,9 @@
 .gallery-uploaded {
 	margin-left: 5px;
 	margin-top: 8px;
-	color: darkgray;
+	color: #0070f4;
 	font-family: Open Sans Condensed;
 	font-size: 14px;
-	stroke: #b52808;
 	font-weight: 600;
 }
 
@@ -61,7 +60,6 @@
 	margin-left: 10px;
 	width: 16px;
 	height: 16px;
-	stroke: #b52808;
 	fill: white;
 	margin-right: 3px;
 }
