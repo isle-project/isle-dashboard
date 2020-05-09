@@ -320,6 +320,7 @@ class HeaderBar extends Component {
 		return (
 			<OverlayTrigger placement="bottom" overlay={<Tooltip id="open_gallery">{t('open-gallery')}</Tooltip>}>
 				<Button
+					name="Gallery"
 					onClick={this.goToGallery.bind( this )}
 					className="header-bar-container-button"
 				>
