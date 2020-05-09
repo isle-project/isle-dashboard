@@ -241,9 +241,10 @@ class EditNamespace extends Component {
 							<Card.Body>
 								<Form style={{ padding: '20px' }}>
 									<OverlayTrigger placement="right" overlay={<Tooltip id="ownerTooltip">{t('owner-tooltip')}</Tooltip>}>
-										<FormGroup>
-											<FormLabel>{t('common:owners')}</FormLabel>
+										<FormGroup >
+											<FormLabel for="owners-text-select" >{t('common:owners')}</FormLabel>
 											<TextSelect
+												id="owners-text-select"
 												onChange={this.handleOwnerChange}
 												defaultValue={this.state.owners}
 												isInvalid={!validateOwners( this.state.owners )}
@@ -254,7 +255,7 @@ class EditNamespace extends Component {
 										</FormGroup>
 									</OverlayTrigger>
 									<OverlayTrigger placement="right" overlay={<Tooltip id="courseTooltip">{t('accessible-at')}<code>{SERVER+'/<course>/<lesson>'}</code></Tooltip>}>
-										<FormGroup>
+										<FormGroup controlId="form-course" >
 											<FormLabel>{t('course-identifier')}</FormLabel>
 											<FormControl
 												name="title"
@@ -272,7 +273,7 @@ class EditNamespace extends Component {
 										</FormGroup>
 									</OverlayTrigger>
 									<OverlayTrigger placement="right" overlay={<Tooltip id="titleTooltip">{t('title-tooltip')}</Tooltip>}>
-										<FormGroup>
+										<FormGroup controlId="form-description" >
 											<FormLabel>{t('title-description')}</FormLabel>
 											<FormControl
 												name="description"

@@ -181,7 +181,7 @@ class AnnouncementsPage extends Component {
 					<Card.Body>
 						<Form style={{ padding: '20px' }}>
 							<OverlayTrigger placement="bottom" overlay={<Tooltip id="titleTooltip">{t('announcement-title')}</Tooltip>}>
-								<FormGroup>
+								<FormGroup controlId="form-title" >
 									<FormLabel>{t('common:title')}</FormLabel>
 									<FormControl
 										name="title"
@@ -191,7 +191,7 @@ class AnnouncementsPage extends Component {
 									/>
 								</FormGroup>
 							</OverlayTrigger>
-							<FormGroup>
+							<FormGroup controlId="form-text" >
 								<FormLabel>{t('announcement-text')}</FormLabel>
 								<FormControl
 									name="body"

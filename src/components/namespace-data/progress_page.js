@@ -419,7 +419,8 @@ class ProgressPage extends Component {
 						this.columns = this.reorderColumns( this.state.lessonOrder, 'ascending' );
 						this.setState({ lessonSortDirection: 'ascending' });
 					}
-				}}>
+				}} aria-label={this.state.lessonSortDirection === 'ascending' ?
+				t('common:sort-descending') : t('common:sort-ascending')} >
 					{ this.state.lessonSortDirection === 'ascending' ?
 						<i className="fas fa-arrow-right" /> :
 						<i className="fas fa-arrow-left" />
