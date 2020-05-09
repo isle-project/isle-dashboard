@@ -166,6 +166,7 @@ class EnrolledLesson extends Component {
 							className="lesson-link-icon fas fa-external-link-alt"
 							onClick={this.copyLinkToClipboard}
 							onKeyPress={this.copyLinkToClipboard}
+							aria-label="Copy link"
 						></i>
 					</OverlayTrigger>
 					{this.renderButtonToolbar()}
