@@ -178,7 +178,7 @@ h5 {
 }
 
 .nav-link.active {
-	background-color: #0070f4;
+	background-color: #0070f4 !important;
 }
 
 .progress-bar {
