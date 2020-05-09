@@ -140,6 +140,7 @@ class TextSelect extends Component {
 							role="button" tabIndex={0}
 							onClick={copyToClipboard} onKeyPress={copyToClipboard}
 							className="text-select-copy"
+							aria-label="Copy email to clipboard"
 						>
 							<components.MultiValueLabel {...props} />
 						</span>
@@ -149,7 +150,7 @@ class TextSelect extends Component {
 		};
 		return (
 			<CreatableSelect
-				id={this.props.id}
+				inputId={this.props.id}
 				components={customComponents}
 				inputValue={inputValue}
 				isClearable={this.props.isClearable}
