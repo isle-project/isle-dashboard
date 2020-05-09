@@ -308,7 +308,12 @@ class EditNamespace extends Component {
 						<Card>
 							<Card.Header>
 								<Card.Title as="h2">{t('manage-cohorts')}
-									<Button size="small" variant="success" style={{ float: 'right', marginTop: 7 }}
+									<Button
+										size="small"
+										variant="success"
+										style={{
+											float: 'right', marginTop: 7, background: '#3c763d'
+										}}
 										onClick={() => {
 											this.setState({
 												showCreateCohortModal: true

@@ -180,6 +180,7 @@ class UserPage extends Component {
 						<OverlayTrigger placement="bottom" overlay={<Tooltip id="edit_user_data">{t('edit-user-data')}</Tooltip>}>
 							<Button
 								variant="outline-secondary"
+								aria-label={t('edit-user-data')}
 							>
 								<div className="fa fa-edit" />
 							</Button>
@@ -189,6 +190,7 @@ class UserPage extends Component {
 								variant="outline-secondary"
 								style={{ marginLeft: 8 }}
 								onClick={this.askToImpersonateSelectedUserFactory( row.row._original )}
+								aria-label={t('impersonate-user')}
 							>
 								<div className="fa fa-theater-masks" />
 							</Button>
@@ -198,6 +200,7 @@ class UserPage extends Component {
 								variant="outline-secondary"
 								style={{ marginLeft: 8 }}
 								onClick={this.askToDeleteSelectedUserFactory( row.row._original )}
+								aria-label={t('delete-user')}
 							>
 								<div className="fa fa-trash-alt" />
 							</Button>

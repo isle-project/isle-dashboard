@@ -14,5 +14,7 @@
 	"open-your-courses": "Open Your Courses",
 	"owned-courses": "Owned Courses",
 	"search-placeholder": "Filter lessons by searching",
-	"select-course": "Select course"
+	"select-course": "Select course",
+	"search-field": "Search field",
+	"search-field-icon": "Search icon"
 }

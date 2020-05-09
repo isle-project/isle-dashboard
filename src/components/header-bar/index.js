@@ -456,10 +456,10 @@ class HeaderBar extends Component {
 					placeholder={t('search-placeholder')}
 					value={this.state.searchPhrase || ''}
 					onChange={this.handleTextChange}
-					aria-label="Search field"
+					aria-label={t('search-field')}
 				/>
 					<InputGroup.Append>
-						<Button aria-label="Search icon" disabled variant="secondary" style={{ cursor: 'auto' }}>
+						<Button aria-label={t('search-field-icon')} disabled variant="secondary" style={{ cursor: 'auto' }}>
 							<i className="fa fa-search"></i>
 						</Button>
 					</InputGroup.Append>
