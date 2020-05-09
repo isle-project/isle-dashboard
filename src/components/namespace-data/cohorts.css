@@ -19,7 +19,7 @@
 	font-size: 12px;
 	font-weight: 800;
 	text-align: center;
-	color: darkgray;
+	color: darkslategray;
 	line-height: 12px;
 	float: left;
 	cursor: pointer;
@@ -264,7 +264,7 @@
 	height: 20px;
 	padding-left: 2px;
 	padding-right: 12px;
-	color: darkgray;
+	color: darkslategray;
 	text-align: right;
 }
 
