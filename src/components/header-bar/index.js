@@ -320,7 +320,7 @@ class HeaderBar extends Component {
 		return (
 			<OverlayTrigger placement="bottom" overlay={<Tooltip id="open_gallery">{t('open-gallery')}</Tooltip>}>
 				<Button
-					name="Gallery"
+					aria-label="Gallery"
 					onClick={this.goToGallery.bind( this )}
 					className="header-bar-container-button"
 				>
@@ -459,7 +459,7 @@ class HeaderBar extends Component {
 					aria-label="Search field"
 				/>
 					<InputGroup.Append>
-						<Button name="Search" disabled variant="secondary" style={{ cursor: 'auto' }}>
+						<Button aria-label="Search icon" disabled variant="secondary" style={{ cursor: 'auto' }}>
 							<i className="fa fa-search"></i>
 						</Button>
 					</InputGroup.Append>
