@@ -80,7 +80,9 @@ class EditableProgress extends Component {
 				</span>
 			</Fragment>: <ProgressBar
 				style={{
-					fontSize: '10px', height: '12px'
+					fontSize: '10px',
+					height: '12px',
+					backgroundColor: '#0363c9'
 				}}
 				now={this.state.newProgress}
 				label={`${this.state.newProgress}%`}
