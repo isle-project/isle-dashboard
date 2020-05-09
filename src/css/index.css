@@ -173,6 +173,10 @@ h5 {
 	border-color: #0070f4;
 }
 
+.badge-success {
+	background-color: #0a8927;
+}
+
 .nav-link {
 	color: #0363c9;
 }
