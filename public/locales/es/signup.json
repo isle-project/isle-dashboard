@@ -1,15 +1,15 @@
 {
-	"choose-password": "Choose Password",
-	"confirm-password": "Confirm Password",
-	"email-tooltip": "Please enter a valid email address.",
-	"enter-name": "Enter Name",
-	"invalid-email": "Not a valid email address.",
-	"invalid-name": "Name must contain four characters.",
-	"invalid-password-match": "Passwords do not match.",
-	"invalid-password": "Your password has to contain at least six characters.",
-	"login": "Log in",
-	"name-tooltip": "Please enter your name.",
-	"password-tooltip": "Please enter a password of your choosing with at least six characters",
-	"password": "Password",
-	"signup-not-valid": "Please make sure that all input values are valid before submitting."
+	"choose-password": "Elegir Contraseña",
+	"confirm-password": "Confirmar Contraseña",
+	"email-tooltip": "Ingrese una dirección de correo electrónico válida.",
+	"enter-name": "Ingrese el nombre",
+	"invalid-email": "No es una dirección de correo electrónico válida.",
+	"invalid-name": "El nombre debe contener cuatro caracteres.",
+	"invalid-password-match": "Las contraseñas no coinciden.",
+	"invalid-password": "Su contraseña debe contener al menos seis caracteres.",
+	"login": "Iniciar sesión",
+	"name-tooltip": "Ingrese su nombre.",
+	"password-tooltip": "Ingrese una contraseña de su elección con al menos seis caracteres",
+	"password": "Contraseña",
+	"signup-not-valid": "Asegúrese de que todos los valores de entrada sean válidos antes de enviar."
 }
