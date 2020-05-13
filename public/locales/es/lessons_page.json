@@ -1,7 +1,8 @@
 {
-	"create-new-one": " or create a new one under ",
-	"no-course-description": "Open an existing course by selecting one from the dropdown menu above at ",
-	"no-lessons-found": "No Lessons Found",
-	"no-lessons": "The selected course does not contain any lessons.",
-	"upload-from-editor": "You can upload lessons from the ISLE editor."
+	"create-new-one": " o cree uno nuevo en ",
+	"no-course-description": "Abra un curso existente seleccionando uno del menú desplegable arriba en",
+	"no-lessons-found": "No se Encontraron Lecciones",
+	"no-lessons": "El curso seleccionado no contiene ninguna lección.",
+	"upload-from-editor": "Puede cargar lecciones del editor ISLE."
 }
+
