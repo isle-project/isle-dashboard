@@ -1,9 +1,9 @@
 {
-	"import": "Import",
-	"import-lesson": "Import lesson ",
-	"import-lesson-description": "Please select the course that the lesson should be copied into.",
-	"lesson-name": "Lesson Name",
-	"no-lessons-description": "No lessons have been made available to the gallery yet or are satisfying your search criteria.",
-	"no-lessons-title": "No Lessons Found",
-	"select-course": "Select Course"
+	"import": "Importar",
+	"import-lesson": "Importar lección",
+	"import-lesson-description": "Seleccione el curso en el que debe copiarse la lección.",
+	"lesson-name": "Nombre de la Lección",
+	"no-lessons-description": "Aún no se han puesto a disposición lecciones para la galería o no satisfacen sus criterios de búsqueda.",
+	"no-lessons-title": "No se Encontraron Lecciones",
+	"select-course": "Seleccionar Curso"
 }
