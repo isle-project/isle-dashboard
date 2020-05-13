@@ -1,15 +1,15 @@
 {
-	"access-log": "Access Log",
-	"admins": "Administrators",
-	"automatic-logout": " Notice that this will log you out of your current session.",
-	"created-at": "Created At",
-	"delete-user": "Delete User",
-	"delete-user-confirm": "Are you sure you want to delete the user ",
-	"edit-user-data": "Edit User Data",
-	"enter-password": "Please enter your password to impersonate the user ",
-	"error-log": "Error Log",
-	"impersonate-user": "Impersonate User",
-	"last-updated": "Last Updated",
-	"password-placeholder": "Enter Password",
-	"users": "Users"
+	"access-log": "Registro de Acceso",
+	"admins": "Administradores",
+	"automatic-logout": " Tenga en cuenta que esto lo desconectará de su sesión actual.",
+	"created-at": "Creado en",
+	"delete-user": "Eliminar Usuario",
+	"delete-user-confirm": "¿Está seguro de que desea eliminar el usuario?",
+	"edit-user-data": "Editar Datos de Usuario",
+	"enter-password": "Ingrese su contraseña para suplantar al usuario",
+	"error-log": "Registro de Errores",
+	"impersonate-user": "Suplantar Usuario",
+	"last-updated": "Última actualización",
+	"password-placeholder": "Introducir Contraseña",
+	"users": "Usuarios"
 }
