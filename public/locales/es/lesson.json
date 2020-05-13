@@ -5,7 +5,7 @@
 	"copy-include": "Copiar ISLE incluye comentario al portapapeles",
 	"created-at": "creado en",
 	"delete-lesson": "Eliminar Lección",
-	"delete-modal-body": "¿Está seguro de que desea eliminar la lección con el nombre \" {{nombre}} \ "?",
+	"delete-modal-body": "¿Está seguro de que desea eliminar la lección con el nombre \"{{nombre}}\"?",
 	"disable-lesson": "Desactivar lección",
 	"import": "Importar",
 	"import-tooltip": "Importar lección a curso propio",
