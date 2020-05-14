@@ -60,7 +60,7 @@ class CreateCohortModal extends Component {
 	constructor( props ) {
 		super( props );
 
-		const startDate = moment();
+		const startDate = moment().startOf( 'day' );
 		const endDate = moment().add( 3, 'months' );
 		const initialState = {
 			startDate,
