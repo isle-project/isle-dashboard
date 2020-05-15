@@ -349,7 +349,7 @@ class ProfilePage extends Component {
 			}
 			list.push(
 				<div style={{ animation: 'scale-up ' + ((i*0.05) + 0.1) + 's' }} className="profile-page-badge-item-nova" key={i}>
-					<OverlayTrigger placement="bottom" overlay={<Tooltip id="description">{ desc }</Tooltip>}>
+					<OverlayTrigger placement="top" overlay={<Tooltip id={`badge-${i}-description`} >{ desc }</Tooltip>}>
 						<div className="profile-page-badge-item">
 							<img className="mask" src={badgeCircle} alt="" />
 							<div className={display} >
