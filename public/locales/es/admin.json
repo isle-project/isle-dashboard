@@ -1,6 +1,7 @@
 {
 	"access-log": "Registro de Acceso",
 	"admins": "Administradores",
+	"admin": "Administrador",
 	"automatic-logout": " Tenga en cuenta que esto lo desconectará de su sesión actual.",
 	"created-at": "Creado en",
 	"delete-user": "Eliminar Usuario",
@@ -9,6 +10,7 @@
 	"enter-password": "Ingrese su contraseña para suplantar al usuario",
 	"error-log": "Registro de Errores",
 	"impersonate-user": "Suplantar Usuario",
+	"instructor": "Instructor",
 	"last-updated": "Última actualización",
 	"password-placeholder": "Introducir Contraseña",
 	"users": "Usuarios"
