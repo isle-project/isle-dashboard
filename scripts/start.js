@@ -84,6 +84,11 @@ if (process.env.HOST) {
 	console.log();
 }
 
+process.on( 'uncaughtException', function onError( err ) {
+	console.error( err.stack );
+	console.log( 'Node NOT Exiting...' );
+});
+
 // We require that you explictly set browsers and do not fall back to
 // browserslist defaults.
 const { checkBrowsers } = require('react-dev-utils/browsersHelper');
@@ -137,3 +142,5 @@ checkBrowsers(paths.appPath, isInteractive)
 		}
 		process.exit(1);
 	});
+
+
