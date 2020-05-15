@@ -54,7 +54,6 @@
 	margin-left: 20px;
 	filter: sepia(77%);
 	grid-template-columns: repeat(12, 1fr);
-	grid-template-rows: 20px 1fr 1fr, 1fr;
 	grid-gap: 0.5vw;
 	grid-row-gap: 1em;
 }
