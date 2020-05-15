@@ -181,7 +181,7 @@ h5 {
 	color: #0363c9;
 }
 
-.nav-link.active {
+.nav-pills .nav-link.active {
 	background-color: #0070f4 !important;
 }
 
