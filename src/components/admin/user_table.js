@@ -153,6 +153,30 @@ class UserPage extends Component {
 				maxWidth: 200
 			},
 			{
+				Header: t( 'instructor' ),
+				accessor: 'writeAccess',
+				style: { marginTop: '2px', color: 'darkslategrey', fontSize: 24, textAlign: 'center' },
+				Cell: ( row ) => {
+					if ( row.value ) {
+						return <i className="far fa-check-square"></i>;
+					}
+					return null;
+				},
+				maxWidth: 80
+			},
+			{
+				Header: t( 'admin' ),
+				accessor: 'administrator',
+				style: { marginTop: '2px', color: 'darkslategrey', fontSize: 24, textAlign: 'center' },
+				Cell: ( row ) => {
+					if ( row.value ) {
+						return <i className="far fa-check-square"></i>;
+					}
+					return null;
+				},
+				maxWidth: 60
+			},
+			{
 				Header: t('last-updated'),
 				accessor: 'updatedAt',
 				Cell: ( row ) => {
