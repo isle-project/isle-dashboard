@@ -20,10 +20,34 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import Button from 'react-bootstrap/Button';
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 import Modal from 'react-bootstrap/Modal';
 import FormGroup from 'react-bootstrap/FormGroup';
 import FormCheck from 'react-bootstrap/FormCheck';
+import sqrt from '@stdlib/math/base/special/sqrt';
+import floor from '@stdlib/math/base/special/floor';
 import server from 'constants/server';
+
+
+// FUNCTIONS //
+
+function renderUserBadge( user, idx ) {
+	if ( !user ) {
+		return null;
+	}
+	return ( <Col key={`owner-${idx}`} className="enroll-page-course-teacher" >
+		<img className="enroll-page-course-teacher-thumbnail" src={server + '/thumbnail/' + user.picture} alt="Lesson Thumbnail" />
+		<span className="enroll-page-course-teacher-info">
+			<span className="enroll-page-courses-teacher-name">{user.name}</span>
+			<br />
+			<span className="enroll-page-course-teacher-email">
+				<a href={'mailto:' + user.email} >{user.email}</a>
+			</span>
+		</span>
+	</Col> );
+}
 
 
 // MAIN //
@@ -41,25 +65,23 @@ class Course extends Component {
 	renderOwners() {
 		const profiles = [];
 		const owners = this.props.namespace.owners;
-		for ( let i = 0; i < owners.length; i++ ) {
-			if ( owners[ i ].writeAccess === true ) {
-				const user = owners[ i ];
-				profiles.push(
-					<div key={`owner-${i}`} className="enroll-page-course-teacher">
-						<img src={server + '/thumbnail/' + user.picture} alt="Lesson Thumbnail" />
-						<div className="enroll-page-course-teacher-info">
-							<div className="enroll-page-courses-teacher-name">{user.name}</div>
-							<div className="enroll-page-course-teacher-email">
-							<a href={'mailto:' + user.email}>{user.email}</a>
-							</div>
-						</div>
-					</div>
-				);
+		const colsPerRow = floor( sqrt( owners.length ) );
+		for ( let i = 0; i < owners.length; i += colsPerRow ) {
+			const row = [];
+			for ( let j = 0; j < colsPerRow; j++ ) {
+				row[ j ] = renderUserBadge( owners[ i+j ], i+j );
 			}
+			profiles.push(
+				<Row key={`row-${i}`} >
+					{row}
+				</Row>
+			);
 		}
 		return (
-			<div className="enroll-page-course-owners">
-				{profiles}
+			<div className="enroll-page-course-owner-wrapper" >
+				<Container className="enroll-page-course-owners">
+					{profiles}
+				</Container>
 			</div>
 		);
 	}
