@@ -85,8 +85,7 @@ if (process.env.HOST) {
 }
 
 process.on( 'uncaughtException', function onError( err ) {
-	console.error( err.stack );
-	console.log( 'Node NOT Exiting...' );
+	console.log( 'Reset connection...' );
 });
 
 // We require that you explictly set browsers and do not fall back to
