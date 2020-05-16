@@ -117,7 +117,7 @@ class Login extends Component {
 			<Fragment>
 				<div className="login"><Card className="login-panel">
 					<Card.Header>
-						<Card.Title as="h1" style={{ textAlign: 'center' }}>
+						<Card.Title as="h1" style={{ textAlign: 'center' }} >
 							ISLE <small>Dashboard</small>
 						</Card.Title>
 					</Card.Header>

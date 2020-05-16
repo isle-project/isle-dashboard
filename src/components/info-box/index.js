@@ -17,34 +17,40 @@
 
 // MODULES //
 
-import React, { Component } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
+import Card from 'react-bootstrap/Card';
 import { withTranslation } from 'react-i18next';
-import { Link } from 'react-router-dom';
-import LanguageSwitcher from 'components/language-switcher';
-import './footer_bar.css';
+import './info_box.css';
 
 
 // MAIN //
 
-class FooterBar extends Component {
-	render() {
-		return ( <div className="footer-bar" >
-			<div className="isle-logo" >
-				<img src="img/isle_logo.svg" alt="ISLE Logo" />
-				<div className="footer-bar-copyright" >© 2016-2020 The ISLE Authors</div>
-			</div>
-			<div className="isle-terms" >
-				<Link target="_blank" to="/terms" >Terms</Link>
-				<Link target="_blank" to="/privacy" >Privacy</Link>
-			</div>
-			<div>
-			</div>
-			<LanguageSwitcher />
-		</div> );
-	}
-}
+const InfoBox = ( props ) => {
+	return (
+		<div className="info-box" >
+			<Card>
+				<Card.Header as="h1" style={{ textAlign: 'center' }} >
+					<img src="img/isle_logo.svg" alt="ISLE Logo" />
+					{props.header}
+				</Card.Header>
+				<Card.Body>
+					{props.body}
+				</Card.Body>
+			</Card>
+		</div>
+	);
+};
+
+
+// PROPERTIES //
+
+InfoBox.propTypes = {
+	body: PropTypes.string.isRequired,
+	header: PropTypes.string.isRequired
+};
 
 
 // EXPORTS //
 
-export default withTranslation( [ 'footer_bar', 'common' ] )( FooterBar );
+export default withTranslation( [ 'common' ] )( InfoBox );

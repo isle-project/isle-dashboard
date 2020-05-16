@@ -17,34 +17,17 @@
 
 // MODULES //
 
-import React, { Component } from 'react';
-import { withTranslation } from 'react-i18next';
-import { Link } from 'react-router-dom';
-import LanguageSwitcher from 'components/language-switcher';
-import './footer_bar.css';
+import React from 'react';
+import InfoBox from 'components/info-box';
 
 
 // MAIN //
 
-class FooterBar extends Component {
-	render() {
-		return ( <div className="footer-bar" >
-			<div className="isle-logo" >
-				<img src="img/isle_logo.svg" alt="ISLE Logo" />
-				<div className="footer-bar-copyright" >© 2016-2020 The ISLE Authors</div>
-			</div>
-			<div className="isle-terms" >
-				<Link target="_blank" to="/terms" >Terms</Link>
-				<Link target="_blank" to="/privacy" >Privacy</Link>
-			</div>
-			<div>
-			</div>
-			<LanguageSwitcher />
-		</div> );
-	}
-}
+const Privacy = () => {
+	return <InfoBox header="Privacy Policy" body="" />;
+};
 
 
 // EXPORTS //
 
-export default withTranslation( [ 'footer_bar', 'common' ] )( FooterBar );
+export default Privacy;
