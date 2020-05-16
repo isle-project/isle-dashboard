@@ -2,6 +2,7 @@
 	"access-log": "Access Log",
 	"admins": "Administrators",
 	"admin": "Administrator",
+	"no-admin": "No Administrator",
 	"automatic-logout": " Notice that this will log you out of your current session.",
 	"created-at": "Created At",
 	"delete-user": "Delete User",
@@ -11,6 +12,7 @@
 	"error-log": "Error Log",
 	"impersonate-user": "Impersonate User",
 	"instructor": "Instructor",
+	"no-instructor": "No Instructor",
 	"last-updated": "Last Updated",
 	"password-placeholder": "Enter Password",
 	"users": "Users"

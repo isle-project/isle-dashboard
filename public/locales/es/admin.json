@@ -2,6 +2,7 @@
 	"access-log": "Registro de Acceso",
 	"admins": "Administradores",
 	"admin": "Administrador",
+	"no-admin": "No Administrador",
 	"automatic-logout": " Tenga en cuenta que esto lo desconectará de su sesión actual.",
 	"created-at": "Creado en",
 	"delete-user": "Eliminar Usuario",
@@ -11,6 +12,7 @@
 	"error-log": "Registro de Errores",
 	"impersonate-user": "Suplantar Usuario",
 	"instructor": "Instructor",
+	"no-instructor": "No Instructor",
 	"last-updated": "Última actualización",
 	"password-placeholder": "Introducir Contraseña",
 	"users": "Usuarios"
