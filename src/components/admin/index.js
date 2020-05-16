@@ -23,7 +23,6 @@ import { withTranslation } from 'react-i18next';
 import Nav from 'react-bootstrap/Nav';
 import ErrorsLog from './logs/errors';
 import AccessLog from './logs/access';
-import AdminTable from './admin_table.js';
 import UserTable from './user_table.js';
 import 'react-table/react-table.css';
 import 'css/table.css';
@@ -104,8 +103,6 @@ class AdminPage extends Component {
 					deleteUser={this.props.deleteUser}
 					impersonateUser={this.props.impersonateUser}
 				/> );
-			case 4:
-				return <AdminTable user={this.props.user} admin={this.props.admin} />;
 		}
 	}
 
@@ -124,9 +121,6 @@ class AdminPage extends Component {
 						</Nav.Item>
 						<Nav.Item>
 							<Nav.Link eventKey="3" title="Users" >{t('users')}</Nav.Link>
-						</Nav.Item>
-						<Nav.Item>
-							<Nav.Link eventKey="4" title="Administrators" >{t('admins')}</Nav.Link>
 						</Nav.Item>
 					</Nav>
 				</div>

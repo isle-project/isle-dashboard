@@ -162,7 +162,40 @@ class UserPage extends Component {
 					}
 					return null;
 				},
-				maxWidth: 80
+				filterMethod: ( filter, row ) => {
+					if ( filter.value === 'all' ) {
+						return true;
+					}
+					const id = filter.pivotId || filter.id;
+					if ( row[ id ] === void 0 ) {
+						return true;
+					}
+					return String( row[ id ] ) === filter.value;
+				},
+				Filter: ({ filter, onChange }) => {
+					const handleChange = ( event ) => {
+						const newValue = event.target.value;
+						onChange( newValue );
+					};
+					let value;
+					if ( !filter ) {
+						value = 'all';
+					} else {
+						value = filter.value;
+					}
+					return (
+						<select
+							onBlur={handleChange} onChange={handleChange}
+							style={{ width: '100%', backgroundColor: 'ghostwhite' }}
+							value={value}
+						>
+							<option value="all">Show All</option>
+							<option value={true} >{t('instructor')}</option>
+							<option value={false} >{t('no-instructor')}</option>
+						</select>
+					);
+				},
+				maxWidth: 120
 			},
 			{
 				Header: t( 'admin' ),
@@ -174,7 +207,40 @@ class UserPage extends Component {
 					}
 					return null;
 				},
-				maxWidth: 60
+				filterMethod: ( filter, row ) => {
+					if ( filter.value === 'all' ) {
+						return true;
+					}
+					const id = filter.pivotId || filter.id;
+					if ( row[ id ] === void 0 ) {
+						return true;
+					}
+					return String( row[ id ] ) === filter.value;
+				},
+				Filter: ({ filter, onChange }) => {
+					const handleChange = ( event ) => {
+						const newValue = event.target.value;
+						onChange( newValue );
+					};
+					let value;
+					if ( !filter ) {
+						value = 'all';
+					} else {
+						value = filter.value;
+					}
+					return (
+						<select
+							onBlur={handleChange} onChange={handleChange}
+							style={{ width: '100%', backgroundColor: 'ghostwhite' }}
+							value={value}
+						>
+							<option value="all">Show All</option>
+							<option value={true} >{t('admin')}</option>
+							<option value={false} >{t('no-admin')}</option>
+						</select>
+					);
+				},
+				maxWidth: 120
 			},
 			{
 				Header: t('last-updated'),
