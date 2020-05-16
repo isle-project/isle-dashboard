@@ -23,7 +23,6 @@ import { connect } from 'react-redux';
 import { Route } from 'react-router-dom';
 import { ConnectedRouter } from 'connected-react-router';
 import contains from '@stdlib/assert/contains';
-import LanguageSwitcher from 'components/language-switcher';
 import asyncComponent from 'components/async';
 import server from 'constants/server';
 import { handleLoginInjector } from 'actions/user';
@@ -33,6 +32,7 @@ import './app.css';
 
 // VARIABLES //
 
+const AsyncFooterBar = asyncComponent(() => import( 'containers/visible-footer-bar' ));
 const AsyncHeaderBar = asyncComponent(() => import( 'containers/visible-header-bar' ));
 const AsyncForgotPassword = asyncComponent(() => import( 'containers/visible-forgot-password' ));
 const AsyncCreateNamespace = asyncComponent(() => import( 'containers/visible-create-namespace' ));
@@ -47,6 +47,22 @@ const AsyncLessonsPage = asyncComponent(() => import( 'containers/visible-lesson
 const AsyncProfilePage = asyncComponent(() => import( 'containers/visible-profile-page' ));
 const AsyncEnrollPage = asyncComponent(() => import( 'containers/visible-enroll-page' ));
 const USER_STORAGE_ID = 'ISLE_USER_'+server;
+
+
+// VARIABLES //
+
+const ALL_LOGGEDIN_PATHS = [
+	'/create-namespace',
+	'/edit-namespace/:namespace',
+	'/edit-namespace',
+	'/namespace-data',
+	'/profile',
+	'/lessons/:namespace',
+	'/lessons',
+	'/gallery',
+	'/enroll',
+	'/admin'
+];
 
 
 // MAIN //
@@ -110,18 +126,7 @@ class App extends Component {
 			AuthenticationBarrier =
 				<Fragment>
 					<Route
-						path={[
-							'/create-namespace',
-							'/edit-namespace/:namespace',
-							'/edit-namespace',
-							'/namespace-data',
-							'/profile',
-							'/lessons/:namespace',
-							'/lessons',
-							'/gallery',
-							'/enroll',
-							'/admin'
-						]}
+						path={ALL_LOGGEDIN_PATHS}
 						component={AsyncHeaderBar}
 						history={this.props.history}
 					/>
@@ -175,13 +180,17 @@ class App extends Component {
 			<ConnectedRouter history={this.props.history}>
 				<div className="App">
 					{AuthenticationBarrier}
+					<Route
+						path="/*"
+						component={AsyncFooterBar}
+						history={this.props.history}
+					/>
 					<Route exact path="/" component={AsyncLogin} />
 					<Route path="/login" component={AsyncLogin} />
 					<Route path="/new-password" component={AsyncNewPassword} />
 					<Route path="/signup" component={AsyncSignup} />
 					<Route path="/forgot-password" component={AsyncForgotPassword} />
 					<NotificationSystem />
-					<LanguageSwitcher />
 				</div>
 			</ConnectedRouter>
 		);
