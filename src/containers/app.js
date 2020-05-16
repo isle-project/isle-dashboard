@@ -33,6 +33,8 @@ import './app.css';
 // VARIABLES //
 
 const AsyncFooterBar = asyncComponent(() => import( 'containers/visible-footer-bar' ));
+const AsyncTerms = asyncComponent(() => import( 'containers/visible-terms' ));
+const AsyncPrivacy = asyncComponent(() => import( 'containers/visible-privacy' ));
 const AsyncHeaderBar = asyncComponent(() => import( 'containers/visible-header-bar' ));
 const AsyncForgotPassword = asyncComponent(() => import( 'containers/visible-forgot-password' ));
 const AsyncCreateNamespace = asyncComponent(() => import( 'containers/visible-create-namespace' ));
@@ -74,7 +76,9 @@ class App extends Component {
 			!this.props.isLoggedIn &&
 			!contains( history.location.pathname, 'courses' ) &&
 			!contains( history.location.pathname, 'new-password' ) &&
-			!contains( history.location.pathname, 'signup' )
+			!contains( history.location.pathname, 'signup' ) &&
+			!contains( history.location.pathname, 'terms' ) &&
+			!contains( history.location.pathname, 'privacy' )
 		) {
 			let isle = localStorage.getItem( USER_STORAGE_ID );
 			if ( isle ) {
@@ -190,6 +194,8 @@ class App extends Component {
 					<Route path="/new-password" component={AsyncNewPassword} />
 					<Route path="/signup" component={AsyncSignup} />
 					<Route path="/forgot-password" component={AsyncForgotPassword} />
+					<Route path="/terms" component={AsyncTerms} />
+					<Route path="/privacy" component={AsyncPrivacy} />
 					<NotificationSystem />
 				</div>
 			</ConnectedRouter>
