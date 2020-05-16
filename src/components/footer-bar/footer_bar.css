@@ -1,0 +1,43 @@
+.footer-bar {
+	position: fixed;
+	bottom: 0;
+	height: 28px;
+	background-color: gainsboro;
+	z-index: 999;
+	width: 100%;
+	font-size: 14px;
+	font-family: Open Sans;
+	box-shadow: 0 0 2px darkslategray;
+}
+
+.footer-bar-copyright {
+	vertical-align: bottom;
+	margin-left: 4px;
+	margin-top: 3px;
+	float: left;
+	color: darkslategray;
+}
+
+.isle-logo {
+	padding-left: 8px;
+	height: 100%;
+	width: 250px;
+	float: left;
+}
+
+.isle-logo img {
+	height: 80%;
+	width: auto;
+	float: left;
+	padding-top: 4px;
+}
+
+.isle-terms {
+	margin-top: 3px;
+	float: left;
+}
+
+.isle-terms a {
+	margin-right: 8px;
+	color: darkslategray;
+}
