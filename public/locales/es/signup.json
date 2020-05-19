@@ -11,5 +11,6 @@
 	"name-tooltip": "Ingrese su nombre.",
 	"password-tooltip": "Ingrese una contraseña de su elección con al menos seis caracteres",
 	"password": "Contraseña",
-	"signup-not-valid": "Asegúrese de que todos los valores de entrada sean válidos antes de enviar."
+	"signup-not-valid": "Asegúrese de que todos los valores de entrada sean válidos antes de enviar.",
+	"tos-disclaimer": "Al hacer clic en el botón de registro, aceptas nuestros <1>Términos de servicio</1>. Para obtener más información sobre cómo se procesan sus datos, consulte nuestra <3>política de privacidad</3>."
 }

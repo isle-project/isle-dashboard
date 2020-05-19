@@ -19,7 +19,7 @@
 
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
-import { withTranslation } from 'react-i18next';
+import { Trans, withTranslation } from 'react-i18next';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import Col from 'react-bootstrap/Col';
@@ -279,6 +279,11 @@ class Signup extends Component {
 								{this.renderEmail()}
 								{this.renderName()}
 								{this.renderPasswordFields()}
+								<p>
+									<Trans i18nKey="signup:tos-disclaimer" >
+										Through clicking the signup button you agree to our <Link to="/terms">terms of service</Link>. Learn more about how your data is processed in our <Link to="/privacy" >privacy policy</Link>.
+									</Trans>
+								</p>
 								<FormGroup>
 									<Button
 										variant="primary"
