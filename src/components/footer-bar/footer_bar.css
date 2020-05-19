@@ -21,7 +21,7 @@
 .isle-logo {
 	padding-left: 8px;
 	height: 100%;
-	width: 250px;
+	margin-right: 4px;
 	float: left;
 }
 
@@ -38,6 +38,5 @@
 }
 
 .isle-terms a {
-	margin-right: 8px;
 	color: darkslategray;
 }

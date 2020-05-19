@@ -31,10 +31,14 @@ class FooterBar extends Component {
 		return ( <div className="footer-bar" >
 			<div className="isle-logo" >
 				<img src="img/isle_logo.svg" alt="ISLE Logo" />
-				<div className="footer-bar-copyright" >© 2016-2020 The ISLE Authors</div>
+				<div className="footer-bar-copyright" >
+					© 2016-2020 The ISLE Authors. All rights reserved.
+				</div>
 			</div>
 			<div className="isle-terms" >
+				{' | '}
 				<Link target="_blank" to="/terms" >Terms</Link>
+				{' | '}
 				<Link target="_blank" to="/privacy" >Privacy</Link>
 			</div>
 			<div>
