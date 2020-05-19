@@ -11,5 +11,6 @@
 	"name-tooltip": "Please enter your name.",
 	"password-tooltip": "Please enter a password of your choosing with at least six characters",
 	"password": "Password",
-	"signup-not-valid": "Please make sure that all input values are valid before submitting."
+	"signup-not-valid": "Please make sure that all input values are valid before submitting.",
+	"tos-disclaimer": "Through clicking the \"Sign Up\" button you agree to our <1>terms of service</1>. Learn more about how your data is processed in our <3>privacy policy</3>."
 }
