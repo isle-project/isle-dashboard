@@ -34,6 +34,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const safePostCssParser = require('postcss-safe-parser');
 const ManifestPlugin = require('webpack-manifest-plugin');
+const CopyPlugin = require('copy-webpack-plugin');
 const InterpolateHtmlPlugin = require('react-dev-utils/InterpolateHtmlPlugin');
 const WorkboxWebpackPlugin = require('workbox-webpack-plugin');
 const paths = require('./paths');
@@ -417,6 +418,12 @@ module.exports = {
 		// It is absolutely essential that NODE_ENV was set to production here.
 		// Otherwise React will be compiled in the very slow development mode.
 		new webpack.DefinePlugin(env.stringified),
+		new CopyPlugin({
+			patterns: [
+				{ from: 'public/locales', to: 'locales' },
+				{ from: 'public/img', to: 'img' },
+			],
+		}),
 		new MiniCssExtractPlugin({
 			// Options similar to the same options in webpackOptions.output
 			// both options are optional
