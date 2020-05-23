@@ -31,7 +31,7 @@ import { routerMiddleware } from 'connected-react-router';
 import createRootReducer from 'reducers';
 import App from 'containers/app.js';
 import './helpers/i18n';
-import './service_worker.js';
+import * as serviceWorker from './service_worker.js';
 import 'css/animations.css';
 import 'css/index.css';
 
@@ -71,3 +71,5 @@ ReactDOM.render(
 	</Provider>,
 	document.getElementById( 'root' )
 );
+
+serviceWorker.register();
