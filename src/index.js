@@ -31,6 +31,7 @@ import { routerMiddleware } from 'connected-react-router';
 import createRootReducer from 'reducers';
 import App from 'containers/app.js';
 import './helpers/i18n';
+import './service_worker.js';
 import 'css/animations.css';
 import 'css/index.css';
 
@@ -46,8 +47,7 @@ const history = createHashHistory();
 const rootReducer = createRootReducer( history );
 const persistedReducer = persistReducer( persistConfig, rootReducer );
 
-
-// Apply the middleware to the store
+// Apply the middleware to the store:
 const middleware = routerMiddleware( history );
 const store = createStore( persistedReducer, applyMiddleware( middleware ) );
 const persistor = persistStore( store );
