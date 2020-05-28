@@ -81,7 +81,7 @@ See [LICENSE][license].
 - avatar by Hea Poh Lin from the Noun Project
 
 [git]: http://git-scm.com/
-[license]: https://raw.githubusercontent.com/isle-project/isle-dashboard/master/LICENSE.md
+[license]: https://raw.githubusercontent.com/isle-project/isle-dashboard/master/LICENSE
 [node-js]: https://nodejs.org/en/
 
 [dependencies-image]: https://img.shields.io/david/isle-project/isle-dashboard.svg
