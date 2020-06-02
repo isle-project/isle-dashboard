@@ -1,28 +1,42 @@
 .gallery {
 	position: absolute;
 	width: 100%;
-	top: 52px;
-	min-height: calc(100vh - 52px);
+	top: 120px;
+	height: calc(100vh - 144px);
+	overflow-y: scroll;
 	background: url(https://isle.heinz.cmu.edu/white_carbonfiber_1543854970404.png);
+}
+
+.gallery-pagination {
+	margin-top: 10px;
+	margin-left: 10px;
+	margin-right: 10px;
+	background: #2a3e54;
+	padding: 5px;
+	position: absolute;
+	top: 52px;
 }
 
 @media screen and (max-width: 800px) {
 	.gallery {
+		top: 172px;
+		height: calc(100% - 196px);
+	}
+
+	.gallery-pagination {
 		top: 104px;
-		height: calc(100% - 104px);
 	}
 }
 
 .gallery-toolbar {
 	position: absolute;
-	left: 0;
 	top: 200px;
 	height: 36px;
-	width: 100%;
+	width: calc(100% - 2.5em);
+	left: 1.25em;
 	background: white;
 	filter: saturate(20%);
 	transition: all 0.7;
-	box-shadow: 0 2px 2px -2px gray;
 }
 
 .gallery-toolbar:hover {
@@ -30,6 +44,7 @@
 }
 
 .gallery-card {
+	height: 250px;
 	box-shadow: 0 0 2px darkgrey;
 }
 
@@ -41,8 +56,8 @@
 }
 
 .gallery-upload {
-	float: left;
-	margin-left: 50px;
+	position: absolute;
+	right: 0px;
 	margin-top: 3px;
 }
 

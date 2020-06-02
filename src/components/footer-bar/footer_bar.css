@@ -1,11 +1,11 @@
 .footer-bar {
 	position: fixed;
 	bottom: 0;
-	height: 28px;
+	height: 24px;
 	background-color: gainsboro;
 	z-index: 999;
 	width: 100%;
-	font-size: 14px;
+	font-size: 13px;
 	font-family: Open Sans;
 	box-shadow: 0 0 2px darkslategray;
 }

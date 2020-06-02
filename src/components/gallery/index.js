@@ -17,7 +17,7 @@
 
 // MODULES //
 
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { withTranslation } from 'react-i18next';
 import Pagination from 'react-bootstrap/Pagination';
@@ -187,12 +187,7 @@ class Gallery extends Component {
 			);
 		}
 		return (
-			<Pagination style={{
-				marginLeft: '10px',
-				marginRight: '10px',
-				background: '#2a3e54',
-				padding: '5px'
-			}}>
+			<Pagination className="gallery-pagination" size="small" >
 				{pages}
 			</Pagination>
 		);
@@ -213,37 +208,39 @@ class Gallery extends Component {
 			createLayout( lessons.length );
 		sortLessons( lessons, this.props.search );
 		return (
-			<div className="gallery">
-				<ResponsiveReactGridLayout
-					layouts={layouts}
-					breakpoints={{ lg: 1800, md: 1550, sm: 1200, xs: 900, xxs: 400, tiny: 0 }}
-					cols={{ lg: 24, md: 20, sm: 16, xs: 12, xxs: 8, tiny: 4 }}
-					containerPadding={[10, 10]}
-					isResizable={false}
-					isDraggable={false}
-					rowHeight={60}
-				>
-					{lessons.map( ( e, i ) => {
-						return ( <div key={`cell-${i}`}>
-							<Lesson
-								{...lessons[ i ]}
-								getIsleFile={this.props.getIsleFile}
-								addNotification={this.props.addNotification}
-								openedNamespace={this.props.openedNamespace}
-								key={i}
-								onImport={() => {
-									this.showImportModal({
-										title: lessons[ i ].title,
-										namespace: lessons[ i ].namespace
-									});
-								}}
-							/>
-						</div> );
-					})}
-				</ResponsiveReactGridLayout>
+			<Fragment>
 				{this.renderPagination()}
-				{this.renderImportModal()}
-			</div>
+				<div className="gallery">
+					<ResponsiveReactGridLayout
+						layouts={layouts}
+						breakpoints={{ lg: 1800, md: 1550, sm: 1200, xs: 900, xxs: 400, tiny: 0 }}
+						cols={{ lg: 24, md: 20, sm: 16, xs: 12, xxs: 8, tiny: 4 }}
+						containerPadding={[10, 10]}
+						isResizable={false}
+						isDraggable={false}
+						rowHeight={60}
+					>
+						{lessons.map( ( e, i ) => {
+							return ( <div key={`cell-${i}`}>
+								<Lesson
+									{...lessons[ i ]}
+									getIsleFile={this.props.getIsleFile}
+									addNotification={this.props.addNotification}
+									openedNamespace={this.props.openedNamespace}
+									key={i}
+									onImport={() => {
+										this.showImportModal({
+											title: lessons[ i ].title,
+											namespace: lessons[ i ].namespace
+										});
+									}}
+								/>
+							</div> );
+						})}
+					</ResponsiveReactGridLayout>
+					{this.renderImportModal()}
+				</div>
+			</Fragment>
 		);
 	}
 }
