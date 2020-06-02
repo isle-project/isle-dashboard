@@ -1,5 +1,6 @@
 .header-bar {
 	width: 100%;
+	min-width: 620px;
 	height: 52px;
 	position: fixed;
 	top: 0;
@@ -8,10 +9,13 @@
 	z-index: 100;
 }
 
-@media screen and (max-width: 800px) {
-	.header-bar {
-		height: 104px;
-	}
+.title-limited-length {
+	display: inline-block;
+	max-width: 150px;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	vertical-align: middle;
 }
 
 .gallery-label,
@@ -23,6 +27,10 @@
 @media screen and (max-width: 1250px) {
 	.gallery-label {
 		display: none;
+	}
+
+	.title-limited-length {
+		max-width: 80px;
 	}
 }
 
@@ -36,6 +44,10 @@
 #header-bar-username {
 	display: initial;
 	margin-left: 0px;
+	max-width: 180px;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
 }
 
 @media screen and (max-width: 992px) {
@@ -45,10 +57,10 @@
 }
 
 .header-bar-title-wrapper {
-	margin-top: 5px;
-	margin-left: 50px;
+	position: absolute;
+	top: 4px;
+	left: 52%;
 	width: fit-content;
-	float: left;
 }
 
 .header-bar-title {
@@ -72,15 +84,17 @@
 }
 
 .header-bar-buttons {
-	margin-left: 10px;
-	margin-top: 8px;
-	float: left;
-	position: relative;
+	position: absolute;
+	background: #2a3e54;
+	left: 10px;
+	top: 8px;
+	z-index: 2;
 }
 
 .header-bar-right-container {
-	float: right;
-	position: relative;
+	bottom: 0px;
+	right: 0px;
+	position: absolute;
 	font-size: 15px;
 }
 
@@ -97,6 +111,16 @@
 	margin-right: 4px;
 	margin-left: 4px;
 	float: left;
+}
+
+@media screen and (max-width: 800px) {
+	.header-bar {
+		height: 94px;
+	}
+
+	.header-bar-container {
+		border-left: none;
+	}
 }
 
 .header-bar-link-div {

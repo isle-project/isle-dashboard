@@ -99,7 +99,7 @@ class HeaderBar extends Component {
 
 						// eslint-disable-next-line react/no-did-mount-set-state
 						this.setState({
-							location: this.props.this.props.t('common:course')
+							location: this.props.t('common:course')
 						});
 					}
 				}
@@ -228,15 +228,19 @@ class HeaderBar extends Component {
 			return null;
 		}
 		const { t } = this.props;
-		return ( <OverlayTrigger placement="bottom" overlay={<Tooltip id="new_course">{t('create-course')}</Tooltip>}>
-			<Button
-				style={{ float: 'left', marginRight: '4px', marginLeft: '4px', marginTop: '8px' }}
-				onClick={this.goToCreateCoursePage.bind( this )}
-				aria-label={t('create-course')}
-			>
-				<i className="fa fa-pencil-alt"></i>
-			</Button>
-		</OverlayTrigger> );
+		return (
+			<div className="header-bar-container">
+				<OverlayTrigger placement="bottom" overlay={<Tooltip id="new_course">{t('create-course')}</Tooltip>}>
+					<Button
+						style={{ float: 'left', marginRight: '4px', marginLeft: '4px', marginTop: '8px' }}
+						onClick={this.goToCreateCoursePage.bind( this )}
+						aria-label={t('create-course')}
+					>
+						<i className="fa fa-pencil-alt"></i>
+					</Button>
+				</OverlayTrigger>
+			</div>
+		);
 	}
 
 	renderEditButton() {
@@ -301,15 +305,17 @@ class HeaderBar extends Component {
 		}
 		const { t } = this.props;
 		return (
-			<OverlayTrigger placement="bottom" overlay={<Tooltip id="open_admin">{t('open-admin')}</Tooltip>}>
-				<Button
-					onClick={this.goToAdmin.bind( this )}
-					className="header-bar-container-button"
-				>
-					<i className="fa fa-cogs"></i>
-					<small className="admin-label">{t('admin')}</small>
-				</Button>
-			</OverlayTrigger>
+			<div className="header-bar-container">
+				<OverlayTrigger placement="bottom" overlay={<Tooltip id="open_admin">{t('open-admin')}</Tooltip>}>
+					<Button
+						onClick={this.goToAdmin.bind( this )}
+						className="header-bar-container-button"
+					>
+						<i className="fa fa-cogs"></i>
+						<small className="admin-label">{t('admin')}</small>
+					</Button>
+				</OverlayTrigger>
+			</div>
 		);
 	}
 
@@ -319,16 +325,18 @@ class HeaderBar extends Component {
 		}
 		const { t } = this.props;
 		return (
-			<OverlayTrigger placement="bottom" overlay={<Tooltip id="open_gallery">{t('open-gallery')}</Tooltip>}>
-				<Button
-					aria-label="Gallery"
-					onClick={this.goToGallery.bind( this )}
-					className="header-bar-container-button"
-				>
-					<i className="fa fa-eye"></i>
-					<small className="gallery-label">{t('gallery')}</small>
-				</Button>
-			</OverlayTrigger>
+			<div className="header-bar-container">
+				<OverlayTrigger placement="bottom" overlay={<Tooltip id="open_gallery">{t('open-gallery')}</Tooltip>}>
+					<Button
+						aria-label="Gallery"
+						onClick={this.goToGallery.bind( this )}
+						className="header-bar-container-button"
+					>
+						<i className="fa fa-eye"></i>
+						<small className="gallery-label">{t('gallery')}</small>
+					</Button>
+				</OverlayTrigger>
+			</div>
 		);
 	}
 
@@ -378,7 +386,7 @@ class HeaderBar extends Component {
 							this.goBackToLesson();
 						}}
 					>
-						<small>
+						<small className="title-limited-length" >
 							{this.props.namespace.title || t('open-your-courses')}
 						</small>
 					</Button>
@@ -412,7 +420,7 @@ class HeaderBar extends Component {
 			<ButtonGroup style={{ float: 'left', marginBottom: '4px' }} >
 				<DropdownButton variant="secondary" onSelect={( newValue ) => {
 					this.props.setLessonOrder( newValue );
-				}} id="dropdown" title={<small>{title}</small>} >
+				}} id="dropdown" title={<small><span className="title-limited-length">{title}</span></small>} >
 					<Dropdown.Item eventKey="alphabetically">
 						<small>{t('common:sort-alphabetically')}</small>
 					</Dropdown.Item>
@@ -533,15 +541,9 @@ class HeaderBar extends Component {
 					</h1>
 				</div>
 				<div className="header-bar-right-container">
-					<div className="header-bar-container">
-						{this.renderAdminButton()}
-					</div>
-					<div className="header-bar-container">
-						{this.renderGalleryButton()}
-					</div>
-					<div className="header-bar-container">
-						{this.renderCreateButton()}
-					</div>
+					{this.renderAdminButton()}
+					{this.renderGalleryButton()}
+					{this.renderCreateButton()}
 					{this.renderHelp()}
 					<OverlayTrigger placement="bottom" overlay={<Tooltip id="profile-button">{t('common:open-profile')}</Tooltip>}>
 						<Link to="/profile" className="header-bar-container" onClick={this.setProfileLocation} >

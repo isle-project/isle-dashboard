@@ -24,8 +24,8 @@
 
 @media screen and (max-width: 800px) {
 	.lessons-grid-container {
-		top: 104px;
-		height: calc(100% - 128px);
+		top: 94px;
+		height: calc(100vh - 118px);
 	}
 }
 
