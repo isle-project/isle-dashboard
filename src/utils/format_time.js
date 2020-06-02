@@ -30,7 +30,12 @@ const formatTime = ( time ) => {
 	if ( minutes < 10 ) {
 		minutes = '0'+minutes;
 	}
-	return hours + ':' + minutes;
+	time = time % 60;
+	let seconds = floor( time );
+	if ( seconds < 10 ) {
+		seconds = '0'+seconds;
+	}
+	return hours + ':' + minutes + ':' + seconds;
 };
 
 
