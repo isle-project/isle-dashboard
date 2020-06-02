@@ -276,7 +276,9 @@ class ProgressPage extends Component {
 				const progress = min( round( data.progress*100 ), 100 );
 				return (
 					<span>
-						<span style={{ fontSize: '12px', fontWeight: 800 }}>{t('duration')}: {formatTime( data.spentTime )}</span>
+						<OverlayTrigger placement="bottom" overlay={<Tooltip id="durationTooltip" >{t('hours-minutes-seconds')}</Tooltip>}>
+							<span style={{ fontSize: '12px', fontWeight: 800 }}>{t('duration')}: {formatTime( data.spentTime )}</span>
+						</OverlayTrigger>
 						<br />
 						<EditableProgress
 							progress={progress}
