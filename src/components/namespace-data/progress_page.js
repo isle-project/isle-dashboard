@@ -26,6 +26,8 @@ import ReactTable from 'react-table';
 import InputRange from 'react-input-range';
 import Button from 'react-bootstrap/Button';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
+import Tooltip from 'react-bootstrap/Tooltip';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 import Dropdown from 'react-bootstrap/Dropdown';
 import round from '@stdlib/math/base/special/round';
@@ -434,11 +436,17 @@ class ProgressPage extends Component {
 		const { t } = this.props;
 		return (
 			<Fragment>
-				{this.renderSortButton()}
-				<ButtonGroup className="progress-button-group" >
-					<Button size="sm" variant="secondary" onClick={this.saveCSV} >{t('save-as-csv')}</Button>
-					<Button size="sm" variant="secondary" onClick={this.saveJSON} >{t('save-as-json')}</Button>
-				</ButtonGroup>
+				<div className="namespace-data-buttons" >
+					{this.renderSortButton()}
+					<ButtonGroup className="progress-button-group" >
+						<OverlayTrigger placement="bottom" overlay={<Tooltip id="csvTooltip" >{t('save-as-csv')}</Tooltip>}>
+							<Button size="sm" variant="secondary" onClick={this.saveCSV} ><i className="fas fa-download"></i> CSV</Button>
+						</OverlayTrigger>
+						<OverlayTrigger placement="bottom" overlay={<Tooltip id="jsonTooltip">{t('save-as-json')}</Tooltip>}>
+							<Button size="sm" variant="secondary" onClick={this.saveJSON} ><i className="fas fa-download"></i> JSON</Button>
+						</OverlayTrigger>
+					</ButtonGroup>
+				</div>
 				<div className="namespace-data-page">
 					<ReactTable
 						className="progress-table"

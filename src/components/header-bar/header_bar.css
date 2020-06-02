@@ -15,13 +15,20 @@
 }
 
 .gallery-label,
-.admin-label {
+.admin-label,
+.course-data-label {
 	margin-left: 4px;
 }
 
 @media screen and (max-width: 1250px) {
-	.gallery-label,
-	.admin-label {
+	.gallery-label {
+		display: none;
+	}
+}
+
+@media screen and (max-width: 1400px) {
+	.admin-label,
+	.course-data-label {
 		display: none;
 	}
 }
@@ -37,10 +44,14 @@
 	}
 }
 
+.header-bar-title-wrapper {
+	margin-top: 5px;
+	margin-left: 50px;
+	width: fit-content;
+	float: left;
+}
+
 .header-bar-title {
-	top: 5px;
-	position: absolute;
-	right: 40%;
 	font-size: 32px;
 	color: white;
 	text-transform: lowercase;
@@ -48,7 +59,7 @@
 }
 
 @media screen and (max-width: 1200px) {
-	.header-bar-title {
+	.header-bar-title-wrapper {
 		display: none;
 	}
 }
@@ -71,7 +82,6 @@
 	float: right;
 	position: relative;
 	font-size: 15px;
-	margin-right: 10px;
 }
 
 .header-bar-container {
