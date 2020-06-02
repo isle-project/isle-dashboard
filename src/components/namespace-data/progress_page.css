@@ -9,15 +9,19 @@
 }
 
 .progress-button-group {
-	position: absolute;
-	top: 4px;
-	right: 16px;
+	margin-right: 16px;
+	float: right;
 }
 
 .sort-button-group {
-	position: absolute;
-	top: 4px;
-	right: 215px;
+	float: left;
+	margin-right: 8px;
+}
+
+@media screen and (max-width: 800px) {
+	.sort-button-group {
+		width: 100px;
+	}
 }
 
 /**
