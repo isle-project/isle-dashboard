@@ -137,7 +137,7 @@ class Lesson extends Component {
 	renderButtonToolbar() {
 		const { t } = this.props;
 		return ( <div className="gallery-toolbar">
-			<ButtonToolbar size="sm" style={{ marginLeft: 16, marginTop: 3 }}>
+			<ButtonToolbar size="sm" style={{ marginLeft: -4, marginTop: 3 }}>
 				<OverlayTrigger placement="bottom" overlay={<Tooltip id="ImportFile">{t('import-tooltip')}</Tooltip>}>
 					<Button size="sm" style={{ marginLeft: 4, marginRight: 4 }} onClick={this.props.onImport}>
 						{t('import')}
@@ -163,31 +163,33 @@ class Lesson extends Component {
 		return (
 			<Card className="gallery-card">
 				<Card.Body>
-					<div style={{
-						filter: 'grayscale(30%)',
-						background: COLORS[ this.props.colorIndex ]
-					}} className="hovereffect">
-						<img
-							className="img-responsive"
-							src={background}
-							alt=""
-							style={{
-								width: '100%',
-								height: 180,
-								background: COLORS[ this.props.colorIndex ]
-							}}
-						/>
-						<div
-							role="button" className="overlay"
-							onClick={this.openLesson}
-							onKeyPress={this.openLesson}
-							tabIndex={0}
-						>
-							<h2>{this.props.namespace}: {this.props.title}</h2>
-							<h3>{this.props.description}</h3>
-							<span
-								className="info"
-							>{t('open-lesson')}</span>
+					<div style={{ height: 180 }} >
+						<div style={{
+							filter: 'grayscale(30%)',
+							background: COLORS[ this.props.colorIndex ]
+						}} className="hovereffect ">
+							<img
+								className="img-responsive"
+								src={background}
+								alt=""
+								style={{
+									width: '100%',
+									height: 180,
+									background: COLORS[ this.props.colorIndex ]
+								}}
+							/>
+							<div
+								role="button" className="overlay"
+								onClick={this.openLesson}
+								onKeyPress={this.openLesson}
+								tabIndex={0}
+							>
+								<h2>{this.props.namespace}: {this.props.title}</h2>
+								<h3>{this.props.description}</h3>
+								<span
+									className="info"
+								>{t('open-lesson')}</span>
+							</div>
 						</div>
 					</div>
 					{this.renderButtonToolbar()}
