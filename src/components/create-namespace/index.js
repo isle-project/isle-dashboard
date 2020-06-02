@@ -35,6 +35,7 @@ import contains from '@stdlib/assert/contains';
 import TextSelect from 'components/text-select';
 import SERVER from 'constants/server';
 import checkURLPath from '../../utils/check_url_path';
+import './create_namespace.css';
 
 
 // VARIABLES //
@@ -124,71 +125,68 @@ class CreateNamespace extends Component {
 		debug( `Owners: ${validOwners}` );
 		const { t } = this.props;
 		return (
-			<Card style={{
-				position: 'relative',
-				top: '80px',
-				width: '50%',
-				margin: '0 auto'
-			}}>
-				<Card.Header>
-					<Card.Title as="h2" >{t('create-course')}</Card.Title>
-				</Card.Header>
-				<Form style={{ padding: '20px' }}>
-					<OverlayTrigger placement="right" overlay={<Tooltip id="ownerTooltip">{t('owner-tooltip')}</Tooltip>}>
-						<FormGroup controlId="form-owners" >
-							<FormLabel htmlFor="owners-text-select" >{t('common:owners')}</FormLabel>
-							<TextSelect
-								id="owners-text-select"
-								onChange={this.handleOwnerChange}
-								defaultValue={this.state.owners}
-								isInvalid={!validOwners}
-							/>
-							<FormControl.Feedback type="invalid">
-								{t('invalid-owners')}
-							</FormControl.Feedback>
-						</FormGroup>
-					</OverlayTrigger>
-					<OverlayTrigger placement="right" overlay={<Tooltip id="courseTooltip" >{t('accessible-at')}<code>{SERVER+'/<course>/<lesson>'}</code></Tooltip>}>
-						<FormGroup controlId="form-course" >
-							<FormLabel>{t('common:course')}</FormLabel>
-							<FormControl
-								name="title"
-								type="text"
-								placeholder={t('course-placeholder')}
-								onChange={this.handleInputChange}
-								isInvalid={this.state.title && !validTitle}
-							/>
-							<FormControl.Feedback type="invalid">
-								{ invalidTitleChars ?
-									'Course identifier contains invalid character(s): '+invalidTitleChars[ 0 ] :
-									'Course identifier must be at least three characters long and should not contain any spaces.'
-								}
-							</FormControl.Feedback>
-						</FormGroup>
-					</OverlayTrigger>
-					<OverlayTrigger placement="right" overlay={<Tooltip id="titleTooltip">{t('title-tooltip')}</Tooltip>}>
-						<FormGroup controlId="form-description" >
-							<FormLabel>{t('title-description')}</FormLabel>
-							<FormControl
-								name="description"
-								type="text"
-								placeholder={t('title-placeholder')}
-								onChange={this.handleInputChange}
-								isInvalid={this.state.description && !validDescription}
-							/>
-							<FormControl.Feedback type="invalid">
-								{t('invalid-description')}
-							</FormControl.Feedback>
-						</FormGroup>
-					</OverlayTrigger>
-				</Form>
-				<Button
-					variant="success"
-					onClick={this.handleSubmit}
-					disabled={!validOwners || !validTitle || !validDescription}
-					block
-				>{t('common:create')}</Button>
-			</Card>
+			<div className="create-namespace-container" >
+				<Card className="create-namespace-card" >
+					<Card.Header>
+						<Card.Title as="h2" >{t('create-course')}</Card.Title>
+					</Card.Header>
+					<Form style={{ padding: '20px' }}>
+						<OverlayTrigger placement="right" overlay={<Tooltip id="ownerTooltip">{t('owner-tooltip')}</Tooltip>}>
+							<FormGroup controlId="form-owners" >
+								<FormLabel htmlFor="owners-text-select" >{t('common:owners')}</FormLabel>
+								<TextSelect
+									id="owners-text-select"
+									onChange={this.handleOwnerChange}
+									defaultValue={this.state.owners}
+									isInvalid={!validOwners}
+								/>
+								<FormControl.Feedback type="invalid">
+									{t('invalid-owners')}
+								</FormControl.Feedback>
+							</FormGroup>
+						</OverlayTrigger>
+						<OverlayTrigger placement="right" overlay={<Tooltip id="courseTooltip" >{t('accessible-at')}<code>{SERVER+'/<course>/<lesson>'}</code></Tooltip>}>
+							<FormGroup controlId="form-course" >
+								<FormLabel>{t('common:course')}</FormLabel>
+								<FormControl
+									name="title"
+									type="text"
+									placeholder={t('course-placeholder')}
+									onChange={this.handleInputChange}
+									isInvalid={this.state.title && !validTitle}
+								/>
+								<FormControl.Feedback type="invalid">
+									{ invalidTitleChars ?
+										'Course identifier contains invalid character(s): '+invalidTitleChars[ 0 ] :
+										'Course identifier must be at least three characters long and should not contain any spaces.'
+									}
+								</FormControl.Feedback>
+							</FormGroup>
+						</OverlayTrigger>
+						<OverlayTrigger placement="right" overlay={<Tooltip id="titleTooltip">{t('title-tooltip')}</Tooltip>}>
+							<FormGroup controlId="form-description" >
+								<FormLabel>{t('title-description')}</FormLabel>
+								<FormControl
+									name="description"
+									type="text"
+									placeholder={t('title-placeholder')}
+									onChange={this.handleInputChange}
+									isInvalid={this.state.description && !validDescription}
+								/>
+								<FormControl.Feedback type="invalid">
+									{t('invalid-description')}
+								</FormControl.Feedback>
+							</FormGroup>
+						</OverlayTrigger>
+					</Form>
+					<Button
+						variant="success"
+						onClick={this.handleSubmit}
+						disabled={!validOwners || !validTitle || !validDescription}
+						block
+					>{t('common:create')}</Button>
+				</Card>
+			</div>
 		);
 	}
 }

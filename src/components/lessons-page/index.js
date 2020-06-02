@@ -85,7 +85,6 @@ function createLayout( lessons ) {
 		xs: pluck( layouts, 'xs' ),
 		xxs: pluck( layouts, 'xxs' ),
 		tiny: pluck( layouts, 'tiny' )
-
 	};
 	return layouts;
 }

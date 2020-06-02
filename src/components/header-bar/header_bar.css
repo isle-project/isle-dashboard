@@ -19,8 +19,9 @@
 	margin-left: 4px;
 }
 
-@media screen and (max-width: 1200px) {
-	.gallery-label {
+@media screen and (max-width: 1250px) {
+	.gallery-label,
+	.admin-label {
 		display: none;
 	}
 }
