@@ -289,6 +289,7 @@ class HeaderBar extends Component {
 					aria-label={t('course-data')}
 				>
 					<i className="fa fa-chart-pie"></i>
+					<small className="course-data-label" >{t('course-data')}</small>
 				</Button>
 			</OverlayTrigger>
 		);
@@ -526,9 +527,11 @@ class HeaderBar extends Component {
 					{this.renderSearchField()}
 					{this.renderDropdownButton()}
 				</div>
-				<h1 className="header-bar-title">
-					ISLE {this.state.location}
-				</h1>
+				<div className="header-bar-title-wrapper" >
+					<h1 className="header-bar-title">
+						ISLE {this.state.location}
+					</h1>
+				</div>
 				<div className="header-bar-right-container">
 					<div className="header-bar-container">
 						{this.renderAdminButton()}
@@ -540,21 +543,29 @@ class HeaderBar extends Component {
 						{this.renderCreateButton()}
 					</div>
 					{this.renderHelp()}
-					<Link to="/profile" className="header-bar-container">
-						<Image alt="Profile picture" src={profilePic} className="header-bar-icon" />
-						<span id="header-bar-username" key="account" className="header-bar-link-div" >
-							<span className="header-bar-link">{this.props.user.name}</span>
-						</span>
-					</Link>
-					<div className="header-bar-container">
-						<div key="logout" className="header-bar-link-div" >
-							<button
-								key="logoutButton"
-								className="header-bar-link empty-button"
-								onClick={this.props.logout}
-							>{t('common:logout')}</button>
+					<OverlayTrigger placement="bottom" overlay={<Tooltip id="profile-button">{t('common:open-profile')}</Tooltip>}>
+						<Link to="/profile" className="header-bar-container" onClick={this.setProfileLocation} >
+							<Image alt="Profile picture" src={profilePic} className="header-bar-icon" />
+							<span id="header-bar-username" key="account" className="header-bar-link-div" >
+								<span className="header-bar-link">
+									{this.props.user.name}
+								</span>
+							</span>
+						</Link>
+					</OverlayTrigger>
+					<OverlayTrigger placement="bottom" overlay={<Tooltip id="logout-button">{t('common:logout')}</Tooltip>}>
+						<div className="header-bar-container">
+								<div key="logout" className="header-bar-link-div" >
+									<button
+										key="logoutButton"
+										className="header-bar-link empty-button"
+										onClick={this.props.logout}
+									>
+										<i className="fas fa-sign-out-alt" ></i>
+									</button>
+								</div>
 						</div>
-					</div>
+					</OverlayTrigger>
 				</div>
 			</header>
 		);
