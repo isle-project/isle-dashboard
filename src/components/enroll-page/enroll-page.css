@@ -9,8 +9,8 @@
 
 @media screen and (max-width: 800px) {
 	.enroll-page {
-		top: 104px;
-		height: calc(100% - 104px);
+		top: 94px;
+		height: calc(100% - 94px);
 	}
 }
 

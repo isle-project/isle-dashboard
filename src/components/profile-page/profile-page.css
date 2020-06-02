@@ -25,8 +25,8 @@
 
 @media screen and (max-width: 800px) {
 	.profile-page-grid-container {
-		top: 104px;
-		height: calc(100% - 104px);
+		top: 94px;
+		height: calc(100% - 94px);
 	}
 }
 
