@@ -177,7 +177,7 @@ class NamespaceData extends Component {
 		return (
 			<div className="namespace-data-div">
 				<div className="namespace-data-navbar">
-					<Nav variant="pills" activeKey={this.state.activePage} onSelect={this.handleSelect}>
+					<Nav variant="pills" className="namespace-data-navbar-pills" activeKey={this.state.activePage} onSelect={this.handleSelect}>
 						<Nav.Item>
 							<Nav.Link eventKey="1" title="Announcements" >{t('common:announcements')}</Nav.Link>
 						</Nav.Item>

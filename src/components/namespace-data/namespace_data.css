@@ -15,6 +15,30 @@
 	padding-left: 6px;
 	padding-right: 6px;
 	margin: 8px;
+	top: 100px;
+	overflow-x: auto;
+}
+
+.namespace-data-buttons {
+	position: absolute;
+	top: 4px;
+	right: 8px;
+}
+
+@media screen and (max-width: 1080px) {
+	.namespace-data-navbar {
+		height: 80px;
+	}
+
+	.namespace-data-buttons {
+		top: 44px;
+	}
+}
+
+@media screen and (max-width: 800px) {
+	.namespace-data-buttons {
+		top: 72px;
+	}
 }
 
 .namespace-data-page {
