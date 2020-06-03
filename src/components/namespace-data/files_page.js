@@ -341,16 +341,16 @@ class FilesPage extends Component {
 	render() {
 		const { t } = this.props;
 		return ( <div className="namespace-data-page">
-			<ButtonGroup className="files-export-button-group" >
-				<Button size="sm" variant="secondary" onClick={this.saveCSV} >{t('save-as-csv')}</Button>
-				<Button size="sm" variant="secondary" onClick={this.saveJSON} >{t('save-as-json')}</Button>
-			</ButtonGroup>
-			{ this.props.ownerFiles ? <FormGroup style={{
-				position: 'absolute',
-				top: '4px',
-				right: '16px',
-				display: 'inline-block'
-			}}>
+			<div className="namespace-data-buttons">
+				<ButtonGroup className="files-export-button-group" >
+					<OverlayTrigger placement="bottom" overlay={<Tooltip id="csvTooltip" >{t('save-as-csv')}</Tooltip>}>
+						<Button size="sm" variant="secondary" onClick={this.saveCSV} ><i className="fas fa-download"></i> CSV</Button>
+					</OverlayTrigger>
+					<OverlayTrigger placement="bottom" overlay={<Tooltip id="jsonTooltip">{t('save-as-json')}</Tooltip>}>
+						<Button size="sm" variant="secondary" onClick={this.saveJSON} ><i className="fas fa-download"></i> JSON</Button>
+					</OverlayTrigger>
+				</ButtonGroup>
+				{ this.props.ownerFiles ? <FormGroup className="file-upload-button" >
 					<FormLabel htmlFor="fileUpload" style={{ cursor: 'pointer' }}>
 						<h3><Badge variant="success">{t('upload-file')}</Badge></h3>
 						<input
@@ -362,7 +362,8 @@ class FilesPage extends Component {
 							style={{ display: 'none' }}
 						/>
 					</FormLabel>
-			</FormGroup> : null }
+				</FormGroup> : null }
+			</div>
 			<ReactTable
 				filterable
 				data={this.props.files}
