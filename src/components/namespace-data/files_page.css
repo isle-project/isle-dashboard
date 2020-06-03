@@ -1,5 +1,9 @@
 .files-export-button-group {
+	margin-right: 4px;
+}
+
+.file-upload-button {
 	position: absolute;
-	top: 4px;
-	right: 150px;
+	right: 140px;
+	top: 0px;
 }
