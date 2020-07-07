@@ -94,7 +94,7 @@ class Course extends Component {
 		});
 	}
 
-	handleFormClick = (event) => {
+	handleFormClick = ( event ) => {
 		const check = event.target.checked;
 		const pos = event.target.dataset.pos;
 		if ( check ) {
