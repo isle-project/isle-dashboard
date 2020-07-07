@@ -44,10 +44,11 @@ export default function cohorts( state = null, action ) {
 			let emailFilter = elem.emailFilter || '';
 			if ( isRegExpString( emailFilter ) ) {
 				emailFilter = reFromString( emailFilter );
+				return emailFilter.test( action.payload.user.email );
 			}
 			return contains( action.payload.user.email, emailFilter || '' );
 		});
-		return action.payload.cohorts.sort( titleCompare );
+		return cohorts.sort( titleCompare );
 	}
 	default:
 		return state;
