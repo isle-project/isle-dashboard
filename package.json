@@ -76,7 +76,7 @@
     "query-string": "^6.13.1",
     "react": "16.13.1",
     "react-avatar-editor": "^11.0.9",
-    "react-bootstrap": "^1.1.0",
+    "react-bootstrap": "^1.1.1",
     "react-dates": "^21.8.0",
     "react-dom": "16.13.1",
     "react-grid-layout": "^0.18.3",
