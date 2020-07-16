@@ -64,7 +64,7 @@
     "debug": "^4.0.1",
     "dotenv-expand": "^5.1.0",
     "history": "^4.10.1",
-    "i18next": "^19.6.0",
+    "i18next": "^19.6.1",
     "i18next-browser-languagedetector": "^5.0.0",
     "i18next-http-backend": "^1.0.17",
     "lodash.debounce": "^4.0.8",
