@@ -63,7 +63,7 @@
     "csv-stringify": "^5.4.3",
     "debug": "^4.0.1",
     "dotenv-expand": "^5.1.0",
-    "history": "^4.10.1",
+    "history": "^5.0.0",
     "i18next": "^19.6.2",
     "i18next-browser-languagedetector": "^5.0.0",
     "i18next-http-backend": "^1.0.17",
