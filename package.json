@@ -75,7 +75,7 @@
     "prop-types": "^15.6.2",
     "query-string": "^6.13.1",
     "react": "16.13.1",
-    "react-avatar-editor": "11.0.9",
+    "react-avatar-editor": "11.0.10",
     "react-bootstrap": "^1.2.2",
     "react-dates": "^21.8.0",
     "react-dom": "16.13.1",
