@@ -172,6 +172,22 @@ class Lesson extends Component {
 		});
 	}
 
+	copyNameToClipboard = ( event ) => {
+		event.stopPropagation();
+		const promise = copyToClipboard( this.props.title );
+		promise.then( () => {
+			this.props.addNotification({
+				message: this.props.t('name-copied'),
+				level: 'success'
+			});
+		}).catch( err => {
+			this.props.addNotification({
+				message: err.message,
+				level: 'error'
+			});
+		});
+	}
+
 	showPreviewImage = () => {
 		this.img.src = this.props.url+'/preview.jpg';
 	}
@@ -275,7 +291,21 @@ class Lesson extends Component {
 							onClick={this.openLesson} onKeyPress={this.openLesson}
 							tabIndex={0} role="button"
 						>
-							<h2>{this.props.title}</h2>
+							<OverlayTrigger
+								placement="bottom"
+								overlay={<Tooltip id="copy_name">
+									{t('common:copy-name')
+								}</Tooltip>}
+							>
+								<span
+									role="button" tabIndex={0}
+									onClick={this.copyNameToClipboard}
+									onKeyPress={this.copyNameToClipboard}
+									style={{ cursor: 'copy' }}
+								>
+									<h2>{this.props.title}</h2>
+								</span>
+							</OverlayTrigger>
 							{this.props.description !== DEFAULT_DESCRIPTION ?
 								<h3>{this.props.description}</h3> :
 								null
