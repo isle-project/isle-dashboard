@@ -19,6 +19,7 @@
 
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
+import path from 'path';
 import Badge from 'react-bootstrap/Badge';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
@@ -27,7 +28,6 @@ import FormControl from 'react-bootstrap/FormControl';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import AvatarEditor from 'react-avatar-editor';
-import path from 'path';
 
 
 // FUNCTIONS //
