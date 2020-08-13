@@ -24,6 +24,7 @@ import Nav from 'react-bootstrap/Nav';
 import ErrorsLog from './logs/errors';
 import AccessLog from './logs/access';
 import UserTable from './user_table.js';
+import { version as dashboardVersion } from './../../../package.json';
 import 'react-table/react-table.css';
 import 'css/table.css';
 import './admin_page.css';
@@ -122,6 +123,7 @@ class AdminPage extends Component {
 						<Nav.Item>
 							<Nav.Link eventKey="3" title="Users" >{t('users')}</Nav.Link>
 						</Nav.Item>
+						<span className="admin-page-version" >{t('dashboard-version')}: {dashboardVersion}</span>
 					</Nav>
 				</div>
 				<div className="admin-page-container" style={{ overflowY: 'auto' }}>
