@@ -5,6 +5,7 @@
 	"no-admin": "No Administrador",
 	"automatic-logout": " Tenga en cuenta que esto lo desconectará de su sesión actual.",
 	"created-at": "Creado en",
+	"dashboard-version": "Versión de tablero",
 	"delete-user": "Eliminar Usuario",
 	"delete-user-confirm": "¿Está seguro de que desea eliminar el usuario?",
 	"edit-user-data": "Editar Datos de Usuario",

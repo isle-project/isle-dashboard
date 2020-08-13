@@ -5,6 +5,7 @@
 	"no-admin": "No Administrator",
 	"automatic-logout": " Notice that this will log you out of your current session.",
 	"created-at": "Created At",
+	"dashboard-version": "Dashboard Version",
 	"delete-user": "Delete User",
 	"delete-user-confirm": "Are you sure you want to delete the user ",
 	"edit-user-data": "Edit User Data",

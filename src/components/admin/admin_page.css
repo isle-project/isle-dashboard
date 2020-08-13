@@ -32,6 +32,19 @@
 	right: 5vw;
 }
 
+.admin-page-version {
+	top: 8px;
+	right: 14px;
+	position: absolute;
+	font-variant-caps: small-caps;
+}
+
+@media screen and (max-width: 800px) {
+	.admin-page-version {
+		display: none;
+	}
+}
+
 .table-pic {
 	width: 40px;
 	height: 40px;
