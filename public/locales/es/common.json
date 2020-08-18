@@ -9,6 +9,7 @@
 	"cohorts": "Cohortes",
 	"cohort": "Cohorte",
 	"confirm": "Confirmar",
+	"confirm-email": "Confirmar Dirección de correo electrónico",
 	"copy": "Copiar",
 	"copy-link": "Copiar enlace al portapapeles",
 	"copy-name": "Copiar nombre al portapapeles",
@@ -22,6 +23,8 @@
 	"edit": "Editar",
 	"email-address": "Dirección de correo electrónico",
 	"email": "Correo electrónico",
+	"email-confirmation-success": "Su dirección de correo electrónico fue validada con éxito",
+	"email-confirmation-failure": "Su dirección de correo electrónico no pudo ser validada. Por favor, inténtelo de nuevo más tarde",
 	"enroll": "Inscribirse",
 	"enter-email": "Ingresar correo electrónico",
 	"forgot-password": "¿Olvidó su contraseña?",
@@ -48,5 +51,6 @@
 	"sort-update-date": "Ordenar por fecha de actualización",
 	"statistics": "Estadísticas",
 	"title": "Título",
-	"update": "Actualizar"
+	"update": "Actualizar",
+	"waiting": "Sspera la respuesta..."
 }
