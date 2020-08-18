@@ -23,7 +23,7 @@ import ProfilePage from 'components/profile-page';
 import { getLessonsInjector } from 'actions/lesson';
 import { getUserBadgesInjector } from 'actions/badge';
 import { getFilesInjector } from 'actions/file';
-import { authenticateInjector, uploadProfilePicInjector, updateUserInjector } from 'actions/user';
+import { authenticateInjector, uploadProfilePicInjector, updateUserInjector, resendConfirmEmailInjector } from 'actions/user';
 import { addNotificationInjector } from 'actions/notification';
 
 
@@ -43,6 +43,7 @@ function mapDispatchToProps( dispatch ) {
 		authenticate: authenticateInjector( dispatch ),
 		getFiles: getFilesInjector( dispatch ),
 		getLessons: getLessonsInjector( dispatch ),
+		resendConfirmEmail: resendConfirmEmailInjector( dispatch ),
 		uploadProfilePic: uploadProfilePicInjector( dispatch )
 	};
 }

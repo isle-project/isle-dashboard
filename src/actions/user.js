@@ -39,7 +39,7 @@ export function loggedIn( user ) {
 		type: LOGGED_IN,
 		payload: {
 			email: user.email,
-			emailVerified: user.emailVerified,
+			verifiedEmail: user.verifiedEmail,
 			name: user.name,
 			enrolledNamespaces: user.enrolledNamespaces,
 			ownedNamespaces: user.ownedNamespaces,
@@ -329,9 +329,29 @@ export const confirmEmail = async ( token ) => {
 		});
 		return res.data.message;
 	} catch ( err ) {
-		if ( err.response.data ) {
+		if ( err.response && err.response.data ) {
 			return err.response.data;
 		}
 		return err.message;
 	}
+};
+
+export const resendConfirmEmail = async ( dispatch, user ) => {
+	try {
+		await axios.post( server+'/resend_confirm_email' );
+		addNotification( dispatch, {
+			title: 'Email sent',
+			message: 'Verification email sent.',
+			level: 'success',
+			position: 'tl'
+		});
+	} catch ( err ) {
+		addErrorNotification( dispatch, err );
+	}
+};
+
+export const resendConfirmEmailInjector = ( dispatch ) => {
+	return ( user ) => {
+		resendConfirmEmail( dispatch, user );
+	};
 };
