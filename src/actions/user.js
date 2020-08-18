@@ -322,7 +322,7 @@ export const userUpdateCheckInjector = ( dispatch ) => {
 };
 
 export const confirmEmail = async ( token ) => {
-	const res = await axios.post( server+'/confirm-email', {
+	const res = await axios.post( server+'/confirm_email', {
 		token
 	});
 	console.log( res.data );
