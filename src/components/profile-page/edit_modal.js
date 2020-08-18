@@ -20,6 +20,7 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import Button from 'react-bootstrap/Button';
+import Badge from 'react-bootstrap/Badge';
 import Card from 'react-bootstrap/Card';
 import FormLabel from 'react-bootstrap/FormLabel';
 import FormControl from 'react-bootstrap/FormControl';
@@ -162,7 +163,9 @@ class EditModal extends Component {
 						<FormGroup
 							controlId="form-email"
 						>
-							<FormLabel>{t('common:email')}</FormLabel>
+							<FormLabel>
+								{t('common:email')}
+							</FormLabel>
 							<FormControl
 								name="email"
 								type="email"
@@ -170,6 +173,18 @@ class EditModal extends Component {
 								disabled
 							/>
 						</FormGroup>
+						{!this.props.user.verifiedEmail ? <Badge
+							variant="danger" style={{ position: 'absolute', right: 20, top: 80 }}
+						>{t('common:email-not-verified')}
+							<OverlayTrigger placement="right" overlay={createTooltip( t('resend-confirm-email') )}>
+								<Button
+									size="sm" variant="outline-light" onClick={this.props.resendConfirmEmail}
+									style={{ fontSize: 12, marginLeft: 6 }}
+								>
+									<i className="fas fa-redo-alt"></i>
+								</Button>
+							</OverlayTrigger>
+						</Badge> : null}
 						<OverlayTrigger placement="right" overlay={createTooltip( t('update-name') )}>
 							<FormGroup
 								controlId="form-name"

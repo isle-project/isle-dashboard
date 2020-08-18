@@ -442,6 +442,7 @@ class ProfilePage extends Component {
 					addNotification={this.props.addNotification}
 					updateUser={this.props.updateUser}
 					onHide={this.toggleEditModal}
+					resendConfirmEmail={this.props.resendConfirmEmail}
 					t={t}
 				/>
 				<ProfilePicModal
@@ -465,6 +466,7 @@ ProfilePage.propTypes = {
 	getFiles: PropTypes.func.isRequired,
 	getLessons: PropTypes.func.isRequired,
 	getUserBadges: PropTypes.func.isRequired,
+	resendConfirmEmail: PropTypes.func.isRequired,
 	updateUser: PropTypes.func.isRequired,
 	uploadProfilePic: PropTypes.func.isRequired,
 	user: PropTypes.object.isRequired

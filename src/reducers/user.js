@@ -27,7 +27,7 @@ import * as types from 'constants/action_types.js';
 const initialState = {
 	loggedIn: false,
 	email: '',
-	emailVerified: false,
+	verifiedEmail: false,
 	name: '',
 	organization: '',
 	writeAccess: false,
@@ -72,7 +72,7 @@ export default function user( state = initialState, action ) {
 	case types.LOGGED_IN: {
 		return Object.assign({}, state, {
 			email: action.payload.email,
-			emailVerified: action.payload.emailVerified,
+			verifiedEmail: action.payload.verifiedEmail,
 			name: action.payload.name,
 			enrolledNamespaces: action.payload.enrolledNamespaces,
 			ownedNamespaces: action.payload.ownedNamespaces,
