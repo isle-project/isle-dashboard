@@ -23,8 +23,6 @@
 	"edit": "Edit",
 	"email-address": "Email Address",
 	"email": "Email",
-	"email-confirmation-success": "Your email address was successfully validated.",
-	"email-confirmation-failure": "Your email address could not be validated. Please try again later.",
 	"enroll": "Enroll",
 	"enter-email": "Enter Email",
 	"forgot-password": "Forgot password?",

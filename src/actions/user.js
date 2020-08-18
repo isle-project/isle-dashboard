@@ -322,14 +322,15 @@ export const userUpdateCheckInjector = ( dispatch ) => {
 };
 
 export const confirmEmail = async ( token ) => {
-	const res = await axios.post( server+'/confirm_email', {
-		token
-	});
-	console.log( res.data );
-};
-
-export const confirmEmailInjector = ( dispatch ) => {
-	return ( token ) =>{
-		confirmEmail( token );
-	};
+	try {
+		const res = await axios.post( server+'/confirm_email', {
+			token
+		});
+		return res.data.message;
+	} catch ( err ) {
+		if ( err.response.data ) {
+			return err.response.data;
+		}
+		return err.message;
+	}
 };

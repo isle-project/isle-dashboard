@@ -38,20 +38,13 @@ class ConfirmEmail extends Component {
 	}
 
 	async componentDidMount() {
-		const hash = window.location.hash.substring( 15 );
+		const hash = window.location.hash.substring( 16 );
 		const qs = queryString.parse( hash );
 		const token = qs[ 'token' ];
-		try {
-			const res = await this.props.confirmEmail({ token });
-			console.log( res );
-			this.setState({
-				message: 'common:email-confirmation-success'
-			});
-		} catch ( err ) {
-			this.setState({
-				message: 'common:email-confirmation-failure'
-			});
-		}
+		const newMessage = await this.props.confirmEmail( token );
+		this.setState({
+			message: newMessage
+		});
 	}
 
 	render() {
@@ -63,7 +56,7 @@ class ConfirmEmail extends Component {
 						<Card.Title as="h3">{t('common:confirm-email')}</Card.Title>
 					</Card.Header>
 					<Card.Body>
-						<p>{t( this.state.message )}</p>
+						<p>{this.state.message}</p>
 					</Card.Body>
 					<Card.Footer style={{ background: 'rgba(255,255,255,0.6)', textAlign: 'right' }}>
 						<Link to="/signup">{t('common:register')}</Link>

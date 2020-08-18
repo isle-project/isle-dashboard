@@ -20,7 +20,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import ConfirmEmail from 'components/confirm-email';
-import { confirmEmailInjector } from 'actions/user';
+import { confirmEmail } from 'actions/user';
 
 
 // FUNCTIONS //
@@ -31,7 +31,7 @@ function mapStateToProps() {
 
 function mapDispatchToProps( dispatch ) {
 	return {
-		confirmEmail: confirmEmailInjector( dispatch )
+		confirmEmail: confirmEmail
 	};
 }
 
