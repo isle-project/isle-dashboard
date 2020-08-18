@@ -9,6 +9,7 @@
 	"cohorts": "Cohorts",
 	"cohort": "Cohort",
 	"confirm": "Confirm",
+	"confirm-email": "Confirm Email Address",
 	"copy": "Copy",
 	"copy-link": "Copy link to clipboard",
 	"copy-name": "Copy name to clipboard",
@@ -22,6 +23,8 @@
 	"edit": "Edit",
 	"email-address": "Email Address",
 	"email": "Email",
+	"email-confirmation-success": "Your email address was successfully validated.",
+	"email-confirmation-failure": "Your email address could not be validated. Please try again later.",
 	"enroll": "Enroll",
 	"enter-email": "Enter Email",
 	"forgot-password": "Forgot password?",
@@ -49,5 +52,6 @@
 	"sort-update-date": "Sort by update date",
 	"statistics": "Statistics",
 	"title": "Title",
-	"update": "Update"
+	"update": "Update",
+	"waiting": "Waiting..."
 }

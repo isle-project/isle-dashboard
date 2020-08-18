@@ -22,7 +22,6 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Route } from 'react-router-dom';
 import { ConnectedRouter } from 'connected-react-router';
-import contains from '@stdlib/assert/contains';
 import asyncComponent from 'components/async';
 import server from 'constants/server';
 import { handleLoginInjector } from 'actions/user';
@@ -40,6 +39,7 @@ const AsyncForgotPassword = asyncComponent(() => import( 'containers/visible-for
 const AsyncCreateNamespace = asyncComponent(() => import( 'containers/visible-create-namespace' ));
 const AsyncEditNamespace = asyncComponent(() => import( 'containers/visible-edit-namespace' ));
 const AsyncNewPassword = asyncComponent(() => import( 'components/new-password' ));
+const AsyncConfirmEmail = asyncComponent(() => import( 'containers/visible-confirm-email' ));
 const AsyncAdminPage = asyncComponent(() => import( 'containers/visible-admin' ));
 const AsyncLogin = asyncComponent(() => import( 'containers/visible-login' ));
 const AsyncSignup = asyncComponent(() => import( 'containers/visible-signup' ));
@@ -65,6 +65,7 @@ const ALL_LOGGEDIN_PATHS = [
 	'/enroll',
 	'/admin'
 ];
+const RE_PUBLIC_PAGES = /(?:courses|new-password|confirm-email|signup|terms|privacy)/;
 
 
 // MAIN //
@@ -74,11 +75,7 @@ class App extends Component {
 		const history = this.props.history;
 		if (
 			!this.props.isLoggedIn &&
-			!contains( history.location.pathname, 'courses' ) &&
-			!contains( history.location.pathname, 'new-password' ) &&
-			!contains( history.location.pathname, 'signup' ) &&
-			!contains( history.location.pathname, 'terms' ) &&
-			!contains( history.location.pathname, 'privacy' )
+			!RE_PUBLIC_PAGES.test( history.location.pathname )
 		) {
 			let isle = localStorage.getItem( USER_STORAGE_ID );
 			if ( isle ) {
@@ -192,6 +189,7 @@ class App extends Component {
 					<Route exact path="/" component={AsyncLogin} />
 					<Route path="/login" component={AsyncLogin} />
 					<Route path="/new-password" component={AsyncNewPassword} />
+					<Route path="/confirm-email" component={AsyncConfirmEmail} />
 					<Route path="/signup" component={AsyncSignup} />
 					<Route path="/forgot-password" component={AsyncForgotPassword} />
 					<Route path="/terms" component={AsyncTerms} />
