@@ -17,6 +17,7 @@
 	"progress": "Progreso",
 	"registered-since": "registrado desde {{fecha}}",
 	"repeat-new-password": "Repetir nueva contraseña",
+	"resend-confirm-email": "Reenviar el correo electrónico para confirmar la dirección de correo electrónico",
 	"right": "Derecha",
 	"rotate": "Rotar",
 	"save-and-close": "Guardar y Cerrar",
