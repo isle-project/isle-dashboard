@@ -39,6 +39,7 @@ export function loggedIn( user ) {
 		type: LOGGED_IN,
 		payload: {
 			email: user.email,
+			emailVerified: user.emailVerified,
 			name: user.name,
 			enrolledNamespaces: user.enrolledNamespaces,
 			ownedNamespaces: user.ownedNamespaces,
