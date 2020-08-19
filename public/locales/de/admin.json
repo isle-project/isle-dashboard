@@ -9,6 +9,7 @@
 	"delete-user": "Nutzer löschen",
 	"delete-user-confirm": "Bist Du sicher, dass Du den folgenden Nutzer löschen möchtest: ",
 	"edit-user-data": "Nutzerdaten editieren",
+	"email-verified": "Email Verifiziert",
 	"enter-password": "Bitte gib Dein Passwort ein um Dich als folgender Nutzer anzumelden: ",
 	"error-log": "Fehlerlog",
 	"impersonate-user": "Anmelden als",
@@ -16,5 +17,7 @@
 	"no-instructor": "Kein Lehrer",
 	"last-updated": "Zuletzt aktualisiert",
 	"password-placeholder": "Passwort eingeben",
-	"users": "Nutzer"
+	"users": "Nutzer",
+	"verified": "Verifiziert",
+	"not-verified": "Nicht Verifiziert"
 }

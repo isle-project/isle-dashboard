@@ -9,6 +9,7 @@
 	"delete-user": "Eliminar Usuario",
 	"delete-user-confirm": "¿Está seguro de que desea eliminar el usuario?",
 	"edit-user-data": "Editar Datos de Usuario",
+	"email-verified": "Correo Electrónico Verificado",
 	"enter-password": "Ingrese su contraseña para suplantar al usuario",
 	"error-log": "Registro de Errores",
 	"impersonate-user": "Suplantar Usuario",
@@ -16,5 +17,7 @@
 	"no-instructor": "No Instructor",
 	"last-updated": "Última actualización",
 	"password-placeholder": "Introducir Contraseña",
-	"users": "Usuarios"
+	"users": "Usuarios",
+	"verified": "Verificado",
+	"not-verified": "No Verificado"
 }

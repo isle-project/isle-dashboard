@@ -9,6 +9,7 @@
 	"delete-user": "Delete User",
 	"delete-user-confirm": "Are you sure you want to delete the user ",
 	"edit-user-data": "Edit User Data",
+	"email-verified": "Email Verified",
 	"enter-password": "Please enter your password to impersonate the user ",
 	"error-log": "Error Log",
 	"impersonate-user": "Impersonate User",
@@ -16,5 +17,7 @@
 	"no-instructor": "No Instructor",
 	"last-updated": "Last Updated",
 	"password-placeholder": "Enter Password",
-	"users": "Users"
+	"users": "Users",
+	"verified": "Verified",
+	"not-verified": "Not Verified"
 }
