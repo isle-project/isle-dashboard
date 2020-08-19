@@ -42,6 +42,8 @@ class ConfirmEmail extends Component {
 		const qs = queryString.parse( hash );
 		const token = qs[ 'token' ];
 		const newMessage = await this.props.confirmEmail( token );
+
+		// eslint-disable-next-line react/no-did-mount-set-state
 		this.setState({
 			message: newMessage
 		});
