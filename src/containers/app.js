@@ -40,6 +40,7 @@ const AsyncCreateNamespace = asyncComponent(() => import( 'containers/visible-cr
 const AsyncEditNamespace = asyncComponent(() => import( 'containers/visible-edit-namespace' ));
 const AsyncNewPassword = asyncComponent(() => import( 'components/new-password' ));
 const AsyncConfirmEmail = asyncComponent(() => import( 'containers/visible-confirm-email' ));
+const AsyncShibboleth = asyncComponent(() => import( 'containers/visible-shibboleth' ));
 const AsyncAdminPage = asyncComponent(() => import( 'containers/visible-admin' ));
 const AsyncLogin = asyncComponent(() => import( 'containers/visible-login' ));
 const AsyncSignup = asyncComponent(() => import( 'containers/visible-signup' ));
@@ -65,7 +66,7 @@ const ALL_LOGGEDIN_PATHS = [
 	'/enroll',
 	'/admin'
 ];
-const RE_PUBLIC_PAGES = /(?:courses|new-password|confirm-email|signup|terms|privacy)/;
+const RE_PUBLIC_PAGES = /(?:courses|new-password|confirm-email|shibboleth|signup|terms|privacy)/;
 
 
 // MAIN //
@@ -114,7 +115,7 @@ class App extends Component {
 		}
 		else if (
 			this.props.isLoggedIn && pathname &&
-			( pathname === '/' || pathname === '/login' )
+			( pathname === '/' || pathname === '/login' || pathname === '/shibboleth' )
 		) {
 			const path = this.props.user.writeAccess ? '/lessons' : '/profile';
 			history.push( path );
@@ -190,6 +191,7 @@ class App extends Component {
 					<Route path="/login" component={AsyncLogin} />
 					<Route path="/new-password" component={AsyncNewPassword} />
 					<Route path="/confirm-email" component={AsyncConfirmEmail} />
+					<Route path="/shibboleth" component={AsyncShibboleth} />
 					<Route path="/signup" component={AsyncSignup} />
 					<Route path="/forgot-password" component={AsyncForgotPassword} />
 					<Route path="/terms" component={AsyncTerms} />

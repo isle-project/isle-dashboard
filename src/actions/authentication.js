@@ -21,7 +21,7 @@ import axios from 'axios';
 import logger from 'debug';
 import server from 'constants/server';
 import { addErrorNotification } from 'actions/notification.js';
-import { loggedIn } from 'actions/user';
+import { loggedIn, receivedToken } from 'actions/user';
 
 
 // VARIABLES //
@@ -101,5 +101,24 @@ export const fetchCredentials = async ( dispatch, obj ) => {
 export const fetchCredentialsInjector = dispatch => {
 	return ( obj ) => {
 		return fetchCredentials( dispatch, obj );
+	};
+};
+
+export const shibboleth = async ( dispatch, { eppn, name, affil, time, salt, token }) => {
+	try {
+		const res = await axios.post( server+'/shibboleth', {
+			eppn, name, affil, time, salt, token
+		});
+		dispatch( receivedToken( res.data ) );
+		return res;
+	}
+	catch ( err ) {
+		addErrorNotification( dispatch, err );
+	}
+};
+
+export const shibbolethInjector = dispatch => {
+	return ({ eppn, name, affil, time, salt, token }) => {
+		return shibboleth( dispatch, { eppn, name, affil, time, salt, token } );
 	};
 };
