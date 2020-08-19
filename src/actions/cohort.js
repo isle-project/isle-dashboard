@@ -17,6 +17,7 @@
 
 // MODULES //
 
+import React from 'react';
 import axios from 'axios';
 import qs from 'querystring';
 import logger from 'debug';
@@ -165,11 +166,28 @@ export const createCohortInjector = ( dispatch ) => {
 
 export const updateCohort = async ( dispatch, cohort, namespaceID ) => {
 	try {
-		await axios.post( server+'/update_cohort', { cohort });
-		addNotification( dispatch, {
-			message: 'Cohort successfully updated',
-			level: 'success'
-		});
+		const res = await axios.post( server+'/update_cohort', { cohort });
+		let msg = res.data.message;
+		let notification;
+		if ( res.data.newEmails.length > 0 ) {
+			notification = {
+				children: <div>
+					<p>{msg}</p>
+					<p>Email invitations to the following new users have been sent:</p>
+					<p>{res.data.newEmails.join( '\n' )}</p>
+				</div>,
+				level: 'success',
+				autoDismiss: 0,
+				dismissible: 'button'
+			};
+		}
+		else {
+			notification = {
+				message: msg,
+				level: 'success'
+			};
+		}
+		addNotification( dispatch, notification );
 		dispatch( retrievedEnrollableCohorts( null ) );
 		getCohorts( dispatch, { namespaceID });
 	} catch ( err ) {
