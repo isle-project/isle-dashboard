@@ -243,6 +243,51 @@ class UserPage extends Component {
 				maxWidth: 120
 			},
 			{
+				Header: t('email-verified'),
+				accessor: 'verifiedEmail',
+				style: { marginTop: '2px', color: 'darkslategrey', fontSize: 24, textAlign: 'center' },
+				Cell: ( row ) => {
+					if ( row.value ) {
+						return <i className="far fa-check-square"></i>;
+					}
+					return null;
+				},
+				filterMethod: ( filter, row ) => {
+					if ( filter.value === 'all' ) {
+						return true;
+					}
+					const id = filter.pivotId || filter.id;
+					if ( row[ id ] === void 0 ) {
+						return true;
+					}
+					return String( row[ id ] ) === filter.value;
+				},
+				Filter: ({ filter, onChange }) => {
+					const handleChange = ( event ) => {
+						const newValue = event.target.value;
+						onChange( newValue );
+					};
+					let value;
+					if ( !filter ) {
+						value = 'all';
+					} else {
+						value = filter.value;
+					}
+					return (
+						<select
+							onBlur={handleChange} onChange={handleChange}
+							style={{ width: '100%', backgroundColor: 'ghostwhite' }}
+							value={value}
+						>
+							<option value="all">Show All</option>
+							<option value={true} >{t('verified')}</option>
+							<option value={false} >{t('not-verified')}</option>
+						</select>
+					);
+				},
+				maxWidth: 150
+			},
+			{
 				Header: t('last-updated'),
 				accessor: 'updatedAt',
 				Cell: ( row ) => {
