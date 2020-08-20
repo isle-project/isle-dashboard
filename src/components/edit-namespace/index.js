@@ -221,7 +221,7 @@ class EditNamespace extends Component {
 		const { t } = this.props;
 		if ( !this.props.namespace._id ) {
 			return ( <Container className="edit-namespace-container" >
-				<Alert variant="danger">{t('no-course-selected')}</Alert>
+				<Alert variant="danger">{t('common:no-course-selected')}</Alert>
 			</Container> );
 		}
 		const validTitle = validateTitle( this.state.title );
