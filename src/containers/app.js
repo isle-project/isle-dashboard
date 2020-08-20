@@ -19,6 +19,7 @@
 
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
+import logger from 'debug';
 import { connect } from 'react-redux';
 import { Route } from 'react-router-dom';
 import { ConnectedRouter } from 'connected-react-router';
@@ -67,6 +68,7 @@ const ALL_LOGGEDIN_PATHS = [
 	'/admin'
 ];
 const RE_PUBLIC_PAGES = /(?:courses|new-password|confirm-email|shibboleth|signup|terms|privacy)/;
+const debug = logger( 'isle-dashboard' );
 
 
 // MAIN //
@@ -87,6 +89,7 @@ class App extends Component {
 			}
 		}
 		if ( this.props.isLoggedIn ) {
+			debug( 'User is logged in, updating local storage...' );
 			const isle = localStorage.getItem( USER_STORAGE_ID );
 			if ( !isle ) {
 				localStorage.setItem( USER_STORAGE_ID, JSON.stringify({
@@ -103,10 +106,12 @@ class App extends Component {
 		const isLoggingIn = !prevProps.isLoggedIn && this.props.isLoggedIn;
 		const pathname = history.location.pathname;
 		if ( isLoggingIn ) {
-			if ( pathname && pathname !== '/' && pathname !== '/login' ) {
+			if ( pathname && pathname !== '/' && pathname !== '/login' && pathname !== '/shibboleth' ) {
+				debug( 'User has logged in, redirecting to: '+pathname );
 				history.push( history.location.pathname );
 			} else {
 				const path = this.props.user.writeAccess ? '/lessons' : '/profile';
+				debug( 'User has logged in, redirecting to default page: '+pathname );
 				history.push( path );
 			}
 		}
