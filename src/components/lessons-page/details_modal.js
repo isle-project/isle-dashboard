@@ -27,6 +27,7 @@ import FormGroup from 'react-bootstrap/FormGroup';
 import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
 import DateTimePicker from 'react-datetime-picker';
+import isEmptyObject from '@stdlib/assert/is-empty-object';
 import SERVER from 'constants/server';
 
 
@@ -41,24 +42,43 @@ class DetailsModal extends Component {
 	constructor( props ) {
 		super( props );
 
+		let lockLesson;
+		let lockUntil;
+		if ( props.lockUntil ) {
+			lockLesson = true;
+			lockUntil = props.lockUntil;
+		} else {
+			lockLesson = false;
+			lockUntil = new Date();
+		}
 		this.state = {
 			title: props.title,
 			description: props.description,
 			disabled: false,
-			lockLesson: props.lockUntil,
-			lockUntil: props.lockUntil ? props.lockUntil : new Date()
+			lockLesson,
+			lockUntil
 		};
 	}
 
 	componentDidUpdate( prevProps ) {
-		if (
-			prevProps.title !== this.props.title ||
-			prevProps.description !== this.props.description
-		) {
-			this.setState({
-				title: this.props.title,
-				description: this.props.description
-			});
+		const newState = {};
+		if ( prevProps.title !== this.props.title ) {
+			newState.title = this.props.title;
+		}
+		if ( prevProps.description !== this.props.description ) {
+			newState.description = this.props.description;
+		}
+		if ( prevProps.lockUntil !== this.props.lockUntil ) {
+			if ( this.props.lockUntil ) {
+				newState.lockLesson = true;
+				newState.lockUntil = this.props.lockUntil;
+			} else {
+				newState.lockLesson = false;
+				newState.lockUntil = new Date();
+			}
+		}
+		if ( !isEmptyObject( newState ) ) {
+			this.setState( newState );
 		}
 	}
 
