@@ -169,7 +169,7 @@ export const updateCohort = async ( dispatch, cohort, namespaceID ) => {
 		const res = await axios.post( server+'/update_cohort', { cohort });
 		let msg = res.data.message;
 		let notification;
-		if ( res.data.newEmails.length > 0 ) {
+		if ( res.data.newEmails && res.data.newEmails.length > 0 ) {
 			notification = {
 				children: <div>
 					<p>{msg}</p>
