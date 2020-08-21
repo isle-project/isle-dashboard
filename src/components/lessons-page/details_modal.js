@@ -19,14 +19,14 @@
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import logger from 'debug';
 import Button from 'react-bootstrap/Button';
-import Col from 'react-bootstrap/Col';
 import FormControl from 'react-bootstrap/FormControl';
 import FormLabel from 'react-bootstrap/FormLabel';
 import FormGroup from 'react-bootstrap/FormGroup';
 import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
-import logger from 'debug';
+import DateTimePicker from 'react-datetime-picker';
 import SERVER from 'constants/server';
 
 
@@ -44,7 +44,9 @@ class DetailsModal extends Component {
 		this.state = {
 			title: props.title,
 			description: props.description,
-			disabled: false
+			disabled: false,
+			lockLesson: false,
+			lockUntil: new Date()
 		};
 	}
 
@@ -78,14 +80,30 @@ class DetailsModal extends Component {
 				});
 			}
 		});
-	};
+	}
+
+	handleLockChange = ( event ) => {
+		this.setState({
+			lockLesson: event.target.checked
+		});
+	}
+
+	handleTimeChange = ( value ) => {
+		this.setState({
+			lockUntil: value
+		});
+	}
 
 	onSubmit = ( evt ) => {
 		evt.preventDefault();
-		this.props.update({
+		const details = {
 			newTitle: this.state.title,
 			newDescription: this.state.description
-		});
+		};
+		if ( this.state.lockLesson ) {
+			details.lockUntil = this.state.lockUntil;
+		}
+		this.props.update( details );
 	}
 
 	render() {
@@ -98,30 +116,37 @@ class DetailsModal extends Component {
 					</Modal.Header>
 					<Modal.Body>
 						<FormGroup>
-							<Col sm={2}>
-								<FormLabel>{t('common:title')}</FormLabel>
-							</Col>
-							<Col sm={10}>
-								<FormControl
-									name="title"
-									type="title"
-									onChange={this.handleInputChange}
-									defaultValue={this.state.title}
-								/>
-							</Col>
+							<FormLabel>{t('common:title')}</FormLabel>
+							<FormControl
+								name="title"
+								type="title"
+								onChange={this.handleInputChange}
+								defaultValue={this.state.title}
+							/>
 						</FormGroup>
 						<FormGroup>
-							<Col sm={2}>
-								<FormLabel>{t('common:description')}</FormLabel>
-							</Col>
-							<Col sm={10}>
-								<FormControl
-									name="description"
-									type="description"
-									onChange={this.handleInputChange}
-									defaultValue={this.state.description}
-								/>
-							</Col>
+							<FormLabel>{t('common:description')}</FormLabel>
+							<FormControl
+								name="description"
+								type="description"
+								onChange={this.handleInputChange}
+								defaultValue={this.state.description}
+							/>
+						</FormGroup>
+						<FormGroup>
+							<Form.Check
+								type="checkbox"
+								label={t('common:lock-until')}
+								onChange={this.handleLockChange}
+							/>
+							<div>
+								{this.state.lockLesson ? <DateTimePicker
+									minDate={new Date()}
+									onChange={this.handleTimeChange}
+									value={this.state.lockUntil}
+									clearIcon={null}
+								/> : null }
+							</div>
 						</FormGroup>
 					</Modal.Body>
 					<Modal.Footer>

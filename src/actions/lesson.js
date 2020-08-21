@@ -266,14 +266,15 @@ export const deactivateLessonInjector = ( dispatch ) => {
 	};
 };
 
-export const updateLesson = async ( dispatch, { lessonName, namespaceName, newTitle, newDescription }) => {
+export const updateLesson = async ( dispatch, { lessonName, namespaceName, newTitle, newDescription, lockUntil }) => {
 	if ( namespaceName && lessonName ) {
 		try {
 			const res = await axios.post( server+'/update_lesson', {
 				namespaceName,
 				lessonName,
 				newTitle,
-				newDescription
+				newDescription,
+				lockUntil
 			});
 			dispatch( deletedLesson( lessonName ) );
 			addNotification( dispatch, {
