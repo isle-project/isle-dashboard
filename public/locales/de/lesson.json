@@ -20,6 +20,7 @@
 	"private": "Privat",
 	"public": "Öffentlich",
 	"remove-from-gallery": "Lektion aus der Gallerie entfernen",
+	"scheduled-at": "Die Lektion wird aktiv gestellt am {{date}}",
 	"show-in-gallery": "Lektion in die Gallerie aufnehmen",
 	"source-file-copied": "Quelldatei erfolgreich in die Zwischenablage kopiert",
 	"source-file-error": "Quelldatei konnte nicht kopiert werden. Bitte versuche es in ein paar Sekunden nochmal.",
