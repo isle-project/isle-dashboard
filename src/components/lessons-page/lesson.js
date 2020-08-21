@@ -101,7 +101,7 @@ class Lesson extends Component {
 			namespaceName: this.props.namespace,
 			newTitle,
 			newDescription,
-			lockUntil
+			lockUntil: lockUntil ? lockUntil.getTime() : null
 		});
 		this.closeDetailsModal();
 	}
@@ -220,9 +220,39 @@ class Lesson extends Component {
 		);
 	}
 
+	renderActivateButton() {
+		const { lockUntil, t } = this.props;
+		const activeStyle = this.props.active === true ? 'success' : 'warning';
+		if ( lockUntil ) {
+			return ( <OverlayTrigger placement="top" overlay={<Tooltip id="lockUntil_disabled">
+				{t('scheduled-at', { date: lockUntil.toLocaleString() })}
+			</Tooltip>} >
+				<Badge
+					className="lessons-status"
+					variant={activeStyle}
+					style={{
+						opacity: 0.3
+					}}
+				>
+					{this.props.active ? t('active') : t('inactive')}
+				</Badge>
+			</OverlayTrigger> );
+		}
+		return (
+			<OverlayTrigger placement="top" overlay={<Tooltip id="toggle_availability">{this.props.active ? t('disable-lesson') : t('activate-lesson')}</Tooltip>}>
+				<Badge
+					className="lessons-status"
+					onClick={this.toggleLessonState}
+					variant={activeStyle}
+				>
+					{this.props.active ? t('active') : t('inactive')}
+				</Badge>
+			</OverlayTrigger>
+		);
+	}
+
 	renderButtonToolbar() {
 		const { t } = this.props;
-		const activeStyle = this.props.active === true ? 'success' : 'warning';
 		const publicStyle = this.props.public === true ? 'success' : 'warning';
 		return ( <ButtonToolbar className="lesson-button-toolbar">
 			<ButtonGroup style={{ marginRight: '5px' }} >
@@ -245,9 +275,7 @@ class Lesson extends Component {
 					</Button>
 				</OverlayTrigger>
 			</ButtonGroup>
-			<OverlayTrigger placement="top" overlay={<Tooltip id="toggle_availability">{this.props.active ? t('disable-lesson') : t('activate-lesson')}</Tooltip>}>
-				<Badge className="lessons-status" onClick={this.toggleLessonState} variant={activeStyle} >{this.props.active ? t('active') : t('inactive')}</Badge>
-			</OverlayTrigger>
+			{this.renderActivateButton()}
 			<OverlayTrigger placement="top" overlay={<Tooltip id="toggle_visibility">{this.props.public ? t('remove-from-gallery') : t('show-in-gallery') }</Tooltip>}>
 				<Badge className="lessons-status" onClick={this.toggleLessonVisibility} variant={publicStyle}>{this.props.public ? t(('public')) : t('private')}</Badge>
 			</OverlayTrigger>
@@ -264,6 +292,7 @@ class Lesson extends Component {
 
 	render() {
 		const { t } = this.props;
+		console.log( this.props.lockUntil );
 		return (
 			<Card className="animated-lesson-card">
 				<Card.Body style={{ padding: 0 }}>
@@ -350,12 +379,17 @@ Lesson.propTypes = {
 	description: PropTypes.string.isRequired,
 	getLessons: PropTypes.func.isRequired,
 	hideLessonInGallery: PropTypes.func.isRequired,
+	lockUntil: PropTypes.number,
 	namespace: PropTypes.string.isRequired,
 	public: PropTypes.bool.isRequired,
 	showLessonInGallery: PropTypes.func.isRequired,
 	title: PropTypes.string.isRequired,
 	updateLesson: PropTypes.func.isRequired,
 	url: PropTypes.string.isRequired
+};
+
+Lesson.defaultProps = {
+	lockUntil: null
 };
 
 

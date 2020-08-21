@@ -108,6 +108,9 @@ export const getLessons = async ( dispatch, namespaceName ) => {
 			lessons = lessons.map(( lesson, index ) => {
 				lesson.colorIndex = index % 20;
 				lesson.url = server+'/'+namespaceName+'/'+lesson.title;
+				if ( lesson.lockUntil ) {
+					lesson.lockUntil = new Date( lesson.lockUntil.time );
+				}
 				if ( !lesson.createdAt ) {
 					lesson.createdAt = new Date( 0 ).toLocaleString();
 				}
@@ -289,7 +292,7 @@ export const updateLesson = async ( dispatch, { lessonName, namespaceName, newTi
 };
 
 export const updateLessonInjector = ( dispatch ) => {
-	return ({ lessonName, namespaceName, newTitle, newDescription }) => {
-		updateLesson( dispatch, { lessonName, namespaceName, newTitle, newDescription });
+	return ({ lessonName, namespaceName, newTitle, newDescription, lockUntil }) => {
+		updateLesson( dispatch, { lessonName, namespaceName, newTitle, newDescription, lockUntil });
 	};
 };

@@ -45,8 +45,8 @@ class DetailsModal extends Component {
 			title: props.title,
 			description: props.description,
 			disabled: false,
-			lockLesson: false,
-			lockUntil: new Date()
+			lockLesson: props.lockUntil,
+			lockUntil: props.lockUntil ? props.lockUntil : new Date()
 		};
 	}
 
@@ -137,6 +137,7 @@ class DetailsModal extends Component {
 							<Form.Check
 								type="checkbox"
 								label={t('common:lock-until')}
+								checked={this.state.lockLesson}
 								onChange={this.handleLockChange}
 							/>
 							<div>
@@ -169,9 +170,14 @@ class DetailsModal extends Component {
 DetailsModal.propTypes = {
 	close: PropTypes.func.isRequired,
 	description: PropTypes.string.isRequired,
+	lockUntil: PropTypes.instanceOf( Date ),
 	show: PropTypes.bool.isRequired,
 	title: PropTypes.string.isRequired,
 	update: PropTypes.func.isRequired
+};
+
+DetailsModal.defaultProps = {
+	lockUntil: null
 };
 
 

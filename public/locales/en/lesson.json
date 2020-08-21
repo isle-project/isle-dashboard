@@ -20,6 +20,7 @@
 	"private": "Private",
 	"public": "Public",
 	"remove-from-gallery": "Remove lesson from gallery",
+	"scheduled-at": "Lesson will become active on {{date}}",
 	"show-in-gallery": "Show lesson in gallery",
 	"source-file-copied": "Source code has been copied to the clipboard",
 	"source-file-error": "Source could not be fetched. Please try again in a few seconds.",
