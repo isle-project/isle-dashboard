@@ -379,7 +379,7 @@ Lesson.propTypes = {
 	description: PropTypes.string.isRequired,
 	getLessons: PropTypes.func.isRequired,
 	hideLessonInGallery: PropTypes.func.isRequired,
-	lockUntil: PropTypes.number,
+	lockUntil: PropTypes.instanceOf( Date ),
 	namespace: PropTypes.string.isRequired,
 	public: PropTypes.bool.isRequired,
 	showLessonInGallery: PropTypes.func.isRequired,
