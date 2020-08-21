@@ -98,7 +98,7 @@
     "webpack-manifest-plugin": "^2.2.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.11.1",
+    "@babel/core": "^7.11.4",
     "@babel/preset-env": "^7.11.0",
     "@babel/preset-react": "^7.10.4",
     "autoprefixer": "9.8.6",
@@ -132,8 +132,8 @@
     "file-loader": "6.0.0",
     "fs-extra": "9.0.1",
     "html-webpack-plugin": "^4.3.0",
-    "jest": "^26.4.0",
-    "jest-cli": "^26.4.0",
+    "jest": "^26.4.1",
+    "jest-cli": "^26.4.1",
     "json-loader": "0.5.7",
     "mini-css-extract-plugin": "^0.10.0",
     "optimize-css-assets-webpack-plugin": "^5.0.3",
