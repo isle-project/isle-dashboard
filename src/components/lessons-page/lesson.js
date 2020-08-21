@@ -95,12 +95,13 @@ class Lesson extends Component {
 		this.closeDeleteModal();
 	}
 
-	update = ({ newTitle, newDescription }) => {
+	update = ({ newTitle, newDescription, lockUntil }) => {
 		this.props.updateLesson({
 			lessonName: this.props.title,
 			namespaceName: this.props.namespace,
 			newTitle,
-			newDescription
+			newDescription,
+			lockUntil
 		});
 		this.closeDetailsModal();
 	}
