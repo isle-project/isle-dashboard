@@ -49,3 +49,7 @@
 	width: 40px;
 	height: 40px;
 }
+
+.data-icon[aria-describedby='popover-data'] {
+	color: rgb(125, 170, 185);
+}
