@@ -23,9 +23,11 @@ import * as types from 'constants/action_types.js';
 // VARIABLES //
 
 const initialState = {
-	users: [],
+	cohorts: [],
 	events: [],
-	namespaces: []
+	lessons: [],
+	namespaces: [],
+	users: []
 };
 
 
@@ -38,6 +40,15 @@ export default function admin( state = initialState, action ) {
 			users: action.payload.users
 		});
 	}
+	case types.GET_ALL_COHORTS:
+		return Object.assign({}, state, {
+			cohorts: action.payload.cohorts
+		});
+	case types.GET_ALL_LESSONS:
+		console.log( action );
+		return Object.assign({}, state, {
+			lessons: action.payload.lessons
+		});
 	case types.GET_ALL_NAMESPACES:
 		return Object.assign({}, state, {
 			namespaces: action.payload.namespaces

@@ -23,6 +23,8 @@ import AdminPage from 'components/admin';
 import { getUsersInjector, deleteUserInjector, impersonateUserInjector } from 'actions/user.js';
 import { getEventsInjector } from 'actions/event.js';
 import { getAllNamespacesInjector } from 'actions/namespace.js';
+import { getAllCohortsInjector } from 'actions/cohort.js';
+import { getAllLessonsInjector } from 'actions/lesson.js';
 
 
 // FUNCTIONS //
@@ -36,6 +38,8 @@ function mapStateToProps( state ) {
 
 function mapDispatchToProps( dispatch ) {
 	return {
+		getAllCohorts: getAllCohortsInjector( dispatch ),
+		getAllLessons: getAllLessonsInjector( dispatch ),
 		getAllNamespaces: getAllNamespacesInjector( dispatch ),
 		getEvents: getEventsInjector( dispatch ),
 		getUsers: getUsersInjector( dispatch ),

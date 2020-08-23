@@ -23,9 +23,11 @@ import { withTranslation } from 'react-i18next';
 import Nav from 'react-bootstrap/Nav';
 import ErrorsLog from './logs/errors';
 import AccessLog from './logs/access';
-import UserTable from './user_table.js';
+import CohortTable from './cohort_table.js';
 import EventTable from './event_table.js';
+import LessonTable from './lesson_table.js';
 import NamespaceTable from './namespace_table.js';
+import UserTable from './user_table.js';
 import { version as dashboardVersion } from './../../../package.json';
 import 'react-table/react-table.css';
 import 'css/table.css';
@@ -134,6 +136,20 @@ class AdminPage extends Component {
 						getAllNamespaces={this.props.getAllNamespaces}
 					/>
 				);
+			case 5:
+				return (
+					<CohortTable
+						admin={this.props.admin}
+						getAllCohorts={this.props.getAllCohorts}
+					/>
+				);
+			case 6:
+				return (
+					<LessonTable
+						admin={this.props.admin}
+						getAllLessons={this.props.getAllLessons}
+					/>
+				);
 			case 7:
 				return (
 					<EventTable
@@ -189,6 +205,8 @@ class AdminPage extends Component {
 AdminPage.propTypes = {
 	admin: PropTypes.object.isRequired,
 	deleteUser: PropTypes.func.isRequired,
+	getAllCohorts: PropTypes.func.isRequired,
+	getAllLessons: PropTypes.func.isRequired,
 	getAllNamespaces: PropTypes.func.isRequired,
 	getEvents: PropTypes.func.isRequired,
 	getUsers: PropTypes.func.isRequired,

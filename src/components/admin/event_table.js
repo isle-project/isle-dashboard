@@ -24,6 +24,7 @@ import ReactTable from 'react-table';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Popover from 'react-bootstrap/Popover';
 import server from 'constants/server';
+import createBooleanColumn from './create_boolean_column.js';
 import 'react-table/react-table.css';
 
 
@@ -84,51 +85,12 @@ class EventTable extends Component {
 				},
 				maxWidth: 120
 			},
-			{
+			createBooleanColumn({
 				Header: t('done'),
 				accessor: 'done',
-				style: { marginTop: '2px', color: 'darkslategrey', fontSize: 24, textAlign: 'center' },
-				Cell: ( row ) => {
-					if ( row.value ) {
-						return <i className="far fa-check-square"></i>;
-					}
-					return null;
-				},
-				filterMethod: ( filter, row ) => {
-					if ( filter.value === 'all' ) {
-						return true;
-					}
-					const id = filter.pivotId || filter.id;
-					if ( row[ id ] === void 0 ) {
-						return true;
-					}
-					return String( row[ id ] ) === filter.value;
-				},
-				Filter: ({ filter, onChange }) => {
-					const handleChange = ( event ) => {
-						const newValue = event.target.value;
-						onChange( newValue );
-					};
-					let value;
-					if ( !filter ) {
-						value = 'all';
-					} else {
-						value = filter.value;
-					}
-					return (
-						<select
-							onBlur={handleChange} onChange={handleChange}
-							style={{ width: '100%', backgroundColor: 'ghostwhite' }}
-							value={value}
-						>
-							<option value="all">Show All</option>
-							<option value={true} >{t('done')}</option>
-							<option value={false} >{t('not-done')}</option>
-						</select>
-					);
-				},
-				maxWidth: 150
-			},
+				trueLabel: t('done'),
+				falseLabel: t('not-done')
+			}),
 			{
 				Header: 'Pic',
 				accessor: 'user.picture',
