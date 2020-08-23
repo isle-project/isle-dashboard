@@ -20,6 +20,8 @@
 	"date": "Date",
 	"delete": "Delete",
 	"description": "Description",
+	"done": "Done",
+	"not-done": "Not done",
 	"edit": "Edit",
 	"email-address": "Email Address",
 	"email-not-verified": "Email Not Verified",
@@ -53,7 +55,9 @@
 	"sort-descending": "Sort in descending order",
 	"sort-update-date": "Sort by update date",
 	"statistics": "Statistics",
+	"time": "Time",
 	"title": "Title",
+	"type": "Type",
 	"update": "Update",
 	"waiting": "Waiting..."
 }

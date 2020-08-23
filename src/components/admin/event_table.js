@@ -51,7 +51,7 @@ class EventTable extends Component {
 				style: { marginTop: '8px', color: 'darkslategrey' }
 			},
 			{
-				Header: t( 'time' ),
+				Header: t( 'common:time' ),
 				accessor: 'time',
 				style: { marginTop: '2px', color: 'darkslategrey' },
 				Cell: ( row ) => {
@@ -63,7 +63,7 @@ class EventTable extends Component {
 				maxWidth: 150
 			},
 			{
-				Header: t( 'data' ),
+				Header: t( 'common:data' ),
 				accessor: 'data',
 				style: { marginTop: '2px', color: 'darkslategrey', fontSize: 24, textAlign: 'center', cursor: 'pointer' },
 				Cell: ( row ) => {
@@ -86,10 +86,10 @@ class EventTable extends Component {
 				maxWidth: 120
 			},
 			createBooleanColumn({
-				Header: t('done'),
+				Header: t('common:done'),
 				accessor: 'done',
-				trueLabel: t('done'),
-				falseLabel: t('not-done')
+				trueLabel: t('common:done'),
+				falseLabel: t('common:not-done')
 			}),
 			{
 				Header: 'Pic',
