@@ -21,7 +21,7 @@ import axios from 'axios';
 import qs from 'querystring';
 import server from 'constants/server';
 import { addNotification, addErrorNotification } from 'actions/notification';
-import { DELETED_LESSON, UPDATED_LESSON, RETRIEVED_LESSONS, RETRIEVED_PUBLIC_LESSONS } from 'constants/action_types.js';
+import { DELETED_LESSON, GET_ALL_LESSONS, UPDATED_LESSON, RETRIEVED_LESSONS, RETRIEVED_PUBLIC_LESSONS } from 'constants/action_types.js';
 
 
 // EXPORTS //
@@ -51,6 +51,15 @@ export function retrievedLessons({ lessons, namespaceName }) {
 		payload: {
 			lessons,
 			namespaceName
+		}
+	};
+}
+
+export function retrievedAllLessons( lessons ) {
+	return {
+		type: GET_ALL_LESSONS,
+		payload: {
+			lessons
 		}
 	};
 }
@@ -294,5 +303,20 @@ export const updateLesson = async ( dispatch, { lessonName, namespaceName, newTi
 export const updateLessonInjector = ( dispatch ) => {
 	return ({ lessonName, namespaceName, newTitle, newDescription, lockUntil }) => {
 		updateLesson( dispatch, { lessonName, namespaceName, newTitle, newDescription, lockUntil });
+	};
+};
+
+export const getAllLessons = async ( dispatch ) => {
+	try {
+		const res = await axios.get( server+'/get_all_lessons' );
+		dispatch( retrievedAllLessons( res.data.lessons ) );
+	} catch ( err ) {
+		addErrorNotification( dispatch, err );
+	}
+};
+
+export const getAllLessonsInjector = ( dispatch ) => {
+	return () => {
+		getAllLessons( dispatch );
 	};
 };

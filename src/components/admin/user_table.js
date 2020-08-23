@@ -30,6 +30,7 @@ import ConfirmModal from 'components/confirm-modal';
 import contains from '@stdlib/assert/contains';
 import lowercase from '@stdlib/string/lowercase';
 import server from 'constants/server';
+import createBooleanColumn from './create_boolean_column.js';
 import 'react-table/react-table.css';
 
 
@@ -156,141 +157,24 @@ class UserPage extends Component {
 				style: { marginTop: '8px', color: 'darkslategrey' },
 				maxWidth: 200
 			},
-			{
+			createBooleanColumn({
 				Header: t( 'instructor' ),
 				accessor: 'writeAccess',
-				style: { marginTop: '2px', color: 'darkslategrey', fontSize: 24, textAlign: 'center' },
-				Cell: ( row ) => {
-					if ( row.value ) {
-						return <i className="far fa-check-square"></i>;
-					}
-					return null;
-				},
-				filterMethod: ( filter, row ) => {
-					if ( filter.value === 'all' ) {
-						return true;
-					}
-					const id = filter.pivotId || filter.id;
-					if ( row[ id ] === void 0 ) {
-						return true;
-					}
-					return String( row[ id ] ) === filter.value;
-				},
-				Filter: ({ filter, onChange }) => {
-					const handleChange = ( event ) => {
-						const newValue = event.target.value;
-						onChange( newValue );
-					};
-					let value;
-					if ( !filter ) {
-						value = 'all';
-					} else {
-						value = filter.value;
-					}
-					return (
-						<select
-							onBlur={handleChange} onChange={handleChange}
-							style={{ width: '100%', backgroundColor: 'ghostwhite' }}
-							value={value}
-						>
-							<option value="all">Show All</option>
-							<option value={true} >{t('instructor')}</option>
-							<option value={false} >{t('no-instructor')}</option>
-						</select>
-					);
-				},
-				maxWidth: 120
-			},
-			{
+				trueLabel: t('instructor'),
+				falseLabel: t('no-instructor')
+			}),
+			createBooleanColumn({
 				Header: t( 'admin' ),
 				accessor: 'administrator',
-				style: { marginTop: '2px', color: 'darkslategrey', fontSize: 24, textAlign: 'center' },
-				Cell: ( row ) => {
-					if ( row.value ) {
-						return <i className="far fa-check-square"></i>;
-					}
-					return null;
-				},
-				filterMethod: ( filter, row ) => {
-					if ( filter.value === 'all' ) {
-						return true;
-					}
-					const id = filter.pivotId || filter.id;
-					if ( row[ id ] === void 0 ) {
-						return true;
-					}
-					return String( row[ id ] ) === filter.value;
-				},
-				Filter: ({ filter, onChange }) => {
-					const handleChange = ( event ) => {
-						const newValue = event.target.value;
-						onChange( newValue );
-					};
-					let value;
-					if ( !filter ) {
-						value = 'all';
-					} else {
-						value = filter.value;
-					}
-					return (
-						<select
-							onBlur={handleChange} onChange={handleChange}
-							style={{ width: '100%', backgroundColor: 'ghostwhite' }}
-							value={value}
-						>
-							<option value="all">Show All</option>
-							<option value={true} >{t('admin')}</option>
-							<option value={false} >{t('no-admin')}</option>
-						</select>
-					);
-				},
-				maxWidth: 120
-			},
-			{
-				Header: t('email-verified'),
+				trueLabel: t('admin'),
+				falseLabel: t('no-admin')
+			}),
+			createBooleanColumn({
+				Header: t( 'email-verified' ),
 				accessor: 'verifiedEmail',
-				style: { marginTop: '2px', color: 'darkslategrey', fontSize: 24, textAlign: 'center' },
-				Cell: ( row ) => {
-					if ( row.value ) {
-						return <i className="far fa-check-square"></i>;
-					}
-					return null;
-				},
-				filterMethod: ( filter, row ) => {
-					if ( filter.value === 'all' ) {
-						return true;
-					}
-					const id = filter.pivotId || filter.id;
-					if ( row[ id ] === void 0 ) {
-						return true;
-					}
-					return String( row[ id ] ) === filter.value;
-				},
-				Filter: ({ filter, onChange }) => {
-					const handleChange = ( event ) => {
-						const newValue = event.target.value;
-						onChange( newValue );
-					};
-					let value;
-					if ( !filter ) {
-						value = 'all';
-					} else {
-						value = filter.value;
-					}
-					return (
-						<select
-							onBlur={handleChange} onChange={handleChange}
-							style={{ width: '100%', backgroundColor: 'ghostwhite' }}
-							value={value}
-						>
-							<option value="all">Show All</option>
-							<option value={true} >{t('verified')}</option>
-							<option value={false} >{t('not-verified')}</option>
-						</select>
-					);
-				},
-				maxWidth: 150
-			},
+				trueLabel: t('verified'),
+				falseLabel: t('not-verified')
+			}),
 			{
 				Header: t('last-updated'),
 				accessor: 'updatedAt',

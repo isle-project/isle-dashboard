@@ -24,7 +24,7 @@ import logger from 'debug';
 import server from 'constants/server';
 import { getLessons } from 'actions/lesson';
 import { addNotification, addErrorNotification } from 'actions/notification';
-import { ADD_ENROLLED_NAMESPACE, RETRIEVED_COHORTS, RETRIEVED_ENROLLABLE_COHORTS } from 'constants/action_types.js';
+import { ADD_ENROLLED_NAMESPACE, GET_ALL_COHORTS, RETRIEVED_COHORTS, RETRIEVED_ENROLLABLE_COHORTS } from 'constants/action_types.js';
 
 
 // VARIABLES //
@@ -62,6 +62,15 @@ export function retrievedCohorts( cohorts, user ) {
 		payload: {
 			cohorts,
 			user
+		}
+	};
+}
+
+export function retrievedAllCohorts( cohorts ) {
+	return {
+		type: GET_ALL_COHORTS,
+		payload: {
+			cohorts
 		}
 	};
 }
@@ -198,5 +207,20 @@ export const updateCohort = async ( dispatch, cohort, namespaceID ) => {
 export const updateCohortInjector = ( dispatch ) => {
 	return ( cohort, namespaceID ) => {
 		updateCohort( dispatch, cohort, namespaceID );
+	};
+};
+
+export const getAllCohorts = async ( dispatch ) => {
+	try {
+		const res = await axios.get( server+'/get_all_cohorts' );
+		dispatch( retrievedAllCohorts( res.data.cohorts ) );
+	} catch ( err ) {
+		addErrorNotification( dispatch, err );
+	}
+};
+
+export const getAllCohortsInjector = ( dispatch ) => {
+	return () => {
+		getAllCohorts( dispatch );
 	};
 };
