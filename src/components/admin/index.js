@@ -177,16 +177,16 @@ class AdminPage extends Component {
 							<Nav.Link eventKey="3" title="Users" >{t('users')}</Nav.Link>
 						</Nav.Item>
 						<Nav.Item>
-							<Nav.Link eventKey="4" title="Courses" >{t('courses')}</Nav.Link>
+							<Nav.Link eventKey="4" title="Courses" >{t('common:courses')}</Nav.Link>
 						</Nav.Item>
 						<Nav.Item>
-							<Nav.Link eventKey="5" title="Cohorts" >{t('cohorts')}</Nav.Link>
+							<Nav.Link eventKey="5" title="Cohorts" >{t('common:cohorts')}</Nav.Link>
 						</Nav.Item>
 						<Nav.Item>
-							<Nav.Link eventKey="6" title="Lessons" >{t('lessons')}</Nav.Link>
+							<Nav.Link eventKey="6" title="Lessons" >{t('common:lessons')}</Nav.Link>
 						</Nav.Item>
 						<Nav.Item>
-							<Nav.Link eventKey="7" title="Events" >{t('events')}</Nav.Link>
+							<Nav.Link eventKey="7" title="Events" >{t('common:events')}</Nav.Link>
 						</Nav.Item>
 						<span className="admin-page-version" >{t('dashboard-version')}: {dashboardVersion}</span>
 					</Nav>

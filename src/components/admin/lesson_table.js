@@ -21,6 +21,7 @@ import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { withTranslation } from 'react-i18next';
 import ReactTable from 'react-table';
+import capitalize from '@stdlib/string/capitalize';
 import createBooleanColumn from './create_boolean_column.js';
 import 'react-table/react-table.css';
 
@@ -49,7 +50,7 @@ class LessonTable extends Component {
 				style: { marginTop: '8px', color: 'darkslategrey' }
 			},
 			{
-				Header: t('common:namespace'),
+				Header: t('common:course'),
 				id: 'namespace',
 				accessor: 'namespace.title',
 				maxWidth: 200,
@@ -63,16 +64,16 @@ class LessonTable extends Component {
 				style: { marginTop: '8px', color: 'darkslategrey' }
 			},
 			createBooleanColumn({
-				Header: t('active'),
+				Header: capitalize( t('lesson:active') ),
 				accessor: 'active',
-				trueLabel: t('active'),
-				falseLabel: t('not-active')
+				trueLabel: t('lesson:active'),
+				falseLabel: t('lesson:inactive')
 			}),
 			createBooleanColumn({
-				Header: t('public'),
+				Header: capitalize( t('lesson:public') ),
 				accessor: 'public',
-				trueLabel: t('public'),
-				falseLabel: t('not-public')
+				trueLabel: t('lesson:public'),
+				falseLabel: t('lesson:private')
 			}),
 			{
 				Header: t('last-updated'),
@@ -126,4 +127,4 @@ LessonTable.propTypes = {
 
 // EXPORTS //
 
-export default withTranslation( [ 'admin', 'common' ] )( LessonTable );
+export default withTranslation( [ 'admin', 'lesson', 'common' ] )( LessonTable );
