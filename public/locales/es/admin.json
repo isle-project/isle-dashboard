@@ -17,6 +17,11 @@
 	"no-instructor": "No Instructor",
 	"last-updated": "Última actualización",
 	"password-placeholder": "Introducir Contraseña",
+	"enrollment": "Inscripción",
+	"open-enrollment": "Inscripción abierta",
+	"manual-enrollment": "Inscripción manual",
+	"start-date": "Fecha de inicio",
+	"end-date": "Fecha de finalización",
 	"users": "Usuarios",
 	"verified": "Verificado",
 	"not-verified": "No Verificado"

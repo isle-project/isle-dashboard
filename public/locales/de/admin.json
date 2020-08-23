@@ -17,6 +17,11 @@
 	"no-instructor": "Kein Lehrer",
 	"last-updated": "Zuletzt aktualisiert",
 	"password-placeholder": "Passwort eingeben",
+	"enrollment": "Einschreibung",
+	"open-enrollment": "Offene Einschreibung",
+	"manual-enrollment": "Manuelles Einschreiben",
+	"start-date": "Startdatum",
+	"end-date": "Enddatum",
 	"users": "Nutzer",
 	"verified": "Verifiziert",
 	"not-verified": "Nicht Verifiziert"

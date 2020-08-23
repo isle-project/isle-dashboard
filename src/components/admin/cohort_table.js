@@ -39,6 +39,7 @@ class CohortTable extends Component {
 
 	createColumns = () => {
 		const { t } = this.props;
+		console.log( this.props.admin.cohorts );
 		return [
 			{
 				Header: t('common:title'),
@@ -48,25 +49,44 @@ class CohortTable extends Component {
 				style: { marginTop: '8px', color: 'darkslategrey' }
 			},
 			{
-				Header: t('common:namespace'),
+				Header: t('common:course'),
 				id: 'namespace',
 				accessor: 'namespace.title',
 				maxWidth: 200,
 				style: { marginTop: '8px', color: 'darkslategrey' }
 			},
 			{
-				Header: t('common:emailFilter'),
+				Header: t('namespace:email-filter'),
 				id: 'emailFilter',
 				accessor: 'emailFilter',
 				maxWidth: 200,
 				style: { marginTop: '8px', color: 'darkslategrey' }
 			},
 			createBooleanColumn({
-				Header: t('private'),
+				Header: t('enrollment'),
 				accessor: 'private',
-				trueLabel: t('private'),
-				falseLabel: t('not-private')
+				trueLabel: t('open-enrollment'),
+				falseLabel: t('manual-enrollment'),
+				printLabels: true
 			}),
+			{
+				Header: t('start-date'),
+				accessor: 'startDate',
+				Cell: ( row ) => {
+					return new Date( row.value ).toLocaleDateString();
+				},
+				style: { marginTop: '8px', color: 'darkslategrey' },
+				maxWidth: 150
+			},
+			{
+				Header: t('end-date'),
+				accessor: 'endDate',
+				Cell: ( row ) => {
+					return new Date( row.value ).toLocaleDateString();
+				},
+				style: { marginTop: '8px', color: 'darkslategrey' },
+				maxWidth: 150
+			},
 			{
 				Header: t('common:actions')
 			}
@@ -101,4 +121,4 @@ CohortTable.propTypes = {
 
 // EXPORTS //
 
-export default withTranslation( [ 'admin', 'common' ] )( CohortTable );
+export default withTranslation( [ 'admin', 'namespace', 'common' ] )( CohortTable );

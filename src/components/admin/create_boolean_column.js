@@ -22,17 +22,33 @@ import React from 'react';
 
 // MAIN //
 
-function createBooleanColumn({ Header, accessor, trueLabel, falseLabel }) {
-	return {
-		Header,
-		accessor,
-		style: { marginTop: '2px', color: 'darkslategrey', fontSize: 24, textAlign: 'center' },
-		Cell: ( row ) => {
+function createBooleanColumn({ Header, accessor, trueLabel, falseLabel, printLabels = false }) {
+	let Cell;
+	let style;
+	if ( printLabels ) {
+		Cell = ( row ) => {
+			if ( row.value === true ) {
+				return trueLabel;
+			} else if ( row.value === false ) {
+				return falseLabel;
+			}
+			return null;
+		};
+		style = { marginTop: '8px', color: 'darkslategrey' };
+	} else {
+		Cell = ( row ) => {
 			if ( row.value ) {
 				return <i className="far fa-check-square"></i>;
 			}
 			return null;
-		},
+		};
+		style = { marginTop: '2px', color: 'darkslategrey', fontSize: 24, textAlign: 'center' };
+	}
+	return {
+		Header,
+		accessor,
+		style,
+		Cell: Cell,
 		filterMethod: ( filter, row ) => {
 			if ( filter.value === 'all' ) {
 				return true;

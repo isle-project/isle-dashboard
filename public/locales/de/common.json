@@ -20,6 +20,8 @@
 	"date": "Datum",
 	"delete": "Löschen",
 	"description": "Beschreibung",
+	"done": "Abgeschlossen",
+	"not-done": "Nicht abgeschlossen",
 	"edit": "Editieren",
 	"email-address": "E-Mail-Adresse",
 	"email-not-verified": "E-Mail nicht verifiziert",
@@ -53,7 +55,9 @@
 	"sort-descending": "Absteigend sortieren",
 	"sort-update-date": "Sortieren nach Aktualisierungsdatum",
 	"statistics": "Statistiken",
+	"time": "Zeit",
 	"title": "Titel",
+	"type": "Typ",
 	"update": "Update",
 	"waiting": "Warten auf Antwort..."
 }
