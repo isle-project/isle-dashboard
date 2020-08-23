@@ -88,6 +88,15 @@ class CohortTable extends Component {
 				maxWidth: 150
 			},
 			{
+				Header: t( 'common:number-of-students' ),
+				accessor: 'members',
+				style: { marginTop: '2px', color: 'darkslategrey' },
+				maxWidth: 150,
+				Cell: ( row ) => {
+					return row.value.length;
+				}
+			},
+			{
 				Header: t('common:actions')
 			}
 		];
