@@ -24,6 +24,8 @@ import Nav from 'react-bootstrap/Nav';
 import ErrorsLog from './logs/errors';
 import AccessLog from './logs/access';
 import UserTable from './user_table.js';
+import EventTable from './event_table.js';
+import NamespaceTable from './namespace_table.js';
 import { version as dashboardVersion } from './../../../package.json';
 import 'react-table/react-table.css';
 import 'css/table.css';
@@ -49,8 +51,17 @@ class AdminPage extends Component {
 			case 'users':
 				activePage = 3;
 				break;
-			case 'admins':
+			case 'courses':
 				activePage = 4;
+				break;
+			case 'cohorts':
+				activePage = 5;
+				break;
+			case 'lessons':
+				activePage = 6;
+				break;
+			case 'events':
+				activePage = 7;
 				break;
 		}
 		this.state = {
@@ -59,7 +70,6 @@ class AdminPage extends Component {
 	}
 
 	componentDidMount() {
-		this.props.getUsers();
 		if ( !this.props.user.administrator ) {
 			this.props.history.replace( '/profile' );
 		}
@@ -84,7 +94,16 @@ class AdminPage extends Component {
 				this.props.history.replace( '/admin/users' );
 				break;
 			case 4:
-				this.props.history.replace( '/admin/admins' );
+				this.props.history.replace( '/admin/courses' );
+				break;
+			case 5:
+				this.props.history.replace( '/admin/cohorts' );
+				break;
+			case 6:
+				this.props.history.replace( '/admin/lessons' );
+				break;
+			case 7:
+				this.props.history.replace( '/admin/events' );
 				break;
 		}
 		this.setState({
@@ -99,11 +118,29 @@ class AdminPage extends Component {
 			case 2:
 				return <ErrorsLog user={this.props.user} />;
 			case 3:
-				return ( <UserTable
-					user={this.props.user} admin={this.props.admin}
-					deleteUser={this.props.deleteUser}
-					impersonateUser={this.props.impersonateUser}
-				/> );
+				return (
+					<UserTable
+						user={this.props.user}
+						admin={this.props.admin}
+						deleteUser={this.props.deleteUser}
+						impersonateUser={this.props.impersonateUser}
+						getUsers={this.props.getUsers}
+					/>
+				);
+			case 4:
+				return (
+					<NamespaceTable
+						admin={this.props.admin}
+						getAllNamespaces={this.props.getAllNamespaces}
+					/>
+				);
+			case 7:
+				return (
+					<EventTable
+						admin={this.props.admin}
+						getEvents={this.props.getEvents}
+					/>
+				);
 		}
 	}
 
@@ -123,6 +160,18 @@ class AdminPage extends Component {
 						<Nav.Item>
 							<Nav.Link eventKey="3" title="Users" >{t('users')}</Nav.Link>
 						</Nav.Item>
+						<Nav.Item>
+							<Nav.Link eventKey="4" title="Courses" >{t('courses')}</Nav.Link>
+						</Nav.Item>
+						<Nav.Item>
+							<Nav.Link eventKey="5" title="Cohorts" >{t('cohorts')}</Nav.Link>
+						</Nav.Item>
+						<Nav.Item>
+							<Nav.Link eventKey="6" title="Lessons" >{t('lessons')}</Nav.Link>
+						</Nav.Item>
+						<Nav.Item>
+							<Nav.Link eventKey="7" title="Events" >{t('events')}</Nav.Link>
+						</Nav.Item>
 						<span className="admin-page-version" >{t('dashboard-version')}: {dashboardVersion}</span>
 					</Nav>
 				</div>
@@ -140,6 +189,8 @@ class AdminPage extends Component {
 AdminPage.propTypes = {
 	admin: PropTypes.object.isRequired,
 	deleteUser: PropTypes.func.isRequired,
+	getAllNamespaces: PropTypes.func.isRequired,
+	getEvents: PropTypes.func.isRequired,
 	getUsers: PropTypes.func.isRequired,
 	impersonateUser: PropTypes.func.isRequired,
 	user: PropTypes.object.isRequired

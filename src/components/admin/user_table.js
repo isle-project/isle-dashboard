@@ -53,6 +53,10 @@ class UserPage extends Component {
 		};
 	}
 
+	componentDidMount() {
+		this.props.getUsers();
+	}
+
 	toggleImpersonateModal = () => {
 		this.setState({
 			showImpersonateModal: !this.state.showImpersonateModal
@@ -114,7 +118,7 @@ class UserPage extends Component {
 	createColumns = () => {
 		const { t } = this.props;
 		return [
-			{
+		{
 				Header: 'Pic',
 				accessor: 'picture',
 				Cell: row => (
@@ -394,6 +398,7 @@ class UserPage extends Component {
 UserPage.propTypes = {
 	admin: PropTypes.object.isRequired,
 	deleteUser: PropTypes.func.isRequired,
+	getUsers: PropTypes.func.isRequired,
 	impersonateUser: PropTypes.func.isRequired,
 	t: PropTypes.func.isRequired
 };

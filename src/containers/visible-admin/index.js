@@ -20,7 +20,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import AdminPage from 'components/admin';
-import { getUsersInjector, deleteUserInjector, impersonateUserInjector } from 'actions/user';
+import { getUsersInjector, deleteUserInjector, impersonateUserInjector } from 'actions/user.js';
+import { getEventsInjector } from 'actions/event.js';
+import { getAllNamespacesInjector } from 'actions/namespace.js';
 
 
 // FUNCTIONS //
@@ -34,6 +36,8 @@ function mapStateToProps( state ) {
 
 function mapDispatchToProps( dispatch ) {
 	return {
+		getAllNamespaces: getAllNamespacesInjector( dispatch ),
+		getEvents: getEventsInjector( dispatch ),
 		getUsers: getUsersInjector( dispatch ),
 		deleteUser: deleteUserInjector( dispatch ),
 		impersonateUser: impersonateUserInjector( dispatch )

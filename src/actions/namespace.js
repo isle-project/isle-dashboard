@@ -23,7 +23,7 @@ import saveAs from 'utils/file_saver.js';
 import server from 'constants/server';
 import { addNotification, addErrorNotification } from 'actions/notification';
 import { getCohorts } from 'actions/cohort';
-import { APPEND_CREATED_NAMESPACE, CHANGED_NAMESPACE, DELETED_CURRENT_NAMESPACE, UPDATED_OWNED_NAMESPACE, UPDATED_STUDENT_PROGRESS } from 'constants/action_types.js';
+import { APPEND_CREATED_NAMESPACE, CHANGED_NAMESPACE, DELETED_CURRENT_NAMESPACE, GET_ALL_NAMESPACES, UPDATED_OWNED_NAMESPACE, UPDATED_STUDENT_PROGRESS } from 'constants/action_types.js';
 
 
 // EXPORTS //
@@ -183,5 +183,25 @@ export const adjustProgress = async ( dispatch, { email, lessonID, namespaceID, 
 export const adjustProgressInjector = ( dispatch ) => {
 	return ( { email, lessonID, namespaceID, progress, cohort } ) => {
 		adjustProgress( dispatch, { email, lessonID, namespaceID, progress, cohort } );
+	};
+};
+
+export const getAllNamespaces = async ( dispatch ) => {
+	try {
+		const res = await axios.get( server+'/get_all_namespaces' );
+		dispatch({
+			type: GET_ALL_NAMESPACES,
+			payload: {
+				namespaces: res.data.namespaces
+			}
+		});
+	} catch ( err ) {
+		return addErrorNotification( dispatch, err );
+	}
+};
+
+export const getAllNamespacesInjector = ( dispatch ) => {
+	return () => {
+		getAllNamespaces( dispatch );
 	};
 };

@@ -17,44 +17,31 @@
 
 // MODULES //
 
-import * as types from 'constants/action_types.js';
-
-
-// VARIABLES //
-
-const initialState = {
-	users: [],
-	events: [],
-	namespaces: []
-};
+import React from 'react';
+import axios from 'axios';
+import server from 'constants/server';
+import { addErrorNotification } from 'actions/notification';
+import { GET_EVENTS } from 'constants/action_types.js';
 
 
 // EXPORTS //
 
-export default function admin( state = initialState, action ) {
-	switch ( action.type ) {
-	case types.GET_USERS: {
-		return Object.assign({}, state, {
-			users: action.payload.users
+export const getEvents = async ( dispatch ) => {
+	try {
+		const res = await axios.get( server+'/get_events' );
+		dispatch({
+			type: GET_EVENTS,
+			payload: {
+				events: res.data.events
+			}
 		});
+	} catch ( err ) {
+		return addErrorNotification( dispatch, err );
 	}
-	case types.GET_ALL_NAMESPACES:
-		return Object.assign({}, state, {
-			namespaces: action.payload.namespaces
-		});
-	case types.GET_EVENTS: {
-		return Object.assign({}, state, {
-			events: action.payload.events
-		});
-	}
-	case types.DELETED_USER: {
-		let users = state.users.slice();
-		users = users.filter( x => x._id !== action.payload.id );
-		return Object.assign({}, state, {
-			users
-		});
-	}
-	default:
-		return state;
-	}
-}
+};
+
+export const getEventsInjector = dispatch => {
+	return () => {
+		getEvents( dispatch );
+	};
+};
