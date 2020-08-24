@@ -19,6 +19,7 @@
 
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
+import logger from 'debug';
 import Button from 'react-bootstrap/Button';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import Modal from 'react-bootstrap/Modal';
@@ -39,6 +40,11 @@ import ConfirmModal from 'components/confirm-modal';
 import TextSelect from 'components/text-select';
 import 'react-dates/lib/css/_datepicker.css';
 import './cohort_modal.css';
+
+
+// VARIABLES //
+
+const debug = logger( 'isle-dashboard:edit-cohort' );
 
 
 // FUNCTIONS //
@@ -118,6 +124,7 @@ class EditCohortModal extends Component {
 	}
 
 	handleStudentChange = ( newValue ) => {
+		debug( 'Handle change of cohort members...' );
 		const members = isArray( newValue ) ? newValue.map( x => x.value ) : [];
 		this.setState({
 			members: members,
