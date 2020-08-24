@@ -72,38 +72,45 @@ class TextSelect extends Component {
 	}
 
 	handleInputChange = ( inputValue, action ) => {
-		if ( action.action !== 'input-blur' && action.action !== 'menu-close' ) {
+		if ( action.action === 'menu-close' ) {
+			this.addInputValues();
+		}
+		else if ( action.action !== 'input-blur' ) {
 			this.setState({
 				inputValue
 			});
 		}
 	}
 
-	handleKeyDown = ( event ) => {
+	addInputValues = () => {
 		let { inputValue, value } = this.state;
 		if ( !inputValue ) {
-			return;
+			return null;
 		}
+		if ( contains( inputValue, ',' ) ) {
+			inputValue = inputValue.split( ',' );
+		} else {
+			inputValue = [ inputValue ];
+		}
+		let newValue;
+		if ( value ) {
+			newValue = value.concat( inputValue.map( createOption ) );
+		} else {
+			newValue = inputValue.map( createOption );
+		}
+		this.setState({
+			inputValue: '',
+			value: newValue
+		}, () => {
+			this.props.onChange( this.state.value );
+		});
+	}
+
+	handleKeyDown = ( event ) => {
 		switch ( event.key ) {
 			case 'Enter':
 			case 'Tab': {
-				if ( contains( inputValue, ',' ) ) {
-					inputValue = inputValue.split( ',' );
-				} else {
-					inputValue = [ inputValue ];
-				}
-				let newValue;
-				if ( value ) {
-					newValue = value.concat( inputValue.map( createOption ) );
-				} else {
-					newValue = inputValue.map( createOption );
-				}
-				this.setState({
-					inputValue: '',
-					value: newValue
-				}, () => {
-					this.props.onChange( this.state.value );
-				});
+				this.addInputValues();
 				event.preventDefault();
 			}
 		}
