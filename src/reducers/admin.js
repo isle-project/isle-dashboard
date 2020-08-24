@@ -45,7 +45,6 @@ export default function admin( state = initialState, action ) {
 			cohorts: action.payload.cohorts
 		});
 	case types.GET_ALL_LESSONS:
-		console.log( action );
 		return Object.assign({}, state, {
 			lessons: action.payload.lessons
 		});

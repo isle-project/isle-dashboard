@@ -39,7 +39,6 @@ class CohortTable extends Component {
 
 	createColumns = () => {
 		const { t } = this.props;
-		console.log( this.props.admin.cohorts );
 		return [
 			{
 				Header: t('common:title'),

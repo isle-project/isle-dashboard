@@ -40,7 +40,6 @@ class LessonTable extends Component {
 
 	createColumns = () => {
 		const { t } = this.props;
-		console.log( this.props.admin.lessons );
 		return [
 			{
 				Header: t('common:title'),
