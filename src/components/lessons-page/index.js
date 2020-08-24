@@ -165,7 +165,7 @@ class LessonsPage extends Component {
 
 	preventOpeningLink = ( event ) => {
 		event.preventDefault();
-	};
+	}
 
 	renderLessons() {
 		let lessons = this.state.filteredLessons;

@@ -292,7 +292,6 @@ class Lesson extends Component {
 
 	render() {
 		const { t } = this.props;
-		console.log( this.props.lockUntil );
 		return (
 			<Card className="animated-lesson-card">
 				<Card.Body style={{ padding: 0 }}>
