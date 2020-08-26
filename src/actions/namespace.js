@@ -19,6 +19,7 @@
 
 import axios from 'axios';
 import qs from 'querystring';
+import i18next from 'i18next';
 import saveAs from 'utils/file_saver.js';
 import server from 'constants/server';
 import { addNotification, addErrorNotification } from 'actions/notification';
@@ -108,13 +109,13 @@ export const createNamespaceInjector = dispatch => {
 
 export const deleteCurrentNamespace = async ( dispatch, id, history ) => {
 	try {
-		await axios.post( server+'/delete_namespace', { id });
+		const res = await axios.post( server+'/delete_namespace', { id });
 		if ( history ) {
 			history.replace( '/lessons' );
 		}
 		dispatch( deletedCurrentNamespace( id ) );
 		addNotification( dispatch, {
-			message: 'Course successfully deleted',
+			message: res.data.message,
 			level: 'success'
 		});
 	} catch ( err ) {
@@ -175,7 +176,7 @@ export const adjustProgress = async ( dispatch, { email, lessonID, namespaceID, 
 		email, lessonID, namespaceID, progress
 	});
 	addNotification( dispatch, {
-		title: 'Updated',
+		title: i18next.t('common:updated'),
 		message: res.data.message,
 		level: 'success'
 	});
