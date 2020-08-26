@@ -8,7 +8,7 @@
 	"invalid-password-match": "Passwords do not match.",
 	"invalid-password": "Your password has to contain at least six characters.",
 	"login": "Log in",
-	"name-tooltip": "Please enter your name.",
+	"name-tooltip": "Please enter your last name and first name.",
 	"password-tooltip": "Please enter a password of your choosing with at least six characters",
 	"password": "Password",
 	"signup-not-valid": "Please make sure that all input values are valid before submitting.",

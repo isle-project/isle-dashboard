@@ -8,7 +8,7 @@
 	"invalid-password-match": "Las contraseñas no coinciden.",
 	"invalid-password": "Su contraseña debe contener al menos seis caracteres.",
 	"login": "Iniciar sesión",
-	"name-tooltip": "Ingrese su nombre.",
+	"name-tooltip": "Por favor, introduzca su apellido y nombre.",
 	"password-tooltip": "Ingrese una contraseña de su elección con al menos seis caracteres",
 	"password": "Contraseña",
 	"signup-not-valid": "Asegúrese de que todos los valores de entrada sean válidos antes de enviar.",
