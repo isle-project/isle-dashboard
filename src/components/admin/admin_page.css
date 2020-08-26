@@ -22,8 +22,9 @@
 	padding: 1rem;
 	margin: 8px;
 	background-image: url(https://isle.heinz.cmu.edu/white_carbonfiber_1543854970404.png);
-	height: calc(100vh - 125px);
+	height: calc(100vh - 150px);
 	overflow-x: hidden;
+	overflow-y: hidden;
 }
 
 .admin-page-log-side-button {
