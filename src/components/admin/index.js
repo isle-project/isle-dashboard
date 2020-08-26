@@ -134,6 +134,7 @@ class AdminPage extends Component {
 					<NamespaceTable
 						admin={this.props.admin}
 						getAllNamespaces={this.props.getAllNamespaces}
+						deleteCurrentNamespace={this.props.deleteCurrentNamespace}
 					/>
 				);
 			case 5:
@@ -204,6 +205,7 @@ class AdminPage extends Component {
 
 AdminPage.propTypes = {
 	admin: PropTypes.object.isRequired,
+	deleteCurrentNamespace: PropTypes.func.isRequired,
 	deleteUser: PropTypes.func.isRequired,
 	getAllCohorts: PropTypes.func.isRequired,
 	getAllLessons: PropTypes.func.isRequired,
