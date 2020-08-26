@@ -198,6 +198,7 @@ class NamespacePage extends Component {
 
 NamespacePage.propTypes = {
 	admin: PropTypes.object.isRequired,
+	deleteCurrentNamespace: PropTypes.func.isRequired,
 	getAllNamespaces: PropTypes.func.isRequired,
 	t: PropTypes.func.isRequired
 };
