@@ -10,6 +10,7 @@
 	"create-new-cohort": "Erzeuge eine neue Kohorte",
 	"delete-cohort": "Bist Du sicher, dass Du diese Kohorte löschen möchtest?",
 	"delete-course": "Bist Du sicher, dass Du diesen Kurs löschen möchtest?",
+	"delete-course-confirm": "Ich bestätige, dass der folgende Kurs gelöscht werden soll: ",
 	"edit-cohort": "Kohorte editieren: {{title}}",
 	"edit-course": "Kurs editieren",
 	"email-filter": "E-Mail-Filter",
