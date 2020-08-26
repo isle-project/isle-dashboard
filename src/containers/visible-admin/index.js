@@ -24,7 +24,7 @@ import { getUsersInjector, deleteUserInjector, impersonateUserInjector } from 'a
 import { getEventsInjector } from 'actions/event.js';
 import { getAllNamespacesInjector, deleteCurrentNamespaceInjector } from 'actions/namespace.js';
 import { getAllCohortsInjector } from 'actions/cohort.js';
-import { getAllLessonsInjector } from 'actions/lesson.js';
+import { getAllLessonsInjector, deleteLessonInjector } from 'actions/lesson.js';
 
 
 // FUNCTIONS //
@@ -44,6 +44,7 @@ function mapDispatchToProps( dispatch ) {
 		getEvents: getEventsInjector( dispatch ),
 		getUsers: getUsersInjector( dispatch ),
 		deleteCurrentNamespace: deleteCurrentNamespaceInjector( dispatch ),
+		deleteLesson: deleteLessonInjector( dispatch ),
 		deleteUser: deleteUserInjector( dispatch ),
 		impersonateUser: impersonateUserInjector( dispatch )
 	};
