@@ -139,9 +139,11 @@ export const deleteCohort = async ( dispatch, _id, namespaceID ) => {
 			level: 'success'
 		});
 		dispatch( retrievedEnrollableCohorts( null ) );
-		getCohorts( dispatch, {
-			namespaceID
-		});
+		if ( namespaceID ) {
+			getCohorts( dispatch, {
+				namespaceID
+			});
+		}
 	} catch ( err ) {
 		addErrorNotification( dispatch, err );
 	}

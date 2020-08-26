@@ -142,6 +142,7 @@ class AdminPage extends Component {
 					<CohortTable
 						admin={this.props.admin}
 						getAllCohorts={this.props.getAllCohorts}
+						deleteCohort={this.props.deleteCohort}
 					/>
 				);
 			case 6:
@@ -206,6 +207,7 @@ class AdminPage extends Component {
 
 AdminPage.propTypes = {
 	admin: PropTypes.object.isRequired,
+	deleteCohort: PropTypes.func.isRequired,
 	deleteCurrentNamespace: PropTypes.func.isRequired,
 	deleteLesson: PropTypes.func.isRequired,
 	deleteUser: PropTypes.func.isRequired,
