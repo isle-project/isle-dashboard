@@ -59,7 +59,7 @@ const MsgModal = ( props ) => (
 		</Modal.Body>
 		<Modal.Footer>
 			<Button onClick={props.close}>
-				Close
+				{props.t('common:close')}
 			</Button>
 		</Modal.Footer>
 	</Modal>
@@ -273,6 +273,7 @@ class CompleteRegistration extends Component {
 					show={this.state.showModal}
 					close={this.close}
 					message={this.state.message}
+					t={this.props.t}
 				/> : null }
 				<Overlay
 					show={this.state.showSubmitOverlay}
