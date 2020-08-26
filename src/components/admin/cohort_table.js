@@ -21,7 +21,11 @@ import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { withTranslation } from 'react-i18next';
 import ReactTable from 'react-table';
+import Button from 'react-bootstrap/Button';
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
+import Tooltip from 'react-bootstrap/Tooltip';
 import createBooleanColumn from './create_boolean_column.js';
+import ConfirmModal from 'components/confirm-modal';
 import 'react-table/react-table.css';
 
 
@@ -31,6 +35,11 @@ class CohortTable extends Component {
 	constructor( props ) {
 		super( props );
 		this.columns = this.createColumns();
+
+		this.state = {
+			selectedCohort: null,
+			showDeleteModal: false
+		};
 	}
 
 	componentDidMount() {
@@ -96,9 +105,47 @@ class CohortTable extends Component {
 				}
 			},
 			{
-				Header: t('common:actions')
+				Header: t('common:actions'),
+				Cell: ( row ) => {
+					return ( <div>
+						<OverlayTrigger placement="bottom" overlay={<Tooltip id="delete_cohort">{t('namespace:delete-cohort')}</Tooltip>}>
+							<Button
+								variant="outline-secondary"
+								style={{ marginLeft: 8 }}
+								onClick={this.askToDeleteSelectedCohortFactory( row.row._original )}
+								aria-label={t('namespace:delete-cohort')}
+							>
+								<div className="fa fa-trash-alt" />
+							</Button>
+						</OverlayTrigger>
+					</div> );
+				}
 			}
 		];
+	}
+
+	askToDeleteSelectedCohortFactory = ( cohort ) => {
+		return () => {
+			this.setState({
+				showDeleteModal: !this.state.showDeleteModal,
+				selectedCohort: cohort
+			});
+		};
+	}
+
+	deleteSelectedCohort = () => {
+		this.setState({
+			showDeleteModal: false
+		}, async () => {
+			await this.props.deleteCohort( this.state.selectedCohort._id );
+			this.props.getAllCohorts();
+		});
+	}
+
+	toggleDeleteModal = () => {
+		this.setState({
+			showDeleteModal: !this.state.showDeleteModal
+		});
 	}
 
 	render() {
@@ -112,6 +159,13 @@ class CohortTable extends Component {
 						this.reactTable = r;
 					}}
 				/>
+				{ this.state.showDeleteModal ? <ConfirmModal
+					title={this.props.t('namespace:delete-cohort')}
+					message={<span>{this.props.t('namespace:delete-cohort-confirm')}<span style={{ color: 'red' }}>{this.state.selectedCohort.title}</span></span>}
+					close={this.toggleDeleteModal}
+					show={this.state.showDeleteModal}
+					onConfirm={this.deleteSelectedCohort}
+				/> : null }
 			</Fragment>
 		);
 	}

@@ -23,7 +23,7 @@ import AdminPage from 'components/admin';
 import { getUsersInjector, deleteUserInjector, impersonateUserInjector } from 'actions/user.js';
 import { getEventsInjector } from 'actions/event.js';
 import { getAllNamespacesInjector, deleteCurrentNamespaceInjector } from 'actions/namespace.js';
-import { getAllCohortsInjector } from 'actions/cohort.js';
+import { getAllCohortsInjector, deleteCohortInjector } from 'actions/cohort.js';
 import { getAllLessonsInjector, deleteLessonInjector } from 'actions/lesson.js';
 
 
@@ -43,6 +43,7 @@ function mapDispatchToProps( dispatch ) {
 		getAllNamespaces: getAllNamespacesInjector( dispatch ),
 		getEvents: getEventsInjector( dispatch ),
 		getUsers: getUsersInjector( dispatch ),
+		deleteCohort: deleteCohortInjector( dispatch ),
 		deleteCurrentNamespace: deleteCurrentNamespaceInjector( dispatch ),
 		deleteLesson: deleteLessonInjector( dispatch ),
 		deleteUser: deleteUserInjector( dispatch ),
