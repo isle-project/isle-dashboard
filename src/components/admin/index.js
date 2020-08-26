@@ -149,6 +149,7 @@ class AdminPage extends Component {
 					<LessonTable
 						admin={this.props.admin}
 						getAllLessons={this.props.getAllLessons}
+						deleteLesson={this.props.deleteLesson}
 					/>
 				);
 			case 7:
@@ -206,6 +207,7 @@ class AdminPage extends Component {
 AdminPage.propTypes = {
 	admin: PropTypes.object.isRequired,
 	deleteCurrentNamespace: PropTypes.func.isRequired,
+	deleteLesson: PropTypes.func.isRequired,
 	deleteUser: PropTypes.func.isRequired,
 	getAllCohorts: PropTypes.func.isRequired,
 	getAllLessons: PropTypes.func.isRequired,
