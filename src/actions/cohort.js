@@ -21,6 +21,7 @@ import React from 'react';
 import axios from 'axios';
 import qs from 'querystring';
 import logger from 'debug';
+import i18next from 'i18next';
 import server from 'constants/server';
 import { getLessons } from 'actions/lesson';
 import { addNotification, addErrorNotification } from 'actions/notification';
@@ -133,9 +134,9 @@ export const addUserToCohortInjector = ( dispatch ) => {
 
 export const deleteCohort = async ( dispatch, _id, namespaceID ) => {
 	try {
-		await axios.post( server+'/delete_cohort', { _id });
+		const res = await axios.post( server+'/delete_cohort', { _id });
 		addNotification( dispatch, {
-			message: 'Cohort successfully deleted',
+			message: res.data.message,
 			level: 'success'
 		});
 		dispatch( retrievedEnrollableCohorts( null ) );
@@ -157,9 +158,9 @@ export const deleteCohortInjector = ( dispatch ) => {
 
 export const createCohort = async ( dispatch, cohort, namespaceID ) => {
 	try {
-		await axios.post( server+'/create_cohort', cohort );
+		const res = await axios.post( server+'/create_cohort', cohort );
 		addNotification( dispatch, {
-			message: 'Cohort successfully created',
+			message: res.data.message,
 			level: 'success'
 		});
 		dispatch( retrievedEnrollableCohorts( null ) );
@@ -184,7 +185,7 @@ export const updateCohort = async ( dispatch, cohort, namespaceID ) => {
 			notification = {
 				children: <div>
 					<p>{msg}</p>
-					<p>Email invitations to the following new users have been sent:</p>
+					<p>{i18next.t('common:email-invitations-sent')}</p>
 					<p>{res.data.newEmails.join( '\n' )}</p>
 				</div>,
 				level: 'success',

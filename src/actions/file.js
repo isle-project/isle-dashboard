@@ -20,6 +20,7 @@
 import React from 'react';
 import axios from 'axios';
 import qs from 'querystring';
+import i18next from 'i18next';
 import server from 'constants/server';
 import copyToClipboard from 'clipboard-copy';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
@@ -78,11 +79,11 @@ export const getUserFiles = async ( dispatch ) => {
 
 export const deleteFile = async ( dispatch, _id, namespaceName, owner ) => {
 	try {
-		await axios.post( `${server}/delete_file`, { _id });
+		const res = await axios.post( `${server}/delete_file`, { _id });
 		getFilesRequest( dispatch, { namespaceName, owner });
 		addNotification( dispatch, {
-			title: 'File Deleted',
-			message: 'File successfully deleted',
+			title: i18next.t('common:delete-file-title'),
+			message: res.data.message,
 			level: 'success'
 		});
 	} catch ( err ) {
@@ -112,7 +113,7 @@ export const uploadFile = async ( dispatch, { formData }) => {
 		};
 		msg.children = <div style={{ marginBottom: 30 }}>
 			<OverlayTrigger placement="bottom" overlay={<Tooltip id="ownerTooltip">
-				Copy link to clipboard
+				{i18next.t('common:copy-link')}
 			</Tooltip>}>
 				<Button
 					size="sm"
@@ -121,8 +122,8 @@ export const uploadFile = async ( dispatch, { formData }) => {
 					onClick={() => {
 						copyToClipboard( server+'/'+res.data.filename );
 						addNotification( dispatch, {
-							title: 'Copied',
-							message: 'Link copied to clipboard',
+							title: i18next.t('common:copied-title'),
+							message: i18next.t('common:link-copied'),
 							level: 'success',
 							position: 'tl'
 						});

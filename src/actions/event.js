@@ -20,6 +20,7 @@
 import React from 'react';
 import axios from 'axios';
 import server from 'constants/server';
+import i18next from 'i18next';
 import { addNotification, addErrorNotification } from 'actions/notification';
 import { DELETED_EVENT, GET_EVENTS } from 'constants/action_types.js';
 
@@ -52,7 +53,7 @@ export const deleteEvent = async ( dispatch, id ) => {
 			id
 		});
 		addNotification( dispatch, {
-			title: 'Deleted',
+			title: i18next.t('common:deleted'),
 			message: res.data.message,
 			level: 'success'
 		});

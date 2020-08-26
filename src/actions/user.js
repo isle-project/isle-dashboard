@@ -20,6 +20,7 @@
 import axios from 'axios';
 import logger from 'debug';
 import qs from 'querystring';
+import i18next from 'i18next';
 import server from 'constants/server';
 import { fetchCredentials } from 'actions/authentication.js';
 import { getEnrollableCohorts } from 'actions/cohort.js';
@@ -140,10 +141,10 @@ export const impersonateUserInjector = dispatch => {
 
 export const deleteUser = async ( dispatch, { id }) => {
 	try {
-		await axios.post( server+'/delete_user', { id });
+		const res = await axios.post( server+'/delete_user', { id });
 		addNotification( dispatch, {
-			title: 'Deleted',
-			message: 'User successfully deleted',
+			title: i18next.t('common:deleted'),
+			message: res.data.message,
 			level: 'success'
 		});
 		dispatch({
@@ -173,7 +174,7 @@ export const uploadProfilePic = async ( dispatch, { token, avatarData, thumbnail
 
 		res = await axios.post( server+'/upload_thumbnail_pic', thumbnailData );
 		addNotification( dispatch, {
-			title: 'Profile Picture Upload',
+			title: i18next.t('profile-pic-title'),
 			message,
 			level: 'success',
 			position: 'tl'

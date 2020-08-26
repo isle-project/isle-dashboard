@@ -19,6 +19,7 @@
 
 import React from 'react';
 import axios from 'axios';
+import i18next from 'i18next';
 import contains from '@stdlib/assert/contains';
 import server from 'constants/server';
 import { addNotification, addErrorNotification } from 'actions/notification';
@@ -32,13 +33,13 @@ function createBadgeNotification({ name, description, picture }) {
 	return {
 		children: (
 			<div>
-				<h3>Received Badge: {name}</h3>
+				<h3>{i18next.t('common:received-badge')}{name}</h3>
 				<div>
 					<div>
 						<div className="received-badge-before" />
 						<img className="received-badge" src={pic} alt="Received Badge" />
 					</div>
-					<p style={{ marginTop: 15 }}>You received a badge for:  <b>{description}</b></p>
+					<p style={{ marginTop: 15 }}>{i18next.t('common:received-badge-for')}<b>{description}</b></p>
 				</div>
 			</div>
 		),
