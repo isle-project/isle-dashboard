@@ -21,7 +21,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import AdminPage from 'components/admin';
 import { getUsersInjector, deleteUserInjector, impersonateUserInjector } from 'actions/user.js';
-import { getEventsInjector } from 'actions/event.js';
+import { getEventsInjector, deleteEventInjector } from 'actions/event.js';
 import { getAllNamespacesInjector, deleteCurrentNamespaceInjector } from 'actions/namespace.js';
 import { getAllCohortsInjector, deleteCohortInjector } from 'actions/cohort.js';
 import { getAllLessonsInjector, deleteLessonInjector } from 'actions/lesson.js';
@@ -45,6 +45,7 @@ function mapDispatchToProps( dispatch ) {
 		getUsers: getUsersInjector( dispatch ),
 		deleteCohort: deleteCohortInjector( dispatch ),
 		deleteCurrentNamespace: deleteCurrentNamespaceInjector( dispatch ),
+		deleteEvent: deleteEventInjector( dispatch ),
 		deleteLesson: deleteLessonInjector( dispatch ),
 		deleteUser: deleteUserInjector( dispatch ),
 		impersonateUser: impersonateUserInjector( dispatch )

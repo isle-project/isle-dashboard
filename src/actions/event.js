@@ -20,8 +20,8 @@
 import React from 'react';
 import axios from 'axios';
 import server from 'constants/server';
-import { addErrorNotification } from 'actions/notification';
-import { GET_EVENTS } from 'constants/action_types.js';
+import { addNotification, addErrorNotification } from 'actions/notification';
+import { DELETED_EVENT, GET_EVENTS } from 'constants/action_types.js';
 
 
 // EXPORTS //
@@ -43,5 +43,32 @@ export const getEvents = async ( dispatch ) => {
 export const getEventsInjector = dispatch => {
 	return async () => {
 		await getEvents( dispatch );
+	};
+};
+
+export const deleteEvent = async ( dispatch, id ) => {
+	try {
+		const res = await axios.post( server+'/delete_event', {
+			id
+		});
+		addNotification( dispatch, {
+			title: 'Deleted',
+			message: res.data.message,
+			level: 'success'
+		});
+		dispatch({
+			type: DELETED_EVENT,
+			payload: {
+				id
+			}
+		});
+	} catch ( err ) {
+		return addErrorNotification( dispatch, err );
+	}
+};
+
+export const deleteEventInjector = dispatch => {
+	return async ( id ) => {
+		await deleteEvent( dispatch, id );
 	};
 };

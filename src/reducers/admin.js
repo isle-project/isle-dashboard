@@ -57,6 +57,13 @@ export default function admin( state = initialState, action ) {
 			events: action.payload.events
 		});
 	}
+	case types.DELETED_EVENT: {
+		let events = state.events.slice();
+		events = events.filter( x => x._id !== action.payload.id );
+		return Object.assign({}, state, {
+			events
+		});
+	}
 	case types.DELETED_USER: {
 		let users = state.users.slice();
 		users = users.filter( x => x._id !== action.payload.id );

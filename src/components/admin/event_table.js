@@ -19,13 +19,22 @@
 
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
+import logger from 'debug';
 import { withTranslation } from 'react-i18next';
 import ReactTable from 'react-table';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Popover from 'react-bootstrap/Popover';
+import Button from 'react-bootstrap/Button';
+import Tooltip from 'react-bootstrap/Tooltip';
 import server from 'constants/server';
+import ConfirmModal from 'components/confirm-modal';
 import createBooleanColumn from './create_boolean_column.js';
 import 'react-table/react-table.css';
+
+
+// VARIABLES //
+
+const debug = logger( 'isle-dashboard:admin' );
 
 
 // MAIN //
@@ -34,6 +43,11 @@ class EventTable extends Component {
 	constructor( props ) {
 		super( props );
 		this.columns = this.createColumns();
+
+		this.state = {
+			showDeleteModal: false,
+			selectedEvent: null
+		};
 	}
 
 	componentDidMount() {
@@ -117,10 +131,52 @@ class EventTable extends Component {
 				maxWidth: 150
 			},
 			{
-				Header: t('common:actions')
+				Header: t('common:actions'),
+				Cell: ( row ) => {
+					return ( <div>
+						<OverlayTrigger placement="bottom" overlay={<Tooltip id="delete_event">{t('namespace:delete-event')}</Tooltip>}>
+							<Button
+								variant="outline-secondary"
+								style={{ marginLeft: 8 }}
+								onClick={this.askToDeleteSelectedEventFactory( row.row._original )}
+								aria-label={t('namespace:delete-event')}
+							>
+								<div className="fa fa-trash-alt" />
+							</Button>
+						</OverlayTrigger>
+					</div> );
+				}
 			}
 		];
 	}
+
+	askToDeleteSelectedEventFactory = ( event ) => {
+		return () => {
+			this.setState({
+				showDeleteModal: !this.state.showDeleteModal,
+				selectedEvent: event
+			});
+		};
+	}
+
+	deleteSelectedEvent = () => {
+		this.setState({
+			showDeleteModal: false
+		}, async () => {
+			debug( `Delete event with id ${this.state.selectedEvent._id}...` );
+			await this.props.deleteEvent( this.state.selectedEvent._id );
+
+			debug( 'Retrieve events from server...' );
+			this.props.getEvents();
+		});
+	}
+
+	toggleDeleteModal = () => {
+		this.setState({
+			showDeleteModal: !this.state.showDeleteModal
+		});
+	}
+
 
 	render() {
 		return (
@@ -133,6 +189,13 @@ class EventTable extends Component {
 						this.reactTable = r;
 					}}
 				/>
+				{ this.state.showDeleteModal ? <ConfirmModal
+					title={this.props.t('lesson:delete-event')}
+					message={<span>{this.props.t('namespace:delete-event-confirm')}</span>}
+					close={this.toggleDeleteModal}
+					show={this.state.showDeleteModal}
+					onConfirm={this.deleteSelectedEvent}
+				/> : null }
 			</Fragment>
 		);
 	}
@@ -143,6 +206,7 @@ class EventTable extends Component {
 
 EventTable.propTypes = {
 	admin: PropTypes.object.isRequired,
+	deleteEvent: PropTypes.func.isRequired,
 	getEvents: PropTypes.func.isRequired,
 	t: PropTypes.func.isRequired
 };
