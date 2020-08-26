@@ -157,6 +157,7 @@ class AdminPage extends Component {
 				return (
 					<EventTable
 						admin={this.props.admin}
+						deleteEvent={this.props.deleteEvent}
 						getEvents={this.props.getEvents}
 					/>
 				);
@@ -209,6 +210,7 @@ AdminPage.propTypes = {
 	admin: PropTypes.object.isRequired,
 	deleteCohort: PropTypes.func.isRequired,
 	deleteCurrentNamespace: PropTypes.func.isRequired,
+	deleteEvent: PropTypes.func.isRequired,
 	deleteLesson: PropTypes.func.isRequired,
 	deleteUser: PropTypes.func.isRequired,
 	getAllCohorts: PropTypes.func.isRequired,
