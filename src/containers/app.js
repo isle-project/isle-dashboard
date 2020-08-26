@@ -40,6 +40,7 @@ const AsyncForgotPassword = asyncComponent(() => import( 'containers/visible-for
 const AsyncCreateNamespace = asyncComponent(() => import( 'containers/visible-create-namespace' ));
 const AsyncEditNamespace = asyncComponent(() => import( 'containers/visible-edit-namespace' ));
 const AsyncNewPassword = asyncComponent(() => import( 'components/new-password' ));
+const AsyncCompleteRegistration = asyncComponent(() => import( 'components/complete-registration' ));
 const AsyncConfirmEmail = asyncComponent(() => import( 'containers/visible-confirm-email' ));
 const AsyncShibboleth = asyncComponent(() => import( 'containers/visible-shibboleth' ));
 const AsyncAdminPage = asyncComponent(() => import( 'containers/visible-admin' ));
@@ -67,7 +68,7 @@ const ALL_LOGGEDIN_PATHS = [
 	'/enroll',
 	'/admin'
 ];
-const RE_PUBLIC_PAGES = /(?:courses|new-password|confirm-email|shibboleth|signup|terms|privacy)/;
+const RE_PUBLIC_PAGES = /(?:courses|new-password|complete-registration|confirm-email|shibboleth|signup|terms|privacy)/;
 const debug = logger( 'isle-dashboard' );
 
 
@@ -195,6 +196,7 @@ class App extends Component {
 					<Route exact path="/" component={AsyncLogin} />
 					<Route path="/login" component={AsyncLogin} />
 					<Route path="/new-password" component={AsyncNewPassword} />
+					<Route path="/complete-registration" component={AsyncCompleteRegistration} />
 					<Route path="/confirm-email" component={AsyncConfirmEmail} />
 					<Route path="/shibboleth" component={AsyncShibboleth} />
 					<Route path="/signup" component={AsyncSignup} />

@@ -7,7 +7,7 @@
 	"invalid-name": "Name muss aus mindestens vier Buchstaben bestehen.",
 	"invalid-password-match": "Passwörter sind nicht identisch",
 	"invalid-password": "Dein Passwort muss aus mindestens sechs Buchstaben bestehen.",
-	"name-tooltip": "Bitte gib Deinen Namen ein.",
+	"name-tooltip": "Bitte gib Deinen Nachnamen und Vornamen ein.",
 	"password-tooltip": "Bitte gib ein Passwort Deiner Wahl ein (mindestens sechs Buchstaben).",
 	"password": "Passwort",
 	"signup-not-valid": "Bitte stelle sicher dass alle Eingabefelder korrekt ausgefüllt sind.",
