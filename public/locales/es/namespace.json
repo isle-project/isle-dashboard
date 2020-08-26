@@ -9,6 +9,7 @@
 	"create-course": "Crear Curso",
 	"create-new-cohort": "Crear una nueva Cohorte",
 	"delete-cohort": "¿Está seguro de que desea eliminar esta cohorte?",
+	"delete-cohort-confirm": "Confirmo que la siguiente cohorte será eliminada: ",
 	"delete-course": "¿Está seguro de que desea eliminar este curso?",
 	"delete-course-confirm": "Confirmo que el curso debe ser eliminado: ",
 	"edit-cohort": "Editar Cohorte: {{título}}",
