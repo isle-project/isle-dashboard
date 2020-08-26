@@ -101,8 +101,8 @@ export const createNamespace = async ( dispatch, { title, description, owners, p
 };
 
 export const createNamespaceInjector = dispatch => {
-	return ({ title, description, owners, props }) => {
-		createNamespace( dispatch, { title, description, owners, props } );
+	return async ({ title, description, owners, props }) => {
+		await createNamespace( dispatch, { title, description, owners, props } );
 	};
 };
 
@@ -123,8 +123,8 @@ export const deleteCurrentNamespace = async ( dispatch, id, history ) => {
 };
 
 export const deleteCurrentNamespaceInjector = ( dispatch ) => {
-	return ( id, history ) => {
-		deleteCurrentNamespace( dispatch, id, history );
+	return async ( id, history ) => {
+		await deleteCurrentNamespace( dispatch, id, history );
 	};
 };
 
@@ -146,8 +146,8 @@ export const updateCurrentNamespace = async ( dispatch, ns ) => {
 };
 
 export const updateCurrentNamespaceInjector = ( dispatch ) => {
-	return ( id, ns ) => {
-		updateCurrentNamespace( dispatch, id, ns );
+	return async ( id, ns ) => {
+		await updateCurrentNamespace( dispatch, id, ns );
 	};
 };
 
@@ -165,8 +165,8 @@ export const getNamespaceActions = async ( dispatch, { namespaceID, namespaceTit
 };
 
 export const getNamespaceActionsInjector = ( dispatch ) => {
-	return ({ namespaceID, namespaceTitle }) => {
-		getNamespaceActions( dispatch, { namespaceID, namespaceTitle });
+	return async ({ namespaceID, namespaceTitle }) => {
+		await getNamespaceActions( dispatch, { namespaceID, namespaceTitle });
 	};
 };
 
@@ -183,8 +183,8 @@ export const adjustProgress = async ( dispatch, { email, lessonID, namespaceID, 
 };
 
 export const adjustProgressInjector = ( dispatch ) => {
-	return ( { email, lessonID, namespaceID, progress, cohort } ) => {
-		adjustProgress( dispatch, { email, lessonID, namespaceID, progress, cohort } );
+	return async ( { email, lessonID, namespaceID, progress, cohort } ) => {
+		await adjustProgress( dispatch, { email, lessonID, namespaceID, progress, cohort } );
 	};
 };
 
@@ -203,7 +203,7 @@ export const getAllNamespaces = async ( dispatch ) => {
 };
 
 export const getAllNamespacesInjector = ( dispatch ) => {
-	return () => {
-		getAllNamespaces( dispatch );
+	return async () => {
+		await getAllNamespaces( dispatch );
 	};
 };

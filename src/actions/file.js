@@ -91,8 +91,8 @@ export const deleteFile = async ( dispatch, _id, namespaceName, owner ) => {
 };
 
 export const deleteFileInjector = ( dispatch ) => {
-	return ( _id, namespaceName, owner ) => {
-		deleteFile( dispatch, _id, namespaceName, owner );
+	return async ( _id, namespaceName, owner ) => {
+		await deleteFile( dispatch, _id, namespaceName, owner );
 	};
 };
 
@@ -152,19 +152,19 @@ export const uploadFile = async ( dispatch, { formData }) => {
 };
 
 export const uploadFileInjector = ( dispatch ) => {
-	return ({ formData }) => {
-		uploadFile( dispatch, { formData } );
+	return async ({ formData }) => {
+		await uploadFile( dispatch, { formData } );
 	};
 };
 
 export const getFilesInjector = ( dispatch ) => {
-	return ({ namespaceName }) => {
-		getFilesRequest( dispatch, { namespaceName });
+	return async ({ namespaceName }) => {
+		await getFilesRequest( dispatch, { namespaceName });
 	};
 };
 
 export const getOwnerFilesInjector = ( dispatch ) => {
-	return ({ namespaceName }) => {
-		getFilesRequest( dispatch, { namespaceName, owner: true });
+	return async ({ namespaceName }) => {
+		await getFilesRequest( dispatch, { namespaceName, owner: true });
 	};
 };

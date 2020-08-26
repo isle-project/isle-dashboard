@@ -90,8 +90,8 @@ export const getEnrollableCohorts = async ( dispatch, user ) => {
 };
 
 export const getEnrollableCohortsInjector = dispatch => {
-	return ( user ) => {
-		getEnrollableCohorts( dispatch, user );
+	return async ( user ) => {
+		await getEnrollableCohorts( dispatch, user );
 	};
 };
 
@@ -105,8 +105,8 @@ export const getCohorts = async ( dispatch, { namespaceID }) => {
 };
 
 export const getCohortsInjector = ( dispatch ) => {
-	return ({ namespaceID, userToken }) => {
-		getCohorts( dispatch, { namespaceID, userToken });
+	return async ({ namespaceID, userToken }) => {
+		await getCohorts( dispatch, { namespaceID, userToken });
 	};
 };
 
@@ -126,8 +126,8 @@ export const addUserToCohort = async ( dispatch, cohortID, namespace ) => {
 };
 
 export const addUserToCohortInjector = ( dispatch ) => {
-	return ( cohortID, namespace ) => {
-		addUserToCohort( dispatch, cohortID, namespace );
+	return async ( cohortID, namespace ) => {
+		await addUserToCohort( dispatch, cohortID, namespace );
 	};
 };
 
@@ -148,8 +148,8 @@ export const deleteCohort = async ( dispatch, _id, namespaceID ) => {
 };
 
 export const deleteCohortInjector = ( dispatch ) => {
-	return ( _id, namespaceID ) => {
-		deleteCohort( dispatch, _id, namespaceID );
+	return async ( _id, namespaceID ) => {
+		await deleteCohort( dispatch, _id, namespaceID );
 	};
 };
 
@@ -168,8 +168,8 @@ export const createCohort = async ( dispatch, cohort, namespaceID ) => {
 };
 
 export const createCohortInjector = ( dispatch ) => {
-	return ( cohort, namespaceID ) => {
-		createCohort( dispatch, cohort, namespaceID );
+	return async ( cohort, namespaceID ) => {
+		await createCohort( dispatch, cohort, namespaceID );
 	};
 };
 
@@ -205,8 +205,8 @@ export const updateCohort = async ( dispatch, cohort, namespaceID ) => {
 };
 
 export const updateCohortInjector = ( dispatch ) => {
-	return ( cohort, namespaceID ) => {
-		updateCohort( dispatch, cohort, namespaceID );
+	return async ( cohort, namespaceID ) => {
+		await updateCohort( dispatch, cohort, namespaceID );
 	};
 };
 
@@ -220,7 +220,7 @@ export const getAllCohorts = async ( dispatch ) => {
 };
 
 export const getAllCohortsInjector = ( dispatch ) => {
-	return () => {
-		getAllCohorts( dispatch );
+	return async () => {
+		await getAllCohorts( dispatch );
 	};
 };

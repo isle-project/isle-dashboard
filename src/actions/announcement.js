@@ -72,8 +72,8 @@ export const addAnnouncement = async ( dispatch, { namespaceName, announcement }
 };
 
 export const addAnnouncementInjector = dispatch => {
-	return ( { namespaceName, announcement } ) => {
-		addAnnouncement( dispatch, { namespaceName, announcement } );
+	return async ( { namespaceName, announcement } ) => {
+		await addAnnouncement( dispatch, { namespaceName, announcement } );
 	};
 };
 
@@ -94,8 +94,8 @@ export const deleteAnnouncement = async ( dispatch, { namespaceName, createdAt, 
 };
 
 export const deleteAnnouncementInjector = dispatch => {
-	return ( { namespaceName, createdAt, index } ) => {
-		deleteAnnouncement( dispatch, { namespaceName, createdAt, index } );
+	return async ( { namespaceName, createdAt, index } ) => {
+		await deleteAnnouncement( dispatch, { namespaceName, createdAt, index } );
 	};
 };
 
@@ -116,7 +116,7 @@ export const editAnnouncement = async ( dispatch, { namespaceName, announcement 
 };
 
 export const editAnnouncementInjector = dispatch => {
-	return ( { namespaceName, announcement } ) => {
-		editAnnouncement( dispatch, { namespaceName, announcement } );
+	return async ( { namespaceName, announcement } ) => {
+		await editAnnouncement( dispatch, { namespaceName, announcement } );
 	};
 };
