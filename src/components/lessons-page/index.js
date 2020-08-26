@@ -151,6 +151,14 @@ class LessonsPage extends Component {
 		return null;
 	}
 
+	componentDidMount() {
+		// Fetch lessons upon reloading and navigating back to page:
+		const course = this.props.namespace;
+		if ( course.title ) {
+			this.props.getLessons( course.title );
+		}
+	}
+
 	shouldComponentUpdate( nextProps, nextState ) {
 		if (
 			nextProps.search.direction !== this.props.search.direction ||
