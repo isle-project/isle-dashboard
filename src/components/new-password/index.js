@@ -19,6 +19,7 @@
 
 import React, { Component } from 'react';
 import axios from 'axios';
+import { withTranslation } from 'react-i18next';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import Col from 'react-bootstrap/Col';
@@ -49,7 +50,7 @@ const createTooltip = ( str ) => {
 // VARIABLES //
 
 const MsgModal = ( props ) => (
-	<Modal show={props.show}>
+	<Modal show={props.show} onHide={props.close}>
 		<Modal.Header>
 			<Modal.Title>New Password Chosen</Modal.Title>
 		</Modal.Header>
@@ -58,7 +59,7 @@ const MsgModal = ( props ) => (
 		</Modal.Body>
 		<Modal.Footer>
 			<Button onClick={props.close}>
-				Close
+				{props.t('common:close')}
 			</Button>
 		</Modal.Footer>
 	</Modal>
@@ -76,24 +77,22 @@ MsgModal.propTypes = {
 class NewPassword extends Component {
 	constructor( props ) {
 		super( props );
-
-		const hash = window.location.hash.substring( 15 );
-		const qs = queryString.parse( hash );
-		const token = qs[ 'token' ];
 		this.state = {
 			password: '',
 			passwordRepeat: '',
-			showModal: false,
-			token: token
+			showModal: false
 		};
 	}
 
 	handleSubmit = async ( event ) => {
 		event.preventDefault();
 		if ( this.getPasswordValidationState() ) {
+			const hash = window.location.hash.substring( 15 );
+			const qs = queryString.parse( hash );
+			const token = qs[ 'token' ];
 			try {
 				const res = await axios.post( server+'/update_user_password', {
-					id: this.state.token,
+					id: token,
 					newPassword: this.state.password
 				});
 				this.setState({
@@ -166,30 +165,13 @@ class NewPassword extends Component {
 						</Card.Header>
 						<Card.Body>
 							<Form>
-								<FormGroup>
-									<Row>
-										<Col sm={2}>
-											<FormLabel>Token</FormLabel>
-										</Col>
-										<Col sm={10}>
-											<OverlayTrigger placement="right" overlay={createTooltip( 'User token. Do not change if pre-filled.' )}>
-												<FormControl
-													name="token"
-													type="token"
-													onChange={this.handleInputChange}
-													value={this.state.token}
-												/>
-											</OverlayTrigger>
-										</Col>
-									</Row>
-								</FormGroup>
 								<OverlayTrigger placement="right" overlay={createTooltip( 'Please enter a new password with at least six characters' )}>
 									<FormGroup
 										controlId="form-password"
 									>
 										<Row>
 											<Col sm={2}>
-												<FormLabel>Password</FormLabel>
+												<FormLabel>{this.props.t('common:password')}</FormLabel>
 											</Col>
 											<Col sm={10}>
 												<FormControl
@@ -236,7 +218,7 @@ class NewPassword extends Component {
 										type="submit"
 										onClick={this.handleSubmit}
 										className="centered"
-									>Confirm</Button>
+									>{this.props.t('common:confirm')}</Button>
 								</FormGroup>
 							</Form>
 						</Card.Body>
@@ -246,6 +228,7 @@ class NewPassword extends Component {
 					show={this.state.showModal}
 					close={this.close}
 					message={this.state.message}
+					t={this.props.t}
 				/> : null }
 				<Overlay
 					show={this.state.showSubmitOverlay}
@@ -272,4 +255,4 @@ NewPassword.propTypes = {
 
 // EXPORTS //
 
-export default withRouter( NewPassword );
+export default withRouter( withTranslation( [ 'common', 'signup' ] )( NewPassword ) );
