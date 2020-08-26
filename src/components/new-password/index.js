@@ -18,6 +18,7 @@
 // MODULES //
 
 import React, { Component } from 'react';
+import axios from 'axios';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import Col from 'react-bootstrap/Col';
@@ -34,7 +35,6 @@ import Tooltip from 'react-bootstrap/Tooltip';
 import { withRouter } from 'react-router';
 import PropTypes from 'prop-types';
 import queryString from 'query-string';
-import request from 'request';
 import server from 'constants/server';
 import 'css/login.css';
 
@@ -88,31 +88,31 @@ class NewPassword extends Component {
 		};
 	}
 
-	handleSubmit = ( event ) => {
+	handleSubmit = async ( event ) => {
 		event.preventDefault();
 		if ( this.getPasswordValidationState() ) {
-			request.post( server+'/update_user_password', {
-				form: {
+			try {
+				const res = await axios.post( server+'/update_user_password', {
 					id: this.state.token,
 					newPassword: this.state.password
-				}
-			}, ( err, res ) => {
+				});
+				this.setState({
+					message: res.data.message,
+					showModal: true
+				});
+			} catch ( err ) {
 				let msg;
-				if ( err ) {
+				if ( err.response ) {
+					msg = 'Server response: ' + err.response.status + '.\n';
+					msg += err.response.data;
+				} else {
 					msg = err.message;
-				}
-				else if ( res.statusCode === 404 ) {
-					msg = 'User does not exist';
-				}
-				else if ( res.statusCode === 200 ) {
-					const body = JSON.parse( res.body );
-					msg = body.message;
 				}
 				this.setState({
 					message: msg,
 					showModal: true
 				});
-			});
+			}
 		} else {
 			this.setState({
 				showSubmitOverlay: true,
