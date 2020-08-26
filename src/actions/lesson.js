@@ -83,8 +83,8 @@ export const getPublicLessons = async ( dispatch ) => {
 };
 
 export const getPublicLessonsInjector = ( dispatch ) => {
-	return () => {
-		getPublicLessons( dispatch );
+	return async () => {
+		await getPublicLessons( dispatch );
 	};
 };
 
@@ -102,8 +102,9 @@ export const getIsleFile = async ( dispatch, { lessonName, namespaceName }) => {
 };
 
 export const getIsleFileInjector = ( dispatch ) => {
-	return ({ lessonName, namespaceName }) => {
-		return getIsleFile( dispatch, { lessonName, namespaceName });
+	return async ({ lessonName, namespaceName }) => {
+		const file = await getIsleFile( dispatch, { lessonName, namespaceName });
+		return file;
 	};
 };
 
@@ -136,8 +137,8 @@ export const getLessons = async ( dispatch, namespaceName ) => {
 };
 
 export const getLessonsInjector = ( dispatch ) => {
-	return ( namespaceName ) => {
-		getLessons( dispatch, namespaceName );
+	return async ( namespaceName ) => {
+		await getLessons( dispatch, namespaceName );
 	};
 };
 
@@ -161,32 +162,34 @@ export const copyLesson = async ( dispatch, { sourceName, target, targetName, so
 };
 
 export const copyLessonInjector = ( dispatch ) => {
-	return ({ sourceName, target, targetName, source }) => {
-		copyLesson( dispatch, { sourceName, target, targetName, source } );
+	return async ({ sourceName, target, targetName, source }) => {
+		await copyLesson( dispatch, { sourceName, target, targetName, source } );
 	};
 };
 
 export const deleteLesson = async ( dispatch, { lessonName, namespaceName }) => {
-	if ( namespaceName && lessonName ) {
-		try {
-			const res = await axios.post( server+'/delete_lesson', {
-				namespaceName,
-				lessonName
-			});
-			dispatch( deletedLesson( lessonName ) );
-			addNotification( dispatch, {
-				message: res.data.message,
-				level: 'success'
-			});
-		} catch ( err ) {
-			addErrorNotification( dispatch, err );
-		}
+	if ( !namespaceName || !lessonName ) {
+		return;
+	}
+	try {
+		const res = await axios.post( server+'/delete_lesson', {
+			namespaceName,
+			lessonName
+		});
+		dispatch( deletedLesson( lessonName ) );
+		addNotification( dispatch, {
+			message: res.data.message,
+			level: 'success'
+		});
+		return res;
+	} catch ( err ) {
+		addErrorNotification( dispatch, err );
 	}
 };
 
 export const deleteLessonInjector = ( dispatch ) => {
-	return ({ lessonName, namespaceName }) => {
-		deleteLesson( dispatch, { lessonName, namespaceName } );
+	return async ({ lessonName, namespaceName }) => {
+		await deleteLesson( dispatch, { lessonName, namespaceName } );
 	};
 };
 
@@ -207,8 +210,8 @@ export const showLessonInGallery = async ( dispatch, { lessonName, namespaceName
 };
 
 export const showLessonInGalleryInjector = ( dispatch ) => {
-	return ({ lessonName, namespaceName }) => {
-		showLessonInGallery( dispatch, { lessonName, namespaceName });
+	return async ({ lessonName, namespaceName }) => {
+		await showLessonInGallery( dispatch, { lessonName, namespaceName });
 	};
 };
 
@@ -229,8 +232,8 @@ export const hideLessonInGallery = async ( dispatch, { lessonName, namespaceName
 };
 
 export const hideLessonInGalleryInjector = ( dispatch ) => {
-	return ({ lessonName, namespaceName }) => {
-		hideLessonInGallery( dispatch, { lessonName, namespaceName });
+	return async ({ lessonName, namespaceName }) => {
+		await hideLessonInGallery( dispatch, { lessonName, namespaceName });
 	};
 };
 
@@ -251,8 +254,8 @@ export const activateLesson = async ( dispatch, { lessonName, namespaceName }) =
 };
 
 export const activateLessonInjector = ( dispatch ) => {
-	return ({ lessonName, namespaceName }) => {
-		activateLesson( dispatch, { lessonName, namespaceName });
+	return async ({ lessonName, namespaceName }) => {
+		await activateLesson( dispatch, { lessonName, namespaceName });
 	};
 };
 
@@ -273,8 +276,8 @@ export const deactivateLesson = async ( dispatch, { lessonName, namespaceName })
 };
 
 export const deactivateLessonInjector = ( dispatch ) => {
-	return ({ lessonName, namespaceName }) => {
-		deactivateLesson( dispatch, { lessonName, namespaceName });
+	return async ({ lessonName, namespaceName }) => {
+		await deactivateLesson( dispatch, { lessonName, namespaceName });
 	};
 };
 
@@ -301,8 +304,8 @@ export const updateLesson = async ( dispatch, { lessonName, namespaceName, newTi
 };
 
 export const updateLessonInjector = ( dispatch ) => {
-	return ({ lessonName, namespaceName, newTitle, newDescription, lockUntil }) => {
-		updateLesson( dispatch, { lessonName, namespaceName, newTitle, newDescription, lockUntil });
+	return async ({ lessonName, namespaceName, newTitle, newDescription, lockUntil }) => {
+		await updateLesson( dispatch, { lessonName, namespaceName, newTitle, newDescription, lockUntil });
 	};
 };
 
@@ -316,7 +319,7 @@ export const getAllLessons = async ( dispatch ) => {
 };
 
 export const getAllLessonsInjector = ( dispatch ) => {
-	return () => {
-		getAllLessons( dispatch );
+	return async () => {
+		await getAllLessons( dispatch );
 	};
 };

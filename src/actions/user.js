@@ -112,8 +112,8 @@ export const getUsers = async ( dispatch ) => {
 };
 
 export const getUsersInjector = dispatch => {
-	return () => {
-		getUsers( dispatch );
+	return async () => {
+		await getUsers( dispatch );
 	};
 };
 
@@ -133,8 +133,8 @@ export const impersonateUser = async ( dispatch, { id, password }) => {
 };
 
 export const impersonateUserInjector = dispatch => {
-	return ({ id, password }) => {
-		impersonateUser( dispatch, { id, password } );
+	return async ({ id, password }) => {
+		await impersonateUser( dispatch, { id, password } );
 	};
 };
 
@@ -158,8 +158,8 @@ export const deleteUser = async ( dispatch, { id }) => {
 };
 
 export const deleteUserInjector = dispatch => {
-	return ({ id }) => {
-		deleteUser( dispatch, { id } );
+	return async ({ id }) => {
+		await deleteUser( dispatch, { id } );
 	};
 };
 
@@ -184,8 +184,8 @@ export const uploadProfilePic = async ( dispatch, { token, avatarData, thumbnail
 };
 
 export const uploadProfilePicInjector = ( dispatch ) => {
-	return ({ avatarData, thumbnailData }) => {
-		uploadProfilePic( dispatch, { avatarData, thumbnailData });
+	return async ({ avatarData, thumbnailData }) => {
+		await uploadProfilePic( dispatch, { avatarData, thumbnailData });
 	};
 };
 
@@ -206,8 +206,9 @@ export const authenticate = async ( dispatch, { writeAccessToken }) => {
 };
 
 export const authenticateInjector = ( dispatch ) => {
-	return ({ writeAccessToken }) => {
-		return authenticate( dispatch, { writeAccessToken });
+	return async ({ writeAccessToken }) => {
+		const result = await authenticate( dispatch, { writeAccessToken });
+		return result;
 	};
 };
 
@@ -224,8 +225,8 @@ export const forgotPassword = async ( dispatch, { email }) => {
 };
 
 export const forgotPasswordInjector = ( dispatch ) => {
-	return ({ email }) => {
-		forgotPassword( dispatch, { email });
+	return async ({ email }) => {
+		await forgotPassword( dispatch, { email });
 	};
 };
 
@@ -246,8 +247,8 @@ export const updateUser = async ( dispatch, { name, organization }) => {
 };
 
 export const updateUserInjector = ( dispatch ) => {
-	return ({ name, organization }) => {
-		updateUser( dispatch, { name, organization });
+	return async ({ name, organization }) => {
+		await updateUser( dispatch, { name, organization });
 	};
 };
 
@@ -262,8 +263,9 @@ export const handleLogin = async ( dispatch, form ) => {
 };
 
 export const handleLoginInjector = ( dispatch ) => {
-	return ( form ) => {
-		return handleLogin( dispatch, form );
+	return async ( form ) => {
+		const result = await handleLogin( dispatch, form );
+		return result;
 	};
 };
 
@@ -317,8 +319,8 @@ export const userUpdateCheck = async ( dispatch, user ) => {
 };
 
 export const userUpdateCheckInjector = ( dispatch ) => {
-	return ( user ) => {
-		userUpdateCheck( dispatch, user );
+	return async ( user ) => {
+		await userUpdateCheck( dispatch, user );
 	};
 };
 
@@ -351,7 +353,7 @@ export const resendConfirmEmail = async ( dispatch, user ) => {
 };
 
 export const resendConfirmEmailInjector = ( dispatch ) => {
-	return ( user ) => {
-		resendConfirmEmail( dispatch, user );
+	return async ( user ) => {
+		await resendConfirmEmail( dispatch, user );
 	};
 };

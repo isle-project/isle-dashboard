@@ -89,8 +89,8 @@ export const getUserBadges = async ( dispatch ) => {
 };
 
 export const getUserBadgesInjector = ( dispatch ) => {
-	return () => {
-		getUserBadges( dispatch );
+	return async () => {
+		await getUserBadges( dispatch );
 	};
 };
 
@@ -104,7 +104,7 @@ export const getAvailableBadges = async ( dispatch ) => {
 };
 
 export const getAvailableBadgesInjector = ( dispatch ) => {
-	return () => {
-		getAvailableBadges( dispatch );
+	return async () => {
+		await getAvailableBadges( dispatch );
 	};
 };

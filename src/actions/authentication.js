@@ -99,8 +99,9 @@ export const fetchCredentials = async ( dispatch, obj ) => {
 };
 
 export const fetchCredentialsInjector = dispatch => {
-	return ( obj ) => {
-		return fetchCredentials( dispatch, obj );
+	return async ( obj ) => {
+		const result = await fetchCredentials( dispatch, obj );
+		return result;
 	};
 };
 
@@ -118,7 +119,8 @@ export const shibboleth = async ( dispatch, { eppn, name, affil, time, salt, tok
 };
 
 export const shibbolethInjector = dispatch => {
-	return ({ eppn, name, affil, time, salt, token }) => {
-		return shibboleth( dispatch, { eppn, name, affil, time, salt, token } );
+	return async ({ eppn, name, affil, time, salt, token }) => {
+		const result = await shibboleth( dispatch, { eppn, name, affil, time, salt, token } );
+		return result;
 	};
 };

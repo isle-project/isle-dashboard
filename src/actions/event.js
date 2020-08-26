@@ -41,7 +41,7 @@ export const getEvents = async ( dispatch ) => {
 };
 
 export const getEventsInjector = dispatch => {
-	return () => {
-		getEvents( dispatch );
+	return async () => {
+		await getEvents( dispatch );
 	};
 };
