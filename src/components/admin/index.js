@@ -195,7 +195,7 @@ class AdminPage extends Component {
 						<span className="admin-page-version" >{t('dashboard-version')}: {dashboardVersion}</span>
 					</Nav>
 				</div>
-				<div className="admin-page-container" style={{ overflowY: 'auto' }}>
+				<div className="admin-page-container" >
 					{page}
 				</div>
 			</div>
