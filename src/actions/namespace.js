@@ -109,7 +109,9 @@ export const createNamespaceInjector = dispatch => {
 export const deleteCurrentNamespace = async ( dispatch, id, history ) => {
 	try {
 		await axios.post( server+'/delete_namespace', { id });
-		history.replace( '/lessons' );
+		if ( history ) {
+			history.replace( '/lessons' );
+		}
 		dispatch( deletedCurrentNamespace( id ) );
 		addNotification( dispatch, {
 			message: 'Course successfully deleted',

@@ -19,14 +19,22 @@
 
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
+import logger from 'debug';
 import { withTranslation } from 'react-i18next';
 import ReactTable from 'react-table';
 import Avatar from 'react-string-avatar';
+import Button from 'react-bootstrap/Button';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
+import ConfirmModal from 'components/confirm-modal';
 import server from 'constants/server';
 import COLORS from 'constants/colors';
 import 'react-table/react-table.css';
+
+
+// VARIABLES //
+
+const debug = logger( 'isle-dashboard:admin' );
 
 
 // MAIN //
@@ -35,6 +43,10 @@ class NamespacePage extends Component {
 	constructor( props ) {
 		super( props );
 		this.columns = this.createColumns();
+		this.state = {
+			selectedCourse: null,
+			showDeleteModal: false
+		};
 	}
 
 	componentDidMount() {
@@ -114,9 +126,48 @@ class NamespacePage extends Component {
 				maxWidth: 150
 			},
 			{
-				Header: t('common:actions')
+				Header: t('common:actions'),
+				Cell: ( row ) => {
+					return ( <div>
+						<OverlayTrigger placement="bottom" overlay={<Tooltip id="delete_course">{t('namespace:delete-course')}</Tooltip>}>
+							<Button
+								variant="outline-secondary"
+								style={{ marginLeft: 8 }}
+								onClick={this.askToDeleteSelectedCourseFactory( row.row._original )}
+								aria-label={t('namespace:delete-course')}
+							>
+								<div className="fa fa-trash-alt" />
+							</Button>
+						</OverlayTrigger>
+					</div> );
+				}
 			}
 		];
+	}
+
+	askToDeleteSelectedCourseFactory = ( course ) => {
+		return () => {
+			this.setState({
+				showDeleteModal: !this.state.showDeleteModal,
+				selectedCourse: course
+			});
+		};
+	}
+
+	deleteSelectedCourse = () => {
+		debug( `Delete course ${this.state.selectedCourse.title} with id ${this.state.selectedCourse._id}` );
+		this.setState({
+			showDeleteModal: false
+		}, async () => {
+			await this.props.deleteCurrentNamespace( this.state.selectedCourse._id );
+			this.props.getAllNamespaces();
+		});
+	}
+
+	toggleDeleteModal = () => {
+		this.setState({
+			showDeleteModal: !this.state.showDeleteModal
+		});
 	}
 
 	render() {
@@ -130,6 +181,13 @@ class NamespacePage extends Component {
 						this.reactTable = r;
 					}}
 				/>
+				{ this.state.showDeleteModal ? <ConfirmModal
+					title={this.props.t('namespace:delete-course')}
+					message={<span>{this.props.t('namespace:delete-course-confirm')}<span style={{ color: 'red' }}>{this.state.selectedCourse.title}</span></span>}
+					close={this.toggleDeleteModal}
+					show={this.state.showDeleteModal}
+					onConfirm={this.deleteSelectedCourse}
+				/> : null }
 			</Fragment>
 		);
 	}
@@ -147,4 +205,4 @@ NamespacePage.propTypes = {
 
 // EXPORTS //
 
-export default withTranslation( [ 'admin', 'common' ] )( NamespacePage );
+export default withTranslation( [ 'admin', 'namespace', 'common' ] )( NamespacePage );
