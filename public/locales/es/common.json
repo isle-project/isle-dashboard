@@ -34,6 +34,7 @@
 	"enroll": "Inscribirse",
 	"enter-email": "Ingresar correo electrónico",
 	"events": "Eventos",
+	"file-upload-title": "Subida de archivos",
 	"forgot-password": "¿Olvidó su contraseña?",
 	"lesson": "Lección",
 	"lessons": "Leccións",
@@ -45,6 +46,7 @@
 	"number-of-students": "Número de estudiantes",
 	"open": "Abierto",
 	"open-profile": "Abierto perfil",
+	"open-uploaded-file": "Abrir archivo subido",
 	"organization": "Organización",
 	"owners": "Propietarios",
 	"password": "Contraseña",
@@ -68,5 +70,6 @@
 	"type": "Escriba",
 	"update": "Actualizar",
 	"updated": "Actualizado",
+	"verification-email-sent": "Correo electrónico de verificación enviado.",
 	"waiting": "Sspera la respuesta..."
 }

@@ -105,7 +105,7 @@ export const uploadFile = async ( dispatch, { formData }) => {
 			owner: formData.get( 'owner' )
 		});
 		const msg = {
-			title: 'File Upload',
+			title: i18next.t('common:file-upload-title'),
 			message: res.data.message,
 			level: 'success',
 			position: 'tl',
@@ -133,7 +133,7 @@ export const uploadFile = async ( dispatch, { formData }) => {
 				</Button>
 			</OverlayTrigger>
 			<OverlayTrigger placement="bottom" overlay={<Tooltip id="ownerTooltip">
-				Open uploaded file
+				{i18next.t('common:open-uploaded-file')}
 			</Tooltip>}>
 				<a
 					href={server+'/'+res.data.filename}
