@@ -34,6 +34,7 @@
 	"enroll": "Enroll",
 	"enter-email": "Enter Email",
 	"events": "Events",
+	"file-upload-title": "File Upload",
 	"forgot-password": "Forgot password?",
 	"lesson": "Lesson",
 	"lessons": "Lessons",
@@ -45,6 +46,7 @@
 	"number-of-students": "Number of students",
 	"open": "Open",
 	"open-profile": "Open Profile",
+	"open-uploaded-file": "Open uploaded file",
 	"organization": "Organization",
 	"owners": "Owners",
 	"password": "Password",
@@ -69,5 +71,6 @@
 	"type": "Type",
 	"update": "Update",
 	"updated": "Updated",
+	"verification-email-sent": "Verification email sent.",
 	"waiting": "Waiting..."
 }

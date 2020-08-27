@@ -344,7 +344,7 @@ export const resendConfirmEmail = async ( dispatch, user ) => {
 		await axios.post( server+'/resend_confirm_email' );
 		addNotification( dispatch, {
 			title: 'Email sent',
-			message: 'Verification email sent.',
+			message: i18next.t('common:verification-email-sent'),
 			level: 'success',
 			position: 'tl'
 		});

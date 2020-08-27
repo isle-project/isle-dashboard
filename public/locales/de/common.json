@@ -34,6 +34,7 @@
 	"enroll": "Einschreiben",
 	"enter-email": "E-Mail eingeben",
 	"events": "Ereignisse",
+	"file-upload-title": "Datei-Upload",
 	"forgot-password": "Passwort vergessen?",
 	"lesson": "Lektion",
 	"lessons": "Lektionen",
@@ -45,6 +46,7 @@
 	"number-of-students": "Anzahl Studenten",
 	"open": "Öffnen",
 	"open-profile": "Profil öffnen",
+	"open-uploaded-file": "Open uploaded file",
 	"organization": "Organisation",
 	"owners": "Kurs-Administratoren",
 	"password": "Passwort",
@@ -69,5 +71,6 @@
 	"type": "Typ",
 	"update": "Update",
 	"updated": "Aktualisiert",
+	"verification-email-sent": "Bestätigungs-E-Mail gesendet.",
 	"waiting": "Warten auf Antwort..."
 }
