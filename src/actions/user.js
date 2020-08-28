@@ -231,12 +231,12 @@ export const forgotPasswordInjector = ( dispatch ) => {
 	};
 };
 
-export const updateUser = async ( dispatch, { name, organization }) => {
+export const updateUser = async ( dispatch, form ) => {
 	try {
-		const res = await axios.post( server+'/update_user', { name, organization });
+		const res = await axios.post( server+'/update_user', form );
 		dispatch( updatedUser({
-			name,
-			organization
+			name: form.name,
+			organization: form.organization
 		}) );
 		addNotification( dispatch, {
 			message: res.data.message,
@@ -248,8 +248,8 @@ export const updateUser = async ( dispatch, { name, organization }) => {
 };
 
 export const updateUserInjector = ( dispatch ) => {
-	return async ({ name, organization }) => {
-		await updateUser( dispatch, { name, organization });
+	return async ({ name, organization, password }) => {
+		await updateUser( dispatch, { name, organization, password });
 	};
 };
 
