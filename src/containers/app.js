@@ -25,7 +25,8 @@ import { Route } from 'react-router-dom';
 import { ConnectedRouter } from 'connected-react-router';
 import asyncComponent from 'components/async';
 import server from 'constants/server';
-import { handleLoginInjector } from 'actions/user';
+import { fetchCredentialsInjector } from 'actions/authentication.js';
+import { getEnrollableCohortsInjector } from 'actions/cohort.js';
 import NotificationSystem from './notification.js';
 import './app.css';
 
@@ -75,7 +76,7 @@ const debug = logger( 'isle-dashboard' );
 // MAIN //
 
 class App extends Component {
-	componentDidMount() {
+	async componentDidMount() {
 		const history = this.props.history;
 		if (
 			!this.props.isLoggedIn &&
@@ -84,7 +85,10 @@ class App extends Component {
 			let isle = localStorage.getItem( USER_STORAGE_ID );
 			if ( isle ) {
 				isle = JSON.parse( isle );
-				this.props.handleLogin( isle );
+				const user = await this.props.fetchCredentials( isle );
+				if ( user ) {
+					this.props.getEnrollableCohorts( user );
+				}
 			} else {
 				history.replace( '/login' );
 			}
@@ -233,6 +237,7 @@ function mapStateToProps( state ) {
 
 function mapDispatchToProps( dispatch ) {
 	return {
-		handleLogin: handleLoginInjector( dispatch )
+		fetchCredentials: fetchCredentialsInjector( dispatch ),
+		getEnrollableCohorts: getEnrollableCohortsInjector( dispatch )
 	};
 }
