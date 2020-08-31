@@ -26,6 +26,7 @@ import { components } from 'react-select';
 import Tooltip from 'react-bootstrap/Tooltip';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import contains from '@stdlib/assert/contains';
+import trim from '@stdlib/string/trim';
 import './text_select.css';
 
 
@@ -88,9 +89,9 @@ class TextSelect extends Component {
 			return null;
 		}
 		if ( contains( inputValue, ',' ) ) {
-			inputValue = inputValue.split( ',' );
+			inputValue = inputValue.split( ',' ).map( x => trim( x ) );
 		} else {
-			inputValue = [ inputValue ];
+			inputValue = [ trim( inputValue ) ];
 		}
 		let newValue;
 		if ( value ) {
