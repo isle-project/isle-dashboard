@@ -20,6 +20,7 @@
 	"enrollment": "Einschreibung",
 	"open-enrollment": "Offene Einschreibung",
 	"manual-enrollment": "Manuelles Einschreiben",
+	"sanitize-user": "Nutzerdaten bereinigen",
 	"start-date": "Startdatum",
 	"end-date": "Enddatum",
 	"users": "Nutzer",

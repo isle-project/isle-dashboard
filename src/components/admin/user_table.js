@@ -110,6 +110,22 @@ class UserPage extends Component {
 		};
 	}
 
+	sanitizeFactory = ( user ) => {
+		return async () => {
+			const result = await this.props.sanitizeRequest({
+				id: user._id
+			});
+			if ( result && result.data ) {
+				return this.props.addNotification({
+					title: this.props.t('sanitize-user'),
+					message: result.data.message,
+					level: 'success',
+					position: 'tl'
+				});
+			}
+		};
+	}
+
 	handlePassword = ( event ) => {
 		this.setState({
 			password: event.target.value
@@ -208,6 +224,16 @@ class UserPage extends Component {
 								<div className="fa fa-edit" />
 							</Button>
 						</OverlayTrigger>
+						<OverlayTrigger placement="bottom" overlay={<Tooltip id="sanitize_user">{t('sanitize-user')}</Tooltip>}>
+							<Button
+								variant="outline-secondary"
+								style={{ marginLeft: 8 }}
+								onClick={this.sanitizeFactory( row.row._original )}
+								aria-label={t('sanitize-user')}
+							>
+								<div className="fas fa-band-aid" />
+							</Button>
+						</OverlayTrigger>
 						<OverlayTrigger placement="bottom" overlay={<Tooltip id="impersonate_user">{t('impersonate-user')}</Tooltip>}>
 							<Button
 								variant="outline-secondary"
@@ -280,6 +306,7 @@ class UserPage extends Component {
 // PROPERTIES //
 
 UserPage.propTypes = {
+	addNotification: PropTypes.func.isRequired,
 	admin: PropTypes.object.isRequired,
 	deleteUser: PropTypes.func.isRequired,
 	getUsers: PropTypes.func.isRequired,

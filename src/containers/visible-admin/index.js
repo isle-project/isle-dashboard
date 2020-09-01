@@ -25,6 +25,8 @@ import { getEventsInjector, deleteEventInjector } from 'actions/event.js';
 import { getAllNamespacesInjector, deleteCurrentNamespaceInjector } from 'actions/namespace.js';
 import { getAllCohortsInjector, deleteCohortInjector } from 'actions/cohort.js';
 import { getAllLessonsInjector, deleteLessonInjector } from 'actions/lesson.js';
+import { sanitizeRequestInjector } from 'actions/authentication.js';
+import { addNotificationInjector } from 'actions/notification.js';
 
 
 // FUNCTIONS //
@@ -38,6 +40,7 @@ function mapStateToProps( state ) {
 
 function mapDispatchToProps( dispatch ) {
 	return {
+		addNotification: addNotificationInjector( dispatch ),
 		getAllCohorts: getAllCohortsInjector( dispatch ),
 		getAllLessons: getAllLessonsInjector( dispatch ),
 		getAllNamespaces: getAllNamespacesInjector( dispatch ),
@@ -48,7 +51,8 @@ function mapDispatchToProps( dispatch ) {
 		deleteEvent: deleteEventInjector( dispatch ),
 		deleteLesson: deleteLessonInjector( dispatch ),
 		deleteUser: deleteUserInjector( dispatch ),
-		impersonateUser: impersonateUserInjector( dispatch )
+		impersonateUser: impersonateUserInjector( dispatch ),
+		sanitizeRequest: sanitizeRequestInjector( dispatch )
 	};
 }
 
