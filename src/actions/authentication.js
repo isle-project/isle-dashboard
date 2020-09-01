@@ -65,6 +65,24 @@ const sanitizeUser = ( user ) => {
 
 // MAIN //
 
+export const sanitizeRequest = ( dispatch, user ) => {
+	try {
+		return axios.post( server+'/sanitize_user', {
+			id: user.id
+		});
+	} catch ( err ) {
+		addErrorNotification( dispatch, err );
+		return null;
+	}
+};
+
+export const sanitizeRequestInjector = dispatch => {
+	return async ( user ) => {
+		const result = await sanitizeRequest( dispatch, user );
+		return result;
+	};
+};
+
 export const fetchCredentials = async ( dispatch, obj ) => {
 	debug( 'Fetch user credentials...' );
 	localStorage.setItem( 'ISLE_USER_'+server, JSON.stringify( obj ) );
@@ -83,13 +101,7 @@ export const fetchCredentials = async ( dispatch, obj ) => {
 		let [ sanitizedUser, needsSanitizing ] = sanitizeUser( user );
 		dispatch( loggedIn( user ) );
 		if ( needsSanitizing ) {
-			try {
-				axios.post( server+'/sanitize_user', {
-					id: obj.id
-				});
-			} catch ( err ) {
-				addErrorNotification( dispatch, err );
-			}
+			sanitizeRequest( dispatch, obj );
 		}
 		return sanitizedUser;
 	} catch ( err ) {

@@ -127,6 +127,8 @@ class AdminPage extends Component {
 						deleteUser={this.props.deleteUser}
 						impersonateUser={this.props.impersonateUser}
 						getUsers={this.props.getUsers}
+						sanitizeRequest={this.props.sanitizeRequest}
+						addNotification={this.props.addNotification}
 					/>
 				);
 			case 4:
@@ -207,6 +209,7 @@ class AdminPage extends Component {
 // PROPERTIES //
 
 AdminPage.propTypes = {
+	addNotification: PropTypes.func.isRequired,
 	admin: PropTypes.object.isRequired,
 	deleteCohort: PropTypes.func.isRequired,
 	deleteCurrentNamespace: PropTypes.func.isRequired,
@@ -219,6 +222,7 @@ AdminPage.propTypes = {
 	getEvents: PropTypes.func.isRequired,
 	getUsers: PropTypes.func.isRequired,
 	impersonateUser: PropTypes.func.isRequired,
+	sanitizeRequest: PropTypes.func.isRequired,
 	user: PropTypes.object.isRequired
 };
 

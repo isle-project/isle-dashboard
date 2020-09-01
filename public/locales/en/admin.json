@@ -20,6 +20,7 @@
 	"enrollment": "Enrollment",
 	"open-enrollment": "Open enrollment",
 	"manual-enrollment": "Manual enrollment",
+	"sanitize-user": "Desinfectar al usuario",
 	"start-date": "Start Date",
 	"end-date": "End Date",
 	"users": "Users",
