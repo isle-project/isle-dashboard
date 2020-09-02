@@ -25,6 +25,7 @@ import ReactTable from 'react-table';
 import Button from 'react-bootstrap/Button';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
+import Popover from 'react-bootstrap/Popover';
 import capitalize from '@stdlib/string/capitalize';
 import createBooleanColumn from './create_boolean_column.js';
 import ConfirmModal from 'components/confirm-modal';
@@ -110,6 +111,29 @@ class LessonTable extends Component {
 				},
 				style: { marginTop: '8px', color: 'darkslategrey' },
 				maxWidth: 150
+			},
+			{
+				Header: t( 'common:metadata' ),
+				accessor: 'metadata',
+				style: { marginTop: '2px', color: 'darkslategrey', fontSize: 24, textAlign: 'center', cursor: 'pointer' },
+				Cell: ( row ) => {
+					if ( row.value ) {
+						const popover = <Popover id="popover-data" style={{ maxWidth: 400 }}>
+							<Popover.Title as="h3">Data</Popover.Title>
+							<Popover.Content style={{ backgroundColor: 'lightblue' }} >
+								<pre>{JSON.stringify( row.value, null, 2 )}
+								</pre>
+							</Popover.Content>
+						</Popover>;
+						return (
+							<OverlayTrigger trigger="click" placement="right" overlay={popover}>
+								<i className="data-icon fas fa-tablet-alt"></i>
+							</OverlayTrigger>
+						);
+					}
+					return null;
+				},
+				maxWidth: 120
 			},
 			{
 				Header: t('common:actions'),
