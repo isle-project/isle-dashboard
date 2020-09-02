@@ -64,7 +64,7 @@ class Course extends Component {
 
 	renderOwners() {
 		const profiles = [];
-		const owners = this.props.namespace.owners;
+		const owners = this.props.namespace.owners.filter( x => x.writeAccess );
 		const colsPerRow = floor( sqrt( owners.length ) );
 		for ( let i = 0; i < owners.length; i += colsPerRow ) {
 			const row = [];

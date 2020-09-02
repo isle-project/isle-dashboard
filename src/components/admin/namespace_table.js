@@ -22,14 +22,12 @@ import PropTypes from 'prop-types';
 import logger from 'debug';
 import { withTranslation } from 'react-i18next';
 import ReactTable from 'react-table';
-import Avatar from 'react-string-avatar';
 import Button from 'react-bootstrap/Button';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
 import ConfirmModal from 'components/confirm-modal';
-import server from 'constants/server';
-import COLORS from 'constants/colors';
 import textFilter from './text_filter.js';
+import createUsersColumn from './create_users_column.js';
 import 'react-table/react-table.css';
 
 
@@ -72,44 +70,10 @@ class NamespacePage extends Component {
 				maxWidth: 200,
 				filterMethod: textFilter
 			},
-			{
+			createUsersColumn({
 				Header: t( 'common:owners' ),
-				accessor: 'owners',
-				style: { marginTop: '2px', color: 'darkslategrey' },
-				maxWidth: 600,
-				Cell: ( row ) => {
-					const arr = [];
-					for ( let i = 0; i < row.value.length; i++ ) {
-						const owner = row.value[ i ];
-						if ( owner.picture !== 'anonymous.jpg' ) {
-							arr.push(
-								<OverlayTrigger key={owner.email} trigger={['hover', 'focus']}
-									overlay={<Tooltip key={owner.email} >{owner.name} ({owner.email})</Tooltip>}
-								>
-									<img className="table-pic" src={`${server}/thumbnail/${owner.picture}`} alt="Profile Pic" />
-								</OverlayTrigger>
-							);
-						} else {
-							const initials = owner.name
-								.split( ' ' )
-								.map( x => x[ 0 ] )
-								.join( '' );
-							const bgColor = COLORS[ i % COLORS.length ];
-							arr.push(
-								<OverlayTrigger key={owner.email} trigger={['hover', 'focus']}
-									overlay={<Tooltip key={owner.email} >{owner.name} ({owner.email})</Tooltip>}
-								>
-									<span><Avatar
-										initials={initials} bgColor={bgColor}
-										key={i} width={40} height={40}
-									/></span>
-								</OverlayTrigger>
-							);
-						}
-					}
-					return arr;
-				}
-			},
+				accessor: 'owners'
+			}),
 			{
 				Header: t('last-updated'),
 				accessor: 'updatedAt',
