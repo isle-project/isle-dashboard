@@ -28,6 +28,7 @@ import EventTable from './event_table.js';
 import LessonTable from './lesson_table.js';
 import NamespaceTable from './namespace_table.js';
 import UserTable from './user_table.js';
+import Rooms from './rooms.js';
 import { version as dashboardVersion } from './../../../package.json';
 import 'react-table/react-table.css';
 import 'css/table.css';
@@ -107,6 +108,9 @@ class AdminPage extends Component {
 			case 7:
 				this.props.history.replace( '/admin/events' );
 				break;
+			case 8:
+				this.props.history.replace( '/admin/rooms' );
+				break;
 		}
 		this.setState({
 			activePage: selectedKey
@@ -163,6 +167,13 @@ class AdminPage extends Component {
 						getEvents={this.props.getEvents}
 					/>
 				);
+			case 8:
+				return (
+					<Rooms
+						admin={this.props.admin}
+						getRooms={this.props.getRooms}
+					/>
+				);
 		}
 	}
 
@@ -193,6 +204,9 @@ class AdminPage extends Component {
 						</Nav.Item>
 						<Nav.Item>
 							<Nav.Link eventKey="7" title="Events" >{t('common:events')}</Nav.Link>
+						</Nav.Item>
+						<Nav.Item>
+							<Nav.Link eventKey="8" title="Active Rooms" >{t('admin:active-rooms')}</Nav.Link>
 						</Nav.Item>
 						<span className="admin-page-version" >{t('dashboard-version')}: {dashboardVersion}</span>
 					</Nav>

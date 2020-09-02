@@ -21,7 +21,7 @@ import axios from 'axios';
 import qs from 'querystring';
 import server from 'constants/server';
 import { addNotification, addErrorNotification } from 'actions/notification';
-import { DELETED_LESSON, GET_ALL_LESSONS, UPDATED_LESSON, RETRIEVED_LESSONS, RETRIEVED_PUBLIC_LESSONS } from 'constants/action_types.js';
+import { DELETED_LESSON, GET_ALL_LESSONS, GET_ROOMS, UPDATED_LESSON, RETRIEVED_LESSONS, RETRIEVED_PUBLIC_LESSONS } from 'constants/action_types.js';
 
 
 // EXPORTS //
@@ -60,6 +60,15 @@ export function retrievedAllLessons( lessons ) {
 		type: GET_ALL_LESSONS,
 		payload: {
 			lessons
+		}
+	};
+}
+
+export function retrievedRooms( rooms ) {
+	return {
+		type: GET_ROOMS,
+		payload: {
+			rooms
 		}
 	};
 }
@@ -321,5 +330,20 @@ export const getAllLessons = async ( dispatch ) => {
 export const getAllLessonsInjector = ( dispatch ) => {
 	return async () => {
 		await getAllLessons( dispatch );
+	};
+};
+
+export const getRooms = async ( dispatch ) => {
+	try {
+		const res = await axios.get( server+'/get_open_rooms' );
+		dispatch( retrievedRooms( res.data.rooms ) );
+	} catch ( err ) {
+		addErrorNotification( dispatch, err );
+	}
+};
+
+export const getRoomsInjector = ( dispatch ) => {
+	return async () => {
+		await getRooms( dispatch );
 	};
 };
