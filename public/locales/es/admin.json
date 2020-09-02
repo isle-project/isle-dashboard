@@ -20,6 +20,7 @@
 	"enrollment": "Inscripción",
 	"open-enrollment": "Inscripción abierta",
 	"manual-enrollment": "Inscripción manual",
+	"sanitize-user": "Desinfectar al usuario",
 	"start-date": "Fecha de inicio",
 	"end-date": "Fecha de finalización",
 	"users": "Usuarios",
