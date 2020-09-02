@@ -29,6 +29,7 @@ import Tooltip from 'react-bootstrap/Tooltip';
 import ConfirmModal from 'components/confirm-modal';
 import server from 'constants/server';
 import COLORS from 'constants/colors';
+import textFilter from './text_filter.js';
 import 'react-table/react-table.css';
 
 
@@ -61,13 +62,15 @@ class NamespacePage extends Component {
 				id: 'title',
 				accessor: 'title',
 				maxWidth: 200,
-				style: { marginTop: '8px', color: 'darkslategrey' }
+				style: { marginTop: '8px', color: 'darkslategrey' },
+				filterMethod: textFilter
 			},
 			{
 				Header: t( 'common:description' ),
 				accessor: 'description',
 				style: { marginTop: '2px', color: 'darkslategrey' },
-				maxWidth: 200
+				maxWidth: 200,
+				filterMethod: textFilter
 			},
 			{
 				Header: t( 'common:owners' ),

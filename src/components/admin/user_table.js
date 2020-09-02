@@ -27,10 +27,9 @@ import Button from 'react-bootstrap/Button';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
 import ConfirmModal from 'components/confirm-modal';
-import contains from '@stdlib/assert/contains';
-import lowercase from '@stdlib/string/lowercase';
 import server from 'constants/server';
 import createBooleanColumn from './create_boolean_column.js';
+import textFilter from './text_filter.js';
 import 'react-table/react-table.css';
 
 
@@ -154,24 +153,21 @@ class UserPage extends Component {
 				accessor: 'name',
 				maxWidth: 200,
 				style: { marginTop: '8px', color: 'darkslategrey' },
-				filterMethod: ( filter, row ) => {
-					return contains( lowercase( row[ filter.id ] ), lowercase( filter.value ) );
-				}
+				filterMethod: textFilter
 			},
 			{
 				Header: t('common:email'),
 				accessor: 'email',
 				maxWidth: 200,
 				style: { marginTop: '8px', color: 'darkslategrey' },
-				filterMethod: ( filter, row ) => {
-					return contains( lowercase( row[ filter.id ] ), lowercase( filter.value ) );
-				}
+				filterMethod: textFilter
 			},
 			{
 				Header: t('common:organization'),
 				accessor: 'organization',
 				style: { marginTop: '8px', color: 'darkslategrey' },
-				maxWidth: 200
+				maxWidth: 200,
+				filterMethod: textFilter
 			},
 			createBooleanColumn({
 				Header: t( 'instructor' ),

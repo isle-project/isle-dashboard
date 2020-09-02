@@ -27,6 +27,7 @@ import Tooltip from 'react-bootstrap/Tooltip';
 import createBooleanColumn from './create_boolean_column.js';
 import ConfirmModal from 'components/confirm-modal';
 import 'react-table/react-table.css';
+import textFilter from './text_filter.js';
 
 
 // MAIN //
@@ -54,14 +55,16 @@ class CohortTable extends Component {
 				id: 'title',
 				accessor: 'title',
 				maxWidth: 200,
-				style: { marginTop: '8px', color: 'darkslategrey' }
+				style: { marginTop: '8px', color: 'darkslategrey' },
+				filterMethod: textFilter
 			},
 			{
 				Header: t('common:course'),
 				id: 'namespace',
 				accessor: 'namespace.title',
 				maxWidth: 200,
-				style: { marginTop: '8px', color: 'darkslategrey' }
+				style: { marginTop: '8px', color: 'darkslategrey' },
+				filterMethod: textFilter
 			},
 			{
 				Header: t('namespace:email-filter'),

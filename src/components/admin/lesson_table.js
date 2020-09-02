@@ -28,6 +28,7 @@ import Tooltip from 'react-bootstrap/Tooltip';
 import capitalize from '@stdlib/string/capitalize';
 import createBooleanColumn from './create_boolean_column.js';
 import ConfirmModal from 'components/confirm-modal';
+import textFilter from './text_filter.js';
 import 'react-table/react-table.css';
 
 
@@ -61,21 +62,24 @@ class LessonTable extends Component {
 				id: 'title',
 				accessor: 'title',
 				maxWidth: 200,
-				style: { marginTop: '8px', color: 'darkslategrey' }
+				style: { marginTop: '8px', color: 'darkslategrey' },
+				filterMethod: textFilter
 			},
 			{
 				Header: t('common:course'),
 				id: 'namespace',
 				accessor: 'namespace.title',
 				maxWidth: 200,
-				style: { marginTop: '8px', color: 'darkslategrey' }
+				style: { marginTop: '8px', color: 'darkslategrey' },
+				filterMethod: textFilter
 			},
 			{
 				Header: t('common:description'),
 				id: 'description',
 				accessor: 'description',
 				maxWidth: 200,
-				style: { marginTop: '8px', color: 'darkslategrey' }
+				style: { marginTop: '8px', color: 'darkslategrey' },
+				filterMethod: textFilter
 			},
 			createBooleanColumn({
 				Header: capitalize( t('lesson:active') ),

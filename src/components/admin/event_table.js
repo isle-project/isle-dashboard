@@ -29,6 +29,7 @@ import Tooltip from 'react-bootstrap/Tooltip';
 import server from 'constants/server';
 import ConfirmModal from 'components/confirm-modal';
 import createBooleanColumn from './create_boolean_column.js';
+import textFilter from './text_filter.js';
 import 'react-table/react-table.css';
 
 
@@ -62,7 +63,8 @@ class EventTable extends Component {
 				id: 'type',
 				accessor: 'type',
 				maxWidth: 200,
-				style: { marginTop: '8px', color: 'darkslategrey' }
+				style: { marginTop: '8px', color: 'darkslategrey' },
+				filterMethod: textFilter
 			},
 			{
 				Header: t( 'common:time' ),
@@ -122,13 +124,15 @@ class EventTable extends Component {
 				Header: t('common:name'),
 				accessor: 'user.name',
 				style: { marginTop: '8px', color: 'darkslategrey' },
-				maxWidth: 150
+				maxWidth: 150,
+				filterMethod: textFilter
 			},
 			{
 				Header: t('common:email'),
 				accessor: 'user.email',
 				style: { marginTop: '8px', color: 'darkslategrey' },
-				maxWidth: 150
+				maxWidth: 150,
+				filterMethod: textFilter
 			},
 			{
 				Header: t('common:actions'),
