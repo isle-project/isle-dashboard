@@ -27,6 +27,7 @@ const initialState = {
 	events: [],
 	lessons: [],
 	namespaces: [],
+	rooms: [],
 	users: []
 };
 
@@ -55,6 +56,11 @@ export default function admin( state = initialState, action ) {
 	case types.GET_EVENTS: {
 		return Object.assign({}, state, {
 			events: action.payload.events
+		});
+	}
+	case types.GET_ROOMS: {
+		return Object.assign({}, state, {
+			rooms: action.payload.rooms
 		});
 	}
 	case types.DELETED_EVENT: {
