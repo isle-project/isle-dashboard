@@ -273,7 +273,6 @@ class ProgressPage extends Component {
 			const lessonID = lessons[ idx ]._id;
 			data = data[ lessonID ];
 			if ( data ) {
-				console.log( data );
 				const progress = min( round( data.progress*100 ), 100 );
 				return (
 					<span>
