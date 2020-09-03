@@ -75,6 +75,11 @@ class NamespacePage extends Component {
 				accessor: 'owners'
 			}),
 			{
+				Header: `# ${t( 'common:owners' )}`,
+				accessor: 'owners.length',
+				maxWidth: 120
+			},
+			{
 				Header: t('last-updated'),
 				accessor: 'updatedAt',
 				Cell: ( row ) => {

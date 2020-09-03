@@ -89,6 +89,11 @@ class Rooms extends Component {
 				maxWidth: 400
 			}),
 			{
+				Header: `# ${t( 'admin:users' )}`,
+				accessor: 'members.length',
+				maxWidth: 60
+			},
+			{
 				Header: t( 'common:groups' ),
 				accessor: 'groups',
 				style: { marginTop: '2px', color: 'darkslategrey' },
