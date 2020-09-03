@@ -169,7 +169,6 @@ class Rooms extends Component {
 	}
 
 	render() {
-		console.log( this.props.admin.rooms )
 		return (
 			<Fragment>
 				<ReactTable
