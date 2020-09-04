@@ -28,6 +28,7 @@ import EventTable from './event_table.js';
 import LessonTable from './lesson_table.js';
 import NamespaceTable from './namespace_table.js';
 import UserTable from './user_table.js';
+import Overview from './overview.js';
 import Rooms from './rooms.js';
 import { version as dashboardVersion } from './../../../package.json';
 import 'react-table/react-table.css';
@@ -45,6 +46,9 @@ class AdminPage extends Component {
 		let activePage;
 		switch ( subpage ) {
 			default:
+			case 'overview':
+				activePage = 0;
+				break;
 			case 'access-logs':
 				activePage = 1;
 				break;
@@ -87,6 +91,9 @@ class AdminPage extends Component {
 	handleSelect = ( selectedKey ) => {
 		selectedKey = Number( selectedKey );
 		switch ( selectedKey ) {
+			case 0:
+				this.props.history.replace( '/admin/overview' );
+				break;
 			case 1:
 				this.props.history.replace( '/admin/access-logs' );
 				break;
@@ -119,6 +126,8 @@ class AdminPage extends Component {
 
 	renderPage() {
 		switch ( this.state.activePage ) {
+			case 0:
+				return <Overview />;
 			case 1:
 				return <AccessLog user={this.props.user} />;
 			case 2:
@@ -184,6 +193,9 @@ class AdminPage extends Component {
 			<div className="admin-page-div">
 				<div className="admin-page-navbar">
 					<Nav variant="pills" activeKey={this.state.activePage} onSelect={this.handleSelect}>
+						<Nav.Item>
+							<Nav.Link eventKey="0" title="Overview" >{t('overview')}</Nav.Link>
+						</Nav.Item>
 						<Nav.Item>
 							<Nav.Link eventKey="1" title="Access Log" >{t('access-log')}</Nav.Link>
 						</Nav.Item>
