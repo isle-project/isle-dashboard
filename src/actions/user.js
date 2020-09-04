@@ -25,7 +25,7 @@ import server from 'constants/server';
 import { fetchCredentials } from 'actions/authentication.js';
 import { getEnrollableCohorts } from 'actions/cohort.js';
 import { addNotification, addErrorNotification } from 'actions/notification.js';
-import { AUTHENTICATED, USER_PICTURE_MODIFIED, DELETED_USER, GET_USERS, LOGGED_IN, LOGGED_OUT, RECEIVED_TOKEN, USER_UPDATED } from 'constants/action_types.js';
+import { AUTHENTICATED, USER_PICTURE_MODIFIED, DELETED_USER, GET_USERS, LOGGED_IN, LOGGED_OUT, RECEIVED_TOKEN, USER_UPDATED, USER_UPDATED_BY_ADMIN } from 'constants/action_types.js';
 
 
 // VARIABLES //
@@ -95,6 +95,13 @@ export const updatedUser = ({ name, organization }) => {
 			name,
 			organization
 		}
+	};
+};
+
+export const updatedUserByAdmin = ( user ) => {
+	return {
+		type: USER_UPDATED_BY_ADMIN,
+		payload: user
 	};
 };
 
@@ -356,5 +363,24 @@ export const resendConfirmEmail = async ( dispatch, user ) => {
 export const resendConfirmEmailInjector = ( dispatch ) => {
 	return async ( user ) => {
 		await resendConfirmEmail( dispatch, user );
+	};
+};
+
+export const adminUpdateUser = async ( dispatch, form ) => {
+	try {
+		const res = await axios.post( server+'/admin_update_user', form );
+		addNotification( dispatch, {
+			message: res.data.message,
+			level: 'success'
+		});
+		dispatch( updatedUserByAdmin( form ) );
+	} catch ( err ) {
+		addErrorNotification( dispatch, err );
+	}
+};
+
+export const adminUpdateUserInjector = ( dispatch ) => {
+	return async ( form ) => {
+		await adminUpdateUser( dispatch, form );
 	};
 };

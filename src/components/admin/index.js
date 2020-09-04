@@ -125,6 +125,8 @@ class AdminPage extends Component {
 	}
 
 	renderPage() {
+		console.log( 'ADMIN');
+		console.log( this.props.adminUpdateUser );
 		switch ( this.state.activePage ) {
 			case 0:
 				return <Overview />;
@@ -142,6 +144,7 @@ class AdminPage extends Component {
 						getUsers={this.props.getUsers}
 						sanitizeRequest={this.props.sanitizeRequest}
 						addNotification={this.props.addNotification}
+						updateUser={this.props.adminUpdateUser}
 					/>
 				);
 			case 4:
@@ -237,6 +240,7 @@ class AdminPage extends Component {
 AdminPage.propTypes = {
 	addNotification: PropTypes.func.isRequired,
 	admin: PropTypes.object.isRequired,
+	adminUpdateUser: PropTypes.func.isRequired,
 	deleteCohort: PropTypes.func.isRequired,
 	deleteCurrentNamespace: PropTypes.func.isRequired,
 	deleteEvent: PropTypes.func.isRequired,

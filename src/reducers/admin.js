@@ -17,6 +17,7 @@
 
 // MODULES //
 
+import objectKeys from '@stdlib/utils/keys';
 import * as types from 'constants/action_types.js';
 
 
@@ -73,6 +74,24 @@ export default function admin( state = initialState, action ) {
 	case types.DELETED_USER: {
 		let users = state.users.slice();
 		users = users.filter( x => x._id !== action.payload.id );
+		return Object.assign({}, state, {
+			users
+		});
+	}
+	case types.USER_UPDATED_BY_ADMIN: {
+		let users = state.users.slice();
+		for ( let i = 0; i < users.length; i++ ) {
+			const user = users[ i ];
+			if ( user._id === action.payload.id ) {
+				const keys = objectKeys( action.payload );
+				for ( let j = 0; j < keys.length; j++ ) {
+					const key = keys[ j ];
+					if ( key !== 'id' ) {
+						user[ key ] = action.payload[ key ];
+					}
+				}
+			}
+		}
 		return Object.assign({}, state, {
 			users
 		});
