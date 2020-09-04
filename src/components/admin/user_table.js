@@ -315,6 +315,7 @@ class UserPage extends Component {
 					user={this.state.selectedUser}
 					t={this.props.t}
 					show={this.state.showEditModal}
+					updateUser={this.props.updateUser}
 					onHide={this.toggleEditModal}
 				/> : null }
 			</Fragment>
@@ -331,7 +332,8 @@ UserPage.propTypes = {
 	deleteUser: PropTypes.func.isRequired,
 	getUsers: PropTypes.func.isRequired,
 	impersonateUser: PropTypes.func.isRequired,
-	t: PropTypes.func.isRequired
+	t: PropTypes.func.isRequired,
+	updateUser: PropTypes.func.isRequired
 };
 
 

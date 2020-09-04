@@ -20,7 +20,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import AdminPage from 'components/admin';
-import { getUsersInjector, deleteUserInjector, impersonateUserInjector } from 'actions/user.js';
+import { getUsersInjector, deleteUserInjector, impersonateUserInjector, adminUpdateUserInjector } from 'actions/user.js';
 import { getEventsInjector, deleteEventInjector } from 'actions/event.js';
 import { getAllNamespacesInjector, deleteCurrentNamespaceInjector } from 'actions/namespace.js';
 import { getAllCohortsInjector, deleteCohortInjector } from 'actions/cohort.js';
@@ -53,7 +53,8 @@ function mapDispatchToProps( dispatch ) {
 		deleteLesson: deleteLessonInjector( dispatch ),
 		deleteUser: deleteUserInjector( dispatch ),
 		impersonateUser: impersonateUserInjector( dispatch ),
-		sanitizeRequest: sanitizeRequestInjector( dispatch )
+		sanitizeRequest: sanitizeRequestInjector( dispatch ),
+		adminUpdateUser: adminUpdateUserInjector( dispatch )
 	};
 }
 

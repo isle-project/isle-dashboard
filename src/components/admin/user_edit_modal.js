@@ -57,29 +57,43 @@ class EditModal extends Component {
 			name: props.user.name,
 			organization: props.user.organization,
 			password: '',
+			writeAccess: props.user.writeAccess,
+			verifiedEmail: props.user.verifiedEmail,
+			administrator: props.user.administrator,
 			changed: false
 		};
 	}
 
 	handleUpdate = () => {
 		console.log( this.state );
-		const { name, password, organization } = this.state;
+		console.log( this.props );
+		const { name, password, organization, writeAccess, verifiedEmail, administrator } = this.state;
 		const form = {
 			name,
-			organization
+			organization,
+			id: this.props.user._id,
+			writeAccess,
+			verifiedEmail,
+			administrator
 		};
 		let change = false;
 		if ( password ) {
 			form.password = password;
+			change = true;
 		}
+		const user = this.props.user;
 		if (
-			name !== this.props.user.name ||
-			organization !== this.props.user.organization
+			name !== user.name ||
+			organization !== user.organization ||
+			writeAccess !== user.writeAccess ||
+			verifiedEmail !== user.verifiedEmail ||
+			administrator !== user.administrator
 		) {
 			change = true;
 		}
 		if ( change ) {
 			debug( 'Update user...' );
+			console.log( this.props.updateUser );
 			this.props.updateUser( form );
 			this.props.onHide();
 		}
@@ -95,15 +109,13 @@ class EditModal extends Component {
 		});
 	}
 
-	handleCheckboxChange = ( event ) => {
-		const target = event.target;
-		const value = target.checked;
-		const name = target.name;
-		console.log( 'NAME '+name );
-		this.setState({
-			[ name ]: value,
-			changed: true
-		});
+	handleCheckboxChangeFactory = ( name ) => {
+		return ( event ) => {
+			this.setState({
+				[ name ]: event.target.checked,
+				changed: true
+			});
+		};
 	}
 
 	getNameValidationState = () => {
@@ -216,19 +228,19 @@ class EditModal extends Component {
 								type="checkbox"
 								label={t('admin:instructor')}
 								defaultChecked={this.props.user.writeAccess}
-								onChange={this.handleInputChange}
+								onChange={this.handleCheckboxChangeFactory( 'writeAccess' )}
 							/>
 							<Form.Check
 								type="checkbox"
 								label={t('admin:admin')}
 								defaultChecked={this.props.user.administrator}
-								onChange={this.handleInputChange}
+								onChange={this.handleCheckboxChangeFactory( 'administrator' )}
 							/>
 							<Form.Check
 								type="checkbox"
 								label={t('admin:email-verified')}
 								defaultChecked={this.props.user.verifiedEmail}
-								onChange={this.handleInputChange}
+								onChange={this.handleCheckboxChangeFactory( 'verifiedEmail' )}
 							/>
 						</FormGroup>
 					</Form>
