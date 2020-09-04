@@ -29,6 +29,7 @@ import Tooltip from 'react-bootstrap/Tooltip';
 import ConfirmModal from 'components/confirm-modal';
 import server from 'constants/server';
 import createBooleanColumn from './create_boolean_column.js';
+import EditModal from './user_edit_modal.js';
 import textFilter from './text_filter.js';
 import 'react-table/react-table.css';
 
@@ -49,7 +50,8 @@ class UserPage extends Component {
 			selectedUser: null,
 			showDeleteModal: false,
 			showImpersonateModal: false,
-			password: ''
+			password: '',
+			showEditModal: false
 		};
 	}
 
@@ -66,6 +68,12 @@ class UserPage extends Component {
 	toggleDeleteModal = () => {
 		this.setState({
 			showDeleteModal: !this.state.showDeleteModal
+		});
+	}
+
+	toggleEditModal = () => {
+		this.setState({
+			showEditModal: !this.state.showEditModal
 		});
 	}
 
@@ -104,6 +112,15 @@ class UserPage extends Component {
 		return () => {
 			this.setState({
 				showDeleteModal: !this.state.showDeleteModal,
+				selectedUser: user
+			});
+		};
+	}
+
+	askToEditUserFactory = ( user ) => {
+		return () => {
+			this.setState({
+				showEditModal: !this.state.showEditModal,
 				selectedUser: user
 			});
 		};
@@ -216,6 +233,7 @@ class UserPage extends Component {
 							<Button
 								variant="outline-secondary"
 								aria-label={t('edit-user-data')}
+								onClick={this.askToEditUserFactory( row.row._original )}
 							>
 								<div className="fa fa-edit" />
 							</Button>
@@ -292,6 +310,12 @@ class UserPage extends Component {
 					close={this.toggleDeleteModal}
 					show={this.state.showDeleteModal}
 					onConfirm={this.deleteSelectedUser}
+				/> : null }
+				{ this.state.showEditModal ? <EditModal
+					user={this.state.selectedUser}
+					t={this.props.t}
+					show={this.state.showEditModal}
+					onHide={this.toggleEditModal}
 				/> : null }
 			</Fragment>
 		);
