@@ -161,13 +161,14 @@ class Overview extends Component {
 	}
 
 	renderDatabaseStats() {
+		const { t } = this.props;
 		let { storageSize, dataSize, objects, avgObjSize } = this.props.statistics.database;
 		return (
 			<ListGroup variant="flush" style={{ fontSize: '1em' }}>
-				<ListGroup.Item style={{ padding: '.5rem 0.8rem' }} >Physical Storage Size: {storageSize}</ListGroup.Item>
-				<ListGroup.Item style={{ padding: '.5rem 0.8rem' }} >Reserved Storage Size: {dataSize}</ListGroup.Item>
-				<ListGroup.Item style={{ padding: '.5rem 0.8rem' }} >Number of objects: {objects} </ListGroup.Item>
-				<ListGroup.Item style={{ padding: '.5rem 0.8rem' }} >Average Object Size: {round( avgObjSize )}</ListGroup.Item>
+				<ListGroup.Item style={{ padding: '.5rem 0.8rem' }} >{t('physical-storage-size')}: {storageSize}</ListGroup.Item>
+				<ListGroup.Item style={{ padding: '.5rem 0.8rem' }} >{t('reserved-storage-size')}: {dataSize}</ListGroup.Item>
+				<ListGroup.Item style={{ padding: '.5rem 0.8rem' }} >{t('number-of-objects')}: {objects} </ListGroup.Item>
+				<ListGroup.Item style={{ padding: '.5rem 0.8rem' }} >{t('average-object-size')}: {round( avgObjSize )}</ListGroup.Item>
 			</ListGroup>
 		);
 	}
@@ -184,10 +185,10 @@ class Overview extends Component {
 						<Table striped hover >
 							<thead>
 								<tr>
-								<th>Icon</th>
-								<th>Table</th>
-								<th>Count</th>
-								<th>Visualize</th>
+								<th>{this.props.t('common:icon')}</th>
+								<th>{this.props.t('common:table')}</th>
+								<th>{this.props.t('common:count')}</th>
+								<th>{this.props.t('common:visualize')}</th>
 								</tr>
 							</thead>
 							<tbody>
