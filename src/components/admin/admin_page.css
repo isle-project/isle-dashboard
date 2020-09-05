@@ -63,18 +63,24 @@
 	border-radius: 8px;
 	box-shadow: 0 0 4px darkgray, 0 0 2px darkslategray;
 	padding: 16px;
+	overflow-y: scroll;
 }
 
 .first-row {
-	height: 70%;
 	width: 100%;
 }
 
 .second-row {
-	height: 30%;
+	margin-top: 5px;
 	width: 100%;
 }
 
 .column-border {
 	border-right: 1px solid darkslategray;
+}
+
+.overview-table td,
+.overview-table th {
+	padding-bottom: 0.5em;
+	padding-top: 0.5em;
 }

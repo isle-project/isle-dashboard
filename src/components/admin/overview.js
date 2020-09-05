@@ -30,11 +30,67 @@ import ListGroup from 'react-bootstrap/ListGroup';
 import Plotly from 'react-plotly.js';
 import round from '@stdlib/math/base/special/round';
 import objectKeys from '@stdlib/utils/keys';
+import pluck from '@stdlib/utils/pluck';
+import capitalize from '@stdlib/string/capitalize';
+import COLORS from 'constants/colors';
 
 
 // VARIABLES //
 
 const debug = logger( 'isle-dashboard:admin' );
+const DATA = [
+	{
+		date: '2020-09-5',
+		nUsers: 23,
+		nLessons: 11,
+		nCohorts: 3,
+		nNamespaces: 2,
+		nSessionData: 100,
+		nEvents: 10,
+		nFiles: 3
+	},
+	{
+		date: '2020-09-6',
+		nUsers: 29,
+		nLessons: 12,
+		nCohorts: 3,
+		nNamespaces: 2,
+		nSessionData: 190,
+		nEvents: 12,
+		nFiles: 5
+	},
+	{
+		date: '2020-09-7',
+		nUsers: 55,
+		nLessons: 16,
+		nCohorts: 4,
+		nNamespaces: 3,
+		nSessionData: 390,
+		nEvents: 20,
+		nFiles: 9
+	},
+	{
+		date: '2020-09-8',
+		nUsers: 90,
+		nLessons: 17,
+		nCohorts: 4,
+		nNamespaces: 3,
+		nSessionData: 800,
+		nEvents: 25,
+		nFiles: 12
+	},
+	{
+		date: '2020-09-9',
+		nUsers: 120,
+		nLessons: 19,
+		nCohorts: 4,
+		nNamespaces: 3,
+		nSessionData: 1500,
+		nEvents: 30,
+		nFiles: 11
+	}
+];
+const POSITIONS = [ 0, 0.9, 0.1, 0.8, 0.2, 0.7, 0.3 ];
 
 
 // MAIN //
@@ -51,7 +107,7 @@ class Overview extends Component {
 				cohorts: false,
 				files: false,
 				events: false,
-				actions: false
+				sessionData: false
 			}
 		};
 	}
@@ -62,82 +118,109 @@ class Overview extends Component {
 
 	renderTimeSeries() {
 		let title = '';
+		const dates = pluck( DATA, 'date' );
+		const dateRange = [ dates[ 0 ], dates[ dates.length-1 ] ];
+		const layout = {
+			xaxis: {
+				autorange: true,
+				range: dateRange,
+				rangeselector: {
+					buttons: [
+						{
+							count: 7,
+							label: '1w',
+							step: 'day',
+							stepmode: 'backward'
+						},
+						{
+							count: 1,
+							label: '1m',
+							step: 'month',
+							stepmode: 'backward'
+						},
+						{
+							count: 6,
+							label: '6m',
+							step: 'month',
+							stepmode: 'backward'
+						},
+						{
+							step: 'all'
+						}
+					]
+				},
+				rangeslider: {
+					range: dateRange
+				},
+				type: 'date',
+				fixedrange: true
+			},
+			legend: {
+				orientation: 'h'
+			},
+			margin: {
+				l: 10,
+				r: 15,
+				b: 30,
+				t: 30,
+				pad: 10
+			}
+		};
 		const keys = objectKeys( this.state.displayInPlot );
+		const displayedData = [];
+		const domain = [ 0, 1 ];
 		for ( let i = 0; i < keys.length; i++ ) {
-			if ( this.state.displayInPlot[ keys[ i ] ] ) {
+			const key = keys[ i ];
+			if ( this.state.displayInPlot[ key ] ) {
 				title += ( title === '' ) ? '' : ', ';
-				title += keys[ i ];
+				title += this.props.t('common:'+key );
+				const color = COLORS[ displayedData.length ];
+				displayedData.push({
+					type: 'scatter',
+					mode: 'lines',
+					name: this.props.t('common:'+key),
+					x: dates,
+					y: pluck( DATA, `n${capitalize( key )}` ),
+					yaxis: 'y'+(i+1),
+					marker: {
+						color
+					}
+				});
+				const yaxis = {
+					title: this.props.t( 'common:'+key ),
+					titlefont: { color },
+					tickfont: { color },
+					fixedrange: true
+				};
+				if ( i > 0 ) {
+					yaxis.overlaying = 'y';
+				}
+				if ( displayedData.length % 2 === 0 ) {
+					yaxis.side = 'left';
+					domain[ 0 ] += 0.1;
+				} else {
+					yaxis.side = 'right';
+					domain[ 1 ] -= 0.1;
+				}
+				yaxis.position = POSITIONS[ displayedData.length ];
+				layout[ 'yaxis'+(i+1) ] = yaxis;
 			}
 		}
+		layout.xaxis.domain = domain;
+		layout.title = `${this.props.t('time-series-of')}${title}`;
 		return (
 			<Plotly
-				data={[
-					{
-						type: 'scatter',
-						mode: 'lines',
-						name: 'Users',
-						x: [ '2020-09-5', '2020-09-6', '2020-09-7' ],
-						y: [ 4, 7, 9 ],
-						yaxis: 'y1'
-					},
-					{
-						type: 'scatter',
-						mode: 'lines',
-						name: 'Actions',
-						x: [ '2020-09-5', '2020-09-6', '2020-09-7' ],
-						y: [ 2100, 4000, 4300 ],
-						yaxis: 'y2'
-					}
-				]}
+				data={displayedData}
 				config={{
 					displayModeBar: false,
 					displaylogo: false
 				}}
-				layout={{
-					title: `${this.props.t('time-series-of')}${title}`,
-					xaxis: {
-						autorange: true,
-						range: ['2020-09-5', '2017-09-7'],
-						rangeselector: {
-							buttons: [
-								{
-									count: 7,
-									label: '1w',
-									step: 'day',
-									stepmode: 'backward'
-								},
-								{
-									count: 1,
-									label: '1m',
-									step: 'month',
-									stepmode: 'backward'
-								},
-								{
-									count: 6,
-									label: '6m',
-									step: 'month',
-									stepmode: 'backward'
-								},
-								{
-									step: 'all'
-								}
-							]
-						},
-						rangeslider: {
-							range: ['2015-09-5', '2017-09-7']
-						},
-						type: 'date'
-					},
-					yaxis1: {
-						title: 'Users',
-						side: 'right'
-					},
-					yaxis2: {
-						title: 'Actions',
-						overlaying: 'y',
-						side: 'left'
-					}
+				layout={layout}
+				style={{
+					width: '100%',
+					height: '90%'
 				}}
+				useResizeHandler
 			/>
 		);
 	}
@@ -224,9 +307,9 @@ class Overview extends Component {
 		return (
 			<Container className="admin-overview-container" >
 				<Row className="first-row" >
-					<Col className="column-border" >
+					<Col className="column-border" md={3} >
 						<h2>{this.props.t('overall')}</h2>
-						<Table striped hover >
+						<Table striped hover className="overview-table" >
 							<thead>
 								<tr>
 								<th>{this.props.t('common:icon')}</th>
@@ -313,34 +396,34 @@ class Overview extends Component {
 										<i className="fas fa-shoe-prints"></i>
 									</td>
 									<td>
-										{t('common:actions')}
+										{t('common:sessiondata')}
 									</td>
 									<td>{nSessionData}</td>
 									<td>
-										{this.renderPlotButton( 'actions' )}
+										{this.renderPlotButton( 'sessiondata' )}
 									</td>
 								</tr>
 							</tbody>
 						</Table>
 					</Col>
-					<Col className="column-border" >
+					<Col className="column-border" md={6} >
 						<h2>{this.props.t('over-time')}</h2>
 						{this.renderTimeSeries()}
 					</Col>
-					<Col>
+					<Col md={3} >
 						<h2>{this.props.t('daily-statistics')}</h2>
 					</Col>
 				</Row>
 				<Row className="second-row" >
-					<Col>
+					<Col md={3} className="column-border" >
 						<h3>{t('disk-usage')}</h3>
 						{this.renderDiskUsage()}
 					</Col>
-					<Col>
+					<Col md={6} className="column-border" >
 						<h3>{t('database')}</h3>
 						{this.renderDatabaseStats()}
 					</Col>
-					<Col></Col>
+					<Col md={3} ></Col>
 				</Row>
 			</Container>
 		);

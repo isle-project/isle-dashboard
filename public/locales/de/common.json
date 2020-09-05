@@ -1,5 +1,6 @@
 {
 	"actions": "Aktionen",
+	"sessiondata": "Aktionen",
 	"announcements": "Ankündigungen",
 	"badges": "Abzeichen",
 	"cancel": "Abbrechen",
@@ -18,6 +19,7 @@
 	"copy-name": "Namen in die Zwischenablage kopieren",
 	"course": "Kurs",
 	"courses": "Kurse",
+	"namespaces": "Kurse",
 	"count": "Anzahl",
 	"create": "Erstellen",
 	"data": "Daten",
@@ -77,6 +79,7 @@
 	"type": "Typ",
 	"update": "Update",
 	"updated": "Aktualisiert",
+	"users": "Nutzer",
 	"verification-email-sent": "Bestätigungs-E-Mail gesendet.",
 	"visualize": "Visualisieren",
 	"waiting": "Warten auf Antwort..."
