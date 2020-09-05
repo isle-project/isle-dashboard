@@ -250,6 +250,9 @@ class Overview extends Component {
 
 	renderDatabaseStats() {
 		const { t } = this.props;
+		if ( !this.props.statistics.database ) {
+			return null;
+		}
 		let { storageSize, dataSize, objects, avgObjSize } = this.props.statistics.database;
 		return (
 			<ListGroup variant="flush" style={{ fontSize: '1em' }}>
