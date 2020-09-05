@@ -261,8 +261,8 @@ class ProfilePage extends Component {
 				</Nav.Link>
 			</Nav.Item>
 			<Nav.Item >
-				<Nav.Link eventKey="files" title={t('files')}>
-					{t('files')}
+				<Nav.Link eventKey="files" title={t('common:files')}>
+					{t('common:files')}
 				</Nav.Link>
 			</Nav.Item>
 			<Nav.Item >

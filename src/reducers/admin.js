@@ -29,7 +29,8 @@ const initialState = {
 	lessons: [],
 	namespaces: [],
 	rooms: [],
-	users: []
+	users: [],
+	statistics: {}
 };
 
 
@@ -94,6 +95,11 @@ export default function admin( state = initialState, action ) {
 		}
 		return Object.assign({}, state, {
 			users
+		});
+	}
+	case types.GET_OVERVIEW_STATISTICS: {
+		return Object.assign({}, state, {
+			statistics: action.payload.statistics
 		});
 	}
 	default:

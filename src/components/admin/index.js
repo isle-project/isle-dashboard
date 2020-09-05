@@ -125,11 +125,12 @@ class AdminPage extends Component {
 	}
 
 	renderPage() {
-		console.log( 'ADMIN');
-		console.log( this.props.adminUpdateUser );
 		switch ( this.state.activePage ) {
 			case 0:
-				return <Overview />;
+				return ( <Overview
+					getOverviewStatistics={this.props.getOverviewStatistics}
+					statistics={this.props.admin.statistics}
+				/> );
 			case 1:
 				return <AccessLog user={this.props.user} />;
 			case 2:
@@ -250,6 +251,7 @@ AdminPage.propTypes = {
 	getAllLessons: PropTypes.func.isRequired,
 	getAllNamespaces: PropTypes.func.isRequired,
 	getEvents: PropTypes.func.isRequired,
+	getOverviewStatistics: PropTypes.func.isRequired,
 	getUsers: PropTypes.func.isRequired,
 	impersonateUser: PropTypes.func.isRequired,
 	sanitizeRequest: PropTypes.func.isRequired,
