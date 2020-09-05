@@ -202,6 +202,9 @@ class Overview extends Component {
 	}
 
 	renderDiskUsage() {
+		if ( !this.props.statistics.database ) {
+			return null;
+		}
 		let { fsUsedSize, fsTotalSize } = this.props.statistics.database;
 		fsUsedSize /= ( 1024 * 1024 * 1024 );
 		fsTotalSize /= ( 1024 * 1024 * 1024 );
