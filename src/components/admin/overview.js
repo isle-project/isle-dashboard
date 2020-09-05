@@ -83,6 +83,8 @@ class Overview extends Component {
 			else {
 				debug( 'Already have latest data...' );
 			}
+		} else {
+			this.props.getHistoricalOverviewStats();
 		}
 	}
 
