@@ -29,6 +29,7 @@ import Table from 'react-bootstrap/Table';
 import ListGroup from 'react-bootstrap/ListGroup';
 import Plotly from 'react-plotly.js';
 import round from '@stdlib/math/base/special/round';
+import objectKeys from '@stdlib/utils/keys';
 
 
 // VARIABLES //
@@ -39,11 +40,35 @@ const debug = logger( 'isle-dashboard:admin' );
 // MAIN //
 
 class Overview extends Component {
+	constructor( props ) {
+		super( props );
+
+		this.state = {
+			displayInPlot: {
+				users: false,
+				namespaces: false,
+				lessons: false,
+				cohorts: false,
+				files: false,
+				events: false,
+				actions: false
+			}
+		};
+	}
+
 	componentDidMount() {
 		this.props.getOverviewStatistics();
 	}
 
 	renderTimeSeries() {
+		let title = '';
+		const keys = objectKeys( this.state.displayInPlot );
+		for ( let i = 0; i < keys.length; i++ ) {
+			if ( this.state.displayInPlot[ keys[ i ] ] ) {
+				title += ( title === '' ) ? '' : ', ';
+				title += keys[ i ];
+			}
+		}
 		return (
 			<Plotly
 				data={[
@@ -69,7 +94,7 @@ class Overview extends Component {
 					displaylogo: false
 				}}
 				layout={{
-					title: this.props.t('time-series-of'),
+					title: `${this.props.t('time-series-of')}${title}`,
 					xaxis: {
 						autorange: true,
 						range: ['2020-09-5', '2017-09-7'],
@@ -174,6 +199,24 @@ class Overview extends Component {
 		);
 	}
 
+	renderPlotButton( name ) {
+		const clickHandler = () => {
+			const newDisplayInPlot = { ...this.state.displayInPlot };
+			newDisplayInPlot[ name ] = !newDisplayInPlot[ name ];
+			this.setState({
+				displayInPlot: newDisplayInPlot
+			});
+		};
+		if ( this.state.displayInPlot[ name ] ) {
+			return ( <Button variant="warning" size="sm" onClick={clickHandler} >
+				<i className="fas fa-arrow-circle-left"></i>
+			</Button> );
+		}
+		return ( <Button variant="secondary" size="sm" onClick={clickHandler} >
+			<i className="fas fa-arrow-circle-right"></i>
+		</Button> );
+	}
+
 	render() {
 		debug( 'Rendering overview page...' );
 		const { nUsers, nNamespaces, nLessons, nCohorts, nSessionData, nFiles, nEvents } = this.props.statistics;
@@ -202,9 +245,7 @@ class Overview extends Component {
 									</td>
 									<td>{nUsers}</td>
 									<td>
-										<Button variant="secondary" size="sm" >
-											<i className="fas fa-arrow-circle-right"></i>
-										</Button>
+										{this.renderPlotButton( 'users' )}
 									</td>
 								</tr>
 								<tr>
@@ -216,9 +257,7 @@ class Overview extends Component {
 									</td>
 									<td>{nNamespaces}</td>
 									<td>
-										<Button variant="warning" size="sm" >
-											<i className="fas fa-arrow-circle-left"></i>
-										</Button>
+										{this.renderPlotButton( 'namespaces' )}
 									</td>
 								</tr>
 								<tr>
@@ -229,7 +268,9 @@ class Overview extends Component {
 										{t('common:lessons')}
 									</td>
 									<td>{nLessons}</td>
-									<td></td>
+									<td>
+										{this.renderPlotButton( 'lessons' )}
+									</td>
 								</tr>
 								<tr>
 									<td>
@@ -239,7 +280,9 @@ class Overview extends Component {
 										{t('common:cohorts')}
 									</td>
 									<td>{nCohorts}</td>
-									<td></td>
+									<td>
+										{this.renderPlotButton( 'cohorts' )}
+									</td>
 								</tr>
 								<tr>
 									<td>
@@ -249,7 +292,9 @@ class Overview extends Component {
 										{t('common:files')}
 									</td>
 									<td>{nFiles}</td>
-									<td></td>
+									<td>
+										{this.renderPlotButton( 'files' )}
+									</td>
 								</tr>
 								<tr>
 									<td>
@@ -259,7 +304,9 @@ class Overview extends Component {
 										{t('common:events')}
 									</td>
 									<td>{nEvents}</td>
-									<td></td>
+									<td>
+										{this.renderPlotButton( 'events' )}
+									</td>
 								</tr>
 								<tr>
 									<td>
@@ -269,7 +316,9 @@ class Overview extends Component {
 										{t('common:actions')}
 									</td>
 									<td>{nSessionData}</td>
-									<td></td>
+									<td>
+										{this.renderPlotButton( 'actions' )}
+									</td>
 								</tr>
 							</tbody>
 						</Table>
