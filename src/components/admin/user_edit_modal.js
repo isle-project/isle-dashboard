@@ -59,14 +59,11 @@ class EditModal extends Component {
 			password: '',
 			writeAccess: props.user.writeAccess,
 			verifiedEmail: props.user.verifiedEmail,
-			administrator: props.user.administrator,
-			changed: false
+			administrator: props.user.administrator
 		};
 	}
 
 	handleUpdate = () => {
-		console.log( this.state );
-		console.log( this.props );
 		const { name, password, organization, writeAccess, verifiedEmail, administrator } = this.state;
 		const form = {
 			name,
@@ -93,7 +90,6 @@ class EditModal extends Component {
 		}
 		if ( change ) {
 			debug( 'Update user...' );
-			console.log( this.props.updateUser );
 			this.props.updateUser( form );
 			this.props.onHide();
 		}
@@ -104,16 +100,14 @@ class EditModal extends Component {
 		const value = target.value;
 		const name = target.name;
 		this.setState({
-			[ name ]: value,
-			changed: true
+			[ name ]: value
 		});
 	}
 
 	handleCheckboxChangeFactory = ( name ) => {
 		return ( event ) => {
 			this.setState({
-				[ name ]: event.target.checked,
-				changed: true
+				[ name ]: event.target.checked
 			});
 		};
 	}
