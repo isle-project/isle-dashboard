@@ -411,8 +411,12 @@ class Overview extends Component {
 
 Overview.propTypes = {
 	historicalStatistics: PropTypes.array.isRequired,
-	statistics: PropTypes.object.isRequired,
+	statistics: PropTypes.object,
 	t: PropTypes.func.isRequired
+};
+
+Overview.defaultProps = {
+	statistics: {}
 };
 
 
