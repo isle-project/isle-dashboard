@@ -27,6 +27,7 @@ import { getAllCohortsInjector, deleteCohortInjector } from 'actions/cohort.js';
 import { getAllLessonsInjector, deleteLessonInjector, getRoomsInjector } from 'actions/lesson.js';
 import { sanitizeRequestInjector } from 'actions/authentication.js';
 import { addNotificationInjector } from 'actions/notification.js';
+import { getOverviewStatisticsInjector } from 'actions/statistics.js';
 
 
 // FUNCTIONS //
@@ -54,7 +55,8 @@ function mapDispatchToProps( dispatch ) {
 		deleteUser: deleteUserInjector( dispatch ),
 		impersonateUser: impersonateUserInjector( dispatch ),
 		sanitizeRequest: sanitizeRequestInjector( dispatch ),
-		adminUpdateUser: adminUpdateUserInjector( dispatch )
+		adminUpdateUser: adminUpdateUserInjector( dispatch ),
+		getOverviewStatistics: getOverviewStatisticsInjector( dispatch )
 	};
 }
 
