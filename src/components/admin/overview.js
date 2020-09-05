@@ -69,7 +69,7 @@ class Overview extends Component {
 					displaylogo: false
 				}}
 				layout={{
-					title: 'Time Series with Rangeslider',
+					title: this.props.t('time-series-of'),
 					xaxis: {
 						autorange: true,
 						range: ['2020-09-5', '2017-09-7'],
@@ -123,11 +123,12 @@ class Overview extends Component {
 		fsTotalSize /= ( 1024 * 1024 * 1024 );
 		const usedSpace = round( fsUsedSize );
 		const freeSpace = round( fsTotalSize - fsUsedSize );
+		const { t } = this.props;
 		return ( <Plotly
 			data={[
 				{
 					values: [ usedSpace, freeSpace ],
-					labels: [ `Used Space: ${usedSpace} GB`, `Free Space: ${freeSpace} GB` ],
+					labels: [ `${t('used-space')}: ${usedSpace} GB`, `${t('free-space')}: ${freeSpace} GB` ],
 					type: 'pie'
 				}
 			]}
