@@ -1,5 +1,6 @@
 {
 	"actions": "Actions",
+	"sessiondata": "Actions",
 	"announcements": "Announcements",
 	"badges": "Badges",
 	"cancel": "Cancel",
@@ -19,6 +20,7 @@
 	"count": "Count",
 	"course": "Course",
 	"courses": "Courses",
+	"namespaces": "Courses",
 	"create": "Create",
 	"data": "Data",
 	"date": "Date",
@@ -77,6 +79,7 @@
 	"type": "Type",
 	"update": "Update",
 	"updated": "Updated",
+	"users": "Users",
 	"verification-email-sent": "Verification email sent.",
 	"visualize": "Visualize",
 	"waiting": "Waiting..."

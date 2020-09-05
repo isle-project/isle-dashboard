@@ -1,5 +1,6 @@
 {
 	"actions": "Acciones",
+	"sessiondata": "Acciones",
 	"announcements": "Anuncios",
 	"badges": "Distintivos",
 	"cancel": "Cancelar",
@@ -18,6 +19,7 @@
 	"copy-name": "Copiar nombre al portapapeles",
 	"course": "Curso",
 	"courses": "Cursos",
+	"namespaces": "Cursos",
 	"count": "Número",
 	"create": "Crear",
 	"daily-statistics": "Daily Statistics",
@@ -77,6 +79,7 @@
 	"type": "Escriba",
 	"update": "Actualizar",
 	"updated": "Actualizado",
+	"users": "Usuarios",
 	"verification-email-sent": "Correo electrónico de verificación enviado.",
 	"visualize": "Visualiza",
 	"waiting": "Sspera la respuesta..."
