@@ -21,7 +21,7 @@
 import axios from 'axios';
 import server from 'constants/server';
 import { addErrorNotification } from 'actions/notification.js';
-import { GET_OVERVIEW_STATISTICS } from 'constants/action_types.js';
+import { GET_OVERVIEW_STATISTICS, GET_HISTORICAL_OVERVIEW_STATISTICS } from 'constants/action_types.js';
 
 
 // EXPORTS //
@@ -43,5 +43,25 @@ export const getOverviewStatistics = async ( dispatch ) => {
 export const getOverviewStatisticsInjector = ( dispatch ) => {
 	return async () => {
 		await getOverviewStatistics( dispatch );
+	};
+};
+
+export const getHistoricalOverviewStats = async ( dispatch ) => {
+	try {
+		const res = await axios.get( server+'/admin_historical_overview_statistics' );
+		dispatch({
+			type: GET_HISTORICAL_OVERVIEW_STATISTICS,
+			payload: {
+				statistics: res.data.statistics
+			}
+		});
+	} catch ( err ) {
+		return addErrorNotification( dispatch, err );
+	}
+};
+
+export const getHistoricalOverviewStatsInjector = ( dispatch ) => {
+	return async () => {
+		await getHistoricalOverviewStats( dispatch );
 	};
 };
