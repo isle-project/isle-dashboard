@@ -101,7 +101,7 @@ class Overview extends Component {
 
 		this.state = {
 			displayInPlot: {
-				users: false,
+				users: true,
 				namespaces: false,
 				lessons: false,
 				cohorts: false,
@@ -175,12 +175,13 @@ class Overview extends Component {
 				title += ( title === '' ) ? '' : ', ';
 				title += this.props.t('common:'+key );
 				const color = COLORS[ displayedData.length ];
+				const y = pluck( DATA, `n${capitalize( key )}` );
 				displayedData.push({
 					type: 'scatter',
 					mode: 'lines',
 					name: this.props.t('common:'+key),
 					x: dates,
-					y: pluck( DATA, `n${capitalize( key )}` ),
+					y: y,
 					yaxis: 'y'+(i+1),
 					marker: {
 						color
@@ -210,6 +211,7 @@ class Overview extends Component {
 		layout.title = `${this.props.t('time-series-of')}${title}`;
 		return (
 			<Plotly
+				key={title}
 				data={displayedData}
 				config={{
 					displayModeBar: false,
@@ -218,7 +220,7 @@ class Overview extends Component {
 				layout={layout}
 				style={{
 					width: '100%',
-					height: '90%'
+					height: '80%'
 				}}
 				useResizeHandler
 			/>
@@ -307,7 +309,7 @@ class Overview extends Component {
 		return (
 			<Container className="admin-overview-container" >
 				<Row className="first-row" >
-					<Col className="column-border" md={3} >
+					<Col className="column-border" sm={4} md={3} >
 						<h2>{this.props.t('overall')}</h2>
 						<Table striped hover className="overview-table" >
 							<thead>
@@ -396,34 +398,34 @@ class Overview extends Component {
 										<i className="fas fa-shoe-prints"></i>
 									</td>
 									<td>
-										{t('common:sessiondata')}
+										{t('common:sessionData')}
 									</td>
 									<td>{nSessionData}</td>
 									<td>
-										{this.renderPlotButton( 'sessiondata' )}
+										{this.renderPlotButton( 'sessionData' )}
 									</td>
 								</tr>
 							</tbody>
 						</Table>
 					</Col>
-					<Col className="column-border" md={6} >
+					<Col className="column-border" sm={8} md={6} >
 						<h2>{this.props.t('over-time')}</h2>
 						{this.renderTimeSeries()}
 					</Col>
-					<Col md={3} >
+					<Col sm={12} md={3} >
 						<h2>{this.props.t('daily-statistics')}</h2>
 					</Col>
 				</Row>
 				<Row className="second-row" >
-					<Col md={3} className="column-border" >
+					<Col md={3} sm={4} className="column-border" >
 						<h3>{t('disk-usage')}</h3>
 						{this.renderDiskUsage()}
 					</Col>
-					<Col md={6} className="column-border" >
+					<Col md={6} sm={8} className="column-border" >
 						<h3>{t('database')}</h3>
 						{this.renderDatabaseStats()}
 					</Col>
-					<Col md={3} ></Col>
+					<Col md={3} sm={12} ></Col>
 				</Row>
 			</Container>
 		);
