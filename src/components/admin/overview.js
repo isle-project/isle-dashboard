@@ -38,58 +38,6 @@ import COLORS from 'constants/colors';
 // VARIABLES //
 
 const debug = logger( 'isle-dashboard:admin' );
-const DATA = [
-	{
-		date: '2020-09-5',
-		nUsers: 23,
-		nLessons: 11,
-		nCohorts: 3,
-		nNamespaces: 2,
-		nSessionData: 100,
-		nEvents: 10,
-		nFiles: 3
-	},
-	{
-		date: '2020-09-6',
-		nUsers: 29,
-		nLessons: 12,
-		nCohorts: 3,
-		nNamespaces: 2,
-		nSessionData: 190,
-		nEvents: 12,
-		nFiles: 5
-	},
-	{
-		date: '2020-09-7',
-		nUsers: 55,
-		nLessons: 16,
-		nCohorts: 4,
-		nNamespaces: 3,
-		nSessionData: 390,
-		nEvents: 20,
-		nFiles: 9
-	},
-	{
-		date: '2020-09-8',
-		nUsers: 90,
-		nLessons: 17,
-		nCohorts: 4,
-		nNamespaces: 3,
-		nSessionData: 800,
-		nEvents: 25,
-		nFiles: 12
-	},
-	{
-		date: '2020-09-9',
-		nUsers: 120,
-		nLessons: 19,
-		nCohorts: 4,
-		nNamespaces: 3,
-		nSessionData: 1500,
-		nEvents: 30,
-		nFiles: 11
-	}
-];
 const POSITIONS = [ 0, 0.9, 0.1, 0.8, 0.2, 0.7, 0.3 ];
 
 
@@ -114,11 +62,34 @@ class Overview extends Component {
 
 	componentDidMount() {
 		this.props.getOverviewStatistics();
+		const last = this.props.historicalStatistics[ this.props.historicalStatistics.length-1 ];
+		if ( last && last.updatedAt ) {
+			const date = new Date( last.updatedAt );
+			const year = date.getFullYear();
+			const month = date.getMonth();
+			const dayOfMonth = date.getDate();
+			const currentDate = new Date();
+			const currentYear = currentDate.getFullYear();
+			const currentMonth = currentDate.getMonth();
+			const currentDayOfMonth = currentDate.getDate();
+			if (
+				currentYear > year ||
+				currentMonth > month ||
+				currentDayOfMonth > dayOfMonth
+			) {
+				debug( 'Request historical data from server...' );
+				this.props.getHistoricalOverviewStats();
+			}
+			else {
+				debug( 'Already have latest data...' );
+			}
+		}
 	}
 
 	renderTimeSeries() {
 		let title = '';
-		const dates = pluck( DATA, 'date' );
+		const data = this.props.historicalStatistics;
+		const dates = pluck( data, 'createdAt' );
 		const dateRange = [ dates[ 0 ], dates[ dates.length-1 ] ];
 		const layout = {
 			xaxis: {
@@ -175,7 +146,7 @@ class Overview extends Component {
 				title += ( title === '' ) ? '' : ', ';
 				title += this.props.t('common:'+key );
 				const color = COLORS[ displayedData.length ];
-				const y = pluck( DATA, `n${capitalize( key )}` );
+				const y = pluck( data, `n${capitalize( key )}` );
 				displayedData.push({
 					type: 'scatter',
 					mode: 'lines',
@@ -209,6 +180,9 @@ class Overview extends Component {
 		}
 		layout.xaxis.domain = domain;
 		layout.title = `${this.props.t('time-series-of')}${title}`;
+		if ( displayedData.length === 0 ) {
+			return null;
+		}
 		return (
 			<Plotly
 				key={title}
@@ -436,6 +410,7 @@ class Overview extends Component {
 // PROPERTIES //
 
 Overview.propTypes = {
+	historicalStatistics: PropTypes.array.isRequired,
 	statistics: PropTypes.object.isRequired,
 	t: PropTypes.func.isRequired
 };

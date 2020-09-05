@@ -30,7 +30,8 @@ const initialState = {
 	namespaces: [],
 	rooms: [],
 	users: [],
-	statistics: {}
+	statistics: {},
+	historicalStatistics: []
 };
 
 
@@ -100,6 +101,15 @@ export default function admin( state = initialState, action ) {
 	case types.GET_OVERVIEW_STATISTICS: {
 		return Object.assign({}, state, {
 			statistics: action.payload.statistics
+		});
+	}
+	case types.GET_HISTORICAL_OVERVIEW_STATISTICS: {
+		const statistics = action.payload.statistics.map( x => {
+			x.createdAt = x.createdAt.substring( 0, x.createdAt.indexOf( 'T' ) );
+			return x;
+		});
+		return Object.assign({}, state, {
+			historicalStatistics: statistics
 		});
 	}
 	default:

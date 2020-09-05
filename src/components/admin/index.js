@@ -129,7 +129,9 @@ class AdminPage extends Component {
 			case 0:
 				return ( <Overview
 					getOverviewStatistics={this.props.getOverviewStatistics}
+					getHistoricalOverviewStats={this.props.getHistoricalOverviewStats}
 					statistics={this.props.admin.statistics}
+					historicalStatistics={this.props.admin.historicalStatistics}
 				/> );
 			case 1:
 				return <AccessLog user={this.props.user} />;
@@ -251,6 +253,7 @@ AdminPage.propTypes = {
 	getAllLessons: PropTypes.func.isRequired,
 	getAllNamespaces: PropTypes.func.isRequired,
 	getEvents: PropTypes.func.isRequired,
+	getHistoricalOverviewStats: PropTypes.func.isRequired,
 	getOverviewStatistics: PropTypes.func.isRequired,
 	getUsers: PropTypes.func.isRequired,
 	impersonateUser: PropTypes.func.isRequired,
