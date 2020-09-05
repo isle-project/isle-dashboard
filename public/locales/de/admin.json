@@ -6,9 +6,12 @@
 	"no-admin": "Kein Administrator",
 	"automatic-logout": " Beachte, dass Du aus der momentanen Sitzung ausgeloggt wirst.",
 	"created-at": "Erstellt am",
+	"daily-statistics": "Tagesstatistiken",
 	"dashboard-version": "Dashboard Version",
+	"database": "Datenbank",
 	"delete-user": "Nutzer löschen",
 	"delete-user-confirm": "Bist Du sicher, dass Du den folgenden Nutzer löschen möchtest: ",
+	"disk-usage": "Festplattenverbrauch",
 	"edit-user-data": "Nutzerdaten editieren",
 	"email-verified": "Email Verifiziert",
 	"enter-password": "Bitte gib Dein Passwort ein um Dich als folgender Nutzer anzumelden: ",
@@ -28,5 +31,7 @@
 	"end-date": "Enddatum",
 	"users": "Nutzer",
 	"verified": "Verifiziert",
-	"not-verified": "Nicht Verifiziert"
+	"not-verified": "Nicht Verifiziert",
+	"overall": "Gesamt",
+	"over-time": "Zeitreihe"
 }

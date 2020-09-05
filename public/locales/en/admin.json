@@ -6,9 +6,12 @@
 	"no-admin": "No Administrator",
 	"automatic-logout": " Notice that this will log you out of your current session.",
 	"created-at": "Created At",
+	"daily-statistics": "Daily Statistics",
 	"dashboard-version": "Dashboard Version",
+	"database": "Database",
 	"delete-user": "Delete User",
 	"delete-user-confirm": "Are you sure you want to delete the user ",
+	"disk-usage": "Disk Usage",
 	"edit-user-data": "Edit User Data",
 	"email-verified": "Email Verified",
 	"enter-password": "Please enter your password to impersonate the user ",
@@ -28,5 +31,7 @@
 	"end-date": "End Date",
 	"users": "Users",
 	"verified": "Verified",
-	"not-verified": "Not Verified"
+	"not-verified": "Not Verified",
+	"overall": "Overall",
+	"over-time": "Over Time"
 }
