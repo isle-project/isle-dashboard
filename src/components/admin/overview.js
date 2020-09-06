@@ -39,6 +39,15 @@ import COLORS from 'constants/colors';
 
 const debug = logger( 'isle-dashboard:admin' );
 const POSITIONS = [ 0, 0.9, 0.1, 0.8, 0.2, 0.7, 0.3 ];
+const COLOR_MAPPING = {
+	users: COLORS[ 0 ],
+	namespaces: COLORS[ 1 ],
+	lessons: COLORS[ 2 ],
+	cohorts: COLORS[ 3 ],
+	files: COLORS[ 4 ],
+	events: COLORS[ 5 ],
+	sessionData: COLORS[ 7 ]
+};
 
 
 // MAIN //
@@ -147,7 +156,7 @@ class Overview extends Component {
 			if ( this.state.displayInPlot[ key ] ) {
 				title += ( title === '' ) ? '' : ', ';
 				title += this.props.t('common:'+key );
-				const color = COLORS[ displayedData.length ];
+				const color = COLOR_MAPPING[ key ];
 				const y = pluck( data, `n${capitalize( key )}` );
 				displayedData.push({
 					type: 'scatter',
@@ -305,7 +314,7 @@ class Overview extends Component {
 							<tbody>
 								<tr>
 									<td>
-										<i className="fas fa-user"></i>
+										<i className="fas fa-user" style={{ color: COLOR_MAPPING.users }} ></i>
 									</td>
 									<td>
 										{t('admin:users')}
@@ -317,7 +326,7 @@ class Overview extends Component {
 								</tr>
 								<tr>
 									<td>
-										<i className="fas fa-school"></i>
+										<i className="fas fa-school" style={{ color: COLOR_MAPPING.namespaces }} ></i>
 									</td>
 									<td>
 										{t('common:courses')}
@@ -329,7 +338,7 @@ class Overview extends Component {
 								</tr>
 								<tr>
 									<td>
-										<i className="fas fa-chalkboard"></i>
+										<i className="fas fa-chalkboard" style={{ color: COLOR_MAPPING.lessons }} ></i>
 									</td>
 									<td>
 										{t('common:lessons')}
@@ -341,7 +350,7 @@ class Overview extends Component {
 								</tr>
 								<tr>
 									<td>
-										<i className="fas fa-users"></i>
+										<i className="fas fa-users" style={{ color: COLOR_MAPPING.cohorts }} ></i>
 									</td>
 									<td>
 										{t('common:cohorts')}
@@ -353,7 +362,7 @@ class Overview extends Component {
 								</tr>
 								<tr>
 									<td>
-										<i className="fas fa-file"></i>
+										<i className="fas fa-file" style={{ color: COLOR_MAPPING.files }} ></i>
 									</td>
 									<td>
 										{t('common:files')}
@@ -365,7 +374,7 @@ class Overview extends Component {
 								</tr>
 								<tr>
 									<td>
-										<i className="fas fa-clock"></i>
+										<i className="fas fa-clock" style={{ color: COLOR_MAPPING.events }} ></i>
 									</td>
 									<td>
 										{t('common:events')}
@@ -377,7 +386,7 @@ class Overview extends Component {
 								</tr>
 								<tr>
 									<td>
-										<i className="fas fa-shoe-prints"></i>
+										<i className="fas fa-shoe-prints" style={{ color: COLOR_MAPPING.sessionData }} ></i>
 									</td>
 									<td>
 										{t('common:sessionData')}
