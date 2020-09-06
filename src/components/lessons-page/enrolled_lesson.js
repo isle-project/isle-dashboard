@@ -78,18 +78,35 @@ class EnrolledLesson extends Component {
 		});
 	}
 
-	renderButtonToolbar() {
+	renderProgress() {
 		let progress;
-		let duration;
+		if ( this.props.metadata && this.props.metadata.hideProgressBar === true ) {
+			return <div className="enrolled-lesson-progress"></div>;
+		}
 		const lessonData = this.props.user.lessonData;
 		const data = lessonData[ this.props._id ];
 		if ( data ) {
 			progress = data.progress;
 			progress *= 100;
 			progress = min( round( progress ), 100.0 );
-			duration = data.spentTime;
 		} else {
 			progress = 0;
+		}
+		const { t } = this.props;
+		return ( <div className="enrolled-lesson-progress">
+			<OverlayTrigger placement="top" overlay={<Tooltip id="open_details">{t('your-progress')}</Tooltip>}>
+				<ProgressBar variant='success' now={progress} label={`${progress}%`} />
+			</OverlayTrigger>
+		</div> );
+	}
+
+	renderButtonToolbar() {
+		let duration;
+		const lessonData = this.props.user.lessonData;
+		const data = lessonData[ this.props._id ];
+		if ( data ) {
+			duration = data.spentTime;
+		} else {
 			duration = 0;
 		}
 		const { t } = this.props;
@@ -101,11 +118,7 @@ class EnrolledLesson extends Component {
 				height: '36px',
 				background: 'rgba(0, 0, 0, 0.75)'
 			}}>
-				<div className="enrolled-lesson-progress">
-					<OverlayTrigger placement="top" overlay={<Tooltip id="open_details">{t('your-progress')}</Tooltip>}>
-						<ProgressBar variant='success' now={progress} label={`${progress}%`} />
-					</OverlayTrigger>
-				</div>
+				{this.renderProgress()}
 				<div className="enrolled-lesson-time" style={{ width: '35%', height: '100%' }} >
 					<OverlayTrigger placement="top" overlay={<Tooltip id="open_details">{t('time-format')}</Tooltip>}>
 						<span>{t('time-spent')}: {formatTime( duration )}</span>
