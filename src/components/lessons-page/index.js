@@ -70,12 +70,12 @@ function createLayout( lessons ) {
 	const elemH = 3.52;
 	let layouts = lessons.map( ( e, i ) => {
 		return {
-			lg: { i: `cell-${e.title}`, x: i*4 % 24, y: floor( i / 6 ) * elemH, w: 4, h: elemH },
-			md: { i: `cell-${e.title}`, x: i*4 % 20, y: floor( i / 5 ) * elemH, w: 4, h: elemH },
-			sm: { i: `cell-${e.title}`, x: i*4 % 16, y: floor( i / 4 ) * elemH, w: 4, h: elemH },
-			xs: { i: `cell-${e.title}`, x: i*4 % 12, y: floor( i / 3 ) * elemH, w: 4, h: elemH },
-			xxs: { i: `cell-${e.title}`, x: i*4 % 8, y: floor( i / 2 ) * elemH, w: 4, h: elemH },
-			tiny: { i: `cell-${e.title}`, x: i*4 % 4, y: floor( i / 1 ) * elemH, w: 4, h: elemH }
+			lg: { i: `cell-${e.title}-${i}`, x: i*4 % 24, y: floor( i / 6 ) * elemH, w: 4, h: elemH },
+			md: { i: `cell-${e.title}-${i}`, x: i*4 % 20, y: floor( i / 5 ) * elemH, w: 4, h: elemH },
+			sm: { i: `cell-${e.title}-${i}`, x: i*4 % 16, y: floor( i / 4 ) * elemH, w: 4, h: elemH },
+			xs: { i: `cell-${e.title}-${i}`, x: i*4 % 12, y: floor( i / 3 ) * elemH, w: 4, h: elemH },
+			xxs: { i: `cell-${e.title}-${i}`, x: i*4 % 8, y: floor( i / 2 ) * elemH, w: 4, h: elemH },
+			tiny: { i: `cell-${e.title}-${i}`, x: i*4 % 4, y: floor( i / 1 ) * elemH, w: 4, h: elemH }
 		};
 	});
 	layouts = {
@@ -179,7 +179,7 @@ class LessonsPage extends Component {
 		let lessons = this.state.filteredLessons;
 		if ( !isOwner( this.props.user, this.props.namespace ) ) {
 			return lessons.map( ( e, i ) => {
-				return (<div className="lesson-grid-item" key={`cell-${e.title}`}>
+				return (<div className="lesson-grid-item" key={`cell-${e.title}-${i}`}>
 					<EnrolledLesson
 						{...lessons[ i ]}
 						addNotification={this.props.addNotification}
@@ -190,7 +190,7 @@ class LessonsPage extends Component {
 		}
 		return (
 			lessons.map( ( e, i ) => {
-				return ( <div className="lesson-grid-item" key={`cell-${e.title}`}>
+				return ( <div className="lesson-grid-item" key={`cell-${e.title}-${i}`}>
 					<Lesson
 						{...lessons[ i ]}
 						addNotification={this.props.addNotification}
