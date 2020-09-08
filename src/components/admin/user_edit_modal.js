@@ -205,7 +205,7 @@ class EditModal extends Component {
 									name="password"
 									type="password"
 									value={this.state.password}
-									autoComplete="off"
+									autoComplete="new-password"
 									placeholder={t('common:choose-new-password')}
 									onChange={this.handleInputChange}
 									maxLength={30}
