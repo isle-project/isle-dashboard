@@ -95,15 +95,17 @@ class Lesson extends Component {
 		this.closeDeleteModal();
 	}
 
-	update = ({ newTitle, newDescription, lockUntil }) => {
-		this.props.updateLesson({
+	update = async ({ newTitle, newDescription, lockUntil }) => {
+		const bool = await this.props.updateLesson({
 			lessonName: this.props.title,
 			namespaceName: this.props.namespace,
 			newTitle,
 			newDescription,
 			lockUntil: lockUntil ? lockUntil.getTime() : null
 		});
-		this.closeDetailsModal();
+		if ( bool ) {
+			this.closeDetailsModal();
+		}
 	}
 
 	showDeleteModal = () => {
@@ -286,7 +288,10 @@ class Lesson extends Component {
 	renderModals() {
 		return ( <Fragment>
 			<DeleteModal {...this.props} show={this.state.showDeleteModal} close={this.closeDeleteModal} delete={this.delete} />
-			<DetailsModal {...this.props} show={this.state.showDetailsModal} close={this.closeDetailsModal} update={this.update} />
+			{ this.state.showDetailsModal ?
+				<DetailsModal {...this.props} show={this.state.showDetailsModal} close={this.closeDetailsModal} update={this.update} /> :
+				null
+			}
 		</Fragment> );
 	}
 
