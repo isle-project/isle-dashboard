@@ -306,15 +306,19 @@ export const updateLesson = async ( dispatch, { lessonName, namespaceName, newTi
 				level: 'success'
 			});
 			getLessons( dispatch, namespaceName );
+			return true;
 		} catch ( err ) {
 			addErrorNotification( dispatch, err );
+			return false;
 		}
 	}
+	return false;
 };
 
 export const updateLessonInjector = ( dispatch ) => {
 	return async ({ lessonName, namespaceName, newTitle, newDescription, lockUntil }) => {
-		await updateLesson( dispatch, { lessonName, namespaceName, newTitle, newDescription, lockUntil });
+		const bool = await updateLesson( dispatch, { lessonName, namespaceName, newTitle, newDescription, lockUntil });
+		return bool;
 	};
 };
 
