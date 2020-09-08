@@ -15,6 +15,7 @@
 	"disk-usage": "Disk Usage",
 	"edit-user-data": "Edit User Data",
 	"email-verified": "Email Verified",
+	"enter-new-password": "Please enter a new user password of at least six letters",
 	"enter-password": "Please enter your password to impersonate the user ",
 	"error-log": "Error Log",
 	"free-space": "Free Space",
