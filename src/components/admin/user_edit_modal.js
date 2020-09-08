@@ -196,7 +196,7 @@ class EditModal extends Component {
 								/>
 							</FormGroup>
 						</OverlayTrigger>
-						<OverlayTrigger placement="right" overlay={createTooltip( t('enter-password') )}>
+						<OverlayTrigger placement="right" overlay={createTooltip( t('admin:enter-new-password') )}>
 							<FormGroup
 								controlId="form-password"
 							>
