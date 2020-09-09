@@ -64,7 +64,8 @@ class Overview extends Component {
 				cohorts: false,
 				files: false,
 				events: false,
-				sessionData: false
+				sessionData: false,
+				revision: 0
 			}
 		};
 	}
@@ -153,29 +154,33 @@ class Overview extends Component {
 		const domain = [ 0, 1 ];
 		for ( let i = 0; i < keys.length; i++ ) {
 			const key = keys[ i ];
-			if ( this.state.displayInPlot[ key ] ) {
+			if ( this.state.displayInPlot[ key ] === true ) {
 				title += ( title === '' ) ? '' : ', ';
 				title += this.props.t('common:'+key );
 				const color = COLOR_MAPPING[ key ];
 				const y = pluck( data, `n${capitalize( key )}` );
-				displayedData.push({
+				const trace = {
 					type: 'scatter',
 					mode: 'lines',
 					name: this.props.t('common:'+key),
 					x: dates,
 					y: y,
-					yaxis: 'y'+(i+1),
 					marker: {
 						color
 					}
-				});
+				};
+				const len = displayedData.length;
+				if ( len > 0 ) {
+					trace.yaxis = `y${len+1}`;
+				}
+				displayedData.push( trace );
 				const yaxis = {
 					title: this.props.t( 'common:'+key ),
 					titlefont: { color },
 					tickfont: { color },
 					fixedrange: true
 				};
-				if ( i > 0 ) {
+				if ( displayedData.length > 1 ) {
 					yaxis.overlaying = 'y';
 				}
 				if ( displayedData.length % 2 === 0 ) {
@@ -186,7 +191,11 @@ class Overview extends Component {
 					domain[ 1 ] -= 0.1;
 				}
 				yaxis.position = POSITIONS[ displayedData.length ];
-				layout[ 'yaxis'+(i+1) ] = yaxis;
+				if ( len === 0 ) {
+					layout[ 'yaxis' ] = yaxis;
+				} else {
+					layout[ `yaxis${len+1}` ] = yaxis;
+				}
 			}
 		}
 		layout.xaxis.domain = domain;
@@ -196,7 +205,7 @@ class Overview extends Component {
 		}
 		return (
 			<Plotly
-				key={title}
+				revision={this.state.revision}
 				data={displayedData}
 				config={{
 					displayModeBar: false,
@@ -280,7 +289,8 @@ class Overview extends Component {
 			const newDisplayInPlot = { ...this.state.displayInPlot };
 			newDisplayInPlot[ name ] = !newDisplayInPlot[ name ];
 			this.setState({
-				displayInPlot: newDisplayInPlot
+				displayInPlot: newDisplayInPlot,
+				revision: this.state.revision + 1
 			});
 		};
 		if ( this.state.displayInPlot[ name ] ) {
