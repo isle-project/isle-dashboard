@@ -29,6 +29,7 @@ import Popover from 'react-bootstrap/Popover';
 import capitalize from '@stdlib/string/capitalize';
 import createBooleanColumn from './create_boolean_column.js';
 import ConfirmModal from 'components/confirm-modal';
+import server from 'constants/server';
 import textFilter from './text_filter.js';
 import 'react-table/react-table.css';
 
@@ -64,7 +65,10 @@ class LessonTable extends Component {
 				accessor: 'title',
 				maxWidth: 200,
 				style: { marginTop: '8px', color: 'darkslategrey' },
-				filterMethod: textFilter
+				filterMethod: textFilter,
+				Cell: ( row ) => {
+					return <a href={`${server}/${row.original.namespace.title}/${row.original.title}`} target="_blank" >{row.original.title}</a>;
+				}
 			},
 			{
 				Header: t('common:course'),
