@@ -67,7 +67,11 @@ class LessonTable extends Component {
 				style: { marginTop: '8px', color: 'darkslategrey' },
 				filterMethod: textFilter,
 				Cell: ( row ) => {
-					return <a href={`${server}/${row.original.namespace.title}/${row.original.title}`} target="_blank" >{row.original.title}</a>;
+					return (
+						<a
+							href={`${server}/${row.original.namespace.title}/${row.original.title}`}
+						>{row.original.title}</a>
+					);
 				}
 			},
 			{
