@@ -41,12 +41,28 @@ import './lesson.css';
 
 const DEFAULT_DESCRIPTION = 'No description supplied.';
 const debug = logger( 'isle:lessons-page:lesson' );
+const IS_IOS = isIOS();
 
 
 // FUNCTIONS //
 
 function addDefaultSrc( event ) {
 	event.target.src = background;
+}
+
+function isIOS() {
+	return [
+		'iPad Simulator',
+		'iPhone Simulator',
+		'iPod Simulator',
+		'iPad',
+		'iPhone',
+		'iPod'
+	].includes( navigator.platform ) ||
+	(
+		navigator.userAgent.includes('Mac') &&
+		'ontouchend' in document
+	);
 }
 
 
@@ -196,8 +212,12 @@ class Lesson extends Component {
 	}
 
 	openLesson = () => {
-		const win = window.open( this.props.url, '_blank' );
-		win.focus();
+		if ( IS_IOS ) {
+			window.location = this.props.url;
+		} else {
+			const win = window.open( this.props.url, '_blank' );
+			win.focus();
+		}
 	}
 
 	renderButtonToolbarDate() {
