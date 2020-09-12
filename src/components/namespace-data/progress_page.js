@@ -44,7 +44,7 @@ import formatTime from 'utils/format_time.js';
 import './progress_page.css';
 import 'react-table/react-table.css';
 import 'css/table.css';
-import './input_range.css';
+import 'css/input_range.css';
 
 
 // VARIABLES //
