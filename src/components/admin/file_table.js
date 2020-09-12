@@ -75,7 +75,7 @@ class FilePage extends Component {
 	}
 
 	handleDelete = () => {
-		this.props.handleFileDeletion( this.state.deletionID, this.props.ownerFiles );
+		this.props.deleteFile( this.state.deletionID );
 		this.toggleDeleteModal();
 	}
 
@@ -289,7 +289,7 @@ class FilePage extends Component {
 				accessor: '_id',
 				Cell: ( row ) => {
 					return (
-						<OverlayTrigger placement="left" overlay={<Tooltip id="delete-file-tooltip">{t('delete-file-tooltip')}</Tooltip>}>
+						<OverlayTrigger placement="left" overlay={<Tooltip id="delete-file-tooltip">{t('namespace_data:delete-file-tooltip')}</Tooltip>}>
 							<Button
 								size="sm" variant="outline-secondary"
 								onClick={() => {
@@ -326,7 +326,7 @@ class FilePage extends Component {
 			<ConfirmModal
 				show={this.state.showDeleteModal}
 				close={this.toggleDeleteModal}
-				message={t('delete-file')}
+				message={t('namespace_data:delete-file')}
 				title={`${t('common:delete')}?`}
 				onConfirm={this.handleDelete}
 			/>

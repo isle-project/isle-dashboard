@@ -27,7 +27,7 @@ import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
 import Button from 'react-bootstrap/Button';
 import { addNotification, addErrorNotification } from 'actions/notification';
-import { GET_ALL_FILES, RECEIVED_FILES, RECEIVED_NAMESPACE_FILES } from 'constants/action_types.js';
+import { DELETED_FILE, GET_ALL_FILES, RECEIVED_FILES, RECEIVED_NAMESPACE_FILES } from 'constants/action_types.js';
 
 
 // FUNCTIONS //
@@ -80,7 +80,16 @@ export const getUserFiles = async ( dispatch ) => {
 export const deleteFile = async ( dispatch, _id, namespaceName, owner ) => {
 	try {
 		const res = await axios.post( `${server}/delete_file`, { _id });
-		getFilesRequest( dispatch, { namespaceName, owner });
+		if ( namespaceName ) {
+			getFilesRequest( dispatch, { namespaceName, owner });
+		} else {
+			dispatch({
+				type: DELETED_FILE,
+				payload: {
+					id: _id
+				}
+			});
+		}
 		addNotification( dispatch, {
 			title: i18next.t('common:delete-file-title'),
 			message: res.data.message,
