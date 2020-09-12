@@ -53,6 +53,13 @@ export default function admin( state = initialState, action ) {
 		return Object.assign({}, state, {
 			files: action.payload.files
 		});
+	case types.DELETED_FILE: {
+		let files = state.files.slice();
+		files = files.filter( x => x._id !== action.payload.id );
+		return Object.assign({}, state, {
+			files
+		});
+	}
 	case types.GET_ALL_LESSONS:
 		return Object.assign({}, state, {
 			lessons: action.payload.lessons
