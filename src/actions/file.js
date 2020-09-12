@@ -27,7 +27,7 @@ import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
 import Button from 'react-bootstrap/Button';
 import { addNotification, addErrorNotification } from 'actions/notification';
-import { RECEIVED_FILES, RECEIVED_NAMESPACE_FILES } from 'constants/action_types.js';
+import { GET_ALL_FILES, RECEIVED_FILES, RECEIVED_NAMESPACE_FILES } from 'constants/action_types.js';
 
 
 // FUNCTIONS //
@@ -167,5 +167,25 @@ export const getFilesInjector = ( dispatch ) => {
 export const getOwnerFilesInjector = ( dispatch ) => {
 	return async ({ namespaceName }) => {
 		await getFilesRequest( dispatch, { namespaceName, owner: true });
+	};
+};
+
+export const getAllFiles = async ( dispatch ) => {
+	try {
+		const res = await axios.get( server+'/get_all_files' );
+		dispatch({
+			type: GET_ALL_FILES,
+			payload: {
+				files: res.data.files
+			}
+		});
+	} catch ( err ) {
+		return addErrorNotification( dispatch, err );
+	}
+};
+
+export const getAllFilesInjector = ( dispatch ) => {
+	return async () => {
+		await getAllFiles( dispatch );
 	};
 };
