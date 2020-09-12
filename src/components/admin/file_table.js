@@ -339,8 +339,8 @@ class FilePage extends Component {
 
 FilePage.propTypes = {
 	addNotification: PropTypes.func.isRequired,
-	getAllFiles: PropTypes.func.isRequired,
-	handleFileDeletion: PropTypes.func.isRequired
+	deleteFile: PropTypes.func.isRequired,
+	getAllFiles: PropTypes.func.isRequired
 };
 
 
