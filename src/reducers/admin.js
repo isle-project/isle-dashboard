@@ -26,6 +26,7 @@ import * as types from 'constants/action_types.js';
 const initialState = {
 	cohorts: [],
 	events: [],
+	files: [],
 	lessons: [],
 	namespaces: [],
 	rooms: [],
@@ -47,6 +48,10 @@ export default function admin( state = initialState, action ) {
 	case types.GET_ALL_COHORTS:
 		return Object.assign({}, state, {
 			cohorts: action.payload.cohorts
+		});
+	case types.GET_ALL_FILES:
+		return Object.assign({}, state, {
+			files: action.payload.files
 		});
 	case types.GET_ALL_LESSONS:
 		return Object.assign({}, state, {

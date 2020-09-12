@@ -27,6 +27,7 @@ const AccessLog = asyncComponent( () => import( './logs/access' ) );
 const CohortTable = asyncComponent( () => import( './cohort_table.js' ) );
 const EventTable = asyncComponent( () => import( './event_table.js' ) );
 const LessonTable = asyncComponent( () => import( './lesson_table.js' ) );
+const FileTable = asyncComponent( () => import( './file_table.js' ) );
 const NamespaceTable = asyncComponent( () => import( './namespace_table.js' ) );
 const UserTable = asyncComponent( () => import( './user_table.js' ) );
 const Rooms = asyncComponent( () => import( './rooms.js' ) );
@@ -35,6 +36,7 @@ import { version as dashboardVersion } from './../../../package.json';
 import 'react-table/react-table.css';
 import 'css/table.css';
 import './admin_page.css';
+import { Popover } from 'react-bootstrap';
 
 
 // MAIN //
@@ -161,21 +163,30 @@ class AdminPage extends Component {
 				);
 			case 5:
 				return (
-					<CohortTable
-						admin={this.props.admin}
-						getAllCohorts={this.props.getAllCohorts}
-						deleteCohort={this.props.deleteCohort}
-					/>
-				);
-			case 6:
-				return (
 					<LessonTable
 						admin={this.props.admin}
 						getAllLessons={this.props.getAllLessons}
 						deleteLesson={this.props.deleteLesson}
 					/>
 				);
+			case 6:
+				return (
+					<CohortTable
+						admin={this.props.admin}
+						getAllCohorts={this.props.getAllCohorts}
+						deleteCohort={this.props.deleteCohort}
+					/>
+				);
 			case 7:
+				return (
+					<FileTable
+						admin={this.props.admin}
+						deleteFile={this.props.deleteFile}
+						getAllFiles={this.props.getAllFiles}
+						addNotification={this.props.addNotification}
+					/>
+				);
+			case 8:
 				return (
 					<EventTable
 						admin={this.props.admin}
@@ -183,7 +194,7 @@ class AdminPage extends Component {
 						getEvents={this.props.getEvents}
 					/>
 				);
-			case 8:
+			case 9:
 				return (
 					<Rooms
 						admin={this.props.admin}
@@ -216,16 +227,19 @@ class AdminPage extends Component {
 							<Nav.Link eventKey="4" title="Courses" >{t('common:courses')}</Nav.Link>
 						</Nav.Item>
 						<Nav.Item>
-							<Nav.Link eventKey="5" title="Cohorts" >{t('common:cohorts')}</Nav.Link>
+							<Nav.Link eventKey="5" title="Lessons" >{t('common:lessons')}</Nav.Link>
 						</Nav.Item>
 						<Nav.Item>
-							<Nav.Link eventKey="6" title="Lessons" >{t('common:lessons')}</Nav.Link>
+							<Nav.Link eventKey="6" title="Cohorts" >{t('common:cohorts')}</Nav.Link>
 						</Nav.Item>
 						<Nav.Item>
-							<Nav.Link eventKey="7" title="Events" >{t('common:events')}</Nav.Link>
+							<Nav.Link eventKey="7" title="Files" >{t('common:files')}</Nav.Link>
 						</Nav.Item>
 						<Nav.Item>
-							<Nav.Link eventKey="8" title="Active Rooms" >{t('admin:active-rooms')}</Nav.Link>
+							<Nav.Link eventKey="8" title="Events" >{t('common:events')}</Nav.Link>
+						</Nav.Item>
+						<Nav.Item>
+							<Nav.Link eventKey="9" title="Active Rooms" >{t('admin:active-rooms')}</Nav.Link>
 						</Nav.Item>
 						<span className="admin-page-version" >{t('dashboard-version')}: {dashboardVersion}</span>
 					</Nav>
@@ -251,6 +265,7 @@ AdminPage.propTypes = {
 	deleteLesson: PropTypes.func.isRequired,
 	deleteUser: PropTypes.func.isRequired,
 	getAllCohorts: PropTypes.func.isRequired,
+	getAllFiles: PropTypes.func.isRequired,
 	getAllLessons: PropTypes.func.isRequired,
 	getAllNamespaces: PropTypes.func.isRequired,
 	getEvents: PropTypes.func.isRequired,
