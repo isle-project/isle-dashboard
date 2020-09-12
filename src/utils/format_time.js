@@ -22,7 +22,7 @@ import floor from '@stdlib/math/base/special/floor';
 
 // MAIN //
 
-const formatTime = ( time ) => {
+const formatTime = ( time, opts = { hours: true, minutes: true, seconds: true }) => {
 	time = time / 1000;
 	const hours = floor( time / ( 60*60 ) );
 	time = time % ( 60*60 );
@@ -35,7 +35,23 @@ const formatTime = ( time ) => {
 	if ( seconds < 10 ) {
 		seconds = '0'+seconds;
 	}
-	return hours + ':' + minutes + ':' + seconds;
+	let out = '';
+	if ( opts.hours ) {
+		out += hours;
+	}
+	if ( opts.minutes ) {
+		if ( out ) {
+			out += ':';
+		}
+		out += minutes;
+	}
+	if ( opts.seconds ) {
+		if ( out ) {
+			out += ':';
+		}
+		out += seconds;
+	}
+	return out;
 };
 
 
