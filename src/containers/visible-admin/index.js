@@ -28,6 +28,7 @@ import { getAllLessonsInjector, deleteLessonInjector, getRoomsInjector } from 'a
 import { sanitizeRequestInjector } from 'actions/authentication.js';
 import { addNotificationInjector } from 'actions/notification.js';
 import { getOverviewStatisticsInjector, getHistoricalOverviewStatsInjector } from 'actions/statistics.js';
+import { getAllFilesInjector } from 'actions/file.js';
 
 
 // FUNCTIONS //
@@ -43,6 +44,7 @@ function mapDispatchToProps( dispatch ) {
 	return {
 		addNotification: addNotificationInjector( dispatch ),
 		getAllCohorts: getAllCohortsInjector( dispatch ),
+		getAllFiles: getAllFilesInjector( dispatch ),
 		getAllLessons: getAllLessonsInjector( dispatch ),
 		getAllNamespaces: getAllNamespacesInjector( dispatch ),
 		getEvents: getEventsInjector( dispatch ),
