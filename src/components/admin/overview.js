@@ -273,13 +273,23 @@ class Overview extends Component {
 		if ( !this.props.statistics.database ) {
 			return null;
 		}
-		let { storageSize, dataSize, objects, avgObjSize } = this.props.statistics.database;
+		const { storageSize, dataSize, objects, avgObjSize } = this.props.statistics.database;
 		return (
 			<ListGroup variant="flush" style={{ fontSize: '1em' }}>
 				<ListGroup.Item style={{ padding: '.5rem 0.8rem' }} >{t('physical-storage-size')}: {storageSize}</ListGroup.Item>
 				<ListGroup.Item style={{ padding: '.5rem 0.8rem' }} >{t('reserved-storage-size')}: {dataSize}</ListGroup.Item>
 				<ListGroup.Item style={{ padding: '.5rem 0.8rem' }} >{t('number-of-objects')}: {objects} </ListGroup.Item>
 				<ListGroup.Item style={{ padding: '.5rem 0.8rem' }} >{t('average-object-size')}: {round( avgObjSize )}</ListGroup.Item>
+			</ListGroup>
+		);
+	}
+
+	renderDailyStatistics() {
+		const { t } = this.props;
+		const { dailyActiveUsers } = this.props.statistics;
+		return (
+			<ListGroup variant="flush" style={{ fontSize: '1em' }}>
+				<ListGroup.Item style={{ padding: '.5rem 0.8rem' }} >{t('daily-active-users')}: {dailyActiveUsers}</ListGroup.Item>
 			</ListGroup>
 		);
 	}
@@ -415,6 +425,7 @@ class Overview extends Component {
 					</Col>
 					<Col sm={12} md={3} >
 						<h2>{this.props.t('daily-statistics')}</h2>
+						{this.renderDailyStatistics()}
 					</Col>
 				</Row>
 				<Row className="second-row" >
