@@ -31,6 +31,7 @@ import server from 'constants/server';
 import createBooleanColumn from './create_boolean_column.js';
 import EditModal from './user_edit_modal.js';
 import textFilter from './text_filter.js';
+import formatTime from 'utils/format_time.js';
 import 'react-table/react-table.css';
 
 
@@ -204,6 +205,15 @@ class UserPage extends Component {
 				trueLabel: t('verified'),
 				falseLabel: t('not-verified')
 			}),
+			{
+				Header: t('time-spent'),
+				accessor: 'spentTime',
+				Cell: ( row ) => {
+					return formatTime( row.value, { minutes: true, hours: true });
+				},
+				style: { marginTop: '8px', color: 'darkslategrey' },
+				maxWidth: 150
+			},
 			{
 				Header: t('last-updated'),
 				accessor: 'updatedAt',
