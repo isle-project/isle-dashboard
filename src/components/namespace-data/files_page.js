@@ -42,6 +42,7 @@ import server from 'constants/server';
 import saveAs from 'utils/file_saver.js';
 import 'react-table/react-table.css';
 import 'css/table.css';
+import 'css/input_range.css';
 import './files_page.css';
 
 
