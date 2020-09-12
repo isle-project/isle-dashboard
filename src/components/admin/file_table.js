@@ -33,6 +33,7 @@ import lowercase from '@stdlib/string/lowercase';
 import trim from '@stdlib/string/trim';
 import ConfirmModal from 'components/confirm-modal';
 import server from 'constants/server';
+import FILE_TYPE_ICONS from 'constants/file_type_icons.js';
 import 'react-table/react-table.css';
 import 'css/table.css';
 import 'css/input_range.css';
@@ -216,9 +217,25 @@ class FilePage extends Component {
 			{
 				Header: t('namespace_data:type'),
 				accessor: 'type',
+				Cell: row => {
+					if ( FILE_TYPE_ICONS[ row.value ] ) {
+						return (
+							<OverlayTrigger placement="left" overlay={<Tooltip id="type-tooltip">{row.value}</Tooltip>}>
+								<i className={FILE_TYPE_ICONS[ row.value ]} ></i>
+							</OverlayTrigger>
+						);
+					}
+					return (
+						<OverlayTrigger placement="left" overlay={<Tooltip id="type-tooltip">{row.value}</Tooltip>}>
+							<i className="fa fa-file"></i>
+						</OverlayTrigger>
+					);
+				},
+				maxWidth: 50,
 				filterMethod: ( filter, row ) => {
 					return contains( row[ filter.id ], filter.value );
-				}
+				},
+				style: { fontSize: '1.5em', padding: 4, textAlign: 'center' }
 			},
 			{
 				Header: t('namespace_data:size'),
