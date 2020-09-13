@@ -206,11 +206,23 @@ class UserPage extends Component {
 				falseLabel: t('not-verified')
 			}),
 			{
-				Header: t('time-spent'),
+				Header: t('common:chat-messages'),
+				accessor: 'chatMessages',
+				style: { marginTop: '8px', color: 'darkslategrey' },
+				maxWidth: 150
+			},
+			{
+				Header: t('common:time-spent'),
 				accessor: 'spentTime',
 				Cell: ( row ) => {
 					return formatTime( row.value, { minutes: true, hours: true });
 				},
+				style: { marginTop: '8px', color: 'darkslategrey' },
+				maxWidth: 150
+			},
+			{
+				Header: t('common:number-of-actions'),
+				accessor: 'nActions',
 				style: { marginTop: '8px', color: 'darkslategrey' },
 				maxWidth: 150
 			},

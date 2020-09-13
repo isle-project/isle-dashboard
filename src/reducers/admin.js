@@ -41,8 +41,25 @@ const initialState = {
 export default function admin( state = initialState, action ) {
 	switch ( action.type ) {
 	case types.GET_USERS: {
+		let users = action.payload.users;
+		users = users.map( x => {
+			const keys = objectKeys( x.lessonData );
+			let chatMessages = 0;
+			let nActions = 0;
+			for ( let i = 0; i < keys.length; i++ ) {
+				const key = keys[ i ];
+				chatMessages += x.lessonData[ key ].chatMessages;
+				const types = objectKeys( x.lessonData[ key ].actionTypes );
+				for ( let j = 0; j < types.length; j++ ) {
+					nActions += x.lessonData[ key ].actionTypes[ types[ j ] ];
+				}
+			}
+			x.nActions = nActions;
+			x.chatMessages = chatMessages;
+			return x;
+		});
 		return Object.assign({}, state, {
-			users: action.payload.users
+			users
 		});
 	}
 	case types.GET_ALL_COHORTS:
