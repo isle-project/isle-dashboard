@@ -294,7 +294,36 @@ class Overview extends Component {
 		);
 	}
 
-	renderPlotButton( name ) {
+	renderActionTypes() {
+		return (
+			<div className="action-types-table-container">
+				<Table striped hover className="action-types-table" size="sm" >
+					<thead>
+						<tr>
+							<th>{this.props.t('common:visualize')}</th>
+							<th>{this.props.t('common:type')}</th>
+							<th>{this.props.t('common:count')}</th>
+						</tr>
+					</thead>
+					<tbody>
+						{this.props.statistics.actionTypes.map( ( x, i ) => {
+							return (
+								<tr key={i} >
+									<td>
+										{this.renderPlotButton( x._id.type, 'right' )}
+									</td>
+									<td>{x._id.type}</td>
+									<td>{x.count}</td>
+								</tr>
+							);
+						})}
+					</tbody>
+				</Table>
+			</div>
+		);
+	}
+
+	renderPlotButton( name, side = 'left' ) {
 		const clickHandler = () => {
 			const newDisplayInPlot = { ...this.state.displayInPlot };
 			newDisplayInPlot[ name ] = !newDisplayInPlot[ name ];
@@ -305,11 +334,17 @@ class Overview extends Component {
 		};
 		if ( this.state.displayInPlot[ name ] ) {
 			return ( <Button variant="warning" size="sm" onClick={clickHandler} >
-				<i className="fas fa-arrow-circle-left"></i>
+				{ side === 'right' ?
+					<i className="fas fa-arrow-circle-right"></i> :
+					<i className="fas fa-arrow-circle-left"></i>
+				}
 			</Button> );
 		}
 		return ( <Button variant="secondary" size="sm" onClick={clickHandler} >
-			<i className="fas fa-arrow-circle-right"></i>
+			{ side === 'right' ?
+				<i className="fas fa-arrow-circle-left"></i> :
+				<i className="fas fa-arrow-circle-right"></i>
+			}
 		</Button> );
 	}
 
@@ -424,8 +459,8 @@ class Overview extends Component {
 						{this.renderTimeSeries()}
 					</Col>
 					<Col sm={12} md={3} >
-						<h2>{this.props.t('daily-statistics')}</h2>
-						{this.renderDailyStatistics()}
+						<h2>{this.props.t('action-types')}</h2>
+						{this.renderActionTypes()}
 					</Col>
 				</Row>
 				<Row className="second-row" >
@@ -437,7 +472,10 @@ class Overview extends Component {
 						<h3>{t('database')}</h3>
 						{this.renderDatabaseStats()}
 					</Col>
-					<Col md={3} sm={12} ></Col>
+					<Col md={3} sm={12} >
+						<h3>{this.props.t('daily-statistics')}</h3>
+						{this.renderDailyStatistics()}
+					</Col>
 				</Row>
 			</Container>
 		);
