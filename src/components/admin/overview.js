@@ -286,9 +286,10 @@ class Overview extends Component {
 
 	renderDailyStatistics() {
 		const { t } = this.props;
-		const { dailyActiveUsers } = this.props.statistics;
+		const { dailyActiveUsers, lastHourActiveUsers } = this.props.statistics;
 		return (
 			<ListGroup variant="flush" style={{ fontSize: '1em' }}>
+				<ListGroup.Item style={{ padding: '.5rem 0.8rem' }} >{t('last-hour-active-users')}: {lastHourActiveUsers}</ListGroup.Item>
 				<ListGroup.Item style={{ padding: '.5rem 0.8rem' }} >{t('daily-active-users')}: {dailyActiveUsers}</ListGroup.Item>
 			</ListGroup>
 		);
