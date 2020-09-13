@@ -313,7 +313,6 @@ class FilePage extends Component {
 
 	render() {
 		const { t } = this.props;
-		console.log( this.props.admin.files);
 		return ( <Fragment>
 			<ReactTable
 				filterable
