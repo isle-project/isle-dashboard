@@ -36,7 +36,6 @@ import { version as dashboardVersion } from './../../../package.json';
 import 'react-table/react-table.css';
 import 'css/table.css';
 import './admin_page.css';
-import { Popover } from 'react-bootstrap';
 
 
 // MAIN //
