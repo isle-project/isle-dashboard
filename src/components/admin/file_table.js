@@ -155,7 +155,7 @@ class FilePage extends Component {
 				accessor: 'lesson.title',
 				maxWidth: 160,
 				Cell: ( row ) => {
-					if ( !row.value ) {
+					if ( !row.value || !row.original.namespace ) {
 						return null;
 					}
 					const url = `${server}/${row.original.namespace.title}/${row.value}`;
