@@ -69,8 +69,14 @@ class AdminPage extends Component {
 			case 'lessons':
 				activePage = 6;
 				break;
-			case 'events':
+			case 'files':
 				activePage = 7;
+				break;
+			case 'events':
+				activePage = 8;
+				break;
+			case 'rooms':
+				activePage = 9;
 				break;
 		}
 		this.state = {
@@ -115,9 +121,12 @@ class AdminPage extends Component {
 				this.props.history.replace( '/admin/lessons' );
 				break;
 			case 7:
-				this.props.history.replace( '/admin/events' );
+				this.props.history.replace( '/admin/files' );
 				break;
 			case 8:
+				this.props.history.replace( '/admin/events' );
+				break;
+			case 9:
 				this.props.history.replace( '/admin/rooms' );
 				break;
 		}
