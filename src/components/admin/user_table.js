@@ -22,14 +22,17 @@ import PropTypes from 'prop-types';
 import logger from 'debug';
 import { withTranslation } from 'react-i18next';
 import ReactTable from 'react-table';
+import moment from 'moment';
 import FormControl from 'react-bootstrap/FormControl';
 import Button from 'react-bootstrap/Button';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
 import round from '@stdlib/math/base/special/round';
+import PINF from '@stdlib/constants/math/float64-pinf';
 import ConfirmModal from 'components/confirm-modal';
 import server from 'constants/server';
 import createBooleanColumn from './create_boolean_column.js';
+import createDateColumn from './create_date_column.js';
 import createNumericColumn from './create_numeric_column.js';
 import EditModal from './user_edit_modal.js';
 import textFilter from './text_filter.js';
@@ -165,6 +168,8 @@ class UserPage extends Component {
 		let maxChatMessages = 0;
 		let maxActions = 0;
 		let maxSpentTime = 0;
+		let minTime = PINF;
+		let maxTime = 0;
 		for ( let i = 0; i < users.length; i++ ) {
 			if ( users[ i ].chatMessages > maxChatMessages ) {
 				maxChatMessages = users[ i ].chatMessages;
@@ -175,7 +180,21 @@ class UserPage extends Component {
 			if ( users[ i ].spentTime > maxSpentTime ) {
 				maxSpentTime = users[ i ].spentTime;
 			}
+			if ( users[ i ].createdAt > maxTime ) {
+				maxTime = users[ i ].createdAt;
+			}
+			if ( users[ i ].updatedAt > maxTime ) {
+				maxTime = users[ i ].updatedAt;
+			}
+			if ( users[ i ].createdAt < minTime ) {
+				minTime = users[ i ].createdAt;
+			}
+			if ( users[ i ].updatedAt < minTime ) {
+				minTime = users[ i ].updatedAt;
+			}
 		}
+		minTime = moment( minTime );
+		maxTime = moment( maxTime );
 		return [
 		{
 				Header: 'Pic',
@@ -258,24 +277,24 @@ class UserPage extends Component {
 				maxWidth: 100,
 				maxValue: maxActions
 			}),
-			{
+			createDateColumn({
 				Header: t('last-updated'),
 				accessor: 'updatedAt',
 				Cell: ( row ) => {
 					return new Date( row.value ).toLocaleString();
 				},
-				style: { marginTop: '8px', color: 'darkslategrey' },
-				maxWidth: 150
-			},
-			{
+				startDate: minTime,
+				endDate: maxTime
+			}),
+			createDateColumn({
 				Header: t('created-at'),
 				accessor: 'createdAt',
 				Cell: ( row ) => {
 					return new Date( row.value ).toLocaleString();
 				},
-				style: { marginTop: '8px', color: 'darkslategrey' },
-				maxWidth: 150
-			},
+				startDate: minTime,
+				endDate: maxTime
+			}),
 			{
 				Header: t('common:actions'),
 				Cell: ( row ) => {

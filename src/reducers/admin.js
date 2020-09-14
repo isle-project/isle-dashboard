@@ -56,6 +56,8 @@ export default function admin( state = initialState, action ) {
 			}
 			x.nActions = nActions;
 			x.chatMessages = chatMessages;
+			x.createdAt = new Date( x.createdAt );
+			x.updatedAt = new Date( x.updatedAt );
 			return x;
 		});
 		return Object.assign({}, state, {
