@@ -26,8 +26,9 @@ import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
 import createBooleanColumn from './create_boolean_column.js';
 import ConfirmModal from 'components/confirm-modal';
-import 'react-table/react-table.css';
+import createNumericColumn from './create_numeric_column.js';
 import textFilter from './text_filter.js';
+import 'react-table/react-table.css';
 
 
 // MAIN //
@@ -35,11 +36,11 @@ import textFilter from './text_filter.js';
 class CohortTable extends Component {
 	constructor( props ) {
 		super( props );
-		this.columns = this.createColumns();
 
 		this.state = {
 			selectedCohort: null,
-			showDeleteModal: false
+			showDeleteModal: false,
+			columns: this.createColumns()
 		};
 	}
 
@@ -47,8 +48,25 @@ class CohortTable extends Component {
 		this.props.getAllCohorts();
 	}
 
+	componentDidUpdate( prevProps ) {
+		if ( prevProps.admin.cohorts !== this.props.admin.cohorts ) {
+			this.setState({
+				columns: this.createColumns()
+			});
+		}
+	}
+
 	createColumns = () => {
 		const { t } = this.props;
+		let maxStudents = 0;
+		const cohorts = this.props.admin.cohorts;
+		for ( let i = 0; i < cohorts.length; i++ ) {
+			const members = cohorts[ i ].members;
+			const nMembers = members.length;
+			if ( nMembers && nMembers > maxStudents ) {
+				maxStudents = nMembers;
+			}
+		}
 		return [
 			{
 				Header: t('common:title'),
@@ -98,15 +116,14 @@ class CohortTable extends Component {
 				style: { marginTop: '8px', color: 'darkslategrey' },
 				maxWidth: 150
 			},
-			{
+			createNumericColumn({
 				Header: t( 'common:number-of-students' ),
-				accessor: 'members',
+				accessor: 'members.length',
 				style: { marginTop: '2px', color: 'darkslategrey' },
 				maxWidth: 150,
-				Cell: ( row ) => {
-					return row.value.length;
-				}
-			},
+				minValue: 0,
+				maxValue: maxStudents
+			}),
 			{
 				Header: t('common:actions'),
 				Cell: ( row ) => {
@@ -157,7 +174,7 @@ class CohortTable extends Component {
 				<ReactTable
 					filterable
 					data={this.props.admin.cohorts}
-					columns={this.columns}
+					columns={this.state.columns}
 					ref={(r) => {
 						this.reactTable = r;
 					}}

@@ -21,22 +21,20 @@ import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { withTranslation } from 'react-i18next';
 import ReactTable from 'react-table';
-import InputRange from 'react-input-range';
 import Button from 'react-bootstrap/Button';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
 import copyToClipboard from 'clipboard-copy';
 import roundn from '@stdlib/math/base/special/roundn';
-import ceil from '@stdlib/math/base/special/ceil';
 import contains from '@stdlib/assert/contains';
 import lowercase from '@stdlib/string/lowercase';
 import trim from '@stdlib/string/trim';
 import ConfirmModal from 'components/confirm-modal';
 import server from 'constants/server';
 import FILE_TYPE_ICONS from 'constants/file_type_icons.js';
+import createNumericColumn from './create_numeric_column';
 import 'react-table/react-table.css';
 import 'css/table.css';
-import 'css/input_range.css';
 
 
 // MAIN //
@@ -44,12 +42,10 @@ import 'css/input_range.css';
 class FilePage extends Component {
 	constructor( props ) {
 		super( props );
-		this.columns = this.createColumns();
 		this.state = {
 			showDeleteModal: false,
 			deletionID: null,
-			fileMaxSize: 0,
-			fileInputKey: 0
+			columns: this.createColumns()
 		};
 	}
 
@@ -59,17 +55,8 @@ class FilePage extends Component {
 
 	componentDidUpdate( prevProps ) {
 		if ( prevProps.admin.files !== this.props.admin.files ) {
-			const files = this.props.admin.files;
-			let fileMaxSize = 0;
-			for ( let i = 0; i < files.length; i++ ) {
-				const size = files[ i ].size;
-				if ( size && size > fileMaxSize ) {
-					fileMaxSize = size;
-				}
-			}
 			this.setState({
-				fileMaxSize,
-				fileInputKey: this.state.fileInputKey + 1
+				columns: this.createColumns()
 			});
 		}
 	}
@@ -87,6 +74,14 @@ class FilePage extends Component {
 
 	createColumns = () => {
 		const { t } = this.props;
+		const files = this.props.admin.files;
+		let fileMaxSize = 0;
+		for ( let i = 0; i < files.length; i++ ) {
+			const size = files[ i ].size;
+			if ( size && size > fileMaxSize ) {
+				fileMaxSize = size;
+			}
+		}
 		return [
 			{
 				Header: t('namespace_data:filename'),
@@ -237,42 +232,13 @@ class FilePage extends Component {
 				},
 				style: { fontSize: '1.5em', padding: 4, textAlign: 'center' }
 			},
-			{
+			createNumericColumn({
 				Header: t('namespace_data:size'),
 				accessor: 'size',
 				Cell: row => row.value ? `${roundn( row.value, -3 )}mb` : 'NA',
-				filterMethod: ( filter, row ) => {
-					const id = filter.pivotId || filter.id;
-					const size = row[ id ];
-					return size >= filter.value.min && size <= filter.value.max;
-				},
-				Filter: ({ filter, onChange }) => {
-					const maxValue = ceil( this.state.fileMaxSize ) || 1;
-					const defaultVal = {
-						max: maxValue,
-						min: 0
-					};
-					return (
-						<div style={{
-							paddingLeft: '4px',
-							paddingRight: '4px',
-							paddingTop: '8px'
-						}}>
-							<InputRange
-								allowSameValues
-								maxValue={maxValue}
-								minValue={0}
-								step={0.1}
-								value={filter ? filter.value : defaultVal}
-								onChange={( newValue ) => {
-									onChange( newValue );
-								}}
-								formatLabel={value => roundn( value, -2 )}
-							/>
-						</div>
-					);
-				}
-			},
+				maxValue: fileMaxSize,
+				minValue: 0
+			}),
 			{
 				Header: t('common:date'),
 				accessor: 'updatedAt',
@@ -317,7 +283,7 @@ class FilePage extends Component {
 			<ReactTable
 				filterable
 				data={this.props.admin.files}
-				columns={this.columns}
+				columns={this.state.columns}
 				ref={(r) => {
 					this.reactTable = r;
 				}}
