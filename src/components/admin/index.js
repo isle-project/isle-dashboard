@@ -63,10 +63,10 @@ class AdminPage extends Component {
 			case 'courses':
 				activePage = 4;
 				break;
-			case 'cohorts':
+			case 'lessons':
 				activePage = 5;
 				break;
-			case 'lessons':
+			case 'cohorts':
 				activePage = 6;
 				break;
 			case 'files':
@@ -115,10 +115,10 @@ class AdminPage extends Component {
 				this.props.history.replace( '/admin/courses' );
 				break;
 			case 5:
-				this.props.history.replace( '/admin/cohorts' );
+				this.props.history.replace( '/admin/lessons' );
 				break;
 			case 6:
-				this.props.history.replace( '/admin/lessons' );
+				this.props.history.replace( '/admin/cohorts' );
 				break;
 			case 7:
 				this.props.history.replace( '/admin/files' );

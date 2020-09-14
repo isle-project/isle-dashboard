@@ -95,6 +95,10 @@ class CustomDatePicker extends Component {
 	}
 }
 
+const DefaultCell = ( row ) => {
+	return new Date( row.value ).toLocaleString();
+};
+
 
 // MAIN //
 
@@ -103,7 +107,7 @@ function createBooleanColumn({ Header, accessor, Cell, style, startDate, endDate
 		Header,
 		accessor,
 		style,
-		Cell: Cell,
+		Cell: Cell || DefaultCell,
 		filterMethod: ( filter, row ) => {
 			if ( !filter.value ) {
 				return true;

@@ -20,13 +20,16 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { withTranslation } from 'react-i18next';
+import moment from 'moment';
 import ReactTable from 'react-table';
 import Button from 'react-bootstrap/Button';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
+import PINF from '@stdlib/constants/math/float64-pinf';
 import createBooleanColumn from './create_boolean_column.js';
 import ConfirmModal from 'components/confirm-modal';
 import createNumericColumn from './create_numeric_column.js';
+import createDateColumn from './create_date_column.js';
 import textFilter from './text_filter.js';
 import 'react-table/react-table.css';
 
@@ -60,13 +63,29 @@ class CohortTable extends Component {
 		const { t } = this.props;
 		let maxStudents = 0;
 		const cohorts = this.props.admin.cohorts;
+		let minTime = PINF;
+		let maxTime = 0;
 		for ( let i = 0; i < cohorts.length; i++ ) {
 			const members = cohorts[ i ].members;
 			const nMembers = members.length;
 			if ( nMembers && nMembers > maxStudents ) {
 				maxStudents = nMembers;
 			}
+			if ( cohorts[ i ].startDate > maxTime ) {
+				maxTime = cohorts[ i ].startDate;
+			}
+			if ( cohorts[ i ].endDate > maxTime ) {
+				maxTime = cohorts[ i ].endDate;
+			}
+			if ( cohorts[ i ].startDate < minTime ) {
+				minTime = cohorts[ i ].startDate;
+			}
+			if ( cohorts[ i ].endDate < minTime ) {
+				minTime = cohorts[ i ].endDate;
+			}
 		}
+		maxTime = moment( maxTime );
+		minTime = moment( minTime );
 		return [
 			{
 				Header: t('common:title'),
@@ -98,24 +117,18 @@ class CohortTable extends Component {
 				falseLabel: t('manual-enrollment'),
 				printLabels: true
 			}),
-			{
+			createDateColumn({
 				Header: t('start-date'),
 				accessor: 'startDate',
-				Cell: ( row ) => {
-					return new Date( row.value ).toLocaleDateString();
-				},
-				style: { marginTop: '8px', color: 'darkslategrey' },
-				maxWidth: 150
-			},
-			{
+				startDate: minTime,
+				endDate: maxTime
+			}),
+			createDateColumn({
 				Header: t('end-date'),
 				accessor: 'endDate',
-				Cell: ( row ) => {
-					return new Date( row.value ).toLocaleDateString();
-				},
-				style: { marginTop: '8px', color: 'darkslategrey' },
-				maxWidth: 150
-			},
+				startDate: minTime,
+				endDate: maxTime
+			}),
 			createNumericColumn({
 				Header: t( 'common:number-of-students' ),
 				accessor: 'members.length',
