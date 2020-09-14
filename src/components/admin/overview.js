@@ -296,6 +296,10 @@ class Overview extends Component {
 	}
 
 	renderActionTypes() {
+		const { actionTypes } = this.props.statistics;
+		if ( !actionTypes ) {
+			return null;
+		}
 		return (
 			<div className="action-types-table-container">
 				<Table striped hover className="action-types-table" size="sm" >
@@ -307,7 +311,7 @@ class Overview extends Component {
 						</tr>
 					</thead>
 					<tbody>
-						{this.props.statistics.actionTypes.map( ( x, i ) => {
+						{actionTypes.map( ( x, i ) => {
 							return (
 								<tr key={i} >
 									<td>
