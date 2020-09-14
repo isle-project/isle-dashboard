@@ -22,13 +22,16 @@ import PropTypes from 'prop-types';
 import logger from 'debug';
 import { withTranslation } from 'react-i18next';
 import ReactTable from 'react-table';
+import moment from 'moment';
 import Button from 'react-bootstrap/Button';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
+import PINF from '@stdlib/constants/math/float64-pinf';
 import ConfirmModal from 'components/confirm-modal';
 import textFilter from './text_filter.js';
 import createUsersColumn from './create_users_column.js';
 import createNumericColumn from './create_numeric_column.js';
+import createDateColumn from './create_date_column.js';
 import 'react-table/react-table.css';
 
 
@@ -54,7 +57,7 @@ class NamespacePage extends Component {
 	}
 
 	componentDidUpdate( prevProps ) {
-		if ( prevProps.admin.namepaces !== this.props.admin.namepaces ) {
+		if ( prevProps.admin.namespaces !== this.props.admin.namespaces ) {
 			this.setState({
 				columns: this.createColumns()
 			});
@@ -65,13 +68,29 @@ class NamespacePage extends Component {
 		const { t } = this.props;
 		const namespaces = this.props.admin.namespaces;
 		let maxOwners = 0;
+		let minTime = PINF;
+		let maxTime = 0;
 		for ( let i = 0; i < namespaces.length; i++ ) {
 			const owners = namespaces[ i ].owners;
 			const nOwners = owners.length;
 			if ( nOwners && nOwners > maxOwners ) {
 				maxOwners = nOwners;
 			}
+			if ( namespaces[ i ].createdAt > maxTime ) {
+				maxTime = namespaces[ i ].createdAt;
+			}
+			if ( namespaces[ i ].updatedAt > maxTime ) {
+				maxTime = namespaces[ i ].updatedAt;
+			}
+			if ( namespaces[ i ].createdAt < minTime ) {
+				minTime = namespaces[ i ].createdAt;
+			}
+			if ( namespaces[ i ].updatedAt < minTime ) {
+				minTime = namespaces[ i ].updatedAt;
+			}
 		}
+		maxTime = moment( maxTime );
+		minTime = moment( minTime );
 		return [
 			{
 				Header: t('common:title'),
@@ -100,24 +119,18 @@ class NamespacePage extends Component {
 				minValue: 1,
 				maxValue: maxOwners
 			}),
-			{
+			createDateColumn({
 				Header: t('last-updated'),
 				accessor: 'updatedAt',
-				Cell: ( row ) => {
-					return new Date( row.value ).toLocaleString();
-				},
-				style: { marginTop: '8px', color: 'darkslategrey' },
-				maxWidth: 150
-			},
-			{
+				startDate: minTime,
+				endDate: maxTime
+			}),
+			createDateColumn({
 				Header: t('created-at'),
 				accessor: 'createdAt',
-				Cell: ( row ) => {
-					return new Date( row.value ).toLocaleString();
-				},
-				style: { marginTop: '8px', color: 'darkslategrey' },
-				maxWidth: 150
-			},
+				startDate: minTime,
+				endDate: maxTime
+			}),
 			{
 				Header: t('common:actions'),
 				Cell: ( row ) => {

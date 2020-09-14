@@ -64,10 +64,17 @@ export default function admin( state = initialState, action ) {
 			users
 		});
 	}
-	case types.GET_ALL_COHORTS:
-		return Object.assign({}, state, {
-			cohorts: action.payload.cohorts
+	case types.GET_ALL_COHORTS: {
+		let cohorts = action.payload.cohorts;
+		cohorts = cohorts.map( x => {
+			x.startDate = new Date( x.startDate );
+			x.endDate = new Date( x.endDate );
+			return x;
 		});
+		return Object.assign({}, state, {
+			cohorts
+		});
+	}
 	case types.GET_ALL_FILES:
 		return Object.assign({}, state, {
 			files: action.payload.files
@@ -79,14 +86,28 @@ export default function admin( state = initialState, action ) {
 			files
 		});
 	}
-	case types.GET_ALL_LESSONS:
-		return Object.assign({}, state, {
-			lessons: action.payload.lessons
+	case types.GET_ALL_LESSONS: {
+		let lessons = action.payload.lessons;
+		lessons = lessons.map( x => {
+			x.createdAt = new Date( x.createdAt );
+			x.updatedAt = new Date( x.updatedAt );
+			return x;
 		});
-	case types.GET_ALL_NAMESPACES:
 		return Object.assign({}, state, {
-			namespaces: action.payload.namespaces
+			lessons
 		});
+	}
+	case types.GET_ALL_NAMESPACES: {
+		let namespaces = action.payload.namespaces;
+		namespaces = namespaces.map( x => {
+			x.createdAt = new Date( x.createdAt );
+			x.updatedAt = new Date( x.updatedAt );
+			return x;
+		});
+		return Object.assign({}, state, {
+			namespaces
+		});
+	}
 	case types.GET_EVENTS: {
 		return Object.assign({}, state, {
 			events: action.payload.events

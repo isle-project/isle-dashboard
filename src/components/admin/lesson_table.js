@@ -22,12 +22,15 @@ import PropTypes from 'prop-types';
 import logger from 'debug';
 import { withTranslation } from 'react-i18next';
 import ReactTable from 'react-table';
+import moment from 'moment';
 import Button from 'react-bootstrap/Button';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
 import Popover from 'react-bootstrap/Popover';
 import capitalize from '@stdlib/string/capitalize';
+import PINF from '@stdlib/constants/math/float64-pinf';
 import createBooleanColumn from './create_boolean_column.js';
+import createDateColumn from './create_date_column.js';
 import ConfirmModal from 'components/confirm-modal';
 import server from 'constants/server';
 import textFilter from './text_filter.js';
@@ -44,11 +47,11 @@ const debug = logger( 'isle-dashboard:admin' );
 class LessonTable extends Component {
 	constructor( props ) {
 		super( props );
-		this.columns = this.createColumns();
 
 		this.state = {
 			selectedLesson: null,
-			showDeleteModal: false
+			showDeleteModal: false,
+			columns: this.createColumns()
 		};
 	}
 
@@ -56,8 +59,35 @@ class LessonTable extends Component {
 		this.props.getAllLessons();
 	}
 
+	componentDidUpdate( prevProps ) {
+		if ( prevProps.admin.lessons !== this.props.admin.lessons ) {
+			this.setState({
+				columns: this.createColumns()
+			});
+		}
+	}
+
 	createColumns = () => {
 		const { t } = this.props;
+		const lessons = this.props.admin.lessons;
+		let minTime = PINF;
+		let maxTime = 0;
+		for ( let i = 0; i < lessons.length; i++ ) {
+			if ( lessons[ i ].createdAt > maxTime ) {
+				maxTime = lessons[ i ].createdAt;
+			}
+			if ( lessons[ i ].updatedAt > maxTime ) {
+				maxTime = lessons[ i ].updatedAt;
+			}
+			if ( lessons[ i ].createdAt < minTime ) {
+				minTime = lessons[ i ].createdAt;
+			}
+			if ( lessons[ i ].updatedAt < minTime ) {
+				minTime = lessons[ i ].updatedAt;
+			}
+		}
+		maxTime = moment( maxTime );
+		minTime = moment( minTime );
 		return [
 			{
 				Header: t('common:title'),
@@ -102,24 +132,18 @@ class LessonTable extends Component {
 				trueLabel: t('lesson:public'),
 				falseLabel: t('lesson:private')
 			}),
-			{
+			createDateColumn({
 				Header: t('last-updated'),
 				accessor: 'updatedAt',
-				Cell: ( row ) => {
-					return new Date( row.value ).toLocaleString();
-				},
-				style: { marginTop: '8px', color: 'darkslategrey' },
-				maxWidth: 150
-			},
-			{
+				startDate: minTime,
+				endDate: maxTime
+			}),
+			createDateColumn({
 				Header: t('created-at'),
 				accessor: 'createdAt',
-				Cell: ( row ) => {
-					return new Date( row.value ).toLocaleString();
-				},
-				style: { marginTop: '8px', color: 'darkslategrey' },
-				maxWidth: 150
-			},
+				startDate: minTime,
+				endDate: maxTime
+			}),
 			{
 				Header: t( 'common:metadata' ),
 				accessor: 'metadata',
@@ -199,7 +223,7 @@ class LessonTable extends Component {
 				<ReactTable
 					filterable
 					data={this.props.admin.lessons}
-					columns={this.columns}
+					columns={this.state.columns}
 					ref={(r) => {
 						this.reactTable = r;
 					}}
