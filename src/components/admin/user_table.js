@@ -26,9 +26,11 @@ import FormControl from 'react-bootstrap/FormControl';
 import Button from 'react-bootstrap/Button';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
+import round from '@stdlib/math/base/special/round';
 import ConfirmModal from 'components/confirm-modal';
 import server from 'constants/server';
 import createBooleanColumn from './create_boolean_column.js';
+import createNumericColumn from './create_numeric_column.js';
 import EditModal from './user_edit_modal.js';
 import textFilter from './text_filter.js';
 import formatTime from 'utils/format_time.js';
@@ -45,19 +47,27 @@ const debug = logger( 'isle-dashboard:admin' );
 class UserPage extends Component {
 	constructor( props ) {
 		super( props );
-		this.columns = this.createColumns();
 
 		this.state = {
 			selectedUser: null,
 			showDeleteModal: false,
 			showImpersonateModal: false,
 			password: '',
-			showEditModal: false
+			showEditModal: false,
+			columns: this.createColumns()
 		};
 	}
 
 	componentDidMount() {
 		this.props.getUsers();
+	}
+
+	componentDidUpdate( prevProps ) {
+		if ( prevProps.admin.users !== this.props.admin.users ) {
+			this.setState({
+				columns: this.createColumns()
+			});
+		}
 	}
 
 	toggleImpersonateModal = () => {
@@ -151,6 +161,21 @@ class UserPage extends Component {
 
 	createColumns = () => {
 		const { t } = this.props;
+		const users = this.props.admin.users;
+		let maxChatMessages = 0;
+		let maxActions = 0;
+		let maxSpentTime = 0;
+		for ( let i = 0; i < users.length; i++ ) {
+			if ( users[ i ].chatMessages > maxChatMessages ) {
+				maxChatMessages = users[ i ].chatMessages;
+			}
+			if ( users[ i ].nActions > maxActions ) {
+				maxActions = users[ i ].nActions;
+			}
+			if ( users[ i ].spentTime > maxSpentTime ) {
+				maxSpentTime = users[ i ].spentTime;
+			}
+		}
 		return [
 		{
 				Header: 'Pic',
@@ -208,27 +233,31 @@ class UserPage extends Component {
 				falseLabel: t('not-verified'),
 				maxWidth: 90
 			}),
-			{
+			createNumericColumn({
 				Header: t('common:chat-messages'),
 				accessor: 'chatMessages',
 				style: { marginTop: '8px', color: 'darkslategrey' },
-				maxWidth: 120
-			},
-			{
+				maxWidth: 120,
+				maxValue: maxChatMessages
+			}),
+			createNumericColumn({
 				Header: t('common:time-spent'),
 				accessor: 'spentTime',
 				Cell: ( row ) => {
 					return formatTime( row.value, { minutes: true, hours: true });
 				},
 				style: { marginTop: '8px', color: 'darkslategrey' },
-				maxWidth: 100
-			},
-			{
+				maxWidth: 100,
+				maxValue: maxSpentTime,
+				formatLabel: x => `${round(x / ( 1000 * 60 * 60 ))}h`
+			}),
+			createNumericColumn({
 				Header: t('common:number-of-actions'),
 				accessor: 'nActions',
 				style: { marginTop: '8px', color: 'darkslategrey' },
-				maxWidth: 100
-			},
+				maxWidth: 100,
+				maxValue: maxActions
+			}),
 			{
 				Header: t('last-updated'),
 				accessor: 'updatedAt',
@@ -306,7 +335,7 @@ class UserPage extends Component {
 				<ReactTable
 					filterable
 					data={this.props.admin.users}
-					columns={this.columns}
+					columns={this.state.columns}
 					ref={(r) => {
 						this.reactTable = r;
 					}}

@@ -28,6 +28,7 @@ import Tooltip from 'react-bootstrap/Tooltip';
 import ConfirmModal from 'components/confirm-modal';
 import textFilter from './text_filter.js';
 import createUsersColumn from './create_users_column.js';
+import createNumericColumn from './create_numeric_column.js';
 import 'react-table/react-table.css';
 
 
@@ -41,10 +42,10 @@ const debug = logger( 'isle-dashboard:admin' );
 class NamespacePage extends Component {
 	constructor( props ) {
 		super( props );
-		this.columns = this.createColumns();
 		this.state = {
 			selectedCourse: null,
-			showDeleteModal: false
+			showDeleteModal: false,
+			columns: this.createColumns()
 		};
 	}
 
@@ -52,8 +53,25 @@ class NamespacePage extends Component {
 		this.props.getAllNamespaces();
 	}
 
+	componentDidUpdate( prevProps ) {
+		if ( prevProps.admin.namepaces !== this.props.admin.namepaces ) {
+			this.setState({
+				columns: this.createColumns()
+			});
+		}
+	}
+
 	createColumns = () => {
 		const { t } = this.props;
+		const namespaces = this.props.admin.namespaces;
+		let maxOwners = 0;
+		for ( let i = 0; i < namespaces.length; i++ ) {
+			const owners = namespaces[ i ].owners;
+			const nOwners = owners.length;
+			if ( nOwners && nOwners > maxOwners ) {
+				maxOwners = nOwners;
+			}
+		}
 		return [
 			{
 				Header: t('common:title'),
@@ -74,11 +92,14 @@ class NamespacePage extends Component {
 				Header: t( 'common:owners' ),
 				accessor: 'owners'
 			}),
-			{
+			createNumericColumn({
 				Header: `# ${t( 'common:owners' )}`,
 				accessor: 'owners.length',
-				maxWidth: 120
-			},
+				maxWidth: 120,
+				style: { marginTop: '2px', color: 'darkslategrey' },
+				minValue: 1,
+				maxValue: maxOwners
+			}),
 			{
 				Header: t('last-updated'),
 				accessor: 'updatedAt',
@@ -148,7 +169,7 @@ class NamespacePage extends Component {
 				<ReactTable
 					filterable
 					data={this.props.admin.namespaces}
-					columns={this.columns}
+					columns={this.state.columns}
 					ref={(r) => {
 						this.reactTable = r;
 					}}
