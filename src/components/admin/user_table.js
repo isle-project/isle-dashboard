@@ -191,25 +191,28 @@ class UserPage extends Component {
 				Header: t( 'instructor' ),
 				accessor: 'writeAccess',
 				trueLabel: t('instructor'),
-				falseLabel: t('no-instructor')
+				falseLabel: t('no-instructor'),
+				maxWidth: 100
 			}),
 			createBooleanColumn({
 				Header: t( 'admin' ),
 				accessor: 'administrator',
 				trueLabel: t('admin'),
-				falseLabel: t('no-admin')
+				falseLabel: t('no-admin'),
+				maxWidth: 100
 			}),
 			createBooleanColumn({
 				Header: t( 'email-verified' ),
 				accessor: 'verifiedEmail',
 				trueLabel: t('verified'),
-				falseLabel: t('not-verified')
+				falseLabel: t('not-verified'),
+				maxWidth: 90
 			}),
 			{
 				Header: t('common:chat-messages'),
 				accessor: 'chatMessages',
 				style: { marginTop: '8px', color: 'darkslategrey' },
-				maxWidth: 150
+				maxWidth: 120
 			},
 			{
 				Header: t('common:time-spent'),
@@ -218,13 +221,13 @@ class UserPage extends Component {
 					return formatTime( row.value, { minutes: true, hours: true });
 				},
 				style: { marginTop: '8px', color: 'darkslategrey' },
-				maxWidth: 150
+				maxWidth: 100
 			},
 			{
 				Header: t('common:number-of-actions'),
 				accessor: 'nActions',
 				style: { marginTop: '8px', color: 'darkslategrey' },
-				maxWidth: 150
+				maxWidth: 100
 			},
 			{
 				Header: t('last-updated'),

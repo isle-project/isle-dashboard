@@ -22,7 +22,7 @@ import React from 'react';
 
 // MAIN //
 
-function createBooleanColumn({ Header, accessor, trueLabel, falseLabel, printLabels = false }) {
+function createBooleanColumn({ Header, accessor, trueLabel, falseLabel, printLabels = false, maxWidth = 150 }) {
 	let Cell;
 	let style;
 	if ( printLabels ) {
@@ -82,7 +82,7 @@ function createBooleanColumn({ Header, accessor, trueLabel, falseLabel, printLab
 				</select>
 			);
 		},
-		maxWidth: 150
+		maxWidth: maxWidth
 	};
 }
 
