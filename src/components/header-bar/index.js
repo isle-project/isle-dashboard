@@ -25,10 +25,7 @@ import Button from 'react-bootstrap/Button';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 import Dropdown from 'react-bootstrap/Dropdown';
-import FormGroup from 'react-bootstrap/FormGroup';
-import FormControl from 'react-bootstrap/FormControl';
 import Image from 'react-bootstrap/Image';
-import InputGroup from 'react-bootstrap/InputGroup';
 import Overlay from 'react-bootstrap/Overlay';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Popover from 'react-bootstrap/Popover';
@@ -38,6 +35,7 @@ import Tooltip from 'react-bootstrap/Tooltip';
 import isObjectArray from '@stdlib/assert/is-object-array';
 import isObject from '@stdlib/assert/is-object';
 import contains from '@stdlib/assert/contains';
+import SearchBar from 'components/searchbar';
 import PropTypes from 'prop-types';
 import debounce from 'lodash.debounce';
 import icon from './profile_icon.png';
@@ -456,24 +454,13 @@ class HeaderBar extends Component {
 		) {
 			return null;
 		}
-		const { t } = this.props;
-		return ( <FormGroup style={{ width: '14vw', minWidth: '120px', float: 'left', marginBottom: '4px', marginRight: '5px' }}>
-			<InputGroup>
-				<FormControl
-					className="header-bar-search"
-					type="text"
-					placeholder={t('search-placeholder')}
-					value={this.state.searchPhrase || ''}
-					onChange={this.handleTextChange}
-					aria-label={t('search-field')}
-				/>
-					<InputGroup.Append>
-						<Button aria-label={t('search-field-icon')} disabled variant="secondary" style={{ cursor: 'auto' }}>
-							<i className="fa fa-search"></i>
-						</Button>
-					</InputGroup.Append>
-			</InputGroup>
-		</FormGroup> );
+		return (
+			<SearchBar
+				onChange={this.handleTextChange}
+				value={this.state.searchPhrase || ''}
+				placeholder={this.props.t('search-placeholder')}
+			/>
+		);
 	}
 
 	renderHelp() {
