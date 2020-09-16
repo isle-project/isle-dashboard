@@ -26,13 +26,12 @@ import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
 import copyToClipboard from 'clipboard-copy';
 import roundn from '@stdlib/math/base/special/roundn';
-import contains from '@stdlib/assert/contains';
-import lowercase from '@stdlib/string/lowercase';
 import trim from '@stdlib/string/trim';
 import ConfirmModal from 'components/confirm-modal';
 import server from 'constants/server';
 import FILE_TYPE_ICONS from 'constants/file_type_icons.js';
 import createNumericColumn from './create_numeric_column';
+import createTextColumn from './create_text_column.js';
 import 'react-table/react-table.css';
 import 'css/table.css';
 
@@ -83,14 +82,11 @@ class FilePage extends Component {
 			}
 		}
 		return [
-			{
+			createTextColumn({
 				Header: t('namespace_data:filename'),
 				accessor: 'title',
-				minWidth: 250,
-				filterMethod: ( filter, row ) => {
-					return contains( lowercase( row[ filter.id ] ), lowercase( filter.value ) );
-				}
-			},
+				minWidth: 250
+			}),
 			{
 				Header: t('common:open'),
 				accessor: 'filename',
@@ -137,15 +133,12 @@ class FilePage extends Component {
 				sortable: false,
 				width: 45
 			},
-			{
+			createTextColumn({
 				Header: t('common:course'),
 				accessor: 'namespace.title',
-				maxWidth: 160,
-				filterMethod: ( filter, row ) => {
-					return row[ filter.id ].title.startsWith( filter.value );
-				}
-			},
-			{
+				maxWidth: 160
+			}),
+			createTextColumn({
 				Header: t('common:lesson'),
 				accessor: 'lesson.title',
 				maxWidth: 160,
@@ -163,12 +156,9 @@ class FilePage extends Component {
 							</div>
 						</OverlayTrigger>
 					);
-				},
-				filterMethod: ( filter, row ) => {
-					return row[ filter.id ].title.startsWith( filter.value );
 				}
-			},
-			{
+			}),
+			createTextColumn({
 				Header: t('namespace_data:first-name'),
 				id: 'first_name',
 				accessor: d => {
@@ -180,12 +170,9 @@ class FilePage extends Component {
 					return parts[ 0 ];
 				},
 				maxWidth: 75,
-				style: { color: 'darkslategrey' },
-				filterMethod: ( filter, row ) => {
-					return contains( lowercase( row[ filter.id ] ), lowercase( filter.value ) );
-				}
-			},
-			{
+				style: { color: 'darkslategrey' }
+			}),
+			createTextColumn({
 				Header: t('namespace_data:last-name'),
 				id: 'last_name',
 				accessor: d => {
@@ -196,20 +183,14 @@ class FilePage extends Component {
 					return '';
 				},
 				maxWidth: 75,
-				style: { color: 'darkslategrey' },
-				filterMethod: ( filter, row ) => {
-					return contains( lowercase( row[ filter.id ] ), lowercase( filter.value ) );
-				}
-			},
-			{
+				style: { color: 'darkslategrey' }
+			}),
+			createTextColumn({
 				Header: t('common:email'),
 				accessor: 'user.email',
-				maxWidth: 160,
-				filterMethod: ( filter, row ) => {
-					return contains( lowercase( row[ filter.id ] ), lowercase( filter.value ) );
-				}
-			},
-			{
+				maxWidth: 160
+			}),
+			createTextColumn({
 				Header: t('namespace_data:type'),
 				accessor: 'type',
 				Cell: row => {
@@ -227,11 +208,8 @@ class FilePage extends Component {
 					);
 				},
 				maxWidth: 50,
-				filterMethod: ( filter, row ) => {
-					return contains( row[ filter.id ], filter.value );
-				},
 				style: { fontSize: '1.5em', padding: 4, textAlign: 'center' }
-			},
+			}),
 			createNumericColumn({
 				Header: t('namespace_data:size'),
 				accessor: 'size',

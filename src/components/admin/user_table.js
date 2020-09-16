@@ -342,7 +342,10 @@ class UserPage extends Component {
 							</Button>
 						</OverlayTrigger>
 					</div> );
-				}
+				},
+				resizable: false,
+				filterable: false,
+				sortable: false
 			}
 		];
 	}

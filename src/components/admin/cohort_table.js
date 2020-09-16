@@ -30,7 +30,7 @@ import createBooleanColumn from './create_boolean_column.js';
 import ConfirmModal from 'components/confirm-modal';
 import createNumericColumn from './create_numeric_column.js';
 import createDateColumn from './create_date_column.js';
-import textFilter from './text_filter.js';
+import createTextColumn from './create_text_column.js';
 import 'react-table/react-table.css';
 
 
@@ -87,29 +87,27 @@ class CohortTable extends Component {
 		maxTime = moment( maxTime );
 		minTime = moment( minTime );
 		return [
-			{
+			createTextColumn({
 				Header: t('common:title'),
 				id: 'title',
 				accessor: 'title',
 				maxWidth: 200,
-				style: { marginTop: '8px', color: 'darkslategrey' },
-				filterMethod: textFilter
-			},
-			{
+				style: { marginTop: '8px', color: 'darkslategrey' }
+			}),
+			createTextColumn({
 				Header: t('common:course'),
 				id: 'namespace',
 				accessor: 'namespace.title',
 				maxWidth: 200,
-				style: { marginTop: '8px', color: 'darkslategrey' },
-				filterMethod: textFilter
-			},
-			{
+				style: { marginTop: '8px', color: 'darkslategrey' }
+			}),
+			createTextColumn({
 				Header: t('namespace:email-filter'),
 				id: 'emailFilter',
 				accessor: 'emailFilter',
 				maxWidth: 200,
 				style: { marginTop: '8px', color: 'darkslategrey' }
-			},
+			}),
 			createBooleanColumn({
 				Header: t('enrollment'),
 				accessor: 'private',
@@ -152,7 +150,10 @@ class CohortTable extends Component {
 							</Button>
 						</OverlayTrigger>
 					</div> );
-				}
+				},
+				resizable: false,
+				filterable: false,
+				sortable: false
 			}
 		];
 	}
