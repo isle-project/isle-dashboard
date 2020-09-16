@@ -17,7 +17,7 @@
 
 // MODULES //
 
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import logger from 'debug';
 import { withTranslation } from 'react-i18next';
@@ -32,6 +32,9 @@ import round from '@stdlib/math/base/special/round';
 import objectKeys from '@stdlib/utils/keys';
 import pluck from '@stdlib/utils/pluck';
 import capitalize from '@stdlib/string/capitalize';
+import uppercase from '@stdlib/string/uppercase';
+import SearchBar from 'components/searchbar';
+import server from 'constants/server';
 import COLORS from 'constants/colors';
 
 
@@ -66,7 +69,8 @@ class Overview extends Component {
 				events: false,
 				sessionData: false,
 				revision: 0
-			}
+			},
+			filteredActionTypes: props.statistics.actionTypes
 		};
 	}
 
@@ -95,6 +99,14 @@ class Overview extends Component {
 			}
 		} else {
 			this.props.getHistoricalOverviewStats();
+		}
+	}
+
+	componentDidUpdate( prevProps ) {
+		if ( this.props.statistics.actionTypes !== prevProps.statistics.actionTypes ) {
+			this.setState({
+				filteredActionTypes: this.props.statistics.actionTypes
+			});
 		}
 	}
 
@@ -295,36 +307,69 @@ class Overview extends Component {
 		);
 	}
 
+	handleFilterChange = ( event ) => {
+		const str = uppercase( event.target.value );
+		const filtered = [];
+		for ( let i = 0; i < this.props.statistics.actionTypes.length; i++ ) {
+			const actionType = this.props.statistics.actionTypes[ i ];
+			if ( actionType ) {
+				const type = actionType._id.type || '';
+				if ( type.includes( str ) ) {
+					filtered.push( actionType );
+				}
+			}
+		}
+		this.setState({
+			filteredActionTypes: filtered
+		});
+	}
+
 	renderActionTypes() {
-		const { actionTypes } = this.props.statistics;
+		const actionTypes = this.state.filteredActionTypes;
 		if ( !actionTypes ) {
 			return null;
 		}
 		return (
-			<div className="action-types-table-container">
-				<Table striped hover className="action-types-table" size="sm" >
-					<thead>
-						<tr>
-							<th>{this.props.t('common:visualize')}</th>
-							<th>{this.props.t('common:type')}</th>
-							<th>{this.props.t('common:count')}</th>
-						</tr>
-					</thead>
-					<tbody>
-						{actionTypes.map( ( x, i ) => {
-							return (
-								<tr key={i} >
-									<td>
-										{this.renderPlotButton( x._id.type, 'right' )}
-									</td>
-									<td>{x._id.type}</td>
-									<td>{x.count}</td>
-								</tr>
-							);
-						})}
-					</tbody>
-				</Table>
-			</div>
+			<Fragment>
+				<h2>
+					{this.props.t('common:actions')}
+					<SearchBar
+						style={{
+							position: 'absolute',
+							top: 0,
+							right: 8,
+							width: 140,
+							fontSize: '1.2rem'
+						}}
+						placeholder="Search..."
+						onChange={this.handleFilterChange}
+					/>
+				</h2>
+				<div className="action-types-table-container">
+					<Table striped hover className="action-types-table" size="sm" >
+						<thead>
+							<tr>
+								<th>{this.props.t('common:visualize')}</th>
+								<th>{this.props.t('common:type')}</th>
+								<th>{this.props.t('common:count')}</th>
+							</tr>
+						</thead>
+						<tbody>
+							{actionTypes.map( ( x, i ) => {
+								return (
+									<tr key={i} >
+										<td>
+											{this.renderPlotButton( x._id.type, 'right' )}
+										</td>
+										<td>{x._id.type}</td>
+										<td>{x.count}</td>
+									</tr>
+								);
+							})}
+						</tbody>
+					</Table>
+				</div>
+			</Fragment>
 		);
 	}
 
@@ -361,7 +406,7 @@ class Overview extends Component {
 			<Container className="admin-overview-container" >
 				<Row className="first-row" >
 					<Col className="column-border" sm={4} md={3} >
-						<h2>{this.props.t('overall')}</h2>
+						<h2>{this.props.t('overall')}<span className="overview-server-name">{server}</span></h2>
 						<Table striped hover className="overview-table" >
 							<thead>
 								<tr>
@@ -464,7 +509,6 @@ class Overview extends Component {
 						{this.renderTimeSeries()}
 					</Col>
 					<Col sm={12} md={3} >
-						<h2>{this.props.t('action-types')}</h2>
 						{this.renderActionTypes()}
 					</Col>
 				</Row>
