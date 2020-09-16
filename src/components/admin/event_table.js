@@ -29,7 +29,7 @@ import Tooltip from 'react-bootstrap/Tooltip';
 import server from 'constants/server';
 import ConfirmModal from 'components/confirm-modal';
 import createBooleanColumn from './create_boolean_column.js';
-import textFilter from './text_filter.js';
+import createTextColumn from './create_text_column.js';
 import 'react-table/react-table.css';
 
 
@@ -58,14 +58,13 @@ class EventTable extends Component {
 	createColumns = () => {
 		const { t } = this.props;
 		return [
-			{
+			createTextColumn({
 				Header: t('common:type'),
 				id: 'type',
 				accessor: 'type',
 				maxWidth: 200,
-				style: { marginTop: '8px', color: 'darkslategrey' },
-				filterMethod: textFilter
-			},
+				style: { marginTop: '8px', color: 'darkslategrey' }
+			}),
 			{
 				Header: t( 'common:time' ),
 				accessor: 'time',
@@ -120,20 +119,16 @@ class EventTable extends Component {
 				resizable: false,
 				sortable: false
 			},
-			{
+			createTextColumn({
 				Header: t('common:name'),
 				accessor: 'user.name',
-				style: { marginTop: '8px', color: 'darkslategrey' },
-				maxWidth: 150,
-				filterMethod: textFilter
-			},
-			{
+				style: { marginTop: '8px', color: 'darkslategrey' }
+			}),
+			createTextColumn({
 				Header: t('common:email'),
 				accessor: 'user.email',
-				style: { marginTop: '8px', color: 'darkslategrey' },
-				maxWidth: 150,
-				filterMethod: textFilter
-			},
+				style: { marginTop: '8px', color: 'darkslategrey' }
+			}),
 			{
 				Header: t('common:actions'),
 				Cell: ( row ) => {
@@ -149,7 +144,10 @@ class EventTable extends Component {
 							</Button>
 						</OverlayTrigger>
 					</div> );
-				}
+				},
+				resizable: false,
+				filterable: false,
+				sortable: false
 			}
 		];
 	}

@@ -7,7 +7,8 @@ import lowercase from '@stdlib/string/lowercase';
 // MAIN //
 
 const textFilter = ( filter, row ) => {
-	return contains( lowercase( row[ filter.id ] ), lowercase( filter.value ) );
+	const str = row[ filter.id ] || '';
+	return contains( lowercase( str ), lowercase( filter.value ) );
 };
 
 
