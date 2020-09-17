@@ -21,6 +21,7 @@ import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import logger from 'debug';
 import { withTranslation } from 'react-i18next';
+import Jumbotron from 'react-bootstrap/Jumbotron';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -51,6 +52,15 @@ const COLOR_MAPPING = {
 	events: COLORS[ 5 ],
 	sessionData: COLORS[ 7 ]
 };
+const DISPLAY_IN_PLOT = {
+	users: false,
+	namespaces: false,
+	lessons: false,
+	cohorts: false,
+	files: false,
+	events: false,
+	sessionData: false
+};
 
 
 // MAIN //
@@ -61,16 +71,12 @@ class Overview extends Component {
 
 		this.state = {
 			displayInPlot: {
-				users: true,
-				namespaces: false,
-				lessons: false,
-				cohorts: false,
-				files: false,
-				events: false,
-				sessionData: false,
-				revision: 0
+				...DISPLAY_IN_PLOT,
+				users: true
 			},
-			filteredActionTypes: props.statistics.actionTypes
+			revision: 0,
+			filteredActionTypes: props.statistics.actionTypes,
+			historicalActionTypes: null
 		};
 	}
 
@@ -91,11 +97,12 @@ class Overview extends Component {
 				currentMonth > month ||
 				currentDayOfMonth > dayOfMonth
 			) {
-				debug( 'Request historical data from server...' );
+				console.log( 'Request historical data from server...' );
 				this.props.getHistoricalOverviewStats();
 			}
 			else {
-				debug( 'Already have latest data...' );
+				console.log( 'Already have latest data...' );
+				this.extractHistoricalActionTypes();
 			}
 		} else {
 			this.props.getHistoricalOverviewStats();
@@ -108,6 +115,30 @@ class Overview extends Component {
 				filteredActionTypes: this.props.statistics.actionTypes
 			});
 		}
+		if ( this.props.historicalStatistics.length !== prevProps.historicalStatistics.length ) {
+			this.extractHistoricalActionTypes();
+		}
+	}
+
+	extractHistoricalActionTypes() {
+		const actionTypes = pluck( this.props.historicalStatistics, 'actionTypes' );
+		const out = {};
+		for ( let i = 0; i < actionTypes.length; i++ ) {
+			if ( !actionTypes[ i ] ) {
+				continue;
+			}
+			for ( let j = 0; j < actionTypes[ i ].length; j++ ) {
+				const action = actionTypes[ i ][ j ];
+				const name = action._id.type;
+				if ( !out[ name ] ) {
+					out[ name ] = [];
+				}
+				out[ name ][ i ] = action.count;
+			}
+		}
+		this.setState({
+			historicalActionTypes: out
+		});
 	}
 
 	renderTimeSeries() {
@@ -169,8 +200,16 @@ class Overview extends Component {
 			if ( this.state.displayInPlot[ key ] === true ) {
 				title += ( title === '' ) ? '' : ', ';
 				title += this.props.t('common:'+key );
-				const color = COLOR_MAPPING[ key ];
-				const y = pluck( data, `n${capitalize( key )}` );
+				let color;
+				let y;
+				if ( COLOR_MAPPING[ key ] ) {
+					color = COLOR_MAPPING[ key ];
+					y = pluck( data, `n${capitalize( key )}` );
+				} else {
+					// Case: displaying an action type
+					color = COLORS[ ( i % COLORS.length ) + 7 ];
+					y = this.state.historicalActionTypes[ key ];
+				}
 				const trace = {
 					type: 'scatter',
 					mode: 'lines',
@@ -213,7 +252,14 @@ class Overview extends Component {
 		layout.xaxis.domain = domain;
 		layout.title = `${this.props.t('time-series-of')}${title}`;
 		if ( displayedData.length === 0 ) {
-			return null;
+			return ( <Jumbotron
+				style={{
+					width: '100%',
+					height: '73.7%'
+				}}
+			>
+				<h3 style={{ textAlign: 'center', marginTop: '12%' }}>Select a variable to be displayed...</h3>
+			</Jumbotron> );
 		}
 		return (
 			<Plotly
@@ -507,6 +553,19 @@ class Overview extends Component {
 					<Col className="column-border" sm={8} md={6} >
 						<h2>{this.props.t('over-time')}</h2>
 						{this.renderTimeSeries()}
+						<Button
+							onClick={() => {
+								this.setState({
+									displayInPlot: {
+										...DISPLAY_IN_PLOT
+									},
+									revision: this.state.revision + 1
+								});
+							}}
+							style={{
+								marginLeft: '45%'
+							}}
+						>Reset</Button>
 					</Col>
 					<Col sm={12} md={3} >
 						{this.renderActionTypes()}
