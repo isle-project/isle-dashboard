@@ -51,7 +51,6 @@ function createTextColumn({ id, Header, Cell, accessor, maxWidth = 150, minWidth
 	if ( minWidth ) {
 		spec.minWidth = minWidth;
 	}
-	console.log( spec );
 	return spec;
 }
 
