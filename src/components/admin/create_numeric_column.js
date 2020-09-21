@@ -36,7 +36,7 @@ const defaultFormatLabel = ( value ) => roundn( value, -2 );
 
 // MAIN //
 
-function createNumericColumn({ Header, accessor, Cell, minValue = 0, maxValue, maxWidth = 150, filterMethod, formatLabel }) {
+function createNumericColumn({ Header, accessor, Cell, minValue = 0, maxValue = 1, maxWidth = 150, filterMethod, formatLabel }) {
 	return {
 		Header,
 		accessor,

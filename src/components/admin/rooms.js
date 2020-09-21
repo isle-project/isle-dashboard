@@ -111,7 +111,7 @@ class Rooms extends Component {
 								</Popover.Content>
 							</Popover>;
 							out[ i ] = (
-								<OverlayTrigger trigger="click" placement="right" overlay={popover}>
+								<OverlayTrigger keu={`overlay-${i}`} trigger="click" placement="right" overlay={popover}>
 									<span style={{
 										cursor: 'pointer',
 										backgroundColor: COLORS[ i % COLORS.length ],
@@ -152,7 +152,7 @@ class Rooms extends Component {
 								</Popover.Content>
 							</Popover>;
 							out[ i ] = (
-								<OverlayTrigger trigger="click" placement="right" overlay={popover}>
+								<OverlayTrigger key={`overlay-${i}`} trigger="click" placement="right" overlay={popover}>
 									<span style={{
 										cursor: 'pointer',
 										backgroundColor: COLORS[ i % COLORS.length ],
