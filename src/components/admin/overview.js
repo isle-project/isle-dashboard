@@ -97,11 +97,11 @@ class Overview extends Component {
 				currentMonth > month ||
 				currentDayOfMonth > dayOfMonth
 			) {
-				console.log( 'Request historical data from server...' );
+				debug( 'Request historical data from server...' );
 				this.props.getHistoricalOverviewStats();
 			}
 			else {
-				console.log( 'Already have latest data...' );
+				debug( 'Already have latest data...' );
 				this.extractHistoricalActionTypes();
 			}
 		} else {
