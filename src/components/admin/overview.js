@@ -100,12 +100,12 @@ class Overview extends Component {
 				debug( 'Request historical data from server...' );
 				this.props.getHistoricalOverviewStats();
 			}
-			else {
-				debug( 'Already have latest data...' );
-				this.extractHistoricalActionTypes();
-			}
 		} else {
+			debug( 'Retrieve overview data...' );
 			this.props.getHistoricalOverviewStats();
+		}
+		if ( this.props.historicalStatistics ) {
+			this.extractHistoricalActionTypes();
 		}
 	}
 
@@ -115,12 +115,15 @@ class Overview extends Component {
 				filteredActionTypes: this.props.statistics.actionTypes
 			});
 		}
-		if ( this.props.historicalStatistics.length !== prevProps.historicalStatistics.length ) {
+		if (
+			this.props.historicalStatistics.length !== prevProps.historicalStatistics.length
+		) {
 			this.extractHistoricalActionTypes();
 		}
 	}
 
 	extractHistoricalActionTypes() {
+		debug( 'Extract and format action types for time series display...' );
 		const actionTypes = pluck( this.props.historicalStatistics, 'actionTypes' );
 		const out = {};
 		for ( let i = 0; i < actionTypes.length; i++ ) {
