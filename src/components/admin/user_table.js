@@ -27,6 +27,7 @@ import FormControl from 'react-bootstrap/FormControl';
 import Button from 'react-bootstrap/Button';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
+import Popover from 'react-bootstrap/Popover';
 import round from '@stdlib/math/base/special/round';
 import PINF from '@stdlib/constants/math/float64-pinf';
 import ConfirmModal from 'components/confirm-modal';
@@ -295,6 +296,29 @@ class UserPage extends Component {
 				startDate: minTime,
 				endDate: maxTime
 			}),
+			{
+				Header: t( 'common:data' ),
+				accessor: 'lessonData',
+				style: { marginTop: '2px', color: 'darkslategrey', fontSize: 24, textAlign: 'center', cursor: 'pointer' },
+				Cell: ( row ) => {
+					if ( row.value ) {
+						const popover = <Popover id="popover-data" style={{ maxWidth: 400, maxHeight: '80vh', overflowY: 'auto' }}>
+							<Popover.Title as="h3">Data</Popover.Title>
+							<Popover.Content style={{ backgroundColor: 'lightblue' }} >
+								<pre>{JSON.stringify( row.value, null, 2 )}
+								</pre>
+							</Popover.Content>
+						</Popover>;
+						return (
+							<OverlayTrigger trigger="click" placement="left" overlay={popover}>
+								<i className="data-icon fas fa-tablet-alt"></i>
+							</OverlayTrigger>
+						);
+					}
+					return null;
+				},
+				maxWidth: 60
+			},
 			{
 				Header: t('common:actions'),
 				Cell: ( row ) => {
