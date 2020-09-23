@@ -88,10 +88,12 @@ class Overview extends Component {
 			const year = date.getFullYear();
 			const month = date.getMonth();
 			const dayOfMonth = date.getDate();
+			debug( `Latest data from ${month}/${dayOfMonth}/${year}...` );
 			const currentDate = new Date();
 			const currentYear = currentDate.getFullYear();
 			const currentMonth = currentDate.getMonth();
 			const currentDayOfMonth = currentDate.getDate();
+			debug( `Current date is ${currentMonth}/${currentDayOfMonth}/${currentYear}` );
 			if (
 				currentYear > year ||
 				currentMonth > month ||
