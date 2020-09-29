@@ -114,24 +114,25 @@ class NamespaceData extends Component {
 
 	handleSelect = ( selectedKey ) => {
 		selectedKey = Number( selectedKey );
+		const title = this.props.namespace.title;
 		switch ( selectedKey ) {
 			case 1:
-				this.props.history.replace( '/namespace-data/announcements' );
+				this.props.history.replace( `/namespace-data/${title}/announcements` );
 				break;
 			case 2:
-				this.props.history.replace( '/namespace-data/progress' );
+				this.props.history.replace( `/namespace-data/${title}/progress` );
 				break;
 			case 3:
-				this.props.history.replace( '/namespace-data/cohorts' );
+				this.props.history.replace( `/namespace-data/${title}/cohorts` );
 				break;
 			case 4:
-				this.props.history.replace( '/namespace-data/owner-files' );
+				this.props.history.replace( `/namespace-data/${title}/owner-files` );
 				break;
 			case 5:
-				this.props.history.replace( '/namespace-data/student-files' );
+				this.props.history.replace( `/namespace-data/${title}/student-files` );
 				break;
 			case 6:
-				this.props.history.replace( '/namespace-data/actions' );
+				this.props.history.replace( `/namespace-data/${title}/actions` );
 				break;
 		}
 		if ( selectedKey === 4 ) {

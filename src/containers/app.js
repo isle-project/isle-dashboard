@@ -61,7 +61,7 @@ const ALL_LOGGEDIN_PATHS = [
 	'/create-namespace',
 	'/edit-namespace/:namespace',
 	'/edit-namespace',
-	'/namespace-data',
+	'/namespace-data/:namespace',
 	'/profile',
 	'/lessons/:namespace',
 	'/lessons',
@@ -151,11 +151,11 @@ class App extends Component {
 						component={AsyncEditNamespace}
 					/>
 					<Route
-						path="/namespace-data" exact
+						path="/namespace-data/:namespace" exact
 						component={AsyncNamespaceData}
 					/>
 					<Route
-						path="/namespace-data/:subpage"
+						path="/namespace-data/:namespace/:subpage"
 						component={AsyncNamespaceData}
 					/>
 					<Route
