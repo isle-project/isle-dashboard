@@ -103,7 +103,7 @@ class HeaderBar extends Component {
 				}
 			}
 			else {
-				// Retrieve (updated) lessons upon mounting in all cases:
+				debug( 'Retrieve (updated) lessons upon mounting in all cases...' );
 				this.props.onNamespace( namespace );
 			}
 		}
@@ -186,7 +186,7 @@ class HeaderBar extends Component {
 	}
 
 	goToCourseDataPage() {
-		this.props.history.replace( '/namespace-data' );
+		this.props.history.replace( `/namespace-data/${this.props.namespace.title}` );
 		this.setState({
 			location: this.props.t('course-data')
 		});
