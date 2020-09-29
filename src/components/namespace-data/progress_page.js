@@ -119,6 +119,20 @@ class ProgressPage extends Component {
 	}
 
 	componentDidMount() {
+		this.createDisplayedMembers();
+	}
+
+	componentDidUpdate( prevProps ) {
+		if (
+			this.props.cohorts !== prevProps.cohorts ||
+			this.props.lessons !== prevProps.lessons
+		) {
+			this.createDisplayedMembers();
+			this.columns = this.createColumns( this.props.lessons, this.props.cohorts );
+		}
+	}
+
+	createDisplayedMembers() {
 		let members = [];
 		for ( let i = 0; i < this.props.cohorts.length; i++ ) {
 			const cohortMembers = this.props.cohorts[ i ].members;
