@@ -135,16 +135,6 @@ class NamespaceData extends Component {
 				this.props.history.replace( `/namespace-data/${title}/actions` );
 				break;
 		}
-		if ( selectedKey === 4 ) {
-			this.props.getOwnerFiles({
-				namespaceName: this.props.namespace.title
-			});
-		}
-		if ( selectedKey === 5 ) {
-			this.props.getFiles({
-				namespaceName: this.props.namespace.title
-			});
-		}
 		this.setState({
 			activePage: selectedKey
 		});
@@ -159,9 +149,9 @@ class NamespaceData extends Component {
 			case 3:
 				return <CohortsPage badges={this.props.badges} cohorts={this.props.namespace.cohorts} lessons={this.props.namespace.lessons} />;
 			case 4:
-				return <FilesPage ownerFiles files={this.props.namespace.files} namespace={this.props.namespace} handleUpload={this.handleUpload} handleFileDeletion={this.handleFileDeletion} addNotification={this.props.addNotification} />;
+				return <FilesPage ownerFiles files={this.props.namespace.ownerFiles} namespace={this.props.namespace} handleUpload={this.handleUpload} handleFileDeletion={this.handleFileDeletion} addNotification={this.props.addNotification} getFiles={this.props.getOwnerFiles} />;
 			case 5:
-				return <FilesPage files={this.props.namespace.files} namespace={this.props.namespace} handleUpload={this.handleUpload} handleFileDeletion={this.handleFileDeletion} addNotification={this.props.addNotification} />;
+				return <FilesPage files={this.props.namespace.files} namespace={this.props.namespace} handleUpload={this.handleUpload} handleFileDeletion={this.handleFileDeletion} addNotification={this.props.addNotification} getFiles={this.props.getFiles} />;
 			case 6:
 				return <ActionsPage namespace={this.props.namespace} getNamespaceActions={this.props.getNamespaceActions} user={this.props.user} cohorts={this.props.namespace.cohorts} />;
 		}

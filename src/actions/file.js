@@ -40,7 +40,7 @@ async function getFilesRequest( dispatch, { namespaceName, owner = false }) {
 		})}`;
 		const res = await axios.get( url );
 		const files = res.data.files;
-		dispatch( receivedNamespaceFiles( files ) );
+		dispatch( receivedNamespaceFiles({ files, owner }) );
 	} catch ( err ) {
 		addErrorNotification( dispatch, err );
 	}
@@ -59,11 +59,12 @@ export function receivedFiles( files ) {
 	};
 }
 
-export function receivedNamespaceFiles( files ) {
+export function receivedNamespaceFiles({ files, owner }) {
 	return {
 		type: RECEIVED_NAMESPACE_FILES,
 		payload: {
-			files
+			files,
+			owner
 		}
 	};
 }

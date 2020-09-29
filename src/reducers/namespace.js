@@ -38,7 +38,8 @@ const initialState = {
 	announcements: [],
 	lessons: [],
 	cohorts: [],
-	files: []
+	files: [],
+	ownerFiles: []
 };
 
 
@@ -127,9 +128,13 @@ export default function namespace( state = initialState, action ) {
 			}
 			return file;
 		});
-		return Object.assign({}, state, {
-			files
-		});
+		const newState = {};
+		if ( action.payload.owner ) {
+			newState.ownerFiles = files;
+		} else {
+			newState.files = files;
+		}
+		return Object.assign({}, state, newState );
 	}
 	case types.EDITED_ANNOUNCEMENT: {
 		const announcements = state.announcements.slice();
