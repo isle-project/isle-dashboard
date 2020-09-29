@@ -54,6 +54,24 @@ class CohortsPage extends Component {
 		};
 	}
 
+	componentDidUpdate( prevProps ) {
+		if ( this.props.cohorts !== prevProps.cohorts ) {
+			const cohortOptions = this.props.cohorts.map( cohort => {
+				return { label: cohort.title, value: cohort.title, data: cohort };
+			});
+			let displayedMembers = [];
+			for ( let i = 0; i < this.props.cohorts.length; i++ ) {
+				displayedMembers = displayedMembers.concat( this.props.cohorts[i].members);
+			}
+			this.setState({
+				cohortOptions: cohortOptions,
+				selectedCohorts: cohortOptions,
+				displayedMembers: displayedMembers,
+				actualMember: null
+			});
+		}
+	}
+
 	handleCohortChange = ( cohorts ) => {
 		let members = [];
 		if ( cohorts ) {
