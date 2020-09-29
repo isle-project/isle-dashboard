@@ -19,6 +19,7 @@
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import logger from 'debug';
 import { withTranslation } from 'react-i18next';
 import stringify from 'csv-stringify';
 import ReactTable from 'react-table';
@@ -49,6 +50,7 @@ import './files_page.css';
 // VARIABLES //
 
 const EXPORT_COLUMNS = [ 'name', 'email', 'lesson', 'title', 'filename', 'type', 'createdAt', 'updatedAt' ];
+const debug = logger( 'isle:files-page' );
 
 
 // FUNCTIONS //
@@ -76,6 +78,13 @@ class FilesPage extends Component {
 			fileMaxSize: 0,
 			fileInputKey: 0
 		};
+	}
+
+	componentDidMount() {
+		debug( 'Component did mount...' );
+		this.props.getFiles({
+			namespaceName: this.props.namespace.title
+		});
 	}
 
 	componentDidUpdate( prevProps ) {
