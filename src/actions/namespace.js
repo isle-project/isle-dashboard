@@ -86,7 +86,7 @@ export const createNamespace = async ( dispatch, { title, description, owners, p
 	try {
 		const res = await axios.post( server+'/create_namespace', { title, description, owners });
 		if ( !res.data.successful ) {
-			return addErrorNotification( dispatch, res.data.message );
+			return addErrorNotification( dispatch, new Error( res.data.message ));
 		}
 		const namespace = res.data.namespace;
 		props.onNamespace( namespace );
