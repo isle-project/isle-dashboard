@@ -33,6 +33,7 @@ function createUsersColumn({ Header, accessor, maxWidth = 600 }) {
 		accessor,
 		style: { marginTop: '2px', color: 'darkslategrey' },
 		maxWidth,
+		filterable: false,
 		Cell: ( row ) => {
 			const arr = [];
 			for ( let i = 0; i < row.value.length; i++ ) {

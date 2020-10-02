@@ -125,8 +125,13 @@ export default function admin( state = initialState, action ) {
 		});
 	}
 	case types.GET_ROOMS: {
+		let rooms = action.payload.rooms;
+		rooms = rooms.map( x => {
+			x.startTime = new Date( x.startTime );
+			return x;
+		});
 		return Object.assign({}, state, {
-			rooms: action.payload.rooms
+			rooms
 		});
 	}
 	case types.DELETED_EVENT: {
