@@ -26,6 +26,9 @@ import isArray from '@stdlib/assert/is-array';
 import objectKeys from '@stdlib/utils/keys';
 import COLORS from 'constants/colors';
 import createUsersColumn from './create_users_column.js';
+import createDateColumn from './create_date_column.js';
+import createTextColumn from './create_text_column.js';
+import createNumericColumn from './create_numeric_column.js';
 
 
 // FUNCTIONS //
@@ -53,7 +56,7 @@ class Rooms extends Component {
 	createColumns = () => {
 		const { t } = this.props;
 		return [
-			{
+			createTextColumn({
 				Header: t('common:course'),
 				id: 'namespace',
 				maxWidth: 200,
@@ -61,8 +64,8 @@ class Rooms extends Component {
 					return d.name.substring( 0, d.name.indexOf( '/' ) );
 				},
 				style: { marginTop: '8px', color: 'darkslategrey' }
-			},
-			{
+			}),
+			createTextColumn({
 				Header: t('common:lesson'),
 				id: 'lesson',
 				maxWidth: 200,
@@ -70,29 +73,24 @@ class Rooms extends Component {
 					return d.name.substring( d.name.indexOf( '/' )+1 );
 				},
 				style: { marginTop: '8px', color: 'darkslategrey' }
-			},
-			{
+			}),
+			createDateColumn({
 				Header: t( 'common:time' ),
 				accessor: 'startTime',
-				style: { marginTop: '2px', color: 'darkslategrey' },
-				Cell: ( row ) => {
-					if ( row.value ) {
-						return new Date( row.value ).toLocaleString();
-					}
-					return null;
-				},
-				maxWidth: 150
-			},
+				style: { marginTop: '2px', color: 'darkslategrey' }
+			}),
 			createUsersColumn({
 				Header: t( 'admin:users' ),
 				accessor: 'members',
 				maxWidth: 400
 			}),
-			{
+			createNumericColumn({
 				Header: `# ${t( 'admin:users' )}`,
 				accessor: 'members.length',
+				minValue: 0,
+				maxValue: 99,
 				maxWidth: 60
-			},
+			}),
 			{
 				Header: t( 'common:groups' ),
 				accessor: 'groups',
@@ -127,7 +125,8 @@ class Rooms extends Component {
 					}
 					return null;
 				},
-				maxWidth: 120
+				maxWidth: 120,
+				filterable: false
 			},
 			{
 				Header: t( 'common:chats' ),
@@ -168,7 +167,8 @@ class Rooms extends Component {
 					}
 					return null;
 				},
-				maxWidth: 120
+				maxWidth: 120,
+				filterable: false
 			}
 		];
 	}

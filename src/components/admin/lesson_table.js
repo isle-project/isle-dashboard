@@ -145,7 +145,7 @@ class LessonTable extends Component {
 				endDate: maxTime
 			}),
 			{
-				Header: t( 'common:metadata' ),
+				Header: t( 'metadata' ),
 				accessor: 'metadata',
 				style: { marginTop: '2px', color: 'darkslategrey', fontSize: 24, textAlign: 'center', cursor: 'pointer' },
 				Cell: ( row ) => {
@@ -165,7 +165,10 @@ class LessonTable extends Component {
 					}
 					return null;
 				},
-				maxWidth: 120
+				maxWidth: 120,
+				resizable: false,
+				filterable: false,
+				sortable: false
 			},
 			{
 				Header: t('common:actions'),
