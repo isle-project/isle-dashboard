@@ -224,7 +224,7 @@ class EditModal extends Component {
 									name="password"
 									type="password"
 									value={this.state.password}
-									autoComplete="new-password"
+									autoComplete="none"
 									placeholder={t('common:choose-new-password')}
 									onChange={this.handleInputChange}
 									maxLength={30}
@@ -243,7 +243,7 @@ class EditModal extends Component {
 								name="passwordRepeat"
 								type="password"
 								value={this.state.passwordRepeat}
-								autoComplete="new-password"
+								autoComplete="none"
 								placeholder={t('repeat-new-password')}
 								onChange={this.handleInputChange}
 								maxLength={30}
