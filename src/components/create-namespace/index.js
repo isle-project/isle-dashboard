@@ -133,7 +133,7 @@ class CreateNamespace extends Component {
 					<Form style={{ padding: '20px' }}>
 						<OverlayTrigger placement="right" overlay={<Tooltip id="ownerTooltip">{t('owner-tooltip')}</Tooltip>}>
 							<FormGroup controlId="form-owners" >
-								<FormLabel htmlFor="owners-text-select" >{t('common:owners')}</FormLabel>
+								<FormLabel>{t('common:owners')}</FormLabel>
 								<TextSelect
 									id="owners-text-select"
 									onChange={this.handleOwnerChange}
