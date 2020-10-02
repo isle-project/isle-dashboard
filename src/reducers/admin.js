@@ -75,10 +75,16 @@ export default function admin( state = initialState, action ) {
 			cohorts
 		});
 	}
-	case types.GET_ALL_FILES:
-		return Object.assign({}, state, {
-			files: action.payload.files
+	case types.GET_ALL_FILES: {
+		let files = action.payload.files;
+		files = files.map( x => {
+			x.updatedAt = new Date( x.updatedAt );
+			return x;
 		});
+		return Object.assign({}, state, {
+			files
+		});
+	}
 	case types.DELETED_FILE: {
 		let files = state.files.slice();
 		files = files.filter( x => x._id !== action.payload.id );
@@ -109,8 +115,13 @@ export default function admin( state = initialState, action ) {
 		});
 	}
 	case types.GET_EVENTS: {
+		let events = action.payload.events;
+		events = events.map( x => {
+			x.time = new Date( x.time );
+			return x;
+		});
 		return Object.assign({}, state, {
-			events: action.payload.events
+			events
 		});
 	}
 	case types.GET_ROOMS: {

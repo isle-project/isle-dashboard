@@ -35,6 +35,7 @@ import server from 'constants/server';
 import createBooleanColumn from './create_boolean_column.js';
 import createDateColumn from './create_date_column.js';
 import createNumericColumn from './create_numeric_column.js';
+import createTextColumn from './create_text_column.js';
 import EditModal from './user_edit_modal.js';
 import textFilter from './text_filter.js';
 import formatTime from 'utils/format_time.js';
@@ -210,28 +211,26 @@ class UserPage extends Component {
 				sortable: false,
 				style: { color: 'darkslategrey' }
 			},
-			{
+			createTextColumn({
 				Header: t('common:name'),
-				id: 'name',
 				accessor: 'name',
 				maxWidth: 200,
-				style: { marginTop: '8px', color: 'darkslategrey' },
-				filterMethod: textFilter
-			},
-			{
+				style: { marginTop: '8px', color: 'darkslategrey' }
+			}),
+			createTextColumn({
 				Header: t('common:email'),
 				accessor: 'email',
 				maxWidth: 200,
 				style: { marginTop: '8px', color: 'darkslategrey' },
 				filterMethod: textFilter
-			},
-			{
+			}),
+			createTextColumn({
 				Header: t('common:organization'),
 				accessor: 'organization',
 				style: { marginTop: '8px', color: 'darkslategrey' },
 				maxWidth: 200,
 				filterMethod: textFilter
-			},
+			}),
 			createBooleanColumn({
 				Header: t( 'instructor' ),
 				accessor: 'writeAccess',
@@ -317,7 +316,10 @@ class UserPage extends Component {
 					}
 					return null;
 				},
-				maxWidth: 60
+				maxWidth: 60,
+				resizable: false,
+				filterable: false,
+				sortable: false
 			},
 			{
 				Header: t('common:actions'),

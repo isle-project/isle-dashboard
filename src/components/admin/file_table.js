@@ -32,6 +32,7 @@ import server from 'constants/server';
 import FILE_TYPE_ICONS from 'constants/file_type_icons.js';
 import createNumericColumn from './create_numeric_column';
 import createTextColumn from './create_text_column.js';
+import createDateColumn from './create_date_column.js';
 import 'react-table/react-table.css';
 import 'css/table.css';
 
@@ -217,17 +218,10 @@ class FilePage extends Component {
 				maxValue: fileMaxSize,
 				minValue: 0
 			}),
-			{
+			createDateColumn({
 				Header: t('common:date'),
-				accessor: 'updatedAt',
-				Cell: ( row ) => {
-					if ( row.value ) {
-						return new Date( row.value ).toLocaleDateString( 'en-US' );
-					}
-					return '';
-				},
-				maxWidth: 120
-			},
+				accessor: 'updatedAt'
+			}),
 			{
 				Header: 'Del',
 				accessor: '_id',
