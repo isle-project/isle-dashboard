@@ -162,6 +162,7 @@ class EditModal extends Component {
 										type="email"
 										value={this.state.email}
 										disabled
+										autoComplete="none"
 									/>
 								</FormGroup>
 								<OverlayTrigger placement="right" overlay={createTooltip( t('update-name') )}>
@@ -175,6 +176,7 @@ class EditModal extends Component {
 											value={this.state.name}
 											onChange={this.handleInputChange}
 											isInvalid={!validName}
+											autoComplete="none"
 										/>
 										<Form.Control.Feedback type="invalid">
 											{t('invalid-name')}
@@ -193,6 +195,7 @@ class EditModal extends Component {
 									type="text"
 									value={this.state.organization}
 									onChange={this.handleInputChange}
+									autoComplete="none"
 								/>
 							</FormGroup>
 						</OverlayTrigger>
@@ -205,7 +208,7 @@ class EditModal extends Component {
 									name="password"
 									type="password"
 									value={this.state.password}
-									autoComplete="new-password"
+									autoComplete="none"
 									placeholder={t('common:choose-new-password')}
 									onChange={this.handleInputChange}
 									maxLength={30}

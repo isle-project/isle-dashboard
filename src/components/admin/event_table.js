@@ -30,6 +30,7 @@ import server from 'constants/server';
 import ConfirmModal from 'components/confirm-modal';
 import createBooleanColumn from './create_boolean_column.js';
 import createTextColumn from './create_text_column.js';
+import createDateColumn from './create_date_column.js';
 import 'react-table/react-table.css';
 
 
@@ -65,18 +66,12 @@ class EventTable extends Component {
 				maxWidth: 200,
 				style: { marginTop: '8px', color: 'darkslategrey' }
 			}),
-			{
+			createDateColumn({
 				Header: t( 'common:time' ),
 				accessor: 'time',
 				style: { marginTop: '2px', color: 'darkslategrey' },
-				Cell: ( row ) => {
-					if ( row.value ) {
-						return new Date( row.value ).toLocaleString();
-					}
-					return null;
-				},
 				maxWidth: 150
-			},
+			}),
 			{
 				Header: t( 'common:data' ),
 				accessor: 'data',
@@ -98,7 +93,10 @@ class EventTable extends Component {
 					}
 					return null;
 				},
-				maxWidth: 120
+				maxWidth: 120,
+				resizable: false,
+				filterable: false,
+				sortable: false
 			},
 			createBooleanColumn({
 				Header: t('common:done'),
