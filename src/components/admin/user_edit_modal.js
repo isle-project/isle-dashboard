@@ -207,6 +207,7 @@ class EditModal extends Component {
 								<FormControl
 									name="password"
 									type="password"
+									data-lpignore="true"
 									value={this.state.password}
 									autoComplete="none"
 									placeholder={t('common:choose-new-password')}
