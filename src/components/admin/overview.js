@@ -39,6 +39,18 @@ import server from 'constants/server';
 import COLORS from 'constants/colors';
 
 
+// FUNCTIONS //
+
+function diff( y ) {
+	const out = [];
+	for ( let i = 1; i < y.length; i++ ) {
+		const v = y[ i ] - y[ i-1 ];
+		out.push( v );
+	}
+	return out;
+}
+
+
 // VARIABLES //
 
 const debug = logger( 'isle-dashboard:admin' );
@@ -76,7 +88,8 @@ class Overview extends Component {
 			},
 			revision: 0,
 			filteredActionTypes: props.statistics.actionTypes,
-			historicalActionTypes: null
+			historicalActionTypes: null,
+			useDifferencing: false
 		};
 	}
 
@@ -215,9 +228,12 @@ class Overview extends Component {
 					color = COLORS[ ( i % COLORS.length ) + 7 ];
 					y = this.state.historicalActionTypes[ key ];
 				}
+				if ( this.state.useDifferencing ) {
+					y = diff( y );
+				}
 				const trace = {
-					type: 'scatter',
-					mode: 'lines',
+					type: this.state.useDifferencing ? 'bar' : 'scatter',
+					mode: 'line',
 					name: this.props.t('common:'+key),
 					x: dates,
 					y: y,
@@ -225,6 +241,9 @@ class Overview extends Component {
 						color
 					}
 				};
+				if ( this.state.useDifferencing ) {
+					trace.offsetgroup = displayedData.length;
+				}
 				const len = displayedData.length;
 				if ( len > 0 ) {
 					trace.yaxis = `y${len+1}`;
@@ -255,7 +274,7 @@ class Overview extends Component {
 			}
 		}
 		layout.xaxis.domain = domain;
-		layout.title = `${this.props.t('time-series-of')}${title}`;
+		layout.title = `${!this.state.useDifferencing ? this.props.t('time-series-of') : this.props.t('daily-changes-of')}${title}`;
 		if ( displayedData.length === 0 ) {
 			return ( <Jumbotron
 				style={{
@@ -568,9 +587,19 @@ class Overview extends Component {
 								});
 							}}
 							style={{
-								marginLeft: '45%'
+								marginLeft: '35%'
 							}}
-						>Reset</Button>
+						>{this.props.t('common:reset')}</Button>
+						<Button
+							onClick={() => {
+								this.setState({
+									useDifferencing: !this.state.useDifferencing
+								});
+							}}
+							style={{
+								marginLeft: '1%'
+							}}
+						>{this.state.useDifferencing ? 'Display Time Series' : this.props.t('display-daily-changes') }</Button>
 					</Col>
 					<Col sm={12} md={3} >
 						{this.renderActionTypes()}
