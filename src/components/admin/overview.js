@@ -50,6 +50,19 @@ function diff( y ) {
 	return out;
 }
 
+function reverse( side ) {
+	switch ( side ) {
+		case 'left':
+			return 'right';
+		case 'right':
+			return 'left';
+		case 'up':
+			return 'down';
+		case 'down':
+			return 'up';
+	}
+}
+
 
 // VARIABLES //
 
@@ -372,7 +385,12 @@ class Overview extends Component {
 		return (
 			<ListGroup variant="flush" style={{ fontSize: '1em' }}>
 				<ListGroup.Item style={{ padding: '.5rem 0.8rem' }} >{t('last-hour-active-users')}: {lastHourActiveUsers}</ListGroup.Item>
-				<ListGroup.Item style={{ padding: '.5rem 0.8rem' }} >{t('daily-active-users')}: {dailyActiveUsers}</ListGroup.Item>
+				<ListGroup.Item style={{ padding: '.5rem 0.8rem' }} >
+					<span>{t('daily-active-users')}: {dailyActiveUsers}</span>
+					<span style={{ float: 'right' }}>
+						{this.renderPlotButton( 'dailyActiveUsers', 'down' )}
+					</span>
+				</ListGroup.Item>
 			</ListGroup>
 		);
 	}
@@ -454,17 +472,11 @@ class Overview extends Component {
 		};
 		if ( this.state.displayInPlot[ name ] ) {
 			return ( <Button variant="warning" size="sm" onClick={clickHandler} >
-				{ side === 'right' ?
-					<i className="fas fa-arrow-circle-right"></i> :
-					<i className="fas fa-arrow-circle-left"></i>
-				}
+				<i className={`fas fa-arrow-circle-${side}`} ></i>
 			</Button> );
 		}
 		return ( <Button variant="secondary" size="sm" onClick={clickHandler} >
-			{ side === 'right' ?
-				<i className="fas fa-arrow-circle-left"></i> :
-				<i className="fas fa-arrow-circle-right"></i>
-			}
+				<i className={`fas fa-arrow-circle-${reverse( side )}`} ></i>
 		</Button> );
 	}
 
