@@ -32,7 +32,6 @@ import Plotly from 'react-plotly.js';
 import round from '@stdlib/math/base/special/round';
 import objectKeys from '@stdlib/utils/keys';
 import pluck from '@stdlib/utils/pluck';
-import capitalize from '@stdlib/string/capitalize';
 import uppercase from '@stdlib/string/uppercase';
 import SearchBar from 'components/searchbar';
 import server from 'constants/server';
@@ -78,7 +77,18 @@ const COLOR_MAPPING = {
 	cohorts: COLORS[ 3 ],
 	files: COLORS[ 4 ],
 	events: COLORS[ 5 ],
-	sessionData: COLORS[ 7 ]
+	sessionData: COLORS[ 7 ],
+	dailyActiveUsers: COLORS[ 8 ]
+};
+const DATA_KEY_MAPPING = {
+	users: 'nUsers',
+	namespaces: 'nNamespaces',
+	lessons: 'nLessons',
+	cohorts: 'nCohorts',
+	files: 'nFiles',
+	events: 'nEvents',
+	sessionData: 'nSessionData',
+	dailyActiveUsers: 'dailyActiveUsers'
 };
 const DISPLAY_IN_PLOT = {
 	users: false,
@@ -87,7 +97,8 @@ const DISPLAY_IN_PLOT = {
 	cohorts: false,
 	files: false,
 	events: false,
-	sessionData: false
+	sessionData: false,
+	dailyActiveUsers: false
 };
 
 
@@ -238,7 +249,7 @@ class Overview extends Component {
 				let y;
 				if ( COLOR_MAPPING[ key ] ) {
 					color = COLOR_MAPPING[ key ];
-					y = pluck( data, `n${capitalize( key )}` );
+					y = pluck( data, DATA_KEY_MAPPING[ key ] );
 				} else {
 					// Case: displaying an action type
 					color = COLORS[ ( i % COLORS.length ) + 7 ];
