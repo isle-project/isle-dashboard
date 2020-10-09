@@ -299,20 +299,50 @@ class Overview extends Component {
 			</Jumbotron> );
 		}
 		return (
-			<Plotly
-				revision={this.state.revision}
-				data={displayedData}
-				config={{
-					displayModeBar: false,
-					displaylogo: false
-				}}
-				layout={layout}
-				style={{
-					width: '100%',
-					height: '80%'
-				}}
-				useResizeHandler
-			/>
+			<Fragment>
+				<Plotly
+					revision={this.state.revision}
+					data={displayedData}
+					config={{
+						displayModeBar: false,
+						displaylogo: false
+					}}
+					layout={layout}
+					style={{
+						width: '100%',
+						height: '80%'
+					}}
+					useResizeHandler
+				/>
+				{displayedData.length > 0 ?
+					<Fragment>
+						<Button
+							onClick={() => {
+								this.setState({
+									displayInPlot: {
+										...DISPLAY_IN_PLOT
+									},
+									revision: this.state.revision + 1
+								});
+							}}
+							style={{
+								marginLeft: '35%'
+							}}
+						>{this.props.t('common:reset')}</Button>
+						<Button
+							onClick={() => {
+								this.setState({
+									useDifferencing: !this.state.useDifferencing
+								});
+							}}
+							style={{
+								marginLeft: '1%'
+							}}
+						>{this.state.useDifferencing ? 'Display Time Series' : this.props.t('display-daily-changes') }</Button>
+					</Fragment> :
+					null
+				}
+			</Fragment>
 		);
 	}
 
@@ -589,29 +619,6 @@ class Overview extends Component {
 					<Col className="column-border" sm={8} md={6} >
 						<h2>{this.props.t('over-time')}</h2>
 						{this.renderTimeSeries()}
-						<Button
-							onClick={() => {
-								this.setState({
-									displayInPlot: {
-										...DISPLAY_IN_PLOT
-									},
-									revision: this.state.revision + 1
-								});
-							}}
-							style={{
-								marginLeft: '35%'
-							}}
-						>{this.props.t('common:reset')}</Button>
-						<Button
-							onClick={() => {
-								this.setState({
-									useDifferencing: !this.state.useDifferencing
-								});
-							}}
-							style={{
-								marginLeft: '1%'
-							}}
-						>{this.state.useDifferencing ? 'Display Time Series' : this.props.t('display-daily-changes') }</Button>
 					</Col>
 					<Col sm={12} md={3} >
 						{this.renderActionTypes()}
