@@ -43,6 +43,9 @@ import COLORS from 'constants/colors';
 
 function diff( y ) {
 	const out = [];
+	if ( !y ) {
+		return out;
+	}
 	for ( let i = 1; i < y.length; i++ ) {
 		const v = y[ i ] - y[ i-1 ];
 		out.push( v );
