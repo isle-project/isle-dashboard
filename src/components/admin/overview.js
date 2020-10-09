@@ -509,9 +509,15 @@ class Overview extends Component {
 		const clickHandler = () => {
 			const newDisplayInPlot = { ...this.state.displayInPlot };
 			newDisplayInPlot[ name ] = !newDisplayInPlot[ name ];
+
+			// Reset object to trigger additional render to force range slider to be redrawn:
 			this.setState({
-				displayInPlot: newDisplayInPlot,
-				revision: this.state.revision + 1
+				displayInPlot: DISPLAY_IN_PLOT
+			}, () => {
+				this.setState({
+					displayInPlot: newDisplayInPlot,
+					revision: this.state.revision + 1
+				});
 			});
 		};
 		if ( this.state.displayInPlot[ name ] ) {
