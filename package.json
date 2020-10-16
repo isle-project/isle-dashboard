@@ -99,7 +99,7 @@
     "webpack-manifest-plugin": "^2.2.0"
   },
   "devDependencies": {
-    "@babel/preset-env": "^7.12.0",
+    "@babel/preset-env": "^7.12.1",
     "@babel/core": "^7.12.0",
     "@babel/preset-react": "^7.10.4",
     "autoprefixer": "9.8.6",
