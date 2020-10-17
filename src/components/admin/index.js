@@ -29,6 +29,7 @@ const EventTable = asyncComponent( () => import( './event_table.js' ) );
 const LessonTable = asyncComponent( () => import( './lesson_table.js' ) );
 const FileTable = asyncComponent( () => import( './file_table.js' ) );
 const NamespaceTable = asyncComponent( () => import( './namespace_table.js' ) );
+const TicketTable = asyncComponent( () => import( './ticket_table.js' ) );
 const UserTable = asyncComponent( () => import( './user_table.js' ) );
 const Rooms = asyncComponent( () => import( './rooms.js' ) );
 const Overview = asyncComponent( () => import( './overview.js' ) );
@@ -77,6 +78,9 @@ class AdminPage extends Component {
 				break;
 			case 'rooms':
 				activePage = 9;
+				break;
+			case 'tickets':
+				activePage = 10;
 				break;
 		}
 		this.state = {
@@ -128,6 +132,9 @@ class AdminPage extends Component {
 				break;
 			case 9:
 				this.props.history.replace( '/admin/rooms' );
+				break;
+			case 10:
+				this.props.history.replace( '/admin/tickets' );
 				break;
 		}
 		this.setState({
@@ -209,6 +216,14 @@ class AdminPage extends Component {
 						getRooms={this.props.getRooms}
 					/>
 				);
+			case 10:
+				return (
+					<TicketTable
+						admin={this.props.admin}
+						getAllTickets={this.props.getAllTickets}
+						deleteTicket={this.props.deleteTicket}
+					/>
+				);
 		}
 	}
 
@@ -249,6 +264,9 @@ class AdminPage extends Component {
 						<Nav.Item>
 							<Nav.Link eventKey="9" title="Active Rooms" >{t('admin:active-rooms')}</Nav.Link>
 						</Nav.Item>
+						<Nav.Item>
+							<Nav.Link eventKey="10" title="Tickets" >{t('admin:tickets')}</Nav.Link>
+						</Nav.Item>
 						<span className="admin-page-version" >{t('dashboard-version')}: {dashboardVersion}</span>
 					</Nav>
 				</div>
@@ -271,11 +289,13 @@ AdminPage.propTypes = {
 	deleteCurrentNamespace: PropTypes.func.isRequired,
 	deleteEvent: PropTypes.func.isRequired,
 	deleteLesson: PropTypes.func.isRequired,
+	deleteTicket: PropTypes.func.isRequired,
 	deleteUser: PropTypes.func.isRequired,
 	getAllCohorts: PropTypes.func.isRequired,
 	getAllFiles: PropTypes.func.isRequired,
 	getAllLessons: PropTypes.func.isRequired,
 	getAllNamespaces: PropTypes.func.isRequired,
+	getAllTickets: PropTypes.func.isRequired,
 	getEvents: PropTypes.func.isRequired,
 	getHistoricalOverviewStats: PropTypes.func.isRequired,
 	getOverviewStatistics: PropTypes.func.isRequired,

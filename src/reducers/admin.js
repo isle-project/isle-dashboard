@@ -30,6 +30,7 @@ const initialState = {
 	lessons: [],
 	namespaces: [],
 	rooms: [],
+	tickets: [],
 	users: [],
 	statistics: {},
 	historicalStatistics: []
@@ -169,6 +170,23 @@ export default function admin( state = initialState, action ) {
 	case types.GET_OVERVIEW_STATISTICS: {
 		return Object.assign({}, state, {
 			statistics: action.payload.statistics
+		});
+	}
+	case types.GET_ALL_TICKETS: {
+		let tickets = action.payload.tickets;
+		tickets = tickets.map( x => {
+			x.updatedAt = new Date( x.updatedAt );
+			return x;
+		});
+		return Object.assign({}, state, {
+			tickets
+		});
+	}
+	case types.DELETED_TICKET: {
+		let tickets = state.tickets.slice();
+		tickets = tickets.filter( x => x._id !== action.payload.id );
+		return Object.assign({}, state, {
+			tickets
 		});
 	}
 	case types.GET_HISTORICAL_OVERVIEW_STATISTICS: {
