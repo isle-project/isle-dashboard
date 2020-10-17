@@ -39,7 +39,8 @@ const initialState = {
 	lessons: [],
 	cohorts: [],
 	files: [],
-	ownerFiles: []
+	ownerFiles: [],
+	tickets: []
 };
 
 
@@ -160,6 +161,16 @@ export default function namespace( state = initialState, action ) {
 
 		return Object.assign({}, state, {
 			announcements: announcements
+		});
+	}
+	case types.GET_COURSE_TICKETS: {
+		let tickets = action.payload.tickets;
+		tickets = tickets.map( x => {
+			x.updatedAt = new Date( x.updatedAt );
+			return x;
+		});
+		return Object.assign({}, state, {
+			tickets
 		});
 	}
 	case types.LOGGED_OUT: {

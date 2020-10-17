@@ -19,10 +19,11 @@
 
 import React from 'react';
 import axios from 'axios';
+import qs from 'querystring';
 import server from 'constants/server';
 import i18next from 'i18next';
 import { addNotification, addErrorNotification } from 'actions/notification';
-import { DELETED_TICKET, GET_ALL_TICKETS } from 'constants/action_types.js';
+import { DELETED_TICKET, GET_ALL_TICKETS, GET_COURSE_TICKETS } from 'constants/action_types.js';
 
 
 // EXPORTS //
@@ -44,6 +45,26 @@ export const getAllTickets = async ( dispatch ) => {
 export const getAllTicketsInjector = dispatch => {
 	return async () => {
 		await getAllTickets( dispatch );
+	};
+};
+
+export const getCourseTickets = async ( dispatch, namespaceID ) => {
+	try {
+		const res = await axios.get( server+'/get_course_tickets?'+qs.stringify({ namespaceID }) );
+		dispatch({
+			type: GET_COURSE_TICKETS,
+			payload: {
+				tickets: res.data.tickets
+			}
+		});
+	} catch ( err ) {
+		return addErrorNotification( dispatch, err );
+	}
+};
+
+export const getCourseTicketsInjector = dispatch => {
+	return async ( id ) => {
+		await getCourseTickets( dispatch, id );
 	};
 };
 
