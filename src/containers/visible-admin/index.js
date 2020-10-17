@@ -29,6 +29,7 @@ import { sanitizeRequestInjector } from 'actions/authentication.js';
 import { addNotificationInjector } from 'actions/notification.js';
 import { getOverviewStatisticsInjector, getHistoricalOverviewStatsInjector } from 'actions/statistics.js';
 import { deleteFileInjector, getAllFilesInjector } from 'actions/file.js';
+import { deleteTicketInjector, getAllTicketsInjector } from 'actions/ticket.js';
 
 
 // FUNCTIONS //
@@ -49,12 +50,14 @@ function mapDispatchToProps( dispatch ) {
 		getAllNamespaces: getAllNamespacesInjector( dispatch ),
 		getEvents: getEventsInjector( dispatch ),
 		getRooms: getRoomsInjector( dispatch ),
+		getAllTickets: getAllTicketsInjector( dispatch ),
 		getUsers: getUsersInjector( dispatch ),
 		deleteCohort: deleteCohortInjector( dispatch ),
 		deleteFile: deleteFileInjector( dispatch ),
 		deleteCurrentNamespace: deleteCurrentNamespaceInjector( dispatch ),
 		deleteEvent: deleteEventInjector( dispatch ),
 		deleteLesson: deleteLessonInjector( dispatch ),
+		deleteTicket: deleteTicketInjector( dispatch ),
 		deleteUser: deleteUserInjector( dispatch ),
 		impersonateUser: impersonateUserInjector( dispatch ),
 		sanitizeRequest: sanitizeRequestInjector( dispatch ),
