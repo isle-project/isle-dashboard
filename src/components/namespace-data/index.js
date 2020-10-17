@@ -28,6 +28,7 @@ import AnnouncementsPage from './announcements_page.js';
 import ProgressPage from './progress_page.js';
 import CohortsPage from './cohorts_page.js';
 import ActionsPage from './actions_page.js';
+import TicketsPage from './tickets_page.js';
 import './namespace_data.css';
 
 
@@ -61,8 +62,11 @@ class NamespaceData extends Component {
 			case 'student-files':
 				activePage = 5;
 				break;
-			case 'actions':
+			case 'tickets':
 				activePage = 6;
+				break;
+			case 'actions':
+				activePage = 7;
 				break;
 		}
 		this.state = {
@@ -132,6 +136,9 @@ class NamespaceData extends Component {
 				this.props.history.replace( `/namespace-data/${title}/student-files` );
 				break;
 			case 6:
+				this.props.history.replace( `/namespace-data/${title}/tickets` );
+				break;
+			case 7:
 				this.props.history.replace( `/namespace-data/${title}/actions` );
 				break;
 		}
@@ -153,6 +160,8 @@ class NamespaceData extends Component {
 			case 5:
 				return <FilesPage files={this.props.namespace.files} namespace={this.props.namespace} handleUpload={this.handleUpload} handleFileDeletion={this.handleFileDeletion} addNotification={this.props.addNotification} getFiles={this.props.getFiles} />;
 			case 6:
+				return <TicketsPage tickets={this.props.namespace.tickets} namespace={this.props.namespace} getCourseTickets={this.props.getCourseTickets} />;
+			case 7:
 				return <ActionsPage namespace={this.props.namespace} getNamespaceActions={this.props.getNamespaceActions} user={this.props.user} cohorts={this.props.namespace.cohorts} />;
 		}
 	}
@@ -185,7 +194,10 @@ class NamespaceData extends Component {
 							<Nav.Link eventKey="5" title="Student Files" >{t('student-files')}</Nav.Link>
 						</Nav.Item>
 						<Nav.Item>
-							<Nav.Link eventKey="6" title="Actions" >{t('common:actions')}</Nav.Link>
+							<Nav.Link eventKey="6" title="Tickets" >{t('common:tickets')}</Nav.Link>
+						</Nav.Item>
+						<Nav.Item>
+							<Nav.Link eventKey="7" title="Actions" >{t('common:actions')}</Nav.Link>
 						</Nav.Item>
 					</Nav>
 				</div>
@@ -208,6 +220,7 @@ NamespaceData.propTypes = {
 	deleteAnnouncement: PropTypes.func.isRequired,
 	editAnnouncement: PropTypes.func.isRequired,
 	getBadges: PropTypes.func.isRequired,
+	getCourseTickets: PropTypes.func.isRequired,
 	getFiles: PropTypes.func.isRequired,
 	getNamespaceActions: PropTypes.func.isRequired,
 	namespace: PropTypes.object.isRequired,
