@@ -256,7 +256,9 @@ export default function user( state = initialState, action ) {
 	case types.TICKET_MESSAGE_ADDED: {
 		const tickets = state.tickets.map( ticket => {
 			if ( ticket._id === action.payload.id ) {
-				ticket.messages.unshift( action.payload.message );
+				const message = action.payload.message;
+				message.picture = message.picture.substring( message.picture.lastIndexOf( '/' )+1 );
+				ticket.messages.unshift( message );
 			}
 			return ticket;
 		});
