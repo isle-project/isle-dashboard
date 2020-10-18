@@ -215,3 +215,40 @@ label {
 #popover-contained {
 	padding: 5px;
 }
+
+.modal-100w {
+	max-width: none !important;
+	width: 100%;
+	margin: 0;
+	padding: 0;
+}
+
+.modal-90w {
+	max-width: none !important;
+	width: 90%;
+}
+
+.modal-75w {
+	max-width: none !important;
+	width: 75%;
+}
+
+.modal-60w {
+	max-width: none !important;
+	width: 60%;
+}
+
+.modal-50w {
+	max-width: none !important;
+	width: 50%;
+}
+
+.modal-40w {
+	max-width: none !important;
+	width: 40%;
+}
+
+.modal-30w {
+	max-width: none !important;
+	width: 30%;
+}
