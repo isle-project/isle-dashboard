@@ -20,6 +20,5 @@
 	"size": "Size",
 	"student-files": "Student Files",
 	"type": "Type",
-	"upload-file": "Upload File",
-	"wrote-on": "wrote on {{date}}"
+	"upload-file": "Upload File"
 }
