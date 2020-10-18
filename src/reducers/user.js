@@ -238,6 +238,21 @@ export default function user( state = initialState, action ) {
 			tickets
 		});
 	}
+	case types.CREATED_TICKET: {
+		const tickets = state.tickets.slice();
+		tickets.push({
+			...action.payload,
+			messages: [],
+			user: {
+				picture: state.picture.substring( state.picture.lastIndexOf( '/' )+1 ),
+				name: state.name,
+				email: state.email
+			}
+		});
+		return Object.assign({}, state, {
+			tickets
+		});
+	}
 	case types.USER_RECEIVED_BADGES: {
 		return Object.assign({}, state, {
 			badges: action.payload.badges

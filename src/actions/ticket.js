@@ -119,16 +119,15 @@ export const createTicket = async ( dispatch, {
 	title,
 	description,
 	platform,
-	namespaceID
+	namespace
 }) => {
 	try {
 		const res = await axios.post( server + '/create_ticket', {
 			title,
 			description,
 			platform,
-			namespaceID
+			namespaceID: namespace._id
 		});
-		console.log( namespaceID );
 		addNotification( dispatch, {
 			title: i18next.t('common:created'),
 			message: res.data.message,
@@ -140,9 +139,10 @@ export const createTicket = async ( dispatch, {
 				title,
 				description,
 				platform,
-				namespaceID
+				namespace
 			}
 		});
+		return res;
 	} catch ( err ) {
 		return addErrorNotification( dispatch, err );
 	}
@@ -153,13 +153,13 @@ export const createTicketInjector = dispatch => {
 		title,
 		description,
 		platform,
-		namespaceID
+		namespace
 	}) => {
 		await createTicket( dispatch, {
 			title,
 			description,
 			platform,
-			namespaceID
+			namespace
 		});
 	};
 };
