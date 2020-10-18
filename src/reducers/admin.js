@@ -175,6 +175,7 @@ export default function admin( state = initialState, action ) {
 	case types.GET_ALL_TICKETS: {
 		let tickets = action.payload.tickets;
 		tickets = tickets.map( x => {
+			x.createdAt = new Date( x.createdAt );
 			x.updatedAt = new Date( x.updatedAt );
 			return x;
 		});
