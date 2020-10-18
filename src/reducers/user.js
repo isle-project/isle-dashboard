@@ -44,7 +44,7 @@ const initialState = {
 	badges: null,
 	id: null,
 	token: null,
-	tickets: null
+	tickets: []
 };
 
 
