@@ -21,6 +21,7 @@ import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import logger from 'debug';
 import { withTranslation } from 'react-i18next';
+import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import Jumbotron from 'react-bootstrap/Jumbotron';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
@@ -78,7 +79,10 @@ const COLOR_MAPPING = {
 	files: COLORS[ 4 ],
 	events: COLORS[ 5 ],
 	sessionData: COLORS[ 7 ],
-	dailyActiveUsers: COLORS[ 8 ]
+	dailyActiveUsers: COLORS[ 8 ],
+	tickets: COLORS[ 11 ],
+	closedTickets: COLORS[ 12 ],
+	openTickets: COLORS[ 13 ]
 };
 const DATA_KEY_MAPPING = {
 	users: 'nUsers',
@@ -88,6 +92,9 @@ const DATA_KEY_MAPPING = {
 	files: 'nFiles',
 	events: 'nEvents',
 	sessionData: 'nSessionData',
+	tickets: 'nTickets',
+	openTickets: 'nOpenTickets',
+	closedTickets: 'nClosedTickets',
 	dailyActiveUsers: 'dailyActiveUsers'
 };
 const DISPLAY_IN_PLOT = {
@@ -98,7 +105,10 @@ const DISPLAY_IN_PLOT = {
 	files: false,
 	events: false,
 	sessionData: false,
-	dailyActiveUsers: false
+	dailyActiveUsers: false,
+	tickets: false,
+	openTickets: false,
+	closedTickets: false
 };
 
 
@@ -505,7 +515,7 @@ class Overview extends Component {
 		);
 	}
 
-	renderPlotButton( name, side = 'left' ) {
+	renderPlotButton( name, side = 'left', icon ) {
 		const clickHandler = () => {
 			const newDisplayInPlot = { ...this.state.displayInPlot };
 			newDisplayInPlot[ name ] = !newDisplayInPlot[ name ];
@@ -522,18 +532,19 @@ class Overview extends Component {
 		};
 		if ( this.state.displayInPlot[ name ] ) {
 			return ( <Button variant="warning" size="sm" onClick={clickHandler} >
-				<i className={`fas fa-arrow-circle-${side}`} ></i>
+				<i className={icon ? icon : `fas fa-arrow-circle-${side}`} ></i>
 			</Button> );
 		}
 		return ( <Button variant="secondary" size="sm" onClick={clickHandler} >
-				<i className={`fas fa-arrow-circle-${reverse( side )}`} ></i>
+				<i className={icon ? icon : `fas fa-arrow-circle-${reverse( side )}`} ></i>
 		</Button> );
 	}
 
 	render() {
 		debug( 'Rendering overview page...' );
-		const { nUsers, nNamespaces, nLessons, nCohorts, nSessionData, nFiles, nEvents } = this.props.statistics;
+		const { nUsers, nNamespaces, nLessons, nCohorts, nSessionData, nFiles, nEvents, nTickets } = this.props.statistics;
 		const { t } = this.props;
+		console.log( this.state.displayInPlot );
 		return (
 			<Container className="admin-overview-container" >
 				<Row className="first-row" >
@@ -631,6 +642,22 @@ class Overview extends Component {
 									<td>{nSessionData}</td>
 									<td>
 										{this.renderPlotButton( 'sessionData' )}
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<i className="fas fa-medkit" style={{ color: COLOR_MAPPING.tickets }} ></i>
+									</td>
+									<td>
+										{t('common:tickets')}
+									</td>
+									<td>{nTickets}</td>
+									<td>
+										<ButtonGroup>
+											{this.renderPlotButton( 'tickets' )}
+											{this.renderPlotButton( 'openTickets', 'left', 'fas fa-lock-open' )}
+											{this.renderPlotButton( 'closedTickets', 'left', 'fas fa-lock' )}
+										</ButtonGroup>
 									</td>
 								</tr>
 							</tbody>
