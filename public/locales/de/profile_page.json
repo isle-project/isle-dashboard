@@ -26,6 +26,8 @@
 	"show-tickets": "Tickets Anzeigen",
 	"score": "Punkte",
 	"select-file": "Datei wählen",
+	"ticket-description-placeholder": "Gib eine Beschreibung deines Problems ein...",
+	"ticket-title-placeholder": "Titel auswählen...",
 	"time-spent": "Verbrachte Zeit",
 	"update-name": "Namen anpassen",
 	"update-organization": "Neue Organisation eingeben",

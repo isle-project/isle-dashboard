@@ -27,6 +27,8 @@
 	"show-tickets": "Tickets de Espectáculo",
 	"score": "Puntuación",
 	"select-file": "Seleccionar archivo",
+	"ticket-description-placeholder": "Ingrese una descripción de su problema...",
+	"ticket-title-placeholder": "Seleccione el título...",
 	"time-spent": "Tiempo Empleado",
 	"update-name": "Nombre de Actualización",
 	"update-organization": "Actualiza tu organización",

@@ -27,6 +27,8 @@
 	"show-tickets": "Show Tickets",
 	"score": "Score",
 	"select-file": "Select file",
+	"ticket-description-placeholder": "Enter description of your problem...",
+	"ticket-title-placeholder": "Select title...",
 	"time-spent": "Time Spent",
 	"update-name": "Update Name",
 	"update-organization": "Update your organization",
