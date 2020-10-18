@@ -205,6 +205,7 @@ class TicketsPage extends Component {
 				show={this.state.showTicketModal}
 				onHide={this.toggleTicketModal}
 				ticket={this.state.selectedTicket}
+				submitTicketMessage={this.props.submitTicketMessage}
 			/> : null }
 		</div> );
 	}
@@ -215,7 +216,8 @@ class TicketsPage extends Component {
 
 TicketsPage.propTypes = {
 	getCourseTickets: PropTypes.func.isRequired,
-	namespace: PropTypes.object.isRequired
+	namespace: PropTypes.object.isRequired,
+	submitTicketMessage: PropTypes.func.isRequired
 };
 
 TicketsPage.defaultProps = {

@@ -116,6 +116,10 @@ class NamespaceData extends Component {
 		this.props.deleteFile( _id, this.props.namespace.title, ownerFiles );
 	}
 
+	submitTicketMessage = ({ message, ticketID }) => {
+		this.props.sendTicketMessage({ message, ticketID, user: this.props.user });
+	}
+
 	handleSelect = ( selectedKey ) => {
 		selectedKey = Number( selectedKey );
 		const title = this.props.namespace.title;
@@ -160,7 +164,7 @@ class NamespaceData extends Component {
 			case 5:
 				return <FilesPage files={this.props.namespace.files} namespace={this.props.namespace} handleUpload={this.handleUpload} handleFileDeletion={this.handleFileDeletion} addNotification={this.props.addNotification} getFiles={this.props.getFiles} />;
 			case 6:
-				return <TicketsPage tickets={this.props.namespace.tickets} namespace={this.props.namespace} getCourseTickets={this.props.getCourseTickets} />;
+				return <TicketsPage tickets={this.props.namespace.tickets} namespace={this.props.namespace} getCourseTickets={this.props.getCourseTickets} submitTicketMessage={this.submitTicketMessage} />;
 			case 7:
 				return <ActionsPage namespace={this.props.namespace} getNamespaceActions={this.props.getNamespaceActions} user={this.props.user} cohorts={this.props.namespace.cohorts} />;
 		}
@@ -224,6 +228,7 @@ NamespaceData.propTypes = {
 	getFiles: PropTypes.func.isRequired,
 	getNamespaceActions: PropTypes.func.isRequired,
 	namespace: PropTypes.object.isRequired,
+	sendTicketMessage: PropTypes.func.isRequired,
 	uploadFile: PropTypes.func.isRequired,
 	user: PropTypes.object.isRequired
 };

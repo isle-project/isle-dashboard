@@ -26,7 +26,7 @@ import { getAvailableBadgesInjector } from 'actions/badge';
 import { deleteFileInjector, getFilesInjector, getOwnerFilesInjector, uploadFileInjector } from 'actions/file';
 import { addNotificationInjector } from 'actions/notification';
 import { getNamespaceActionsInjector, adjustProgressInjector } from 'actions/namespace';
-import { getCourseTicketsInjector } from 'actions/ticket';
+import { getCourseTicketsInjector, sendTicketMessageInjector } from 'actions/ticket';
 
 
 // FUNCTIONS //
@@ -52,6 +52,7 @@ function mapDispatchToProps( dispatch ) {
 		deleteAnnouncement: deleteAnnouncementInjector( dispatch ),
 		editAnnouncement: editAnnouncementInjector( dispatch ),
 		addAnnouncement: addAnnouncementInjector( dispatch ),
+		sendTicketMessage: sendTicketMessageInjector( dispatch ),
 		uploadFile: uploadFileInjector( dispatch )
 	};
 }
