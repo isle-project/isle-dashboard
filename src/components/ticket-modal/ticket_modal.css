@@ -1,3 +1,71 @@
-.ticket-modal-pic {
-	margin-right: 6px;
+.message-container {
+	position: relative;
+	width: 96%;
+	height: auto;
+	border-radius: 12px;
+	padding: 10px;
+	margin-bottom: 14px;
+	top: 16px;
+	background: white;
+	color: #2e4468;
+	box-shadow: 0 0 2px 1px darkgray;
+	transition: all 0.3s;
+}
+
+.message-container:hover {
+	background: white;
+	color: red;
+}
+
+.message-data {
+	width: 100%;
+	margin-bottom: 4px;
+	height: 48px;
+}
+
+.message-profile-pic {
+	float: left;
+	width: 48px;
+	height: 48px;
+	margin-right: 8px;
+}
+
+.message-profile-pic img {
+	width: 100%;
+	height: 100%;
+	border-radius: 8px;
+}
+
+.message-author-line {
+	font-family: Open Sans Condensed;
+	float: left;
+	font-size: 16px;
+	height: 48px;
+	margin-left: 6px;
+	padding-top: 12px;
+	color: #2e4468;
+}
+
+.message-author {
+	color: #2e4468;
+}
+
+.message-author:hover {
+	color: red;
+}
+
+.message-title {
+	width: 100%;
+	font-size: 22px;
+	background: gainsboro;
+	font-family: Open Sans Condensed;
+	margin-top: 8px;
+	margin-bottom: 8px;
+	border-radius: 8px;
+	padding-left: 6px;
+}
+
+.message-body {
+	margin-bottom: 5px;
+	color: darkslategray;
 }

@@ -89,7 +89,7 @@ class AnnouncementsPage extends Component {
 								</div>
 								<div className="message-author-line">
 									<span className="message-author">{ value.author }</span>
-									&nbsp;{t('wrote-on', { date: dateString })}
+									&nbsp;{t('common:wrote-on', { date: dateString })}
 								</div>
 							</div>
 							<div className="message-title">
