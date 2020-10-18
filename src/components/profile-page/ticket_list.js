@@ -29,6 +29,11 @@ import TicketModal from 'components/ticket-modal';
 import CreateTicketModal from './create_ticket_modal.js';
 
 
+// VARIABLES //
+
+const RE_TICKET = /ticket=([^&]*)/;
+
+
 // MAIN //
 
 class TicketListModal extends Component {
@@ -42,8 +47,24 @@ class TicketListModal extends Component {
 		};
 	}
 
-	componentDidMount() {
-		this.props.getUserTickets();
+	async componentDidMount() {
+		await this.props.getUserTickets();
+		if ( this.props.history.location.search ) {
+			const match = RE_TICKET.exec( this.props.history.location.search );
+			if ( match && match[ 1 ] ) {
+				const { tickets } = this.props.user;
+				for ( let i = 0; i < tickets.length; i++ ) {
+					const ticket = tickets[ i ];
+					if ( ticket._id === match[ 1 ] ) {
+						this.setState({
+							selectedTicket: ticket,
+							showMessagesModal: true
+						});
+						break;
+					}
+				}
+			}
+		}
 	}
 
 	toggleCreateModal = () => {
@@ -151,6 +172,8 @@ class TicketListModal extends Component {
 	}
 
 	render() {
+		console.log( this.props.user.tickets[ 0 ] );
+		console.log( this.props.history );
 		const { t } = this.props;
 		return (
 			<Fragment>
