@@ -1,4 +1,6 @@
 {
 	"enter-response": "Antwort eingeben",
+	"require-open-ticket": "Das Ticket muss offen sein um zu antworten.",
+	"response-comes-here": "Bitte hier antworten...",
 	"submit-response": "Antwort abschicken"
 }
