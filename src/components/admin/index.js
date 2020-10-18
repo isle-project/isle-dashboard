@@ -100,6 +100,10 @@ class AdminPage extends Component {
 		}
 	}
 
+	submitTicketMessage = ({ message, ticketID }) => {
+		this.props.sendTicketMessage({ message, ticketID, user: this.props.user });
+	}
+
 	handleSelect = ( selectedKey ) => {
 		selectedKey = Number( selectedKey );
 		switch ( selectedKey ) {
@@ -222,6 +226,7 @@ class AdminPage extends Component {
 						admin={this.props.admin}
 						getAllTickets={this.props.getAllTickets}
 						deleteTicket={this.props.deleteTicket}
+						submitTicketMessage={this.submitTicketMessage}
 					/>
 				);
 		}
@@ -302,6 +307,7 @@ AdminPage.propTypes = {
 	getUsers: PropTypes.func.isRequired,
 	impersonateUser: PropTypes.func.isRequired,
 	sanitizeRequest: PropTypes.func.isRequired,
+	sendTicketMessage: PropTypes.func.isRequired,
 	user: PropTypes.object.isRequired
 };
 
