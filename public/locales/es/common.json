@@ -89,5 +89,6 @@
 	"users": "Usuarios",
 	"verification-email-sent": "Correo electrónico de verificación enviado.",
 	"visualize": "Visualiza",
-	"waiting": "Sspera la respuesta..."
+	"waiting": "Sspera la respuesta...",
+	"wrote-on": "escribió el {{fecha}}"
 }

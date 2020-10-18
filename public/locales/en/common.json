@@ -89,5 +89,6 @@
 	"users": "Users",
 	"verification-email-sent": "Verification email sent.",
 	"visualize": "Visualize",
-	"waiting": "Waiting..."
+	"waiting": "Waiting...",
+	"wrote-on": "wrote on {{date}}"
 }

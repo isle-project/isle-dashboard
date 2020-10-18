@@ -20,6 +20,5 @@
 	"size": "Größe",
 	"student-files": "Studenten-Dateien",
 	"type": "Dateityp",
-	"upload-file": "Datei hochladen",
-	"wrote-on": "schrieb am {{date}}"
+	"upload-file": "Datei hochladen"
 }
