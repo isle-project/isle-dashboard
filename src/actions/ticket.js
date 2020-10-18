@@ -23,7 +23,7 @@ import qs from 'querystring';
 import server from 'constants/server';
 import i18next from 'i18next';
 import { addNotification, addErrorNotification } from 'actions/notification';
-import { DELETED_TICKET, GET_ALL_TICKETS, GET_COURSE_TICKETS } from 'constants/action_types.js';
+import { DELETED_TICKET, GET_ALL_TICKETS, GET_COURSE_TICKETS, TICKET_MESSAGE_ADDED } from 'constants/action_types.js';
 
 
 // EXPORTS //
@@ -92,5 +92,41 @@ export const deleteTicket = async ( dispatch, id ) => {
 export const deleteTicketInjector = dispatch => {
 	return async ( id ) => {
 		await deleteTicket( dispatch, id );
+	};
+};
+
+export const sendTicketMessage = async ( dispatch, { message, ticketID, user } ) => {
+	try {
+		const res = await axios.post( server+'/add_ticket_message', {
+			body: message,
+			ticketID
+		});
+		const msgObj = {
+			body: message,
+			author: user.name,
+			email: user.email,
+			picture: user.picture,
+			createdAt: new Date().getTime()
+		};
+		dispatch({
+			type: TICKET_MESSAGE_ADDED,
+			payload: {
+				id: ticketID,
+				message: msgObj
+			}
+		});
+		addNotification( dispatch, {
+			title: i18next.t('common:added'),
+			message: res.data.message,
+			level: 'success'
+		});
+	} catch ( err ) {
+		return addErrorNotification( dispatch, err );
+	}
+};
+
+export const sendTicketMessageInjector = dispatch => {
+	return async ({ message, ticketID, user }) => {
+		await sendTicketMessage( dispatch, { message, ticketID, user } );
 	};
 };
