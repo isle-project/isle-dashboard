@@ -256,6 +256,8 @@ class TicketsPage extends Component {
 				onHide={this.toggleTicketModal}
 				ticket={this.state.selectedTicket}
 				submitTicketMessage={this.props.submitTicketMessage}
+				openTicket={this.props.openTicket}
+				closeTicket={this.props.closeTicket}
 			/> : null }
 		</div> );
 	}
@@ -265,8 +267,10 @@ class TicketsPage extends Component {
 // PROPERTIES //
 
 TicketsPage.propTypes = {
+	closeTicket: PropTypes.func.isRequired,
 	getCourseTickets: PropTypes.func.isRequired,
 	namespace: PropTypes.object.isRequired,
+	openTicket: PropTypes.func.isRequired,
 	submitTicketMessage: PropTypes.func.isRequired
 };
 
