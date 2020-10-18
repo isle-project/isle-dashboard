@@ -17,10 +17,13 @@
 
 // MODULES //
 
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
+import PropTypes from 'prop-types';
+import ListGroup from 'react-bootstrap/ListGroup';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-import PropTypes from 'prop-types';
+import TicketModal from 'components/ticket-modal';
+import CreateTicketModal from './create_ticket_modal.js';
 
 
 // MAIN //
@@ -28,28 +31,135 @@ import PropTypes from 'prop-types';
 class TicketListModal extends Component {
 	constructor( props ) {
 		super( props );
+
+		this.state = {
+			showCreateModal: false,
+			showMessagesModal: false,
+			showAll: false
+		};
+	}
+
+	componentDidMount() {
+		this.props.getUserTickets();
+	}
+
+	toggleCreateModal = () => {
+		this.setState({
+			showCreateModal: !this.state.showCreateModal
+		});
+	}
+
+	toggleTicketModal = () => {
+		this.setState({
+			showMessagesModal: !this.state.showMessagesModal
+		});
+	}
+
+	toggleShowAll = () => {
+		this.setState({
+			showAll: !this.state.showAll
+		});
+	}
+
+	renderTicketList() {
+		const out = [];
+		const { tickets } = this.props.user;
+		const { t } = this.props;
+		if ( this.state.showAll ) {
+			for ( let i = 0; i < tickets.length; i++ ) {
+				const ticket = tickets[ i ];
+				out.push(
+					<ListGroup.Item key={`ticket-${i}`}>
+						{ticket.title}: {ticket.description}
+						{ticket.done ? <i className="far fa-check-square"></i> : null}
+						<Button
+							size="sm"
+							variant="outline-secondary"
+							style={{ float: 'right' }}
+							onClick={() => {
+								this.setState({
+									selectedTicket: ticket
+								}, this.toggleTicketModal );
+							}}
+						>
+							{t('common:messages')}
+						</Button>
+					</ListGroup.Item>
+				);
+			}
+		} else {
+			for ( let i = 0; i < tickets.length; i++ ) {
+				const ticket = tickets[ i ];
+				if ( ticket.done ) {
+					continue;
+				}
+				out.push(
+					<ListGroup.Item key={`ticket-${i}`}>
+						{ticket.title}: {ticket.description}
+						{ticket.done ? <i className="far fa-check-square"></i> : null}
+						<Button
+							size="sm"
+							variant="outline-secondary"
+							style={{ float: 'right' }}
+							onClick={() => {
+								this.setState({
+									selectedTicket: ticket
+								}, this.toggleTicketModal );
+							}}
+						>
+							{t('common:messages')}
+						</Button>
+					</ListGroup.Item>
+				);
+			}
+		}
+		return ( <ListGroup>
+			{out}
+		</ListGroup> );
 	}
 
 	render() {
+		const { t } = this.props;
 		return (
-			<Modal onHide={this.props.onHide} show={this.props.show} >
-				<Modal.Header closeButton >
-					<Modal.Title as="h3">My Tickets</Modal.Title>
-				</Modal.Header>
-				<Modal.Body>
-				</Modal.Body>
-				<Modal.Footer>
-					<Button
-					>
-						Create Ticket
-					</Button>
-					<Button
-						onClick={this.props.onHide}
-					>
-						Close
-					</Button>
-				</Modal.Footer>
-			</Modal>
+			<Fragment>
+				<Modal onHide={this.props.onHide} show={this.props.show} dialogClassName="modal-40w" >
+					<Modal.Header closeButton >
+						<Modal.Title as="h3">{t('my-tickets')}</Modal.Title>
+					</Modal.Header>
+					<Modal.Body>
+						{this.renderTicketList()}
+
+					</Modal.Body>
+					<Modal.Footer>
+						<Button
+							onClick={this.toggleShowAll}
+						>
+							{this.state.showAll ? t('show-completed-tickets') : t('show-all-tickets')}
+						</Button>
+						<Button
+							onClick={this.toggleCreateModal}
+						>
+							{t('new-ticket')}
+						</Button>
+						<Button
+							onClick={this.props.onHide}
+						>
+							{t('common:close')}
+						</Button>
+					</Modal.Footer>
+				</Modal>
+				<CreateTicketModal
+					show={this.state.showCreateModal}
+					onHide={this.toggleCreateModal}
+					t={t}
+				/>
+				{ this.state.showMessagesModal ? <TicketModal
+					show={this.state.showMessagesModal}
+					onHide={this.toggleTicketModal}
+					ticket={this.state.selectedTicket}
+					submitTicketMessage={this.props.submitTicketMessage}
+				/> : null }
+			</Fragment>
 		);
 	}
 }
@@ -58,8 +168,10 @@ class TicketListModal extends Component {
 // PROPERTIES //
 
 TicketListModal.propTypes = {
+	getUserTickets: PropTypes.func.isRequired,
 	onHide: PropTypes.func.isRequired,
-	show: PropTypes.bool.isRequired
+	show: PropTypes.bool.isRequired,
+	submitTicketMessage: PropTypes.func.isRequired
 };
 
 

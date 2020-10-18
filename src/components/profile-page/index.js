@@ -457,6 +457,9 @@ class ProfilePage extends Component {
 				<TicketListModal
 					show={this.state.showTicketListModal}
 					onHide={this.toggleTicketListModal}
+					getUserTickets={this.props.getUserTickets}
+					user={this.props.user}
+					t={t}
 				/>
 				<ProfilePicModal
 					user={this.props.user}
@@ -479,6 +482,7 @@ ProfilePage.propTypes = {
 	getFiles: PropTypes.func.isRequired,
 	getLessons: PropTypes.func.isRequired,
 	getUserBadges: PropTypes.func.isRequired,
+	getUserTickets: PropTypes.func.isRequired,
 	resendConfirmEmail: PropTypes.func.isRequired,
 	updateUser: PropTypes.func.isRequired,
 	uploadProfilePic: PropTypes.func.isRequired,
