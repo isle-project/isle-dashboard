@@ -94,7 +94,7 @@ class CreateTicketModal extends Component {
 						<FormLabel>{t('common:title')}:</FormLabel>
 						<FormControl
 							type="text"
-							placeholder="Select title..."
+							placeholder={t('ticket-title-placeholder')}
 							onChange={this.handleTitleChange}
 						/>
 					</FormGroup>
@@ -104,7 +104,7 @@ class CreateTicketModal extends Component {
 							name="body"
 							type="text"
 							as="textarea" rows="5"
-							placeholder="Enter description of your problem..."
+							placeholder={t('ticket-description-placeholder')}
 							value={this.state.description}
 							onChange={this.handleDescriptionChange}
 						>
