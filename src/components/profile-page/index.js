@@ -465,6 +465,8 @@ class ProfilePage extends Component {
 					getUserTickets={this.props.getUserTickets}
 					user={this.props.user}
 					submitTicketMessage={this.submitTicketMessage}
+					closeTicket={this.props.closeTicket}
+					openTicket={this.props.openTicket}
 					t={t}
 				/>
 				<ProfilePicModal
@@ -485,11 +487,13 @@ class ProfilePage extends Component {
 ProfilePage.propTypes = {
 	addNotification: PropTypes.func.isRequired,
 	authenticate: PropTypes.func.isRequired,
+	closeTicket: PropTypes.func.isRequired,
 	createTicket: PropTypes.func.isRequired,
 	getFiles: PropTypes.func.isRequired,
 	getLessons: PropTypes.func.isRequired,
 	getUserBadges: PropTypes.func.isRequired,
 	getUserTickets: PropTypes.func.isRequired,
+	openTicket: PropTypes.func.isRequired,
 	resendConfirmEmail: PropTypes.func.isRequired,
 	sendTicketMessage: PropTypes.func.isRequired,
 	updateUser: PropTypes.func.isRequired,

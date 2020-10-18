@@ -161,7 +161,7 @@ class TicketPage extends Component {
 				accessor: '_id',
 				Cell: ( row ) => {
 					return (
-						<OverlayTrigger placement="left" overlay={<Tooltip id="open-ticket-tooltip">{t('open-ticket-tooltip')}</Tooltip>}>
+						<OverlayTrigger placement="left" overlay={<Tooltip id="open-ticket-tooltip">{t('common:open-ticket-tooltip')}</Tooltip>}>
 							<Button
 								size="sm" variant="outline-secondary"
 								onClick={() => {
@@ -265,6 +265,8 @@ class TicketPage extends Component {
 				onHide={this.toggleTicketModal}
 				ticket={this.state.selectedTicket}
 				submitTicketMessage={this.props.submitTicketMessage}
+				closeTicket={this.props.closeTicket}
+				openTicket={this.props.openTicket}
 			/> : null }
 		</Fragment> );
 	}
@@ -274,8 +276,10 @@ class TicketPage extends Component {
 // PROPERTIES //
 
 TicketPage.propTypes = {
+	closeTicket: PropTypes.func.isRequired,
 	deleteTicket: PropTypes.func.isRequired,
-	getAllTickets: PropTypes.func.isRequired
+	getAllTickets: PropTypes.func.isRequired,
+	openTicket: PropTypes.func.isRequired
 };
 
 

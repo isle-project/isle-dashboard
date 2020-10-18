@@ -19,6 +19,8 @@
 
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
+import Tooltip from 'react-bootstrap/Tooltip';
 import ListGroup from 'react-bootstrap/ListGroup';
 import Button from 'react-bootstrap/Button';
 import Badge from 'react-bootstrap/Badge';
@@ -36,7 +38,7 @@ class TicketListModal extends Component {
 		this.state = {
 			showCreateModal: false,
 			showMessagesModal: false,
-			showAll: false
+			showOpen: true
 		};
 	}
 
@@ -58,7 +60,7 @@ class TicketListModal extends Component {
 
 	toggleShowAll = () => {
 		this.setState({
-			showAll: !this.state.showAll
+			showOpen: !this.state.showOpen
 		});
 	}
 
@@ -66,13 +68,28 @@ class TicketListModal extends Component {
 		const out = [];
 		const { tickets } = this.props.user;
 		const { t } = this.props;
-		if ( this.state.showAll ) {
+		if ( this.state.showOpen ) {
 			for ( let i = 0; i < tickets.length; i++ ) {
 				const ticket = tickets[ i ];
+				if ( ticket.done === true ) {
+					continue;
+				}
 				out.push(
 					<ListGroup.Item key={`ticket-${i}`}>
 						{ticket.title}: {ticket.description}
-						{ticket.done ? <i className="far fa-check-square"></i> : null}
+						<OverlayTrigger placement="bottom" overlay={<Tooltip id="ticket-status-tooltip">
+							{t('common:close-ticket')}
+						</Tooltip>}>
+							<Button
+								variant="outline-secondary" size="sm"
+								style={{ float: 'right', marginLeft: 6 }}
+								onClick={() => {
+									this.props.closeTicket( ticket._id );
+								}}
+							>
+								<i className="far fa-square" />
+							</Button>
+						</OverlayTrigger>
 						<Button
 							size="sm"
 							variant="outline-secondary"
@@ -92,13 +109,25 @@ class TicketListModal extends Component {
 		} else {
 			for ( let i = 0; i < tickets.length; i++ ) {
 				const ticket = tickets[ i ];
-				if ( ticket.done ) {
+				if ( ticket.done === false ) {
 					continue;
 				}
 				out.push(
 					<ListGroup.Item key={`ticket-${i}`}>
 						{ticket.title}: {ticket.description}
-						{ticket.done ? <i className="far fa-check-square"></i> : null}
+						<OverlayTrigger placement="bottom" overlay={<Tooltip id="ticket-status-tooltip">
+							{t('common:open-ticket')}
+						</Tooltip>}>
+							<Button
+								variant="outline-secondary"
+								size="sm" style={{ float: 'right', marginLeft: 6 }}
+								onClick={() => {
+									this.props.openTicket( ticket._id );
+								}}
+							>
+								<i className="far fa-check-square"></i>
+							</Button>
+						</OverlayTrigger>
 						<Button
 							size="sm"
 							variant="outline-secondary"
@@ -137,7 +166,7 @@ class TicketListModal extends Component {
 						<Button
 							onClick={this.toggleShowAll}
 						>
-							{this.state.showAll ? t('show-completed-tickets') : t('show-all-tickets')}
+							{this.state.showOpen ? t('show-completed-tickets') : t('show-open-tickets')}
 						</Button>
 						<Button
 							onClick={this.toggleCreateModal}
@@ -163,6 +192,8 @@ class TicketListModal extends Component {
 					onHide={this.toggleTicketModal}
 					ticket={this.state.selectedTicket}
 					submitTicketMessage={this.props.submitTicketMessage}
+					closeTicket={this.props.closeTicket}
+					openTicket={this.props.openTicket}
 				/> : null }
 			</Fragment>
 		);
@@ -173,9 +204,11 @@ class TicketListModal extends Component {
 // PROPERTIES //
 
 TicketListModal.propTypes = {
+	closeTicket: PropTypes.func.isRequired,
 	createTicket: PropTypes.func.isRequired,
 	getUserTickets: PropTypes.func.isRequired,
 	onHide: PropTypes.func.isRequired,
+	openTicket: PropTypes.func.isRequired,
 	show: PropTypes.bool.isRequired,
 	submitTicketMessage: PropTypes.func.isRequired
 };

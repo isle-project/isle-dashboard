@@ -26,7 +26,7 @@ import { getFilesInjector } from 'actions/file';
 import { authenticateInjector, uploadProfilePicInjector, updateUserInjector, resendConfirmEmailInjector } from 'actions/user';
 import { addNotificationInjector } from 'actions/notification';
 import { createTicketInjector, getUserTicketsInjector } from 'actions/ticket';
-import { sendTicketMessageInjector } from 'actions/ticket';
+import { sendTicketMessageInjector, closeTicketInjector, openTicketInjector } from 'actions/ticket';
 
 
 // FUNCTIONS //
@@ -48,6 +48,8 @@ function mapDispatchToProps( dispatch ) {
 		getLessons: getLessonsInjector( dispatch ),
 		resendConfirmEmail: resendConfirmEmailInjector( dispatch ),
 		sendTicketMessage: sendTicketMessageInjector( dispatch ),
+		closeTicket: closeTicketInjector( dispatch ),
+		openTicket: openTicketInjector( dispatch ),
 		getUserTickets: getUserTicketsInjector( dispatch ),
 		uploadProfilePic: uploadProfilePicInjector( dispatch )
 	};
