@@ -239,7 +239,7 @@ class TicketPage extends Component {
 				Cell: ( row ) => {
 					if ( row.value ) {
 						const popover = <Popover id="popover-data" style={{ width: 400, maxHeight: '80vh', overflowY: 'auto' }}>
-							<Popover.Title as="h3">Data</Popover.Title>
+							<Popover.Title as="h3">{row._original.title}</Popover.Title>
 							<Popover.Content style={{ backgroundColor: 'lightblue' }} >
 								<pre>{JSON.stringify( omit( row.value, [ 'description' ] ), null, 2 )}
 								</pre>
