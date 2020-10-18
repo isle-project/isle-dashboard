@@ -218,7 +218,6 @@ class TicketPage extends Component {
 	}
 
 	render() {
-		const { t } = this.props;
 		return ( <Fragment>
 			<ReactTable
 				filterable
