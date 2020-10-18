@@ -124,7 +124,7 @@ class TicketModal extends Component {
 						<span>{this.props.ticket.namespace.title}</span>
 						{this.props.ticket.lesson ?
 							<Fragment>
-								|
+								{' | '}
 								<span className="title">{`${t('common:lesson')}: `}</span>
 								<span>{this.props.ticket.lesson.title}</span>
 							</Fragment> : null
