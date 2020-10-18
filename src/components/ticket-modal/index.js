@@ -60,6 +60,9 @@ class TicketModal extends Component {
 			message: this.state.response,
 			ticketID: this.props.ticket._id
 		});
+		this.setState({
+			response: ''
+		});
 	}
 
 	renderMessage = ( val, idx ) => {
@@ -73,7 +76,7 @@ class TicketModal extends Component {
 					</div>
 					<div className="message-author-line">
 						<span className="message-author">{ val.author }</span>
-						&nbsp;{t('wrote-on', { date: `${createdAt.toLocaleTimeString()} ${createdAt.toLocaleDateString()}` })}
+						&nbsp;{t('common:wrote-on', { date: `${createdAt.toLocaleTimeString()} ${createdAt.toLocaleDateString()}` })}
 					</div>
 				</div>
 				<div className="message-body">
@@ -90,7 +93,6 @@ class TicketModal extends Component {
 				<Modal show={this.props.show} onHide={this.props.onHide} dialogClassName="modal-60w" >
 					<Modal.Header>
 						<Modal.Title as="h3" style={{ width: '100%' }}>
-							<img className="ticket-modal-pic" src={`${server}/thumbnail/${this.props.ticket.user.picture}`} alt="Profile Pic" />
 							{this.props.ticket.title}
 							<OverlayTrigger placement="right" overlay={createTooltip( t('close-ticket-modal') )}>
 								<Button
@@ -127,7 +129,11 @@ class TicketModal extends Component {
 							</FormControl>
 						</FormGroup>
 						<div style={{ float: 'right', width: '180px' }} >
-							<Button block onClick={this.handleResponseSubmit} >
+							<Button
+								block
+								onClick={this.handleResponseSubmit}
+								disabled={!this.state.response}
+							>
 								{t('submit-response')}
 							</Button>
 							<Button block >
