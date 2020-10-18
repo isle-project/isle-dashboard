@@ -26,6 +26,8 @@ import Button from 'react-bootstrap/Button';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import PINF from '@stdlib/constants/math/float64-pinf';
 import Tooltip from 'react-bootstrap/Tooltip';
+import Badge from 'react-bootstrap/Badge';
+import Card from 'react-bootstrap/Card';
 import ConfirmModal from 'components/confirm-modal';
 import server from 'constants/server';
 import createBooleanColumn from './create_boolean_column.js';
@@ -138,11 +140,19 @@ class TicketPage extends Component {
 				accessor: 'title',
 				minWidth: 200
 			}),
-			createTextColumn({
+			{
 				Header: t('common:description'),
 				accessor: 'description',
+				Cell: ( row ) => {
+					return ( <OverlayTrigger placement="top" overlay={<Card className="tickets-description-overlay" body id="description-tooltip">
+						{row.value}
+					</Card>}>
+						<p className="tickets-description" >{row.value}</p>
+					</OverlayTrigger> );
+				},
+				style: { marginTop: '8px', color: 'darkslategrey' },
 				minWidth: 350
-			}),
+			},
 			createTextColumn({
 				Header: t('common:course'),
 				accessor: 'namespace.title',
@@ -158,13 +168,11 @@ class TicketPage extends Component {
 					}
 					const url = `${server}/${row.original.namespace.title}/${row.value}`;
 					return (
-						<OverlayTrigger placement="right" overlay={<Tooltip id="open-lesson-tooltip">{t('namespace_data:open-lesson-new-tab')}</Tooltip>}>
-							<div style={{ width: '100%', height: '100%' }} >
-								<a href={url} target="_blank">
-									{row.value}
-								</a>
-							</div>
-						</OverlayTrigger>
+						<Badge variant="light" style={{ fontSize: '1em' }} >
+							<a href={url} target="_blank">
+								{row.value}
+							</a>
+						</Badge>
 					);
 				}
 			}),

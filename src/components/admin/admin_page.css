@@ -117,3 +117,13 @@ th {
 	float: right;
 	margin-top: 0.8rem;
 }
+
+.tickets-description-overlay {
+	max-width: 900px;
+	white-space: pre-wrap;
+	background-color: seashell;
+}
+
+.tickets-description {
+	cursor: pointer;
+}
