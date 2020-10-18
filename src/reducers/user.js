@@ -253,6 +253,17 @@ export default function user( state = initialState, action ) {
 			tickets
 		});
 	}
+	case types.TICKET_MESSAGE_ADDED: {
+		const tickets = state.tickets.map( ticket => {
+			if ( ticket._id === action.payload.id ) {
+				ticket.messages.unshift( action.payload.message );
+			}
+			return ticket;
+		});
+		return Object.assign({}, state, {
+			tickets
+		});
+	}
 	case types.USER_RECEIVED_BADGES: {
 		return Object.assign({}, state, {
 			badges: action.payload.badges

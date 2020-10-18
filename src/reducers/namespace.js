@@ -176,7 +176,7 @@ export default function namespace( state = initialState, action ) {
 	case types.TICKET_MESSAGE_ADDED: {
 		const tickets = state.tickets.map( ticket => {
 			if ( ticket._id === action.payload.id ) {
-				ticket.messages.push( action.payload.message );
+				ticket.messages.unshift( action.payload.message );
 			}
 			return ticket;
 		});
