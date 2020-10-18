@@ -20,7 +20,7 @@ const debug = logger( 'isle:toolbar:ticketing' );
 // FUNCTIONS //
 
 const createOption = ( ns ) => {
-	return { value: ns.title, label: ns.title };
+	return { value: ns, label: ns.title };
 };
 
 
@@ -55,9 +55,9 @@ class CreateTicketModal extends Component {
 		});
 	}
 
-	handleSubmit = () => {
+	handleSubmit = async () => {
 		debug( 'Create ticket...' );
-		this.props.createTicket({
+		await this.props.createTicket({
 			title: this.state.title,
 			description: this.state.description,
 			platform: {
@@ -68,8 +68,9 @@ class CreateTicketModal extends Component {
 				os: platform.os,
 				description: platform.description
 			},
-			namespaceID: this.state.selectedCourse._id
+			namespace: this.state.selectedCourse.value
 		});
+		this.props.onHide();
 	}
 
 	render() {
