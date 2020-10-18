@@ -262,10 +262,10 @@ class AdminPage extends Component {
 							<Nav.Link eventKey="8" title="Events" >{t('common:events')}</Nav.Link>
 						</Nav.Item>
 						<Nav.Item>
-							<Nav.Link eventKey="9" title="Active Rooms" >{t('admin:active-rooms')}</Nav.Link>
+							<Nav.Link eventKey="9" title="Active Rooms" >{t('active-rooms')}</Nav.Link>
 						</Nav.Item>
 						<Nav.Item>
-							<Nav.Link eventKey="10" title="Tickets" >{t('admin:tickets')}</Nav.Link>
+							<Nav.Link eventKey="10" title="Tickets" >{t('common:tickets')}</Nav.Link>
 						</Nav.Item>
 						<span className="admin-page-version" >{t('dashboard-version')}: {dashboardVersion}</span>
 					</Nav>

@@ -33,6 +33,7 @@ import server from 'constants/server';
 import createBooleanColumn from './create_boolean_column.js';
 import createTextColumn from './create_text_column.js';
 import createDateColumn from './create_date_column.js';
+import TicketModal from 'components/ticket-modal';
 import 'react-table/react-table.css';
 import 'css/table.css';
 
@@ -44,7 +45,8 @@ class TicketPage extends Component {
 		super( props );
 		this.state = {
 			showDeleteModal: false,
-			deletionID: null,
+			showTicketModal: false,
+			selectedTicket: null,
 			columns: this.createColumns()
 		};
 	}
@@ -61,14 +63,15 @@ class TicketPage extends Component {
 		}
 	}
 
-	handleDelete = () => {
-		this.props.deleteTicket( this.state.deletionID );
-		this.toggleDeleteModal();
-	}
-
 	toggleDeleteModal = () => {
 		this.setState({
 			showDeleteModal: !this.state.showDeleteModal
+		});
+	}
+
+	toggleTicketModal = () => {
+		this.setState({
+			showTicketModal: !this.state.showTicketModal
 		});
 	}
 
@@ -153,6 +156,29 @@ class TicketPage extends Component {
 				style: { marginTop: '8px', color: 'darkslategrey' },
 				minWidth: 350
 			},
+			{
+				Header: 'Reply',
+				accessor: '_id',
+				Cell: ( row ) => {
+					return (
+						<OverlayTrigger placement="left" overlay={<Tooltip id="open-ticket-tooltip">{t('open-ticket-tooltip')}</Tooltip>}>
+							<Button
+								size="sm" variant="outline-secondary"
+								onClick={() => {
+									this.setState({
+										selectedTicket: row.original
+									}, this.toggleTicketModal );
+								}} >
+								<i className="fas fa-reply"></i>
+							</Button>
+						</OverlayTrigger>
+					);
+				},
+				resizable: false,
+				filterable: false,
+				sortable: false,
+				width: 45
+			},
 			createTextColumn({
 				Header: t('common:course'),
 				accessor: 'namespace.title',
@@ -233,6 +259,12 @@ class TicketPage extends Component {
 				close={this.toggleDeleteModal}
 				show={this.state.showDeleteModal}
 				onConfirm={this.deleteSelectedTicket}
+			/> : null }
+			{ this.state.showTicketModal ? <TicketModal
+				show={this.state.showTicketModal}
+				onHide={this.toggleTicketModal}
+				ticket={this.state.selectedTicket}
+				submitTicketMessage={this.props.submitTicketMessage}
 			/> : null }
 		</Fragment> );
 	}
