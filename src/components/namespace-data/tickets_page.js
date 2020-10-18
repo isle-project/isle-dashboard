@@ -32,8 +32,8 @@ import Badge from 'react-bootstrap/Badge';
 import createBooleanColumn from 'components/admin/create_boolean_column.js';
 import createTextColumn from 'components/admin/create_text_column.js';
 import createDateColumn from 'components/admin/create_date_column.js';
+import TicketModal from 'components/ticket-modal';
 import server from 'constants/server';
-import TicketModal from './ticket_modal.js';
 import 'react-table/react-table.css';
 import 'css/table.css';
 import 'css/input_range.css';
@@ -201,7 +201,6 @@ class TicketsPage extends Component {
 				}}
 			/>
 			{ this.state.showTicketModal ? <TicketModal
-				t={this.props.t}
 				show={this.state.showTicketModal}
 				onHide={this.toggleTicketModal}
 				ticket={this.state.selectedTicket}

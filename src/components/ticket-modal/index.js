@@ -19,6 +19,7 @@
 
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
+import { withTranslation } from 'react-i18next';
 import Button from 'react-bootstrap/Button';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
@@ -148,7 +149,6 @@ class TicketModal extends Component {
 TicketModal.propTypes = {
 	onHide: PropTypes.func.isRequired,
 	show: PropTypes.bool.isRequired,
-	t: PropTypes.func.isRequired,
 	ticket: PropTypes.object.isRequired
 };
 
@@ -157,4 +157,4 @@ TicketModal.defaultProps = {};
 
 // EXPORTS
 
-export default TicketModal;
+export default withTranslation( [ 'ticket', 'common' ] )( TicketModal );
