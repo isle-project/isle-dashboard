@@ -43,7 +43,8 @@ const initialState = {
 	files: null,
 	badges: null,
 	id: null,
-	token: null
+	token: null,
+	tickets: null
 };
 
 
@@ -225,6 +226,16 @@ export default function user( state = initialState, action ) {
 			files: groupBy( action.payload.files, ( v ) => {
 				return v.namespace;
 			})
+		});
+	}
+	case types.GET_USER_TICKETS: {
+		let tickets = action.payload.tickets;
+		tickets = tickets.map( x => {
+			x.createdAt = new Date( x.createdAt );
+			return x;
+		});
+		return Object.assign({}, state, {
+			tickets
 		});
 	}
 	case types.USER_RECEIVED_BADGES: {
