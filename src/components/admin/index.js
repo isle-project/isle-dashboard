@@ -229,6 +229,7 @@ class AdminPage extends Component {
 						submitTicketMessage={this.submitTicketMessage}
 						closeTicket={this.props.closeTicket}
 						openTicket={this.props.openTicket}
+						history={this.props.history}
 					/>
 				);
 		}
