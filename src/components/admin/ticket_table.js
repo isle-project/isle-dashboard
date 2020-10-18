@@ -40,6 +40,11 @@ import 'react-table/react-table.css';
 import 'css/table.css';
 
 
+// VARIABLES //
+
+const RE_TICKET = /ticket=([^&]*)/;
+
+
 // MAIN //
 
 class TicketPage extends Component {
@@ -53,8 +58,25 @@ class TicketPage extends Component {
 		};
 	}
 
-	componentDidMount() {
-		this.props.getAllTickets();
+	async componentDidMount() {
+		await this.props.getAllTickets();
+
+		if ( this.props.history.location.search ) {
+			const match = RE_TICKET.exec( this.props.history.location.search );
+			if ( match && match[ 1 ] ) {
+				const { tickets } = this.props.user;
+				for ( let i = 0; i < tickets.length; i++ ) {
+					const ticket = tickets[ i ];
+					if ( ticket._id === match[ 1 ] ) {
+						this.setState({
+							selectedTicket: ticket,
+							showTicketModal: true
+						});
+						break;
+					}
+				}
+			}
+		}
 	}
 
 	componentDidUpdate( prevProps ) {
