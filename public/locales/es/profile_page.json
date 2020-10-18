@@ -29,6 +29,7 @@
 	"select-file": "Seleccionar archivo",
 	"ticket-description-placeholder": "Ingrese una descripción de su problema...",
 	"ticket-title-placeholder": "Seleccione el título...",
+	"ticketing-intro": "Aquí puede reportar un problema con la funcionalidad del tablero de mandos. Su mensaje será enviado tanto a sus instructores como al equipo de soporte de ISLE. Por favor, informe de los problemas dentro de las lecciones directamente desde la barra de herramientas de la lección respectiva.",
 	"time-spent": "Tiempo Empleado",
 	"update-name": "Nombre de Actualización",
 	"update-organization": "Actualiza tu organización",

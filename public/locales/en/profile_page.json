@@ -29,6 +29,7 @@
 	"select-file": "Select file",
 	"ticket-description-placeholder": "Enter description of your problem...",
 	"ticket-title-placeholder": "Select title...",
+	"ticketing-intro": "Here you can report a problem with the functionality of the dashboard. Your message will be sent to both your instructors and the ISLE support team. Please report issues inside of lessons directly from the toolbar of the respective lesson.",
 	"time-spent": "Time Spent",
 	"update-name": "Update Name",
 	"update-organization": "Update your organization",
