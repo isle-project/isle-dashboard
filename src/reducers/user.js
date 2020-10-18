@@ -253,6 +253,28 @@ export default function user( state = initialState, action ) {
 			tickets
 		});
 	}
+	case types.TICKET_OPENED: {
+		const tickets = state.tickets.map( ticket => {
+			if ( ticket._id === action.payload.id ) {
+				ticket.done = false;
+			}
+			return ticket;
+		});
+		return Object.assign({}, state, {
+			tickets
+		});
+	}
+	case types.TICKET_CLOSED: {
+		const tickets = state.tickets.map( ticket => {
+			if ( ticket._id === action.payload.id ) {
+				ticket.done = true;
+			}
+			return ticket;
+		});
+		return Object.assign({}, state, {
+			tickets
+		});
+	}
 	case types.TICKET_MESSAGE_ADDED: {
 		const tickets = state.tickets.map( ticket => {
 			if ( ticket._id === action.payload.id ) {
