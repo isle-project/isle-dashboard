@@ -22,9 +22,11 @@ import PropTypes from 'prop-types';
 import { withTranslation } from 'react-i18next';
 import ReactTable from 'react-table';
 import moment from 'moment';
+import Popover from 'react-bootstrap/Popover';
 import Button from 'react-bootstrap/Button';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import PINF from '@stdlib/constants/math/float64-pinf';
+import omit from '@stdlib/utils/omit';
 import Tooltip from 'react-bootstrap/Tooltip';
 import Badge from 'react-bootstrap/Badge';
 import Card from 'react-bootstrap/Card';
@@ -208,6 +210,32 @@ class TicketPage extends Component {
 				trueLabel: t('common:done'),
 				falseLabel: t('common:not-done')
 			}),
+			{
+				Header: t( 'common:platform' ),
+				accessor: 'platform',
+				style: { marginTop: '2px', color: 'darkslategrey', fontSize: 24, textAlign: 'center', cursor: 'pointer' },
+				Cell: ( row ) => {
+					if ( row.value ) {
+						const popover = <Popover id="popover-data" style={{ width: 400, maxHeight: '80vh', overflowY: 'auto' }}>
+							<Popover.Title as="h3">Data</Popover.Title>
+							<Popover.Content style={{ backgroundColor: 'lightblue' }} >
+								<pre>{JSON.stringify( omit( row.value, [ 'description' ] ), null, 2 )}
+								</pre>
+							</Popover.Content>
+						</Popover>;
+						return (
+							<OverlayTrigger trigger="click" placement="left" overlay={popover}>
+								<i className="data-icon fas fa-tablet-alt"></i>
+							</OverlayTrigger>
+						);
+					}
+					return null;
+				},
+				maxWidth: 75,
+				resizable: false,
+				filterable: false,
+				sortable: false
+			},
 			createDateColumn({
 				Header: t('last-updated'),
 				accessor: 'updatedAt',

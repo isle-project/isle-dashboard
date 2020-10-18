@@ -252,3 +252,7 @@ label {
 	max-width: none !important;
 	width: 30%;
 }
+
+#popover-data .arrow {
+	display: none;
+}
