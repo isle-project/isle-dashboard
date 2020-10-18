@@ -49,7 +49,7 @@ class TicketListModal extends Component {
 
 	async componentDidMount() {
 		await this.props.getUserTickets();
-		if ( this.props.history.location.search ) {
+		if ( this.props.history && this.props.history.location.search ) {
 			const match = RE_TICKET.exec( this.props.history.location.search );
 			if ( match && match[ 1 ] ) {
 				const { tickets } = this.props.user;
@@ -172,8 +172,6 @@ class TicketListModal extends Component {
 	}
 
 	render() {
-		console.log( this.props.user.tickets[ 0 ] );
-		console.log( this.props.history );
 		const { t } = this.props;
 		return (
 			<Fragment>
