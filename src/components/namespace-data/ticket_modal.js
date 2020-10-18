@@ -26,7 +26,6 @@ import Modal from 'react-bootstrap/Modal';
 import FormLabel from 'react-bootstrap/FormLabel';
 import FormControl from 'react-bootstrap/FormControl';
 import FormGroup from 'react-bootstrap/FormGroup';
-import logger from 'debug';
 import server from 'constants/server';
 
 
@@ -35,11 +34,6 @@ import server from 'constants/server';
 const createTooltip = ( str ) => {
 	return <Tooltip id="tooltip">{str}</Tooltip>;
 };
-
-
-// VARIABLES //
-
-const debug = logger( 'isle-dashboard' );
 
 
 // MAIN //
@@ -59,13 +53,36 @@ class TicketModal extends Component {
 		});
 	}
 
+	handleResponseSubmit = () => {
+		this.props.submitTicketMessage({
+			message: this.state.response,
+			ticketID: this.props.ticket._id
+		});
+	}
+
 	renderMessage = ( val, idx ) => {
-		return 'MESSAGES';
+		const t = this.props.t;
+		const createdAt = new Date( val.createdAt );
+		return (
+			<div className="message-container" key={idx} >
+				<div className="message-data">
+					<div className="message-profile-pic">
+						<img src={`${server}/thumbnail/${val.picture}`} alt="User Profile Pic" />
+					</div>
+					<div className="message-author-line">
+						<span className="message-author">{ val.author }</span>
+						&nbsp;{t('wrote-on', { date: `${createdAt.toLocaleTimeString()} ${createdAt.toLocaleDateString()}` })}
+					</div>
+				</div>
+				<div className="message-body">
+					{val.body}
+				</div>
+			</div>
+		);
 	}
 
 	render() {
 		const t = this.props.t;
-		console.log( this.props.ticket );
 		return (
 			<Fragment>
 				<Modal show={this.props.show} onHide={this.props.onHide} dialogClassName="modal-60w" >
@@ -108,7 +125,7 @@ class TicketModal extends Component {
 							</FormControl>
 						</FormGroup>
 						<div style={{ float: 'right', width: '180px' }} >
-							<Button block >
+							<Button block onClick={this.handleResponseSubmit} >
 								Submit Response
 							</Button>
 							<Button block >
@@ -131,8 +148,8 @@ class TicketModal extends Component {
 TicketModal.propTypes = {
 	onHide: PropTypes.func.isRequired,
 	show: PropTypes.bool.isRequired,
-	ticket: PropTypes.object.isRequired,
-	t: PropTypes.func.isRequired
+	t: PropTypes.func.isRequired,
+	ticket: PropTypes.object.isRequired
 };
 
 TicketModal.defaultProps = {};
