@@ -137,7 +137,7 @@ class TicketsPage extends Component {
 				accessor: '_id',
 				Cell: ( row ) => {
 					return (
-						<OverlayTrigger placement="left" overlay={<Tooltip id="open-ticket-tooltip">{t('open-ticket-tooltip')}</Tooltip>}>
+						<OverlayTrigger placement="left" overlay={<Tooltip id="open-ticket-tooltip">{t('common:open-ticket-tooltip')}</Tooltip>}>
 							<Button
 								size="sm" variant="outline-secondary"
 								onClick={() => {

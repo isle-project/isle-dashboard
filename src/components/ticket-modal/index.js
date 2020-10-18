@@ -65,6 +65,14 @@ class TicketModal extends Component {
 		});
 	}
 
+	toggleCompletion = () => {
+		if ( this.props.ticket.done ) {
+			this.props.openTicket( this.props.ticket._id );
+		} else {
+			this.props.closeTicket( this.props.ticket._id );
+		}
+	}
+
 	renderMessage = ( val, idx ) => {
 		const t = this.props.t;
 		const createdAt = new Date( val.createdAt );
@@ -93,7 +101,7 @@ class TicketModal extends Component {
 				<Modal show={this.props.show} onHide={this.props.onHide} dialogClassName="modal-60w" >
 					<Modal.Header>
 						<Modal.Title as="h3" style={{ width: '100%' }}>
-							{this.props.ticket.title}
+							{t('common:title')}: {this.props.ticket.title}
 							<OverlayTrigger placement="right" overlay={createTooltip( t('close-ticket-modal') )}>
 								<Button
 									onClick={this.props.onHide}
@@ -111,6 +119,17 @@ class TicketModal extends Component {
 						<p style={{ whiteSpace: 'pre-wrap' }}>
 							{this.props.ticket.description}
 						</p>
+						<hr />
+						<span className="title">{`${t('common:course')}: `}</span>
+						<span>{this.props.ticket.namespace.title}</span>
+						{this.props.ticket.lesson ?
+							<Fragment>
+								|
+								<span className="title">{`${t('common:lesson')}: `}</span>
+								<span>{this.props.ticket.lesson.title}</span>
+							</Fragment> : null
+						}
+						<br />
 						<hr />
 						<span className="title">{t('common:messages')}:</span>
 						{this.props.ticket.messages.map( this.renderMessage )}
@@ -136,10 +155,16 @@ class TicketModal extends Component {
 							>
 								{t('submit-response')}
 							</Button>
-							<Button block >
-								{t('close-ticket')}
+							<Button
+								block
+								onClick={this.toggleCompletion}
+							>
+								{this.props.ticket.done ? t('common:open-ticket') : t('common:close-ticket')}
 							</Button>
-							<Button onClick={this.props.onHide} block >
+							<Button
+								block
+								onClick={this.props.onHide}
+							>
 								{t('common:hide')}
 							</Button>
 						</div>
@@ -154,7 +179,9 @@ class TicketModal extends Component {
 // PROPERTIES //
 
 TicketModal.propTypes = {
+	closeTicket: PropTypes.func.isRequired,
 	onHide: PropTypes.func.isRequired,
+	openTicket: PropTypes.func.isRequired,
 	show: PropTypes.bool.isRequired,
 	submitTicketMessage: PropTypes.func.isRequired,
 	ticket: PropTypes.object.isRequired

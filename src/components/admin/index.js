@@ -227,6 +227,8 @@ class AdminPage extends Component {
 						getAllTickets={this.props.getAllTickets}
 						deleteTicket={this.props.deleteTicket}
 						submitTicketMessage={this.submitTicketMessage}
+						closeTicket={this.props.closeTicket}
+						openTicket={this.props.openTicket}
 					/>
 				);
 		}
@@ -290,6 +292,7 @@ AdminPage.propTypes = {
 	addNotification: PropTypes.func.isRequired,
 	admin: PropTypes.object.isRequired,
 	adminUpdateUser: PropTypes.func.isRequired,
+	closeTicket: PropTypes.func.isRequired,
 	deleteCohort: PropTypes.func.isRequired,
 	deleteCurrentNamespace: PropTypes.func.isRequired,
 	deleteEvent: PropTypes.func.isRequired,
@@ -306,6 +309,7 @@ AdminPage.propTypes = {
 	getOverviewStatistics: PropTypes.func.isRequired,
 	getUsers: PropTypes.func.isRequired,
 	impersonateUser: PropTypes.func.isRequired,
+	openTicket: PropTypes.func.isRequired,
 	sanitizeRequest: PropTypes.func.isRequired,
 	sendTicketMessage: PropTypes.func.isRequired,
 	user: PropTypes.object.isRequired

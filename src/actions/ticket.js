@@ -23,7 +23,9 @@ import qs from 'querystring';
 import server from 'constants/server';
 import i18next from 'i18next';
 import { addNotification, addErrorNotification } from 'actions/notification';
-import { CREATED_TICKET, DELETED_TICKET, GET_ALL_TICKETS, GET_COURSE_TICKETS, GET_USER_TICKETS, TICKET_MESSAGE_ADDED } from 'constants/action_types.js';
+import { CREATED_TICKET, DELETED_TICKET, GET_ALL_TICKETS,
+	GET_COURSE_TICKETS, GET_USER_TICKETS, TICKET_CLOSED,
+	TICKET_OPENED, TICKET_MESSAGE_ADDED } from 'constants/action_types.js';
 
 
 // EXPORTS //
@@ -197,5 +199,59 @@ export const sendTicketMessage = async ( dispatch, { message, ticketID, user } )
 export const sendTicketMessageInjector = dispatch => {
 	return async ({ message, ticketID, user }) => {
 		await sendTicketMessage( dispatch, { message, ticketID, user } );
+	};
+};
+
+export const closeTicket = async ( dispatch, id ) => {
+	try {
+		const res = await axios.post( server+'/close_ticket', {
+			id
+		});
+		addNotification( dispatch, {
+			title: i18next.t('common:closed'),
+			message: res.data.message,
+			level: 'success'
+		});
+		dispatch({
+			type: TICKET_CLOSED,
+			payload: {
+				id
+			}
+		});
+	} catch ( err ) {
+		return addErrorNotification( dispatch, err );
+	}
+};
+
+export const closeTicketInjector = dispatch => {
+	return async ( id ) => {
+		await closeTicket( dispatch, id );
+	};
+};
+
+export const openTicket = async ( dispatch, id ) => {
+	try {
+		const res = await axios.post( server+'/close_ticket', {
+			id
+		});
+		addNotification( dispatch, {
+			title: i18next.t('common:opened'),
+			message: res.data.message,
+			level: 'success'
+		});
+		dispatch({
+			type: TICKET_OPENED,
+			payload: {
+				id
+			}
+		});
+	} catch ( err ) {
+		return addErrorNotification( dispatch, err );
+	}
+};
+
+export const openTicketInjector = dispatch => {
+	return async ( id ) => {
+		await openTicket( dispatch, id );
 	};
 };
