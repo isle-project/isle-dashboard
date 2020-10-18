@@ -25,7 +25,7 @@ import { getUserBadgesInjector } from 'actions/badge';
 import { getFilesInjector } from 'actions/file';
 import { authenticateInjector, uploadProfilePicInjector, updateUserInjector, resendConfirmEmailInjector } from 'actions/user';
 import { addNotificationInjector } from 'actions/notification';
-import { getUserTicketsInjector } from 'actions/ticket';
+import { createTicketInjector, getUserTicketsInjector } from 'actions/ticket';
 
 
 // FUNCTIONS //
@@ -39,6 +39,7 @@ function mapStateToProps( state ) {
 function mapDispatchToProps( dispatch ) {
 	return {
 		addNotification: addNotificationInjector( dispatch ),
+		createTicket: createTicketInjector( dispatch ),
 		getUserBadges: getUserBadgesInjector( dispatch ),
 		updateUser: updateUserInjector( dispatch ),
 		authenticate: authenticateInjector( dispatch ),
