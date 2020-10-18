@@ -149,6 +149,7 @@ class TicketModal extends Component {
 TicketModal.propTypes = {
 	onHide: PropTypes.func.isRequired,
 	show: PropTypes.bool.isRequired,
+	submitTicketMessage: PropTypes.func.isRequired,
 	ticket: PropTypes.object.isRequired
 };
 

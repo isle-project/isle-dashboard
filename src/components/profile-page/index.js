@@ -455,6 +455,7 @@ class ProfilePage extends Component {
 					t={t}
 				/>
 				<TicketListModal
+					createTicket={this.props.createTicket}
 					show={this.state.showTicketListModal}
 					onHide={this.toggleTicketListModal}
 					getUserTickets={this.props.getUserTickets}
@@ -479,6 +480,7 @@ class ProfilePage extends Component {
 ProfilePage.propTypes = {
 	addNotification: PropTypes.func.isRequired,
 	authenticate: PropTypes.func.isRequired,
+	createTicket: PropTypes.func.isRequired,
 	getFiles: PropTypes.func.isRequired,
 	getLessons: PropTypes.func.isRequired,
 	getUserBadges: PropTypes.func.isRequired,

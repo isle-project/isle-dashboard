@@ -151,13 +151,14 @@ class TicketListModal extends Component {
 				<CreateTicketModal
 					show={this.state.showCreateModal}
 					onHide={this.toggleCreateModal}
+					enrolledNamespaces={this.props.user.enrolledNamespaces}
+					createTicket={this.props.createTicket}
 					t={t}
 				/>
 				{ this.state.showMessagesModal ? <TicketModal
 					show={this.state.showMessagesModal}
 					onHide={this.toggleTicketModal}
 					ticket={this.state.selectedTicket}
-					submitTicketMessage={this.props.submitTicketMessage}
 				/> : null }
 			</Fragment>
 		);
@@ -168,10 +169,10 @@ class TicketListModal extends Component {
 // PROPERTIES //
 
 TicketListModal.propTypes = {
+	createTicket: PropTypes.func.isRequired,
 	getUserTickets: PropTypes.func.isRequired,
 	onHide: PropTypes.func.isRequired,
-	show: PropTypes.bool.isRequired,
-	submitTicketMessage: PropTypes.func.isRequired
+	show: PropTypes.bool.isRequired
 };
 
 
