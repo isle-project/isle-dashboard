@@ -212,7 +212,7 @@ class TicketsPage extends Component {
 							style={{ maxWidth: 500, maxHeight: '80vh', overflowY: 'auto' }}
 							arrowProps={{ display: 'none' }}
 						>
-							<Popover.Title as="h3">{row._original.title}</Popover.Title>
+							<Popover.Title as="h3">{row.row._original.title}</Popover.Title>
 							<Popover.Content style={{ backgroundColor: 'lightblue' }} >
 								<pre>
 									{JSON.stringify( omit( row.value, [ 'description' ] ), null, 2 )}
