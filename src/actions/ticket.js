@@ -203,6 +203,7 @@ export const sendTicketMessageInjector = dispatch => {
 };
 
 export const closeTicket = async ( dispatch, id ) => {
+	console.log( 'CLOSE TICKET' );
 	try {
 		const res = await axios.post( server+'/close_ticket', {
 			ticketID: id
@@ -231,7 +232,7 @@ export const closeTicketInjector = dispatch => {
 
 export const openTicket = async ( dispatch, id ) => {
 	try {
-		const res = await axios.post( server+'/close_ticket', {
+		const res = await axios.post( server+'/open_ticket', {
 			ticketID: id
 		});
 		addNotification( dispatch, {
