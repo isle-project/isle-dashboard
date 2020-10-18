@@ -64,7 +64,7 @@ class TicketPage extends Component {
 		if ( this.props.history.location.search ) {
 			const match = RE_TICKET.exec( this.props.history.location.search );
 			if ( match && match[ 1 ] ) {
-				const { tickets } = this.props.user;
+				const { tickets } = this.props.admin;
 				for ( let i = 0; i < tickets.length; i++ ) {
 					const ticket = tickets[ i ];
 					if ( ticket._id === match[ 1 ] ) {
