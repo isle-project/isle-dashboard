@@ -29,7 +29,7 @@ import { sanitizeRequestInjector } from 'actions/authentication.js';
 import { addNotificationInjector } from 'actions/notification.js';
 import { getOverviewStatisticsInjector, getHistoricalOverviewStatsInjector } from 'actions/statistics.js';
 import { deleteFileInjector, getAllFilesInjector } from 'actions/file.js';
-import { deleteTicketInjector, getAllTicketsInjector } from 'actions/ticket.js';
+import { deleteTicketInjector, getAllTicketsInjector, sendTicketMessageInjector } from 'actions/ticket.js';
 
 
 // FUNCTIONS //
@@ -61,6 +61,7 @@ function mapDispatchToProps( dispatch ) {
 		deleteUser: deleteUserInjector( dispatch ),
 		impersonateUser: impersonateUserInjector( dispatch ),
 		sanitizeRequest: sanitizeRequestInjector( dispatch ),
+		sendTicketMessage: sendTicketMessageInjector( dispatch ),
 		adminUpdateUser: adminUpdateUserInjector( dispatch ),
 		getOverviewStatistics: getOverviewStatisticsInjector( dispatch ),
 		getHistoricalOverviewStats: getHistoricalOverviewStatsInjector( dispatch )

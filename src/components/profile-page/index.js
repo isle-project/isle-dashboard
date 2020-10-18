@@ -161,6 +161,10 @@ class ProfilePage extends Component {
 		});
 	}
 
+	submitTicketMessage = ({ message, ticketID }) => {
+		this.props.sendTicketMessage({ message, ticketID, user: this.props.user });
+	}
+
 	renderLeftPanel() {
 		if ( !this.state.selectedNamespace ) {
 			return null;
@@ -460,6 +464,7 @@ class ProfilePage extends Component {
 					onHide={this.toggleTicketListModal}
 					getUserTickets={this.props.getUserTickets}
 					user={this.props.user}
+					submitTicketMessage={this.props.submitTicketMessage}
 					t={t}
 				/>
 				<ProfilePicModal
@@ -486,6 +491,7 @@ ProfilePage.propTypes = {
 	getUserBadges: PropTypes.func.isRequired,
 	getUserTickets: PropTypes.func.isRequired,
 	resendConfirmEmail: PropTypes.func.isRequired,
+	sendTicketMessage: PropTypes.func.isRequired,
 	updateUser: PropTypes.func.isRequired,
 	uploadProfilePic: PropTypes.func.isRequired,
 	user: PropTypes.object.isRequired
