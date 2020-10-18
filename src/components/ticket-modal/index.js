@@ -28,6 +28,7 @@ import FormLabel from 'react-bootstrap/FormLabel';
 import FormControl from 'react-bootstrap/FormControl';
 import FormGroup from 'react-bootstrap/FormGroup';
 import server from 'constants/server';
+import './ticket_modal.css';
 
 
 // FUNCTIONS //
@@ -104,12 +105,12 @@ class TicketModal extends Component {
 						</Modal.Title>
 					</Modal.Header>
 					<Modal.Body style={{ height: '60vh', overflowY: 'auto' }}>
-						<span className="title">Description:</span>
+						<span className="title">{t('common:description')}:</span>
 						<p style={{ whiteSpace: 'pre-wrap' }}>
 							{this.props.ticket.description}
 						</p>
 						<hr />
-						<span className="title">Messages:</span>
+						<span className="title">{t('common:messages')}:</span>
 						{this.props.ticket.messages.map( this.renderMessage )}
 						<hr />
 					</Modal.Body>
@@ -127,13 +128,13 @@ class TicketModal extends Component {
 						</FormGroup>
 						<div style={{ float: 'right', width: '180px' }} >
 							<Button block onClick={this.handleResponseSubmit} >
-								Submit Response
+								{t('submit-response')}
 							</Button>
 							<Button block >
-								Close Ticket
+								{t('close-ticket')}
 							</Button>
 							<Button onClick={this.props.onHide} block >
-								Hide
+								{t('common:hide')}
 							</Button>
 						</div>
 					</Modal.Footer>
@@ -158,4 +159,4 @@ TicketModal.defaultProps = {};
 
 // EXPORTS
 
-export default withTranslation( [ 'ticket', 'common' ] )( TicketModal );
+export default withTranslation( [ 'ticket_modal', 'common' ] )( TicketModal );
