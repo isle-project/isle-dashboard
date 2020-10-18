@@ -143,7 +143,9 @@ class TicketModal extends Component {
 								type="text"
 								as="textarea" rows="5"
 								value={this.state.response}
+								placeholder={this.props.ticket.done ? t('require-open-ticket') : t('response-comes-here')}
 								onChange={this.handleResponseChange}
+								disabled={this.props.ticket.done}
 							>
 							</FormControl>
 						</FormGroup>
@@ -151,7 +153,7 @@ class TicketModal extends Component {
 							<Button
 								block
 								onClick={this.handleResponseSubmit}
-								disabled={!this.state.response}
+								disabled={!this.state.response || this.props.ticket.done}
 							>
 								{t('submit-response')}
 							</Button>
