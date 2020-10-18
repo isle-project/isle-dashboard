@@ -166,8 +166,19 @@ export default function namespace( state = initialState, action ) {
 	case types.GET_COURSE_TICKETS: {
 		let tickets = action.payload.tickets;
 		tickets = tickets.map( x => {
-			x.updatedAt = new Date( x.updatedAt );
+			x.createdAt = new Date( x.createdAt );
 			return x;
+		});
+		return Object.assign({}, state, {
+			tickets
+		});
+	}
+	case types.TICKET_MESSAGE_ADDED: {
+		const tickets = state.tickets.map( ticket => {
+			if ( ticket._id === action.payload.id ) {
+				ticket.messages.push( action.payload.message );
+			}
+			return ticket;
 		});
 		return Object.assign({}, state, {
 			tickets
