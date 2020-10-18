@@ -45,6 +45,7 @@ import './tickets_page.css';
 // VARIABLES //
 
 const debug = logger( 'isle:files-page' );
+const RE_TICKET = /ticket=([^&]*)/;
 
 
 // MAIN //
@@ -60,9 +61,26 @@ class TicketsPage extends Component {
 		this.columns = this.createColumns();
 	}
 
-	componentDidMount() {
+	async componentDidMount() {
 		debug( 'Component did mount...' );
-		this.props.getCourseTickets( this.props.namespace._id );
+		await this.props.getCourseTickets( this.props.namespace._id );
+
+		if ( this.props.history.location.search ) {
+			const match = RE_TICKET.exec( this.props.history.location.search );
+			if ( match && match[ 1 ] ) {
+				const { tickets } = this.props.user;
+				for ( let i = 0; i < tickets.length; i++ ) {
+					const ticket = tickets[ i ];
+					if ( ticket._id === match[ 1 ] ) {
+						this.setState({
+							selectedTicket: ticket,
+							showTicketModal: true
+						});
+						break;
+					}
+				}
+			}
+		}
 	}
 
 	toggleTicketModal = () => {
