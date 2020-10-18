@@ -42,6 +42,7 @@ import badge from './img/question.svg';
 import badgeCircle from './img/badge_circle.svg';
 import './profile-page.css';
 import './message-page.css';
+import TicketListModal from './ticket_list.js';
 
 
 // FUNCTIONS //
@@ -74,6 +75,7 @@ class ProfilePage extends Component {
 		this.state = {
 			showEditModal: false,
 			showProfilePicModal: false,
+			showTicketListModal: false,
 			selectedNamespace: selectedNamespace,
 			selectedNamespaceID: selectedNamespaceID,
 			selectedDataType: 'messages',
@@ -95,6 +97,12 @@ class ProfilePage extends Component {
 	toggleEditModal = () => {
 		this.setState({
 			showEditModal: !this.state.showEditModal
+		});
+	}
+
+	toggleTicketListModal = () => {
+		this.setState({
+			showTicketListModal: !this.state.showTicketListModal
 		});
 	}
 
@@ -412,6 +420,7 @@ class ProfilePage extends Component {
 						</Card>
 						<div>
 							<Button style={{ marginTop: 15 }} block onClick={this.toggleEditModal}>{t('edit-profile')}</Button>
+							<Button style={{ marginTop: 15 }} block onClick={this.toggleTicketListModal}>{t('show-tickets')}</Button>
 						</div>
 					</div>
 				</div>
@@ -444,6 +453,10 @@ class ProfilePage extends Component {
 					onHide={this.toggleEditModal}
 					resendConfirmEmail={this.props.resendConfirmEmail}
 					t={t}
+				/>
+				<TicketListModal
+					show={this.state.showTicketListModal}
+					onHide={this.toggleTicketListModal}
 				/>
 				<ProfilePicModal
 					user={this.props.user}
