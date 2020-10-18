@@ -21,6 +21,7 @@ import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import ListGroup from 'react-bootstrap/ListGroup';
 import Button from 'react-bootstrap/Button';
+import Badge from 'react-bootstrap/Badge';
 import Modal from 'react-bootstrap/Modal';
 import TicketModal from 'components/ticket-modal';
 import CreateTicketModal from './create_ticket_modal.js';
@@ -83,6 +84,7 @@ class TicketListModal extends Component {
 							}}
 						>
 							{t('common:messages')}
+							<Badge className="ticket-badge" variant="secondary" >{ticket.messages.length}</Badge>
 						</Button>
 					</ListGroup.Item>
 				);
@@ -108,6 +110,7 @@ class TicketListModal extends Component {
 							}}
 						>
 							{t('common:messages')}
+							<Badge className="ticket-badge" variant="secondary" >{ticket.messages.length}</Badge>
 						</Button>
 					</ListGroup.Item>
 				);
@@ -159,6 +162,7 @@ class TicketListModal extends Component {
 					show={this.state.showMessagesModal}
 					onHide={this.toggleTicketModal}
 					ticket={this.state.selectedTicket}
+					submitTicketMessage={this.props.submitTicketMessage}
 				/> : null }
 			</Fragment>
 		);
@@ -172,7 +176,8 @@ TicketListModal.propTypes = {
 	createTicket: PropTypes.func.isRequired,
 	getUserTickets: PropTypes.func.isRequired,
 	onHide: PropTypes.func.isRequired,
-	show: PropTypes.bool.isRequired
+	show: PropTypes.bool.isRequired,
+	submitTicketMessage: PropTypes.func.isRequired
 };
 
 
