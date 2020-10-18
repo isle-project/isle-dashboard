@@ -464,7 +464,7 @@ class ProfilePage extends Component {
 					onHide={this.toggleTicketListModal}
 					getUserTickets={this.props.getUserTickets}
 					user={this.props.user}
-					submitTicketMessage={this.props.submitTicketMessage}
+					submitTicketMessage={this.submitTicketMessage}
 					t={t}
 				/>
 				<ProfilePicModal
