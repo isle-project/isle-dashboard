@@ -190,6 +190,17 @@ export default function admin( state = initialState, action ) {
 			tickets
 		});
 	}
+	case types.TICKET_MESSAGE_ADDED: {
+		const tickets = state.tickets.map( ticket => {
+			if ( ticket._id === action.payload.id ) {
+				ticket.messages.unshift( action.payload.message );
+			}
+			return ticket;
+		});
+		return Object.assign({}, state, {
+			tickets
+		});
+	}
 	case types.GET_HISTORICAL_OVERVIEW_STATISTICS: {
 		const statistics = action.payload.statistics.map( x => {
 			x.createdAt = x.createdAt.substring( 0, x.createdAt.indexOf( 'T' ) );
