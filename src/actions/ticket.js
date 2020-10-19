@@ -121,15 +121,29 @@ export const createTicket = async ( dispatch, {
 	title,
 	description,
 	platform,
-	namespace
+	namespace,
+	files
 }) => {
 	try {
-		const res = await axios.post( server + '/create_ticket', {
-			title,
-			description,
-			platform,
-			namespaceID: namespace._id
-		});
+		let res;
+		if ( !files || files.length === 0 ) {
+			res = await axios.post( server + '/create_ticket', {
+				title,
+				description,
+				platform,
+				namespaceID: namespace._id
+			});
+		} else {
+			const formData = new FormData();
+			for ( let i = 0; i < files.length; i++ ) {
+				formData.append( 'attachment', files[ i ] );
+			}
+			formData.append( 'title', title );
+			formData.append( 'description', description );
+			formData.append( 'platform', JSON.stringify( platform ) );
+			formData.append( 'namespaceID', namespace._id );
+			res = await axios.post( server + '/create_ticket', formData );
+		}
 		addNotification( dispatch, {
 			title: i18next.t('common:created'),
 			message: res.data.message,
@@ -155,13 +169,15 @@ export const createTicketInjector = dispatch => {
 		title,
 		description,
 		platform,
-		namespace
+		namespace,
+		files
 	}) => {
 		await createTicket( dispatch, {
 			title,
 			description,
 			platform,
-			namespace
+			namespace,
+			files
 		});
 	};
 };

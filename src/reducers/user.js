@@ -242,6 +242,7 @@ export default function user( state = initialState, action ) {
 		const tickets = state.tickets.slice();
 		tickets.push({
 			...action.payload,
+			attachments: [],
 			messages: [],
 			user: {
 				picture: state.picture.substring( state.picture.lastIndexOf( '/' )+1 ),
