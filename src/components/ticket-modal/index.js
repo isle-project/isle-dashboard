@@ -96,7 +96,6 @@ class TicketModal extends Component {
 
 	render() {
 		const t = this.props.t;
-		console.log( this.props.ticket );
 		return (
 			<Fragment>
 				<Modal show={this.props.show} onHide={this.props.onHide} dialogClassName="modal-60w" >
