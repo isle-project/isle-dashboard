@@ -1,6 +1,6 @@
 // MODULES //
 
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import platform from 'platform';
 import logger from 'debug';
@@ -10,6 +10,9 @@ import FormControl from 'react-bootstrap/FormControl';
 import FormLabel from 'react-bootstrap/FormLabel';
 import FormGroup from 'react-bootstrap/FormGroup';
 import Button from 'react-bootstrap/Button';
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
+import ListGroup from 'react-bootstrap/ListGroup';
+import Tooltip from 'react-bootstrap/Tooltip';
 
 
 // VARIABLES //
@@ -33,8 +36,22 @@ class CreateTicketModal extends Component {
 		this.state = {
 			title: '',
 			description: '',
-			selectedCourse: props.enrolledNamespaces ? createOption( props.enrolledNamespaces[ 0 ] ) : null
+			selectedCourse: props.enrolledNamespaces ? createOption( props.enrolledNamespaces[ 0 ] ) : null,
+			files: []
 		};
+	}
+
+	attachFile = () => {
+		const input = document.createElement( 'input' );
+		input.type = 'file';
+		input.onchange = ( e ) => {
+			const files = e.target.files;
+			const newFiles = [ ...this.state.files, ...files ];
+			this.setState({
+				files: newFiles
+			});
+		};
+		input.click();
 	}
 
 	handleTitleChange = ( event ) => {
@@ -68,9 +85,48 @@ class CreateTicketModal extends Component {
 				os: platform.os,
 				description: platform.description
 			},
-			namespace: this.state.selectedCourse.value
+			namespace: this.state.selectedCourse.value,
+			files: this.state.files
 		});
 		this.props.onHide();
+	}
+
+	removeFileFactory = ( idx ) => {
+		return () => {
+			const newFiles = this.state.files.slice();
+			newFiles.splice( idx, 1 );
+			this.setState({
+				files: newFiles
+			});
+		};
+	}
+
+	renderAttachments() {
+		if ( this.state.files.length === 0 ) {
+			return null;
+		}
+		return (
+			<Fragment>
+				<span className="title">{this.props.t('attachments')}:</span>
+				<ListGroup className="ticketing-attachment-list" >
+					{this.state.files.map( ( file, idx ) => {
+						return (
+							<ListGroup.Item key={`file-${idx}`}>
+								{file.name}
+								<Button
+									variant="danger"
+									size="sm"
+									onClick={this.removeFileFactory( idx )}
+									style={{ float: 'right' }}
+								>
+									x
+								</Button>
+							</ListGroup.Item>
+						);
+					})}
+				</ListGroup>
+			</Fragment>
+		);
 	}
 
 	render() {
@@ -110,8 +166,14 @@ class CreateTicketModal extends Component {
 						>
 						</FormControl>
 					</FormGroup>
+					{this.renderAttachments()}
 				</Modal.Body>
 				<Modal.Footer>
+					<OverlayTrigger placement="left" overlay={<Tooltip id="attachmentTooltip">{t('attach-file')}</Tooltip>}>
+						<Button onClick={this.attachFile} >
+							<i className="fas fa-paperclip"></i>
+						</Button>
+					</OverlayTrigger>
 					<Button onClick={this.props.onHide} >
 						{t('common:cancel')}
 					</Button>
