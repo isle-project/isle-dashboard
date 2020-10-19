@@ -544,7 +544,6 @@ class Overview extends Component {
 		debug( 'Rendering overview page...' );
 		const { nUsers, nNamespaces, nLessons, nCohorts, nSessionData, nFiles, nEvents, nTickets } = this.props.statistics;
 		const { t } = this.props;
-		console.log( this.state.displayInPlot );
 		return (
 			<Container className="admin-overview-container" >
 				<Row className="first-row" >
