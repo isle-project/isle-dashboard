@@ -96,6 +96,7 @@ class TicketModal extends Component {
 
 	render() {
 		const t = this.props.t;
+		console.log( this.props.ticket );
 		return (
 			<Fragment>
 				<Modal show={this.props.show} onHide={this.props.onHide} dialogClassName="modal-60w" >
@@ -127,7 +128,21 @@ class TicketModal extends Component {
 								{' | '}
 								<span className="title">{`${t('common:lesson')}: `}</span>
 								<span>{this.props.ticket.lesson.title}</span>
-							</Fragment> : null
+							</Fragment> :
+							null
+						}
+						{this.props.ticket.attachments.length > 0 ?
+							<Fragment>
+								<br />
+								<span className="title">{`${t('common:attachments')}: `}</span>
+								{this.props.ticket.attachments.map( ( file, idx ) => {
+									return ( <a href={`${server}/attachments/${file.filename}`} key={idx} style={{ marginLeft: 6 }} target="_blank" >
+										<i className="fas fa-link" style={{ marginRight: 2 }} ></i>
+										{file.title}
+									</a> );
+								})}
+							</Fragment> :
+							null
 						}
 						<br />
 						<hr />
