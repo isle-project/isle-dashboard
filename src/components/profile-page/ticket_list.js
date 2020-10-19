@@ -208,13 +208,13 @@ class TicketListModal extends Component {
 						</Button>
 					</Modal.Footer>
 				</Modal>
-				<CreateTicketModal
+				{ this.state.showCreateModal ? <CreateTicketModal
 					show={this.state.showCreateModal}
 					onHide={this.toggleCreateModal}
 					enrolledNamespaces={this.props.user.enrolledNamespaces}
 					createTicket={this.props.createTicket}
 					t={t}
-				/>
+				/> : null }
 				{ this.state.showMessagesModal ? <TicketModal
 					show={this.state.showMessagesModal}
 					onHide={this.toggleTicketModal}
