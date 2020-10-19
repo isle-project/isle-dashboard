@@ -126,6 +126,7 @@ export const createTicket = async ( dispatch, {
 }) => {
 	try {
 		let res;
+		let attachments;
 		if ( !files || files.length === 0 ) {
 			res = await axios.post( server + '/create_ticket', {
 				title,
@@ -133,6 +134,7 @@ export const createTicket = async ( dispatch, {
 				platform,
 				namespaceID: namespace._id
 			});
+			attachments = [];
 		} else {
 			const formData = new FormData();
 			for ( let i = 0; i < files.length; i++ ) {
@@ -143,6 +145,7 @@ export const createTicket = async ( dispatch, {
 			formData.append( 'platform', JSON.stringify( platform ) );
 			formData.append( 'namespaceID', namespace._id );
 			res = await axios.post( server + '/create_ticket', formData );
+			attachments = res.data.attachments;
 		}
 		addNotification( dispatch, {
 			title: i18next.t('common:created'),
@@ -155,7 +158,8 @@ export const createTicket = async ( dispatch, {
 				title,
 				description,
 				platform,
-				namespace
+				namespace,
+				attachments
 			}
 		});
 		return res;
