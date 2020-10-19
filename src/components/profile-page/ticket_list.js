@@ -88,8 +88,14 @@ class TicketListModal extends Component {
 
 	renderTicketList() {
 		const out = [];
-		const { tickets } = this.props.user;
-		const { t } = this.props;
+		const { user, t } = this.props;
+		if ( !user ) {
+			return null;
+		}
+		const { tickets } = user;
+		if ( !tickets ) {
+			return null;
+		}
 		if ( this.state.showOpen ) {
 			for ( let i = 0; i < tickets.length; i++ ) {
 				const ticket = tickets[ i ];
