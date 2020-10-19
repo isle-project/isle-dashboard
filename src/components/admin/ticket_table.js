@@ -68,6 +68,7 @@ class TicketPage extends Component {
 				for ( let i = 0; i < tickets.length; i++ ) {
 					const ticket = tickets[ i ];
 					if ( ticket._id === match[ 1 ] ) {
+						// eslint-disable-next-line react/no-did-mount-set-state
 						this.setState({
 							selectedTicket: ticket,
 							showTicketModal: true
