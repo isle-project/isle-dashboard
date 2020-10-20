@@ -275,12 +275,12 @@ class TicketPage extends Component {
 				Header: t('common:actions'),
 				Cell: ( row ) => {
 					return ( <div>
-						<OverlayTrigger placement="bottom" overlay={<Tooltip id="delete_ticket">{t('namespace:delete-ticket')}</Tooltip>}>
+						<OverlayTrigger placement="bottom" overlay={<Tooltip id="delete_ticket">{t('delete-ticket')}</Tooltip>}>
 							<Button
 								variant="outline-secondary"
 								style={{ marginLeft: 8 }}
 								onClick={this.askToDeleteSelectedTicketFactory( row.row._original )}
-								aria-label={t('namespace:delete-ticket')}
+								aria-label={t('delete-ticket')}
 							>
 								<div className="fa fa-trash-alt" />
 							</Button>
@@ -305,8 +305,8 @@ class TicketPage extends Component {
 				}}
 			/>
 			{ this.state.showDeleteModal ? <ConfirmModal
-				title={this.props.t('lesson:delete-ticket')}
-				message={<span>{this.props.t('namespace:delete-ticket-confirm')}</span>}
+				title={this.props.t('delete-ticket')}
+				message={<span>{this.props.t('delete-ticket-confirm')}</span>}
 				close={this.toggleDeleteModal}
 				show={this.state.showDeleteModal}
 				onConfirm={this.deleteSelectedTicket}
