@@ -13,6 +13,8 @@
 	"daily-statistics": "Daily Statistics",
 	"dashboard-version": "Dashboard Version",
 	"database": "Database",
+	"delete-ticket": "Delete Ticket",
+	"delete-ticket-confirm": "Please confirm that you want to delete the selected ticket.",
 	"delete-user": "Delete User",
 	"delete-user-confirm": "Are you sure you want to delete the user ",
 	"display-daily-changes": "Display Daily Changes",
