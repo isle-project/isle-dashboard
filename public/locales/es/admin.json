@@ -13,6 +13,8 @@
 	"daily-statistics": "Estadísticas Diarias",
 	"dashboard-version": "Versión de tablero",
 	"database": "Base de datos",
+	"delete-ticket": "Borrar el ticket",
+	"delete-ticket-confirm": "Por favor, confirme que desea eliminar el boleto seleccionado.",
 	"delete-user": "Eliminar Usuario",
 	"delete-user-confirm": "¿Está seguro de que desea eliminar el usuario?",
 	"display-daily-changes": "Mostrar los cambios diarios",
