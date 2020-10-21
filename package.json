@@ -137,7 +137,7 @@
     "jest": "^26.6.0",
     "jest-cli": "^26.6.0",
     "json-loader": "0.5.7",
-    "mini-css-extract-plugin": "^1.0.0",
+    "mini-css-extract-plugin": "^1.1.1",
     "optimize-css-assets-webpack-plugin": "^5.0.3",
     "pnp-webpack-plugin": "^1.6.0",
     "postcss-loader": "4.0.4",
