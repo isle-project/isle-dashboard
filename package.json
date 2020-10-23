@@ -111,7 +111,7 @@
     "babel-plugin-css-modules-transform": "^1.6.1",
     "babel-plugin-transform-async-to-generator": "^6.24.1",
     "babel-plugin-transform-es2015-modules-commonjs": "^6.26.2",
-    "babel-preset-react-app": "^9.1.2",
+    "babel-preset-react-app": "^10.0.0",
     "bfj": "^7.0.2",
     "case-sensitive-paths-webpack-plugin": "2.3.0",
     "chalk": "4.1.0",
