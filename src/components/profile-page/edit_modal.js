@@ -152,6 +152,7 @@ class EditModal extends Component {
 								style={{ float: 'right' }}
 								variant="outline-secondary"
 								aria-label={t('close-edit-modal')}
+								className="modal-close"
 							>
 								<span aria-hidden="true">x</span>
 							</Button>

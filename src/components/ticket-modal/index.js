@@ -109,6 +109,7 @@ class TicketModal extends Component {
 									style={{ float: 'right' }}
 									variant="outline-secondary"
 									aria-label={t('close-ticket-modal')}
+									className="modal-close"
 								>
 									<span aria-hidden="true">x</span>
 								</Button>
