@@ -96,12 +96,13 @@ class TicketModal extends Component {
 
 	render() {
 		const t = this.props.t;
+		const { ticket } = this.props;
 		return (
 			<Fragment>
 				<Modal show={this.props.show} onHide={this.props.onHide} dialogClassName="modal-60w" >
 					<Modal.Header>
 						<Modal.Title as="h3" style={{ width: '100%' }}>
-							{t('common:title')}: {this.props.ticket.title}
+							{t('common:title')}: {ticket.title}
 							<OverlayTrigger placement="right" overlay={createTooltip( t('close-ticket-modal') )}>
 								<Button
 									onClick={this.props.onHide}
@@ -117,24 +118,37 @@ class TicketModal extends Component {
 					<Modal.Body style={{ height: '60vh', overflowY: 'auto' }}>
 						<span className="title">{t('common:description')}:</span>
 						<p style={{ whiteSpace: 'pre-wrap' }}>
-							{this.props.ticket.description}
+							{ticket.description}
 						</p>
 						<hr />
-						<span className="title">{`${t('common:course')}: `}</span>
-						<span>{this.props.ticket.namespace.title}</span>
-						{this.props.ticket.lesson ?
+						{ticket.namespace.title ?
 							<Fragment>
+								<span className="title">{`${t('common:course')}: `}</span>
+								<span>{ticket.namespace.title}</span>
 								{' | '}
-								<span className="title">{`${t('common:lesson')}: `}</span>
-								<span>{this.props.ticket.lesson.title}</span>
 							</Fragment> :
 							null
 						}
-						{this.props.ticket.attachments.length > 0 ?
+						{ticket.lesson ?
+							<Fragment>
+								<span className="title">{`${t('common:lesson')}: `}</span>
+								<span>{ticket.lesson.title}</span>
+								{' | '}
+							</Fragment> :
+							null
+						}
+						{ticket.component ?
+							<Fragment>
+								<span className="title">{`${t('common:component')}: `}</span>
+								<span>{ticket.component}</span>
+							</Fragment> :
+							null
+						}
+						{ticket.attachments.length > 0 ?
 							<Fragment>
 								<br />
 								<span className="title">{`${t('common:attachments')}: `}</span>
-								{this.props.ticket.attachments.map( ( file, idx ) => {
+								{ticket.attachments.map( ( file, idx ) => {
 									return ( <a href={`${server}/attachments/${file.filename}`} key={idx} style={{ marginLeft: 6 }} target="_blank" >
 										<i className="fas fa-link" style={{ marginRight: 2 }} ></i>
 										{file.title}
@@ -146,7 +160,7 @@ class TicketModal extends Component {
 						<br />
 						<hr />
 						<span className="title">{t('common:messages')}:</span>
-						{this.props.ticket.messages.map( this.renderMessage )}
+						{ticket.messages.map( this.renderMessage )}
 						<hr />
 					</Modal.Body>
 					<Modal.Footer style={{ background: 'ghostwhite' }} >
@@ -157,9 +171,9 @@ class TicketModal extends Component {
 								type="text"
 								as="textarea" rows="5"
 								value={this.state.response}
-								placeholder={this.props.ticket.done ? t('require-open-ticket') : t('response-comes-here')}
+								placeholder={ticket.done ? t('require-open-ticket') : t('response-comes-here')}
 								onChange={this.handleResponseChange}
-								disabled={this.props.ticket.done}
+								disabled={ticket.done}
 							>
 							</FormControl>
 						</FormGroup>
@@ -167,7 +181,7 @@ class TicketModal extends Component {
 							<Button
 								block
 								onClick={this.handleResponseSubmit}
-								disabled={!this.state.response || this.props.ticket.done}
+								disabled={!this.state.response || ticket.done}
 							>
 								{t('submit-response')}
 							</Button>
@@ -175,7 +189,7 @@ class TicketModal extends Component {
 								block
 								onClick={this.toggleCompletion}
 							>
-								{this.props.ticket.done ? t('common:open-ticket') : t('common:close-ticket')}
+								{ticket.done ? t('common:open-ticket') : t('common:close-ticket')}
 							</Button>
 							<Button
 								block
