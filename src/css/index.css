@@ -256,3 +256,8 @@ label {
 #popover-data .arrow {
 	display: none;
 }
+
+.modal-close {
+	font-weight: 700;
+	line-height: 1;
+}
