@@ -215,7 +215,7 @@ class TicketPage extends Component {
 				maxWidth: 140
 			}),
 			createCategoricalColumn({
-				Header: t('common:priority'),
+				Header: t('priority'),
 				accessor: 'priority',
 				labels: [ 'Low', 'Middle', 'High' ]
 			}),
