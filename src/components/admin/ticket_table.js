@@ -33,6 +33,7 @@ import Card from 'react-bootstrap/Card';
 import ConfirmModal from 'components/confirm-modal';
 import server from 'constants/server';
 import createBooleanColumn from './create_boolean_column.js';
+import createCategoricalColumn from './create_categorical_column.js';
 import createTextColumn from './create_text_column.js';
 import createDateColumn from './create_date_column.js';
 import TicketModal from 'components/ticket-modal';
@@ -181,6 +182,10 @@ class TicketPage extends Component {
 				style: { marginTop: '8px', color: 'darkslategrey' },
 				minWidth: 350
 			},
+			createTextColumn({
+				Header: t('common:component'),
+				accessor: 'component'
+			}),
 			{
 				Header: 'Reply',
 				accessor: '_id',
@@ -208,6 +213,11 @@ class TicketPage extends Component {
 				Header: t('common:course'),
 				accessor: 'namespace.title',
 				maxWidth: 140
+			}),
+			createCategoricalColumn({
+				Header: t('common:priority'),
+				accessor: 'priority',
+				labels: [ 'Low', 'Middle', 'High' ]
 			}),
 			createTextColumn({
 				Header: t('common:lesson'),
