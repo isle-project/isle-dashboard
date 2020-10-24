@@ -31,6 +31,7 @@ import Tooltip from 'react-bootstrap/Tooltip';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import Badge from 'react-bootstrap/Badge';
+import createCategoricalColumn from 'components/admin/create_categorical_column.js';
 import createBooleanColumn from 'components/admin/create_boolean_column.js';
 import createTextColumn from 'components/admin/create_text_column.js';
 import createDateColumn from 'components/admin/create_date_column.js';
@@ -153,6 +154,10 @@ class TicketsPage extends Component {
 				style: { marginTop: '8px', color: 'darkslategrey' },
 				minWidth: 350
 			},
+			createTextColumn({
+				Header: t('common:component'),
+				accessor: 'component'
+			}),
 			{
 				Header: 'Reply',
 				accessor: '_id',
@@ -176,6 +181,11 @@ class TicketsPage extends Component {
 				sortable: false,
 				width: 45
 			},
+			createCategoricalColumn({
+				Header: t('common:priority'),
+				accessor: 'priority',
+				labels: [ 'Low', 'Middle', 'High' ]
+			}),
 			createTextColumn({
 				Header: t('common:lesson'),
 				accessor: 'lesson.title',
