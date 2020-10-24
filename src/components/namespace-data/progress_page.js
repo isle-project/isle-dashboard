@@ -289,9 +289,15 @@ class ProgressPage extends Component {
 			if ( data ) {
 				const progress = min( round( data.progress*100 ), 100 );
 				return (
-					<span>
+					<span style={{ fontSize: '12px', fontWeight: 800 }}>
 						<OverlayTrigger placement="bottom" overlay={<Tooltip id="durationTooltip" >{t('hours-minutes-seconds')}</Tooltip>}>
-							<span style={{ fontSize: '12px', fontWeight: 800 }}>{t('duration')}: {formatTime( data.spentTime )}</span>
+							<span>{t('duration')}: {formatTime( data.spentTime )}</span>
+						</OverlayTrigger>
+						<OverlayTrigger placement="bottom" overlay={<Tooltip id="startTooltip" >{t('first-accessed')}</Tooltip>}>
+							<span> | {new Date( data.createdAt ).toLocaleString()}</span>
+						</OverlayTrigger>
+						<OverlayTrigger placement="bottom" overlay={<Tooltip id="startTooltip" >{t('last-accessed')}</Tooltip>}>
+							<span> - {new Date( data.updatedAt ).toLocaleString()}</span>
 						</OverlayTrigger>
 						<br />
 						<EditableProgress
@@ -334,11 +340,15 @@ class ProgressPage extends Component {
 				let data = member.lessonData;
 				if ( data && data[ lessonName ] ) {
 					data = data[ lessonName ];
-					out[ i ][ lessons[ j ].title+'_progress' ] = min( round( data.progress*100 ), 100 );
+					out[ i ][ lessons[ j ].title+'_question_progress' ] = min( round( data.progress*100 ), 100 );
 					out[ i ][ lessons[ j ].title+'_time' ] = round( data.spentTime / ( 1000*60 ) );
+					out[ i ][ lessons[ j ].title+'_first_accessed' ] = new Date( data.createdAt ).toLocaleString();
+					out[ i ][ lessons[ j ].title+'_last_accessed' ] = new Date( data.updatedAt ).toLocaleString();
 				} else {
-					out[ i ][ lessons[ j ].title+'_progress' ] = 0;
+					out[ i ][ lessons[ j ].title+'_question_progress' ] = 0;
 					out[ i ][ lessons[ j ].title+'_time' ] = 0;
+					out[ i ][ lessons[ j ].title+'_first_accessed' ] = '';
+					out[ i ][ lessons[ j ].title+'_last_accessed' ] = '';
 				}
 			}
 		}
