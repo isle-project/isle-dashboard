@@ -27,6 +27,7 @@ import FilesPage from './files_page.js';
 import AnnouncementsPage from './announcements_page.js';
 import ProgressPage from './progress_page.js';
 import CohortsPage from './cohorts_page.js';
+import GradesPage from './grades_page.js';
 import ActionsPage from './actions_page.js';
 import TicketsPage from './tickets_page.js';
 import './namespace_data.css';
@@ -53,20 +54,23 @@ class NamespaceData extends Component {
 			case 'progress':
 				activePage = 2;
 				break;
-			case 'cohorts':
+			case 'grades':
 				activePage = 3;
 				break;
-			case 'owner-files':
+			case 'cohorts':
 				activePage = 4;
 				break;
-			case 'student-files':
+			case 'owner-files':
 				activePage = 5;
 				break;
-			case 'tickets':
+			case 'student-files':
 				activePage = 6;
 				break;
-			case 'actions':
+			case 'tickets':
 				activePage = 7;
+				break;
+			case 'actions':
+				activePage = 8;
 				break;
 		}
 		this.state = {
@@ -131,18 +135,21 @@ class NamespaceData extends Component {
 				this.props.history.replace( `/namespace-data/${title}/progress` );
 				break;
 			case 3:
-				this.props.history.replace( `/namespace-data/${title}/cohorts` );
+				this.props.history.replace( `/namespace-data/${title}/grades` );
 				break;
 			case 4:
-				this.props.history.replace( `/namespace-data/${title}/owner-files` );
+				this.props.history.replace( `/namespace-data/${title}/cohorts` );
 				break;
 			case 5:
-				this.props.history.replace( `/namespace-data/${title}/student-files` );
+				this.props.history.replace( `/namespace-data/${title}/owner-files` );
 				break;
 			case 6:
-				this.props.history.replace( `/namespace-data/${title}/tickets` );
+				this.props.history.replace( `/namespace-data/${title}/student-files` );
 				break;
 			case 7:
+				this.props.history.replace( `/namespace-data/${title}/tickets` );
+				break;
+			case 8:
 				this.props.history.replace( `/namespace-data/${title}/actions` );
 				break;
 		}
@@ -158,14 +165,16 @@ class NamespaceData extends Component {
 			case 2:
 				return <ProgressPage adjustProgress={this.props.adjustProgress} addNotification={this.props.addNotification} namespace={this.props.namespace} cohorts={this.props.namespace.cohorts} lessons={this.props.namespace.lessons} />;
 			case 3:
-				return <CohortsPage badges={this.props.badges} cohorts={this.props.namespace.cohorts} lessons={this.props.namespace.lessons} />;
+				return <GradesPage addNotification={this.props.addNotification} namespace={this.props.namespace} cohorts={this.props.namespace.cohorts} lessons={this.props.namespace.lessons} />;
 			case 4:
-				return <FilesPage ownerFiles files={this.props.namespace.ownerFiles} namespace={this.props.namespace} handleUpload={this.handleUpload} handleFileDeletion={this.handleFileDeletion} addNotification={this.props.addNotification} getFiles={this.props.getOwnerFiles} />;
+				return <CohortsPage badges={this.props.badges} cohorts={this.props.namespace.cohorts} lessons={this.props.namespace.lessons} />;
 			case 5:
-				return <FilesPage files={this.props.namespace.files} namespace={this.props.namespace} handleUpload={this.handleUpload} handleFileDeletion={this.handleFileDeletion} addNotification={this.props.addNotification} getFiles={this.props.getFiles} />;
+				return <FilesPage ownerFiles files={this.props.namespace.ownerFiles} namespace={this.props.namespace} handleUpload={this.handleUpload} handleFileDeletion={this.handleFileDeletion} addNotification={this.props.addNotification} getFiles={this.props.getOwnerFiles} />;
 			case 6:
-				return <TicketsPage tickets={this.props.namespace.tickets} namespace={this.props.namespace} getCourseTickets={this.props.getCourseTickets} submitTicketMessage={this.submitTicketMessage} openTicket={this.props.openTicket} closeTicket={this.props.closeTicket} history={this.props.history} />;
+				return <FilesPage files={this.props.namespace.files} namespace={this.props.namespace} handleUpload={this.handleUpload} handleFileDeletion={this.handleFileDeletion} addNotification={this.props.addNotification} getFiles={this.props.getFiles} />;
 			case 7:
+				return <TicketsPage tickets={this.props.namespace.tickets} namespace={this.props.namespace} getCourseTickets={this.props.getCourseTickets} submitTicketMessage={this.submitTicketMessage} openTicket={this.props.openTicket} closeTicket={this.props.closeTicket} history={this.props.history} />;
+			case 8:
 				return <ActionsPage namespace={this.props.namespace} getNamespaceActions={this.props.getNamespaceActions} user={this.props.user} cohorts={this.props.namespace.cohorts} />;
 		}
 	}
@@ -189,19 +198,22 @@ class NamespaceData extends Component {
 							<Nav.Link eventKey="2" title="Progress" >{t('common:progress')}</Nav.Link>
 						</Nav.Item>
 						<Nav.Item>
-							<Nav.Link eventKey="3" title="Cohorts" >{t('common:cohorts')}</Nav.Link>
+							<Nav.Link eventKey="3" title="Grades" >{t('grades')}</Nav.Link>
 						</Nav.Item>
 						<Nav.Item>
-							<Nav.Link eventKey="4" title="Owner Files" >{t('owner-files')}</Nav.Link>
+							<Nav.Link eventKey="4" title="Cohorts" >{t('common:cohorts')}</Nav.Link>
 						</Nav.Item>
 						<Nav.Item>
-							<Nav.Link eventKey="5" title="Student Files" >{t('student-files')}</Nav.Link>
+							<Nav.Link eventKey="5" title="Owner Files" >{t('owner-files')}</Nav.Link>
 						</Nav.Item>
 						<Nav.Item>
-							<Nav.Link eventKey="6" title="Tickets" >{t('common:tickets')}</Nav.Link>
+							<Nav.Link eventKey="6" title="Student Files" >{t('student-files')}</Nav.Link>
 						</Nav.Item>
 						<Nav.Item>
-							<Nav.Link eventKey="7" title="Actions" >{t('common:actions')}</Nav.Link>
+							<Nav.Link eventKey="7" title="Tickets" >{t('common:tickets')}</Nav.Link>
+						</Nav.Item>
+						<Nav.Item>
+							<Nav.Link eventKey="8" title="Actions" >{t('common:actions')}</Nav.Link>
 						</Nav.Item>
 					</Nav>
 				</div>
