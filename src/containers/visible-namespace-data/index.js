@@ -27,7 +27,7 @@ import { deleteFileInjector, getFilesInjector, getOwnerFilesInjector, uploadFile
 import { addNotificationInjector } from 'actions/notification';
 import { getNamespaceActionsInjector, adjustProgressInjector } from 'actions/namespace';
 import { getCourseTicketsInjector, sendTicketMessageInjector,
-	closeTicketInjector, openTicketInjector } from 'actions/ticket';
+	closeTicketInjector, openTicketInjector, updatePriorityInjector } from 'actions/ticket';
 
 
 // FUNCTIONS //
@@ -56,7 +56,8 @@ function mapDispatchToProps( dispatch ) {
 		sendTicketMessage: sendTicketMessageInjector( dispatch ),
 		closeTicket: closeTicketInjector( dispatch ),
 		openTicket: openTicketInjector( dispatch ),
-		uploadFile: uploadFileInjector( dispatch )
+		uploadFile: uploadFileInjector( dispatch ),
+		updatePriority: updatePriorityInjector( dispatch )
 	};
 }
 

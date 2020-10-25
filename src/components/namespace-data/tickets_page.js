@@ -184,7 +184,54 @@ class TicketsPage extends Component {
 			createCategoricalColumn({
 				Header: t('common:priority'),
 				accessor: 'priority',
-				labels: [ 'Low', 'Middle', 'High' ]
+				labels: [ 'Low', 'Middle', 'High' ],
+				maxWidth: 200,
+				Cell: ( row ) => {
+					if ( !row.value ) {
+						return null;
+					}
+					let variant;
+					let higher;
+					let lower;
+					switch ( row.value ) {
+						case 'Low':
+							variant = 'secondary';
+							higher = 'Middle';
+							break;
+						case 'Middle':
+							variant = 'warning';
+							higher = 'High';
+							lower = 'Low';
+							break;
+						case 'High':
+							variant = 'danger';
+							lower = 'Middle';
+							break;
+					}
+					return ( <div>
+						<Badge variant={variant} style={{ marginRight: 6, fontSize: '1em' }} >
+							{row.value}
+						</Badge>
+						<Button
+							size="sm" variant="outline-secondary"
+							onClick={() => {
+								this.props.updatePriority( row.original._id, higher );
+							}}
+							disabled={!higher}
+						>
+							<i className="fas fa-arrow-up"></i>
+						</Button>
+						<Button
+							size="sm" variant="outline-secondary"
+							onClick={() => {
+								this.props.updatePriority( row.original._id, lower );
+							}}
+							disabled={!lower}
+						>
+							<i className="fas fa-arrow-down"></i>
+						</Button>
+					</div> );
+				}
 			}),
 			createTextColumn({
 				Header: t('common:lesson'),
@@ -282,7 +329,8 @@ TicketsPage.propTypes = {
 	getCourseTickets: PropTypes.func.isRequired,
 	namespace: PropTypes.object.isRequired,
 	openTicket: PropTypes.func.isRequired,
-	submitTicketMessage: PropTypes.func.isRequired
+	submitTicketMessage: PropTypes.func.isRequired,
+	updatePriority: PropTypes.func.isRequired
 };
 
 TicketsPage.defaultProps = {

@@ -22,12 +22,13 @@ import React from 'react';
 
 // MAIN //
 
-function createCategoricalColumn({ Header, accessor, labels, maxWidth = 150 }) {
+function createCategoricalColumn({ Header, Cell, accessor, labels, maxWidth = 150 }) {
 	let style;
 	return {
 		Header,
 		accessor,
 		style,
+		Cell,
 		filterMethod: ( filter, row ) => {
 			if ( filter.value === 'all' ) {
 				return true;
