@@ -77,8 +77,6 @@ function filterMethodCategories( filter, row ) {
 
 function sortFactory( lessons, idx ) {
 	return ( a, b ) => {
-		console.log( a );
-		console.log( b );
 		a = a[ lessons[ idx ]._id ];
 		b = b[ lessons[ idx ]._id ];
 		if ( !a && !b ) {
@@ -152,7 +150,6 @@ class GradesPage extends Component {
 				d.lastName = '';
 			}
 		}
-		console.log( members );
 		this.setState({ // eslint-disable-line react/no-did-mount-set-state
 			displayedMembers: members
 		});
