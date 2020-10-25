@@ -20,6 +20,7 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import logger from 'debug';
+import stringify from 'csv-stringify';
 import { withTranslation } from 'react-i18next';
 import ReactTable from 'react-table';
 import InputRange from 'react-input-range';
@@ -29,6 +30,7 @@ import DropdownButton from 'react-bootstrap/DropdownButton';
 import Dropdown from 'react-bootstrap/Dropdown';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Card from 'react-bootstrap/Card';
+import Tooltip from 'react-bootstrap/Tooltip';
 import isArray from '@stdlib/assert/is-array';
 import isUndefinedOrNull from '@stdlib/assert/is-undefined-or-null';
 import hasOwnProp from '@stdlib/assert/has-own-property';
@@ -36,6 +38,7 @@ import contains from '@stdlib/assert/contains';
 import lowercase from '@stdlib/string/lowercase';
 import trim from '@stdlib/string/trim';
 import server from 'constants/server';
+import saveAs from 'utils/file_saver.js';
 import './progress_page.css';
 import 'react-table/react-table.css';
 import 'css/table.css';
@@ -330,6 +333,64 @@ class GradesPage extends Component {
 		});
 	}
 
+	assembleData() {
+		const displayedMembers = this.reactTable.getResolvedState().sortedData;
+		const len = displayedMembers.length;
+		const out = new Array( len );
+		const lessons = this.props.lessons;
+		for ( let i = 0; i < len; i++ ) {
+			const member = displayedMembers[ i ]._original;
+			out[ i ] = {
+				name: member.name,
+				firstName: member.firstName,
+				lastName: member.lastName,
+				email: member.email,
+				cohort: member.cohort
+			};
+			for ( let j = 0; j < lessons.length; j++ ) {
+				const lessonName = lessons[ j ]._id;
+				let data = member.lessonGrades;
+				if ( data && data[ lessonName ] ) {
+					data = data[ lessonName ];
+					out[ i ][ lessons[ j ].title ] = data._sumPoints;
+				} else {
+					out[ i ][ lessons[ j ].title ] = '';
+				}
+			}
+		}
+		return out;
+	}
+
+	saveJSON = () => {
+		const data = this.assembleData();
+		const blob = new Blob([ JSON.stringify( data ) ], {
+			type: 'application/json'
+		});
+		const name = `grades_${this.props.namespace.title}.json`;
+		saveAs( blob, name );
+	}
+
+	saveCSV = () => {
+		const data = this.assembleData();
+		stringify( data, {
+			header: true
+		}, ( err, output ) => {
+			if ( err ) {
+				return this.props.addNotification({
+					title: 'Error encountered',
+					message: 'Encountered an error while creating CSV: '+err.message,
+					level: 'error',
+					position: 'tl'
+				});
+			}
+			const blob = new Blob([ output ], {
+				type: 'text/plain'
+			});
+			const name = `grades_${this.props.namespace.title}.csv`;
+			saveAs( blob, name );
+		});
+	}
+
 	renderSortButton() {
 		const { t } = this.props;
 		let title;
@@ -380,9 +441,19 @@ class GradesPage extends Component {
 	}
 
 	render() {
+		const { t } = this.props;
 		return (
 			<Fragment>
 				<div className="namespace-data-buttons" >
+					{this.renderSortButton()}
+					<ButtonGroup className="progress-button-group" >
+						<OverlayTrigger placement="bottom" overlay={<Tooltip id="csvTooltip" >{t('save-as-csv')}</Tooltip>}>
+							<Button size="sm" variant="secondary" onClick={this.saveCSV} ><i className="fas fa-download"></i> CSV</Button>
+						</OverlayTrigger>
+						<OverlayTrigger placement="bottom" overlay={<Tooltip id="jsonTooltip">{t('save-as-json')}</Tooltip>}>
+							<Button size="sm" variant="secondary" onClick={this.saveJSON} ><i className="fas fa-download"></i> JSON</Button>
+						</OverlayTrigger>
+					</ButtonGroup>
 				</div>
 				<div className="namespace-data-page">
 					<ReactTable
