@@ -173,7 +173,7 @@ class NamespaceData extends Component {
 			case 6:
 				return <FilesPage files={this.props.namespace.files} namespace={this.props.namespace} handleUpload={this.handleUpload} handleFileDeletion={this.handleFileDeletion} addNotification={this.props.addNotification} getFiles={this.props.getFiles} />;
 			case 7:
-				return <TicketsPage tickets={this.props.namespace.tickets} namespace={this.props.namespace} getCourseTickets={this.props.getCourseTickets} submitTicketMessage={this.submitTicketMessage} openTicket={this.props.openTicket} closeTicket={this.props.closeTicket} history={this.props.history} />;
+				return <TicketsPage tickets={this.props.namespace.tickets} namespace={this.props.namespace} getCourseTickets={this.props.getCourseTickets} submitTicketMessage={this.submitTicketMessage} openTicket={this.props.openTicket} closeTicket={this.props.closeTicket} updatePriority={this.props.updatePriority} history={this.props.history} />;
 			case 8:
 				return <ActionsPage namespace={this.props.namespace} getNamespaceActions={this.props.getNamespaceActions} user={this.props.user} cohorts={this.props.namespace.cohorts} />;
 		}
@@ -243,6 +243,7 @@ NamespaceData.propTypes = {
 	namespace: PropTypes.object.isRequired,
 	openTicket: PropTypes.func.isRequired,
 	sendTicketMessage: PropTypes.func.isRequired,
+	updatePriority: PropTypes.func.isRequired,
 	uploadFile: PropTypes.func.isRequired,
 	user: PropTypes.object.isRequired
 };

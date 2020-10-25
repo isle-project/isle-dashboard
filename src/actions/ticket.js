@@ -25,7 +25,7 @@ import i18next from 'i18next';
 import { addNotification, addErrorNotification } from 'actions/notification';
 import { CREATED_TICKET, DELETED_TICKET, GET_ALL_TICKETS,
 	GET_COURSE_TICKETS, GET_USER_TICKETS, TICKET_CLOSED,
-	TICKET_OPENED, TICKET_MESSAGE_ADDED } from 'constants/action_types.js';
+	TICKET_OPENED, TICKET_MESSAGE_ADDED, TICKET_PRIORITY_UPDATED } from 'constants/action_types.js';
 
 
 // EXPORTS //
@@ -246,6 +246,35 @@ export const closeTicket = async ( dispatch, id ) => {
 export const closeTicketInjector = dispatch => {
 	return async ( id ) => {
 		await closeTicket( dispatch, id );
+	};
+};
+
+export const updatePriority = async ( dispatch, id, priority ) => {
+	try {
+		const res = await axios.post( server+'/update_ticket_priority', {
+			ticketID: id,
+			priority
+		});
+		addNotification( dispatch, {
+			title: i18next.t('common:updated'),
+			message: res.data.message,
+			level: 'success'
+		});
+		dispatch({
+			type: TICKET_PRIORITY_UPDATED,
+			payload: {
+				id,
+				priority
+			}
+		});
+	} catch ( err ) {
+		return addErrorNotification( dispatch, err );
+	}
+};
+
+export const updatePriorityInjector = dispatch => {
+	return async ( id, priority ) => {
+		await updatePriority( dispatch, id, priority );
 	};
 };
 

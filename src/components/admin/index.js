@@ -230,6 +230,7 @@ class AdminPage extends Component {
 						closeTicket={this.props.closeTicket}
 						openTicket={this.props.openTicket}
 						history={this.props.history}
+						updatePriority={this.props.updatePriority}
 					/>
 				);
 		}
@@ -313,6 +314,7 @@ AdminPage.propTypes = {
 	openTicket: PropTypes.func.isRequired,
 	sanitizeRequest: PropTypes.func.isRequired,
 	sendTicketMessage: PropTypes.func.isRequired,
+	updatePriority: PropTypes.func.isRequired,
 	user: PropTypes.object.isRequired
 };
 

@@ -201,6 +201,17 @@ export default function admin( state = initialState, action ) {
 			tickets
 		});
 	}
+	case types.TICKET_PRIORITY_UPDATED: {
+		const tickets = state.tickets.map( ticket => {
+			if ( ticket._id === action.payload.id ) {
+				ticket.priority = action.payload.priority;
+			}
+			return ticket;
+		});
+		return Object.assign({}, state, {
+			tickets
+		});
+	}
 	case types.TICKET_CLOSED: {
 		const tickets = state.tickets.map( ticket => {
 			if ( ticket._id === action.payload.id ) {
