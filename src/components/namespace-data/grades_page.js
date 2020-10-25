@@ -243,7 +243,12 @@ class GradesPage extends Component {
 	accessorFactory = ( lessons, idx ) => {
 		return d => {
 			let data = d.original.lessonGrades || {};
-			const lessonID = lessons[ idx ]._id;
+			const lesson = lessons[ idx ];
+			const lessonID = lesson._id;
+			let maxPoints = '';
+			if ( lesson.metadata && lesson.metadata.grades ) {
+				maxPoints += ` / ${lessons[ idx ].metadata.grades.maxPoints}`;
+			}
 			data = data[ lessonID ];
 			if ( data ) {
 				let tally = [];
@@ -255,7 +260,7 @@ class GradesPage extends Component {
 				return ( <OverlayTrigger placement="top" overlay={<Card className="tickets-description-overlay" body id="description-tooltip">
 					{tally}
 				</Card>}>
-					<p>{data._sumPoints}</p>
+					<p>{data._sumPoints}{maxPoints}</p>
 				</OverlayTrigger> );
 			}
 			return <span></span>;
