@@ -180,7 +180,7 @@ class TicketPage extends Component {
 					</OverlayTrigger> );
 				},
 				style: { marginTop: '8px', color: 'darkslategrey' },
-				minWidth: 350
+				minWidth: 300
 			},
 			createTextColumn({
 				Header: t('common:component'),
