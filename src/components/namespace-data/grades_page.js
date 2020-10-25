@@ -22,6 +22,7 @@ import PropTypes from 'prop-types';
 import logger from 'debug';
 import { withTranslation } from 'react-i18next';
 import ReactTable from 'react-table';
+import InputRange from 'react-input-range';
 import Button from 'react-bootstrap/Button';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import DropdownButton from 'react-bootstrap/DropdownButton';
@@ -29,6 +30,7 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Card from 'react-bootstrap/Card';
 import isArray from '@stdlib/assert/is-array';
+import isUndefinedOrNull from '@stdlib/assert/is-undefined-or-null';
 import hasOwnProp from '@stdlib/assert/has-own-property';
 import contains from '@stdlib/assert/contains';
 import lowercase from '@stdlib/string/lowercase';
@@ -46,6 +48,18 @@ const debug = logger( 'isle:progress-page' );
 
 
 // FUNCTIONS //
+
+function filterNumbersFactory( lessons, idx ) {
+	return ( filter, row ) => {
+		const data = row[ filter.id ];
+		const grades = data[ lessons[ idx ]._id ];
+		if ( isUndefinedOrNull( grades ) ) {
+			return filter.value.min === 0;
+		}
+		const points = grades._sumPoints;
+		return points >= filter.value.min && points <= filter.value.max;
+	};
+}
 
 function filterMethodCategories( filter, row ) {
 	if ( filter.value === 'all' ) {
@@ -234,6 +248,34 @@ class GradesPage extends Component {
 				_lesson: lessons[ i ],
 				Cell: this.accessorFactory( lessons, i ),
 				sortMethod: sortFactory( lessons, i ),
+				filterMethod: filterNumbersFactory( lessons, i ),
+				Filter: ({ filter, onChange }) => {
+					let maxPoints = 0;
+					if ( lessons[ i ].metadata && lessons[ i ].metadata.grades ) {
+						maxPoints = lessons[ i ].metadata.grades.maxPoints;
+					}
+					const defaultVal = {
+						max: maxPoints,
+						min: 0
+					};
+					return (
+						<div style={{
+							paddingLeft: '4px',
+							paddingRight: '4px',
+							paddingTop: '8px'
+						}}>
+							<InputRange
+								allowSameValues
+								maxValue={maxPoints}
+								minValue={0}
+								value={filter ? filter.value : defaultVal}
+								onChange={( newValue ) => {
+									onChange( newValue );
+								}}
+							/>
+						</div>
+					);
+				},
 				accessor: 'lessonGrades'
 			});
 		}
