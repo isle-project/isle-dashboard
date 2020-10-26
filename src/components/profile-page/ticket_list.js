@@ -180,6 +180,7 @@ class TicketListModal extends Component {
 
 	render() {
 		const { t } = this.props;
+		const enrolledNamespaces = this.props.user.enrolledNamespaces.filter( x => x.enableTicketing );
 		return (
 			<Fragment>
 				<Modal onHide={this.props.onHide} show={this.props.show} dialogClassName="modal-40w" >
@@ -211,7 +212,7 @@ class TicketListModal extends Component {
 				{ this.state.showCreateModal ? <CreateTicketModal
 					show={this.state.showCreateModal}
 					onHide={this.toggleCreateModal}
-					enrolledNamespaces={this.props.user.enrolledNamespaces}
+					enrolledNamespaces={enrolledNamespaces}
 					createTicket={this.props.createTicket}
 					t={t}
 				/> : null }

@@ -38,8 +38,8 @@ function mapDispatchToProps( dispatch ) {
 	return {
 		createNamespace: createNamespaceInjector( dispatch ),
 		addNotification: addNotificationInjector( dispatch ),
-		onNamespace: ({ title, description, announcements, owners, _id }) => {
-			dispatch( changedNamespace({ title, description, announcements, owners, _id }) );
+		onNamespace: ({ title, description, announcements, owners, enableTicketing, _id }) => {
+			dispatch( changedNamespace({ title, description, announcements, enableTicketing, owners, _id }) );
 			dispatch( retrievedLessons({ lessons: [], namespaceName: title }) );
 		}
 	};

@@ -38,7 +38,7 @@ export function appendCreatedNamespace( namespace ) {
 	};
 }
 
-export function changedNamespace({ title, owners, announcements = [], cohorts = [], description, _id }) {
+export function changedNamespace({ title, owners, announcements = [], cohorts = [], description, enableTicketing, _id }) {
 	return {
 		type: CHANGED_NAMESPACE,
 		payload: {
@@ -46,6 +46,7 @@ export function changedNamespace({ title, owners, announcements = [], cohorts = 
 			announcements,
 			cohorts,
 			description,
+			enableTicketing,
 			owners,
 			_id
 		}
@@ -70,13 +71,14 @@ export function updateStudentProgress({ email, lessonID, progress, cohort }) {
 	};
 }
 
-export function updatedOwnedNamespace({ title, owners, description, _id }) {
+export function updatedOwnedNamespace({ title, owners, description, enableTicketing, _id }) {
 	return {
 		type: UPDATED_OWNED_NAMESPACE,
 		payload: {
 			title,
 			description,
 			owners,
+			enableTicketing,
 			_id
 		}
 	};

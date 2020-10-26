@@ -29,6 +29,7 @@ import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
 import keys from '@stdlib/utils/keys';
 import isArray from '@stdlib/assert/is-array';
+import anyBy from '@stdlib/utils/any-by';
 import formatTime from 'utils/format_time.js';
 import asyncComponent from 'components/async';
 import server from 'constants/server';
@@ -37,12 +38,12 @@ const ProfilePicModal = asyncComponent( () => import( './profile_pic_modal.js' )
 const TimeSpent = asyncComponent( () => import( './time_spent.js' ) );
 const ProgressStats = asyncComponent( () => import( './progress.js' ) );
 import ActionTypesDisplay from './action_types_display.js';
+import TicketListModal from './ticket_list.js';
 import hoodie from './img/hoodie.jpg';
 import badge from './img/question.svg';
 import badgeCircle from './img/badge_circle.svg';
 import './profile-page.css';
 import './message-page.css';
-import TicketListModal from './ticket_list.js';
 
 
 // FUNCTIONS //
@@ -386,6 +387,7 @@ class ProfilePage extends Component {
 		if ( user.picture ) {
 			userPic = user.picture;
 		}
+		const showTicketingButton = anyBy( this.props.user.enrolledNamespaces, x => x.enableTicketing );
 		const nLessons = keys( user.lessonData ).length;
 		return (
 			<div className="profile-page-user-container">
@@ -424,7 +426,7 @@ class ProfilePage extends Component {
 						</Card>
 						<div>
 							<Button style={{ marginTop: 15 }} block onClick={this.toggleEditModal}>{t('edit-profile')}</Button>
-							<Button style={{ marginTop: 15 }} block onClick={this.toggleTicketListModal}>{t('show-tickets')}</Button>
+							{ showTicketingButton ? <Button style={{ marginTop: 15 }} block onClick={this.toggleTicketListModal}>{t('show-tickets')}</Button> : null}
 						</div>
 					</div>
 				</div>

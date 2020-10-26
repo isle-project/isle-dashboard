@@ -35,6 +35,7 @@ const initialState = {
 	title: '',
 	description: '',
 	owners: '',
+	enableTicketing: false,
 	announcements: [],
 	lessons: [],
 	cohorts: [],
@@ -54,6 +55,7 @@ export default function namespace( state = initialState, action ) {
 			title: action.payload.title,
 			description: action.payload.description,
 			announcements: action.payload.announcements,
+			enableTicketing: action.payload.enableTicketing,
 			owners: action.payload.owners,
 			cohorts: action.payload.cohorts
 		});
