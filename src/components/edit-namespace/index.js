@@ -56,7 +56,7 @@ import './edit_namespace.css';
 class EditNamespace extends Component {
 	constructor( props ) {
 		super( props );
-		let { title, description, owners } = this.props.namespace;
+		let { title, description, owners, enableTicketing } = this.props.namespace;
 		if ( isArray( owners ) ) {
 			owners = owners.map( ( owner ) => {
 				return owner.email;
@@ -66,6 +66,7 @@ class EditNamespace extends Component {
 			title,
 			description,
 			owners,
+			enableTicketing,
 			showDeleteModal: false,
 			showCreateCohortModal: false,
 			showEditCohortModal: false,
@@ -87,6 +88,7 @@ class EditNamespace extends Component {
 			_id: this.props.namespace._id,
 			description: this.state.description,
 			title: this.state.title,
+			enableTicketing: this.state.enableTicketing,
 			owners: this.state.owners
 		});
 	}
@@ -288,6 +290,16 @@ class EditNamespace extends Component {
 											</FormControl.Feedback>
 										</FormGroup>
 									</OverlayTrigger>
+									<Form.Check
+										type="checkbox"
+										label={t('enable-ticketing')}
+										defaultChecked={this.state.enableTicketing}
+										onChange={( event) => {
+											this.setState({
+												enableTicketing: event.target.checked
+											});
+										}}
+									/>
 								</Form>
 								<ButtonGroup>
 									<Button

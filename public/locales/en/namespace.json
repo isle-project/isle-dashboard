@@ -15,6 +15,7 @@
 	"edit-cohort": "Edit Cohort: {{title}}",
 	"edit-course": "Edit Course",
 	"email-filter": "Email Filter",
+	"enable-ticketing": "Enable Ticketing for Reporting Issues",
 	"enrolled-students": "Enrolled Students",
 	"enrolled-tooltip": "Comma-separated list of email addresses denoting the students for this cohort",
 	"filter-placeholder": "Enter email filter",

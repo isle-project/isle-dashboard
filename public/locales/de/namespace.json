@@ -15,6 +15,7 @@
 	"edit-cohort": "Kohorte editieren: {{title}}",
 	"edit-course": "Kurs editieren",
 	"email-filter": "E-Mail-Filter",
+	"enable-ticketing": "Ticketing für die Meldung von Problemen aktivieren",
 	"enrolled-students": "Eingeschriebene Studenten",
 	"enrolled-tooltip": "Komma-separierte Liste von E-Mail-Adressen der Studenten in dieser Kohorte",
 	"filter-placeholder": "E-Mail-Filter eingeben",

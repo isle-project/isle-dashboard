@@ -15,6 +15,7 @@
 	"edit-cohort": "Editar Cohorte: {{título}}",
 	"edit-course": "Editar Curso",
 	"email-filter": "Filtro de Correo Electrónico",
+	"enable-ticketing": "Habilitar la emisión de boletos para la presentación de informes",
 	"enrolled-students": "Estudiantes Matriculados",
 	"enrolled-tooltip": "Lista de direcciones de correo electrónico separadas por comas que denotan a los estudiantes para esta cohorte",
 	"filter-placeholder": "Introducir filtro de correo electrónico",

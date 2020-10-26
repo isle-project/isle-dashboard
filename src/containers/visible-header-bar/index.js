@@ -46,15 +46,15 @@ function mapDispatchToProps( dispatch ) {
 		setSearchPhrase: setSearchPhraseInjector( dispatch ),
 		setLessonOrder: setLessonOrderInjector( dispatch ),
 		setLessonOrderDirection: setLessonOrderDirInjector( dispatch ),
-		onEnrolledNamespace: ({ title, description, announcements, owners, _id }) => {
+		onEnrolledNamespace: ({ title, description, announcements, enableTicketing, owners, _id }) => {
 			dispatch( changedNamespace({
-				title, description, announcements, owners, _id
+				title, description, announcements, enableTicketing, owners, _id
 			}) );
 			const namespaceName = title;
 			getLessons( dispatch, namespaceName );
 		},
-		onNamespace: ({ title, description, announcements, owners, _id }) => {
-			dispatch( changedNamespace({ title, description, announcements, owners, _id }) );
+		onNamespace: ({ title, description, announcements, enableTicketing, owners, _id }) => {
+			dispatch( changedNamespace({ title, description, announcements, enableTicketing, owners, _id }) );
 			getCohorts( dispatch, { namespaceID: _id });
 			const namespaceName = title;
 			getLessons( dispatch, namespaceName );
