@@ -107,9 +107,14 @@ export const deleteFileInjector = ( dispatch ) => {
 	};
 };
 
-export const uploadFile = async ( dispatch, { formData }) => {
+export const uploadFile = async ( dispatch, { formData, user }) => {
 	try {
-		const res = await axios.post( server+'/upload_file', formData );
+		const query = qs.stringify({
+			namespaceName: formData.get( 'namespaceName' ),
+			owner: formData.get( 'owner' ),
+			jwt: user.token
+		});
+		const res = await axios.post( server+'/upload_file?'+ query, formData );
 		getFilesRequest( dispatch, {
 			namespaceName: formData.get( 'namespaceName' ),
 			owner: formData.get( 'owner' )
@@ -163,8 +168,8 @@ export const uploadFile = async ( dispatch, { formData }) => {
 };
 
 export const uploadFileInjector = ( dispatch ) => {
-	return async ({ formData }) => {
-		await uploadFile( dispatch, { formData } );
+	return async ({ formData, user }) => {
+		await uploadFile( dispatch, { formData, user } );
 	};
 };
 
