@@ -86,9 +86,9 @@ class NamespaceData extends Component {
 		debug( 'Uploading file...' );
 		const file = event.target.files[ 0 ];
 		const formData = new FormData();
+		formData.append( 'file', file, file.name );
 		formData.append( 'namespaceName', this.props.namespace.title );
 		formData.append( 'owner', 'true' );
-		formData.append( 'file', file, file.name );
 		this.props.uploadFile({
 			formData: formData
 		});
