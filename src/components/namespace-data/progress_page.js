@@ -482,6 +482,13 @@ class ProgressPage extends Component {
 						ref={(r) => {
 							this.reactTable = r;
 						}}
+						previousText={t('common:previous')}
+						nextText={t('common:next')}
+						loadingText={t('common:loading')}
+						noDataText={t('common:no-rows-found')}
+						pageText={t('common:page')}
+						ofText={t('common:of')}
+						rowsText={t('common:rows')}
 					/>
 				</div>
 			</Fragment>

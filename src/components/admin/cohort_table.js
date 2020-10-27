@@ -183,6 +183,7 @@ class CohortTable extends Component {
 	}
 
 	render() {
+		const { t } = this.props;
 		return (
 			<Fragment>
 				<ReactTable
@@ -192,10 +193,20 @@ class CohortTable extends Component {
 					ref={(r) => {
 						this.reactTable = r;
 					}}
+					previousText={t('common:previous')}
+					nextText={t('common:next')}
+					loadingText={t('common:loading')}
+					noDataText={t('common:no-rows-found')}
+					pageText={t('common:page')}
+					ofText={t('common:of')}
+					rowsText={t('common:rows')}
 				/>
 				{ this.state.showDeleteModal ? <ConfirmModal
-					title={this.props.t('namespace:delete-cohort')}
-					message={<span>{this.props.t('namespace:delete-cohort-confirm')}<span style={{ color: 'red' }}>{this.state.selectedCohort.title}</span></span>}
+					title={t('namespace:delete-cohort')}
+					message={<span>
+						{t('namespace:delete-cohort-confirm')}
+						<span style={{ color: 'red' }}>{this.state.selectedCohort.title}</span>
+					</span>}
 					close={this.toggleDeleteModal}
 					show={this.state.showDeleteModal}
 					onConfirm={this.deleteSelectedCohort}

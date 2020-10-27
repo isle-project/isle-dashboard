@@ -224,6 +224,7 @@ class LessonTable extends Component {
 	}
 
 	render() {
+		const { t } = this.props;
 		return (
 			<Fragment>
 				<ReactTable
@@ -233,10 +234,17 @@ class LessonTable extends Component {
 					ref={(r) => {
 						this.reactTable = r;
 					}}
+					previousText={t('common:previous')}
+					nextText={t('common:next')}
+					loadingText={t('common:loading')}
+					noDataText={t('common:no-rows-found')}
+					pageText={t('common:page')}
+					ofText={t('common:of')}
+					rowsText={t('common:rows')}
 				/>
 				{ this.state.showDeleteModal ? <ConfirmModal
-					title={this.props.t('lesson:delete-lesson')}
-					message={<span>{this.props.t('lesson:delete-modal-body', {
+					title={t('lesson:delete-lesson')}
+					message={<span>{t('lesson:delete-modal-body', {
 						name: this.state.selectedLesson.title
 					})}</span>}
 					close={this.toggleDeleteModal}
