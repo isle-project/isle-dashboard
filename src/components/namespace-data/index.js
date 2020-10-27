@@ -214,7 +214,7 @@ class NamespaceData extends Component {
 							<Nav.Link eventKey="7" title="Tickets" disabled={!this.props.namespace.enableTicketing} >{t('common:tickets')}</Nav.Link>
 						</Nav.Item>
 						<Nav.Item>
-							<Nav.Link eventKey="8" title="Actions" >{t('common:actions')}</Nav.Link>
+							<Nav.Link eventKey="8" title="Actions" disabled >{t('common:actions')}</Nav.Link>
 						</Nav.Item>
 					</Nav>
 				</div>
