@@ -33,7 +33,7 @@ const initialState = {
 	tickets: [],
 	users: [],
 	statistics: {},
-	requestStatistics: {},
+	requestStatistics: [],
 	historicalStatistics: []
 };
 
