@@ -20,6 +20,7 @@
 import React, { Component, Fragment } from 'react';
 import { withTranslation } from 'react-i18next';
 import ReactTable from 'react-table';
+import isArray from '@stdlib/assert/is-array';
 import ceil from '@stdlib/math/base/special/ceil';
 import createNumericColumn from './create_numeric_column.js';
 import createTextColumn from './create_text_column.js';
@@ -44,12 +45,14 @@ class Requests extends Component {
 		let maxCount = 0;
 		let maxMean = 0;
 		const stats = this.props.admin.requestStatistics;
-		for ( let i = 0; i < stats.length; i++ ) {
-			if ( stats[ i ].count > maxCount ) {
-				maxCount = stats[ i ].count;
-			}
-			if ( stats[ i ].mean > maxMean ) {
-				maxMean = stats[ i ].mean;
+		if ( isArray( stats ) ) {
+			for ( let i = 0; i < stats.length; i++ ) {
+				if ( stats[ i ].count > maxCount ) {
+					maxCount = stats[ i ].count;
+				}
+				if ( stats[ i ].mean > maxMean ) {
+					maxMean = stats[ i ].mean;
+				}
 			}
 		}
 		return [
