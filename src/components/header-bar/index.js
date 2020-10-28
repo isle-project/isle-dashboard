@@ -108,6 +108,7 @@ class HeaderBar extends Component {
 			}
 		}
 		document.addEventListener( 'visibilitychange', this.handleVisibilityChange );
+		this.props.userUpdateCheck( this.props.user );
 	}
 
 	componentDidUpdate( prevProps ) {
