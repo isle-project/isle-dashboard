@@ -27,7 +27,7 @@ import { getAllCohortsInjector, deleteCohortInjector } from 'actions/cohort.js';
 import { getAllLessonsInjector, deleteLessonInjector, getRoomsInjector } from 'actions/lesson.js';
 import { sanitizeRequestInjector } from 'actions/authentication.js';
 import { addNotificationInjector } from 'actions/notification.js';
-import { getOverviewStatisticsInjector, getHistoricalOverviewStatsInjector } from 'actions/statistics.js';
+import { getOverviewStatisticsInjector, getHistoricalOverviewStatsInjector, getRequestStatisticsInjector } from 'actions/statistics.js';
 import { deleteFileInjector, getAllFilesInjector } from 'actions/file.js';
 import { deleteTicketInjector, getAllTicketsInjector, sendTicketMessageInjector,
 	closeTicketInjector, openTicketInjector, updatePriorityInjector } from 'actions/ticket.js';
@@ -50,6 +50,7 @@ function mapDispatchToProps( dispatch ) {
 		getAllLessons: getAllLessonsInjector( dispatch ),
 		getAllNamespaces: getAllNamespacesInjector( dispatch ),
 		getEvents: getEventsInjector( dispatch ),
+		getRequestStatistics: getRequestStatisticsInjector( dispatch ),
 		getRooms: getRoomsInjector( dispatch ),
 		getAllTickets: getAllTicketsInjector( dispatch ),
 		getUsers: getUsersInjector( dispatch ),

@@ -33,6 +33,7 @@ const TicketTable = asyncComponent( () => import( './ticket_table.js' ) );
 const UserTable = asyncComponent( () => import( './user_table.js' ) );
 const Rooms = asyncComponent( () => import( './rooms.js' ) );
 const Overview = asyncComponent( () => import( './overview.js' ) );
+const Requests = asyncComponent( () => import( './requests.js' ) );
 import { version as dashboardVersion } from './../../../package.json';
 import 'react-table/react-table.css';
 import 'css/table.css';
@@ -81,6 +82,9 @@ class AdminPage extends Component {
 				break;
 			case 'tickets':
 				activePage = 10;
+				break;
+			case 'requests':
+				activePage = 11;
 				break;
 		}
 		this.state = {
@@ -139,6 +143,9 @@ class AdminPage extends Component {
 				break;
 			case 10:
 				this.props.history.replace( '/admin/tickets' );
+				break;
+			case 11:
+				this.props.history.replace( '/admin/requests' );
 				break;
 		}
 		this.setState({
@@ -233,6 +240,13 @@ class AdminPage extends Component {
 						updatePriority={this.props.updatePriority}
 					/>
 				);
+			case 11:
+				return (
+					<Requests
+						admin={this.props.admin}
+						getRequestStatistics={this.props.getRequestStatistics}
+					/>
+				);
 		}
 	}
 
@@ -275,6 +289,9 @@ class AdminPage extends Component {
 						</Nav.Item>
 						<Nav.Item>
 							<Nav.Link eventKey="10" title="Tickets" >{t('common:tickets')}</Nav.Link>
+						</Nav.Item>
+						<Nav.Item>
+							<Nav.Link eventKey="11" title="Requests" >{t('common:requests')}</Nav.Link>
 						</Nav.Item>
 						<span className="admin-page-version" >{t('dashboard-version')}: {dashboardVersion}</span>
 					</Nav>

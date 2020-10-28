@@ -33,6 +33,7 @@ const initialState = {
 	tickets: [],
 	users: [],
 	statistics: {},
+	requestStatistics: {},
 	historicalStatistics: []
 };
 
@@ -243,6 +244,11 @@ export default function admin( state = initialState, action ) {
 		});
 		return Object.assign({}, state, {
 			historicalStatistics: statistics
+		});
+	}
+	case types.GET_REQUEST_STATISTICS: {
+		return Object.assign({}, state, {
+			requestStatistics: action.payload.statistics
 		});
 	}
 	default:
