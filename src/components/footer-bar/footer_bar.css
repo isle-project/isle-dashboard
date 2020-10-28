@@ -10,6 +10,14 @@
 	box-shadow: 0 0 2px darkslategray;
 }
 
+.footer-dashboard-version {
+	float: right;
+	color: darkslategray;
+	margin-right: 38px;
+	margin-top: 3px;
+	vertical-align: bottom;
+}
+
 .footer-bar-copyright {
 	vertical-align: bottom;
 	margin-left: 4px;
