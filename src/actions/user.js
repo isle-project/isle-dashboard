@@ -301,7 +301,6 @@ export const logoutInjector = ( dispatch ) => {
 export const userUpdateCheck = async ( dispatch, user ) => {
 	try {
 		const res = await axios.get( server+'/user_update_check?'+qs.stringify({
-			id: user.id,
 			updatedAt: user.updatedAt
 		}) );
 		debug( 'Received response: '+res.data );
