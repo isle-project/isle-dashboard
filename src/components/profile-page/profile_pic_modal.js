@@ -149,7 +149,7 @@ class ProfilePicModal extends Component {
 			this.setState({
 				rotate: this.state.rotate + degrees
 			});
-		}
+		};
 	}
 
 	render() {
