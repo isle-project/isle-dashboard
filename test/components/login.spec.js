@@ -32,7 +32,7 @@ Enzyme.configure({ adapter: new Adapter() });
 // TESTS //
 
 describe( '<Login />', function test() {
-	const wrapper = shallow( <Login handleLogin={noop} ></Login> );
+	const wrapper = shallow( <Login handleLogin={noop} fetchCredentials={noop} /> );
 	it('should render without throwing an error', () => {
 		const div = wrapper.find( '.login' );
 		expect( div.length ).toBe( 1 );
