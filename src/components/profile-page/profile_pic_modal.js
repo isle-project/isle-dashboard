@@ -124,9 +124,10 @@ class ProfilePicModal extends Component {
 					width={200}
 					height={200}
 					border={[80, 50]}
-					color={[255, 255, 255, 0.9]} // RGBA
+					crossOrigin='anonymous'
+					color={[110, 98, 98, 0.29]} // RGBA
 					scale={this.state.zoom}
-					rotate={0}
+					rotate={this.state.rotate}
 				/>
 				<Form.Group as={Row} controlId="form-zoom">
 					<Form.Label column sm="2">{t('zoom')}</Form.Label>
@@ -143,18 +144,12 @@ class ProfilePicModal extends Component {
 		);
 	}
 
-	rotateLeft = () => {
-		const oldRotate = this.state.rotate;
-		this.setState({
-			rotate: oldRotate - 90
-		});
-	}
-
-	rotateRight = () => {
-		const oldRotate = this.state.rotate;
-		this.setState({
-			rotate: oldRotate + 90
-		});
+	rotateFactory = ( degrees ) => {
+		return () => {
+			this.setState({
+				rotate: this.state.rotate + degrees
+			});
+		}
 	}
 
 	render() {
@@ -188,12 +183,12 @@ class ProfilePicModal extends Component {
 					<Form.Group as={Row} controlId="form-rotate">
 						<Form.Label column sm="2">{t('rotate')}</Form.Label>
 						<Col sm="5">
-							<Button block variant="secondary" onClick={this.rotateLeft}>
+							<Button block variant="secondary" onClick={this.rotateFactory( -90 )}>
 								{t('left')}
 							</Button>
 						</Col>
 						<Col sm="5">
-							<Button block variant="secondary" style={{ float: 'right' }} onClick={this.rotateRight}>
+							<Button block variant="secondary" style={{ float: 'right' }} onClick={this.rotateFactory( 90 )}>
 								{t('right')}
 							</Button>
 						</Col>
