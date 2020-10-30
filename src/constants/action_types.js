@@ -15,6 +15,8 @@
 * along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
+// EXPORTS //
+
 export const ADD_ENROLLED_NAMESPACE = 'ADD_ENROLLED_NAMESPACE';
 export const ADD_ERROR_NOTIFICATION = 'ADD_ERROR_NOTIFICATION';
 export const ADD_NOTIFICATION = 'ADD_NOTIFICATION';
