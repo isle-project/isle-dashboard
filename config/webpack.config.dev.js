@@ -51,6 +51,7 @@ const env = getClientEnvironment(publicUrl);
 const cssRegex = /\.css$/;
 const cssModuleRegex = /\.module\.css$/;
 
+
 // common function to get style loaders
 const getStyleLoaders = (cssOptions, preProcessor) => {
 	const loaders = [
