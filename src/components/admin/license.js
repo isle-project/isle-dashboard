@@ -19,6 +19,7 @@
 
 import React, { Component } from 'react';
 import { withTranslation } from 'react-i18next';
+import Jumbotron from 'react-bootstrap/Jumbotron';
 import Table from 'react-bootstrap/Table';
 import FormLabel from 'react-bootstrap/FormLabel';
 import FormGroup from 'react-bootstrap/FormGroup';
@@ -46,9 +47,74 @@ class LicensePage extends Component {
 		});
 	}
 
+	renderLicenseInformation() {
+		const { admin, t } = this.props;
+		const license = admin.license;
+		if ( !license || !license.valid ) {
+			return (
+				<Jumbotron
+					style={{
+						width: '100%',
+						height: '73.7%'
+					}}
+				>
+					<h3 style={{ textAlign: 'center', marginTop: '12%' }}>
+						{t('no-license-found')}
+					</h3>
+				</Jumbotron>
+			);
+		}
+		return (
+			<Table bordered >
+				<tbody>
+					<tr>
+						<td colSpan="2" className="title" >{t('registration-information')}:</td>
+						<td>
+							<div className="title">{t('number-of-seats')}</div>
+							{license.maxUsers}
+						</td>
+						<td>
+							<div className="title">{t('registered-users')}</div>
+							{this.props.admin.users.length}
+						</td>
+					</tr>
+					<tr>
+						<td colSpan="2" className="title" >
+							{t('validity-period')}:
+						</td>
+						<td>
+							<div className="title">{t('start-date')}</div>
+							{license.startDate}
+						</td>
+						<td>
+							<div className="title">{t('end-date')}</div>
+							{license.endDate}
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<div className="title">{t('licensed-to')}:</div>
+						</td>
+						<td>
+							<div className="title">{t('common:name')}</div>
+							{license.name}
+						</td>
+						<td>
+							<div className="title">{t('common:email-address')}</div>
+							{license.email}
+						</td>
+						<td>
+							<div className="title">{t('common:organization')}</div>
+							{license.company}
+						</td>
+					</tr>
+				</tbody>
+			</Table>
+		);
+	}
+
 	render() {
 		const { t } = this.props;
-		const license = this.props.admin.license || {};
 		return (
 			<div className="admin-overview-container" >
 				<FormGroup className="license-upload-button" >
@@ -64,51 +130,7 @@ class LicensePage extends Component {
 					</FormLabel>
 				</FormGroup>
 				<h1>{t('your-license')}</h1>
-				<Table bordered >
-					<tbody>
-						<tr>
-							<td colSpan="2" className="title" >{t('registration-information')}:</td>
-							<td>
-								<div className="title">{t('number-of-seats')}</div>
-								{license.maxUsers}
-							</td>
-							<td>
-								<div className="title">{t('registered-users')}</div>
-								{this.props.admin.users.length}
-							</td>
-						</tr>
-						<tr>
-							<td colSpan="2" className="title" >
-								{t('validity-period')}:
-							</td>
-							<td>
-								<div className="title">{t('start-date')}</div>
-								{license.startDate}
-							</td>
-							<td>
-								<div className="title">{t('end-date')}</div>
-								{license.endDate}
-							</td>
-						</tr>
-						<tr>
-							<td>
-								<div className="title">{t('licensed-to')}:</div>
-							</td>
-							<td>
-								<div className="title">{t('common:name')}</div>
-								{license.name}
-							</td>
-							<td>
-								<div className="title">{t('common:email-address')}</div>
-								{license.email}
-							</td>
-							<td>
-								<div className="title">{t('common:organization')}</div>
-								{license.company}
-							</td>
-						</tr>
-					</tbody>
-				</Table>
+				{this.renderLicenseInformation()}
 			</div>
 		);
 	}

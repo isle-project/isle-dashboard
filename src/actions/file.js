@@ -220,7 +220,14 @@ export const uploadLicense = async ( dispatch, { formData, user }) => {
 			jwt: user.token
 		});
 		const res = await axios.post( server+'/upload_license?'+ query, formData );
-		console.log( res );
+		addNotification( dispatch, {
+			title: i18next.t('common:uploaded'),
+			message: res.data.message,
+			level: 'success',
+			position: 'tl',
+			autoDismiss: 5
+		});
+		dispatch( receivedLicense( res.data.license ) );
 	} catch ( err ) {
 		return addErrorNotification( dispatch, err );
 	}
