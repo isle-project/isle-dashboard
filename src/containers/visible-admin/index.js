@@ -28,7 +28,7 @@ import { getAllLessonsInjector, deleteLessonInjector, getRoomsInjector } from 'a
 import { sanitizeRequestInjector } from 'actions/authentication.js';
 import { addNotificationInjector } from 'actions/notification.js';
 import { getOverviewStatisticsInjector, getHistoricalOverviewStatsInjector, getRequestStatisticsInjector } from 'actions/statistics.js';
-import { deleteFileInjector, getAllFilesInjector } from 'actions/file.js';
+import { deleteFileInjector, getAllFilesInjector, getLicenseInjector, uploadLicenseInjector } from 'actions/file.js';
 import { deleteTicketInjector, getAllTicketsInjector, sendTicketMessageInjector,
 	closeTicketInjector, openTicketInjector, updatePriorityInjector } from 'actions/ticket.js';
 
@@ -66,6 +66,8 @@ function mapDispatchToProps( dispatch ) {
 		sendTicketMessage: sendTicketMessageInjector( dispatch ),
 		closeTicket: closeTicketInjector( dispatch ),
 		openTicket: openTicketInjector( dispatch ),
+		getLicense: getLicenseInjector( dispatch ),
+		uploadLicense: uploadLicenseInjector( dispatch ),
 		updatePriority: updatePriorityInjector( dispatch ),
 		adminUpdateUser: adminUpdateUserInjector( dispatch ),
 		getOverviewStatistics: getOverviewStatisticsInjector( dispatch ),

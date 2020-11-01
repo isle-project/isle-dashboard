@@ -34,7 +34,8 @@ const initialState = {
 	users: [],
 	statistics: {},
 	requestStatistics: [],
-	historicalStatistics: []
+	historicalStatistics: [],
+	license: null
 };
 
 
@@ -237,6 +238,10 @@ export default function admin( state = initialState, action ) {
 			tickets
 		});
 	}
+	case types.RECEIVED_LICENSE:
+		return Object.assign({}, state, {
+			license: action.payload.license
+		});
 	case types.GET_HISTORICAL_OVERVIEW_STATISTICS: {
 		const statistics = action.payload.statistics.map( x => {
 			x.createdAt = x.createdAt.substring( 0, x.createdAt.indexOf( 'T' ) );

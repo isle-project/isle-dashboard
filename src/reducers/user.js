@@ -44,7 +44,8 @@ const initialState = {
 	badges: null,
 	id: null,
 	token: null,
-	tickets: []
+	tickets: [],
+	licensed: false
 };
 
 
@@ -86,6 +87,7 @@ export default function user( state = initialState, action ) {
 			updatedAt: action.payload.updatedAt,
 			score: action.payload.score,
 			spentTime: action.payload.spentTime,
+			licensed: action.payload.licensed,
 			loggedIn: true
 		});
 	}
