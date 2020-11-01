@@ -261,6 +261,7 @@ class AdminPage extends Component {
 						uploadLicense={this.props.uploadLicense}
 						getLicense={this.props.getLicense}
 						user={this.props.user}
+						statistics={this.props.statistics}
 					/>
 				);
 		}

@@ -18,6 +18,7 @@
 // MODULES //
 
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { withTranslation } from 'react-i18next';
 import Jumbotron from 'react-bootstrap/Jumbotron';
 import Table from 'react-bootstrap/Table';
@@ -48,7 +49,7 @@ class LicensePage extends Component {
 	}
 
 	renderLicenseInformation() {
-		const { admin, t } = this.props;
+		const { admin, statistics, t } = this.props;
 		const license = admin.license;
 		if ( !license || !license.valid ) {
 			return (
@@ -75,7 +76,7 @@ class LicensePage extends Component {
 						</td>
 						<td>
 							<div className="title">{t('registered-users')}</div>
-							{this.props.admin.users.length}
+							{admin.users.length ? admin.users.length : statistics.nUsers}
 						</td>
 					</tr>
 					<tr>
@@ -135,6 +136,22 @@ class LicensePage extends Component {
 		);
 	}
 }
+
+
+// PROPERTIES //
+
+LicensePage.propTypes = {
+	admin: PropTypes.object.isRequired,
+	getLicense: PropTypes.func.isRequired,
+	statistics: PropTypes.object,
+	t: PropTypes.func.isRequired,
+	uploadLicense: PropTypes.func.isRequired,
+	user: PropTypes.object.isRequired
+};
+
+LicensePage.defaultProps = {
+	statistics: {}
+};
 
 
 // EXPORTS //
