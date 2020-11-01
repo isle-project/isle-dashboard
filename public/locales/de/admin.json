@@ -28,6 +28,8 @@
 	"free-space": "Freier Speicher",
 	"impersonate-user": "Anmelden als",
 	"instructor": "Lehrer",
+	"license": "Lizenz",
+	"licensed-to": "Lizensiert an",
 	"metadata": "Metadaten",
 	"ms-on-average": "Millisekunden im Durchschnitt",
 	"no-instructor": "Kein Lehrer",
@@ -40,6 +42,8 @@
 	"manual-enrollment": "Manuelles Einschreiben",
 	"number-of-objects": "Anzahl Objekte",
 	"physical-storage-size": "Physikalische-Speichergröße",
+	"registered-users": "Bislang registrierte Nutzer",
+	"registration-information": "Registrierungsinformation",
 	"reserved-storage-size": "Reservierte-Speichergröße",
 	"sanitize-user": "Nutzerdaten bereinigen",
 	"start-date": "Startdatum",
@@ -50,5 +54,8 @@
 	"verified": "Verifiziert",
 	"not-verified": "Nicht Verifiziert",
 	"overall": "Gesamt",
-	"over-time": "Zeitreihe"
+	"over-time": "Zeitreihe",
+	"upload-new-license": "Neue Lizenz hochladen",
+	"validity-period": "Gültigkeitszeitraum",
+	"your-license": "Ihre Lizenz"
 }

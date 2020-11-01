@@ -28,11 +28,14 @@
 	"free-space": "Free Space",
 	"impersonate-user": "Impersonate User",
 	"instructor": "Instructor",
+	"license": "License",
+	"licensed-to": "Licensed to",
 	"metadata": "Metadata",
 	"ms-on-average": "Milliseconds on average",
 	"no-instructor": "No Instructor",
 	"last-hour-active-users": "Active Users in Last Hour",
 	"last-updated": "Last Updated",
+	"number-of-seats": "Number of seats covered under license",
 	"password-placeholder": "Enter Password",
 	"enrollment": "Enrollment",
 	"open-enrollment": "Open enrollment",
@@ -40,6 +43,8 @@
 	"manual-enrollment": "Manual enrollment",
 	"number-of-objects": "Number of Objects",
 	"physical-storage-size": "Physical Storage Size",
+	"registered-users": "Currently registered users",
+	"registration-information": "Registration Information",
 	"reserved-storage-size": "Reserved Storage Size",
 	"sanitize-user": "Sanitize user",
 	"start-date": "Start Date",
@@ -50,5 +55,8 @@
 	"verified": "Verified",
 	"not-verified": "Not Verified",
 	"overall": "Overall",
-	"over-time": "Over Time"
+	"over-time": "Over Time",
+	"upload-new-license": "Upload new license",
+	"validity-period": "Validity Period",
+	"your-license": "Your License"
 }
