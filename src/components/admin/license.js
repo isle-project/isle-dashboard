@@ -49,7 +49,7 @@ class LicensePage extends Component {
 	}
 
 	renderLicenseInformation() {
-		const { admin, statistics, t } = this.props;
+		const { admin, t } = this.props;
 		const license = admin.license;
 		if ( !license || !license.valid ) {
 			return (
@@ -76,7 +76,7 @@ class LicensePage extends Component {
 						</td>
 						<td>
 							<div className="title">{t('registered-users')}</div>
-							{admin.users.length > 0 ? admin.users.length : statistics.nUsers}
+							{admin.users.length > 0 ? admin.users.length : admin.statistics.nUsers}
 						</td>
 					</tr>
 					<tr>
@@ -117,7 +117,7 @@ class LicensePage extends Component {
 	render() {
 		const { t } = this.props;
 		return (
-			<div className="admin-overview-container" >
+			<div className="admin-outer-container" >
 				<FormGroup className="license-upload-button" >
 					<FormLabel htmlFor="fileUpload" style={{ cursor: 'pointer' }}>
 						<h2><Badge variant="secondary" >{t('upload-new-license')}</Badge></h2>
@@ -143,14 +143,9 @@ class LicensePage extends Component {
 LicensePage.propTypes = {
 	admin: PropTypes.object.isRequired,
 	getLicense: PropTypes.func.isRequired,
-	statistics: PropTypes.object,
 	t: PropTypes.func.isRequired,
 	uploadLicense: PropTypes.func.isRequired,
 	user: PropTypes.object.isRequired
-};
-
-LicensePage.defaultProps = {
-	statistics: {}
 };
 
 

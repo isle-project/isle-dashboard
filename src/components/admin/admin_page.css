@@ -42,7 +42,7 @@
 	color: rgb(125, 170, 185);
 }
 
-.admin-overview-container {
+.admin-outer-container {
 	animation: slide-in-right 0.7s;
 	max-width: 100%;
 	height: calc(100vh - 180px);

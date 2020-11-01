@@ -545,7 +545,7 @@ class Overview extends Component {
 		const { nUsers, nNamespaces, nLessons, nCohorts, nSessionData, nFiles, nEvents, nTickets } = this.props.statistics;
 		const { t } = this.props;
 		return (
-			<Container className="admin-overview-container" >
+			<Container className="admin-outer-container" >
 				<Row className="first-row" >
 					<Col className="column-border" sm={4} md={3} >
 						<h2>{this.props.t('overall')}<span className="overview-server-name">{server}</span></h2>
