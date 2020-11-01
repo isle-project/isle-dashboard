@@ -76,7 +76,7 @@ class LicensePage extends Component {
 						</td>
 						<td>
 							<div className="title">{t('registered-users')}</div>
-							{admin.users.length ? admin.users.length : statistics.nUsers}
+							{admin.users.length > 0 ? admin.users.length : statistics.nUsers}
 						</td>
 					</tr>
 					<tr>
