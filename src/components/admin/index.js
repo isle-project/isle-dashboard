@@ -34,7 +34,7 @@ const UserTable = asyncComponent( () => import( './user_table.js' ) );
 const Rooms = asyncComponent( () => import( './rooms.js' ) );
 const Overview = asyncComponent( () => import( './overview.js' ) );
 const Requests = asyncComponent( () => import( './requests.js' ) );
-import { version as dashboardVersion } from './../../../package.json';
+const License = asyncComponent( () => import( './license.js' ) );
 import 'react-table/react-table.css';
 import 'css/table.css';
 import './admin_page.css';
@@ -86,6 +86,9 @@ class AdminPage extends Component {
 			case 'requests':
 				activePage = 11;
 				break;
+			case 'license':
+				activePage = 12;
+				break;
 		}
 		this.state = {
 			activePage
@@ -110,42 +113,46 @@ class AdminPage extends Component {
 
 	handleSelect = ( selectedKey ) => {
 		selectedKey = Number( selectedKey );
+		const { history } = this.props;
 		switch ( selectedKey ) {
 			case 0:
-				this.props.history.replace( '/admin/overview' );
+				history.replace( '/admin/overview' );
 				break;
 			case 1:
-				this.props.history.replace( '/admin/access-logs' );
+				history.replace( '/admin/access-logs' );
 				break;
 			case 2:
-				this.props.history.replace( '/admin/error-logs' );
+				history.replace( '/admin/error-logs' );
 				break;
 			case 3:
-				this.props.history.replace( '/admin/users' );
+				history.replace( '/admin/users' );
 				break;
 			case 4:
-				this.props.history.replace( '/admin/courses' );
+				history.replace( '/admin/courses' );
 				break;
 			case 5:
-				this.props.history.replace( '/admin/lessons' );
+				history.replace( '/admin/lessons' );
 				break;
 			case 6:
-				this.props.history.replace( '/admin/cohorts' );
+				history.replace( '/admin/cohorts' );
 				break;
 			case 7:
-				this.props.history.replace( '/admin/files' );
+				history.replace( '/admin/files' );
 				break;
 			case 8:
-				this.props.history.replace( '/admin/events' );
+				history.replace( '/admin/events' );
 				break;
 			case 9:
-				this.props.history.replace( '/admin/rooms' );
+				history.replace( '/admin/rooms' );
 				break;
 			case 10:
-				this.props.history.replace( '/admin/tickets' );
+				history.replace( '/admin/tickets' );
 				break;
 			case 11:
-				this.props.history.replace( '/admin/requests' );
+				history.replace( '/admin/requests' );
+				break;
+			case 12:
+				history.replace( '/admin/license' );
 				break;
 		}
 		this.setState({
@@ -247,6 +254,15 @@ class AdminPage extends Component {
 						getRequestStatistics={this.props.getRequestStatistics}
 					/>
 				);
+			case 12:
+				return (
+					<License
+						admin={this.props.admin}
+						uploadLicense={this.props.uploadLicense}
+						getLicense={this.props.getLicense}
+						user={this.props.user}
+					/>
+				);
 		}
 	}
 
@@ -293,7 +309,9 @@ class AdminPage extends Component {
 						<Nav.Item>
 							<Nav.Link eventKey="11" title="Requests" >{t('common:requests')}</Nav.Link>
 						</Nav.Item>
-						<span className="admin-page-version" >{t('dashboard-version')}: {dashboardVersion}</span>
+						<Nav.Item>
+							<Nav.Link eventKey="12" title="License" >{t('license')}</Nav.Link>
+						</Nav.Item>
 					</Nav>
 				</div>
 				<div className="admin-page-container" >
@@ -332,6 +350,7 @@ AdminPage.propTypes = {
 	sanitizeRequest: PropTypes.func.isRequired,
 	sendTicketMessage: PropTypes.func.isRequired,
 	updatePriority: PropTypes.func.isRequired,
+	uploadLicense: PropTypes.func.isRequired,
 	user: PropTypes.object.isRequired
 };
 
