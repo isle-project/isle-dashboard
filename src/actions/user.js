@@ -52,7 +52,8 @@ export function loggedIn( user ) {
 			createdAt: user.createdAt,
 			updatedAt: user.updatedAt,
 			score: user.score,
-			spentTime: user.spentTime
+			spentTime: user.spentTime,
+			licensed: user.licensed
 		}
 	};
 }

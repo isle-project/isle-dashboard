@@ -27,7 +27,7 @@ import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
 import Button from 'react-bootstrap/Button';
 import { addNotification, addErrorNotification } from 'actions/notification';
-import { DELETED_FILE, GET_ALL_FILES, RECEIVED_FILES, RECEIVED_NAMESPACE_FILES } from 'constants/action_types.js';
+import { DELETED_FILE, GET_ALL_FILES, RECEIVED_FILES, RECEIVED_LICENSE, RECEIVED_NAMESPACE_FILES } from 'constants/action_types.js';
 
 
 // FUNCTIONS //
@@ -55,6 +55,15 @@ export function receivedFiles( files ) {
 		type: RECEIVED_FILES,
 		payload: {
 			files
+		}
+	};
+}
+
+export function receivedLicense( license ) {
+	return {
+		type: RECEIVED_LICENSE,
+		payload: {
+			license
 		}
 	};
 }
@@ -202,5 +211,43 @@ export const getAllFiles = async ( dispatch ) => {
 export const getAllFilesInjector = ( dispatch ) => {
 	return async () => {
 		await getAllFiles( dispatch );
+	};
+};
+
+export const uploadLicense = async ( dispatch, { formData, user }) => {
+	try {
+		const query = qs.stringify({
+			jwt: user.token
+		});
+		const res = await axios.post( server+'/upload_license?'+ query, formData );
+		console.log( res );
+	} catch ( err ) {
+		return addErrorNotification( dispatch, err );
+	}
+};
+
+export const uploadLicenseInjector = ( dispatch ) => {
+	return async ({ formData, user }) => {
+		await uploadLicense( dispatch, { formData, user } );
+	};
+};
+
+export const getLicense = async ( dispatch, user ) => {
+	try {
+		const query = qs.stringify({
+			jwt: user.token
+		});
+		const res = await axios.get( server+'/get_license?'+ query );
+		console.log( 'RESULT');
+		console.log( res.data );
+		receivedLicense( res.data );
+	} catch ( err ) {
+		return addErrorNotification( dispatch, err );
+	}
+};
+
+export const getLicenseInjector = ( dispatch ) => {
+	return async ( user ) => {
+		await getLicense( dispatch, user );
 	};
 };
