@@ -114,3 +114,7 @@ th {
 .tickets-description {
 	cursor: pointer;
 }
+
+.license-upload-button {
+	float: right;
+}
