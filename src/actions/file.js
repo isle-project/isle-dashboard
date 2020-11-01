@@ -238,9 +238,7 @@ export const getLicense = async ( dispatch, user ) => {
 			jwt: user.token
 		});
 		const res = await axios.get( server+'/get_license?'+ query );
-		console.log( 'RESULT');
-		console.log( res.data );
-		receivedLicense( res.data );
+		dispatch( receivedLicense( res.data.license ) );
 	} catch ( err ) {
 		return addErrorNotification( dispatch, err );
 	}
