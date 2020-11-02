@@ -46,6 +46,7 @@
 	"registered-users": "Bislang registrierte Nutzer",
 	"registration-information": "Registrierungsinformation",
 	"remove-license": "Lizenz entfernen",
+	"remove-license-confirm": "Bitte bestätigen Sie, dass Sie die aktuelle Lizenz vom Server entfernen möchten. Stellen Sie sicher, dass Sie die aktuelle Lizenzdatei heruntergeladen haben, da die Datei vom Server gelöscht werden wird.",
 	"reserved-storage-size": "Reservierte-Speichergröße",
 	"sanitize-user": "Nutzerdaten bereinigen",
 	"start-date": "Startdatum",

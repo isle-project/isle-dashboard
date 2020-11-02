@@ -26,6 +26,7 @@ import Table from 'react-bootstrap/Table';
 import FormLabel from 'react-bootstrap/FormLabel';
 import FormGroup from 'react-bootstrap/FormGroup';
 import Badge from 'react-bootstrap/Badge';
+import ConfirmModal from 'components/confirm-modal';
 
 
 // MAIN //
@@ -33,6 +34,10 @@ import Badge from 'react-bootstrap/Badge';
 class LicensePage extends Component {
 	constructor( props ) {
 		super( props );
+
+		this.state = {
+			showDeleteModal: false
+		};
 	}
 
 	componentDidMount() {
@@ -50,7 +55,14 @@ class LicensePage extends Component {
 	}
 
 	handleRemoval = () => {
+		this.toggleDeleteModal();
 		this.props.removeLicense();
+	}
+
+	toggleDeleteModal = () => {
+		this.setState({
+			showDeleteModal: !this.state.showDeleteModal
+		});
 	}
 
 	renderLicenseInformation() {
@@ -117,7 +129,7 @@ class LicensePage extends Component {
 						</tr>
 					</tbody>
 				</Table>
-				<Button variant="danger" size="sm" onClick={this.handleRemoval} >
+				<Button variant="danger" size="sm" onClick={this.toggleDeleteModal} >
 					{t('remove-license')}
 				</Button>
 			</Fragment>
@@ -142,6 +154,13 @@ class LicensePage extends Component {
 				</FormGroup>
 				<h1>{t('your-license')}</h1>
 				{this.renderLicenseInformation()}
+				{ this.state.showDeleteModal ? <ConfirmModal
+					title={t('remove-license')}
+					message={t('remove-license-confirm')}
+					close={this.toggleDeleteModal}
+					show={this.state.showDeleteModal}
+					onConfirm={this.handleRemoval}
+				/> : null }
 			</div>
 		);
 	}

@@ -47,6 +47,7 @@
 	"registered-users": "Usuarios registrados actualmente",
 	"registration-information": "Información de registro",
 	"remove-license": "Eliminar la licencia",
+	"remove-license-confirm": "Por favor, confirme que desea eliminar la licencia actual del servidor. Asegúrese de que tiene actualizado el archivo de licencia descargado, ya que el archivo será eliminado del servidor.",
 	"reserved-storage-size": "Tamaño de almacenamiento reservado",
 	"sanitize-user": "Desinfectar al usuario",
 	"start-date": "Fecha de inicio",

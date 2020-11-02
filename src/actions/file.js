@@ -270,6 +270,10 @@ export const removeLicense = async ( dispatch ) => {
 			dispatch( removedLicense() );
 		}
 	} catch ( err ) {
+		if ( err.message.includes( '404' ) ) {
+			// Case: License file has already been removed
+			dispatch( removedLicense() );
+		}
 		return addErrorNotification( dispatch, err );
 	}
 };

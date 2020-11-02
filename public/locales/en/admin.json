@@ -47,6 +47,7 @@
 	"registered-users": "Currently registered users",
 	"registration-information": "Registration Information",
 	"remove-license": "Remove License",
+	"remove-license-confirm": "Please confirm that you wish to remove the current license from the server. Make sure that you have current the license file downloaded as the file will be deleted from the server.",
 	"reserved-storage-size": "Reserved Storage Size",
 	"sanitize-user": "Sanitize user",
 	"start-date": "Start Date",
