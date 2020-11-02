@@ -261,6 +261,7 @@ class AdminPage extends Component {
 						uploadLicense={this.props.uploadLicense}
 						getLicense={this.props.getLicense}
 						user={this.props.user}
+						removeLicense={this.props.removeLicense}
 					/>
 				);
 		}
@@ -347,6 +348,7 @@ AdminPage.propTypes = {
 	getUsers: PropTypes.func.isRequired,
 	impersonateUser: PropTypes.func.isRequired,
 	openTicket: PropTypes.func.isRequired,
+	removeLicense: PropTypes.func.isRequired,
 	sanitizeRequest: PropTypes.func.isRequired,
 	sendTicketMessage: PropTypes.func.isRequired,
 	updatePriority: PropTypes.func.isRequired,

@@ -242,6 +242,10 @@ export default function admin( state = initialState, action ) {
 		return Object.assign({}, state, {
 			license: action.payload.license
 		});
+	case types.REMOVED_LICENSE:
+		return Object.assign({}, state, {
+			license: null
+		});
 	case types.GET_HISTORICAL_OVERVIEW_STATISTICS: {
 		const statistics = action.payload.statistics.map( x => {
 			x.createdAt = x.createdAt.substring( 0, x.createdAt.indexOf( 'T' ) );

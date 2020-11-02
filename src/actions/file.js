@@ -27,7 +27,7 @@ import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
 import Button from 'react-bootstrap/Button';
 import { addNotification, addErrorNotification } from 'actions/notification';
-import { DELETED_FILE, GET_ALL_FILES, RECEIVED_FILES, RECEIVED_LICENSE, RECEIVED_NAMESPACE_FILES } from 'constants/action_types.js';
+import { DELETED_FILE, GET_ALL_FILES, RECEIVED_FILES, RECEIVED_LICENSE, RECEIVED_NAMESPACE_FILES, REMOVED_LICENSE } from 'constants/action_types.js';
 
 
 // FUNCTIONS //
@@ -65,6 +65,12 @@ export function receivedLicense( license ) {
 		payload: {
 			license
 		}
+	};
+}
+
+export function removedLicense() {
+	return {
+		type: REMOVED_LICENSE
 	};
 }
 
@@ -254,5 +260,22 @@ export const getLicense = async ( dispatch, user ) => {
 export const getLicenseInjector = ( dispatch ) => {
 	return async ( user ) => {
 		await getLicense( dispatch, user );
+	};
+};
+
+export const removeLicense = async ( dispatch ) => {
+	try {
+		const res = await axios.post( server+'/remove_license' );
+		if ( res.data.message === 'ok' ) {
+			dispatch( removedLicense() );
+		}
+	} catch ( err ) {
+		return addErrorNotification( dispatch, err );
+	}
+};
+
+export const removeLicenseInjector = ( dispatch ) => {
+	return async () => {
+		await removeLicense( dispatch );
 	};
 };

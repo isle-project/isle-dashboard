@@ -17,10 +17,11 @@
 
 // MODULES //
 
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { withTranslation } from 'react-i18next';
 import Jumbotron from 'react-bootstrap/Jumbotron';
+import Button from 'react-bootstrap/Button';
 import Table from 'react-bootstrap/Table';
 import FormLabel from 'react-bootstrap/FormLabel';
 import FormGroup from 'react-bootstrap/FormGroup';
@@ -48,6 +49,10 @@ class LicensePage extends Component {
 		});
 	}
 
+	handleRemoval = () => {
+		this.props.removeLicense();
+	}
+
 	renderLicenseInformation() {
 		const { admin, t } = this.props;
 		const license = admin.license;
@@ -66,51 +71,56 @@ class LicensePage extends Component {
 			);
 		}
 		return (
-			<Table bordered >
-				<tbody>
-					<tr>
-						<td colSpan="2" className="title" >{t('registration-information')}:</td>
-						<td>
-							<div className="title">{t('number-of-seats')}</div>
-							{license.maxUsers}
-						</td>
-						<td>
-							<div className="title">{t('registered-users')}</div>
-							{admin.users.length > 0 ? admin.users.length : admin.statistics.nUsers}
-						</td>
-					</tr>
-					<tr>
-						<td colSpan="2" className="title" >
-							{t('validity-period')}:
-						</td>
-						<td>
-							<div className="title">{t('start-date')}</div>
-							{license.startDate}
-						</td>
-						<td>
-							<div className="title">{t('end-date')}</div>
-							{license.endDate}
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<div className="title">{t('licensed-to')}:</div>
-						</td>
-						<td>
-							<div className="title">{t('common:name')}</div>
-							{license.name}
-						</td>
-						<td>
-							<div className="title">{t('common:email-address')}</div>
-							{license.email}
-						</td>
-						<td>
-							<div className="title">{t('common:organization')}</div>
-							{license.company}
-						</td>
-					</tr>
-				</tbody>
-			</Table>
+			<Fragment>
+				<Table bordered >
+					<tbody>
+						<tr>
+							<td colSpan="2" className="title" >{t('registration-information')}:</td>
+							<td>
+								<div className="title">{t('number-of-seats')}</div>
+								{license.maxUsers}
+							</td>
+							<td>
+								<div className="title">{t('registered-users')}</div>
+								{admin.users.length > 0 ? admin.users.length : admin.statistics.nUsers}
+							</td>
+						</tr>
+						<tr>
+							<td colSpan="2" className="title" >
+								{t('validity-period')}:
+							</td>
+							<td>
+								<div className="title">{t('start-date')}</div>
+								{license.startDate}
+							</td>
+							<td>
+								<div className="title">{t('end-date')}</div>
+								{license.endDate}
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<div className="title">{t('licensed-to')}:</div>
+							</td>
+							<td>
+								<div className="title">{t('common:name')}</div>
+								{license.name}
+							</td>
+							<td>
+								<div className="title">{t('common:email-address')}</div>
+								{license.email}
+							</td>
+							<td>
+								<div className="title">{t('common:organization')}</div>
+								{license.company}
+							</td>
+						</tr>
+					</tbody>
+				</Table>
+				<Button variant="danger" size="sm" onClick={this.handleRemoval} >
+					{t('remove-license')}
+				</Button>
+			</Fragment>
 		);
 	}
 
@@ -143,6 +153,7 @@ class LicensePage extends Component {
 LicensePage.propTypes = {
 	admin: PropTypes.object.isRequired,
 	getLicense: PropTypes.func.isRequired,
+	removeLicense: PropTypes.func.isRequired,
 	t: PropTypes.func.isRequired,
 	uploadLicense: PropTypes.func.isRequired,
 	user: PropTypes.object.isRequired
