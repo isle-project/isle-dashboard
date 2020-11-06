@@ -74,7 +74,7 @@
     "postcss-flexbugs-fixes": "^5.0.0",
     "postcss-preset-env": "^6.7.0",
     "prop-types": "^15.6.2",
-    "query-string": "^6.13.6",
+    "query-string": "^6.13.7",
     "react": "17.0.1",
     "react-avatar-editor": "11.0.12",
     "react-bootstrap": "^1.4.0",
