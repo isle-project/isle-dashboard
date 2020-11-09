@@ -20,8 +20,8 @@
 import React from 'react';
 import { Router } from 'react-router-dom';
 import { createMemoryHistory } from 'history';
-import { render, screen } from '@testing-library/react';
-import '@testing-library/jest-dom/extend-expect'
+import { fireEvent, render, screen } from '@testing-library/react';
+import '@testing-library/jest-dom/extend-expect';
 import noop from '@stdlib/utils/noop';
 import Login from './../../src/components/login';
 
@@ -30,13 +30,47 @@ import Login from './../../src/components/login';
 
 describe( '<Login />', function test() {
 	const history = createMemoryHistory();
-	render(
-		<Router history={history}>
-			<Login handleLogin={noop} fetchCredentials={noop} />
-		</Router>
-	);
 
-	it('should render without throwing an error', () => {
+	it( 'should render without throwing an error', () => {
+		render(
+			<Router history={history}>
+				<Login handleLogin={noop} fetchCredentials={noop} />
+			</Router>
+		);
 		expect( screen.getByRole( 'heading' ) ).toHaveTextContent( 'Dashboard' );
+	});
+
+	it( 'should update email field on change', () => {
+		const { queryByPlaceholderText } = render(
+			<Router history={history}>
+				<Login handleLogin={noop} fetchCredentials={noop} />
+			</Router>
+		);
+		const emailInput = queryByPlaceholderText( 'common:email' );
+		const expected = 'isle@stat.cmu.edu';
+		const event = {
+			target: {
+				value: expected
+			}
+		};
+		fireEvent.change( emailInput, event );
+		expect( emailInput.value ).toBe( expected );
+	});
+
+	it( 'should update password field on change', () => {
+		const { queryByPlaceholderText } = render(
+			<Router history={history}>
+				<Login handleLogin={noop} fetchCredentials={noop} />
+			</Router>
+		);
+		const passwordInput = queryByPlaceholderText( 'common:password' );
+		const expected = 'birthday';
+		const event = {
+			target: {
+				value: expected
+			}
+		};
+		fireEvent.change( passwordInput, event );
+		expect( passwordInput.value ).toBe( expected );
 	});
 });
