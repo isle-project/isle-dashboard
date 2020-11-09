@@ -18,23 +18,25 @@
 // MODULES //
 
 import React from 'react';
-import Enzyme, { shallow } from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
+import { Router } from 'react-router-dom';
+import { createMemoryHistory } from 'history';
+import { render, screen } from '@testing-library/react';
+import '@testing-library/jest-dom/extend-expect'
 import noop from '@stdlib/utils/noop';
 import Login from './../../src/components/login';
-
-
-// VARIABLES //
-
-Enzyme.configure({ adapter: new Adapter() });
 
 
 // TESTS //
 
 describe( '<Login />', function test() {
-	const wrapper = shallow( <Login handleLogin={noop} fetchCredentials={noop} /> );
+	const history = createMemoryHistory();
+	render(
+		<Router history={history}>
+			<Login handleLogin={noop} fetchCredentials={noop} />
+		</Router>
+	);
+
 	it('should render without throwing an error', () => {
-		const div = wrapper.find( '.login' );
-		expect( div.length ).toBe( 1 );
+		expect( screen.getByRole( 'heading' ) ).toHaveTextContent( 'Dashboard' );
 	});
 });
