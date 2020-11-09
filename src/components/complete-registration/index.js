@@ -36,7 +36,7 @@ import { withRouter } from 'react-router';
 import PropTypes from 'prop-types';
 import queryString from 'query-string';
 import axios from 'axios';
-import server from 'constants/server';
+import server from 'constants/server.js';
 import 'css/login.css';
 
 
