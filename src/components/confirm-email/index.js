@@ -58,7 +58,7 @@ class ConfirmEmail extends Component {
 						<Card.Title as="h3">{t('common:confirm-email')}</Card.Title>
 					</Card.Header>
 					<Card.Body>
-						<p>{this.state.message}</p>
+						<p data-testid="message" >{this.state.message}</p>
 					</Card.Body>
 					<Card.Footer style={{ background: 'rgba(255,255,255,0.6)', textAlign: 'right' }}>
 						<Link to="/signup">{t('common:register')}</Link>
