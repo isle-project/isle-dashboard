@@ -13,8 +13,8 @@
 
 #### Tests
 
-[![Actions Status](https://github.com/isle-project/isle-dashboard/workflows/NodeCI/badge.svg)](https://github.com/isle-project/isle-dashboard/actions)
-[![codecov](https://codecov.io/gh/isle-project/isle-dashboard/branch/master/graph/badge.svg)](https://codecov.io/gh/isle-project/isle-dashboard)
+[![Actions Status][actions-image]][actions-url]
+[![codecov][codecov-image]][codecov-url]
 
 ## Introduction
 
@@ -86,6 +86,9 @@ See [LICENSE][license-url].
 [license-image]: https://img.shields.io/badge/license-APGL-blue.svg
 [license-url]: https://raw.githubusercontent.com/isle-project/isle-dashboard/master/LICENSE
 
+[actions-image]: https://github.com/isle-project/isle-dashboard/workflows/NodeCI/badge.svg
+[actions-url]: https://github.com/isle-project/isle-dashboard/actions
+
 [doi-image]: https://zenodo.org/badge/71033733.svg
 [doi-url]: https://zenodo.org/badge/latestdoi/71033733
 
@@ -94,6 +97,9 @@ See [LICENSE][license-url].
 
 [dev-dependencies-image]: https://img.shields.io/david/dev/isle-project/isle-dashboard.svg
 [dev-dependencies-url]: https://david-dm.org/isle-project/isle-dashboard/master?type=dev
+
+[codecov-image]: https://codecov.io/gh/isle-project/isle-dashboard/branch/master/graph/badge.svg
+[codecov-url]: https://codecov.io/gh/isle-project/isle-dashboard
 
 [docs]: http://isledocs.com/
 [isle-server]: https://github.com/isle-project/isle-server
