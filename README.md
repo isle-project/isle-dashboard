@@ -1,4 +1,4 @@
-# ISLE Dashboard
+# ISLE Dashboard [![LICENSE][license-image]][license-url] [![DOI][doi-image]][doi-url]
 
 <div class="image" align="center">
     <img width="250" height="auto" src="https://raw.githubusercontent.com/isle-project/www/master/images/isle_icon_transparent.png" alt="ISLE logo">
@@ -9,7 +9,7 @@
 
 #### Dependencies
 
-[![Dependencies][dependencies-image]][dependencies-url] [![DevDependencies][dev-dependencies-image]][dev-dependencies-url] [![DOI](https://zenodo.org/badge/71033733.svg)](https://zenodo.org/badge/latestdoi/71033733)
+[![Dependencies][dependencies-image]][dependencies-url] [![DevDependencies][dev-dependencies-image]][dev-dependencies-url]
 
 #### Tests
 
@@ -66,7 +66,7 @@ scp -r build/* <user>@<homepage>:<dirpath>
 
 #### License
 
-See [LICENSE][license].
+See [LICENSE][license-url].
 
 #### Icon Credits
 
@@ -81,8 +81,13 @@ See [LICENSE][license].
 - avatar by Hea Poh Lin from the Noun Project
 
 [git]: http://git-scm.com/
-[license]: https://raw.githubusercontent.com/isle-project/isle-dashboard/master/LICENSE
 [node-js]: https://nodejs.org/en/
+
+[license-image]: https://img.shields.io/badge/license-APGL-blue.svg
+[license-url]: https://raw.githubusercontent.com/isle-project/isle-dashboard/master/LICENSE
+
+[doi-image]: https://zenodo.org/badge/71033733.svg
+[doi-url]: https://zenodo.org/badge/latestdoi/71033733
 
 [dependencies-image]: https://img.shields.io/david/isle-project/isle-dashboard.svg
 [dependencies-url]: https://david-dm.org/isle-project/isle-dashboard/master
