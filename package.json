@@ -123,7 +123,7 @@
     "chalk": "4.1.0",
     "codecov": "^3.8.1",
     "connect-history-api-fallback": "1.6.0",
-    "copy-webpack-plugin": "^6.3.1",
+    "copy-webpack-plugin": "^6.3.2",
     "css-loader": "5.0.1",
     "dotenv": "8.2.0",
     "eslint": "^7.12.1",
