@@ -43,6 +43,9 @@ function createNumericColumn({ Header, accessor, Cell, minValue = 0, maxValue = 
 		Cell: Cell ? Cell : ( row ) => row.value ? `${roundn( row.value, -3 )}` : 'NA',
 		filterMethod: filterMethod || defaultFilterMethod,
 		Filter: ({ filter, onChange }) => {
+			if ( minValue === maxValue ) {
+				maxValue = minValue += 1;
+			}
 			const defaultVal = {
 				max: maxValue,
 				min: minValue
