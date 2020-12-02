@@ -20,9 +20,9 @@
 import 'react-dates/initialize';
 import React from 'react';
 import ReactDOM from 'react-dom';
+import localforage from 'localforage';
 import { Provider } from 'react-redux';
 import { persistStore, persistReducer } from 'redux-persist';
-import storage from 'redux-persist/lib/storage'; // Defaults to localStorage
 import { PersistGate } from 'redux-persist/integration/react';
 import axios from 'axios';
 import { createHashHistory } from 'history';
@@ -40,8 +40,8 @@ import 'css/index.css';
 
 const persistConfig = {
 	key: 'root',
-	storage,
-	blacklist: [ 'router' ]
+	blacklist: [ 'router' ],
+	storage: localforage
 };
 const history = createHashHistory();
 const rootReducer = createRootReducer( history );
