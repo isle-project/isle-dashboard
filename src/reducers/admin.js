@@ -28,6 +28,7 @@ const initialState = {
 	events: [],
 	files: [],
 	lessons: [],
+	lessonsMap: {},
 	namespaces: [],
 	rooms: [],
 	tickets: [],
@@ -97,13 +98,16 @@ export default function admin( state = initialState, action ) {
 	}
 	case types.GET_ALL_LESSONS: {
 		let lessons = action.payload.lessons;
+		const lessonsMap = { ...state.lessonsMap };
 		lessons = lessons.map( x => {
 			x.createdAt = new Date( x.createdAt );
 			x.updatedAt = new Date( x.updatedAt );
+			lessonsMap[ x._id ] = x.title;
 			return x;
 		});
 		return Object.assign({}, state, {
-			lessons
+			lessons,
+			lessonsMap
 		});
 	}
 	case types.GET_ALL_NAMESPACES: {

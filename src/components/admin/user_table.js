@@ -30,6 +30,7 @@ import Tooltip from 'react-bootstrap/Tooltip';
 import Popover from 'react-bootstrap/Popover';
 import round from '@stdlib/math/base/special/round';
 import PINF from '@stdlib/constants/math/float64-pinf';
+import mapKeys from '@stdlib/utils/map-keys';
 import ConfirmModal from 'components/confirm-modal';
 import server from 'constants/server';
 import createBooleanColumn from './create_boolean_column.js';
@@ -301,10 +302,16 @@ class UserPage extends Component {
 				style: { marginTop: '2px', color: 'darkslategrey', fontSize: 24, textAlign: 'center', cursor: 'pointer' },
 				Cell: ( row ) => {
 					if ( row.value ) {
+						const lessonData = mapKeys( row.value, ( key ) => {
+							if ( this.props.admin.lessonsMap ) {
+								return this.props.admin.lessonsMap[ key ];
+							}
+							return key;
+						});
 						const popover = <Popover id="popover-data" style={{ maxWidth: 400, maxHeight: '80vh', overflowY: 'auto' }}>
 							<Popover.Title as="h3">Data</Popover.Title>
 							<Popover.Content style={{ backgroundColor: 'lightblue' }} >
-								<pre>{JSON.stringify( row.value, null, 2 )}
+								<pre>{JSON.stringify( lessonData, null, 2 )}
 								</pre>
 							</Popover.Content>
 						</Popover>;
