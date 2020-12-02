@@ -40,6 +40,8 @@ const WorkboxWebpackPlugin = require('workbox-webpack-plugin');
 const paths = require('./paths');
 const getClientEnvironment = require('./env');
 const ModuleNotFoundPlugin = require('react-dev-utils/ModuleNotFoundPlugin');
+const WebpackCdnPlugin = require( '@isle-project/webpack-cdn-plugin' );
+
 
 // Webpack uses `publicPath` to determine where the app is being served from.
 // It requires a trailing slash, or the file assets will get an incorrect path.
@@ -414,6 +416,10 @@ module.exports = {
 		new InterpolateHtmlPlugin(HtmlWebpackPlugin, env.raw),
 		// This gives some necessary context to module not found errors, such as
 		// the requesting resource.
+		new WebpackCdnPlugin({
+			prodUrl: 'https://cdnjs.cloudflare.com/ajax/libs/:alias/:version/:path',
+			modules: WebpackCdnPlugin.CDN_MODULES
+		}),
 		new ModuleNotFoundPlugin(paths.appPath),
 		// Makes some environment variables available to the JS code, for example:
 		// if (process.env.NODE_ENV === 'production') { ... }. See `./env.js`.

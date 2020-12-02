@@ -36,6 +36,7 @@ const getClientEnvironment = require('./env');
 const paths = require('./paths');
 const ManifestPlugin = require('webpack-manifest-plugin');
 const ModuleNotFoundPlugin = require('react-dev-utils/ModuleNotFoundPlugin');
+const WebpackCdnPlugin = require( '@isle-project/webpack-cdn-plugin' );
 
 // Webpack uses `publicPath` to determine where the app is being served from.
 // In development, we always serve from the root. This makes config easier.
@@ -170,8 +171,8 @@ module.exports = {
 		},
 		plugins: [
 			// Adds support for installing with Plug'n'Play, leading to faster installs and adding
-			// guards against forgotten dependencies and such.
-			PnpWebpackPlugin
+			// guards against for,gotten dependencies and such.
+			PnpWebpackPlugin,
 		],
 	},
 	resolveLoader: {
@@ -325,6 +326,10 @@ module.exports = {
 		new HtmlWebpackPlugin({
 			inject: true,
 			template: paths.appHtml,
+		}),
+		new WebpackCdnPlugin({
+			prodUrl: 'https://cdnjs.cloudflare.com/ajax/libs/:alias/:version/:path',
+			modules: WebpackCdnPlugin.CDN_MODULES
 		}),
 		// Makes some environment variables available in index.html.
 		// The public URL is available as %PUBLIC_URL% in index.html, e.g.:
