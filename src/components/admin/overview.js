@@ -37,9 +37,7 @@ import uppercase from '@stdlib/string/uppercase';
 import SearchBar from 'components/searchbar';
 import server from 'constants/server';
 import COLORS from 'constants/colors';
-import DataExplorer from '@isle-project/components/data-explorer';
-import SessionContext from '@isle-project/session/context.js';
-import Session from '@isle-project/session';
+import AdminDataExplorer from 'ev/components/admin/data-explorer';
 
 
 // FUNCTIONS //
@@ -68,32 +66,6 @@ function reverse( side ) {
 			return 'up';
 	}
 }
-
-const DataExplorerModal = ( props ) => {
-	const quantitative = Object.keys( props.data );
-	const session = new Session({}, true );
-	return (
-		<div className="admin-outer-container" >
-			<h2>
-				Data Explorer for Action Type Time Series
-				<Button onClick={props.close} style={{ float: 'right' }} >Cancel</Button>
-			</h2>
-			<SessionContext.Provider value={session} >
-				<div className="Lesson">
-					<DataExplorer
-						editor={false}
-						data={props.data}
-						quantitative={quantitative}
-						categorical={['time']}
-						style={{
-							height: '74vh'
-						}}
-					/>
-				</div>
-			</SessionContext.Provider>
-		</div>
-	);
-};
 
 
 // VARIABLES //
@@ -726,14 +698,16 @@ class Overview extends Component {
 				</Col>
 			</Row>
 		</Container>;
+		console.log( this.props.historicalStatistics );
 		return (
 			!this.state.showDataExplorer ?
 				overviewPanel:
-				<DataExplorerModal
+				<AdminDataExplorer
 					data={{
 						...this.state.historicalActionTypes,
 						time: this.props.historicalStatistics.map( x => x.createdAt )
 					}}
+					categorical={[ 'time' ]}
 					close={this.toggleExplorer}
 				/>
 		);
