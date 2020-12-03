@@ -43,13 +43,16 @@
 }
 
 .admin-outer-container {
-	animation: slide-in-right 0.7s;
 	max-width: 100%;
 	height: calc(100vh - 180px);
 	background-color: white;
 	border-radius: 8px;
 	box-shadow: 0 0 4px darkgray, 0 0 2px darkslategray;
 	padding: 16px;
+}
+
+.slide-in-right {
+	animation: slide-in-right 0.7s;
 }
 
 .first-row {
@@ -89,7 +92,8 @@
 	top: 0;
 }
 
-th {
+.action-types-table th,
+.overview-table th {
 	padding: 16px;
 	padding-left: 15px;
 	border-left: 1px dotted rgba(200, 209, 224, 0.6);
