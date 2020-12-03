@@ -571,6 +571,7 @@ class Overview extends Component {
 					}}
 					categorical={[ 'time' ]}
 					close={this.hideExplorer}
+					admin={this.props.admin}
 				/>;
 				break;
 			case 'overview-statistics':

@@ -40,7 +40,7 @@ import 'css/index.css';
 
 const persistConfig = {
 	key: 'root',
-	blacklist: [ 'router' ],
+	blacklist: [ 'router', 'license' ],
 	storage: localforage
 };
 const history = createHashHistory();

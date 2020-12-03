@@ -41,6 +41,7 @@
 	"manual-enrollment": "Manuelles Einschreiben",
 	"no-instructor": "Kein Lehrer",
 	"no-license-found": "Keine Lizenz Gefunden",
+	"not-available-in-community-edition": "Diese Funktion ist in der Community-Edition von ISLE nicht verfügbar. Erwägen Sie ein Upgrade auf einen kostenpflichtigen Plan für Ihre Server-Instanz.",
 	"number-of-objects": "Anzahl Objekte",
 	"physical-storage-size": "Physikalische-Speichergröße",
 	"registered-users": "Bislang registrierte Nutzer",

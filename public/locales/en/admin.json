@@ -36,6 +36,7 @@
 	"last-updated": "Last Updated",
 	"no-instructor": "No Instructor",
 	"no-license-found": "No License Found",
+	"not-available-in-community-edition": "This feature is not available in the community edition of ISLE. Consider upgrading to a paid plan for your server instance.",
 	"number-of-seats": "Number of seats covered under license",
 	"password-placeholder": "Enter Password",
 	"enrollment": "Enrollment",
