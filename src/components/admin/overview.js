@@ -37,6 +37,7 @@ import uppercase from '@stdlib/string/uppercase';
 import SearchBar from 'components/searchbar';
 import server from 'constants/server';
 import COLORS from 'constants/colors';
+import obsToVar from '@isle-project/utils/obs-to-var';
 import AdminDataExplorer from 'ev/components/admin/data-explorer';
 
 
@@ -128,7 +129,7 @@ class Overview extends Component {
 			filteredActionTypes: props.statistics.actionTypes,
 			historicalActionTypes: null,
 			useDifferencing: false,
-			showDataExplorer: false
+			dataExplorer: 'hidden'
 		};
 	}
 
@@ -372,9 +373,9 @@ class Overview extends Component {
 		);
 	}
 
-	toggleExplorer = () => {
+	hideExplorer = () => {
 		this.setState({
-			showDataExplorer: !this.state.showDataExplorer
+			dataExplorer: 'hidden'
 		});
 	}
 
@@ -484,7 +485,11 @@ class Overview extends Component {
 				<h2>
 					{this.props.t('common:actions')}
 					<Button
-						onClick={this.toggleExplorer}
+						onClick={() => {
+							this.setState({
+								dataExplorer: 'action-types'
+							});
+						}}
 						style={{
 							marginLeft: 12
 						}}
@@ -554,6 +559,32 @@ class Overview extends Component {
 		</Button> );
 	}
 
+	renderExplorer = () => {
+		let explorer;
+		switch ( this.state.dataExplorer ) {
+			case 'action-types':
+				explorer = <AdminDataExplorer
+					title="Data Explorer for Action Types over Time"
+					data={{
+						...this.state.historicalActionTypes,
+						time: this.props.historicalStatistics.map( x => x.createdAt )
+					}}
+					categorical={[ 'time' ]}
+					close={this.hideExplorer}
+				/>;
+				break;
+			case 'overview-statistics':
+				explorer = <AdminDataExplorer
+					title="Data Explorer for Overview Statistics over Time"
+					data={obsToVar( this.props.historicalStatistics )}
+					categorical={[ 'createdAt' ]}
+					close={this.hideExplorer}
+				/>;
+				break;
+		}
+		return explorer;
+	}
+
 	render() {
 		debug( 'Rendering overview page...' );
 		const { nUsers, nNamespaces, nLessons, nCohorts, nSessionData, nFiles, nEvents, nTickets } = this.props.statistics;
@@ -561,7 +592,20 @@ class Overview extends Component {
 		const overviewPanel = <Container className="admin-outer-container slide-in-right" >
 			<Row className="first-row" >
 				<Col className="column-border" sm={4} md={3} >
-					<h2>{this.props.t('overall')}<span className="overview-server-name">{server}</span></h2>
+					<h2>
+						{this.props.t('overall')}
+						<Button
+							onClick={() => {
+								this.setState({
+									dataExplorer: 'overview-statistics'
+								});
+							}}
+							style={{
+								marginLeft: 12
+							}}
+						>Data Explorer</Button>
+						<span className="overview-server-name">{server}</span>
+					</h2>
 					<Table striped hover className="overview-table" >
 						<thead>
 							<tr>
@@ -698,18 +742,10 @@ class Overview extends Component {
 				</Col>
 			</Row>
 		</Container>;
-		console.log( this.props.historicalStatistics );
 		return (
-			!this.state.showDataExplorer ?
+			this.state.dataExplorer === 'hidden' ?
 				overviewPanel:
-				<AdminDataExplorer
-					data={{
-						...this.state.historicalActionTypes,
-						time: this.props.historicalStatistics.map( x => x.createdAt )
-					}}
-					categorical={[ 'time' ]}
-					close={this.toggleExplorer}
-				/>
+				this.renderExplorer()
 		);
 	}
 }

@@ -16,7 +16,7 @@ const AdminDataExplorer = ( props ) => {
 	return (
 		<div className="admin-outer-container" >
 			<h2>
-				Data Explorer for Action Type Time Series
+				{props.title}
 				<Button onClick={props.close} style={{ float: 'right' }} >Cancel</Button>
 			</h2>
 			<SessionContext.Provider value={session} >
