@@ -41,7 +41,6 @@ const paths = require('./paths');
 const getClientEnvironment = require('./env');
 const ModuleNotFoundPlugin = require('react-dev-utils/ModuleNotFoundPlugin');
 const WebpackCdnPlugin = require( '@isle-project/webpack-cdn-plugin' );
-const COMPONENTS_MANIFEST = require( '@isle-project/components/components-manifest.json' );
 
 // Webpack uses `publicPath` to determine where the app is being served from.
 // It requires a trailing slash, or the file assets will get an incorrect path.
@@ -410,9 +409,6 @@ module.exports = {
 		new WebpackCdnPlugin({
 			prodUrl: 'https://cdnjs.cloudflare.com/ajax/libs/:alias/:version/:path',
 			modules: WebpackCdnPlugin.CDN_MODULES
-		}),
-		new webpack.DllReferencePlugin({
-			manifest: COMPONENTS_MANIFEST
 		}),
 		// Inlines the webpack runtime script. This script is too small to warrant
 		// a network request.
