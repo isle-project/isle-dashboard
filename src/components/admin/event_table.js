@@ -183,6 +183,7 @@ class EventTable extends Component {
 		return (
 			<Fragment>
 				<ReactTable
+					className="dashboard-table"
 					filterable
 					data={this.props.admin.events}
 					columns={this.columns}

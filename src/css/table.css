@@ -1,4 +1,4 @@
-.ReactTable {
+.dashboard-table.ReactTable {
 	max-height: calc(100%);
 	background: white;
 	border: 1px solid  rgba(92, 92, 92, 0.6);
@@ -11,24 +11,24 @@
 	width: 100%;
 }
 
-.rt-th {
+.dashboard-table .rt-th {
 	color: darkslategrey;
 }
 
-.rt-thead {
+.dashboard-table .rt-thead {
 	overflow-y: scroll;
 	overflow-x: hidden;
 }
 
-.rt-thead::-webkit-scrollbar {
+.dashboard-table .rt-thead::-webkit-scrollbar {
 	background: transparent;
 }
 
-.rt-tbody {
+.dashboard-table .rt-tbody {
 	overflow-x: hidden !important;
 }
 
-.rt-td {
+.dashboard-table .rt-td {
 	font-weight: 400;
 }
 

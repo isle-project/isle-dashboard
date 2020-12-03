@@ -303,6 +303,7 @@ class TicketsPage extends Component {
 		const { t } = this.props;
 		return ( <div className="namespace-data-page">
 			<ReactTable
+				className="dashboard-table"
 				filterable
 				data={this.props.tickets}
 				columns={this.columns}

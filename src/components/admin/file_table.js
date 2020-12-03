@@ -253,6 +253,7 @@ class FilePage extends Component {
 		const { t } = this.props;
 		return ( <Fragment>
 			<ReactTable
+				className="dashboard-table"
 				filterable
 				data={this.props.admin.files}
 				columns={this.state.columns}

@@ -228,6 +228,7 @@ class LessonTable extends Component {
 		return (
 			<Fragment>
 				<ReactTable
+					className="dashboard-table"
 					filterable
 					data={this.props.admin.lessons}
 					columns={this.state.columns}

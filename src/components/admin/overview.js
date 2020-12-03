@@ -37,6 +37,10 @@ import uppercase from '@stdlib/string/uppercase';
 import SearchBar from 'components/searchbar';
 import server from 'constants/server';
 import COLORS from 'constants/colors';
+import DataExplorer from '@isle-project/components/data-explorer';
+import Lesson from '@isle-project/components/internal/lesson';
+import SessionContext from '@isle-project/session/context.js';
+import Session from '@isle-project/session';
 
 
 // FUNCTIONS //
@@ -65,6 +69,32 @@ function reverse( side ) {
 			return 'up';
 	}
 }
+
+const DataExplorerModal = ( props ) => {
+	const quantitative = Object.keys( props.data );
+	const session = new Session({}, true );
+	return (
+		<div className="admin-outer-container" >
+			<h2>
+				Data Explorer for Action Type Time Series
+				<Button onClick={props.close} style={{ float: 'right' }} >Cancel</Button>
+			</h2>
+			<SessionContext.Provider value={session} >
+				<Lesson className="Lesson">
+					<DataExplorer
+						editor={false}
+						data={props.data}
+						quantitative={quantitative}
+						categorical={['time']}
+						style={{
+							height: '74vh'
+						}}
+					/>
+				</Lesson>
+			</SessionContext.Provider>
+		</div>
+	);
+};
 
 
 // VARIABLES //
@@ -126,7 +156,8 @@ class Overview extends Component {
 			revision: 0,
 			filteredActionTypes: props.statistics.actionTypes,
 			historicalActionTypes: null,
-			useDifferencing: false
+			useDifferencing: false,
+			showDataExplorer: false
 		};
 	}
 
@@ -370,6 +401,12 @@ class Overview extends Component {
 		);
 	}
 
+	toggleExplorer = () => {
+		this.setState({
+			showDataExplorer: !this.state.showDataExplorer
+		});
+	}
+
 	renderDiskUsage() {
 		if ( !this.props.statistics.database ) {
 			return null;
@@ -475,6 +512,12 @@ class Overview extends Component {
 			<Fragment>
 				<h2>
 					{this.props.t('common:actions')}
+					<Button
+						onClick={this.toggleExplorer}
+						style={{
+							marginLeft: 12
+						}}
+					>Data Explorer</Button>
 					<SearchBar
 						style={{
 							position: 'absolute',
@@ -544,147 +587,156 @@ class Overview extends Component {
 		debug( 'Rendering overview page...' );
 		const { nUsers, nNamespaces, nLessons, nCohorts, nSessionData, nFiles, nEvents, nTickets } = this.props.statistics;
 		const { t } = this.props;
+		const overviewPanel = <Container className="admin-outer-container slide-in-right" >
+			<Row className="first-row" >
+				<Col className="column-border" sm={4} md={3} >
+					<h2>{this.props.t('overall')}<span className="overview-server-name">{server}</span></h2>
+					<Table striped hover className="overview-table" >
+						<thead>
+							<tr>
+							<th>{this.props.t('common:icon')}</th>
+							<th>{this.props.t('common:table')}</th>
+							<th>{this.props.t('common:count')}</th>
+							<th>{this.props.t('common:visualize')}</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>
+									<i className="fas fa-user" style={{ color: COLOR_MAPPING.users }} ></i>
+								</td>
+								<td>
+									{t('admin:users')}
+								</td>
+								<td>{nUsers}</td>
+								<td>
+									{this.renderPlotButton( 'users' )}
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<i className="fas fa-school" style={{ color: COLOR_MAPPING.namespaces }} ></i>
+								</td>
+								<td>
+									{t('common:courses')}
+								</td>
+								<td>{nNamespaces}</td>
+								<td>
+									{this.renderPlotButton( 'namespaces' )}
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<i className="fas fa-chalkboard" style={{ color: COLOR_MAPPING.lessons }} ></i>
+								</td>
+								<td>
+									{t('common:lessons')}
+								</td>
+								<td>{nLessons}</td>
+								<td>
+									{this.renderPlotButton( 'lessons' )}
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<i className="fas fa-users" style={{ color: COLOR_MAPPING.cohorts }} ></i>
+								</td>
+								<td>
+									{t('common:cohorts')}
+								</td>
+								<td>{nCohorts}</td>
+								<td>
+									{this.renderPlotButton( 'cohorts' )}
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<i className="fas fa-file" style={{ color: COLOR_MAPPING.files }} ></i>
+								</td>
+								<td>
+									{t('common:files')}
+								</td>
+								<td>{nFiles}</td>
+								<td>
+									{this.renderPlotButton( 'files' )}
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<i className="fas fa-clock" style={{ color: COLOR_MAPPING.events }} ></i>
+								</td>
+								<td>
+									{t('common:events')}
+								</td>
+								<td>{nEvents}</td>
+								<td>
+									{this.renderPlotButton( 'events' )}
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<i className="fas fa-shoe-prints" style={{ color: COLOR_MAPPING.sessionData }} ></i>
+								</td>
+								<td>
+									{t('common:sessionData')}
+								</td>
+								<td>{nSessionData}</td>
+								<td>
+									{this.renderPlotButton( 'sessionData' )}
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<i className="fas fa-medkit" style={{ color: COLOR_MAPPING.tickets }} ></i>
+								</td>
+								<td>
+									{t('common:tickets')}
+								</td>
+								<td>{nTickets}</td>
+								<td>
+									<ButtonGroup>
+										{this.renderPlotButton( 'tickets' )}
+										{this.renderPlotButton( 'openTickets', 'left', 'fas fa-lock-open' )}
+										{this.renderPlotButton( 'closedTickets', 'left', 'fas fa-lock' )}
+									</ButtonGroup>
+								</td>
+							</tr>
+						</tbody>
+					</Table>
+				</Col>
+				<Col className="column-border" sm={8} md={6} >
+					<h2>{this.props.t('over-time')}</h2>
+					{this.renderTimeSeries()}
+				</Col>
+				<Col sm={12} md={3} >
+					{this.renderActionTypes()}
+				</Col>
+			</Row>
+			<Row className="second-row" >
+				<Col md={3} sm={4} className="column-border" >
+					<h3>{t('disk-usage')}</h3>
+					{this.renderDiskUsage()}
+				</Col>
+				<Col md={6} sm={8} className="column-border" >
+					<h3>{t('database')}</h3>
+					{this.renderDatabaseStats()}
+				</Col>
+				<Col md={3} sm={12} >
+					<h3>{this.props.t('daily-statistics')}</h3>
+					{this.renderDailyStatistics()}
+				</Col>
+			</Row>
+		</Container>;
 		return (
-			<Container className="admin-outer-container" >
-				<Row className="first-row" >
-					<Col className="column-border" sm={4} md={3} >
-						<h2>{this.props.t('overall')}<span className="overview-server-name">{server}</span></h2>
-						<Table striped hover className="overview-table" >
-							<thead>
-								<tr>
-								<th>{this.props.t('common:icon')}</th>
-								<th>{this.props.t('common:table')}</th>
-								<th>{this.props.t('common:count')}</th>
-								<th>{this.props.t('common:visualize')}</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr>
-									<td>
-										<i className="fas fa-user" style={{ color: COLOR_MAPPING.users }} ></i>
-									</td>
-									<td>
-										{t('admin:users')}
-									</td>
-									<td>{nUsers}</td>
-									<td>
-										{this.renderPlotButton( 'users' )}
-									</td>
-								</tr>
-								<tr>
-									<td>
-										<i className="fas fa-school" style={{ color: COLOR_MAPPING.namespaces }} ></i>
-									</td>
-									<td>
-										{t('common:courses')}
-									</td>
-									<td>{nNamespaces}</td>
-									<td>
-										{this.renderPlotButton( 'namespaces' )}
-									</td>
-								</tr>
-								<tr>
-									<td>
-										<i className="fas fa-chalkboard" style={{ color: COLOR_MAPPING.lessons }} ></i>
-									</td>
-									<td>
-										{t('common:lessons')}
-									</td>
-									<td>{nLessons}</td>
-									<td>
-										{this.renderPlotButton( 'lessons' )}
-									</td>
-								</tr>
-								<tr>
-									<td>
-										<i className="fas fa-users" style={{ color: COLOR_MAPPING.cohorts }} ></i>
-									</td>
-									<td>
-										{t('common:cohorts')}
-									</td>
-									<td>{nCohorts}</td>
-									<td>
-										{this.renderPlotButton( 'cohorts' )}
-									</td>
-								</tr>
-								<tr>
-									<td>
-										<i className="fas fa-file" style={{ color: COLOR_MAPPING.files }} ></i>
-									</td>
-									<td>
-										{t('common:files')}
-									</td>
-									<td>{nFiles}</td>
-									<td>
-										{this.renderPlotButton( 'files' )}
-									</td>
-								</tr>
-								<tr>
-									<td>
-										<i className="fas fa-clock" style={{ color: COLOR_MAPPING.events }} ></i>
-									</td>
-									<td>
-										{t('common:events')}
-									</td>
-									<td>{nEvents}</td>
-									<td>
-										{this.renderPlotButton( 'events' )}
-									</td>
-								</tr>
-								<tr>
-									<td>
-										<i className="fas fa-shoe-prints" style={{ color: COLOR_MAPPING.sessionData }} ></i>
-									</td>
-									<td>
-										{t('common:sessionData')}
-									</td>
-									<td>{nSessionData}</td>
-									<td>
-										{this.renderPlotButton( 'sessionData' )}
-									</td>
-								</tr>
-								<tr>
-									<td>
-										<i className="fas fa-medkit" style={{ color: COLOR_MAPPING.tickets }} ></i>
-									</td>
-									<td>
-										{t('common:tickets')}
-									</td>
-									<td>{nTickets}</td>
-									<td>
-										<ButtonGroup>
-											{this.renderPlotButton( 'tickets' )}
-											{this.renderPlotButton( 'openTickets', 'left', 'fas fa-lock-open' )}
-											{this.renderPlotButton( 'closedTickets', 'left', 'fas fa-lock' )}
-										</ButtonGroup>
-									</td>
-								</tr>
-							</tbody>
-						</Table>
-					</Col>
-					<Col className="column-border" sm={8} md={6} >
-						<h2>{this.props.t('over-time')}</h2>
-						{this.renderTimeSeries()}
-					</Col>
-					<Col sm={12} md={3} >
-						{this.renderActionTypes()}
-					</Col>
-				</Row>
-				<Row className="second-row" >
-					<Col md={3} sm={4} className="column-border" >
-						<h3>{t('disk-usage')}</h3>
-						{this.renderDiskUsage()}
-					</Col>
-					<Col md={6} sm={8} className="column-border" >
-						<h3>{t('database')}</h3>
-						{this.renderDatabaseStats()}
-					</Col>
-					<Col md={3} sm={12} >
-						<h3>{this.props.t('daily-statistics')}</h3>
-						{this.renderDailyStatistics()}
-					</Col>
-				</Row>
-			</Container>
+			!this.state.showDataExplorer ?
+				overviewPanel:
+				<DataExplorerModal
+					data={{
+						...this.state.historicalActionTypes,
+						time: this.props.historicalStatistics.map( x => x.createdAt )
+					}}
+					close={this.toggleExplorer}
+				/>
 		);
 	}
 }

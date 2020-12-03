@@ -375,6 +375,7 @@ class FilesPage extends Component {
 				</FormGroup> : null }
 			</div>
 			<ReactTable
+				className="dashboard-table"
 				filterable
 				data={this.props.files}
 				columns={this.columns}

@@ -188,6 +188,7 @@ class CohortTable extends Component {
 			<Fragment>
 				<ReactTable
 					filterable
+					className="dashboard-table"
 					data={this.props.admin.cohorts}
 					columns={this.state.columns}
 					ref={(r) => {

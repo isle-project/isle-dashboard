@@ -87,6 +87,7 @@ class Requests extends Component {
 		return (
 			<Fragment>
 				<ReactTable
+					className="dashboard-table"
 					filterable
 					data={this.props.admin.requestStatistics}
 					columns={this.columns}

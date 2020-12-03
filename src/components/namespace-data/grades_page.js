@@ -457,7 +457,7 @@ class GradesPage extends Component {
 				</div>
 				<div className="namespace-data-page">
 					<ReactTable
-						className="grades-table"
+						className="grades-table dashboard-table"
 						filterable
 						data={this.state.displayedMembers}
 						columns={this.columns}

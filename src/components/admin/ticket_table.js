@@ -356,6 +356,7 @@ class TicketPage extends Component {
 		return ( <Fragment>
 			<ReactTable
 				filterable
+				className="dashboard-table"
 				data={this.props.admin.tickets}
 				columns={this.state.columns}
 				ref={(r) => {

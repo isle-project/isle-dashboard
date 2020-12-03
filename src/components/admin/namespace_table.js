@@ -184,6 +184,7 @@ class NamespacePage extends Component {
 		return (
 			<Fragment>
 				<ReactTable
+					className="dashboard-table"
 					filterable
 					data={this.props.admin.namespaces}
 					columns={this.state.columns}

@@ -388,6 +388,7 @@ class UserPage extends Component {
 		return (
 			<Fragment>
 				<ReactTable
+					className="dashboard-table"
 					filterable
 					data={this.props.admin.users}
 					columns={this.state.columns}

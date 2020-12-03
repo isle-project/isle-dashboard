@@ -178,6 +178,7 @@ class Rooms extends Component {
 		return (
 			<Fragment>
 				<ReactTable
+					className="dashboard-table"
 					filterable
 					data={this.props.admin.rooms}
 					columns={this.columns}
