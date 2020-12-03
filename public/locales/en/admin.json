@@ -8,7 +8,7 @@
 	"automatic-logout": " Notice that this will log you out of your current session.",
 	"average-object-size": "Average Object Size",
 	"created-at": "Created At",
-	"daily-active-users": "Users active in the last 24 hours",
+	"daily-active-users": "Active users in the last 24 hours",
 	"daily-changes-of": "Daily Changes of ",
 	"daily-statistics": "Daily Statistics",
 	"dashboard-version": "Dashboard Version",
@@ -32,8 +32,9 @@
 	"licensed-to": "Licensed to",
 	"metadata": "Metadata",
 	"ms-on-average": "Milliseconds on average",
-	"last-hour-active-users": "Active Users in Last Hour",
+	"last-hour-active-users": "Active users in last hour",
 	"last-updated": "Last Updated",
+	"monthly-active-users": "Active users in the last 30 days",
 	"no-instructor": "No Instructor",
 	"no-license-found": "No License Found",
 	"not-available-in-community-edition": "This feature is not available in the community edition of ISLE. Consider upgrading to a paid plan for your server instance.",
@@ -62,5 +63,6 @@
 	"over-time": "Over Time",
 	"upload-new-license": "Upload new license",
 	"validity-period": "Validity Period",
+	"weekly-active-users": "Active users in the last 7 days",
 	"your-license": "Your License"
 }

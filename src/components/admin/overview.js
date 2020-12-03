@@ -82,6 +82,8 @@ const COLOR_MAPPING = {
 	events: COLORS[ 5 ],
 	sessionData: COLORS[ 7 ],
 	dailyActiveUsers: COLORS[ 8 ],
+	weeklyActiveUsers: COLORS[ 9 ],
+	monthlyActiveUsers: COLORS[ 10 ],
 	tickets: COLORS[ 11 ],
 	closedTickets: COLORS[ 12 ],
 	openTickets: COLORS[ 13 ]
@@ -97,7 +99,9 @@ const DATA_KEY_MAPPING = {
 	tickets: 'nTickets',
 	openTickets: 'nOpenTickets',
 	closedTickets: 'nClosedTickets',
-	dailyActiveUsers: 'dailyActiveUsers'
+	dailyActiveUsers: 'dailyActiveUsers',
+	weeklyActiveUsers: 'weeklyActiveUsers',
+	monthlyActiveUsers: 'monthlyActiveUsers'
 };
 const DISPLAY_IN_PLOT = {
 	users: false,
@@ -108,6 +112,8 @@ const DISPLAY_IN_PLOT = {
 	events: false,
 	sessionData: false,
 	dailyActiveUsers: false,
+	weeklyActiveUsers: false,
+	monthlyActiveUsers: false,
 	tickets: false,
 	openTickets: false,
 	closedTickets: false
@@ -444,14 +450,32 @@ class Overview extends Component {
 
 	renderDailyStatistics() {
 		const { t } = this.props;
-		const { dailyActiveUsers, lastHourActiveUsers } = this.props.statistics;
+		const { dailyActiveUsers, weeklyActiveUsers, monthlyActiveUsers, lastHourActiveUsers } = this.props.statistics;
 		return (
 			<ListGroup variant="flush" style={{ fontSize: '1em' }}>
-				<ListGroup.Item style={{ padding: '.5rem 0.8rem' }} >{t('last-hour-active-users')}: {lastHourActiveUsers}</ListGroup.Item>
 				<ListGroup.Item style={{ padding: '.5rem 0.8rem' }} >
-					<span>{t('daily-active-users')}: {dailyActiveUsers}</span>
+					{t('last-hour-active-users')}:
+					<span style={{ float: 'right', marginRight: 56 }} >{lastHourActiveUsers}</span>
+				</ListGroup.Item>
+				<ListGroup.Item style={{ padding: '.5rem 0.8rem' }} >
+					<span>{t('daily-active-users')}:</span>
 					<span style={{ float: 'right' }}>
+						<span style={{ marginRight: 24 }} >{dailyActiveUsers}</span>
 						{this.renderPlotButton( 'dailyActiveUsers', 'down' )}
+					</span>
+				</ListGroup.Item>
+				<ListGroup.Item style={{ padding: '.5rem 0.8rem' }} >
+					<span>{t('weekly-active-users')}:</span>
+					<span style={{ float: 'right' }}>
+						<span style={{ marginRight: 24 }} >{weeklyActiveUsers}</span>
+						{this.renderPlotButton( 'weeklyActiveUsers', 'down' )}
+					</span>
+				</ListGroup.Item>
+				<ListGroup.Item style={{ padding: '.5rem 0.8rem' }} >
+					<span>{t('monthly-active-users')}:</span>
+					<span style={{ float: 'right' }}>
+						<span style={{ marginRight: 24 }} >{monthlyActiveUsers}</span>
+						{this.renderPlotButton( 'monthlyActiveUsers', 'down' )}
 					</span>
 				</ListGroup.Item>
 			</ListGroup>

@@ -34,6 +34,7 @@
 	"ms-on-average": "Millisekunden im Durchschnitt",
 	"last-hour-active-users": "Aktive Nutzer in der letzten Stunde",
 	"last-updated": "Zuletzt aktualisiert",
+	"monthly-active-users": "Aktive Nutzer in den letzten 30 Tagen",
 	"password-placeholder": "Passwort eingeben",
 	"enrollment": "Einschreibung",
 	"open-enrollment": "Offene Einschreibung",
@@ -61,5 +62,6 @@
 	"over-time": "Zeitreihe",
 	"upload-new-license": "Neue Lizenz hochladen",
 	"validity-period": "Gültigkeitszeitraum",
+	"weekly-active-users": "Aktive Nutzer in den letzten 7 Tagen",
 	"your-license": "Ihre Lizenz"
 }

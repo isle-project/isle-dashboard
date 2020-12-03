@@ -31,6 +31,7 @@
 	"license": "Licencia",
 	"licensed-to": "Con licencia para",
 	"metadata": "Metadatos",
+	"monthly-active-users": "Los usuarios activos en los últimos 30 días",
 	"ms-on-average": "Milisegundos en promedio",
 	"no-instructor": "No hay instructor",
 	"no-license-found": "No se encontró ninguna licencia",
@@ -62,5 +63,6 @@
 	"over-time": "Con el tiempo",
 	"upload-new-license": "Subir la nueva licencia",
 	"validity-period": "Período de Validez",
+	"weekly-active-users": "Los usuarios activos en los últimos 7 días",
 	"your-license": "Tu Licencia"
 }
