@@ -38,7 +38,6 @@ import SearchBar from 'components/searchbar';
 import server from 'constants/server';
 import COLORS from 'constants/colors';
 import DataExplorer from '@isle-project/components/data-explorer';
-import Lesson from '@isle-project/components/internal/lesson';
 import SessionContext from '@isle-project/session/context.js';
 import Session from '@isle-project/session';
 
@@ -80,7 +79,7 @@ const DataExplorerModal = ( props ) => {
 				<Button onClick={props.close} style={{ float: 'right' }} >Cancel</Button>
 			</h2>
 			<SessionContext.Provider value={session} >
-				<Lesson className="Lesson">
+				<div className="Lesson">
 					<DataExplorer
 						editor={false}
 						data={props.data}
@@ -90,7 +89,7 @@ const DataExplorerModal = ( props ) => {
 							height: '74vh'
 						}}
 					/>
-				</Lesson>
+				</div>
 			</SessionContext.Provider>
 		</div>
 	);
