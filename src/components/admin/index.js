@@ -168,6 +168,7 @@ class AdminPage extends Component {
 					getHistoricalOverviewStats={this.props.getHistoricalOverviewStats}
 					statistics={this.props.admin.statistics}
 					historicalStatistics={this.props.admin.historicalStatistics}
+					admin={this.props.admin}
 				/> );
 			case 1:
 				return <AccessLog user={this.props.user} />;

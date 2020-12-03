@@ -1,6 +1,7 @@
 // MODULES //
 
 import Button from 'react-bootstrap/Button';
+import PropTypes from 'prop-types';
 import DataExplorer from '@isle-project/components/data-explorer';
 import SessionContext from '@isle-project/session/context.js';
 import Session from '@isle-project/session';
@@ -16,7 +17,7 @@ const AdminDataExplorer = ( props ) => {
 	const session = new Session({}, true );
 	return (
 		<div className="admin-outer-container" >
-			<LicenseBarrier admin={props.admin} >
+			<LicenseBarrier license={props.admin.license} >
 				<h2>
 					{props.title}
 					<Button onClick={props.close} style={{ float: 'right' }} >Cancel</Button>
@@ -37,6 +38,17 @@ const AdminDataExplorer = ( props ) => {
 			</LicenseBarrier>
 		</div>
 	);
+};
+
+
+// PROPERTIES //
+
+AdminDataExplorer.propTypes = {
+	admin: PropTypes.object
+};
+
+AdminDataExplorer.defaultProps = {
+	admin: {}
 };
 
 

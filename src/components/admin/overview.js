@@ -580,6 +580,7 @@ class Overview extends Component {
 					data={obsToVar( this.props.historicalStatistics )}
 					categorical={[ 'createdAt' ]}
 					close={this.hideExplorer}
+					admin={this.props.admin}
 				/>;
 				break;
 		}
@@ -755,6 +756,7 @@ class Overview extends Component {
 // PROPERTIES //
 
 Overview.propTypes = {
+	admin: PropTypes.object.isRequired,
 	historicalStatistics: PropTypes.array,
 	statistics: PropTypes.object,
 	t: PropTypes.func.isRequired
