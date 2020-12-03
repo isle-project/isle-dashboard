@@ -41,7 +41,7 @@ const paths = require('./paths');
 const getClientEnvironment = require('./env');
 const ModuleNotFoundPlugin = require('react-dev-utils/ModuleNotFoundPlugin');
 const WebpackCdnPlugin = require( '@isle-project/webpack-cdn-plugin' );
-
+const COMPONENTS_MANIFEST = require( '@isle-project/components/components-manifest.json' );
 
 // Webpack uses `publicPath` to determine where the app is being served from.
 // It requires a trailing slash, or the file assets will get an incorrect path.
@@ -297,8 +297,10 @@ module.exports = {
 					// The preset includes JSX, Flow, and some ESnext features.
 					{
 						test: /\.(js|jsx)$/,
-						include: paths.appSrc,
-
+						include: [
+							paths.appSrc,
+							/@isle-project/
+						],
 						loader: require.resolve('babel-loader'),
 						options: {
 							customize: require.resolve(
@@ -405,6 +407,13 @@ module.exports = {
 				minifyURLs: true,
 			},
 		}),
+		new WebpackCdnPlugin({
+			prodUrl: 'https://cdnjs.cloudflare.com/ajax/libs/:alias/:version/:path',
+			modules: WebpackCdnPlugin.CDN_MODULES
+		}),
+		new webpack.DllReferencePlugin({
+			manifest: COMPONENTS_MANIFEST
+		}),
 		// Inlines the webpack runtime script. This script is too small to warrant
 		// a network request.
 		new InlineChunkHtmlPlugin(HtmlWebpackPlugin, [/runtime~.+[.]js/]),
@@ -416,10 +425,6 @@ module.exports = {
 		new InterpolateHtmlPlugin(HtmlWebpackPlugin, env.raw),
 		// This gives some necessary context to module not found errors, such as
 		// the requesting resource.
-		new WebpackCdnPlugin({
-			prodUrl: 'https://cdnjs.cloudflare.com/ajax/libs/:alias/:version/:path',
-			modules: WebpackCdnPlugin.CDN_MODULES
-		}),
 		new ModuleNotFoundPlugin(paths.appPath),
 		// Makes some environment variables available to the JS code, for example:
 		// if (process.env.NODE_ENV === 'production') { ... }. See `./env.js`.
@@ -465,7 +470,7 @@ module.exports = {
 				// public/ and not a SPA route
 				new RegExp('/[^/]+\\.[^/]+$'),
 			],
-		}),
+		})
 	],
 	// Some libraries import Node modules but don't use them in the browser.
 	// Tell Webpack to provide empty mocks for them so importing them works.

@@ -234,7 +234,10 @@ module.exports = {
 					// The preset includes JSX, Flow, and some ESnext features.
 					{
 						test: /\.(js|jsx)$/,
-						include: paths.appSrc,
+						include: [
+							paths.appSrc,
+							/@isle-project/
+						],
 						loader: require.resolve('babel-loader'),
 						options: {
 							customize: require.resolve(
@@ -365,7 +368,7 @@ module.exports = {
 		new ManifestPlugin({
 			fileName: 'asset-manifest.json',
 			publicPath: publicPath,
-		}),
+		})
 	],
 
 	// Some libraries import Node modules but don't use them in the browser.
