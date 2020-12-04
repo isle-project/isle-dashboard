@@ -43,6 +43,9 @@ class LicensePage extends Component {
 
 	componentDidMount() {
 		this.props.getLicense( this.props.user );
+		if ( this.props.admin.users.length === 0 ) {
+			this.props.getUsers();
+		}
 	}
 
 	handleUpload = ( event ) => {

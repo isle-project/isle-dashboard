@@ -263,6 +263,7 @@ class AdminPage extends Component {
 						getLicense={this.props.getLicense}
 						user={this.props.user}
 						removeLicense={this.props.removeLicense}
+						getUsers={this.props.getUsers}
 					/>
 				);
 		}
