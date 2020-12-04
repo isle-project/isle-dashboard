@@ -96,6 +96,9 @@ class LicensePage extends Component {
 				}
 			}
 		}
+		const nUsers = admin.users.length > 0 ? admin.users.length : admin.statistics.nUsers;
+		const tooManyUsers = license.maxUsers < nUsers;
+		const tooManyInstructors = license.maxInstructors < admin.statistics.nInstructors;
 		return (
 			<Fragment>
 				<h1>
@@ -106,23 +109,23 @@ class LicensePage extends Component {
 					<tbody>
 						<tr>
 							<td colSpan="2" className="title" >{t('registration-information')}:</td>
-							<td>
+							<td style={{ background: tooManyUsers ? 'lightcoral': 'white' }} >
 								<div className="title">{t('number-of-seats')}</div>
 								{license.maxUsers}
 							</td>
-							<td>
+							<td style={{ background: tooManyUsers ? 'lightcoral': 'white' }} >
 								<div className="title">{t('active-users')}</div>
 								{admin.users.length > 0 ? admin.users.length : admin.statistics.nUsers}
 							</td>
 						</tr>
 						<tr>
 							<td colSpan="2"></td>
-							<td>
+							<td style={{ background: tooManyInstructors ? 'lightcoral': 'white' }} >
 								<div className="title">{t('number-of-instructors')}</div>
 								{license.maxInstructors}
 							</td>
-							<td>
-								<div className="title">{t('registered-instructors')}</div>
+							<td style={{ background: tooManyInstructors ? 'lightcoral': 'white' }} >
+								<div className="title">{t('active-instructors')}</div>
 								{admin.statistics.nInstructors}
 							</td>
 						</tr>
@@ -145,7 +148,7 @@ class LicensePage extends Component {
 								<div className="title">{t('start-date')}</div>
 								{license.startDate}
 							</td>
-							<td>
+							<td style={{ background: license.endDate < new Date() ? 'lightcoral': 'white' }} >
 								<div className="title">{t('end-date')}</div>
 								{license.endDate}
 							</td>
