@@ -106,8 +106,8 @@
     "redux-persist": "^6.0.0",
     "source-map-explorer": "^2.5.1",
     "svg-react-loader": "^0.4.6",
-    "webpack-manifest-plugin": "^2.2.0",
-    "worker-loader": "^2.0.0"
+    "webpack-manifest-plugin": "2.2.0",
+    "worker-loader": "2.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
