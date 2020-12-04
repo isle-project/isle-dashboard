@@ -26,6 +26,7 @@ import Table from 'react-bootstrap/Table';
 import FormLabel from 'react-bootstrap/FormLabel';
 import FormGroup from 'react-bootstrap/FormGroup';
 import Badge from 'react-bootstrap/Badge';
+import isDateObject from '@stdlib/assert/is-date-object';
 import ConfirmModal from 'components/confirm-modal';
 
 
@@ -82,8 +83,25 @@ class LicensePage extends Component {
 				</Jumbotron>
 			);
 		}
+		let usersInTrial;
+		if ( license.trialPeriod > 0 ) {
+			usersInTrial = 0;
+			for ( let i = 0; i < admin.users.length; i++ ) {
+				const user = admin.users[ i ];
+				const trialLength = new Date();
+				const createdAt = isDateObject( user.createdAt ) ? user.createdAt : new Date( user.createdAt );
+				trialLength.setDate( trialLength.getDate() - license.trialPeriod );
+				if ( createdAt >= trialLength ) {
+					usersInTrial += 1;
+				}
+			}
+		}
 		return (
 			<Fragment>
+				<h1>
+					{t('your-license')}:
+					<span style={{ marginLeft: 12 }}>{license.type}</span>
+				</h1>
 				<Table bordered >
 					<tbody>
 						<tr>
@@ -93,8 +111,30 @@ class LicensePage extends Component {
 								{license.maxUsers}
 							</td>
 							<td>
-								<div className="title">{t('registered-users')}</div>
+								<div className="title">{t('active-users')}</div>
 								{admin.users.length > 0 ? admin.users.length : admin.statistics.nUsers}
+							</td>
+						</tr>
+						<tr>
+							<td colSpan="2"></td>
+							<td>
+								<div className="title">{t('number-of-instructors')}</div>
+								{license.maxInstructors}
+							</td>
+							<td>
+								<div className="title">{t('registered-instructors')}</div>
+								{admin.statistics.nInstructors}
+							</td>
+						</tr>
+						<tr>
+							<td colSpan="2"></td>
+							<td>
+								<div className="title">{t('user-trial-period')}</div>
+								{license.trialPeriod} {t('days')}
+							</td>
+							<td>
+								<div className="title">{t('users-currently-in-trial')}</div>
+								{usersInTrial}
 							</td>
 						</tr>
 						<tr>
@@ -124,7 +164,7 @@ class LicensePage extends Component {
 							</td>
 							<td>
 								<div className="title">{t('common:organization')}</div>
-								{license.company}
+								{license.organization}
 							</td>
 						</tr>
 					</tbody>
@@ -152,7 +192,6 @@ class LicensePage extends Component {
 						/>
 					</FormLabel>
 				</FormGroup>
-				<h1>{t('your-license')}</h1>
 				{this.renderLicenseInformation()}
 				{ this.state.showDeleteModal ? <ConfirmModal
 					title={t('remove-license')}
