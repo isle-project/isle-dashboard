@@ -45,6 +45,7 @@ const AsyncCompleteRegistration = asyncComponent(() => import( 'components/compl
 const AsyncConfirmEmail = asyncComponent(() => import( 'containers/visible-confirm-email' ));
 const AsyncShibboleth = asyncComponent(() => import( 'containers/visible-shibboleth' ));
 const AsyncAdminPage = asyncComponent(() => import( 'containers/visible-admin' ));
+const AsyncAdminSettings = asyncComponent(() => import( 'containers/visible-admin-settings' ));
 const AsyncLogin = asyncComponent(() => import( 'containers/visible-login' ));
 const AsyncSignup = asyncComponent(() => import( 'containers/visible-signup' ));
 const AsyncNamespaceData = asyncComponent(() => import( 'containers/visible-namespace-data' ));
@@ -67,7 +68,8 @@ const ALL_LOGGEDIN_PATHS = [
 	'/lessons',
 	'/gallery',
 	'/enroll',
-	'/admin'
+	'/admin',
+	'/admin-settings'
 ];
 const RE_PUBLIC_PAGES = /(?:courses|new-password|complete-registration|confirm-email|shibboleth|signup|terms|privacy)/;
 const debug = logger( 'isle-dashboard' );
@@ -185,6 +187,14 @@ class App extends Component {
 					<Route
 						path="/admin/:subpage"
 						component={AsyncAdminPage}
+					/>
+					<Route
+						path="/admin/settings" exact
+						component={AsyncAdminSettings}
+					/>
+					<Route
+						path="/admin/settings/:subpage"
+						component={AsyncAdminSettings}
 					/>
 				</Fragment>;
 		}

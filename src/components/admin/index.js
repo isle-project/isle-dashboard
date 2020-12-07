@@ -34,7 +34,6 @@ const UserTable = asyncComponent( () => import( './user_table.js' ) );
 const Rooms = asyncComponent( () => import( './rooms.js' ) );
 const Overview = asyncComponent( () => import( './overview.js' ) );
 const Requests = asyncComponent( () => import( './requests.js' ) );
-const License = asyncComponent( () => import( './license.js' ) );
 import 'react-table/react-table.css';
 import 'css/table.css';
 import './admin_page.css';
@@ -86,8 +85,8 @@ class AdminPage extends Component {
 			case 'requests':
 				activePage = 11;
 				break;
-			case 'license':
-				activePage = 12;
+			case 'settings':
+				activePage = null;
 				break;
 		}
 		this.state = {
@@ -152,7 +151,7 @@ class AdminPage extends Component {
 				history.replace( '/admin/requests' );
 				break;
 			case 12:
-				history.replace( '/admin/license' );
+				history.replace( '/admin/settings' );
 				break;
 		}
 		this.setState({
@@ -255,68 +254,63 @@ class AdminPage extends Component {
 						getRequestStatistics={this.props.getRequestStatistics}
 					/>
 				);
-			case 12:
-				return (
-					<License
-						admin={this.props.admin}
-						uploadLicense={this.props.uploadLicense}
-						getLicense={this.props.getLicense}
-						user={this.props.user}
-						removeLicense={this.props.removeLicense}
-						getUsers={this.props.getUsers}
-					/>
-				);
 		}
 	}
 
 	render() {
 		const page = this.renderPage();
 		const { t } = this.props;
+		const navbar = <div className="admin-page-navbar">
+			<Nav variant="pills" activeKey={this.state.activePage} onSelect={this.handleSelect}>
+				<Nav.Item>
+					<Nav.Link eventKey="0" title="Overview" >{t('overview')}</Nav.Link>
+				</Nav.Item>
+				<Nav.Item>
+					<Nav.Link eventKey="1" title="Access Log" >{t('access-log')}</Nav.Link>
+				</Nav.Item>
+				<Nav.Item>
+					<Nav.Link eventKey="2" title="Error Log" >{t('error-log')}</Nav.Link>
+				</Nav.Item>
+				<Nav.Item>
+					<Nav.Link eventKey="3" title="Users" >{t('users')}</Nav.Link>
+				</Nav.Item>
+				<Nav.Item>
+					<Nav.Link eventKey="4" title="Courses" >{t('common:courses')}</Nav.Link>
+				</Nav.Item>
+				<Nav.Item>
+					<Nav.Link eventKey="5" title="Lessons" >{t('common:lessons')}</Nav.Link>
+				</Nav.Item>
+				<Nav.Item>
+					<Nav.Link eventKey="6" title="Cohorts" >{t('common:cohorts')}</Nav.Link>
+				</Nav.Item>
+				<Nav.Item>
+					<Nav.Link eventKey="7" title="Files" >{t('common:files')}</Nav.Link>
+				</Nav.Item>
+				<Nav.Item>
+					<Nav.Link eventKey="8" title="Events" >{t('common:events')}</Nav.Link>
+				</Nav.Item>
+				<Nav.Item>
+					<Nav.Link eventKey="9" title="Active Rooms" >{t('active-rooms')}</Nav.Link>
+				</Nav.Item>
+				<Nav.Item>
+					<Nav.Link eventKey="10" title="Tickets" >{t('common:tickets')}</Nav.Link>
+				</Nav.Item>
+				<Nav.Item>
+					<Nav.Link eventKey="11" title="Requests" >{t('common:requests')}</Nav.Link>
+				</Nav.Item>
+				<Nav.Item>
+					<Nav.Link eventKey="12" title="Settings" >{t('settings')}</Nav.Link>
+				</Nav.Item>
+			</Nav>
+		</div>;
+		if ( !page ) {
+			return ( <div className="admin-page-div">
+				{navbar}
+			</div> );
+		}
 		return (
 			<div className="admin-page-div">
-				<div className="admin-page-navbar">
-					<Nav variant="pills" activeKey={this.state.activePage} onSelect={this.handleSelect}>
-						<Nav.Item>
-							<Nav.Link eventKey="0" title="Overview" >{t('overview')}</Nav.Link>
-						</Nav.Item>
-						<Nav.Item>
-							<Nav.Link eventKey="1" title="Access Log" >{t('access-log')}</Nav.Link>
-						</Nav.Item>
-						<Nav.Item>
-							<Nav.Link eventKey="2" title="Error Log" >{t('error-log')}</Nav.Link>
-						</Nav.Item>
-						<Nav.Item>
-							<Nav.Link eventKey="3" title="Users" >{t('users')}</Nav.Link>
-						</Nav.Item>
-						<Nav.Item>
-							<Nav.Link eventKey="4" title="Courses" >{t('common:courses')}</Nav.Link>
-						</Nav.Item>
-						<Nav.Item>
-							<Nav.Link eventKey="5" title="Lessons" >{t('common:lessons')}</Nav.Link>
-						</Nav.Item>
-						<Nav.Item>
-							<Nav.Link eventKey="6" title="Cohorts" >{t('common:cohorts')}</Nav.Link>
-						</Nav.Item>
-						<Nav.Item>
-							<Nav.Link eventKey="7" title="Files" >{t('common:files')}</Nav.Link>
-						</Nav.Item>
-						<Nav.Item>
-							<Nav.Link eventKey="8" title="Events" >{t('common:events')}</Nav.Link>
-						</Nav.Item>
-						<Nav.Item>
-							<Nav.Link eventKey="9" title="Active Rooms" >{t('active-rooms')}</Nav.Link>
-						</Nav.Item>
-						<Nav.Item>
-							<Nav.Link eventKey="10" title="Tickets" >{t('common:tickets')}</Nav.Link>
-						</Nav.Item>
-						<Nav.Item>
-							<Nav.Link eventKey="11" title="Requests" >{t('common:requests')}</Nav.Link>
-						</Nav.Item>
-						<Nav.Item>
-							<Nav.Link eventKey="12" title="License" >{t('license')}</Nav.Link>
-						</Nav.Item>
-					</Nav>
-				</div>
+				{navbar}
 				<div className="admin-page-container" >
 					{page}
 				</div>
@@ -350,11 +344,9 @@ AdminPage.propTypes = {
 	getUsers: PropTypes.func.isRequired,
 	impersonateUser: PropTypes.func.isRequired,
 	openTicket: PropTypes.func.isRequired,
-	removeLicense: PropTypes.func.isRequired,
 	sanitizeRequest: PropTypes.func.isRequired,
 	sendTicketMessage: PropTypes.func.isRequired,
 	updatePriority: PropTypes.func.isRequired,
-	uploadLicense: PropTypes.func.isRequired,
 	user: PropTypes.object.isRequired
 };
 

@@ -67,8 +67,6 @@ function mapDispatchToProps( dispatch ) {
 		closeTicket: closeTicketInjector( dispatch ),
 		openTicket: openTicketInjector( dispatch ),
 		getLicense: getLicenseInjector( dispatch ),
-		uploadLicense: uploadLicenseInjector( dispatch ),
-		removeLicense: removeLicenseInjector( dispatch ),
 		updatePriority: updatePriorityInjector( dispatch ),
 		adminUpdateUser: adminUpdateUserInjector( dispatch ),
 		getOverviewStatistics: getOverviewStatisticsInjector( dispatch ),

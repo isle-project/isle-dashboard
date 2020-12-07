@@ -185,7 +185,7 @@ class LicensePage extends Component {
 	render() {
 		const { t } = this.props;
 		return (
-			<div className="admin-outer-container" >
+			<div className="admin-settings-outer-container" >
 				<FormGroup className="license-upload-button" >
 					<FormLabel htmlFor="fileUpload" style={{ cursor: 'pointer' }}>
 						<h2><Badge variant="secondary" >{t('upload-new-license')}</Badge></h2>
