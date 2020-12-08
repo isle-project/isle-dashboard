@@ -21,7 +21,7 @@ import axios from 'axios';
 import server from 'constants/server';
 import i18next from 'i18next';
 import { addNotification, addErrorNotification } from 'actions/notification';
-import { CREATED_CUSTOM_FIELD, DELETED_CUSTOM_FIELD, GET_CUSTOM_FIELDS, UPDATED_CUSTOM_FIELD } from 'constants/action_types.js';
+import { CREATED_CUSTOM_FIELD, DELETED_CUSTOM_FIELD, FIELD_POSITION_INCREMENTED, FIELD_POSITION_DECREMENTED, GET_CUSTOM_FIELDS, UPDATED_CUSTOM_FIELD } from 'constants/action_types.js';
 
 
 // EXPORTS //
@@ -43,6 +43,50 @@ export const getCustomFields = async ( dispatch ) => {
 export const getCustomFieldsInjector = dispatch => {
 	return async () => {
 		await getCustomFields( dispatch );
+	};
+};
+
+export const incrementFieldPosition = async ( dispatch, id ) => {
+	try {
+		const res = await axios.post( server+'/increment_field_position', {
+			id
+		});
+		dispatch({
+			type: FIELD_POSITION_INCREMENTED,
+			payload: {
+				fields: res.data.fields
+			}
+		});
+	} catch ( err ) {
+		return addErrorNotification( dispatch, err );
+	}
+};
+
+export const incrementFieldPositionInjector = dispatch => {
+	return async ( id ) => {
+		await incrementFieldPosition( dispatch, id );
+	};
+};
+
+export const decrementFieldPosition = async ( dispatch, id ) => {
+	try {
+		const res = await axios.post( server+'/decrement_field_position', {
+			id
+		});
+		dispatch({
+			type: FIELD_POSITION_DECREMENTED,
+			payload: {
+				fields: res.data.fields
+			}
+		});
+	} catch ( err ) {
+		return addErrorNotification( dispatch, err );
+	}
+};
+
+export const decrementFieldPositionInjector = dispatch => {
+	return async ( id ) => {
+		await decrementFieldPosition( dispatch, id );
 	};
 };
 

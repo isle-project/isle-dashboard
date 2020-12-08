@@ -58,11 +58,13 @@ class CreateFieldModal extends Component {
 		this.props.createCustomField({
 			name: this.state.name,
 			description: this.state.description,
-			type: this.state.type,
+			type: this.state.type.value,
+			position: this.props.customFields.length,
 			showOnProfile: this.state.showOnProfile,
 			editableOnSignup: this.state.editableOnSignup,
 			editableOnProfile: this.state.editableOnProfile
 		});
+		this.props.onHide();
 	}
 
 	handleInputChange = ( event ) => {
@@ -84,6 +86,9 @@ class CreateFieldModal extends Component {
 
 	render() {
 		const t = this.props.t;
+		const { name, description } = this.state;
+		const validName = name.length >= 3;
+		const validDescription = description.length >= 3;
 		return (
 			<Fragment>
 				<Modal show={this.props.show} onHide={this.props.onHide} >
@@ -95,11 +100,29 @@ class CreateFieldModal extends Component {
 					<Modal.Body>
 						<FormGroup controlId="formFieldName" >
 							<FormLabel>{t('field-name')}</FormLabel>
-							<FormControl type="text" placeholder={t('enter-field-name')} />
+							<FormControl
+								name="name"
+								type="text" placeholder={t('enter-field-name')}
+								defaultValue={name}
+								onChange={this.handleInputChange}
+								isInvalid={!validName}
+							/>
+							<FormControl.Feedback type="invalid" >
+								{t('invalid-name')}
+							</FormControl.Feedback>
 						</FormGroup>
 						<FormGroup controlId="formFieldDescription" >
 							<FormLabel>{t('field-description')}</FormLabel>
-							<FormControl type="text" placeholder={t('enter-field-description')} />
+							<FormControl
+								name="description"
+								type="text" placeholder={t('enter-field-description')}
+								defaultValue={description}
+								onChange={this.handleInputChange}
+								isInvalid={!validDescription}
+							/>
+							<FormControl.Feedback type="invalid" >
+								{t('invalid-description')}
+							</FormControl.Feedback>
 						</FormGroup>
 						<FormGroup controlId="formFieldType" >
 							<FormLabel>{t('field-type')}</FormLabel>
@@ -159,7 +182,10 @@ class CreateFieldModal extends Component {
 						<Button onClick={this.props.onHide} >
 							{t('common:cancel')}
 						</Button>
-						<Button variant="success" onClick={this.createCustomField} >
+						<Button
+							variant="success" onClick={this.createCustomField}
+							disabled={!validName || !validDescription}
+						>
 							{t('common:create')}
 						</Button>
 					</Modal.Footer>
@@ -173,6 +199,7 @@ class CreateFieldModal extends Component {
 // PROPERTIES //
 
 CreateFieldModal.propTypes = {
+	customFields: PropTypes.array.isRequired,
 	onHide: PropTypes.func.isRequired,
 	show: PropTypes.bool.isRequired,
 	t: PropTypes.func.isRequired

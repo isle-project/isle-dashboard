@@ -120,9 +120,12 @@ class Settings extends Component {
 				return (
 					<UserFields
 						admin={this.props.admin}
+						user={this.props.user}
 						createCustomField={this.props.createCustomField}
 						deleteCustomField={this.props.deleteCustomField}
 						getCustomFields={this.props.getCustomFields}
+						incrementFieldPosition={this.props.incrementFieldPosition}
+						decrementFieldPosition={this.props.decrementFieldPosition}
 					/>
 				);
 		}
@@ -168,9 +171,11 @@ class Settings extends Component {
 Settings.propTypes = {
 	admin: PropTypes.object.isRequired,
 	createCustomField: PropTypes.func.isRequired,
+	decrementFieldPosition: PropTypes.func.isRequired,
 	deleteCustomField: PropTypes.func.isRequired,
 	getCustomFields: PropTypes.func.isRequired,
 	getLicense: PropTypes.func.isRequired,
+	incrementFieldPosition: PropTypes.func.isRequired,
 	match: PropTypes.object.isRequired,
 	removeLicense: PropTypes.func.isRequired,
 	t: PropTypes.func.isRequired,
