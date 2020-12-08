@@ -32,7 +32,7 @@ export const getCustomFields = async ( dispatch ) => {
 		dispatch({
 			type: GET_CUSTOM_FIELDS,
 			payload: {
-				fields: res.data.fields
+				customFields: res.data.fields
 			}
 		});
 	} catch ( err ) {
@@ -99,15 +99,7 @@ export const createCustomField = async ( dispatch, {
 		});
 		dispatch({
 			type: CREATED_CUSTOM_FIELD,
-			payload: {
-				name,
-				description,
-				type,
-				position,
-				showOnProfile,
-				editableOnSignup,
-				editableOnProfile
-			}
+			payload: res.data.field
 		});
 		return res;
 	} catch ( err ) {

@@ -45,7 +45,8 @@ const initialState = {
 	id: null,
 	token: null,
 	tickets: [],
-	licensed: false
+	licensed: false,
+	customFields: null
 };
 
 
@@ -293,6 +294,32 @@ export default function user( state = initialState, action ) {
 	case types.USER_RECEIVED_BADGES: {
 		return Object.assign({}, state, {
 			badges: action.payload.badges
+		});
+	}
+	case types.GET_CUSTOM_FIELDS: {
+		return Object.assign({}, state, {
+			customFields: action.payload.customFields
+		});
+	}
+	case types.DELETED_CUSTOM_FIELD: {
+		const fields = [];
+		for ( let i = 0; i < state.customFields.length; i++ ) {
+			const item = state.customFields[ i ];
+			if ( item._id !== action.payload.id ) {
+				fields.push( item );
+			}
+		}
+		return Object.assign({}, state, {
+			customFields: fields
+		});
+	}
+	case types.CREATED_CUSTOM_FIELD: {
+		const customFields = state.customFields.slice();
+		customFields.push({
+			...action.payload
+		});
+		return Object.assign({}, state, {
+			customFields
 		});
 	}
 	default:
