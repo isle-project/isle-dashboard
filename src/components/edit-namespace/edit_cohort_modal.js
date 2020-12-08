@@ -177,8 +177,9 @@ class EditCohortModal extends Component {
 						<FormGroup className="cohort-modal-enrolled-group" >
 							<FormLabel>{t('enrolled-students')}</FormLabel>
 							<TextSelect
-								onChange={this.handleStudentChange}
+								placeholder={t('enter-emails')}
 								defaultValue={this.state.members}
+								onChange={this.handleStudentChange}
 								styles={{
 									control: () => ({
 										width: '100%'

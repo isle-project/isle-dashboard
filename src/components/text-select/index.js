@@ -167,7 +167,7 @@ class TextSelect extends Component {
 				onChange={this.handleChange}
 				onInputChange={this.handleInputChange}
 				onKeyDown={this.handleKeyDown}
-				placeholder={this.props.t('select-placeholder')}
+				placeholder={this.props.placeholder}
 				value={value}
 				styles={{ ...customStyles, control: control, ...this.props.styles }}
 				t={this.props.t}
@@ -184,6 +184,7 @@ TextSelect.propTypes = {
 	isClearable: PropTypes.bool,
 	isInvalid: PropTypes.bool,
 	onChange: PropTypes.func,
+	placeholder: PropTypes.string,
 	styles: PropTypes.object
 };
 
@@ -192,6 +193,7 @@ TextSelect.defaultProps = {
 	isClearable: false,
 	isInvalid: false,
 	onChange() {},
+	placeholder: '',
 	styles: {}
 };
 

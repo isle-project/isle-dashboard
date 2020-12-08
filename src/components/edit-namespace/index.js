@@ -247,6 +247,7 @@ class EditNamespace extends Component {
 											<FormLabel htmlFor="owners-text-select" >{t('common:owners')}</FormLabel>
 											<TextSelect
 												id="owners-text-select"
+												placeholder={t('enter-emails')}
 												onChange={this.handleOwnerChange}
 												defaultValue={this.state.owners}
 												isInvalid={!validateOwners( this.state.owners )}

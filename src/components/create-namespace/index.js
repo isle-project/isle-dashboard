@@ -139,6 +139,7 @@ class CreateNamespace extends Component {
 									onChange={this.handleOwnerChange}
 									defaultValue={this.state.owners}
 									isInvalid={!validOwners}
+									placeholder={t('enter-emails')}
 								/>
 								<FormControl.Feedback type="invalid">
 									{t('invalid-owners')}

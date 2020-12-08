@@ -160,6 +160,7 @@ class CreateCohortModal extends Component {
 					<FormGroup className="cohort-modal-enrolled-group" >
 						<FormLabel>{t('enrolled-students')}</FormLabel>
 						<TextSelect
+							placeholder={t('enter-emails')}
 							onChange={this.handleStudentChange}
 							defaultValue={this.state.students}
 							isClearable
