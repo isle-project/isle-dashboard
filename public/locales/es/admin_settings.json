@@ -16,6 +16,7 @@
 	"invalid-description": "Por favor, introduzca una descripción que consista en al menos tres caracteres",
 	"invalid-name": "Por favor, introduzca un nombre que conste de al menos tres caracteres",
 	"license": "Licencia",
+	"no-custom-fields": "No hay campos personalizados disponible",
 	"show-on-profile": "Mostrar de perfil",
 	"user-fields": "Campos de usuario",
 	"user-fields-description": "Añadir campos adicionales para los usuarios."
