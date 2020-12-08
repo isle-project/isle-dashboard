@@ -20,10 +20,16 @@
 import React, { Component, Fragment } from 'react';
 import { withTranslation } from 'react-i18next';
 import ReactTable from 'react-table';
+import ButtonGroup from 'react-bootstrap/ButtonGroup';
+import Button from 'react-bootstrap/Button';
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
+import Tooltip from 'react-bootstrap/Tooltip';
 import isArray from '@stdlib/assert/is-array';
 import ceil from '@stdlib/math/base/special/ceil';
 import createNumericColumn from './create_numeric_column.js';
 import createTextColumn from './create_text_column.js';
+import obsToVar from '@isle-project/utils/obs-to-var';
+import AdminDataExplorer from 'ev/components/admin/data-explorer';
 
 
 // MAIN //
@@ -33,7 +39,9 @@ class Requests extends Component {
 		super( props );
 		this.columns = this.createColumns();
 
-		this.state = {};
+		this.state = {
+			showExplorer: false
+		};
 	}
 
 	componentDidMount() {
@@ -82,8 +90,26 @@ class Requests extends Component {
 		];
 	}
 
+	toggleExplorer = () => {
+		this.setState({
+			showExplorer: !this.state.showExplorer
+		});
+	}
+
 	render() {
 		const { t } = this.props;
+		if ( this.state.showExplorer ) {
+			return (
+				<AdminDataExplorer
+					title="Data Explorer for Requests"
+					data={obsToVar( this.props.admin.requestStatistics )}
+					categorical={[ 'request' ]}
+					quantitative={[ 'mean', 'count' ]}
+					close={this.toggleExplorer}
+					admin={this.props.admin}
+				/>
+			);
+		}
 		return (
 			<Fragment>
 				<ReactTable
@@ -101,7 +127,15 @@ class Requests extends Component {
 					pageText={t('common:page')}
 					ofText={t('common:of')}
 					rowsText={t('common:rows')}
+					style={{ maxWidth: 'calc(100% - 42px)', float: 'left' }}
 				/>
+				<ButtonGroup vertical style={{ float: 'right', marginRight: -9 }} >
+					<OverlayTrigger placement="left" overlay={<Tooltip id="explorer-tooltip">{t('data-explorer')}</Tooltip>}>
+						<Button variant="primary" style={{ marginBottom: 8 }} onClick={this.toggleExplorer} >
+							<i className="fas fa-chart-bar" ></i>
+						</Button>
+					</OverlayTrigger>
+				</ButtonGroup>
 			</Fragment>
 		);
 	}
