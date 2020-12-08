@@ -33,9 +33,10 @@ import PINF from '@stdlib/constants/math/float64-pinf';
 import mapKeys from '@stdlib/utils/map-keys';
 import ConfirmModal from 'components/confirm-modal';
 import server from 'constants/server';
+import createCategoricalColumn from './create_categorical_column.js';
 import createBooleanColumn from './create_boolean_column.js';
-import createDateColumn from './create_date_column.js';
 import createNumericColumn from './create_numeric_column.js';
+import createDateColumn from './create_date_column.js';
 import createTextColumn from './create_text_column.js';
 import EditModal from './user_edit_modal.js';
 import textFilter from './text_filter.js';
@@ -65,11 +66,15 @@ class UserPage extends Component {
 	}
 
 	componentDidMount() {
+		this.props.getCustomFields();
 		this.props.getUsers();
 	}
 
 	componentDidUpdate( prevProps ) {
-		if ( prevProps.admin.users !== this.props.admin.users ) {
+		if (
+			prevProps.admin.users !== this.props.admin.users ||
+			prevProps.user.customFields !== this.props.user.customFields
+		) {
 			this.setState({
 				columns: this.createColumns()
 			});
@@ -328,6 +333,31 @@ class UserPage extends Component {
 				filterable: false,
 				sortable: false
 			},
+			...this.props.user.customFields.map( x => {
+				if ( x.type === 'text' ) {
+					return createTextColumn({
+						Header: x.name,
+						accessor: 'customFields.'+x.name,
+						maxWidth: 100,
+						style: { marginTop: '8px', color: 'darkslategrey' },
+						filterMethod: textFilter
+					});
+				} else if ( x.type === 'checkbox' ) {
+					return createBooleanColumn({
+						Header: x.name,
+						accessor: 'customFields.'+x.name,
+						trueLabel: t('yes'),
+						falseLabel: t('no'),
+						maxWidth: 100
+					});
+				}
+				// Case: Select box...
+				return createCategoricalColumn({
+					Header: x.name,
+					accessor: 'customFields.'+x.name,
+					labels: x.options
+				});
+			}),
 			{
 				Header: t('common:actions'),
 				Cell: ( row ) => {

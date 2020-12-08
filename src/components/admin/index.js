@@ -184,6 +184,7 @@ class AdminPage extends Component {
 						sanitizeRequest={this.props.sanitizeRequest}
 						addNotification={this.props.addNotification}
 						updateUser={this.props.adminUpdateUser}
+						getCustomFields={this.props.getCustomFields}
 					/>
 				);
 			case 4:
