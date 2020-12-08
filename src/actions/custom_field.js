@@ -21,7 +21,7 @@ import axios from 'axios';
 import server from 'constants/server';
 import i18next from 'i18next';
 import { addNotification, addErrorNotification } from 'actions/notification';
-import { CREATED_CUSTOM_FIELD, DELETED_CUSTOM_FIELD, GET_CUSTOM_FIELDS } from 'constants/action_types.js';
+import { CREATED_CUSTOM_FIELD, DELETED_CUSTOM_FIELD, GET_CUSTOM_FIELDS, UPDATED_CUSTOM_FIELD } from 'constants/action_types.js';
 
 
 // EXPORTS //
@@ -77,6 +77,7 @@ export const createCustomField = async ( dispatch, {
 	name,
 	description,
 	type,
+	position,
 	showOnProfile,
 	editableOnSignup,
 	editableOnProfile
@@ -86,6 +87,7 @@ export const createCustomField = async ( dispatch, {
 			name,
 			description,
 			type,
+			position,
 			showOnProfile,
 			editableOnSignup,
 			editableOnProfile
@@ -101,6 +103,7 @@ export const createCustomField = async ( dispatch, {
 				name,
 				description,
 				type,
+				position,
 				showOnProfile,
 				editableOnSignup,
 				editableOnProfile
@@ -117,6 +120,7 @@ export const createCustomFieldInjector = dispatch => {
 		name,
 		description,
 		type,
+		position,
 		showOnProfile,
 		editableOnSignup,
 		editableOnProfile
@@ -125,6 +129,71 @@ export const createCustomFieldInjector = dispatch => {
 			name,
 			description,
 			type,
+			position,
+			showOnProfile,
+			editableOnSignup,
+			editableOnProfile
+		});
+	};
+};
+
+export const updateCustomField = async ( dispatch, {
+	name,
+	description,
+	type,
+	position,
+	showOnProfile,
+	editableOnSignup,
+	editableOnProfile
+}) => {
+	try {
+		const res = await axios.post( server + '/update_custom_field', {
+			name,
+			description,
+			type,
+			position,
+			showOnProfile,
+			editableOnSignup,
+			editableOnProfile
+		});
+		addNotification( dispatch, {
+			title: i18next.t('common:update'),
+			message: res.data.message,
+			level: 'success'
+		});
+		dispatch({
+			type: UPDATED_CUSTOM_FIELD,
+			payload: {
+				name,
+				description,
+				type,
+				position,
+				showOnProfile,
+				editableOnSignup,
+				editableOnProfile
+			}
+		});
+		return res;
+	} catch ( err ) {
+		return addErrorNotification( dispatch, err );
+	}
+};
+
+export const updateCustomFieldInjector = dispatch => {
+	return async ({
+		name,
+		description,
+		type,
+		position,
+		showOnProfile,
+		editableOnSignup,
+		editableOnProfile
+	}) => {
+		await updateCustomField( dispatch, {
+			name,
+			description,
+			type,
+			position,
 			showOnProfile,
 			editableOnSignup,
 			editableOnProfile
