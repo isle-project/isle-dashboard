@@ -292,6 +292,7 @@ class EditModal extends Component {
 										name={x.name}
 										type="text"
 										value={value}
+										placeholder={`Enter ${x.name}...`}
 										disabled={!x.editableOnProfile}
 										onChange={( event ) => {
 											const newCustomFields = { ...this.state.customFields };

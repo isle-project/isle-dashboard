@@ -278,6 +278,7 @@ class EditModal extends Component {
 											name={x.name}
 											type="text"
 											value={value}
+											placeholder={`Enter ${x.name}...`}
 											onChange={( event ) => {
 												const newCustomFields = { ...this.state.customFields };
 												newCustomFields[ x.name ] = event.target.value;
