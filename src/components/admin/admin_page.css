@@ -94,8 +94,6 @@
 
 .action-types-table th,
 .overview-table th {
-	padding: 16px;
-	padding-left: 15px;
 	border-left: 1px dotted rgba(200, 209, 224, 0.6);
 	border-bottom: 1px solid #e8e8e8;
 	background: #e7c6aa;
