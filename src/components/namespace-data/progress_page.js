@@ -335,6 +335,11 @@ class ProgressPage extends Component {
 				email: member.email,
 				cohort: member.cohort
 			};
+			const availableCustomFields = this.props.user.availableCustomFields;
+			for ( let j = 0; j < availableCustomFields.length; j++ ) {
+				const fieldName = availableCustomFields[ j ].name;
+				out[ i ][ fieldName ] = member.customFields[ fieldName ];
+			}
 			for ( let j = 0; j < lessons.length; j++ ) {
 				const lessonName = lessons[ j ]._id;
 				let data = member.lessonData;
@@ -503,7 +508,8 @@ ProgressPage.propTypes = {
 	addNotification: PropTypes.func.isRequired,
 	cohorts: PropTypes.array.isRequired,
 	lessons: PropTypes.array.isRequired,
-	namespace: PropTypes.object.isRequired
+	namespace: PropTypes.object.isRequired,
+	user: PropTypes.object.isRequired
 };
 
 ProgressPage.defaultProps = {

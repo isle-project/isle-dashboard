@@ -347,6 +347,11 @@ class GradesPage extends Component {
 				email: member.email,
 				cohort: member.cohort
 			};
+			const availableCustomFields = this.props.user.availableCustomFields;
+			for ( let j = 0; j < availableCustomFields.length; j++ ) {
+				const fieldName = availableCustomFields[ j ].name;
+				out[ i ][ fieldName ] = member.customFields[ fieldName ];
+			}
 			for ( let j = 0; j < lessons.length; j++ ) {
 				const lessonName = lessons[ j ]._id;
 				let data = member.lessonGrades;
@@ -483,7 +488,8 @@ class GradesPage extends Component {
 
 GradesPage.propTypes = {
 	cohorts: PropTypes.array.isRequired,
-	lessons: PropTypes.array.isRequired
+	lessons: PropTypes.array.isRequired,
+	user: PropTypes.object.isRequired
 };
 
 GradesPage.defaultProps = {

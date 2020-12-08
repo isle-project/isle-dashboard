@@ -164,9 +164,9 @@ class NamespaceData extends Component {
 			case 1:
 				return <AnnouncementsPage namespace={this.props.namespace} editAnnouncement={this.handleAnnouncementEdit} deleteAnnouncement={this.handleAnnouncementDeletion} addAnnouncement={this.handleAnnouncementCreation} user={this.props.user} />;
 			case 2:
-				return <ProgressPage adjustProgress={this.props.adjustProgress} addNotification={this.props.addNotification} namespace={this.props.namespace} cohorts={this.props.namespace.cohorts} lessons={this.props.namespace.lessons} />;
+				return <ProgressPage adjustProgress={this.props.adjustProgress} addNotification={this.props.addNotification} namespace={this.props.namespace} cohorts={this.props.namespace.cohorts} lessons={this.props.namespace.lessons} user={this.props.user} />;
 			case 3:
-				return <GradesPage addNotification={this.props.addNotification} namespace={this.props.namespace} cohorts={this.props.namespace.cohorts} lessons={this.props.namespace.lessons} />;
+				return <GradesPage addNotification={this.props.addNotification} namespace={this.props.namespace} cohorts={this.props.namespace.cohorts} lessons={this.props.namespace.lessons} user={this.props.user} />;
 			case 4:
 				return <CohortsPage badges={this.props.badges} cohorts={this.props.namespace.cohorts} lessons={this.props.namespace.lessons} />;
 			case 5:
