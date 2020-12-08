@@ -34,7 +34,7 @@ describe( '<Signup />', function test() {
 	it( 'should render without throwing an error', () => {
 		render(
 			<Router history={history}>
-				<Signup createUser={noop} />
+				<Signup createUser={noop} getCustomFields={noop} />
 			</Router>
 		);
 		expect( screen.getByRole( 'heading' ) ).toHaveTextContent( 'Dashboard' );
@@ -43,7 +43,7 @@ describe( '<Signup />', function test() {
 	it( 'should update email field on change', () => {
 		const { queryByPlaceholderText } = render(
 			<Router history={history}>
-				<Signup createUser={noop} />
+				<Signup createUser={noop} getCustomFields={noop} />
 			</Router>
 		);
 		const emailInput = queryByPlaceholderText( 'common:enter-email' );
@@ -60,7 +60,7 @@ describe( '<Signup />', function test() {
 	it( 'should update name field on change', () => {
 		const { queryByPlaceholderText } = render(
 			<Router history={history}>
-				<Signup createUser={noop} />
+				<Signup createUser={noop} getCustomFields={noop} />
 			</Router>
 		);
 		const nameInput = queryByPlaceholderText( 'enter-name' );
@@ -77,7 +77,7 @@ describe( '<Signup />', function test() {
 	it( 'should update password field on change', () => {
 		const { queryByPlaceholderText } = render(
 			<Router history={history}>
-				<Signup createUser={noop} />
+				<Signup createUser={noop} getCustomFields={noop} />
 			</Router>
 		);
 		const passwordInput = queryByPlaceholderText( 'choose-password' );
@@ -94,7 +94,7 @@ describe( '<Signup />', function test() {
 	it( 'should update password confirmation field on change', () => {
 		const { queryByPlaceholderText } = render(
 			<Router history={history}>
-				<Signup createUser={noop} />
+				<Signup createUser={noop} getCustomFields={noop} />
 			</Router>
 		);
 		const passwordInput = queryByPlaceholderText( 'confirm-password' );
