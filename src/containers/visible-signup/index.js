@@ -21,6 +21,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import Signup from 'components/signup';
 import { createUser } from 'actions/user';
+import { getCustomFieldsInjector } from 'actions/custom_field.js';
 
 
 // FUNCTIONS //
@@ -31,9 +32,10 @@ function mapStateToProps( state ) {
 	};
 }
 
-function mapDispatchToProps() {
+function mapDispatchToProps( dispatch ) {
 	return {
-		createUser
+		createUser,
+		getCustomFields: getCustomFieldsInjector( dispatch )
 	};
 }
 

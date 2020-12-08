@@ -20,6 +20,7 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { Trans, withTranslation } from 'react-i18next';
+import SelectInput from 'react-select';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import Col from 'react-bootstrap/Col';
@@ -45,8 +46,8 @@ const createTooltip = ( str ) => {
 	return <Tooltip id="tooltip">{str}</Tooltip>;
 };
 
-const extractUserData = ({ name, email, password }) => {
-	return { name, email, password };
+const extractUserData = ({ name, email, password, customFields }) => {
+	return { name, email, password, customFields };
 };
 
 
@@ -66,8 +67,13 @@ class Signup extends Component {
 			email: '',
 			password: '',
 			passwordRepeat: '',
-			showModal: false
+			showModal: false,
+			customFields: {}
 		};
+	}
+
+	componentDidMount() {
+		this.props.getCustomFields();
 	}
 
 	handleSubmit = async ( event ) => {
@@ -265,6 +271,8 @@ class Signup extends Component {
 
 	render() {
 		const { t } = this.props;
+		const userCustomFields = this.state.customFields;
+		const availableCustomFields = this.props.user.availableCustomFields || [];
 		return (
 			<Fragment>
 				<div className="login">
@@ -279,6 +287,93 @@ class Signup extends Component {
 								{this.renderEmail()}
 								{this.renderName()}
 								{this.renderPasswordFields()}
+								{availableCustomFields.filter( x => x.editableOnSignup ).map( ( x, idx ) => {
+									let input;
+									const value = userCustomFields[ x.name ];
+									if ( x.type === 'checkbox' ) {
+										input = <FormGroup
+											controlId={`form-${x.name}`}
+											as={Row}
+										>
+											<Col sm={3}></Col>
+											<Col sm={3}>
+												<Form.Check
+													type="checkbox"
+													label={x.name}
+													defaultChecked={value}
+													onChange={( event ) => {
+														const newCustomFields = { ...this.state.customFields };
+														newCustomFields[ x.name ] = event.target.checked;
+														this.setState({
+															customFields: newCustomFields,
+															changed: true
+														});
+													}}
+												/>
+											</Col>
+										</FormGroup>;
+									} else if ( x.type === 'text' ) {
+										input = <FormGroup
+											controlId={`form-${x.name}`}
+											as={Row}
+										>
+											<Col sm={3}>
+												<FormLabel>{x.name}</FormLabel>
+											</Col>
+											<Col sm={9} >
+												<FormControl
+													name={x.name}
+													type="text"
+													value={value}
+													placeholder={`Enter ${x.name}...`}
+													onChange={( event ) => {
+														const newCustomFields = { ...this.state.customFields };
+														newCustomFields[ x.name ] = event.target.value;
+														this.setState({
+															customFields: newCustomFields,
+															changed: true
+														});
+													}}
+													autoComplete="none"
+												/>
+											</Col>
+										</FormGroup>;
+									} else {
+										// Case: dropdown menu
+										input = <FormGroup
+											controlId={`form-${x.name}`}
+											as={Row}
+										>
+											<Col sm={3}>
+												<FormLabel>{x.name}</FormLabel>
+											</Col>
+											<Col sm={9}>
+												<SelectInput
+													defaultValue={value ?
+														{ label: value, value: value } :
+														null
+													}
+													options={x.options.map( e => {
+														return { value: e, label: e };
+													})}
+													onChange={( elem ) => {
+														const newCustomFields = { ...this.state.customFields };
+														newCustomFields[ x.name ] = elem.value;
+														this.setState({
+															customFields: newCustomFields,
+															changed: true
+														});
+													}}
+												/>
+											</Col>
+										</FormGroup>;
+									}
+									return (
+										<OverlayTrigger key={idx} placement="top" overlay={createTooltip( x.description )} >
+											{input}
+										</OverlayTrigger>
+									);
+								})}
 								<p>
 									<Trans i18nKey="signup:tos-disclaimer" >
 										Through clicking the signup button you agree to our <Link to="/terms">terms of service</Link>. Learn more about how your data is processed in our <Link to="/privacy" >privacy policy</Link>.
@@ -326,7 +421,12 @@ class Signup extends Component {
 // PROPERTIES //
 
 Signup.propTypes = {
-	createUser: PropTypes.func.isRequired
+	createUser: PropTypes.func.isRequired,
+	user: PropTypes.object
+};
+
+Signup.defaultProps = {
+	user: {}
 };
 
 
