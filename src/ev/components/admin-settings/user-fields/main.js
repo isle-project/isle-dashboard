@@ -42,7 +42,7 @@ class AdminSettingsUserFields extends Component {
 
 	render() {
 		const { t } = this.props;
-		const availableCustomFields = this.props.user.availableCustomFields;
+		const availableCustomFields = this.props.user.availableCustomFields || [];
 		return (
 			<Fragment>
 				<div className="admin-settings-outer-container" >
