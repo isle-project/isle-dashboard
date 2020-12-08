@@ -48,6 +48,7 @@ class CreateFieldModal extends Component {
 			name: '',
 			description: '',
 			type: INPUT_TYPES[ 0 ],
+			options: [],
 			showOnProfile: false,
 			editableOnSignup: false,
 			editableOnProfile: false
@@ -55,7 +56,7 @@ class CreateFieldModal extends Component {
 	}
 
 	createCustomField = () => {
-		this.props.createCustomField({
+		const field = {
 			name: this.state.name,
 			description: this.state.description,
 			type: this.state.type.value,
@@ -63,7 +64,11 @@ class CreateFieldModal extends Component {
 			showOnProfile: this.state.showOnProfile,
 			editableOnSignup: this.state.editableOnSignup,
 			editableOnProfile: this.state.editableOnProfile
-		});
+		};
+		if ( field.type === 'dropdown' ) {
+			field.options = this.state.options.map( x => x.value );
+		}
+		this.props.createCustomField( field );
 		this.props.onHide();
 	}
 
@@ -138,7 +143,12 @@ class CreateFieldModal extends Component {
 							{ this.state.type.value === 'dropdown' ?
 								<TextSelect
 									placeholder={t('create-dropdown-options')}
-									options={[]}
+									options={this.state.options}
+									onChange={( options ) => {
+										this.setState({
+											options
+										});
+									}}
 								/> : null }
 						</FormGroup>
 						<FormGroup>

@@ -31,6 +31,7 @@ import { getOverviewStatisticsInjector, getHistoricalOverviewStatsInjector, getR
 import { deleteFileInjector, getAllFilesInjector, getLicenseInjector } from 'actions/file.js';
 import { deleteTicketInjector, getAllTicketsInjector, sendTicketMessageInjector,
 	closeTicketInjector, openTicketInjector, updatePriorityInjector } from 'actions/ticket.js';
+import { getCustomFieldsInjector } from 'actions/custom_field.js';
 
 
 // FUNCTIONS //
@@ -49,6 +50,7 @@ function mapDispatchToProps( dispatch ) {
 		getAllFiles: getAllFilesInjector( dispatch ),
 		getAllLessons: getAllLessonsInjector( dispatch ),
 		getAllNamespaces: getAllNamespacesInjector( dispatch ),
+		getCustomFields: getCustomFieldsInjector( dispatch ),
 		getEvents: getEventsInjector( dispatch ),
 		getRequestStatistics: getRequestStatisticsInjector( dispatch ),
 		getRooms: getRoomsInjector( dispatch ),

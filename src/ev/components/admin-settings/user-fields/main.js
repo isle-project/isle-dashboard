@@ -50,9 +50,13 @@ class AdminSettingsUserFields extends Component {
 						<p>{this.props.t('user-fields-description')}</p>
 						{ this.props.user.customFields.length > 0 ? <ListGroup className="admin-settings-fields-list" >
 							{this.props.user.customFields.map( ( field, idx ) => {
+								let optionsStr;
+								if ( field.type === 'dropdown' ) {
+									optionsStr = `; options: ${field.options.join( ', ' )}`;
+								}
 								return (
 									<ListGroup.Item key={idx} >
-										<b>{field.name}</b>: {field.description} (type: {field.type})
+										<b>{field.name}</b>: {field.description} (type: {field.type}{optionsStr})
 										<OverlayTrigger placement="left" overlay={<Tooltip id="delete_field">{t('delete-field')}</Tooltip>}>
 											<Button
 												variant="outline-secondary"
