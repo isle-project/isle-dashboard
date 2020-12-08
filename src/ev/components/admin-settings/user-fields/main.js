@@ -58,6 +58,9 @@ class AdminSettingsUserFields extends Component {
 								return (
 									<ListGroup.Item key={idx} >
 										<b>{field.name}</b>: {field.description} (type: {field.type}{optionsStr})
+										{field.editableOnSignup ? ', editableOnSignup' : ''}
+										{field.showOnProfile ? ', showOnProfile' : ''}
+										{field.editableOnProfile ? ', editableOnProfile' : ''}
 										<OverlayTrigger placement="left" overlay={<Tooltip id="delete_field">{t('delete-field')}</Tooltip>}>
 											<Button
 												variant="outline-secondary"
