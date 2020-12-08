@@ -23,6 +23,7 @@ import { withTranslation } from 'react-i18next';
 import Nav from 'react-bootstrap/Nav';
 import asyncComponent from 'components/async';
 const License = asyncComponent( () => import( './license.js' ) );
+import UserFields from 'ev/components/admin-settings/user-fields';
 import './admin_settings.css';
 
 
@@ -117,7 +118,9 @@ class Settings extends Component {
 				);
 			case 5:
 				return (
-					<div>USER FIELDS</div>
+					<UserFields
+						admin={this.props.admin}
+					/>
 				);
 		}
 	}
