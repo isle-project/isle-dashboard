@@ -28,7 +28,7 @@ import { getAllLessonsInjector, deleteLessonInjector, getRoomsInjector } from 'a
 import { sanitizeRequestInjector } from 'actions/authentication.js';
 import { addNotificationInjector } from 'actions/notification.js';
 import { getOverviewStatisticsInjector, getHistoricalOverviewStatsInjector, getRequestStatisticsInjector } from 'actions/statistics.js';
-import { deleteFileInjector, getAllFilesInjector, getLicenseInjector, uploadLicenseInjector, removeLicenseInjector } from 'actions/file.js';
+import { deleteFileInjector, getAllFilesInjector, getLicenseInjector } from 'actions/file.js';
 import { deleteTicketInjector, getAllTicketsInjector, sendTicketMessageInjector,
 	closeTicketInjector, openTicketInjector, updatePriorityInjector } from 'actions/ticket.js';
 
