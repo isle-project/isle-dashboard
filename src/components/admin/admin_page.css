@@ -120,3 +120,7 @@
 .license-upload-button {
 	float: right;
 }
+
+.user-edit-modal {
+	max-width: 1200px;
+}

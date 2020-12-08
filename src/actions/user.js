@@ -244,7 +244,8 @@ export const updateUser = async ( dispatch, form ) => {
 		const res = await axios.post( server+'/update_user', form );
 		dispatch( updatedUser({
 			name: form.name,
-			organization: form.organization
+			organization: form.organization,
+			customFields: form.customFields
 		}) );
 		addNotification( dispatch, {
 			message: res.data.message,
@@ -256,8 +257,8 @@ export const updateUser = async ( dispatch, form ) => {
 };
 
 export const updateUserInjector = ( dispatch ) => {
-	return async ({ name, organization, password }) => {
-		await updateUser( dispatch, { name, organization, password });
+	return async ({ name, organization, password, customFields }) => {
+		await updateUser( dispatch, { name, organization, password, customFields });
 	};
 };
 

@@ -460,6 +460,7 @@ class UserPage extends Component {
 				/> : null }
 				{ this.state.showEditModal ? <EditModal
 					user={this.state.selectedUser}
+					customFields={this.props.user.customFields}
 					t={this.props.t}
 					show={this.state.showEditModal}
 					updateUser={this.props.updateUser}

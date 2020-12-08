@@ -103,7 +103,8 @@ export default function user( state = initialState, action ) {
 	case types.USER_UPDATED: {
 		return Object.assign({}, state, {
 			name: action.payload.name,
-			organization: action.payload.organization
+			organization: action.payload.organization,
+			customFields: action.payload.customFields
 		});
 	}
 	case types.USER_PICTURE_MODIFIED: {
