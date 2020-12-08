@@ -1,7 +1,9 @@
 {
 	"branding": "Branding",
 	"configuration": "Configuración",
-    "credentials": "Credenciales",
-    "license": "Licencia",
-	"user-fields": "Campos de usuario"
+	"create-dropdown-options": "Crear opciones desplegables...",
+	"credentials": "Credenciales",
+	"license": "Licencia",
+	"user-fields": "Campos de usuario",
+	"user-fields-description": "Añadir campos adicionales para los usuarios."
 }

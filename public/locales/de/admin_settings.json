@@ -1,7 +1,9 @@
 {
 	"branding": "Branding",
 	"configuration": "Konfiguration",
+	"create-dropdown-options": "Dropdown-Optionen erstellen...",
 	"credentials": "Credentials",
 	"license": "Lizenz",
-	"user-fields": "Nutzerfelder"
+	"user-fields": "Nutzerfelder",
+	"user-fields-description": "Zusätzliche Felder für Benutzer hinzufügen."
 }

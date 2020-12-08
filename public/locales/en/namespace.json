@@ -18,6 +18,7 @@
 	"enable-ticketing": "Enable Ticketing for Reporting Issues",
 	"enrolled-students": "Enrolled Students",
 	"enrolled-tooltip": "Comma-separated list of email addresses denoting the students for this cohort",
+	"enter-emails": "Enter email addresses...",
 	"filter-placeholder": "Enter email filter",
 	"filter-tooltip": "Can be either a string or a regular expression string (starting and ending with /)",
 	"invalid-description": "Description must be at least three characters long.",

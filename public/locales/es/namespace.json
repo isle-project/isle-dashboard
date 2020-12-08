@@ -18,6 +18,7 @@
 	"enable-ticketing": "Habilitar la emisión de boletos para la presentación de informes",
 	"enrolled-students": "Estudiantes Matriculados",
 	"enrolled-tooltip": "Lista de direcciones de correo electrónico separadas por comas que denotan a los estudiantes para esta cohorte",
+	"enter-emails": "Ingrese direcciones de correo electrónico...",
 	"filter-placeholder": "Introducir filtro de correo electrónico",
 	"filter-tooltip": "Puede ser una cadena o una cadena de expresión regular (que comienza y termina con /)",
 	"invalid-description": "La descripción debe tener al menos tres caracteres.",

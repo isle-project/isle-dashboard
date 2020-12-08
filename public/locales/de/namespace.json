@@ -18,6 +18,7 @@
 	"enable-ticketing": "Ticketing für die Meldung von Problemen aktivieren",
 	"enrolled-students": "Eingeschriebene Studenten",
 	"enrolled-tooltip": "Komma-separierte Liste von E-Mail-Adressen der Studenten in dieser Kohorte",
+	"enter-emails": "Gib eine Liste von E-Mail-Adressen ein...",
 	"filter-placeholder": "E-Mail-Filter eingeben",
 	"filter-tooltip": "Kann entweder ein Text-String oder ein Regular Expression String sein (beginnend und endend in /)",
 	"invalid-description": "Beschreibung muss aus mindestens drei Buchstaben bestehen.",
