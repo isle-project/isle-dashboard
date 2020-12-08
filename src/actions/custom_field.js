@@ -54,7 +54,7 @@ export const incrementFieldPosition = async ( dispatch, id ) => {
 		dispatch({
 			type: FIELD_POSITION_INCREMENTED,
 			payload: {
-				fields: res.data.fields
+				customFields: res.data.fields
 			}
 		});
 	} catch ( err ) {
@@ -76,7 +76,7 @@ export const decrementFieldPosition = async ( dispatch, id ) => {
 		dispatch({
 			type: FIELD_POSITION_DECREMENTED,
 			payload: {
-				fields: res.data.fields
+				customFields: res.data.fields
 			}
 		});
 	} catch ( err ) {

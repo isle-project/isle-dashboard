@@ -97,7 +97,7 @@ class AdminSettingsUserFields extends Component {
 					onHide={this.toggleCreateModal}
 					t={this.props.t}
 					createCustomField={this.props.createCustomField}
-					customFields={this.props.customFields}
+					customFields={this.props.user.customFields}
 				/> : null}
 			</Fragment>
 		);
@@ -110,14 +110,12 @@ class AdminSettingsUserFields extends Component {
 AdminSettingsUserFields.propTypes = {
 	admin: PropTypes.object,
 	createCustomField: PropTypes.func.isRequired,
-	customFields: PropTypes.array,
 	getCustomFields: PropTypes.func.isRequired,
 	user: PropTypes.object
 };
 
 AdminSettingsUserFields.defaultProps = {
 	admin: {},
-	customFields: [],
 	user: {}
 };
 

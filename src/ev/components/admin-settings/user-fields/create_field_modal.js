@@ -199,13 +199,15 @@ class CreateFieldModal extends Component {
 // PROPERTIES //
 
 CreateFieldModal.propTypes = {
-	customFields: PropTypes.array.isRequired,
+	customFields: PropTypes.array,
 	onHide: PropTypes.func.isRequired,
 	show: PropTypes.bool.isRequired,
 	t: PropTypes.func.isRequired
 };
 
-CreateFieldModal.defaultProps = {};
+CreateFieldModal.defaultProps = {
+	customFields: []
+};
 
 
 // EXPORTS

@@ -296,7 +296,9 @@ export default function user( state = initialState, action ) {
 			badges: action.payload.badges
 		});
 	}
-	case types.GET_CUSTOM_FIELDS: {
+	case types.GET_CUSTOM_FIELDS:
+	case types.FIELD_POSITION_DECREMENTED:
+	case types.FIELD_POSITION_INCREMENTED: {
 		return Object.assign({}, state, {
 			customFields: action.payload.customFields
 		});
