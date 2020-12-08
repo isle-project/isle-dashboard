@@ -2,8 +2,17 @@
 	"branding": "Branding",
 	"configuration": "Configuration",
 	"create-dropdown-options": "Create dropdown options...",
+	"create-user-field": "Create User Field",
 	"credentials": "Credentials",
+	"editable-on-profile": "Editable on Profile",
+	"editable-on-signup": "Editable on Signup",
+	"enter-field-description": "Enter field description",
+	"enter-field-name": "Enter field name",
+	"field-description": "Field Description",
+	"field-name": "Field Name",
+	"field-type": "Field Type",
 	"license": "License",
+	"show-on-profile": "Show on Profile",
 	"user-fields": "User Fields",
 	"user-fields-description": "Add additional fields for users."
 }

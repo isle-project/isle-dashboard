@@ -2,8 +2,17 @@
 	"branding": "Branding",
 	"configuration": "Configuración",
 	"create-dropdown-options": "Crear opciones desplegables...",
+	"create-user-field": "Crear campo de usuario",
 	"credentials": "Credenciales",
+	"editable-on-profile": "Editable en el perfil",
+	"editable-on-signup": "Editable al registrarse",
+	"enter-field-description": "Introducir descripción de campo",
+	"enter-field-name": "Introducir nombre de campo",
+	"field-description": "Descripción de campo",
+	"field-name": "Nombre del campo",
+	"field-type": "Tipo de campo",
 	"license": "Licencia",
+	"show-on-profile": "Mostrar de perfil",
 	"user-fields": "Campos de usuario",
 	"user-fields-description": "Añadir campos adicionales para los usuarios."
 }
