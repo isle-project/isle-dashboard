@@ -23,6 +23,7 @@ import AdminSettings from 'components/admin-settings';
 import { getUsersInjector } from 'actions/user.js';
 import { addNotificationInjector } from 'actions/notification.js';
 import { getLicenseInjector, uploadLicenseInjector, removeLicenseInjector } from 'actions/file.js';
+import { createCustomFieldInjector, deleteCustomFieldInjector, getCustomFieldsInjector } from 'actions/custom_field.js';
 
 
 // FUNCTIONS //
@@ -38,6 +39,9 @@ function mapDispatchToProps( dispatch ) {
 	return {
 		addNotification: addNotificationInjector( dispatch ),
 		getUsers: getUsersInjector( dispatch ),
+		createCustomField: createCustomFieldInjector( dispatch ),
+		deleteCustomField: deleteCustomFieldInjector( dispatch ),
+		getCustomFields: getCustomFieldsInjector( dispatch ),
 		getLicense: getLicenseInjector( dispatch ),
 		uploadLicense: uploadLicenseInjector( dispatch ),
 		removeLicense: removeLicenseInjector( dispatch )

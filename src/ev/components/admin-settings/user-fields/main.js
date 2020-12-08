@@ -19,6 +19,10 @@ class AdminSettingsUserFields extends Component {
 		};
 	}
 
+	componentDidMount() {
+		this.props.getCustomFields();
+	}
+
 	toggleCreateModal = () => {
 		this.setState({
 			showCreateModal: !this.state.showCreateModal
@@ -42,17 +46,20 @@ class AdminSettingsUserFields extends Component {
 					show={this.state.showCreateModal}
 					onHide={this.toggleCreateModal}
 					t={this.props.t}
+					createCustomField={this.props.createCustomField}
 				/>
 			</Fragment>
 		);
 	}
-};
+}
 
 
 // PROPERTIES //
 
 AdminSettingsUserFields.propTypes = {
-	admin: PropTypes.object
+	admin: PropTypes.object,
+	createCustomField: PropTypes.func.isRequired,
+	getCustomFields: PropTypes.func.isRequired
 };
 
 AdminSettingsUserFields.defaultProps = {

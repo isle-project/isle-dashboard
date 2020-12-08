@@ -45,8 +45,24 @@ class CreateFieldModal extends Component {
 		super( props );
 
 		this.state = {
-			fieldType: INPUT_TYPES[ 0 ]
+			name: '',
+			description: '',
+			type: INPUT_TYPES[ 0 ],
+			showOnProfile: false,
+			editableOnSignup: false,
+			editableOnProfile: false
 		};
+	}
+
+	createCustomField = () => {
+		this.props.createCustomField({
+			name: this.state.name,
+			description: this.state.description,
+			type: this.state.type,
+			showOnProfile: this.state.showOnProfile,
+			editableOnSignup: this.state.editableOnSignup,
+			editableOnProfile: this.state.editableOnProfile
+		});
 	}
 
 	handleInputChange = ( event ) => {
@@ -89,14 +105,14 @@ class CreateFieldModal extends Component {
 							<FormLabel>{t('field-type')}</FormLabel>
 							<SelectInput
 								options={INPUT_TYPES}
-								defaultValue={this.state.fieldType}
+								defaultValue={this.state.type}
 								onChange={( elem ) => {
 									this.setState({
-										fieldType: elem
+										type: elem
 									});
 								}}
 							/>
-							{ this.state.fieldType.value === 'dropdown' ?
+							{ this.state.type.value === 'dropdown' ?
 								<TextSelect
 									placeholder={t('create-dropdown-options')}
 									options={[]}
@@ -107,6 +123,11 @@ class CreateFieldModal extends Component {
 								type="checkbox"
 								label={t('editable-on-signup')}
 								defaultChecked={false}
+								onChange={( event ) => {
+									this.setState({
+										editableOnSignup: !this.state.editableOnSignup
+									});
+								}}
 							/>
 						</FormGroup>
 						<FormGroup>
@@ -114,6 +135,11 @@ class CreateFieldModal extends Component {
 								type="checkbox"
 								label={t('show-on-profile')}
 								defaultChecked={false}
+								onChange={( event ) => {
+									this.setState({
+										showOnProfile: !this.state.showOnProfile
+									});
+								}}
 							/>
 						</FormGroup>
 						<FormGroup>
@@ -121,6 +147,11 @@ class CreateFieldModal extends Component {
 								type="checkbox"
 								label={t('editable-on-profile')}
 								defaultChecked={false}
+								onChange={( event ) => {
+									this.setState({
+										editableOnProfile: !this.state.editableOnProfile
+									});
+								}}
 							/>
 						</FormGroup>
 					</Modal.Body>
@@ -128,7 +159,7 @@ class CreateFieldModal extends Component {
 						<Button onClick={this.props.onHide} >
 							{t('common:cancel')}
 						</Button>
-						<Button variant="success" >
+						<Button variant="success" onClick={this.createCustomField} >
 							{t('common:create')}
 						</Button>
 					</Modal.Footer>
