@@ -42,14 +42,15 @@ class AdminSettingsUserFields extends Component {
 
 	render() {
 		const { t } = this.props;
+		const availableCustomFields = this.props.user.availableCustomFields;
 		return (
 			<Fragment>
 				<div className="admin-settings-outer-container" >
 					<LicenseBarrier license={this.props.admin.license} >
 						<h1>{this.props.t('user-fields')}</h1>
 						<p>{this.props.t('user-fields-description')}</p>
-						{ this.props.user.customFields.length > 0 ? <ListGroup className="admin-settings-fields-list" >
-							{this.props.user.customFields.map( ( field, idx ) => {
+						{ availableCustomFields.length > 0 ? <ListGroup className="admin-settings-fields-list" >
+							{availableCustomFields.map( ( field, idx ) => {
 								let optionsStr;
 								if ( field.type === 'dropdown' ) {
 									optionsStr = `; options: ${field.options.join( ', ' )}`;
@@ -71,7 +72,7 @@ class AdminSettingsUserFields extends Component {
 											onClick={() => {
 												this.props.incrementFieldPosition( field._id );
 											}}
-											disabled={idx === this.props.user.customFields.length - 1}
+											disabled={idx === availableCustomFields.length - 1}
 										>
 											<i className="fas fa-arrow-down"></i>
 										</Button>
@@ -101,7 +102,7 @@ class AdminSettingsUserFields extends Component {
 					onHide={this.toggleCreateModal}
 					t={this.props.t}
 					createCustomField={this.props.createCustomField}
-					customFields={this.props.user.customFields}
+					availableCustomFields={this.props.user.availableCustomFields}
 				/> : null}
 			</Fragment>
 		);

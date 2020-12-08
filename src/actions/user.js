@@ -53,7 +53,9 @@ export function loggedIn( user ) {
 			updatedAt: user.updatedAt,
 			score: user.score,
 			spentTime: user.spentTime,
-			licensed: user.licensed
+			licensed: user.licensed,
+			customFields: user.customFields,
+			availableCustomFields: user.availableCustomFields
 		}
 	};
 }

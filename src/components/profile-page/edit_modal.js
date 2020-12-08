@@ -19,6 +19,7 @@
 
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
+import SelectInput from 'react-select';
 import Button from 'react-bootstrap/Button';
 import Badge from 'react-bootstrap/Badge';
 import Card from 'react-bootstrap/Card';
@@ -29,6 +30,7 @@ import Form from 'react-bootstrap/Form';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
 import Modal from 'react-bootstrap/Modal';
+import isEmptyObject from '@stdlib/assert/is-empty-object';
 import logger from 'debug';
 import EnterTokenModal from './enter_token_modal.js';
 
@@ -58,12 +60,13 @@ class EditModal extends Component {
 			password: '',
 			passwordRepeat: '',
 			changed: false,
-			showTokenModal: false
+			showTokenModal: false,
+			customFields: props.user.customFields || {}
 		};
 	}
 
 	handleUpdate = () => {
-		const { name, password, passwordRepeat, organization } = this.state;
+		const { name, password, passwordRepeat, organization, customFields } = this.state;
 		const form = {
 			name,
 			organization
@@ -79,6 +82,10 @@ class EditModal extends Component {
 			name !== this.props.user.name ||
 			organization !== this.props.user.organization
 		) {
+			change = true;
+		}
+		if ( !isEmptyObject( customFields ) ) {
+			form.customFields = customFields;
 			change = true;
 		}
 		if ( change ) {
@@ -139,7 +146,10 @@ class EditModal extends Component {
 		const validPasswords = this.getPasswordValidationState();
 		const validName = this.getNameValidationState();
 		const enteredPasswords = this.state.password || this.state.passwordRepeat;
+		const user = this.props.user;
 		const t = this.props.t;
+		const userCustomFields = this.state.customFields;
+		const availableCustomFields = user.availableCustomFields || [];
 		return (
 			<Fragment>
 				<Modal show={this.props.show} onHide={this.props.onHide} >
@@ -174,7 +184,7 @@ class EditModal extends Component {
 								disabled
 							/>
 						</FormGroup>
-						{!this.props.user.verifiedEmail ? <Badge
+						{!user.verifiedEmail ? <Badge
 							variant="danger" style={{ position: 'absolute', right: 20, top: 80 }}
 						>{t('common:email-not-verified')}
 							<OverlayTrigger placement="right" overlay={createTooltip( t('resend-confirm-email') )}>
@@ -255,6 +265,77 @@ class EditModal extends Component {
 								{t('invalid-password')}
 							</Form.Control.Feedback>
 						</FormGroup>
+						{availableCustomFields.filter( x => x.showOnProfile || x.editableOnProfile ).map( ( x, idx ) => {
+							let input;
+							const value = userCustomFields[ x.name ];
+							if ( x.type === 'checkbox' ) {
+								input = <Form.Check
+									type="checkbox"
+									label={x.name}
+									defaultChecked={value}
+									disabled={!x.editableOnProfile}
+									onChange={( event ) => {
+										const newCustomFields = { ...this.state.customFields };
+										newCustomFields[ x.name ] = event.target.checked;
+										this.setState({
+											customFields: newCustomFields,
+											changed: true
+										});
+									}}
+								/>;
+							} else if ( x.type === 'text' ) {
+								input = <FormGroup
+									controlId={`form-${x.name}`}
+								>
+									<FormLabel>{x.name}</FormLabel>
+									<FormControl
+										name={x.name}
+										type="text"
+										value={value}
+										disabled={!x.editableOnProfile}
+										onChange={( event ) => {
+											const newCustomFields = { ...this.state.customFields };
+											newCustomFields[ x.name ] = event.target.value;
+											this.setState({
+												customFields: newCustomFields,
+												changed: true
+											});
+										}}
+										autoComplete="none"
+									/>
+								</FormGroup>;
+							} else {
+								// Case: dropdown menu
+								input = <FormGroup
+									controlId={`form-${x.name}`}
+								>
+									<FormLabel>{x.name}</FormLabel>
+									<SelectInput
+										defaultValue={value ?
+											{ label: value, value: value } :
+											null
+										}
+										disabled={!x.editableOnProfile}
+										options={x.options.map( e => {
+											return { value: e, label: e };
+										})}
+										onChange={( elem ) => {
+											const newCustomFields = { ...this.state.customFields };
+											newCustomFields[ x.name ] = elem.value;
+											this.setState({
+												customFields: newCustomFields,
+												changed: true
+											});
+										}}
+									/>
+								</FormGroup>;
+							}
+							return (
+								<OverlayTrigger key={idx} placement="top" overlay={createTooltip( x.description )} >
+									{input}
+								</OverlayTrigger>
+							);
+						})}
 					</Form>
 					<Card>
 						<Button block disabled={!this.state.changed || !validName || ( !validPasswords && enteredPasswords )} onClick={this.handleUpdate}>
@@ -263,7 +344,7 @@ class EditModal extends Component {
 					</Card>
 				</Modal>
 				<EnterTokenModal
-					user={this.props.user}
+					user={user}
 					authenticate={this.props.authenticate}
 					show={this.state.showTokenModal}
 					onHide={this.toggleTokenModal}

@@ -73,7 +73,7 @@ class UserPage extends Component {
 	componentDidUpdate( prevProps ) {
 		if (
 			prevProps.admin.users !== this.props.admin.users ||
-			prevProps.user.customFields !== this.props.user.customFields
+			prevProps.user.availableCustomFields !== this.props.user.availableCustomFields
 		) {
 			this.setState({
 				columns: this.createColumns()
@@ -333,7 +333,7 @@ class UserPage extends Component {
 				filterable: false,
 				sortable: false
 			},
-			...this.props.user.customFields.map( x => {
+			...this.props.user.availableCustomFields.map( x => {
 				if ( x.type === 'text' ) {
 					return createTextColumn({
 						Header: x.name,
@@ -460,7 +460,7 @@ class UserPage extends Component {
 				/> : null }
 				{ this.state.showEditModal ? <EditModal
 					user={this.state.selectedUser}
-					customFields={this.props.user.customFields}
+					availableCustomFields={this.props.user.availableCustomFields}
 					t={this.props.t}
 					show={this.state.showEditModal}
 					updateUser={this.props.updateUser}

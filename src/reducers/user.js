@@ -46,7 +46,8 @@ const initialState = {
 	token: null,
 	tickets: [],
 	licensed: false,
-	customFields: null
+	customFields: null,
+	availableCustomFields: []
 };
 
 
@@ -89,6 +90,8 @@ export default function user( state = initialState, action ) {
 			score: action.payload.score,
 			spentTime: action.payload.spentTime,
 			licensed: action.payload.licensed,
+			customFields: action.payload.customFields,
+			availableCustomFields: action.payload.availableCustomFields,
 			loggedIn: true
 		});
 	}
@@ -301,28 +304,28 @@ export default function user( state = initialState, action ) {
 	case types.FIELD_POSITION_DECREMENTED:
 	case types.FIELD_POSITION_INCREMENTED: {
 		return Object.assign({}, state, {
-			customFields: action.payload.customFields
+			availableCustomFields: action.payload.customFields
 		});
 	}
 	case types.DELETED_CUSTOM_FIELD: {
 		const fields = [];
-		for ( let i = 0; i < state.customFields.length; i++ ) {
-			const item = state.customFields[ i ];
+		for ( let i = 0; i < state.availableCustomFields.length; i++ ) {
+			const item = state.availableCustomFields[ i ];
 			if ( item._id !== action.payload.id ) {
 				fields.push( item );
 			}
 		}
 		return Object.assign({}, state, {
-			customFields: fields
+			availableCustomFields: fields
 		});
 	}
 	case types.CREATED_CUSTOM_FIELD: {
-		const customFields = state.customFields.slice();
-		customFields.push({
+		const availableCustomFields = state.availableCustomFields.slice();
+		availableCustomFields.push({
 			...action.payload
 		});
 		return Object.assign({}, state, {
-			customFields
+			availableCustomFields
 		});
 	}
 	default:

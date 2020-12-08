@@ -253,7 +253,7 @@ class EditModal extends Component {
 							</Col>
 						</Row>
 						<Row>
-							{this.props.customFields.map( ( x, idx ) => {
+							{this.props.availableCustomFields.map( ( x, idx ) => {
 								let input;
 								const value = userCustomFields[ x.name ];
 								if ( x.type === 'checkbox' ) {
@@ -337,6 +337,7 @@ class EditModal extends Component {
 // PROPERTIES //
 
 EditModal.propTypes = {
+	availableCustomFields: PropTypes.array.isRequired,
 	onHide: PropTypes.func.isRequired,
 	show: PropTypes.bool.isRequired,
 	t: PropTypes.func.isRequired,
