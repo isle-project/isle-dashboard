@@ -1,7 +1,11 @@
 // MODULES //
 
-import Button from 'react-bootstrap/Button';
+import React from 'react';
 import PropTypes from 'prop-types';
+import { withTranslation } from 'react-i18next';
+import Button from 'react-bootstrap/Button';
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
+import Tooltip from 'react-bootstrap/Tooltip';
 import DataExplorer from '@isle-project/components/data-explorer';
 import SessionContext from '@isle-project/session/context.js';
 import Session from '@isle-project/session';
@@ -18,9 +22,13 @@ const AdminDataExplorer = ( props ) => {
 	return (
 		<div className="admin-outer-container" >
 			<LicenseBarrier>
-				<Button onClick={props.close} style={{ float: 'right' }} >
-					<i className="fas fa-times"></i>
-				</Button>
+				<OverlayTrigger placement="left" overlay={<Tooltip id="explorerCloseButtonTooltip">
+					{props.t('common:close')}
+				</Tooltip>} >
+					<Button onClick={props.close} style={{ float: 'right' }} >
+						<i className="fas fa-times"></i>
+					</Button>
+				</OverlayTrigger>
 				<SessionContext.Provider value={session} >
 					<div className="Lesson">
 						<DataExplorer
@@ -60,4 +68,4 @@ AdminDataExplorer.defaultProps = {
 
 // EXPORTS //
 
-export default AdminDataExplorer;
+export default withTranslation( 'common' )( AdminDataExplorer );
