@@ -22,6 +22,7 @@ import PropTypes from 'prop-types';
 import { withTranslation } from 'react-i18next';
 import ReactTable from 'react-table';
 import Button from 'react-bootstrap/Button';
+import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
 import copyToClipboard from 'clipboard-copy';
@@ -30,6 +31,8 @@ import trim from '@stdlib/string/trim';
 import ConfirmModal from 'components/confirm-modal';
 import server from 'constants/server';
 import FILE_TYPE_ICONS from 'constants/file_type_icons.js';
+import obsToVar from '@isle-project/utils/obs-to-var';
+import AdminDataExplorer from 'ev/components/admin/data-explorer';
 import createNumericColumn from './create_numeric_column';
 import createTextColumn from './create_text_column.js';
 import createDateColumn from './create_date_column.js';
@@ -45,7 +48,8 @@ class FilePage extends Component {
 		this.state = {
 			showDeleteModal: false,
 			deletionID: null,
-			columns: this.createColumns()
+			columns: this.createColumns(),
+			showExplorer: false
 		};
 	}
 
@@ -249,8 +253,43 @@ class FilePage extends Component {
 		];
 	}
 
+	toggleExplorer = () => {
+		this.setState({
+			showExplorer: !this.state.showExplorer
+		});
+	}
+
 	render() {
 		const { t } = this.props;
+		if ( this.state.showExplorer ) {
+			const files = this.props.admin.files;
+			let data = [];
+			for ( let i = 0; i < files.length; i++ ) {
+				const file = files[ i ];
+				const replacement = {};
+				replacement.title = file.title;
+				replacement.type = file.type;
+				replacement.lesson = file.lesson ? file.lesson.title : null;
+				replacement.namespace = file.namespace ? file.namespace.title : null;
+				replacement.owner = file.owner;
+				replacement.size = file.size ? file.size : null;
+				replacement.user = file.user ? file.user.email : null;
+				replacement.createdAt = file.createdAt;
+				replacement.updatedAt = file.updatedAt;
+				data.push( replacement );
+			}
+			data = obsToVar( data );
+			return (
+				<AdminDataExplorer
+					title="Data Explorer for Files"
+					data={data}
+					categorical={[ 'type', 'lesson', 'namespace', 'owner', 'updatedAt', 'createdAt', 'user' ]}
+					quantitative={[ 'size' ]}
+					close={this.toggleExplorer}
+					admin={this.props.admin}
+				/>
+			);
+		}
 		return ( <Fragment>
 			<ReactTable
 				className="dashboard-table"
@@ -267,7 +306,15 @@ class FilePage extends Component {
 				pageText={t('common:page')}
 				ofText={t('common:of')}
 				rowsText={t('common:rows')}
+				style={{ maxWidth: 'calc(100% - 42px)', float: 'left' }}
 			/>
+			<ButtonGroup vertical style={{ float: 'right', marginRight: -9 }} >
+				<OverlayTrigger placement="left" overlay={<Tooltip id="explorer-tooltip">{t('data-explorer')}</Tooltip>}>
+					<Button variant="primary" style={{ marginBottom: 8 }} onClick={this.toggleExplorer} >
+						<i className="fas fa-chart-bar" ></i>
+					</Button>
+				</OverlayTrigger>
+			</ButtonGroup>
 			<ConfirmModal
 				show={this.state.showDeleteModal}
 				close={this.toggleDeleteModal}
