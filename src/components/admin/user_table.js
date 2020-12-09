@@ -24,6 +24,7 @@ import { withTranslation } from 'react-i18next';
 import ReactTable from 'react-table';
 import moment from 'moment';
 import FormControl from 'react-bootstrap/FormControl';
+import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import Button from 'react-bootstrap/Button';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
@@ -33,6 +34,8 @@ import PINF from '@stdlib/constants/math/float64-pinf';
 import mapKeys from '@stdlib/utils/map-keys';
 import ConfirmModal from 'components/confirm-modal';
 import server from 'constants/server';
+import obsToVar from '@isle-project/utils/obs-to-var';
+import AdminDataExplorer from 'ev/components/admin/data-explorer';
 import createCategoricalColumn from './create_categorical_column.js';
 import createBooleanColumn from './create_boolean_column.js';
 import createNumericColumn from './create_numeric_column.js';
@@ -413,8 +416,48 @@ class UserPage extends Component {
 		];
 	}
 
+	toggleExplorer = () => {
+		this.setState({
+			showExplorer: !this.state.showExplorer
+		});
+	}
+
 	render() {
 		const { t } = this.props;
+		if ( this.state.showExplorer ) {
+			const users = this.props.admin.users;
+			let data = [];
+			for ( let i = 0; i < users.length; i++ ) {
+				const user = users[ i ];
+				const replacement = {};
+				replacement.name = user.name;
+				replacement.email = user.email;
+				replacement.nActions = user.nActions;
+				replacement.ownedNamespaces = user.ownedNamespaces.length;
+				replacement.enrolledNamespaces = user.enrolledNamespaces.length;
+				replacement.chatMessages = user.chatMessages.length;
+				replacement.badges = user.badges.length;
+				replacement.score = user.score;
+				replacement.spentTime = user.spentTime;
+				replacement.administrator = user.administrator;
+				replacement.verifiedEmail = user.verifiedEmail;
+				replacement.instructor = user.writeAccess;
+				replacement.createdAt = user.createdAt;
+				replacement.updatedAt = user.updatedAt;
+				data.push( replacement );
+			}
+			data = obsToVar( data );
+			return (
+				<AdminDataExplorer
+					title="Data Explorer for Users"
+					data={data}
+					categorical={[ 'administrator', 'instructor', 'verifiedEmail', 'createdAt', 'updatedAt' ]}
+					quantitative={[ 'nActions', 'ownedNamespaces', 'enrolledNamespaces', 'chatMessages', 'badges', 'score', 'spentTime' ]}
+					close={this.toggleExplorer}
+					admin={this.props.admin}
+				/>
+			);
+		}
 		return (
 			<Fragment>
 				<ReactTable
@@ -432,7 +475,15 @@ class UserPage extends Component {
 					pageText={t('common:page')}
 					ofText={t('common:of')}
 					rowsText={t('common:rows')}
+					style={{ maxWidth: 'calc(100% - 42px)', float: 'left' }}
 				/>
+				<ButtonGroup vertical style={{ float: 'right', marginRight: -9 }} >
+					<OverlayTrigger placement="left" overlay={<Tooltip id="explorer-tooltip">{t('data-explorer')}</Tooltip>}>
+						<Button variant="primary" style={{ marginBottom: 8 }} onClick={this.toggleExplorer} >
+							<i className="fas fa-chart-bar" ></i>
+						</Button>
+					</OverlayTrigger>
+				</ButtonGroup>
 				{ this.state.showImpersonateModal ? <ConfirmModal
 					title={t('impersonate-user')}
 					message={<span>
