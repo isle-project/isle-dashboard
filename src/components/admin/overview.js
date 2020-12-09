@@ -594,7 +594,7 @@ class Overview extends Component {
 		switch ( this.state.dataExplorer ) {
 			case 'action-types':
 				explorer = <AdminDataExplorer
-					title="Data Explorer for Action Types over Time"
+					title={this.props.t('explorer-action-types-title')}
 					data={{
 						...this.state.historicalActionTypes,
 						time: this.props.historicalStatistics.map( x => x.createdAt )
@@ -605,7 +605,7 @@ class Overview extends Component {
 				break;
 			case 'overview-statistics':
 				explorer = <AdminDataExplorer
-					title="Data Explorer for Overview Statistics over Time"
+					title={t('explorer-overview-stats-title')}
 					data={obsToVar( this.props.historicalStatistics )}
 					categorical={[ 'createdAt' ]}
 					close={this.hideExplorer}
@@ -788,7 +788,6 @@ class Overview extends Component {
 // PROPERTIES //
 
 Overview.propTypes = {
-	admin: PropTypes.object.isRequired,
 	historicalStatistics: PropTypes.array,
 	statistics: PropTypes.object,
 	t: PropTypes.func.isRequired

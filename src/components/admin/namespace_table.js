@@ -207,7 +207,7 @@ class NamespacePage extends Component {
 			data = obsToVar( data );
 			return (
 				<AdminDataExplorer
-					title="Data Explorer for Namespaces"
+					title={t('explorer-namespaces-title')}
 					data={data}
 					categorical={[ 'title', 'enableTicketing', 'createdAt', 'updatedAt' ]}
 					quantitative={[ 'announcements', 'owners' ]}

@@ -447,7 +447,7 @@ class UserPage extends Component {
 			data = obsToVar( data );
 			return (
 				<AdminDataExplorer
-					title="Data Explorer for Users"
+					title={t('explorer-users-title')}
 					data={data}
 					categorical={[ 'administrator', 'instructor', 'verifiedEmail', 'createdAt', 'updatedAt' ]}
 					quantitative={[ 'nActions', 'ownedNamespaces', 'enrolledNamespaces', 'chatMessages', 'badges', 'score', 'spentTime' ]}

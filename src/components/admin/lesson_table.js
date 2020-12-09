@@ -251,7 +251,7 @@ class LessonTable extends Component {
 			data = obsToVar( data );
 			return (
 				<AdminDataExplorer
-					title="Data Explorer for Lessons"
+					title={t('explorer-lessons-title')}
 					data={data}
 					categorical={[ 'title', 'namespace', 'active', 'public', 'createdAt', 'updatedAt' ]}
 					quantitative={[]}

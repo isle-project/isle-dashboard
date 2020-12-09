@@ -97,7 +97,7 @@ class Requests extends Component {
 		if ( this.state.showExplorer ) {
 			return (
 				<AdminDataExplorer
-					title="Data Explorer for Requests"
+					title={t('explorer-requests-title')}
 					data={obsToVar( this.props.admin.requestStatistics )}
 					categorical={[ 'request' ]}
 					quantitative={[ 'mean', 'count' ]}

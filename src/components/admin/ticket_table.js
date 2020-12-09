@@ -389,7 +389,7 @@ class TicketPage extends Component {
 		if ( this.state.showExplorer ) {
 			return (
 				<AdminDataExplorer
-					title="Data Explorer for Tickets"
+					title={t('explorer-tickets-title')}
 					data={this.assembleExplorerData()}
 					categorical={[ 'component', 'namespace', 'lesson', 'done', 'createdAt', 'updatedAt', 'priority', 'browser', 'os' ]}
 					quantitative={[ 'messages', 'attachments' ]}

@@ -278,7 +278,7 @@ class FilePage extends Component {
 			data = obsToVar( data );
 			return (
 				<AdminDataExplorer
-					title="Data Explorer for Files"
+					title={t('explorer-files-title')}
 					data={data}
 					categorical={[ 'type', 'lesson', 'namespace', 'owner', 'updatedAt', 'createdAt', 'user' ]}
 					quantitative={[ 'size' ]}
