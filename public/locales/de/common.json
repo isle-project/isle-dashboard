@@ -62,6 +62,7 @@
 	"next": "Nächste",
 	"no-course-selected": "Kein Kurs ausgewählt",
 	"no-rows-found": "Keine Zeilen gefunden",
+	"not-available-in-community-edition": "Diese Funktion ist in der Community-Edition von ISLE nicht verfügbar. Erwägen Sie ein Upgrade auf einen kostenpflichtigen Plan für Ihre Server-Instanz.",
 	"number-of-actions": "# Aktionen",
 	"number-of-students": "Anzahl Studenten",
 	"of": "von",

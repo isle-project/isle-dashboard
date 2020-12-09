@@ -62,6 +62,7 @@
 	"next": "Next",
 	"no-course-selected": "No Course Selected",
 	"no-rows-found": "No rows found",
+	"not-available-in-community-edition": "This feature is not available in the community edition of ISLE. Consider upgrading to a paid plan for your server instance.",
 	"number-of-actions": "# Actions",
 	"number-of-students": "Number of students",
 	"of": "of",
