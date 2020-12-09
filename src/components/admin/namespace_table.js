@@ -24,10 +24,13 @@ import { withTranslation } from 'react-i18next';
 import ReactTable from 'react-table';
 import moment from 'moment';
 import Button from 'react-bootstrap/Button';
+import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
 import PINF from '@stdlib/constants/math/float64-pinf';
 import ConfirmModal from 'components/confirm-modal';
+import obsToVar from '@isle-project/utils/obs-to-var';
+import AdminDataExplorer from 'ev/components/admin/data-explorer';
 import textFilter from './text_filter.js';
 import createUsersColumn from './create_users_column.js';
 import createNumericColumn from './create_numeric_column.js';
@@ -48,7 +51,8 @@ class NamespacePage extends Component {
 		this.state = {
 			selectedCourse: null,
 			showDeleteModal: false,
-			columns: this.createColumns()
+			columns: this.createColumns(),
+			showExplorer: false
 		};
 	}
 
@@ -179,8 +183,41 @@ class NamespacePage extends Component {
 		});
 	}
 
+	toggleExplorer = () => {
+		this.setState({
+			showExplorer: !this.state.showExplorer
+		});
+	}
+
 	render() {
 		const { t } = this.props;
+		if ( this.state.showExplorer ) {
+			const namespaces = this.props.admin.namespaces;
+			let data = [];
+			for ( let i = 0; i < namespaces.length; i++ ) {
+				const namespace = namespaces[ i ];
+				const replacement = {};
+				replacement.title = namespace.title;
+				replacement.description = namespace.description;
+				replacement.enableTicketing = namespace.enableTicketing;
+				replacement.announcements = namespace.announcements.length;
+				replacement.owners = namespace.owners.length;
+				replacement.createdAt = namespace.createdAt;
+				replacement.updatedAt = namespace.updatedAt;
+				data.push( replacement );
+			}
+			data = obsToVar( data );
+			return (
+				<AdminDataExplorer
+					title="Data Explorer for Namespaces"
+					data={data}
+					categorical={[ 'title', 'enableTicketing', 'createdAt', 'updatedAt' ]}
+					quantitative={[ 'announcements', 'owners' ]}
+					close={this.toggleExplorer}
+					admin={this.props.admin}
+				/>
+			);
+		}
 		return (
 			<Fragment>
 				<ReactTable
@@ -198,7 +235,15 @@ class NamespacePage extends Component {
 					pageText={t('common:page')}
 					ofText={t('common:of')}
 					rowsText={t('common:rows')}
+					style={{ maxWidth: 'calc(100% - 42px)', float: 'left' }}
 				/>
+				<ButtonGroup vertical style={{ float: 'right', marginRight: -9 }} >
+					<OverlayTrigger placement="left" overlay={<Tooltip id="explorer-tooltip">{t('data-explorer')}</Tooltip>}>
+						<Button variant="primary" style={{ marginBottom: 8 }} onClick={this.toggleExplorer} >
+							<i className="fas fa-chart-bar" ></i>
+						</Button>
+					</OverlayTrigger>
+				</ButtonGroup>
 				{ this.state.showDeleteModal ? <ConfirmModal
 					title={t('namespace:delete-course')}
 					message={<span>
