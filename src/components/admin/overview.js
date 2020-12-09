@@ -605,7 +605,7 @@ class Overview extends Component {
 				break;
 			case 'overview-statistics':
 				explorer = <DashboardDataExplorer
-					title={t('explorer-overview-stats-title')}
+					title={this.props.t('explorer-overview-stats-title')}
 					data={obsToVar( this.props.historicalStatistics )}
 					categorical={[ 'createdAt' ]}
 					close={this.hideExplorer}
