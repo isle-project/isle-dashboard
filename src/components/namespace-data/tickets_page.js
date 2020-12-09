@@ -30,6 +30,8 @@ import Tooltip from 'react-bootstrap/Tooltip';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import Badge from 'react-bootstrap/Badge';
+import AdminDataExplorer from 'ev/components/admin/data-explorer';
+import obsToVar from '@isle-project/utils/obs-to-var';
 import DashboardTable from 'components/dashboard-table';
 import createCategoricalColumn from 'components/admin/create_categorical_column.js';
 import createBooleanColumn from 'components/admin/create_boolean_column.js';
@@ -55,7 +57,8 @@ class TicketsPage extends Component {
 
 		this.state = {
 			showTicketModal: false,
-			selectedTicket: null
+			selectedTicket: null,
+			showExplorer: false
 		};
 		this.columns = this.createColumns();
 	}
@@ -297,13 +300,57 @@ class TicketsPage extends Component {
 		];
 	}
 
+	toggleExplorer = () => {
+		this.setState({
+			showExplorer: !this.state.showExplorer
+		});
+	}
+
+	assembleExplorerData = () => {
+		let tickets = this.props.tickets;
+		let data = [];
+		for ( let i = 0; i < tickets.length; i++ ) {
+			const ticket = tickets[ i ];
+			const replacement = {};
+			replacement.component = ticket.component;
+			replacement.title = ticket.title;
+			replacement.description = ticket.description;
+			replacement.lesson = ticket.lesson ? ticket.lesson.title : null;
+			replacement.messages = ticket.messages.length;
+			replacement.attachments = ticket.attachments.length;
+			replacement.user = ticket.user.email;
+			replacement.done = ticket.done;
+			replacement.priority = ticket.priority;
+			replacement.browser = `${ticket.platform.name} ${ticket.platform.version}`;
+			const os = ticket.platform.os;
+			replacement.os = `${os.family} ${os.version ? os.version : ''} ${os.architecture}bit`;
+			replacement.createdAt = ticket.createdAt;
+			replacement.updatedAt = ticket.updatedAt;
+			data.push( replacement );
+		}
+		data = obsToVar( data );
+		return data;
+	}
+
 	render() {
 		const { t } = this.props;
+		if ( this.state.showExplorer ) {
+			return (
+				<AdminDataExplorer
+					title={t('explorer-tickets-title')}
+					data={this.assembleExplorerData()}
+					categorical={[ 'component', 'lesson', 'done', 'createdAt', 'updatedAt', 'priority', 'browser', 'os' ]}
+					quantitative={[ 'messages', 'attachments' ]}
+					close={this.toggleExplorer}
+				/>
+			);
+		}
 		return ( <div className="namespace-data-page">
 			<DashboardTable
 				data={this.props.tickets}
 				columns={this.columns}
 				t={t}
+				onButtonClick={this.toggleExplorer}
 			/>
 			{ this.state.showTicketModal ? <TicketModal
 				show={this.state.showTicketModal}

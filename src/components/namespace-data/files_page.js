@@ -37,6 +37,8 @@ import pick from '@stdlib/utils/pick';
 import contains from '@stdlib/assert/contains';
 import lowercase from '@stdlib/string/lowercase';
 import trim from '@stdlib/string/trim';
+import AdminDataExplorer from 'ev/components/admin/data-explorer';
+import obsToVar from '@isle-project/utils/obs-to-var';
 import DashboardTable from 'components/dashboard-table';
 import ConfirmModal from 'components/confirm-modal';
 import server from 'constants/server';
@@ -74,7 +76,8 @@ class FilesPage extends Component {
 			showDeleteModal: false,
 			deletionID: null,
 			fileMaxSize: 0,
-			fileInputKey: 0
+			fileInputKey: 0,
+			showExplorer: false
 		};
 	}
 
@@ -346,8 +349,42 @@ class FilesPage extends Component {
 		});
 	}
 
+	toggleExplorer = () => {
+		this.setState({
+			showExplorer: !this.state.showExplorer
+		});
+	}
+
 	render() {
 		const { t } = this.props;
+		if ( this.state.showExplorer ) {
+			const files = this.props.files;
+			let data = [];
+			for ( let i = 0; i < files.length; i++ ) {
+				const file = files[ i ];
+				const replacement = {};
+				replacement.title = file.title;
+				replacement.type = file.type;
+				replacement.lesson = file.lesson ? file.lesson.title : null;
+				replacement.size = file.size ? file.size : null;
+				replacement.email = file.email;
+				replacement.createdAt = file.createdAt;
+				replacement.updatedAt = file.updatedAt;
+				data.push( replacement );
+			}
+			data = obsToVar( data );
+			const quantitative = [ 'size' ];
+			const categorical = [ 'title', 'type', 'lesson', 'email', 'createdAt', 'updatedAt' ];
+			return (
+				<AdminDataExplorer
+					title={t('explorer-files-title')}
+					data={data}
+					categorical={categorical}
+					quantitative={quantitative}
+					close={this.toggleExplorer}
+				/>
+			);
+		}
 		return ( <div className="namespace-data-page">
 			<div className="namespace-data-buttons">
 				<ButtonGroup className="files-export-button-group" >
@@ -379,6 +416,7 @@ class FilesPage extends Component {
 				ref={(r) => {
 					this.dashboardTable = r;
 				}}
+				onButtonClick={this.toggleExplorer}
 			/>
 			<ConfirmModal
 				show={this.state.showDeleteModal}
