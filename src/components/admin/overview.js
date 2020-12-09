@@ -510,7 +510,7 @@ class Overview extends Component {
 			<Fragment>
 				<h2>
 					{this.props.t('common:actions')}
-					<OverlayTrigger placement="right" overlay={<Tooltip id="explorer-action-types-tooltip">{this.props.t('data-explorer')}</Tooltip>}>
+					<OverlayTrigger placement="right" overlay={<Tooltip id="explorer-action-types-tooltip">{this.props.t('common:data-explorer')}</Tooltip>}>
 						<Button
 							onClick={() => {
 								this.setState({
@@ -626,7 +626,7 @@ class Overview extends Component {
 				<Col className="column-border" sm={4} md={3} >
 					<h2>
 						{this.props.t('overall')}
-						<OverlayTrigger placement="right" overlay={<Tooltip id="explorer-overview-tooltip">{t('data-explorer')}</Tooltip>}>
+						<OverlayTrigger placement="right" overlay={<Tooltip id="explorer-overview-tooltip">{t('common:data-explorer')}</Tooltip>}>
 							<Button
 								onClick={() => {
 									this.setState({

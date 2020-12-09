@@ -309,7 +309,7 @@ class FilePage extends Component {
 				style={{ maxWidth: 'calc(100% - 42px)', float: 'left' }}
 			/>
 			<ButtonGroup vertical style={{ float: 'right', marginRight: -9 }} >
-				<OverlayTrigger placement="left" overlay={<Tooltip id="explorer-tooltip">{t('data-explorer')}</Tooltip>}>
+				<OverlayTrigger placement="left" overlay={<Tooltip id="explorer-tooltip">{t('common:data-explorer')}</Tooltip>}>
 					<Button variant="primary" style={{ marginBottom: 8 }} onClick={this.toggleExplorer} >
 						<i className="fas fa-chart-bar" ></i>
 					</Button>
