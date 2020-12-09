@@ -351,7 +351,9 @@ class GradesPage extends Component {
 			const availableCustomFields = this.props.user.availableCustomFields;
 			for ( let j = 0; j < availableCustomFields.length; j++ ) {
 				const fieldName = availableCustomFields[ j ].name;
-				out[ i ][ fieldName ] = member.customFields[ fieldName ];
+				if ( member.customFields ) {
+					out[ i ][ fieldName ] = member.customFields[ fieldName ];
+				}
 			}
 			for ( let j = 0; j < lessons.length; j++ ) {
 				const lessonName = lessons[ j ]._id;
