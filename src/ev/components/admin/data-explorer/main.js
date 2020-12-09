@@ -18,15 +18,17 @@ const AdminDataExplorer = ( props ) => {
 	return (
 		<div className="admin-outer-container" >
 			<LicenseBarrier license={props.admin.license} >
-				<h2>
-					{props.title}
-					<Button onClick={props.close} style={{ float: 'right' }} >Cancel</Button>
-				</h2>
+				<Button onClick={props.close} style={{ float: 'right' }} >
+					<i className="fas fa-times"></i>
+				</Button>
 				<SessionContext.Provider value={session} >
 					<div className="Lesson">
 						<DataExplorer
 							editor={false}
 							data={props.data}
+							dataInfo={{
+								name: props.title
+							}}
 							quantitative={quantitative}
 							categorical={categorical}
 							style={{
