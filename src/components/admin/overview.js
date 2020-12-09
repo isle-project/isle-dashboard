@@ -40,7 +40,7 @@ import SearchBar from 'components/searchbar';
 import server from 'constants/server';
 import COLORS from 'constants/colors';
 import obsToVar from '@isle-project/utils/obs-to-var';
-import AdminDataExplorer from 'ev/components/admin/data-explorer';
+import DashboardDataExplorer from 'ev/components/data-explorer';
 
 
 // FUNCTIONS //
@@ -593,7 +593,7 @@ class Overview extends Component {
 		let explorer;
 		switch ( this.state.dataExplorer ) {
 			case 'action-types':
-				explorer = <AdminDataExplorer
+				explorer = <DashboardDataExplorer
 					title={this.props.t('explorer-action-types-title')}
 					data={{
 						...this.state.historicalActionTypes,
@@ -604,7 +604,7 @@ class Overview extends Component {
 				/>;
 				break;
 			case 'overview-statistics':
-				explorer = <AdminDataExplorer
+				explorer = <DashboardDataExplorer
 					title={t('explorer-overview-stats-title')}
 					data={obsToVar( this.props.historicalStatistics )}
 					categorical={[ 'createdAt' ]}

@@ -30,7 +30,7 @@ import Tooltip from 'react-bootstrap/Tooltip';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import Badge from 'react-bootstrap/Badge';
-import AdminDataExplorer from 'ev/components/admin/data-explorer';
+import DashboardDataExplorer from 'ev/components/data-explorer';
 import obsToVar from '@isle-project/utils/obs-to-var';
 import DashboardTable from 'components/dashboard-table';
 import createCategoricalColumn from 'components/admin/create_categorical_column.js';
@@ -336,7 +336,7 @@ class TicketsPage extends Component {
 		const { t } = this.props;
 		if ( this.state.showExplorer ) {
 			return (
-				<AdminDataExplorer
+				<DashboardDataExplorer
 					title={t('explorer-tickets-title')}
 					data={this.assembleExplorerData()}
 					categorical={[ 'component', 'lesson', 'done', 'createdAt', 'updatedAt', 'priority', 'browser', 'os' ]}

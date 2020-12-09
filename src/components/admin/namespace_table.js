@@ -29,7 +29,7 @@ import PINF from '@stdlib/constants/math/float64-pinf';
 import DashboardTable from 'components/dashboard-table';
 import ConfirmModal from 'components/confirm-modal';
 import obsToVar from '@isle-project/utils/obs-to-var';
-import AdminDataExplorer from 'ev/components/admin/data-explorer';
+import DashboardDataExplorer from 'ev/components/data-explorer';
 import textFilter from './text_filter.js';
 import createUsersColumn from './create_users_column.js';
 import createNumericColumn from './create_numeric_column.js';
@@ -206,7 +206,7 @@ class NamespacePage extends Component {
 			}
 			data = obsToVar( data );
 			return (
-				<AdminDataExplorer
+				<DashboardDataExplorer
 					title={t('explorer-namespaces-title')}
 					data={data}
 					categorical={[ 'title', 'enableTicketing', 'createdAt', 'updatedAt' ]}

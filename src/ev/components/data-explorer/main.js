@@ -15,7 +15,7 @@ import './data_explorer.css';
 
 // MAIN //
 
-const AdminDataExplorer = ( props ) => {
+const DashboardDataExplorer = ( props ) => {
 	const keys = Object.keys( props.data );
 	const quantitative = props.quantitative || keys;
 	const categorical = props.categorical || keys;
@@ -54,7 +54,7 @@ const AdminDataExplorer = ( props ) => {
 
 // PROPERTIES //
 
-AdminDataExplorer.propTypes = {
+DashboardDataExplorer.propTypes = {
 	categorical: PropTypes.array.isRequired,
 	close: PropTypes.func.isRequired,
 	data: PropTypes.object.isRequired,
@@ -62,11 +62,11 @@ AdminDataExplorer.propTypes = {
 	title: PropTypes.string
 };
 
-AdminDataExplorer.defaultProps = {
+DashboardDataExplorer.defaultProps = {
 	title: ''
 };
 
 
 // EXPORTS //
 
-export default withTranslation( 'common' )( AdminDataExplorer );
+export default withTranslation( 'common' )( DashboardDataExplorer );

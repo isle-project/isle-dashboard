@@ -38,7 +38,7 @@ import createTextColumn from './create_text_column.js';
 import createDateColumn from './create_date_column.js';
 import TicketModal from 'components/ticket-modal';
 import obsToVar from '@isle-project/utils/obs-to-var';
-import AdminDataExplorer from 'ev/components/admin/data-explorer';
+import DashboardDataExplorer from 'ev/components/data-explorer';
 
 
 // VARIABLES //
@@ -388,7 +388,7 @@ class TicketPage extends Component {
 		const { t } = this.props;
 		if ( this.state.showExplorer ) {
 			return (
-				<AdminDataExplorer
+				<DashboardDataExplorer
 					title={t('explorer-tickets-title')}
 					data={this.assembleExplorerData()}
 					categorical={[ 'component', 'namespace', 'lesson', 'done', 'createdAt', 'updatedAt', 'priority', 'browser', 'os' ]}

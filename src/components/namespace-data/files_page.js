@@ -37,7 +37,7 @@ import pick from '@stdlib/utils/pick';
 import contains from '@stdlib/assert/contains';
 import lowercase from '@stdlib/string/lowercase';
 import trim from '@stdlib/string/trim';
-import AdminDataExplorer from 'ev/components/admin/data-explorer';
+import DashboardDataExplorer from 'ev/components/data-explorer';
 import obsToVar from '@isle-project/utils/obs-to-var';
 import DashboardTable from 'components/dashboard-table';
 import ConfirmModal from 'components/confirm-modal';
@@ -376,7 +376,7 @@ class FilesPage extends Component {
 			const quantitative = [ 'size' ];
 			const categorical = [ 'title', 'type', 'lesson', 'email', 'createdAt', 'updatedAt' ];
 			return (
-				<AdminDataExplorer
+				<DashboardDataExplorer
 					title={t('explorer-files-title')}
 					data={data}
 					categorical={categorical}

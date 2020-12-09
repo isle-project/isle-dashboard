@@ -33,7 +33,7 @@ import createBooleanColumn from './create_boolean_column.js';
 import createTextColumn from './create_text_column.js';
 import createDateColumn from './create_date_column.js';
 import obsToVar from '@isle-project/utils/obs-to-var';
-import AdminDataExplorer from 'ev/components/admin/data-explorer';
+import DashboardDataExplorer from 'ev/components/data-explorer';
 
 
 // VARIABLES //
@@ -194,7 +194,7 @@ class EventTable extends Component {
 			events = pick( events, variables );
 			events.user = events.user.map( x => x ? x.email : null );
 			return (
-				<AdminDataExplorer
+				<DashboardDataExplorer
 					title={t('explorer-events-title')}
 					data={events}
 					categorical={variables}

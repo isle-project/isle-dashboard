@@ -31,7 +31,7 @@ import ConfirmModal from 'components/confirm-modal';
 import server from 'constants/server';
 import FILE_TYPE_ICONS from 'constants/file_type_icons.js';
 import obsToVar from '@isle-project/utils/obs-to-var';
-import AdminDataExplorer from 'ev/components/admin/data-explorer';
+import DashboardDataExplorer from 'ev/components/data-explorer';
 import createNumericColumn from './create_numeric_column';
 import createTextColumn from './create_text_column.js';
 import createDateColumn from './create_date_column.js';
@@ -277,7 +277,7 @@ class FilePage extends Component {
 			}
 			data = obsToVar( data );
 			return (
-				<AdminDataExplorer
+				<DashboardDataExplorer
 					title={t('explorer-files-title')}
 					data={data}
 					categorical={[ 'type', 'lesson', 'namespace', 'owner', 'updatedAt', 'createdAt', 'user' ]}

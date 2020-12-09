@@ -28,7 +28,7 @@ import PINF from '@stdlib/constants/math/float64-pinf';
 import ConfirmModal from 'components/confirm-modal';
 import DashboardTable from 'components/dashboard-table';
 import obsToVar from '@isle-project/utils/obs-to-var';
-import AdminDataExplorer from 'ev/components/admin/data-explorer';
+import DashboardDataExplorer from 'ev/components/data-explorer';
 import createBooleanColumn from './create_boolean_column.js';
 import createNumericColumn from './create_numeric_column.js';
 import createDateColumn from './create_date_column.js';
@@ -208,7 +208,7 @@ class CohortTable extends Component {
 			}
 			data = obsToVar( data );
 			return (
-				<AdminDataExplorer
+				<DashboardDataExplorer
 					title={t('explorer-cohorts-title')}
 					data={data}
 					categorical={[ 'title', 'namespace', 'private', 'startDate', 'endDate', 'emailFilter' ]}

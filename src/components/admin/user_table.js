@@ -34,7 +34,7 @@ import DashboardTable from 'components/dashboard-table';
 import ConfirmModal from 'components/confirm-modal';
 import server from 'constants/server';
 import obsToVar from '@isle-project/utils/obs-to-var';
-import AdminDataExplorer from 'ev/components/admin/data-explorer';
+import DashboardDataExplorer from 'ev/components/data-explorer';
 import createCategoricalColumn from './create_categorical_column.js';
 import createBooleanColumn from './create_boolean_column.js';
 import createNumericColumn from './create_numeric_column.js';
@@ -446,7 +446,7 @@ class UserPage extends Component {
 			}
 			data = obsToVar( data );
 			return (
-				<AdminDataExplorer
+				<DashboardDataExplorer
 					title={t('explorer-users-title')}
 					data={data}
 					categorical={[ 'administrator', 'instructor', 'verifiedEmail', 'createdAt', 'updatedAt' ]}

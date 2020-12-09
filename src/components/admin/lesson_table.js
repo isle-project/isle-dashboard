@@ -30,7 +30,7 @@ import capitalize from '@stdlib/string/capitalize';
 import PINF from '@stdlib/constants/math/float64-pinf';
 import obsToVar from '@isle-project/utils/obs-to-var';
 import DashboardTable from 'components/dashboard-table';
-import AdminDataExplorer from 'ev/components/admin/data-explorer';
+import DashboardDataExplorer from 'ev/components/data-explorer';
 import ConfirmModal from 'components/confirm-modal';
 import server from 'constants/server';
 import createBooleanColumn from './create_boolean_column.js';
@@ -250,7 +250,7 @@ class LessonTable extends Component {
 			}
 			data = obsToVar( data );
 			return (
-				<AdminDataExplorer
+				<DashboardDataExplorer
 					title={t('explorer-lessons-title')}
 					data={data}
 					categorical={[ 'title', 'namespace', 'active', 'public', 'createdAt', 'updatedAt' ]}

@@ -25,7 +25,7 @@ import ceil from '@stdlib/math/base/special/ceil';
 import createNumericColumn from './create_numeric_column.js';
 import createTextColumn from './create_text_column.js';
 import obsToVar from '@isle-project/utils/obs-to-var';
-import AdminDataExplorer from 'ev/components/admin/data-explorer';
+import DashboardDataExplorer from 'ev/components/data-explorer';
 
 
 // MAIN //
@@ -96,7 +96,7 @@ class Requests extends Component {
 		const { t } = this.props;
 		if ( this.state.showExplorer ) {
 			return (
-				<AdminDataExplorer
+				<DashboardDataExplorer
 					title={t('explorer-requests-title')}
 					data={obsToVar( this.props.admin.requestStatistics )}
 					categorical={[ 'request' ]}

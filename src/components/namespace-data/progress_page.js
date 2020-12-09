@@ -37,7 +37,7 @@ import contains from '@stdlib/assert/contains';
 import lowercase from '@stdlib/string/lowercase';
 import trim from '@stdlib/string/trim';
 import DashboardTable from 'components/dashboard-table';
-import AdminDataExplorer from 'ev/components/admin/data-explorer';
+import DashboardDataExplorer from 'ev/components/data-explorer';
 import obsToVar from '@isle-project/utils/obs-to-var';
 import server from 'constants/server';
 import saveAs from 'utils/file_saver.js';
@@ -489,7 +489,7 @@ class ProgressPage extends Component {
 				categorical.push( availableCustomFields[ i ].name );
 			}
 			return (
-				<AdminDataExplorer
+				<DashboardDataExplorer
 					title={t('explorer-progress-title')}
 					data={data}
 					categorical={categorical}
