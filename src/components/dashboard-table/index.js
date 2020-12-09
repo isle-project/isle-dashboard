@@ -49,13 +49,13 @@ class DashboardTable extends Component {
 					ofText={t('common:of')}
 					rowsText={t('common:rows')}
 				/>
-				<ButtonGroup vertical style={{ float: 'right', marginRight: -9 }} >
+				{this.props.onButtonClick ? <ButtonGroup vertical style={{ float: 'right', marginRight: -9 }} >
 					<OverlayTrigger placement="left" overlay={<Tooltip id="explorer-tooltip">{t('common:data-explorer')}</Tooltip>}>
 						<Button variant="primary" style={{ marginBottom: 8 }} onClick={this.props.onButtonClick} >
 							<i className="fas fa-chart-bar" ></i>
 						</Button>
 					</OverlayTrigger>
-				</ButtonGroup>
+				</ButtonGroup> : null}
 			</Fragment>
 		);
 	}
