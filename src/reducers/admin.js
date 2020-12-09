@@ -36,6 +36,7 @@ const initialState = {
 	statistics: {},
 	requestStatistics: [],
 	historicalStatistics: [],
+	backups: [],
 	license: null
 };
 
@@ -262,6 +263,18 @@ export default function admin( state = initialState, action ) {
 	case types.GET_REQUEST_STATISTICS: {
 		return Object.assign({}, state, {
 			requestStatistics: action.payload.statistics
+		});
+	}
+	case types.GET_BACKUPS: {
+		return Object.assign({}, state, {
+			backups: action.payload.backups
+		});
+	}
+	case types.CREATED_BACKUP: {
+		const backups = state.backups.slice();
+		backups.push( action.payload.backup );
+		return Object.assign({}, state, {
+			backups
 		});
 	}
 	default:
