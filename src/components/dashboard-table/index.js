@@ -37,8 +37,9 @@ class DashboardTable extends Component {
 		return (
 			<Fragment>
 				<ReactTable
+					{...this.props}
 					filterable
-					className="dashboard-table"
+					className={`dashboard-table ${this.props.className}`}
 					data={this.props.data}
 					columns={this.props.columns}
 					previousText={t('common:previous')}
@@ -48,6 +49,9 @@ class DashboardTable extends Component {
 					pageText={t('common:page')}
 					ofText={t('common:of')}
 					rowsText={t('common:rows')}
+					ref={( table ) => {
+						this.table = table;
+					}}
 				/>
 				{this.props.onButtonClick ? <ButtonGroup vertical style={{ float: 'right', marginRight: -9 }} >
 					<OverlayTrigger placement="left" overlay={<Tooltip id="explorer-tooltip">{t('common:data-explorer')}</Tooltip>}>

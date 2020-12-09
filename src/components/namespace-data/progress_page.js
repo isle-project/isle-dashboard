@@ -22,7 +22,6 @@ import PropTypes from 'prop-types';
 import logger from 'debug';
 import { withTranslation } from 'react-i18next';
 import stringify from 'csv-stringify';
-import ReactTable from 'react-table';
 import InputRange from 'react-input-range';
 import Button from 'react-bootstrap/Button';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
@@ -37,13 +36,12 @@ import isUndefinedOrNull from '@stdlib/assert/is-undefined-or-null';
 import contains from '@stdlib/assert/contains';
 import lowercase from '@stdlib/string/lowercase';
 import trim from '@stdlib/string/trim';
+import DashboardTable from 'components/dashboard-table';
 import server from 'constants/server';
 import saveAs from 'utils/file_saver.js';
 import EditableProgress from './editable_progress.js';
 import formatTime from 'utils/format_time.js';
 import './progress_page.css';
-import 'react-table/react-table.css';
-import 'css/table.css';
 import 'css/input_range.css';
 
 
@@ -322,7 +320,7 @@ class ProgressPage extends Component {
 	}
 
 	assembleData() {
-		const displayedMembers = this.reactTable.getResolvedState().sortedData;
+		const displayedMembers = this.dashboardTable.table.getResolvedState().sortedData;
 		const len = displayedMembers.length;
 		const out = new Array( len );
 		const lessons = this.props.lessons;
@@ -479,21 +477,14 @@ class ProgressPage extends Component {
 					</ButtonGroup>
 				</div>
 				<div className="namespace-data-page">
-					<ReactTable
-						className="progress-table dashboard-table"
-						filterable
+					<DashboardTable
+						className="progress-table"
 						data={this.state.displayedMembers}
 						columns={this.columns}
+						t={t}
 						ref={(r) => {
-							this.reactTable = r;
+							this.dashboardTable = r;
 						}}
-						previousText={t('common:previous')}
-						nextText={t('common:next')}
-						loadingText={t('common:loading')}
-						noDataText={t('common:no-rows-found')}
-						pageText={t('common:page')}
-						ofText={t('common:of')}
-						rowsText={t('common:rows')}
 					/>
 				</div>
 			</Fragment>

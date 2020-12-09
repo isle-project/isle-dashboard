@@ -21,7 +21,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import logger from 'debug';
 import { withTranslation } from 'react-i18next';
-import ReactTable from 'react-table';
 import moment from 'moment';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import PINF from '@stdlib/constants/math/float64-pinf';
@@ -31,14 +30,13 @@ import Tooltip from 'react-bootstrap/Tooltip';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import Badge from 'react-bootstrap/Badge';
+import DashboardTable from 'components/dashboard-table';
 import createCategoricalColumn from 'components/admin/create_categorical_column.js';
 import createBooleanColumn from 'components/admin/create_boolean_column.js';
 import createTextColumn from 'components/admin/create_text_column.js';
 import createDateColumn from 'components/admin/create_date_column.js';
 import TicketModal from 'components/ticket-modal';
 import server from 'constants/server';
-import 'react-table/react-table.css';
-import 'css/table.css';
 import 'css/input_range.css';
 import './tickets_page.css';
 
@@ -302,21 +300,10 @@ class TicketsPage extends Component {
 	render() {
 		const { t } = this.props;
 		return ( <div className="namespace-data-page">
-			<ReactTable
-				className="dashboard-table"
-				filterable
+			<DashboardTable
 				data={this.props.tickets}
 				columns={this.columns}
-				ref={(r) => {
-					this.reactTable = r;
-				}}
-				previousText={t('common:previous')}
-				nextText={t('common:next')}
-				loadingText={t('common:loading')}
-				noDataText={t('common:no-rows-found')}
-				pageText={t('common:page')}
-				ofText={t('common:of')}
-				rowsText={t('common:rows')}
+				t={t}
 			/>
 			{ this.state.showTicketModal ? <TicketModal
 				show={this.state.showTicketModal}

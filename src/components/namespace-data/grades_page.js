@@ -22,7 +22,6 @@ import PropTypes from 'prop-types';
 import logger from 'debug';
 import stringify from 'csv-stringify';
 import { withTranslation } from 'react-i18next';
-import ReactTable from 'react-table';
 import InputRange from 'react-input-range';
 import Button from 'react-bootstrap/Button';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
@@ -37,11 +36,10 @@ import hasOwnProp from '@stdlib/assert/has-own-property';
 import contains from '@stdlib/assert/contains';
 import lowercase from '@stdlib/string/lowercase';
 import trim from '@stdlib/string/trim';
+import DashboardTable from 'components/dashboard-table';
 import server from 'constants/server';
 import saveAs from 'utils/file_saver.js';
 import './progress_page.css';
-import 'react-table/react-table.css';
-import 'css/table.css';
 import 'css/input_range.css';
 
 
@@ -334,7 +332,7 @@ class GradesPage extends Component {
 	}
 
 	assembleData() {
-		const displayedMembers = this.reactTable.getResolvedState().sortedData;
+		const displayedMembers = this.dashboardTable.table.getResolvedState().sortedData;
 		const len = displayedMembers.length;
 		const out = new Array( len );
 		const lessons = this.props.lessons;
@@ -461,21 +459,14 @@ class GradesPage extends Component {
 					</ButtonGroup>
 				</div>
 				<div className="namespace-data-page">
-					<ReactTable
-						className="grades-table dashboard-table"
-						filterable
+					<DashboardTable
+						className="grades-table"
 						data={this.state.displayedMembers}
 						columns={this.columns}
+						t={t}
 						ref={(r) => {
-							this.reactTable = r;
+							this.dashboardTable = r;
 						}}
-						previousText={t('common:previous')}
-						nextText={t('common:next')}
-						loadingText={t('common:loading')}
-						noDataText={t('common:no-rows-found')}
-						pageText={t('common:page')}
-						ofText={t('common:of')}
-						rowsText={t('common:rows')}
 					/>
 				</div>
 			</Fragment>

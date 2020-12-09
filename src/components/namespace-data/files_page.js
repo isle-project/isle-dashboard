@@ -22,7 +22,6 @@ import PropTypes from 'prop-types';
 import logger from 'debug';
 import { withTranslation } from 'react-i18next';
 import stringify from 'csv-stringify';
-import ReactTable from 'react-table';
 import InputRange from 'react-input-range';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import Button from 'react-bootstrap/Button';
@@ -38,11 +37,10 @@ import pick from '@stdlib/utils/pick';
 import contains from '@stdlib/assert/contains';
 import lowercase from '@stdlib/string/lowercase';
 import trim from '@stdlib/string/trim';
+import DashboardTable from 'components/dashboard-table';
 import ConfirmModal from 'components/confirm-modal';
 import server from 'constants/server';
 import saveAs from 'utils/file_saver.js';
-import 'react-table/react-table.css';
-import 'css/table.css';
 import 'css/input_range.css';
 import './files_page.css';
 
@@ -317,7 +315,7 @@ class FilesPage extends Component {
 	}
 
 	saveJSON = () => {
-		const currentFiles = this.reactTable.getResolvedState().sortedData;
+		const currentFiles = this.dashboardTable.table.getResolvedState().sortedData;
 		let data = prepareExportData( currentFiles );
 		const blob = new Blob([ JSON.stringify( data ) ], {
 			type: 'application/json'
@@ -327,7 +325,7 @@ class FilesPage extends Component {
 	}
 
 	saveCSV = () => {
-		const currentFiles = this.reactTable.getResolvedState().sortedData;
+		const currentFiles = this.dashboardTable.table.getResolvedState().sortedData;
 		let data = prepareExportData( currentFiles );
 		stringify( data, {
 			header: true
@@ -374,21 +372,13 @@ class FilesPage extends Component {
 					</FormLabel>
 				</FormGroup> : null }
 			</div>
-			<ReactTable
-				className="dashboard-table"
-				filterable
+			<DashboardTable
 				data={this.props.files}
 				columns={this.columns}
+				t={t}
 				ref={(r) => {
-					this.reactTable = r;
+					this.dashboardTable = r;
 				}}
-				previousText={t('common:previous')}
-				nextText={t('common:next')}
-				loadingText={t('common:loading')}
-				noDataText={t('common:no-rows-found')}
-				pageText={t('common:page')}
-				ofText={t('common:of')}
-				rowsText={t('common:rows')}
 			/>
 			<ConfirmModal
 				show={this.state.showDeleteModal}
