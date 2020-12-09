@@ -41,7 +41,7 @@ const DashboardDataExplorer = ( props ) => {
 							quantitative={quantitative}
 							categorical={categorical}
 							style={{
-								height: '74vh'
+								height: 'calc(100vh - 185px)'
 							}}
 						/>
 					</div>
