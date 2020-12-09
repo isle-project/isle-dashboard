@@ -23,16 +23,19 @@ import logger from 'debug';
 import { withTranslation } from 'react-i18next';
 import ReactTable from 'react-table';
 import moment from 'moment';
+import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import Button from 'react-bootstrap/Button';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
 import Popover from 'react-bootstrap/Popover';
 import capitalize from '@stdlib/string/capitalize';
 import PINF from '@stdlib/constants/math/float64-pinf';
-import createBooleanColumn from './create_boolean_column.js';
-import createDateColumn from './create_date_column.js';
+import obsToVar from '@isle-project/utils/obs-to-var';
+import AdminDataExplorer from 'ev/components/admin/data-explorer';
 import ConfirmModal from 'components/confirm-modal';
 import server from 'constants/server';
+import createBooleanColumn from './create_boolean_column.js';
+import createDateColumn from './create_date_column.js';
 import textFilter from './text_filter.js';
 import 'react-table/react-table.css';
 
@@ -223,8 +226,41 @@ class LessonTable extends Component {
 		});
 	}
 
+	toggleExplorer = () => {
+		this.setState({
+			showExplorer: !this.state.showExplorer
+		});
+	}
+
 	render() {
 		const { t } = this.props;
+		if ( this.state.showExplorer ) {
+			const lessons = this.props.admin.lessons;
+			let data = [];
+			for ( let i = 0; i < lessons.length; i++ ) {
+				const lesson = lessons[ i ];
+				const replacement = {};
+				replacement.title = lesson.title;
+				replacement.namespace = lesson.namespace ? lesson.namespace.title : null;
+				replacement.description = lesson.description;
+				replacement.active = lesson.active;
+				replacement.public = lesson.public;
+				replacement.createdAt = lesson.createdAt;
+				replacement.updatedAt = lesson.updatedAt;
+				data.push( replacement );
+			}
+			data = obsToVar( data );
+			return (
+				<AdminDataExplorer
+					title="Data Explorer for Lessons"
+					data={data}
+					categorical={[ 'title', 'namespace', 'active', 'public', 'createdAt', 'updatedAt' ]}
+					quantitative={[]}
+					close={this.toggleExplorer}
+					admin={this.props.admin}
+				/>
+			);
+		}
 		return (
 			<Fragment>
 				<ReactTable
@@ -242,7 +278,15 @@ class LessonTable extends Component {
 					pageText={t('common:page')}
 					ofText={t('common:of')}
 					rowsText={t('common:rows')}
+					style={{ maxWidth: 'calc(100% - 42px)', float: 'left' }}
 				/>
+				<ButtonGroup vertical style={{ float: 'right', marginRight: -9 }} >
+					<OverlayTrigger placement="left" overlay={<Tooltip id="explorer-tooltip">{t('data-explorer')}</Tooltip>}>
+						<Button variant="primary" style={{ marginBottom: 8 }} onClick={this.toggleExplorer} >
+							<i className="fas fa-chart-bar" ></i>
+						</Button>
+					</OverlayTrigger>
+				</ButtonGroup>
 				{ this.state.showDeleteModal ? <ConfirmModal
 					title={t('lesson:delete-lesson')}
 					message={<span>{t('lesson:delete-modal-body', {
