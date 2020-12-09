@@ -214,7 +214,6 @@ class CohortTable extends Component {
 					categorical={[ 'title', 'namespace', 'private', 'startDate', 'endDate', 'emailFilter' ]}
 					quantitative={[ 'members' ]}
 					close={this.toggleExplorer}
-					admin={this.props.admin}
 				/>
 			);
 		}

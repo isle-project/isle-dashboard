@@ -102,7 +102,6 @@ class Requests extends Component {
 					categorical={[ 'request' ]}
 					quantitative={[ 'mean', 'count' ]}
 					close={this.toggleExplorer}
-					admin={this.props.admin}
 				/>
 			);
 		}

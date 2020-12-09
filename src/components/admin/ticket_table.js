@@ -394,7 +394,6 @@ class TicketPage extends Component {
 					categorical={[ 'component', 'namespace', 'lesson', 'done', 'createdAt', 'updatedAt', 'priority', 'browser', 'os' ]}
 					quantitative={[ 'messages', 'attachments' ]}
 					close={this.toggleExplorer}
-					admin={this.props.admin}
 				/>
 			);
 		}

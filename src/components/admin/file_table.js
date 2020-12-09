@@ -283,7 +283,6 @@ class FilePage extends Component {
 					categorical={[ 'type', 'lesson', 'namespace', 'owner', 'updatedAt', 'createdAt', 'user' ]}
 					quantitative={[ 'size' ]}
 					close={this.toggleExplorer}
-					admin={this.props.admin}
 				/>
 			);
 		}

@@ -256,7 +256,6 @@ class LessonTable extends Component {
 					categorical={[ 'title', 'namespace', 'active', 'public', 'createdAt', 'updatedAt' ]}
 					quantitative={[]}
 					close={this.toggleExplorer}
-					admin={this.props.admin}
 				/>
 			);
 		}

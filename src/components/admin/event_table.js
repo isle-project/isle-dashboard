@@ -200,7 +200,6 @@ class EventTable extends Component {
 					categorical={variables}
 					quantitative={[]}
 					close={this.toggleExplorer}
-					admin={this.props.admin}
 				/>
 			);
 		}

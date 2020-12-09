@@ -601,7 +601,6 @@ class Overview extends Component {
 					}}
 					categorical={[ 'time' ]}
 					close={this.hideExplorer}
-					admin={this.props.admin}
 				/>;
 				break;
 			case 'overview-statistics':
@@ -610,7 +609,6 @@ class Overview extends Component {
 					data={obsToVar( this.props.historicalStatistics )}
 					categorical={[ 'createdAt' ]}
 					close={this.hideExplorer}
-					admin={this.props.admin}
 				/>;
 				break;
 		}

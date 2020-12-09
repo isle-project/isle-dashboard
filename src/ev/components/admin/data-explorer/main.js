@@ -47,6 +47,7 @@ const AdminDataExplorer = ( props ) => {
 
 AdminDataExplorer.propTypes = {
 	categorical: PropTypes.array.isRequired,
+	close: PropTypes.func.isRequired,
 	data: PropTypes.object.isRequired,
 	quantitative: PropTypes.array.isRequired,
 	title: PropTypes.string

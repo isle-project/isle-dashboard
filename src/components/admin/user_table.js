@@ -452,7 +452,6 @@ class UserPage extends Component {
 					categorical={[ 'administrator', 'instructor', 'verifiedEmail', 'createdAt', 'updatedAt' ]}
 					quantitative={[ 'nActions', 'ownedNamespaces', 'enrolledNamespaces', 'chatMessages', 'badges', 'score', 'spentTime' ]}
 					close={this.toggleExplorer}
-					admin={this.props.admin}
 				/>
 			);
 		}

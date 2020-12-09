@@ -212,7 +212,6 @@ class NamespacePage extends Component {
 					categorical={[ 'title', 'enableTicketing', 'createdAt', 'updatedAt' ]}
 					quantitative={[ 'announcements', 'owners' ]}
 					close={this.toggleExplorer}
-					admin={this.props.admin}
 				/>
 			);
 		}
