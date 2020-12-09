@@ -21,9 +21,7 @@ import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import logger from 'debug';
 import { withTranslation } from 'react-i18next';
-import ReactTable from 'react-table';
 import moment from 'moment';
-import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import Button from 'react-bootstrap/Button';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
@@ -31,13 +29,13 @@ import Popover from 'react-bootstrap/Popover';
 import capitalize from '@stdlib/string/capitalize';
 import PINF from '@stdlib/constants/math/float64-pinf';
 import obsToVar from '@isle-project/utils/obs-to-var';
+import DashboardTable from 'components/dashboard-table';
 import AdminDataExplorer from 'ev/components/admin/data-explorer';
 import ConfirmModal from 'components/confirm-modal';
 import server from 'constants/server';
 import createBooleanColumn from './create_boolean_column.js';
 import createDateColumn from './create_date_column.js';
 import textFilter from './text_filter.js';
-import 'react-table/react-table.css';
 
 
 // VARIABLES //
@@ -264,30 +262,12 @@ class LessonTable extends Component {
 		}
 		return (
 			<Fragment>
-				<ReactTable
-					className="dashboard-table"
-					filterable
+				<DashboardTable
 					data={this.props.admin.lessons}
 					columns={this.state.columns}
-					ref={(r) => {
-						this.reactTable = r;
-					}}
-					previousText={t('common:previous')}
-					nextText={t('common:next')}
-					loadingText={t('common:loading')}
-					noDataText={t('common:no-rows-found')}
-					pageText={t('common:page')}
-					ofText={t('common:of')}
-					rowsText={t('common:rows')}
-					style={{ maxWidth: 'calc(100% - 42px)', float: 'left' }}
+					onButtonClick={this.toggleExplorer}
+					t={t}
 				/>
-				<ButtonGroup vertical style={{ float: 'right', marginRight: -9 }} >
-					<OverlayTrigger placement="left" overlay={<Tooltip id="explorer-tooltip">{t('common:data-explorer')}</Tooltip>}>
-						<Button variant="primary" style={{ marginBottom: 8 }} onClick={this.toggleExplorer} >
-							<i className="fas fa-chart-bar" ></i>
-						</Button>
-					</OverlayTrigger>
-				</ButtonGroup>
 				{ this.state.showDeleteModal ? <ConfirmModal
 					title={t('lesson:delete-lesson')}
 					message={<span>{t('lesson:delete-modal-body', {

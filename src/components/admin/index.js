@@ -34,8 +34,6 @@ const UserTable = asyncComponent( () => import( './user_table.js' ) );
 const Rooms = asyncComponent( () => import( './rooms.js' ) );
 const Overview = asyncComponent( () => import( './overview.js' ) );
 const Requests = asyncComponent( () => import( './requests.js' ) );
-import 'react-table/react-table.css';
-import 'css/table.css';
 import './admin_page.css';
 
 

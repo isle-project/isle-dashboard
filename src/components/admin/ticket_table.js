@@ -20,10 +20,8 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { withTranslation } from 'react-i18next';
-import ReactTable from 'react-table';
 import moment from 'moment';
 import Popover from 'react-bootstrap/Popover';
-import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import Button from 'react-bootstrap/Button';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import PINF from '@stdlib/constants/math/float64-pinf';
@@ -31,6 +29,7 @@ import omit from '@stdlib/utils/omit';
 import Tooltip from 'react-bootstrap/Tooltip';
 import Badge from 'react-bootstrap/Badge';
 import Card from 'react-bootstrap/Card';
+import DashboardTable from 'components/dashboard-table';
 import ConfirmModal from 'components/confirm-modal';
 import server from 'constants/server';
 import createBooleanColumn from './create_boolean_column.js';
@@ -40,8 +39,6 @@ import createDateColumn from './create_date_column.js';
 import TicketModal from 'components/ticket-modal';
 import obsToVar from '@isle-project/utils/obs-to-var';
 import AdminDataExplorer from 'ev/components/admin/data-explorer';
-import 'react-table/react-table.css';
-import 'css/table.css';
 
 
 // VARIABLES //
@@ -402,30 +399,12 @@ class TicketPage extends Component {
 			);
 		}
 		return ( <Fragment>
-			<ReactTable
-				filterable
-				className="dashboard-table"
+			<DashboardTable
 				data={this.props.admin.tickets}
 				columns={this.state.columns}
-				ref={(r) => {
-					this.reactTable = r;
-				}}
-				previousText={t('common:previous')}
-				nextText={t('common:next')}
-				loadingText={t('common:loading')}
-				noDataText={t('common:no-rows-found')}
-				pageText={t('common:page')}
-				ofText={t('common:of')}
-				rowsText={t('common:rows')}
-				style={{ maxWidth: 'calc(100% - 42px)', float: 'left' }}
+				onButtonClick={this.toggleExplorer}
+				t={t}
 			/>
-			<ButtonGroup vertical style={{ float: 'right', marginRight: -9 }} >
-				<OverlayTrigger placement="left" overlay={<Tooltip id="explorer-tooltip">{t('common:data-explorer')}</Tooltip>}>
-					<Button variant="primary" style={{ marginBottom: 8 }} onClick={this.toggleExplorer} >
-						<i className="fas fa-chart-bar" ></i>
-					</Button>
-				</OverlayTrigger>
-			</ButtonGroup>
 			{ this.state.showDeleteModal ? <ConfirmModal
 				title={t('delete-ticket')}
 				message={<span>{t('delete-ticket-confirm')}</span>}

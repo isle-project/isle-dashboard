@@ -19,11 +19,11 @@
 
 import React, { Component, Fragment } from 'react';
 import { withTranslation } from 'react-i18next';
-import ReactTable from 'react-table';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Popover from 'react-bootstrap/Popover';
 import isArray from '@stdlib/assert/is-array';
 import objectKeys from '@stdlib/utils/keys';
+import DashboardTable from 'components/dashboard-table';
 import COLORS from 'constants/colors';
 import createUsersColumn from './create_users_column.js';
 import createDateColumn from './create_date_column.js';
@@ -176,24 +176,11 @@ class Rooms extends Component {
 	render() {
 		const { t } = this.props;
 		return (
-			<Fragment>
-				<ReactTable
-					className="dashboard-table"
-					filterable
-					data={this.props.admin.rooms}
-					columns={this.columns}
-					ref={(r) => {
-						this.reactTable = r;
-					}}
-					previousText={t('common:previous')}
-					nextText={t('common:next')}
-					loadingText={t('common:loading')}
-					noDataText={t('common:no-rows-found')}
-					pageText={t('common:page')}
-					ofText={t('common:of')}
-					rowsText={t('common:rows')}
-				/>
-			</Fragment>
+			<DashboardTable
+				data={this.props.admin.rooms}
+				columns={this.columns}
+				t={t}
+			/>
 		);
 	}
 }

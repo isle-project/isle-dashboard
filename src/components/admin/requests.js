@@ -17,13 +17,9 @@
 
 // MODULES //
 
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import { withTranslation } from 'react-i18next';
-import ReactTable from 'react-table';
-import ButtonGroup from 'react-bootstrap/ButtonGroup';
-import Button from 'react-bootstrap/Button';
-import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
-import Tooltip from 'react-bootstrap/Tooltip';
+import DashboardTable from 'components/dashboard-table';
 import isArray from '@stdlib/assert/is-array';
 import ceil from '@stdlib/math/base/special/ceil';
 import createNumericColumn from './create_numeric_column.js';
@@ -111,32 +107,12 @@ class Requests extends Component {
 			);
 		}
 		return (
-			<Fragment>
-				<ReactTable
-					className="dashboard-table"
-					filterable
-					data={this.props.admin.requestStatistics}
-					columns={this.columns}
-					ref={(r) => {
-						this.reactTable = r;
-					}}
-					previousText={t('common:previous')}
-					nextText={t('common:next')}
-					loadingText={t('common:loading')}
-					noDataText={t('common:no-rows-found')}
-					pageText={t('common:page')}
-					ofText={t('common:of')}
-					rowsText={t('common:rows')}
-					style={{ maxWidth: 'calc(100% - 42px)', float: 'left' }}
-				/>
-				<ButtonGroup vertical style={{ float: 'right', marginRight: -9 }} >
-					<OverlayTrigger placement="left" overlay={<Tooltip id="explorer-tooltip">{t('common:data-explorer')}</Tooltip>}>
-						<Button variant="primary" style={{ marginBottom: 8 }} onClick={this.toggleExplorer} >
-							<i className="fas fa-chart-bar" ></i>
-						</Button>
-					</OverlayTrigger>
-				</ButtonGroup>
-			</Fragment>
+			<DashboardTable
+				data={this.props.admin.requestStatistics}
+				columns={this.columns}
+				onButtonClick={this.toggleExplorer}
+				t={t}
+			/>
 		);
 	}
 }
@@ -144,11 +120,9 @@ class Requests extends Component {
 
 // PROPERTIES //
 
-Requests.propTypes = {
-};
+Requests.propTypes = {};
 
-Requests.defaultProps = {
-};
+Requests.defaultProps = {};
 
 
 // EXPORTS //
