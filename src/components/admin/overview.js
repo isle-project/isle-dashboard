@@ -21,8 +21,10 @@ import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import logger from 'debug';
 import { withTranslation } from 'react-i18next';
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import Jumbotron from 'react-bootstrap/Jumbotron';
+import Tooltip from 'react-bootstrap/Tooltip';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -508,16 +510,20 @@ class Overview extends Component {
 			<Fragment>
 				<h2>
 					{this.props.t('common:actions')}
-					<Button
-						onClick={() => {
-							this.setState({
-								dataExplorer: 'action-types'
-							});
-						}}
-						style={{
-							marginLeft: 12
-						}}
-					>Data Explorer</Button>
+					<OverlayTrigger placement="right" overlay={<Tooltip id="explorer-action-types-tooltip">{this.props.t('data-explorer')}</Tooltip>}>
+						<Button
+							onClick={() => {
+								this.setState({
+									dataExplorer: 'action-types'
+								});
+							}}
+							style={{
+								marginLeft: 12
+							}}
+						>
+							<i className="fas fa-chart-bar" ></i>
+						</Button>
+					</OverlayTrigger>
 					<SearchBar
 						style={{
 							position: 'absolute',
@@ -620,16 +626,20 @@ class Overview extends Component {
 				<Col className="column-border" sm={4} md={3} >
 					<h2>
 						{this.props.t('overall')}
-						<Button
-							onClick={() => {
-								this.setState({
-									dataExplorer: 'overview-statistics'
-								});
-							}}
-							style={{
-								marginLeft: 12
-							}}
-						>Data Explorer</Button>
+						<OverlayTrigger placement="right" overlay={<Tooltip id="explorer-overview-tooltip">{t('data-explorer')}</Tooltip>}>
+							<Button
+								onClick={() => {
+									this.setState({
+										dataExplorer: 'overview-statistics'
+									});
+								}}
+								style={{
+									marginLeft: 12
+								}}
+							>
+								<i className="fas fa-chart-bar" ></i>
+							</Button>
+						</OverlayTrigger>
 						<span className="overview-server-name">{server}</span>
 					</h2>
 					<Table striped hover className="overview-table" >
