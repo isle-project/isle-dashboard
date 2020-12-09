@@ -70,7 +70,10 @@ class DashboardTable extends Component {
 
 DashboardTable.propTypes = {
 	columns: PropTypes.array.isRequired,
-	data: PropTypes.object.isRequired,
+	data: PropTypes.oneOfType([
+		PropTypes.object,
+		PropTypes.array
+	]).isRequired,
 	onButtonClick: PropTypes.func.isRequired,
 	t: PropTypes.func
 };
