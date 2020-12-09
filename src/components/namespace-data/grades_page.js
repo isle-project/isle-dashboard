@@ -37,6 +37,8 @@ import contains from '@stdlib/assert/contains';
 import lowercase from '@stdlib/string/lowercase';
 import trim from '@stdlib/string/trim';
 import DashboardTable from 'components/dashboard-table';
+import AdminDataExplorer from 'ev/components/admin/data-explorer';
+import obsToVar from '@isle-project/utils/obs-to-var';
 import server from 'constants/server';
 import saveAs from 'utils/file_saver.js';
 import './progress_page.css';
@@ -110,7 +112,8 @@ class GradesPage extends Component {
 		this.state = {
 			displayedMembers: [],
 			lessonSortDirection: 'ascending',
-			lessonOrder: 'createdAt'
+			lessonOrder: 'createdAt',
+			showExplorer: false
 		};
 	}
 
@@ -394,6 +397,12 @@ class GradesPage extends Component {
 		});
 	}
 
+	toggleExplorer = () => {
+		this.setState({
+			showExplorer: !this.state.showExplorer
+		});
+	}
+
 	renderSortButton() {
 		const { t } = this.props;
 		let title;
@@ -445,6 +454,28 @@ class GradesPage extends Component {
 
 	render() {
 		const { t } = this.props;
+		if ( this.state.showExplorer ) {
+			let data = this.assembleData();
+			data = obsToVar( data );
+			const quantitative = [];
+			const categorical = [ 'name', 'email', 'cohort' ];
+			for ( let i = 0; i < this.props.lessons.length; i++ ) {
+				quantitative.push( this.props.lessons[ i ].title );
+			}
+			const availableCustomFields = this.props.user.availableCustomFields;
+			for ( let i = 0; i < availableCustomFields.length; i++ ) {
+				categorical.push( availableCustomFields[ i ].name );
+			}
+			return (
+				<AdminDataExplorer
+					title={t('explorer-grades-title')}
+					data={data}
+					categorical={categorical}
+					quantitative={quantitative}
+					close={this.toggleExplorer}
+				/>
+			);
+		}
 		return (
 			<Fragment>
 				<div className="namespace-data-buttons" >
@@ -467,6 +498,7 @@ class GradesPage extends Component {
 						ref={(r) => {
 							this.dashboardTable = r;
 						}}
+						onButtonClick={this.toggleExplorer}
 					/>
 				</div>
 			</Fragment>
