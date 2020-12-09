@@ -10,6 +10,7 @@ import DataExplorer from '@isle-project/components/data-explorer';
 import SessionContext from '@isle-project/session/context.js';
 import Session from '@isle-project/session';
 import LicenseBarrier from 'ev/containers/visible-barrier';
+import './data_explorer.css';
 
 
 // MAIN //
@@ -20,7 +21,7 @@ const AdminDataExplorer = ( props ) => {
 	const categorical = props.categorical || keys;
 	const session = new Session({}, true );
 	return (
-		<div className="admin-outer-container" >
+		<div className="explorer-outer-container" >
 			<LicenseBarrier>
 				<OverlayTrigger placement="left" overlay={<Tooltip id="explorerCloseButtonTooltip">
 					{props.t('common:close')}
