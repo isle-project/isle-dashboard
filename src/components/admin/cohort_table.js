@@ -23,11 +23,14 @@ import { withTranslation } from 'react-i18next';
 import moment from 'moment';
 import ReactTable from 'react-table';
 import Button from 'react-bootstrap/Button';
+import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
 import PINF from '@stdlib/constants/math/float64-pinf';
-import createBooleanColumn from './create_boolean_column.js';
 import ConfirmModal from 'components/confirm-modal';
+import obsToVar from '@isle-project/utils/obs-to-var';
+import AdminDataExplorer from 'ev/components/admin/data-explorer';
+import createBooleanColumn from './create_boolean_column.js';
 import createNumericColumn from './create_numeric_column.js';
 import createDateColumn from './create_date_column.js';
 import createTextColumn from './create_text_column.js';
@@ -182,8 +185,41 @@ class CohortTable extends Component {
 		});
 	}
 
+	toggleExplorer = () => {
+		this.setState({
+			showExplorer: !this.state.showExplorer
+		});
+	}
+
 	render() {
 		const { t } = this.props;
+		if ( this.state.showExplorer ) {
+			const cohorts = this.props.admin.cohorts;
+			let data = [];
+			for ( let i = 0; i < cohorts.length; i++ ) {
+				const cohort = cohorts[ i ];
+				const replacement = {};
+				replacement.title = cohort.title;
+				replacement.members = cohort.members.length;
+				replacement.namespace = cohort.namespace ? cohort.namespace.title : null;
+				replacement.private = cohort.private;
+				replacement.emailFilter = cohort.emailFilter ? cohort.emailFilter : null;
+				replacement.startDate = cohort.startDate;
+				replacement.endDate = cohort.endDate;
+				data.push( replacement );
+			}
+			data = obsToVar( data );
+			return (
+				<AdminDataExplorer
+					title="Data Explorer for Cohorts"
+					data={data}
+					categorical={[ 'title', 'namespace', 'private', 'startDate', 'endDate', 'emailFilter' ]}
+					quantitative={[ 'members' ]}
+					close={this.toggleExplorer}
+					admin={this.props.admin}
+				/>
+			);
+		}
 		return (
 			<Fragment>
 				<ReactTable
@@ -201,7 +237,15 @@ class CohortTable extends Component {
 					pageText={t('common:page')}
 					ofText={t('common:of')}
 					rowsText={t('common:rows')}
+					style={{ maxWidth: 'calc(100% - 42px)', float: 'left' }}
 				/>
+				<ButtonGroup vertical style={{ float: 'right', marginRight: -9 }} >
+					<OverlayTrigger placement="left" overlay={<Tooltip id="explorer-tooltip">{t('data-explorer')}</Tooltip>}>
+						<Button variant="primary" style={{ marginBottom: 8 }} onClick={this.toggleExplorer} >
+							<i className="fas fa-chart-bar" ></i>
+						</Button>
+					</OverlayTrigger>
+				</ButtonGroup>
 				{ this.state.showDeleteModal ? <ConfirmModal
 					title={t('namespace:delete-cohort')}
 					message={<span>
