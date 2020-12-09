@@ -54,7 +54,8 @@ class LessonTable extends Component {
 		this.state = {
 			selectedLesson: null,
 			showDeleteModal: false,
-			columns: this.createColumns()
+			columns: this.createColumns(),
+			showExplorer: false
 		};
 	}
 
