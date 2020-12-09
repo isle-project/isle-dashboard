@@ -27,6 +27,8 @@
 	"enter-new-password": "Por favor, introduzca una nueva contraseña de usuario de al menos seis letras",
 	"enter-password": "Ingrese su contraseña para suplantar al usuario",
 	"error-log": "Registro de Errores",
+	"explorer-cohorts-title": "Explorador de datos para cohortes",
+	"explorer-events-title": "Explorador de datos para eventos",
 	"free-space": "Espacio libre de memoria",
 	"impersonate-user": "Suplantar Usuario",
 	"instructor": "Instructor",
