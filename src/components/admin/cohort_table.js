@@ -21,20 +21,18 @@ import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { withTranslation } from 'react-i18next';
 import moment from 'moment';
-import ReactTable from 'react-table';
 import Button from 'react-bootstrap/Button';
-import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
 import PINF from '@stdlib/constants/math/float64-pinf';
 import ConfirmModal from 'components/confirm-modal';
+import DashboardTable from 'components/dashboard-table';
 import obsToVar from '@isle-project/utils/obs-to-var';
 import AdminDataExplorer from 'ev/components/admin/data-explorer';
 import createBooleanColumn from './create_boolean_column.js';
 import createNumericColumn from './create_numeric_column.js';
 import createDateColumn from './create_date_column.js';
 import createTextColumn from './create_text_column.js';
-import 'react-table/react-table.css';
 
 
 // MAIN //
@@ -211,7 +209,7 @@ class CohortTable extends Component {
 			data = obsToVar( data );
 			return (
 				<AdminDataExplorer
-					title="Data Explorer for Cohorts"
+					title={t('explorer-cohorts-title')}
 					data={data}
 					categorical={[ 'title', 'namespace', 'private', 'startDate', 'endDate', 'emailFilter' ]}
 					quantitative={[ 'members' ]}
@@ -222,30 +220,12 @@ class CohortTable extends Component {
 		}
 		return (
 			<Fragment>
-				<ReactTable
-					filterable
-					className="dashboard-table"
+				<DashboardTable
 					data={this.props.admin.cohorts}
 					columns={this.state.columns}
-					ref={(r) => {
-						this.reactTable = r;
-					}}
-					previousText={t('common:previous')}
-					nextText={t('common:next')}
-					loadingText={t('common:loading')}
-					noDataText={t('common:no-rows-found')}
-					pageText={t('common:page')}
-					ofText={t('common:of')}
-					rowsText={t('common:rows')}
-					style={{ maxWidth: 'calc(100% - 42px)', float: 'left' }}
+					onButtonClick={this.toggleExplorer}
+					t={this.props.t}
 				/>
-				<ButtonGroup vertical style={{ float: 'right', marginRight: -9 }} >
-					<OverlayTrigger placement="left" overlay={<Tooltip id="explorer-tooltip">{t('common:data-explorer')}</Tooltip>}>
-						<Button variant="primary" style={{ marginBottom: 8 }} onClick={this.toggleExplorer} >
-							<i className="fas fa-chart-bar" ></i>
-						</Button>
-					</OverlayTrigger>
-				</ButtonGroup>
 				{ this.state.showDeleteModal ? <ConfirmModal
 					title={t('namespace:delete-cohort')}
 					message={<span>
