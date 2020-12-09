@@ -353,6 +353,8 @@ class GradesPage extends Component {
 				const fieldName = availableCustomFields[ j ].name;
 				if ( member.customFields ) {
 					out[ i ][ fieldName ] = member.customFields[ fieldName ];
+				} else {
+					out[ i ][ fieldName ] = null;
 				}
 			}
 			for ( let j = 0; j < lessons.length; j++ ) {
