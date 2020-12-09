@@ -27,8 +27,9 @@ import Jumbotron from 'react-bootstrap/Jumbotron';
 
 class LicenseBarrier extends Component {
 	render() {
-		const license = this.props.license;
-		if ( !license || !license.valid ) {
+		const admin = this.props.admin;
+		const user = this.props.user;
+		if ( !user.licensed && ( !admin.license || !admin.license.valid ) ) {
 			return (
 				<Jumbotron
 					style={{
@@ -50,14 +51,16 @@ class LicenseBarrier extends Component {
 // PROPERTIES //
 
 LicenseBarrier.propTypes = {
-	license: PropTypes.object
+	admin: PropTypes.object,
+	user: PropTypes.object
 };
 
 LicenseBarrier.defaultProps = {
-	license: null
+	admin: null,
+	user: null
 };
 
 
 // EXPORTS //
 
-export default withTranslation( [ 'admin', 'common' ] )( LicenseBarrier );
+export default withTranslation( 'common' )( LicenseBarrier );

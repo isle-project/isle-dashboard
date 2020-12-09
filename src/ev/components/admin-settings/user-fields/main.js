@@ -8,7 +8,7 @@ import Tooltip from 'react-bootstrap/Tooltip';
 import Jumbotron from 'react-bootstrap/Jumbotron';
 import ListGroup from 'react-bootstrap/ListGroup';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
-import LicenseBarrier from 'ev/components/admin/barrier';
+import LicenseBarrier from 'ev/containers/visible-barrier';
 import CreateFieldModal from './create_field_modal.js';
 import './user_fields.css';
 
@@ -46,7 +46,7 @@ class AdminSettingsUserFields extends Component {
 		return (
 			<Fragment>
 				<div className="admin-settings-outer-container" >
-					<LicenseBarrier license={this.props.admin.license} >
+					<LicenseBarrier>
 						<h1>{this.props.t('user-fields')}</h1>
 						<p>{this.props.t('user-fields-description')}</p>
 						{ availableCustomFields.length > 0 ? <ListGroup className="admin-settings-fields-list" >
@@ -116,14 +116,12 @@ class AdminSettingsUserFields extends Component {
 // PROPERTIES //
 
 AdminSettingsUserFields.propTypes = {
-	admin: PropTypes.object,
 	createCustomField: PropTypes.func.isRequired,
 	getCustomFields: PropTypes.func.isRequired,
 	user: PropTypes.object
 };
 
 AdminSettingsUserFields.defaultProps = {
-	admin: {},
 	user: {}
 };
 

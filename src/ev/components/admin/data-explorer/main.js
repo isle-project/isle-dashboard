@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import DataExplorer from '@isle-project/components/data-explorer';
 import SessionContext from '@isle-project/session/context.js';
 import Session from '@isle-project/session';
-import LicenseBarrier from 'ev/components/admin/barrier';
+import LicenseBarrier from 'ev/containers/visible-barrier';
 
 
 // MAIN //
@@ -17,7 +17,7 @@ const AdminDataExplorer = ( props ) => {
 	const session = new Session({}, true );
 	return (
 		<div className="admin-outer-container" >
-			<LicenseBarrier license={props.admin.license} >
+			<LicenseBarrier>
 				<Button onClick={props.close} style={{ float: 'right' }} >
 					<i className="fas fa-times"></i>
 				</Button>
@@ -46,11 +46,14 @@ const AdminDataExplorer = ( props ) => {
 // PROPERTIES //
 
 AdminDataExplorer.propTypes = {
-	admin: PropTypes.object
+	categorical: PropTypes.array.isRequired,
+	data: PropTypes.object.isRequired,
+	quantitative: PropTypes.array.isRequired,
+	title: PropTypes.string
 };
 
 AdminDataExplorer.defaultProps = {
-	admin: {}
+	title: ''
 };
 
 
