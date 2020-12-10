@@ -10,7 +10,6 @@
 	"explorer-grades-title": "Explorador de datos de grados",
 	"explorer-progress-title": "Explorador de datos de progreso",
 	"explorer-tickets-title": "Explorador de datos para tickets",
-	"filename": "Nombre de archivo",
 	"first-accessed": "Primero accedió",
 	"first-name": "Primer Nombre",
 	"grades": "Grados",
@@ -24,7 +23,6 @@
 	"owner-files": "Archivos de Propietario",
 	"save-as-csv": "Guardar como CSV",
 	"save-as-json": "Guardar como JSON",
-	"size": "Tamaño",
 	"student-files": "Archivos de Estudiantes",
 	"type": "Tipo",
 	"upload-file": "Subir archivo"

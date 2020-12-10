@@ -10,7 +10,6 @@
 	"explorer-grades-title": "Grades Data Explorer",
 	"explorer-progress-title": "Progress Data Explorer",
 	"explorer-tickets-title": "Data Explorer for Tickets",
-	"filename": "Filename",
 	"first-accessed": "First accessed",
 	"first-name": "First",
 	"grades": "Grades",
@@ -24,7 +23,6 @@
 	"owner-files": "Owner Files",
 	"save-as-csv": "Save as CSV",
 	"save-as-json": "Save as JSON",
-	"size": "Size",
 	"student-files": "Student Files",
 	"type": "Type",
 	"upload-file": "Upload File"

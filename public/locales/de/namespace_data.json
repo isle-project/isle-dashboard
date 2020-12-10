@@ -10,7 +10,6 @@
 	"explorer-grades-title": "Daten Explorer für Noten",
 	"explorer-progress-title": "Fortschrittsdaten-Explorer",
 	"explorer-tickets-title": "Datenexplorer für Tickets",
-	"filename": "Dateiname",
 	"first-accessed": "Erster Zugriff",
 	"first-name": "Vorname",
 	"grades": "Noten",
@@ -24,7 +23,6 @@
 	"owner-files": "Kurs-Administrator-Dateien",
 	"save-as-csv": "CSV",
 	"save-as-json": "JSON speichern",
-	"size": "Größe",
 	"student-files": "Studenten-Dateien",
 	"type": "Dateityp",
 	"upload-file": "Datei hochladen"
