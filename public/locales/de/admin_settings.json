@@ -11,6 +11,7 @@
 	"delete-backup": "Backup löschen",
 	"delete-backup-confirm": "Bitte bestätigen Sie, dass Sie die ausgewählte Backup-Datei mit dem folgenden Namen löschen möchten:",
 	"delete-field": "Feld löschen",
+	"download-backup": "Backup herunterladen",
 	"editable-on-profile": "Editierbar im Profil",
 	"editable-on-signup": "Editierbar bei Registrierung",
 	"enter-field-description": "Feldbeschreibung eingeben",

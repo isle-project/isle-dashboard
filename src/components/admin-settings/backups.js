@@ -19,9 +19,11 @@
 
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
+import { withTranslation } from 'react-i18next';
 import Table from 'react-bootstrap/Table';
 import Button from 'react-bootstrap/Button';
-import { withTranslation } from 'react-i18next';
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
+import Tooltip from 'react-bootstrap/Tooltip';
 import round from '@stdlib/math/base/special/round';
 import ConfirmModal from 'components/confirm-modal';
 import server from 'constants/server';
@@ -97,14 +99,18 @@ class BackupsPage extends Component {
 							<td>{`${size} MB`}</td>
 							<td>{x.createdAt}</td>
 							<td>
-								<a href={`${server}/${x.filename}`} target="_blank" >
-									<Button size="sm" variant="secondary" style={{ marginRight: 8 }} >
-										<i className="fas fa-cloud-download-alt" ></i>
+								<OverlayTrigger placement="bottom" overlay={<Tooltip id="download-backup-tooltip">{t('download-backup')}</Tooltip>}>
+									<a href={`${server}/${x.filename}`} target="_blank" >
+										<Button size="sm" variant="secondary" style={{ marginRight: 8 }} >
+											<i className="fas fa-cloud-download-alt" ></i>
+										</Button>
+									</a>
+								</OverlayTrigger>
+								<OverlayTrigger placement="bottom" overlay={<Tooltip id="delete-backup-tooltip">{t('delete-backup')}</Tooltip>}>
+									<Button size="sm" variant="danger" onClick={this.askToDeleteSelectedBackupFactory( x )} >
+										<i className="fas fa-trash-alt" ></i>
 									</Button>
-								</a>
-								<Button size="sm" variant="danger" onClick={this.askToDeleteSelectedBackupFactory( x )} >
-									<i className="fas fa-trash-alt" ></i>
-								</Button>
+								</OverlayTrigger>
 							</td>
 						</tr>
 					);

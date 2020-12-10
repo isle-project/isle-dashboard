@@ -11,6 +11,7 @@
 	"delete-backup": "Delete Backup",
 	"delete-backup-confirm": "Please confirm that you would like to delete the selected backup with the following name:",
 	"delete-field": "Delete Field",
+	"download-backup": "Download Backup",
 	"editable-on-profile": "Editable on Profile",
 	"editable-on-signup": "Editable on Signup",
 	"enter-field-description": "Enter field description",

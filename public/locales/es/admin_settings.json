@@ -11,6 +11,7 @@
 	"delete-backup": "Borrar copia de seguridad",
 	"delete-backup-confirm": "Por favor, confirme que desea eliminar la copia de seguridad seleccionada con el siguiente nombre:",
 	"delete-field": "Borrar campo",
+	"download-backup": "Descargar copia de seguridad",
 	"editable-on-profile": "Editable en el perfil",
 	"editable-on-signup": "Editable al registrarse",
 	"enter-field-description": "Introducir descripción de campo",
