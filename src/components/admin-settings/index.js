@@ -23,6 +23,7 @@ import { withTranslation } from 'react-i18next';
 import Nav from 'react-bootstrap/Nav';
 import asyncComponent from 'components/async';
 const License = asyncComponent( () => import( './license.js' ) );
+const Backups = asyncComponent( () => import( './backups.js' ) );
 import UserFields from 'ev/components/admin-settings/user-fields';
 import './admin_settings.css';
 
@@ -55,6 +56,9 @@ class Settings extends Component {
 			case 'user-fields':
 				activePage = 5;
 				break;
+			case 'backups':
+				activePage = 6;
+				break;
 		}
 		this.state = {
 			activePage
@@ -82,6 +86,9 @@ class Settings extends Component {
 				break;
 			case 5:
 				history.replace( '/admin/settings/user-fields' );
+				break;
+			case 6:
+				history.replace( '/admin/settings/backups' );
 				break;
 		}
 		this.setState({
@@ -128,6 +135,15 @@ class Settings extends Component {
 						decrementFieldPosition={this.props.decrementFieldPosition}
 					/>
 				);
+			case 6:
+				return (
+					<Backups
+						admin={this.props.admin}
+						user={this.props.user}
+						createBackup={this.props.createBackup}
+						getBackups={this.props.getBackups}
+					/>
+				);
 		}
 	}
 
@@ -156,6 +172,9 @@ class Settings extends Component {
 						<Nav.Item>
 							<Nav.Link eventKey="5" title="User Fields" >{t('user-fields')}</Nav.Link>
 						</Nav.Item>
+						<Nav.Item>
+							<Nav.Link eventKey="6" title="Backups" >{t('backups')}</Nav.Link>
+						</Nav.Item>
 					</Nav>
 				</div>
 				<div className="admin-settings-container" >
@@ -170,9 +189,11 @@ class Settings extends Component {
 
 Settings.propTypes = {
 	admin: PropTypes.object.isRequired,
+	createBackup: PropTypes.func.isRequired,
 	createCustomField: PropTypes.func.isRequired,
 	decrementFieldPosition: PropTypes.func.isRequired,
 	deleteCustomField: PropTypes.func.isRequired,
+	getBackups: PropTypes.func.isRequired,
 	getCustomFields: PropTypes.func.isRequired,
 	getLicense: PropTypes.func.isRequired,
 	incrementFieldPosition: PropTypes.func.isRequired,
