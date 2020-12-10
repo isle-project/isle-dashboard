@@ -74,14 +74,15 @@ class BackupsPage extends Component {
 		if ( !this.props.admin.backups ) {
 			return null;
 		}
+		const { t } = this.props;
 		return (
 			<Table striped bordered hover>
 				<thead>
 					<tr>
-						<th>Filename</th>
-						<th>Size</th>
-						<th>Date</th>
-						<th>Actions</th>
+						<th>{t('common:filename')}</th>
+						<th>{t('common:size')}</th>
+						<th>{t('common:date')}</th>
+						<th>{t('common:actions')}</th>
 					</tr>
 				</thead>
 				<tbody>

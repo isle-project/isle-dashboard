@@ -120,7 +120,7 @@ class FilesPage extends Component {
 		const { t } = this.props;
 		return [
 			{
-				Header: t('filename'),
+				Header: t('common:filename'),
 				accessor: 'title',
 				minWidth: 250,
 				filterMethod: ( filter, row ) => {
@@ -244,7 +244,7 @@ class FilesPage extends Component {
 				}
 			},
 			{
-				Header: t('size'),
+				Header: t('common:size'),
 				accessor: 'size',
 				Cell: row => row.value ? `${roundn( row.value, -3 )}mb` : 'NA',
 				filterMethod: ( filter, row ) => {
