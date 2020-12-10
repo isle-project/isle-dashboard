@@ -142,6 +142,7 @@ class Settings extends Component {
 						user={this.props.user}
 						createBackup={this.props.createBackup}
 						getBackups={this.props.getBackups}
+						deleteBackup={this.props.deleteBackup}
 					/>
 				);
 		}
@@ -192,6 +193,7 @@ Settings.propTypes = {
 	createBackup: PropTypes.func.isRequired,
 	createCustomField: PropTypes.func.isRequired,
 	decrementFieldPosition: PropTypes.func.isRequired,
+	deleteBackup: PropTypes.func.isRequired,
 	deleteCustomField: PropTypes.func.isRequired,
 	getBackups: PropTypes.func.isRequired,
 	getCustomFields: PropTypes.func.isRequired,

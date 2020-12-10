@@ -277,6 +277,13 @@ export default function admin( state = initialState, action ) {
 			backups
 		});
 	}
+	case types.DELETED_BACKUP: {
+		let backups = state.backups.slice();
+		backups = backups.filter( x => x._id !== action.payload.id );
+		return Object.assign({}, state, {
+			backups
+		});
+	}
 	default:
 		return state;
 	}

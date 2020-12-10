@@ -17,12 +17,13 @@
 
 // MODULES //
 
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import Table from 'react-bootstrap/Table';
 import Button from 'react-bootstrap/Button';
 import { withTranslation } from 'react-i18next';
 import round from '@stdlib/math/base/special/round';
+import ConfirmModal from 'components/confirm-modal';
 import server from 'constants/server';
 
 
@@ -31,6 +32,11 @@ import server from 'constants/server';
 class BackupsPage extends Component {
 	constructor( props ) {
 		super( props );
+
+		this.state = {
+			selectedBackup: null,
+			showDeleteModal: false
+		};
 	}
 
 	componentDidMount() {
@@ -41,8 +47,27 @@ class BackupsPage extends Component {
 		this.props.createBackup();
 	}
 
-	handleBackupDeletion = () => {
+	askToDeleteSelectedBackupFactory = ( backup ) => {
+		return () => {
+			this.setState({
+				showDeleteModal: !this.state.showDeleteModal,
+				selectedBackup: backup
+			});
+		};
+	}
 
+	deleteSelectedBackup= () => {
+		this.setState({
+			showDeleteModal: false
+		}, async () => {
+			await this.props.deleteBackup( this.state.selectedBackup._id );
+		});
+	}
+
+	toggleDeleteModal = () => {
+		this.setState({
+			showDeleteModal: !this.state.showDeleteModal
+		});
 	}
 
 	renderBackupList() {
@@ -61,6 +86,9 @@ class BackupsPage extends Component {
 				</thead>
 				<tbody>
 					{this.props.admin.backups.map( ( x, idx ) => {
+					if ( !x ) {
+						return null;
+					}
 					const size = round( x.size / ( 1024 * 1024 ) );
 					return (
 						<tr key={idx} >
@@ -72,10 +100,10 @@ class BackupsPage extends Component {
 									<Button size="sm" variant="secondary" style={{ marginRight: 8 }} >
 										<i className="fas fa-cloud-download-alt" ></i>
 									</Button>
-									<Button size="sm" variant="danger" onClick={this.handleBackupDeletion} >
-										<i className="fas fa-trash-alt" ></i>
-									</Button>
 								</a>
+								<Button size="sm" variant="danger" onClick={this.askToDeleteSelectedBackupFactory( x )} >
+									<i className="fas fa-trash-alt" ></i>
+								</Button>
 							</td>
 						</tr>
 					);
@@ -88,14 +116,26 @@ class BackupsPage extends Component {
 	render() {
 		const { t } = this.props;
 		return (
-			<div className="admin-settings-outer-container" >
-				<h1>{t('created-backups')}</h1>
-				{this.renderBackupList()}
-				<Button size="lg" onClick={this.handleBackupCreation} >
-					<i className="fas fa-cloud-upload-alt" style={{ marginRight: 12 }}></i>
-					{t('create-backup')}
-				</Button>
-			</div>
+			<Fragment>
+				<div className="admin-settings-outer-container" >
+					<h1>{t('created-backups')}</h1>
+					{this.renderBackupList()}
+					<Button size="lg" onClick={this.handleBackupCreation} >
+						<i className="fas fa-cloud-upload-alt" style={{ marginRight: 12 }}></i>
+						{t('create-backup')}
+					</Button>
+				</div>
+				{ this.state.showDeleteModal ? <ConfirmModal
+					title={t('delete-backup')}
+					message={<span>
+						{t('delete-backup-confirm')}
+						<span style={{ color: 'red' }}>{this.state.selectedBackup.title}</span>
+					</span>}
+					close={this.toggleDeleteModal}
+					show={this.state.showDeleteModal}
+					onConfirm={this.deleteSelectedBackup}
+				/> : null }
+			</Fragment>
 		);
 	}
 }
@@ -106,6 +146,7 @@ class BackupsPage extends Component {
 BackupsPage.propTypes = {
 	admin: PropTypes.object.isRequired,
 	createBackup: PropTypes.func.isRequired,
+	deleteBackup: PropTypes.func.isRequired,
 	getBackups: PropTypes.func.isRequired
 };
 

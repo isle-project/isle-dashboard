@@ -25,7 +25,7 @@ import { addNotificationInjector } from 'actions/notification.js';
 import { getLicenseInjector, uploadLicenseInjector, removeLicenseInjector } from 'actions/file.js';
 import { createCustomFieldInjector, deleteCustomFieldInjector, getCustomFieldsInjector,
 	decrementFieldPositionInjector, incrementFieldPositionInjector } from 'actions/custom_field.js';
-import { createBackupInjector, getBackupsInjector } from 'actions/backup.js';
+import { createBackupInjector, deleteBackupInjector, getBackupsInjector } from 'actions/backup.js';
 
 
 // FUNCTIONS //
@@ -44,6 +44,7 @@ function mapDispatchToProps( dispatch ) {
 		getUsers: getUsersInjector( dispatch ),
 		createBackup: createBackupInjector( dispatch ),
 		createCustomField: createCustomFieldInjector( dispatch ),
+		deleteBackup: deleteBackupInjector( dispatch ),
 		deleteCustomField: deleteCustomFieldInjector( dispatch ),
 		getCustomFields: getCustomFieldsInjector( dispatch ),
 		getLicense: getLicenseInjector( dispatch ),

@@ -21,7 +21,7 @@ import axios from 'axios';
 import server from 'constants/server';
 import i18next from 'i18next';
 import { addNotification, addErrorNotification } from 'actions/notification';
-import { CREATED_BACKUP, GET_BACKUPS } from 'constants/action_types.js';
+import { CREATED_BACKUP, DELETED_BACKUP, GET_BACKUPS } from 'constants/action_types.js';
 
 
 // EXPORTS //
@@ -68,5 +68,32 @@ export const createBackup = async ( dispatch ) => {
 export const createBackupInjector = dispatch => {
 	return async () => {
 		await createBackup( dispatch );
+	};
+};
+
+export const deleteBackup = async ( dispatch, id ) => {
+	try {
+		const res = await axios.post( server+'/delete_backup', {
+			id
+		});
+		addNotification( dispatch, {
+			title: i18next.t('common:deleted'),
+			message: res.data.message,
+			level: 'success'
+		});
+		dispatch({
+			type: DELETED_BACKUP,
+			payload: {
+				id
+			}
+		});
+	} catch ( err ) {
+		return addErrorNotification( dispatch, err );
+	}
+};
+
+export const deleteBackupInjector = dispatch => {
+	return async ( id ) => {
+		await deleteBackup( dispatch, id );
 	};
 };
