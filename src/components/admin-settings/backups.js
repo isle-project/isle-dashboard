@@ -128,10 +128,10 @@ class BackupsPage extends Component {
 				</div>
 				{ this.state.showDeleteModal ? <ConfirmModal
 					title={t('delete-backup')}
-					message={<span>
-						{t('delete-backup-confirm')}
-						<span style={{ color: 'red' }}>{this.state.selectedBackup.title}</span>
-					</span>}
+					message={<div>
+						<p>{t('delete-backup-confirm')}</p>
+						<span style={{ color: 'red' }}>{this.state.selectedBackup.filename}</span>
+					</div>}
 					close={this.toggleDeleteModal}
 					show={this.state.showDeleteModal}
 					onConfirm={this.deleteSelectedBackup}
