@@ -173,7 +173,7 @@ class EditModal extends Component {
 					</Modal.Title>
 				</Modal.Header>
 				<Modal.Body>
-					<Row>
+					<Form as={Row} >
 						<Col sm={6} >
 							<FormGroup
 								controlId="form-email"
@@ -351,7 +351,7 @@ class EditModal extends Component {
 								getTfaQRCode={this.props.getTfaQRCode}
 							/>
 						</Col>
-					</Row>
+					</Form>
 					<Row style={{ paddingTop: 10 }} >
 						<Button block disabled={!this.state.changed || !validName || ( !validPasswords && enteredPasswords )} onClick={this.handleUpdate}>
 							{t('common:update')}
