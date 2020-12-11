@@ -254,7 +254,7 @@ class EditModal extends Component {
 									/>
 									<Form.Check
 										type="checkbox"
-										label={t('two-factor-authentication')}
+										label={t('common:two-factor-authentication')}
 										defaultChecked={this.props.user.twoFactorAuth}
 										onChange={this.handleCheckboxChangeFactory( 'twoFactorAuth' )}
 									/>

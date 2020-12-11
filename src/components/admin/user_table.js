@@ -259,6 +259,13 @@ class UserPage extends Component {
 				falseLabel: t('not-verified'),
 				maxWidth: 90
 			}),
+			createBooleanColumn({
+				Header: t( 'common:two-factor-authentication' ),
+				accessor: 'twoFactorAuth',
+				trueLabel: t('common:enabled'),
+				falseLabel: t('common:not-enabled'),
+				maxWidth: 100
+			}),
 			createNumericColumn({
 				Header: t('common:chat-messages'),
 				accessor: 'chatMessages',

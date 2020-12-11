@@ -98,7 +98,7 @@ class TwoFactorAuthentication extends Component {
 				<Card bg="light" >
 					<Card.Header>
 						<span className="title" >
-							{t('two-factor-authentication')}
+							{t('common:two-factor-authentication')}
 						</span>
 					</Card.Header>
 					<Card.Body>
