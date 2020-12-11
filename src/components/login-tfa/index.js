@@ -28,7 +28,6 @@ import FormLabel from 'react-bootstrap/FormLabel';
 import FormControl from 'react-bootstrap/FormControl';
 import FormGroup from 'react-bootstrap/FormGroup';
 import Form from 'react-bootstrap/Form';
-import { Link } from 'react-router-dom';
 import 'css/login.css';
 
 
@@ -50,11 +49,13 @@ class LoginTFA extends Component {
 			token: this.state.token
 		};
 		const res = await this.props.handleLoginTFA( form );
-		const { message, token, id } = res.data;
-		if ( message === 'ok' ) {
-			const user = await this.props.fetchCredentials({ token, id });
-			if ( user ) {
-				this.props.getEnrollableCohorts( user );
+		if ( res ) {
+			const { message, token, id } = res.data;
+			if ( message === 'ok' ) {
+				const user = await this.props.fetchCredentials({ token, id });
+				if ( user ) {
+					this.props.getEnrollableCohorts( user );
+				}
 			}
 		}
 	}
@@ -100,11 +101,6 @@ class LoginTFA extends Component {
 							>{t('common:login')}</Button>
 						</Form>
 					</Card.Body>
-					<Card.Footer style={{ background: 'rgba(255,255,255,0.6)', textAlign: 'right' }}>
-						<Link to="/forgot-password">{t('common:forgot-password')}</Link>
-						<span> | </span>
-						<Link to="/signup">{t('common:register')}</Link>
-					</Card.Footer>
 				</Card></div>
 			</Fragment>
 		);
