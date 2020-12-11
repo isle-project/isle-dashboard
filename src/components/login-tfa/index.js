@@ -98,6 +98,7 @@ class LoginTFA extends Component {
 								variant="primary"
 								onClick={this.handleSubmit}
 								type="submit"
+								disabled={this.state.token.length !== 6}
 							>{t('common:login')}</Button>
 						</Form>
 					</Card.Body>

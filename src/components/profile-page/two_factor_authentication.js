@@ -33,7 +33,7 @@ class TwoFactorAuthentication extends Component {
 		super( props );
 
 		this.state = {
-			token: null
+			token: ''
 		};
 	}
 
@@ -81,7 +81,7 @@ class TwoFactorAuthentication extends Component {
 						/>
 					</Col>
 					<Col sm={3} >
-						<Button onClick={this.enableTfa} >
+						<Button onClick={this.enableTfa} disabled={this.state.token.length !== 6} >
 							{t('common:confirm')}
 						</Button>
 					</Col>
