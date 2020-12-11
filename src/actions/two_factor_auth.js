@@ -86,7 +86,8 @@ export const disableTFA = async ( dispatch ) => {
 		dispatch({
 			type: DISABLED_TFA,
 			payload: {
-				message: res.data.message
+				message: res.data.message,
+				disabled: res.data.disabled
 			}
 		});
 	} catch ( err ) {

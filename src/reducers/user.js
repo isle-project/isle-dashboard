@@ -337,11 +337,8 @@ export default function user( state = initialState, action ) {
 		});
 	}
 	case types.DISABLED_TFA: {
-		if ( action.payload.message !== 'ok' ) {
-			return state;
-		}
 		return Object.assign({}, state, {
-			twoFactorAuth: false
+			twoFactorAuth: !action.payload.disabled
 		});
 	}
 	case types.REQUEST_TFA: {
