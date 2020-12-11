@@ -47,6 +47,7 @@ const AsyncShibboleth = asyncComponent(() => import( 'containers/visible-shibbol
 const AsyncAdminPage = asyncComponent(() => import( 'containers/visible-admin' ));
 const AsyncAdminSettings = asyncComponent(() => import( 'containers/visible-admin-settings' ));
 const AsyncLogin = asyncComponent(() => import( 'containers/visible-login' ));
+const AsyncLoginTFA = asyncComponent(() => import( 'containers/visible-login-tfa' ));
 const AsyncSignup = asyncComponent(() => import( 'containers/visible-signup' ));
 const AsyncNamespaceData = asyncComponent(() => import( 'containers/visible-namespace-data' ));
 const AsyncGallery = asyncComponent(() => import( 'containers/visible-gallery' ));
@@ -113,7 +114,10 @@ class App extends Component {
 		const isLoggingIn = !prevProps.isLoggedIn && this.props.isLoggedIn;
 		const pathname = history.location.pathname;
 		if ( isLoggingIn ) {
-			if ( pathname && pathname !== '/' && pathname !== '/login' && pathname !== '/shibboleth' ) {
+			if ( pathname === '/login-tfa' ) {
+				history.push( this.props.requestTFA.next );
+			}
+			else if ( pathname && pathname !== '/' && pathname !== '/login' && pathname !== '/shibboleth' ) {
 				debug( 'User has logged in, redirecting to: '+pathname );
 				history.push( history.location.pathname );
 			} else {
@@ -209,6 +213,7 @@ class App extends Component {
 					/>
 					<Route exact path="/" component={AsyncLogin} />
 					<Route path="/login" component={AsyncLogin} />
+					<Route path="/login-tfa" component={AsyncLoginTFA} />
 					<Route path="/new-password" component={AsyncNewPassword} />
 					<Route path="/complete-registration" component={AsyncCompleteRegistration} />
 					<Route path="/confirm-email" component={AsyncConfirmEmail} />
@@ -230,6 +235,7 @@ class App extends Component {
 App.propTypes = {
 	history: PropTypes.object.isRequired,
 	isLoggedIn: PropTypes.bool.isRequired,
+	requestTFA: PropTypes.object.isRequired,
 	user: PropTypes.object.isRequired
 };
 
@@ -241,6 +247,7 @@ export default connect( mapStateToProps, mapDispatchToProps )( App );
 function mapStateToProps( state ) {
 	return {
 		isLoggedIn: state.user.loggedIn,
+		requestTFA: state.user.requestTFA,
 		user: state.user
 	};
 }
