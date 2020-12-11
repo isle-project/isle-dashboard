@@ -77,11 +77,12 @@ class Login extends Component {
 		else {
 			try {
 				const res = await this.props.handleLogin( form );
-				const { message, token, id } = res.data;
+				const { message } = res.data;
 				if ( message === 'finish-login-via-tfa' ) {
 					this.props.history.push( '/login-tfa' );
 				}
 				else if ( message === 'ok' ) {
+					const { token, id } = res.data;
 					const user = await this.props.fetchCredentials({ token, id });
 					if ( user ) {
 						this.props.getEnrollableCohorts( user );

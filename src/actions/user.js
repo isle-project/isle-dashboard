@@ -297,9 +297,13 @@ export const handleLoginInjector = ( dispatch ) => {
 };
 
 export const handleLoginTFA = async ( dispatch, form ) => {
-	const res = await axios.post( server+'/login_tfa', form );
-	dispatch( receivedToken( res.data ) );
-	return res;
+	try {
+		const res = await axios.post( server+'/login_tfa', form );
+		dispatch( receivedToken( res.data ) );
+		return res;
+	} catch ( err ) {
+		addErrorNotification( dispatch, err );
+	}
 };
 
 export const handleLoginTFAInjector = ( dispatch ) => {
