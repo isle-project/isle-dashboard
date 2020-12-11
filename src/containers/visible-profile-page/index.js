@@ -27,6 +27,7 @@ import { authenticateInjector, uploadProfilePicInjector, updateUserInjector, res
 import { addNotificationInjector } from 'actions/notification';
 import { createTicketInjector, getUserTicketsInjector } from 'actions/ticket';
 import { sendTicketMessageInjector, closeTicketInjector, openTicketInjector } from 'actions/ticket';
+import { enableTFAInjector, disableTFAInjector, getTfaQRCodeInjector } from 'actions/two_factor_auth.js';
 
 
 // FUNCTIONS //
@@ -51,7 +52,10 @@ function mapDispatchToProps( dispatch ) {
 		closeTicket: closeTicketInjector( dispatch ),
 		openTicket: openTicketInjector( dispatch ),
 		getUserTickets: getUserTicketsInjector( dispatch ),
-		uploadProfilePic: uploadProfilePicInjector( dispatch )
+		uploadProfilePic: uploadProfilePicInjector( dispatch ),
+		enableTFA: enableTFAInjector( dispatch ),
+		disableTFA: disableTFAInjector( dispatch ),
+		getTfaQRCode: getTfaQRCodeInjector( dispatch )
 	};
 }
 

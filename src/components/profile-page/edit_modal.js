@@ -22,7 +22,8 @@ import PropTypes from 'prop-types';
 import SelectInput from 'react-select';
 import Button from 'react-bootstrap/Button';
 import Badge from 'react-bootstrap/Badge';
-import Card from 'react-bootstrap/Card';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 import FormLabel from 'react-bootstrap/FormLabel';
 import FormControl from 'react-bootstrap/FormControl';
 import FormGroup from 'react-bootstrap/FormGroup';
@@ -32,6 +33,7 @@ import Tooltip from 'react-bootstrap/Tooltip';
 import Modal from 'react-bootstrap/Modal';
 import isEmptyObject from '@stdlib/assert/is-empty-object';
 import logger from 'debug';
+import TwoFactorAuthentication from './two_factor_authentication.js';
 import EnterTokenModal from './enter_token_modal.js';
 
 
@@ -152,7 +154,7 @@ class EditModal extends Component {
 		const availableCustomFields = user.availableCustomFields || [];
 		return (
 			<Fragment>
-				<Modal show={this.props.show} onHide={this.props.onHide} >
+				<Modal show={this.props.show} onHide={this.props.onHide} dialogClassName="edit-modal" >
 				<Modal.Header>
 					<Modal.Title as="h3" style={{ width: '100%' }}>
 						{t('profile')}
@@ -170,179 +172,192 @@ class EditModal extends Component {
 						{this.renderInstructorButton()}
 					</Modal.Title>
 				</Modal.Header>
-					<Form noValidate style={{ padding: '20px' }}>
-						<FormGroup
-							controlId="form-email"
-						>
-							<FormLabel>
-								{t('common:email')}
-							</FormLabel>
-							<FormControl
-								name="email"
-								type="email"
-								value={this.state.email}
-								disabled
-							/>
-						</FormGroup>
-						{!user.verifiedEmail ? <Badge
-							variant="danger" style={{ position: 'absolute', right: 20, top: 80 }}
-						>{t('common:email-not-verified')}
-							<OverlayTrigger placement="right" overlay={createTooltip( t('resend-confirm-email') )}>
-								<Button
-									size="sm" variant="outline-light" onClick={this.props.resendConfirmEmail}
-									style={{ fontSize: 12, marginLeft: 6 }}
+				<Modal.Body>
+					<Row>
+						<Col sm={6} >
+							<FormGroup
+								controlId="form-email"
+							>
+								<FormLabel style={{ width: '100%' }}>
+									{t('common:email')}
+									{!user.verifiedEmail ? <Badge
+										variant="danger" style={{ float: 'right' }}
+									>{t('common:email-not-verified')}
+										<OverlayTrigger placement="right" overlay={createTooltip( t('resend-confirm-email') )}>
+											<Button
+												size="sm" variant="outline-light" onClick={this.props.resendConfirmEmail}
+												style={{ fontSize: 12, marginLeft: 6 }}
+											>
+												<i className="fas fa-redo-alt"></i>
+											</Button>
+										</OverlayTrigger>
+									</Badge> : null}
+								</FormLabel>
+								<FormControl
+									name="email"
+									type="email"
+									value={this.state.email}
+									disabled
+								/>
+							</FormGroup>
+							<OverlayTrigger placement="right" overlay={createTooltip( t('update-name') )}>
+								<FormGroup
+									controlId="form-name"
 								>
-									<i className="fas fa-redo-alt"></i>
-								</Button>
+									<FormLabel>{t('common:name')}</FormLabel>
+									<FormControl
+										name="name"
+										type="text"
+										value={this.state.name}
+										onChange={this.handleInputChange}
+										isInvalid={!validName}
+									/>
+									<Form.Control.Feedback type="invalid">
+										{t('invalid-name')}
+									</Form.Control.Feedback>
+								</FormGroup>
 							</OverlayTrigger>
-						</Badge> : null}
-						<OverlayTrigger placement="right" overlay={createTooltip( t('update-name') )}>
+							<OverlayTrigger placement="right" overlay={createTooltip( t('update-organization') )}>
+								<FormGroup
+									controlId="form-organization"
+								>
+									<FormLabel>{t('common:organization')}</FormLabel>
+									<FormControl
+										name="organization"
+										type="text"
+										value={this.state.organization}
+										onChange={this.handleInputChange}
+									/>
+								</FormGroup>
+							</OverlayTrigger>
+							{availableCustomFields.filter( x => x.showOnProfile || x.editableOnProfile ).map( ( x, idx ) => {
+								let input;
+								const value = userCustomFields[ x.name ];
+								if ( x.type === 'checkbox' ) {
+									input = <Form.Check
+										type="checkbox"
+										label={x.name}
+										defaultChecked={value}
+										disabled={!x.editableOnProfile}
+										onChange={( event ) => {
+											const newCustomFields = { ...this.state.customFields };
+											newCustomFields[ x.name ] = event.target.checked;
+											this.setState({
+												customFields: newCustomFields,
+												changed: true
+											});
+										}}
+									/>;
+								} else if ( x.type === 'text' ) {
+									input = <FormGroup
+										controlId={`form-${x.name}`}
+									>
+										<FormLabel>{x.name}</FormLabel>
+										<FormControl
+											name={x.name}
+											type="text"
+											value={value}
+											placeholder={`Enter ${x.name}...`}
+											disabled={!x.editableOnProfile}
+											onChange={( event ) => {
+												const newCustomFields = { ...this.state.customFields };
+												newCustomFields[ x.name ] = event.target.value;
+												this.setState({
+													customFields: newCustomFields,
+													changed: true
+												});
+											}}
+											autoComplete="none"
+										/>
+									</FormGroup>;
+								} else {
+									// Case: dropdown menu
+									input = <FormGroup
+										controlId={`form-${x.name}`}
+									>
+										<FormLabel>{x.name}</FormLabel>
+										<SelectInput
+											defaultValue={value ?
+												{ label: value, value: value } :
+												null
+											}
+											disabled={!x.editableOnProfile}
+											options={x.options.map( e => {
+												return { value: e, label: e };
+											})}
+											onChange={( elem ) => {
+												const newCustomFields = { ...this.state.customFields };
+												newCustomFields[ x.name ] = elem.value;
+												this.setState({
+													customFields: newCustomFields,
+													changed: true
+												});
+											}}
+										/>
+									</FormGroup>;
+								}
+								return (
+									<OverlayTrigger key={idx} placement="top" overlay={createTooltip( x.description )} >
+										{input}
+									</OverlayTrigger>
+								);
+							})}
+						</Col>
+						<Col sm={6} >
+							<OverlayTrigger placement="right" overlay={createTooltip( t('enter-password') )}>
+								<FormGroup
+									controlId="form-password"
+								>
+									<FormLabel>{t('common:password')}</FormLabel>
+									<FormControl
+										name="password"
+										type="password"
+										value={this.state.password}
+										autoComplete="none"
+										placeholder={t('common:choose-new-password')}
+										onChange={this.handleInputChange}
+										maxLength={30}
+										minLength={6}
+										isInvalid={enteredPasswords && !validPasswords}
+									/>
+									<Form.Control.Feedback type="invalid">
+										Please enter a new password with at least six characters.
+									</Form.Control.Feedback>
+								</FormGroup>
+							</OverlayTrigger>
 							<FormGroup
-								controlId="form-name"
+								controlId="form-repeat-password"
 							>
-								<FormLabel>{t('common:name')}</FormLabel>
 								<FormControl
-									name="name"
-									type="text"
-									value={this.state.name}
-									onChange={this.handleInputChange}
-									isInvalid={!validName}
-								/>
-								<Form.Control.Feedback type="invalid">
-									{t('invalid-name')}
-								</Form.Control.Feedback>
-							</FormGroup>
-						</OverlayTrigger>
-						<OverlayTrigger placement="right" overlay={createTooltip( t('update-organization') )}>
-							<FormGroup
-								controlId="form-organization"
-							>
-								<FormLabel>{t('common:organization')}</FormLabel>
-								<FormControl
-									name="organization"
-									type="text"
-									value={this.state.organization}
-									onChange={this.handleInputChange}
-								/>
-							</FormGroup>
-						</OverlayTrigger>
-						<OverlayTrigger placement="right" overlay={createTooltip( t('enter-password') )}>
-							<FormGroup
-								controlId="form-password"
-							>
-								<FormLabel>{t('common:password')}</FormLabel>
-								<FormControl
-									name="password"
+									name="passwordRepeat"
 									type="password"
-									value={this.state.password}
+									value={this.state.passwordRepeat}
 									autoComplete="none"
-									placeholder={t('common:choose-new-password')}
+									placeholder={t('repeat-new-password')}
 									onChange={this.handleInputChange}
 									maxLength={30}
 									minLength={6}
 									isInvalid={enteredPasswords && !validPasswords}
 								/>
 								<Form.Control.Feedback type="invalid">
-									Please enter a new password with at least six characters.
+									{t('invalid-password')}
 								</Form.Control.Feedback>
 							</FormGroup>
-						</OverlayTrigger>
-						<FormGroup
-							controlId="form-repeat-password"
-						>
-							<FormControl
-								name="passwordRepeat"
-								type="password"
-								value={this.state.passwordRepeat}
-								autoComplete="none"
-								placeholder={t('repeat-new-password')}
-								onChange={this.handleInputChange}
-								maxLength={30}
-								minLength={6}
-								isInvalid={enteredPasswords && !validPasswords}
+							<hr />
+							<TwoFactorAuthentication
+								user={this.props.user} t={this.props.t}
+								disableTFA={this.props.disableTFA}
+								enableTFA={this.props.enableTFA}
+								getTfaQRCode={this.props.getTfaQRCode}
 							/>
-							<Form.Control.Feedback type="invalid">
-								{t('invalid-password')}
-							</Form.Control.Feedback>
-						</FormGroup>
-						{availableCustomFields.filter( x => x.showOnProfile || x.editableOnProfile ).map( ( x, idx ) => {
-							let input;
-							const value = userCustomFields[ x.name ];
-							if ( x.type === 'checkbox' ) {
-								input = <Form.Check
-									type="checkbox"
-									label={x.name}
-									defaultChecked={value}
-									disabled={!x.editableOnProfile}
-									onChange={( event ) => {
-										const newCustomFields = { ...this.state.customFields };
-										newCustomFields[ x.name ] = event.target.checked;
-										this.setState({
-											customFields: newCustomFields,
-											changed: true
-										});
-									}}
-								/>;
-							} else if ( x.type === 'text' ) {
-								input = <FormGroup
-									controlId={`form-${x.name}`}
-								>
-									<FormLabel>{x.name}</FormLabel>
-									<FormControl
-										name={x.name}
-										type="text"
-										value={value}
-										placeholder={`Enter ${x.name}...`}
-										disabled={!x.editableOnProfile}
-										onChange={( event ) => {
-											const newCustomFields = { ...this.state.customFields };
-											newCustomFields[ x.name ] = event.target.value;
-											this.setState({
-												customFields: newCustomFields,
-												changed: true
-											});
-										}}
-										autoComplete="none"
-									/>
-								</FormGroup>;
-							} else {
-								// Case: dropdown menu
-								input = <FormGroup
-									controlId={`form-${x.name}`}
-								>
-									<FormLabel>{x.name}</FormLabel>
-									<SelectInput
-										defaultValue={value ?
-											{ label: value, value: value } :
-											null
-										}
-										disabled={!x.editableOnProfile}
-										options={x.options.map( e => {
-											return { value: e, label: e };
-										})}
-										onChange={( elem ) => {
-											const newCustomFields = { ...this.state.customFields };
-											newCustomFields[ x.name ] = elem.value;
-											this.setState({
-												customFields: newCustomFields,
-												changed: true
-											});
-										}}
-									/>
-								</FormGroup>;
-							}
-							return (
-								<OverlayTrigger key={idx} placement="top" overlay={createTooltip( x.description )} >
-									{input}
-								</OverlayTrigger>
-							);
-						})}
-					</Form>
-					<Card>
+						</Col>
+					</Row>
+					<Row style={{ paddingTop: 10 }} >
 						<Button block disabled={!this.state.changed || !validName || ( !validPasswords && enteredPasswords )} onClick={this.handleUpdate}>
 							{t('common:update')}
 						</Button>
-					</Card>
+					</Row>
+					</Modal.Body>
 				</Modal>
 				<EnterTokenModal
 					user={user}
@@ -359,6 +374,9 @@ class EditModal extends Component {
 // PROPERTIES //
 
 EditModal.propTypes = {
+	disableTFA: PropTypes.func.isRequired,
+	enableTFA: PropTypes.func.isRequired,
+	getTfaQRCode: PropTypes.func.isRequired,
 	onHide: PropTypes.func.isRequired,
 	show: PropTypes.bool.isRequired,
 	t: PropTypes.func.isRequired,

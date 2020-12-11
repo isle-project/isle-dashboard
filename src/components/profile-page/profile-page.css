@@ -495,3 +495,9 @@
 		transform: scale(1);
 	}
 }
+
+.edit-modal {
+	max-width: 900px;
+	min-width: 500px;
+	width: 60%;
+}

@@ -47,7 +47,9 @@ const initialState = {
 	tickets: [],
 	licensed: false,
 	customFields: null,
-	availableCustomFields: []
+	availableCustomFields: [],
+	twoFactorAuth: false,
+	requestTFA: null
 };
 
 
@@ -92,6 +94,7 @@ export default function user( state = initialState, action ) {
 			licensed: action.payload.licensed,
 			customFields: action.payload.customFields,
 			availableCustomFields: action.payload.availableCustomFields,
+			twoFactorAuth: action.payload.twoFactorAuth,
 			loggedIn: true
 		});
 	}
@@ -326,6 +329,28 @@ export default function user( state = initialState, action ) {
 		});
 		return Object.assign({}, state, {
 			availableCustomFields
+		});
+	}
+	case types.ENABLED_TFA: {
+		return Object.assign({}, state, {
+			twoFactorAuth: action.payload.verified
+		});
+	}
+	case types.DISABLED_TFA: {
+		if ( action.payload.message !== 'ok' ) {
+			return state;
+		}
+		return Object.assign({}, state, {
+			twoFactorAuth: false
+		});
+	}
+	case types.REQUEST_TFA: {
+		return Object.assign({}, state, {
+			requestTFA: {
+				email: action.payload.email,
+				password: action.payload.password,
+				next: '/lessons'
+			}
 		});
 	}
 	default:

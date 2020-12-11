@@ -25,7 +25,7 @@ import server from 'constants/server';
 import { fetchCredentials } from 'actions/authentication.js';
 import { getEnrollableCohorts } from 'actions/cohort.js';
 import { addNotification, addErrorNotification } from 'actions/notification.js';
-import { AUTHENTICATED, USER_PICTURE_MODIFIED, DELETED_USER, GET_USERS, LOGGED_IN, LOGGED_OUT, RECEIVED_TOKEN, USER_UPDATED, USER_UPDATED_BY_ADMIN } from 'constants/action_types.js';
+import { AUTHENTICATED, USER_PICTURE_MODIFIED, DELETED_USER, GET_USERS, LOGGED_IN, LOGGED_OUT, RECEIVED_TOKEN, REQUEST_TFA, USER_UPDATED, USER_UPDATED_BY_ADMIN } from 'constants/action_types.js';
 
 
 // VARIABLES //
@@ -55,7 +55,8 @@ export function loggedIn( user ) {
 			spentTime: user.spentTime,
 			licensed: user.licensed,
 			customFields: user.customFields,
-			availableCustomFields: user.availableCustomFields
+			availableCustomFields: user.availableCustomFields,
+			twoFactorAuth: user.twoFactorAuth
 		}
 	};
 }
@@ -66,6 +67,16 @@ export function receivedToken({ token, id }) {
 		payload: {
 			token,
 			id
+		}
+	};
+}
+
+export function requestTFA({ email, password }) {
+	return {
+		type: REQUEST_TFA,
+		payload: {
+			email,
+			password
 		}
 	};
 }
@@ -270,13 +281,30 @@ export const createUser = ( form ) => {
 
 export const handleLogin = async ( dispatch, form ) => {
 	const res = await axios.post( server+'/login', form );
-	dispatch( receivedToken( res.data ) );
+	if ( res.data.message === 'finish-login-via-tfa' ) {
+		dispatch( requestTFA( res.data ) );
+	} else {
+		dispatch( receivedToken( res.data ) );
+	}
 	return res;
 };
 
 export const handleLoginInjector = ( dispatch ) => {
 	return async ( form ) => {
 		const result = await handleLogin( dispatch, form );
+		return result;
+	};
+};
+
+export const handleLoginTFA = async ( dispatch, form ) => {
+	const res = await axios.post( server+'/login_tfa', form );
+	dispatch( receivedToken( res.data ) );
+	return res;
+};
+
+export const handleLoginTFAInjector = ( dispatch ) => {
+	return async ( form ) => {
+		const result = await handleLoginTFA( dispatch, form );
 		return result;
 	};
 };

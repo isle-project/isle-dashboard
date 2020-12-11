@@ -458,6 +458,9 @@ class ProfilePage extends Component {
 					updateUser={this.props.updateUser}
 					onHide={this.toggleEditModal}
 					resendConfirmEmail={this.props.resendConfirmEmail}
+					disableTFA={this.props.disableTFA}
+					enableTFA={this.props.enableTFA}
+					getTfaQRCode={this.props.getTfaQRCode}
 					t={t}
 				/>
 				<TicketListModal
@@ -492,8 +495,11 @@ ProfilePage.propTypes = {
 	authenticate: PropTypes.func.isRequired,
 	closeTicket: PropTypes.func.isRequired,
 	createTicket: PropTypes.func.isRequired,
+	disableTFA: PropTypes.func.isRequired,
+	enableTFA: PropTypes.func.isRequired,
 	getFiles: PropTypes.func.isRequired,
 	getLessons: PropTypes.func.isRequired,
+	getTfaQRCode: PropTypes.func.isRequired,
 	getUserBadges: PropTypes.func.isRequired,
 	getUserTickets: PropTypes.func.isRequired,
 	openTicket: PropTypes.func.isRequired,
