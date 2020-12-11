@@ -345,8 +345,7 @@ export default function user( state = initialState, action ) {
 		return Object.assign({}, state, {
 			requestTFA: {
 				email: action.payload.email,
-				password: action.payload.password,
-				next: '/lessons'
+				password: action.payload.password
 			}
 		});
 	}

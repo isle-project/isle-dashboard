@@ -42,7 +42,8 @@ class LoginTFA extends Component {
 		};
 	}
 
-	handleSubmit = async () => {
+	handleSubmit = async ( event ) => {
+		event.preventDefault();
 		const form = {
 			email: this.props.user.requestTFA.email,
 			password: this.props.user.requestTFA.password,

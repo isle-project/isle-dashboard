@@ -72,7 +72,7 @@ const ALL_LOGGEDIN_PATHS = [
 	'/admin',
 	'/admin-settings'
 ];
-const RE_PUBLIC_PAGES = /(?:courses|new-password|complete-registration|confirm-email|shibboleth|signup|terms|privacy)/;
+const RE_PUBLIC_PAGES = /(?:courses|new-password|complete-registration|confirm-email|shibboleth|signup|login|login-tfa|terms|privacy)/;
 const debug = logger( 'isle-dashboard' );
 
 
@@ -115,7 +115,8 @@ class App extends Component {
 		const pathname = history.location.pathname;
 		if ( isLoggingIn ) {
 			if ( pathname === '/login-tfa' ) {
-				history.push( this.props.requestTFA.next );
+				const path = this.props.user.writeAccess ? '/lessons' : '/profile';
+				history.push( path );
 			}
 			else if ( pathname && pathname !== '/' && pathname !== '/login' && pathname !== '/shibboleth' ) {
 				debug( 'User has logged in, redirecting to: '+pathname );
@@ -131,7 +132,7 @@ class App extends Component {
 		}
 		else if (
 			this.props.isLoggedIn && pathname &&
-			( pathname === '/' || pathname === '/login' || pathname === '/shibboleth' )
+			( pathname === '/' || pathname === '/login' || pathname === '/login-tfa' || pathname === '/shibboleth' )
 		) {
 			const path = this.props.user.writeAccess ? '/lessons' : '/profile';
 			history.push( path );
@@ -235,7 +236,6 @@ class App extends Component {
 App.propTypes = {
 	history: PropTypes.object.isRequired,
 	isLoggedIn: PropTypes.bool.isRequired,
-	requestTFA: PropTypes.object.isRequired,
 	user: PropTypes.object.isRequired
 };
 
@@ -247,7 +247,6 @@ export default connect( mapStateToProps, mapDispatchToProps )( App );
 function mapStateToProps( state ) {
 	return {
 		isLoggedIn: state.user.loggedIn,
-		requestTFA: state.user.requestTFA,
 		user: state.user
 	};
 }

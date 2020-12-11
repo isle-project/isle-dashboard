@@ -58,7 +58,7 @@ class ForgotPassword extends Component {
 						<Card.Title as="h3">{t('common:forgot-password')}</Card.Title>
 					</Card.Header>
 					<Card.Body>
-						<Form inline>
+						<Form inline >
 							<FormGroup controlId="form-email">
 								<FormLabel>{t('common:email-address')}</FormLabel>
 								<FormControl
