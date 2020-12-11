@@ -109,6 +109,7 @@
 	"title": "Title",
 	"tfa-disabled": "Two-Factor Authentication Disabled",
 	"tfa-enabled": "Two-Factor Authentication Enabled",
+	"tfa-not-enabled": "Two-Factor Authentication Not Enabled",
 	"type": "Type",
 	"update": "Update",
 	"updated": "Updated",

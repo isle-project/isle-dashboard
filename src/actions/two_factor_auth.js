@@ -54,9 +54,9 @@ export const enableTFA = async ( dispatch, token ) => {
 			token
 		});
 		addNotification( dispatch, {
-			title: i18next.t('common:tfa-enabled'),
+			title: res.data.verified ? i18next.t('common:tfa-enabled') : i18next.t('common:tfa-not-enabled'),
 			message: res.data.message,
-			level: 'success'
+			level: res.data.verified ? 'success' : 'error'
 		});
 		dispatch({
 			type: ENABLED_TFA,

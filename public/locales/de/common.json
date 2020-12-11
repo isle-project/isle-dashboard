@@ -105,6 +105,7 @@
 	"table": "Tabelle",
 	"tfa-disabled": "Zwei-Faktor-Authentifizierung Deaktiviert",
 	"tfa-enabled": "Zwei-Faktor-Authentifizierung Aktiviert",
+	"tfa-not-enabled": "Zwei-Faktoren-Authentifizierung Nicht Aktiviert",
 	"tickets": "Tickets",
 	"time": "Zeit",
 	"time-spent": "Verbrachte Zeit",
