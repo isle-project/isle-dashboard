@@ -89,7 +89,7 @@ class Login extends Component {
 					}
 				}
 			} catch ( err ) {
-				const msg = err.response.data;
+				const msg = err.response ? err.response.data : err.message;
 				this.setState({
 					showInputOverlay: true,
 					overlayTarget: msg === 'Password is not correct.' ? this.passwordInput : this.emailInput,
