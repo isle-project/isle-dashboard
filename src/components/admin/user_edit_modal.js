@@ -62,19 +62,21 @@ class EditModal extends Component {
 			writeAccess: props.user.writeAccess,
 			verifiedEmail: props.user.verifiedEmail,
 			administrator: props.user.administrator,
-			customFields: props.user.customFields || {}
+			customFields: props.user.customFields || {},
+			twoFactorAuth: props.user.twoFactorAuth
 		};
 	}
 
 	handleUpdate = () => {
-		const { name, password, organization, writeAccess, verifiedEmail, administrator } = this.state;
+		const { name, password, organization, writeAccess, verifiedEmail, administrator, twoFactorAuth } = this.state;
 		const form = {
 			name,
 			organization,
 			id: this.props.user._id,
 			writeAccess,
 			verifiedEmail,
-			administrator
+			administrator,
+			twoFactorAuth
 		};
 		let change = false;
 		if ( password ) {
@@ -91,7 +93,8 @@ class EditModal extends Component {
 			organization !== user.organization ||
 			writeAccess !== user.writeAccess ||
 			verifiedEmail !== user.verifiedEmail ||
-			administrator !== user.administrator
+			administrator !== user.administrator ||
+			twoFactorAuth !== user.twoFactorAuth
 		) {
 			change = true;
 		}
@@ -248,6 +251,12 @@ class EditModal extends Component {
 										label={t('admin:email-verified')}
 										defaultChecked={this.props.user.verifiedEmail}
 										onChange={this.handleCheckboxChangeFactory( 'verifiedEmail' )}
+									/>
+									<Form.Check
+										type="checkbox"
+										label={t('two-factor-authentication')}
+										defaultChecked={this.props.user.twoFactorAuth}
+										onChange={this.handleCheckboxChangeFactory( 'twoFactorAuth' )}
 									/>
 								</FormGroup>
 							</Col>
