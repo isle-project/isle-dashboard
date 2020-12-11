@@ -19,6 +19,8 @@
 
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import FormControl from 'react-bootstrap/FormControl';
@@ -58,24 +60,32 @@ class TwoFactorAuthentication extends Component {
 		if ( !this.state.tfaQRCode ) {
 			return null;
 		}
+		const t = this.props.t;
+
 		/* eslint-disable react/no-danger */
 		return (
 			<Fragment>
 				<div dangerouslySetInnerHTML={this.state.tfaQRCode} />
 				<p>
-					Please register ISLE with your authenticator app by scanning above QRCode and enter the received token below
+					{t('tfa-enable-instructions')}
 				</p>
-				<FormControl
-					type="text"
-					onChange={( event ) => {
-						this.setState({
-							token: event.target.value
-						});
-					}}
-				/>
-				<Button onClick={this.enableTfa} >
-					Submit
-				</Button>
+				<Row>
+					<Col sm={8} >
+						<FormControl
+							type="text"
+							onChange={( event ) => {
+								this.setState({
+									token: event.target.value
+								});
+							}}
+						/>
+					</Col>
+					<Col sm={3} >
+						<Button onClick={this.enableTfa} >
+							{t('common:confirm')}
+						</Button>
+					</Col>
+				</Row>
 			</Fragment>
 		);
 		/* eslint-enable react/no-danger */
@@ -92,13 +102,16 @@ class TwoFactorAuthentication extends Component {
 						</span>
 					</Card.Header>
 					<Card.Body>
+						<p>
+							{t('two-factor-authentication-is-disabled')}
+						</p>
 						<Button
 							variant="success"
 							style={{ float: 'right', marginRight: 5 }}
 							onClick={this.requestTfaQRCode}
 						>
 							<i className="fas fa-qrcode" style={{ marginRight: 10 }}></i>
-							{t('enable')}
+							{t('common:enable')}
 						</Button>
 						{this.renderQRCode()}
 					</Card.Body>
@@ -119,7 +132,7 @@ class TwoFactorAuthentication extends Component {
 						style={{ float: 'right', marginRight: 5 }}
 						onClick={this.disableTfa}
 					>
-						{t('disable')}
+						{t('common:disable')}
 					</Button>
 				</Card.Body>
 			</Card>

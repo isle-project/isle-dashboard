@@ -113,7 +113,7 @@ class LoginTFA extends Component {
 LoginTFA.propTypes = {
 	fetchCredentials: PropTypes.func.isRequired,
 	handleLoginTFA: PropTypes.func.isRequired,
-	user: PropTypes.func.isRequired
+	user: PropTypes.object.isRequired
 };
 
 
