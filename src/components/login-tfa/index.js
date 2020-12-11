@@ -70,16 +70,19 @@ class LoginTFA extends Component {
 						</Card.Title>
 					</Card.Header>
 					<Card.Body>
+						<p>
+							{t('enter-tfa-token')}
+						</p>
 						<Form>
 							<FormGroup controlId="form-token">
 								<Row>
 									<Col sm={3}>
-										<FormLabel>{t('common:token')}</FormLabel>
+										<FormLabel>{t('token')}</FormLabel>
 									</Col>
 									<Col sm={9}>
 										<FormControl
 											type="text"
-											placeholder={t('common:token')}
+											placeholder={t('enter-token')}
 											onChange={( event ) => {
 												this.setState({
 													token: event.target.value
