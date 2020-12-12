@@ -72,6 +72,7 @@ class TwoFactorAuthentication extends Component {
 				<Row>
 					<Col sm={8} >
 						<FormControl
+							autoFocus={true} // eslint-disable-line jsx-a11y/no-autofocus
 							type="text"
 							onChange={( event ) => {
 								this.setState({
