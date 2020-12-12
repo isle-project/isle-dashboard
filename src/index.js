@@ -30,7 +30,7 @@ import { createStore, applyMiddleware } from 'redux';
 import { routerMiddleware } from 'connected-react-router';
 import createRootReducer from 'reducers';
 import App from 'containers/app.js';
-import './helpers/i18n';
+import i18next from './helpers/i18n';
 import * as serviceWorker from './service_worker.js';
 import 'css/animations.css';
 import 'css/index.css';
@@ -53,6 +53,7 @@ const store = createStore( persistedReducer, applyMiddleware( middleware ) );
 const persistor = persistStore( store );
 
 axios.interceptors.request.use( ( config ) => {
+	config.headers[ 'Accept-Language' ] = i18next.language;
 	const token = store.getState().user.token;
 	if ( token ) {
 		config.headers.Authorization = `JWT ${token}`;

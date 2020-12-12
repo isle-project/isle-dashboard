@@ -30,7 +30,7 @@ i18n.use( Backend )
 	.use( initReactI18next )
 	.init({
 		debug: false,
-		lng: 'en',
+		lng: localStorage.getItem( 'i18nextLng' ) || 'en',
 		fallbackLng: 'en',
 		backend: {
 			loadPath: './locales/{{lng}}/{{ns}}.json'
