@@ -1,0 +1,20 @@
+{
+	"admin-panel": "панель администратора",
+	"admin": "Администратор",
+	"course-data": "Данные курса",
+	"create-course": "Создать новый курс",
+	"edit-course": "Редактировать курс",
+	"enroll": "Зарегистрироваться на сайте",
+	"enrolled-courses": "Зачисленные курсы",
+	"gallery": "Галерея",
+	"goto-course-lessons": "Занятия на курсах",
+	"help": "Помощь",
+	"open-admin": "Открытая панель администрирования",
+	"open-gallery": "Открытая галерея",
+	"open-your-courses": "Откройте свои курсы",
+	"owned-courses": "Собственные курсы",
+	"search-placeholder": "Фильтровать уроки с помощью поиска",
+	"select-course": "Выбрать курс",
+	"search-field": "поле поиска",
+	"search-field-icon": "Значок поиска"
+}
