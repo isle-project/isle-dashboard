@@ -1,0 +1,20 @@
+{
+	"admin-panel": "Painel do Administrador",
+	"admin": "Admin",
+	"course-data": "Dados do curso",
+	"create-course": "Criar um novo curso",
+	"edit-course": "Editar curso",
+	"enroll": "Inscrição",
+	"enrolled-courses": "Cursos Inscritos",
+	"gallery": "Galeria",
+	"goto-course-lessons": "Ir para as aulas do curso",
+	"help": "Ajuda",
+	"open-admin": "Painel de administração aberto",
+	"open-gallery": "Galeria aberta",
+	"open-your-courses": "Abra seus cursos",
+	"owned-courses": "Cursos próprios",
+	"search-placeholder": "Filtrar lições através de buscas",
+	"select-course": "Selecione o curso",
+	"search-field": "Campo de busca",
+	"search-field-icon": "Ícone de busca"
+}
