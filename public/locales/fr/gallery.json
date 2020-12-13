@@ -1,0 +1,9 @@
+{
+	"import": "Importer",
+	"import-lesson": "Leçon d'importation",
+	"import-lesson-description": "Veuillez sélectionner le cours dans lequel la leçon doit être copiée.",
+	"lesson-name": "Nom de la leçon",
+	"no-lessons-description": "Aucun cours n'a encore été mis à la disposition de la galerie ou ne répond à vos critères de recherche.",
+	"no-lessons-title": "Aucune leçon trouvée",
+	"select-course": "Choisir un cours"
+}

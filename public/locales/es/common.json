@@ -121,5 +121,6 @@
 	"verification-email-sent": "Correo electrónico de verificación enviado.",
 	"visualize": "Visualiza",
 	"waiting": "Sspera la respuesta...",
-	"wrote-on": "escribió el {{fecha}}"
+	"wrote-on": "escribió el {{fecha}}",
+	"repeat": "Repita"
 }

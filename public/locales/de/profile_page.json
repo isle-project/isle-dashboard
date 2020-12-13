@@ -36,5 +36,6 @@
 	"two-factor-authentication-is-disabled": "Die Zwei-Faktor-Authentifizierung ist noch nicht aktiviert.",
 	"update-name": "Namen anpassen",
 	"update-organization": "Neue Organisation eingeben",
-	"zoom": "Zoom"
+	"zoom": "Zoom",
+	"invalid-password": "Die Passwörter stimmen nicht überein."
 }
