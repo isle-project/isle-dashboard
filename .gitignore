@@ -10,6 +10,9 @@ coverage
 # production
 build
 
+# directories
+public/locales/scripts
+
 # misc
 .DS_Store
 .env
