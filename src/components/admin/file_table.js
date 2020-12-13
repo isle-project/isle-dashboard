@@ -213,7 +213,7 @@ class FilePage extends Component {
 				style: { fontSize: '1.5em', padding: 4, textAlign: 'center' }
 			}),
 			createNumericColumn({
-				Header: t('common::size'),
+				Header: t('common:size'),
 				accessor: 'size',
 				Cell: row => row.value ? `${roundn( row.value, -3 )}mb` : 'NA',
 				maxValue: fileMaxSize,
