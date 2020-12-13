@@ -65,6 +65,14 @@ class LanguageSwitcher extends Component {
 					<Button block onClick={this.changeLanguageFactory( 'en' )}>English - EN</Button>
 					<Button block onClick={this.changeLanguageFactory( 'es' )}>Español - ES</Button>
 					<Button block onClick={this.changeLanguageFactory( 'de' )}>Deutsch - DE</Button>
+					<Button block onClick={this.changeLanguageFactory( 'fr' )}>Français - FR</Button>
+					<Button block onClick={this.changeLanguageFactory( 'it' )}>Italiano - IT</Button>
+					<Button block onClick={this.changeLanguageFactory( 'ja' )}>にほんご - JA</Button>
+					<Button block onClick={this.changeLanguageFactory( 'nl' )}>Nederlands - NL</Button>
+					<Button block onClick={this.changeLanguageFactory( 'pt' )}>Porgtugês - PT</Button>
+					<Button block onClick={this.changeLanguageFactory( 'pl' )}>Polski - PL</Button>
+					<Button block onClick={this.changeLanguageFactory( 'ru' )}>русский - RU</Button>
+					<Button block onClick={this.changeLanguageFactory( 'zh' )}>中文 - ZH</Button>
 				</Modal.Body>
 			</Modal>
 		);
