@@ -1,0 +1,16 @@
+{
+	"choose-password": "Wybierz hasło",
+	"confirm-password": "Potwierdź hasło",
+	"email-tooltip": "Proszę podać prawidłowy adres e-mail.",
+	"enter-name": "Wprowadź nazwę",
+	"invalid-email": "Nie jest to prawidłowy adres e-mail.",
+	"invalid-name": "Nazwa musi zawierać cztery znaki.",
+	"invalid-password-match": "Hasła nie pasują.",
+	"invalid-password": "Twoje hasło musi zawierać co najmniej sześć znaków.",
+	"login": "Zaloguj się",
+	"name-tooltip": "Proszę wpisać swoje nazwisko i imię.",
+	"password-tooltip": "Proszę wprowadzić wybrane przez siebie hasło składające się z co najmniej sześciu znaków",
+	"password": "Hasło",
+	"signup-not-valid": "Proszę upewnić się, że wszystkie wprowadzone wartości są ważne przed wysłaniem.",
+	"tos-disclaimer": "Klikając na przycisk \"Zapisz się\" wyrażasz zgodę na nasze <1>termeny usług</1>. Dowiedz się więcej o tym, jak Twoje dane są przetwarzane w naszej <3> polityce prywatności</3>."
+}
