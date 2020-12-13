@@ -1,0 +1,9 @@
+{
+	"import": "Importeer",
+	"import-lesson": "Importeren van de les",
+	"import-lesson-description": "Selecteer de cursus waarin de les moet worden gekopieerd.",
+	"lesson-name": "Naam van de les",
+	"no-lessons-description": "Er zijn nog geen lessen beschikbaar gesteld aan de galerie of ze voldoen aan uw zoekcriteria.",
+	"no-lessons-title": "Geen lessen gevonden",
+	"select-course": "Selecteer Cursus"
+}
