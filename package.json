@@ -61,7 +61,7 @@
     "@stdlib/stdlib": "0.0.93",
     "axios": "^0.21.0",
     "babel-plugin-add-module-exports": "^1.0.4",
-    "babel-plugin-module-resolver": "^4.0.0",
+    "babel-plugin-module-resolver": "^4.1.0",
     "babel-plugin-named-asset-import": "^0.3.7",
     "babel-plugin-transform-react-jsx": "^6.24.1",
     "clipboard-copy": "^4.0.1",
