@@ -2,12 +2,13 @@
 	"actions": "Aktionen",
 	"attach-file": "Datei anhängen",
 	"click-to-upload": "Klicken um Bild hochzuladen",
-	"close-edit-modal": "Schliesse das Fenster",
 	"create-ticket": "Ticket erstellen",
+	"close-edit-modal": "Schliesse das Fenster",
 	"edit-profile": "Profil editieren",
 	"enter-password": "Bitte gib ein Passwort Deiner Wahl aus mindestens sechs Buchstaben ein",
 	"get-instructor-access": "Lehrerzugang einrichten",
 	"invalid-name": "Name muss aus mindestens vier Buchstaben bestehen.",
+	"invalid-password": "Die Passwörter stimmen nicht überein.",
 	"left": "Links",
 	"messages": "Nachrichten",
 	"my-tickets": "Meine Tickets",
@@ -26,8 +27,8 @@
 	"show-open-tickets": "Offene Tickets anzeigen",
 	"show-tickets": "Tickets Anzeigen",
 	"score": "Punkte",
-	"tfa-enable-instructions": "Bitte registriere ISLE mit deiner Authenticator-App durch Scannen des obigen QRCodes und gib den erhaltenen Token unten ein.",
 	"select-file": "Datei wählen",
+	"tfa-enable-instructions": "Bitte registriere ISLE mit deiner Authenticator-App durch Scannen des obigen QRCodes und gib den erhaltenen Token unten ein.",
 	"ticket-description-placeholder": "Gib eine Beschreibung deines Problems ein...",
 	"ticket-title-placeholder": "Titel auswählen...",
 	"ticketing-intro": "Hier kannst du ein Problem mit der Funktionalität des Dashboards melden. Deine Nachricht wird sowohl an Deine Instruktoren als auch an das ISLE Support-Team geschickt. Bitte melde Probleme innerhalb von Lektionen direkt aus der Symbolleiste der jeweiligen Lektion.",
@@ -36,6 +37,5 @@
 	"two-factor-authentication-is-disabled": "Die Zwei-Faktor-Authentifizierung ist noch nicht aktiviert.",
 	"update-name": "Namen anpassen",
 	"update-organization": "Neue Organisation eingeben",
-	"zoom": "Zoom",
-	"invalid-password": "Die Passwörter stimmen nicht überein."
+	"zoom": "Zoom"
 }
