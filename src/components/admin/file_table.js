@@ -95,7 +95,7 @@ class FilePage extends Component {
 				Cell: ( row ) => {
 					return (
 						<OverlayTrigger placement="left" overlay={<Tooltip id="external-link-tooltip">{t('namespace_data:open-file')}</Tooltip>}>
-							<a href={server+'/'+row.value} target="_blank">
+							<a href={server+'/'+row.value} target="_blank" rel="noopener noreferrer" >
 								<Button size="sm" variant="outline-secondary">
 									<i className="fa fa-external-link-alt"></i>
 								</Button>
@@ -152,7 +152,7 @@ class FilePage extends Component {
 					return (
 						<OverlayTrigger placement="right" overlay={<Tooltip id="open-lesson-tooltip">{t('namespace_data:open-lesson-new-tab')}</Tooltip>}>
 							<div style={{ width: '100%', height: '100%' }} >
-								<a href={url} target="_blank">
+								<a href={url} target="_blank" rel="noopener noreferrer" >
 									{row.value}
 								</a>
 							</div>

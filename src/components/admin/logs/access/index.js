@@ -33,7 +33,7 @@ class AccessLog extends Component {
 		const url = `/logs/access.log?${qs.stringify({ jwt: user.token })}`;
 		return (
 			<Fragment>
-				<a href={url} target="_blank" download >
+				<a href={url} target="_blank" download rel="noopener noreferrer" >
 					<Button variant="success" className="admin-page-log-side-button" >{t('common:save-file')}</Button>
 				</a>
 				<div className="access-log-wrapper" >

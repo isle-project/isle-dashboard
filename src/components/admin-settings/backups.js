@@ -99,7 +99,7 @@ class BackupsPage extends Component {
 							<td>{`${size} MB`}</td>
 							<td>{x.createdAt}</td>
 							<td>
-								<a href={`${server}/${x.filename}`} target="_blank" >
+								<a href={`${server}/${x.filename}`} target="_blank" rel="noopener noreferrer" >
 									<OverlayTrigger placement="bottom" overlay={<Tooltip id="download-backup-tooltip">{t('download-backup')}</Tooltip>}>
 										<Button size="sm" variant="secondary" style={{ marginRight: 8 }} >
 											<i className="fas fa-cloud-download-alt" ></i>

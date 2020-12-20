@@ -214,12 +214,12 @@ class ProfilePage extends Component {
 			}
 			out.push( <Media key={i}>
 				<div className="mr-3">
-					<a href={server+'/'+file.filename} target="_blank">
+					<a href={server+'/'+file.filename} target="_blank" rel="noopener noreferrer" >
 						<i className={cl} />
 					</a>
 				</div>
 				<Media.Body>
-					<a href={server+'/'+file.filename} target="_blank">
+					<a href={server+'/'+file.filename} target="_blank" rel="noopener noreferrer" >
 						<h4>{file.title}</h4>
 					</a>
 					<p>Date: {new Date( file.createdAt ).toLocaleDateString()}, Lesson: {lessonName}</p>

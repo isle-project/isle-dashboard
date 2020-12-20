@@ -277,7 +277,7 @@ class TicketPage extends Component {
 					const url = `${server}/${row.original.namespace.title}/${row.value}`;
 					return (
 						<Badge variant="light" style={{ fontSize: '1em' }} >
-							<a href={url} target="_blank">
+							<a href={url} target="_blank" rel="noopener noreferrer" >
 								{row.value}
 							</a>
 						</Badge>

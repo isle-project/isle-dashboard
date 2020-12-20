@@ -246,7 +246,7 @@ class TicketsPage extends Component {
 					return (
 						<OverlayTrigger placement="right" overlay={<Tooltip id="open-lesson-tooltip">{t('namespace_data:open-lesson-new-tab')}</Tooltip>}>
 							<Badge variant="light" style={{ fontSize: '1em' }} >
-								<a href={url} target="_blank">
+								<a href={url} target="_blank" rel="noopener noreferrer" >
 									{row.value}
 								</a>
 							</Badge>

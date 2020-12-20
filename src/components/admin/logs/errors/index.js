@@ -33,7 +33,7 @@ class ErrorLog extends Component {
 		const url = `/logs/errors.log?${qs.stringify({ jwt: user.token })}`;
 		return (
 			<Fragment>
-				<a href={url} target="_blank" download >
+				<a href={url} target="_blank" downloadrel="noopener noreferrer" >
 					<Button variant="success" className="admin-page-log-side-button" >{t('common:save-file')}</Button>
 				</a>
 				<div className="error-log-wrapper" >
