@@ -84,7 +84,7 @@
     "prop-types": "^15.6.2",
     "query-string": "^6.13.7",
     "react": "17.0.1",
-    "react-avatar-editor": "11.0.13",
+    "react-avatar-editor": "11.1.0",
     "react-bootstrap": "^1.4.0",
     "react-dates": "^21.8.0",
     "react-datetime-picker": "^3.0.4",
