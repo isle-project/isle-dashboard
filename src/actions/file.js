@@ -168,6 +168,7 @@ export const uploadFile = async ( dispatch, { formData, user }) => {
 				<a
 					href={server+'/'+res.data.filename}
 					target="_blank"
+					rel="noopener noreferrer"
 					style={{ float: 'right', marginRight: '10px' }}
 				>
 					<Button size="sm" variant="outline-secondary">
