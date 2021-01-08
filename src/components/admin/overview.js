@@ -371,8 +371,7 @@ class Overview extends Component {
 									const blob = new Blob([ JSON.stringify( gd.data ) ], {
 										type: 'application/json'
 									});
-									const name = `stats_${objectKeys( this.state.displayInPlot ).join( '_' )}.json`;
-									saveAs( blob, name );
+									saveAs( blob, `stats_${title}.json` );
 								}
 							}
 						]
