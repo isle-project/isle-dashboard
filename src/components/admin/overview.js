@@ -39,6 +39,7 @@ import uppercase from '@stdlib/string/uppercase';
 import SearchBar from 'components/searchbar';
 import server from 'constants/server';
 import COLORS from 'constants/colors';
+import saveAs from 'utils/file_saver.js';
 import obsToVar from '@isle-project/utils/obs-to-var';
 import DashboardDataExplorer from 'ev/components/data-explorer';
 
@@ -120,6 +121,21 @@ const DISPLAY_IN_PLOT = {
 	openTickets: false,
 	closedTickets: false
 };
+const BUTTONS_TO_REMOVE = [
+	'sendDataToCloud',
+	'zoom2d',
+	'pan2d',
+	'select2d',
+	'zoomIn2d',
+	'zoomOut2d',
+	'autoScale2d',
+	'resetScale2d',
+	'hoverClosestCartesian',
+	'hoverCompareCartesian',
+	'toggleHover',
+	'toggleSpikelines',
+	'resetViews'
+];
 
 
 // MAIN //
@@ -339,8 +355,27 @@ class Overview extends Component {
 					revision={this.state.revision}
 					data={displayedData}
 					config={{
-						displayModeBar: false,
-						displaylogo: false
+						displayModeBar: 'hover',
+						displaylogo: false,
+						modeBarButtonsToRemove: BUTTONS_TO_REMOVE,
+						modeBarButtonsToAdd: [
+							{
+								name: this.props.t('download-data'),
+								icon: {
+									'width': 857.1,
+									'height': 1000,
+									'path': 'm214-7h429v214h-429v-214z m500 0h72v500q0 8-6 21t-11 20l-157 156q-5 6-19 12t-22 5v-232q0-22-15-38t-38-16h-322q-22 0-37 16t-16 38v232h-72v-714h72v232q0 22 16 38t37 16h465q22 0 38-16t15-38v-232z m-214 518v178q0 8-5 13t-13 5h-107q-7 0-13-5t-5-13v-178q0-8 5-13t13-5h107q7 0 13 5t5 13z m357-18v-518q0-22-15-38t-38-16h-750q-23 0-38 16t-16 38v750q0 22 16 38t38 16h517q23 0 50-12t42-26l156-157q16-15 27-42t11-49z',
+									'transform': 'matrix(1 0 0 -1 0 850)'
+								},
+								click: ( gd ) => {
+									const blob = new Blob([ JSON.stringify( gd.data ) ], {
+										type: 'application/json'
+									});
+									const name = `stats_${objectKeys( this.state.displayInPlot ).join( '_' )}.json`;
+									saveAs( blob, name );
+								}
+							}
+						]
 					}}
 					layout={layout}
 					style={{
