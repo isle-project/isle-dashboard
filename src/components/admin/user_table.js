@@ -341,7 +341,7 @@ class UserPage extends Component {
 				filterable: false,
 				sortable: false
 			},
-			...this.props.user.availableCustomFields.map( x => {
+			...( this.props.user.availableCustomFields || [] ).map( x => {
 				if ( x.type === 'text' ) {
 					return createTextColumn({
 						Header: x.name,
