@@ -158,7 +158,7 @@
     "stylelint-config-standard": "^20.0.0",
     "terser-webpack-plugin": "4.2.3",
     "url-loader": "4.1.1",
-    "webpack": "4.44.2",
+    "webpack": "4.45.0",
     "webpack-dev-server": "3.11.1",
     "workbox-webpack-plugin": "4.3.1"
   },
