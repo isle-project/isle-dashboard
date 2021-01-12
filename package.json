@@ -67,7 +67,7 @@
     "clipboard-copy": "^4.0.1",
     "connected-react-router": "6.8.0",
     "cross-env": "^7.0.3",
-    "csv-stringify": "^5.6.0",
+    "csv-stringify": "^5.6.1",
     "debug": "4.3.1",
     "dotenv-expand": "^5.1.0",
     "history": "4.10.1",
