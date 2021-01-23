@@ -33,7 +33,7 @@ class FooterBar extends Component {
 			<div className="isle-logo" >
 				<img src="img/isle_logo.svg" alt="ISLE Logo" />
 				<div className="footer-bar-copyright" >
-					© 2016-2020 The ISLE Authors. All rights reserved.
+					© 2016-2021 The ISLE Authors. All rights reserved.
 				</div>
 			</div>
 			<div className="isle-terms" >
