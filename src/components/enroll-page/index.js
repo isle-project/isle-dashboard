@@ -86,8 +86,8 @@ class EnrollPage extends Component {
 		});
 		const names = keys( courses );
 		const list = new Array( names.length );
-		for ( let i = 0; i< names.length; i++ ) {
-			const title= names[i];
+		for ( let i = 0; i < names.length; i++ ) {
+			const title = names[ i ];
 			list[ i ] = <div className="enroll-page-course" key={`cell-${i}`}>
 				<Course
 					addUserToCohort={this.props.addUserToCohort}
@@ -119,7 +119,7 @@ class EnrollPage extends Component {
 	render() {
 		return (
 			<div className="enroll-page">
-				<img className="enroll-page-background" src="https://isle.heinz.cmu.edu/pexels-photo-574283_1546971725423.jpeg" alt="" />
+				<img className="enroll-page-background" src="img/pexels_background.jpeg" alt="" />
 				<div className="enroll-page-content">
 					{this.renderCourses()}
 				</div>
