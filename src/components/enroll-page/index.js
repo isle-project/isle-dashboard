@@ -43,9 +43,7 @@ class EnrollPage extends Component {
 	}
 
 	componentDidMount() {
-		if ( !this.props.cohorts ) {
-			this.props.fetchCohorts( this.props.user );
-		}
+		this.props.fetchCohorts( this.props.user );
 	}
 
 	createLayout( courses ) {
