@@ -4,7 +4,7 @@
 	top: 120px;
 	height: calc(100vh - 144px);
 	overflow-y: scroll;
-	background: url(https://isle.heinz.cmu.edu/white_carbonfiber_1543854970404.png);
+	background: url(./../../../public/img/white_carbonfiber.png);
 }
 
 .gallery-pagination {

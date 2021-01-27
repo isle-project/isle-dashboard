@@ -33,7 +33,7 @@
 .profile-page-left {
 	grid-area: left;
 	border-right: solid 1px silver;
-	background-image: url(https://isle.heinz.cmu.edu/white_carbonfiber_1543854970404.png);
+	background-image: url(./../../../public/img/white_carbonfiber.png);
 }
 
 .profile-page-badge-title {
@@ -407,7 +407,7 @@
 	position: relative;
 	grid-area: personal;
 	width: 300px;
-	background-image: url(https://isle.heinz.cmu.edu/white_carbonfiber_1543854970404.png);
+	background-image: url(./../../../public/img/white_carbonfiber.png);
 }
 
 .profile-page-user-personal-name {
