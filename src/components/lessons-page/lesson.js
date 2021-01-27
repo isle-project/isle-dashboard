@@ -342,24 +342,24 @@ class Lesson extends Component {
 						/>
 						<div
 							className="overlay"
-							onClick={this.openLesson} onKeyPress={this.openLesson}
-							tabIndex={0} role="button"
 						>
-							<OverlayTrigger
-								placement="bottom"
-								overlay={<Tooltip id="copy_name">
-									{t('common:copy-name')
-								}</Tooltip>}
-							>
-								<span
-									role="button" tabIndex={0}
-									onClick={this.copyNameToClipboard}
-									onKeyPress={this.copyNameToClipboard}
-									style={{ cursor: 'copy' }}
+							<h2>
+								<OverlayTrigger
+									placement="bottom"
+									overlay={<Tooltip id="copy_name">
+										{t('common:copy-name')
+									}</Tooltip>}
 								>
-									<h2>{this.props.title}</h2>
-								</span>
-							</OverlayTrigger>
+									<span
+										role="button" tabIndex={0}
+										onClick={this.copyNameToClipboard}
+										onKeyPress={this.copyNameToClipboard}
+										style={{ cursor: 'copy' }}
+									>
+										{this.props.title}
+									</span>
+								</OverlayTrigger>
+							</h2>
 							{this.props.description !== DEFAULT_DESCRIPTION ?
 								<h3>{this.props.description}</h3> :
 								null
@@ -369,6 +369,8 @@ class Lesson extends Component {
 									this.link = link;
 								}}
 								className="info"
+								onClick={this.openLesson} onKeyPress={this.openLesson}
+								tabIndex={0} role="button"
 							>
 								{t('open-lesson')}
 							</span>
