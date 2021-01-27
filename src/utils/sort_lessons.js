@@ -26,7 +26,18 @@ const OPTS = {
 
 function sortLessons( lessons, search ) {
 	const { type, direction } = search;
-	if ( type === 'alphabetically' ) {
+	if ( type === 'sequentially' ) {
+		if ( direction === 'ascending' ) {
+			lessons.sort( ( a, b ) => {
+				return a.pos - b.pos;
+			});
+		} else {
+			lessons.sort( ( a, b ) => {
+				return b.pos - a.pos;
+			});
+		}
+	}
+	else if ( type === 'alphabetically' ) {
 		if ( direction === 'ascending' ) {
 			lessons.sort( ( a, b ) => {
 				const x = a.namespace + a.title;
