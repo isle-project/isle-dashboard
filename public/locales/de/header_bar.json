@@ -16,5 +16,7 @@
 	"search-field": "Suchfeld",
 	"search-field-icon": "Suchicon",
 	"search-placeholder": "Durchsuche Lektionen des Kurses",
-	"select-course": "Kurs auswählen"
+	"select-course": "Kurs auswählen",
+	"sort-default-owner-explanation": "Wählen Sie eine Lektion aus und verschieben Sie sie mit den Pfeiltasten links/rechts an die gewünschte Stelle in der Standardsortierung.",
+	"sort-default-student-explanation": "Standardreihenfolge der Lektionen, wie von den Kursleitern vorgegeben"
 }

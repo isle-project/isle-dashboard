@@ -16,5 +16,7 @@
 	"search-field": "Campo di ricerca",
 	"search-field-icon": "Icona di ricerca",
 	"search-placeholder": "Filtrare le lezioni per ricerca",
-	"select-course": "Seleziona il corso"
+	"select-course": "Seleziona il corso",
+	"sort-default-owner-explanation": "Seleziona una lezione e usa i tasti freccia sinistra/destra per spostarla nella posizione designata nell'ordinamento predefinito.",
+	"sort-default-student-explanation": "Ordinamento predefinito delle lezioni come specificato dagli istruttori del corso"
 }

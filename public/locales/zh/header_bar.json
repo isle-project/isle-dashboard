@@ -16,5 +16,7 @@
 	"search-field": "搜索领域",
 	"search-field-icon": "搜索图标",
 	"search-placeholder": "通过搜索过滤课程",
-	"select-course": "选择课程"
+	"select-course": "选择课程",
+	"sort-default-owner-explanation": "选择一个课程，使用左/右箭头键将其移动到默认排序中的指定位置。",
+	"sort-default-student-explanation": "课程教师指定的默认课程顺序。"
 }

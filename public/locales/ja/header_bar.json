@@ -16,5 +16,7 @@
 	"search-field": "検索フィールド",
 	"search-field-icon": "検索アイコン",
 	"search-placeholder": "検索してレッスンを絞り込む",
-	"select-course": "コースを選択する"
+	"select-course": "コースを選択する",
+	"sort-default-owner-explanation": "レッスンを選択し、左右の矢印キーを使用して、デフォルトのソートで指定した場所に移動します。",
+	"sort-default-student-explanation": "コース講師が指定したデフォルトのレッスン順"
 }

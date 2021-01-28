@@ -16,5 +16,7 @@
 	"search-placeholder": "Filter lessons by searching",
 	"select-course": "Select course",
 	"search-field": "Search field",
-	"search-field-icon": "Search icon"
+	"search-field-icon": "Search icon",
+	"sort-default-student-explanation": "Default ordering of lessons as specified by the course instructors",
+	"sort-default-owner-explanation": "Select a lesson and use left/right arrow keys to move it to the designated location in the default sorting."
 }
