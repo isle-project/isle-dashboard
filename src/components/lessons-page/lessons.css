@@ -85,6 +85,11 @@
 	box-shadow: 0 0 2px 2px darkslategray;
 }
 
+.lesson-grid-item:focus {
+	outline: none;
+	box-shadow: 0 0 0 6px rgba(238, 18, 18, 0.8);
+}
+
 .lesson-link-icon {
 	position: absolute;
 	top: 4px;
