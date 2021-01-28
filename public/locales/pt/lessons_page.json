@@ -1,7 +1,7 @@
 {
 	"create-new-one": " ou criar um novo sob",
 	"no-course-description": "Abra um curso existente, selecionando um no menu suspenso acima em",
-	"no-lessons-found": "Nenhuma Lição Encontrada",
 	"no-lessons": "O curso selecionado não contém nenhuma lição.",
+	"no-lessons-found": "Nenhuma Lição Encontrada",
 	"upload-from-editor": "Você pode carregar lições do editor do ISLE."
 }

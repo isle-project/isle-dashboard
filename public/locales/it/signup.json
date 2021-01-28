@@ -5,12 +5,12 @@
 	"enter-name": "Inserisci il nome",
 	"invalid-email": "Non è un indirizzo e-mail valido.",
 	"invalid-name": "Il nome deve contenere quattro caratteri.",
-	"invalid-password-match": "Le password non corrispondono.",
 	"invalid-password": "La password deve contenere almeno sei caratteri.",
+	"invalid-password-match": "Le password non corrispondono.",
 	"login": "Accedi",
 	"name-tooltip": "Inserisci il tuo cognome e nome.",
-	"password-tooltip": "Si prega di inserire una password a scelta di almeno sei caratteri",
 	"password": "Password",
+	"password-tooltip": "Si prega di inserire una password a scelta di almeno sei caratteri",
 	"signup-not-valid": "Si prega di assicurarsi che tutti i valori inseriti siano validi prima dell'invio.",
 	"tos-disclaimer": "Cliccando sul pulsante \"Iscriviti\" accetti i nostri <1>termi di servizio</1>. Per saperne di più su come i vostri dati vengono trattati nella nostra <3>politica sulla privacy</3>."
 }

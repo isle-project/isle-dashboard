@@ -1,6 +1,6 @@
 {
-	"admin-panel": "Beheerderspanel",
 	"admin": "Admin",
+	"admin-panel": "Beheerderspanel",
 	"course-data": "Cursusgegevens",
 	"create-course": "Creëer een nieuwe koers",
 	"edit-course": "Cursus bewerken",
@@ -13,8 +13,8 @@
 	"open-gallery": "Open galerij",
 	"open-your-courses": "Open uw cursussen",
 	"owned-courses": "Eigendomscursussen",
-	"search-placeholder": "Filter de lessen door te zoeken",
-	"select-course": "Selecteer cursus",
 	"search-field": "Zoekveld",
-	"search-field-icon": "Zoek icoon"
+	"search-field-icon": "Zoek icoon",
+	"search-placeholder": "Filter de lessen door te zoeken",
+	"select-course": "Selecteer cursus"
 }

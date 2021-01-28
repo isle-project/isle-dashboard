@@ -1,6 +1,6 @@
 {
-	"admin-panel": "Panel administracyjny",
 	"admin": "Admin",
+	"admin-panel": "Panel administracyjny",
 	"course-data": "Dane dotyczące kursu",
 	"create-course": "Stwórz nowy kurs",
 	"edit-course": "Kurs redakcyjny",
@@ -13,8 +13,8 @@
 	"open-gallery": "Galeria otwarta",
 	"open-your-courses": "Otwórz swoje kursy",
 	"owned-courses": "Własne kursy",
-	"search-placeholder": "Lekcje filtrowania poprzez wyszukiwanie",
-	"select-course": "Wybierz kurs",
 	"search-field": "Pole wyszukiwania",
-	"search-field-icon": "Ikona wyszukiwania"
+	"search-field-icon": "Ikona wyszukiwania",
+	"search-placeholder": "Lekcje filtrowania poprzez wyszukiwanie",
+	"select-course": "Wybierz kurs"
 }

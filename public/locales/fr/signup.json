@@ -5,12 +5,12 @@
 	"enter-name": "Entrez le nom",
 	"invalid-email": "Adresse électronique non valide.",
 	"invalid-name": "Le nom doit comporter quatre caractères.",
-	"invalid-password-match": "Les mots de passe ne correspondent pas.",
 	"invalid-password": "Votre mot de passe doit contenir au moins six caractères.",
+	"invalid-password-match": "Les mots de passe ne correspondent pas.",
 	"login": "Se connecter",
 	"name-tooltip": "Veuillez saisir votre nom et votre prénom.",
-	"password-tooltip": "Veuillez entrer un mot de passe de votre choix comportant au moins six caractères",
 	"password": "Mot de passe",
+	"password-tooltip": "Veuillez entrer un mot de passe de votre choix comportant au moins six caractères",
 	"signup-not-valid": "Veuillez vous assurer que toutes les valeurs saisies sont valides avant de les soumettre.",
 	"tos-disclaimer": "En cliquant sur le bouton \"S'inscrire\", vous acceptez nos <1>conditions de service</1>. Pour en savoir plus sur la manière dont vos données sont traitées, consultez notre <3>politique de confidentialité</3>."
 }

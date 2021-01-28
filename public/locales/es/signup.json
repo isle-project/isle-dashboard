@@ -5,12 +5,12 @@
 	"enter-name": "Ingrese el nombre",
 	"invalid-email": "No es una dirección de correo electrónico válida.",
 	"invalid-name": "El nombre debe contener cuatro caracteres.",
-	"invalid-password-match": "Las contraseñas no coinciden.",
 	"invalid-password": "Su contraseña debe contener al menos seis caracteres.",
+	"invalid-password-match": "Las contraseñas no coinciden.",
 	"login": "Iniciar sesión",
 	"name-tooltip": "Por favor, introduzca su apellido y nombre.",
-	"password-tooltip": "Ingrese una contraseña de su elección con al menos seis caracteres",
 	"password": "Contraseña",
+	"password-tooltip": "Ingrese una contraseña de su elección con al menos seis caracteres",
 	"signup-not-valid": "Asegúrese de que todos los valores de entrada sean válidos antes de enviar.",
 	"tos-disclaimer": "Al hacer clic en el botón de registro, aceptas nuestros <1>Términos de servicio</1>. Para obtener más información sobre cómo se procesan sus datos, consulte nuestra <3>política de privacidad</3>."
 }

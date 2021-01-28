@@ -1,7 +1,7 @@
 {
 	"create-new-one": " of maak een nieuwe onder",
 	"no-course-description": "Open een bestaande cursus door er een te selecteren uit het dropdown menu hierboven bij",
-	"no-lessons-found": "Geen lessen gevonden",
 	"no-lessons": "De geselecteerde cursus bevat geen lessen.",
+	"no-lessons-found": "Geen lessen gevonden",
 	"upload-from-editor": "U kunt lessen uploaden vanuit de ISLE-editor."
 }

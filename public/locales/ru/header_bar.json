@@ -1,6 +1,6 @@
 {
-	"admin-panel": "панель администратора",
 	"admin": "Администратор",
+	"admin-panel": "панель администратора",
 	"course-data": "Данные курса",
 	"create-course": "Создать новый курс",
 	"edit-course": "Редактировать курс",
@@ -13,8 +13,8 @@
 	"open-gallery": "Открытая галерея",
 	"open-your-courses": "Откройте свои курсы",
 	"owned-courses": "Собственные курсы",
-	"search-placeholder": "Фильтровать уроки с помощью поиска",
-	"select-course": "Выбрать курс",
 	"search-field": "поле поиска",
-	"search-field-icon": "Значок поиска"
+	"search-field-icon": "Значок поиска",
+	"search-placeholder": "Фильтровать уроки с помощью поиска",
+	"select-course": "Выбрать курс"
 }

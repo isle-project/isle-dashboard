@@ -1,6 +1,6 @@
 {
-	"admin-panel": "管理者パネル",
 	"admin": "管理者",
+	"admin-panel": "管理者パネル",
 	"course-data": "コースデータ",
 	"create-course": "新しいコースを作成する",
 	"edit-course": "編集コース",
@@ -13,8 +13,8 @@
 	"open-gallery": "オープンギャラリー",
 	"open-your-courses": "コースを開く",
 	"owned-courses": "所有コース",
-	"search-placeholder": "検索してレッスンを絞り込む",
-	"select-course": "コースを選択する",
 	"search-field": "検索フィールド",
-	"search-field-icon": "検索アイコン"
+	"search-field-icon": "検索アイコン",
+	"search-placeholder": "検索してレッスンを絞り込む",
+	"select-course": "コースを選択する"
 }
