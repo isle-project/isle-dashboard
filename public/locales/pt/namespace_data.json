@@ -1,6 +1,7 @@
 {
 	"announcement-text": "Texto do Anúncio",
 	"announcement-title": "Título com um comprimento mínimo de três caracteres.",
+	"created-at": "Criado em",
 	"delete-announcement": "Você tem certeza de que quer apagar este anúncio?",
 	"delete-file": "Você tem certeza de que quer apagar este arquivo?",
 	"delete-file-tooltip": "Apagar o arquivo",

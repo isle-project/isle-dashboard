@@ -1,6 +1,7 @@
 {
 	"announcement-text": "Testo dell'annuncio",
 	"announcement-title": "Titolo con una lunghezza minima di tre caratteri.",
+	"created-at": "Creato a",
 	"delete-announcement": "Siete sicuri di voler cancellare questo annuncio?",
 	"delete-file": "Siete sicuri di voler cancellare questo file?",
 	"delete-file-tooltip": "Cancellare il file",

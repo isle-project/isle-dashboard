@@ -1,6 +1,7 @@
 {
 	"announcement-text": "Aankondigingstekst",
 	"announcement-title": "Titel met een minimale lengte van drie karakters.",
+	"created-at": "Gemaakt op",
 	"delete-announcement": "Weet u zeker dat u deze aankondiging wilt verwijderen?",
 	"delete-file": "Weet u zeker dat u dit bestand wilt verwijderen?",
 	"delete-file-tooltip": "Verwijder het bestand",

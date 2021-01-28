@@ -1,6 +1,7 @@
 {
 	"announcement-text": "アナウンステキスト",
 	"announcement-title": "最低3文字のタイトル。",
+	"created-at": "作成場所",
 	"delete-announcement": "このアナウンスを削除してもよろしいのでしょうか？",
 	"delete-file": "このファイルを削除してもよろしいですか？",
 	"delete-file-tooltip": "ファイルの削除",

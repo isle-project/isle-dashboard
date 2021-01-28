@@ -1,6 +1,7 @@
 {
 	"announcement-text": "Tekst ogłoszenia",
 	"announcement-title": "Tytuł o długości co najmniej trzech znaków.",
+	"created-at": "Utworzono w",
 	"delete-announcement": "Jesteś pewien, że chcesz usunąć to ogłoszenie?",
 	"delete-file": "Jesteś pewien, że chcesz usunąć ten plik?",
 	"delete-file-tooltip": "Usuń plik",

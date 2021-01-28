@@ -1,6 +1,7 @@
 {
 	"announcement-text": "Announcement Text",
 	"announcement-title": "Title with a minimum length of three characters.",
+	"created-at": "Created At",
 	"delete-announcement": "Are you sure that you want to delete this announcement?",
 	"delete-file-tooltip": "Delete the file",
 	"delete-file": "Are you sure that you want to delete this file?",
