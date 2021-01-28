@@ -17,7 +17,6 @@
 	left: 0;
 	-webkit-transition: all 0.4s ease-in-out;
 	transition: all 0.4s ease-in-out;
-	cursor: pointer;
 }
 
 .hovereffect .overlay:focus {

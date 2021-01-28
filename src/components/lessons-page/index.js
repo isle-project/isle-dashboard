@@ -23,7 +23,6 @@ import { withTranslation } from 'react-i18next';
 import PropTypes from 'prop-types';
 import { Responsive, WidthProvider } from 'react-grid-layout';
 import isArray from '@stdlib/assert/is-array';
-import isObject from '@stdlib/assert/is-object';
 import contains from '@stdlib/assert/contains';
 import lowercase from '@stdlib/string/lowercase';
 import pluck from '@stdlib/utils/pluck';
@@ -33,6 +32,7 @@ import EnrolledLesson from './enrolled_lesson.js';
 import NoCourseBanner from './no_course_banner.js';
 import NoLessonBanner from './no_lesson_banner.js';
 import sortLessons from 'utils/sort_lessons.js';
+import isOwner from 'utils/is_owner.js';
 import 'css/image.css';
 import 'react-grid-layout/css/styles.css';
 import 'react-resizable/css/styles.css';
@@ -87,22 +87,6 @@ function createLayout( lessons ) {
 		tiny: pluck( layouts, 'tiny' )
 	};
 	return layouts;
-}
-
-function isOwner( user, namespace ) {
-	let bool = false;
-	for ( let i = 0; i < namespace.owners.length; i++ ) {
-		const owner = namespace.owners[ i ];
-		if ( isObject( owner ) ) {
-			if ( owner.email === user.email ) {
-				bool = true;
-			}
-		} else if ( owner === user.id ) {
-			// Case: Owners array is not yet populated but contains only string IDs:
-			bool = true;
-		}
-	}
-	return bool;
 }
 
 
@@ -172,7 +156,6 @@ class LessonsPage extends Component {
 			debug( 'Should update page...' );
 			return true;
 		}
-		console.log( 'NO UPDATE' );
 		return false;
 	}
 

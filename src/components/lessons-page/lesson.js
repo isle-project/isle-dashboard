@@ -342,19 +342,20 @@ class Lesson extends Component {
 						/>
 						<div
 							className="overlay"
+							style={{ cursor: 'cell' }}
 						>
 							<h2>
 								<OverlayTrigger
-									placement="bottom"
+									placement="top"
 									overlay={<Tooltip id="copy_name">
 										{t('common:copy-name')
 									}</Tooltip>}
 								>
 									<span
+										className="lesson-title-button"
 										role="button" tabIndex={0}
 										onClick={this.copyNameToClipboard}
 										onKeyPress={this.copyNameToClipboard}
-										style={{ cursor: 'copy' }}
 									>
 										{this.props.title}
 									</span>

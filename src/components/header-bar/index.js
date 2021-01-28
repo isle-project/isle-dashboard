@@ -33,11 +33,11 @@ import ListGroupItem from 'react-bootstrap/ListGroupItem';
 import ListGroup from 'react-bootstrap/ListGroup';
 import Tooltip from 'react-bootstrap/Tooltip';
 import isObjectArray from '@stdlib/assert/is-object-array';
-import isObject from '@stdlib/assert/is-object';
 import contains from '@stdlib/assert/contains';
 import SearchBar from 'components/searchbar';
 import PropTypes from 'prop-types';
 import debounce from 'lodash.debounce';
+import isOwner from 'utils/is_owner.js';
 import icon from './profile_icon.png';
 import './header_bar.css';
 
@@ -268,19 +268,8 @@ class HeaderBar extends Component {
 		if ( !this.props.namespace.title ) {
 			return null;
 		}
-		let isOwner = false;
-		for ( let i = 0; i < this.props.namespace.owners.length; i++ ) {
-			const owner = this.props.namespace.owners[ i ];
-			if ( isObject( owner ) ) {
-				if ( owner.email === this.props.user.email ) {
-					isOwner = true;
-				}
-			} else if ( owner === this.props.user.id ) {
-				// Case: Owners array is not yet populated but contains only string IDs:
-				isOwner = true;
-			}
-		}
-		if ( !isOwner ) {
+		const owner = isOwner( this.props.user, this.props.namespace );
+		if ( !owner ) {
 			return null;
 		}
 		const { t } = this.props;
@@ -418,11 +407,25 @@ class HeaderBar extends Component {
 				title = t('common:sort-update-date');
 				break;
 		}
+		const owner = isOwner( this.props.user, this.props.namespace );
 		return (
 			<ButtonGroup style={{ float: 'left', marginBottom: '4px' }} >
 				<DropdownButton variant="secondary" onSelect={( newValue ) => {
 					this.props.setLessonOrder( newValue );
-				}} id="dropdown" title={<small><span className="title-limited-length">{title}</span></small>} >
+				}} id="dropdown" title={
+					<OverlayTrigger
+						placement="left"
+						overlay={<Tooltip id="sort-default-explanation" >
+							{owner ? t('sort-default-owner-explanation') : t('sort-default-student-explanation')}
+						</Tooltip>}
+					>
+						<small>
+							<span className="title-limited-length">
+								{title}
+							</span>
+						</small>
+					</OverlayTrigger>
+				} >
 					<Dropdown.Item eventKey="sequentially">
 						<small>{t('common:sort-default')}</small>
 					</Dropdown.Item>

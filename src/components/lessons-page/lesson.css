@@ -5,3 +5,11 @@
 	width: 100%;
 	background: rgba(0, 0, 0, 0.75);
 }
+
+.lesson-title-button {
+	cursor: pointer;
+}
+
+.lesson-title-button:hover {
+	color: rgb(250, 189, 189);
+}
