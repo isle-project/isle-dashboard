@@ -152,12 +152,7 @@ class EnrolledLesson extends Component {
 							}}
 							onError={addDefaultSrc}
 						/>
-						<div
-							role="button"
-							className="overlay" tabIndex={0}
-							onClick={this.openLesson}
-							onKeyPress={this.openLesson}
-						>
+						<div className="overlay" >
 							<h2>{this.props.title}</h2>
 							{this.props.description !== DEFAULT_DESCRIPTION ?
 								<h3>{this.props.description}</h3> :
@@ -168,8 +163,10 @@ class EnrolledLesson extends Component {
 									this.link = link;
 								}}
 								className="info"
+								role="button" tabIndex={0}
+								onClick={this.openLesson} onKeyPress={this.openLesson}
 							>
-								{t('common:open-lesson')}
+								{t('open-lesson')}
 							</span>
 						</div>
 					</div>
