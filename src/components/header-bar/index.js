@@ -406,7 +406,7 @@ class HeaderBar extends Component {
 		const { t } = this.props;
 		switch ( this.props.search.type ) {
 			case 'sequentially':
-				title = t('common:sort-sequentially');
+				title = t('common:sort-default');
 				break;
 			case 'alphabetically':
 				title = t('common:sort-alphabetically');
@@ -424,7 +424,7 @@ class HeaderBar extends Component {
 					this.props.setLessonOrder( newValue );
 				}} id="dropdown" title={<small><span className="title-limited-length">{title}</span></small>} >
 					<Dropdown.Item eventKey="sequentially">
-						<small>{t('common:sort-sequentially')}</small>
+						<small>{t('common:sort-default')}</small>
 					</Dropdown.Item>
 					<Dropdown.Item eventKey="alphabetically">
 						<small>{t('common:sort-alphabetically')}</small>

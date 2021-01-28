@@ -210,3 +210,19 @@ export const getAllNamespacesInjector = ( dispatch ) => {
 		await getAllNamespaces( dispatch );
 	};
 };
+
+export const setLessonOrder = async ( dispatch, { lessons, id }) => {
+	try {
+		await axios.post( server+'/set_lesson_order', {
+			lessons, id
+		});
+	} catch ( err ) {
+		return addErrorNotification( dispatch, err );
+	}
+};
+
+export const setLessonOrderInjector = ( dispatch ) => {
+	return async ({ lessons, id }) => {
+		await setLessonOrder( dispatch, { lessons, id } );
+	};
+};

@@ -121,7 +121,8 @@ class LessonsPage extends Component {
 			filteredLessons: searchLessons( lessons, props.search.phrase ),
 			layouts: createLayout( lessons ),
 			unfilteredLessons: lessons,
-			search: props.search
+			search: props.search,
+			activeElement: null
 		};
 	}
 
@@ -171,11 +172,66 @@ class LessonsPage extends Component {
 			debug( 'Should update page...' );
 			return true;
 		}
+		console.log( 'NO UPDATE' );
 		return false;
 	}
 
 	preventOpeningLink = ( event ) => {
 		event.preventDefault();
+	}
+
+	repositionLessons( idx, direction ) {
+		const unfilteredLessons = this.state.unfilteredLessons.slice();
+		if ( direction === 'left' ) {
+			if ( idx > 0 ) {
+				const lesson = unfilteredLessons[ idx ];
+				const left = unfilteredLessons[ idx - 1 ];
+				const tmp = left.pos;
+				left.pos = lesson.pos;
+				lesson.pos = tmp;
+			}
+		}
+		else if ( direction === 'right' ) {
+			if ( idx < unfilteredLessons.length - 1 ) {
+				const lesson = unfilteredLessons[ idx ];
+				const right = unfilteredLessons[ idx + 1 ];
+				const tmp = right.pos;
+				right.pos = lesson.pos;
+				lesson.pos = tmp;
+			}
+		}
+		const filteredLessons = searchLessons( unfilteredLessons, this.props.search.phrase );
+		sortLessons( filteredLessons, this.props.search );
+		const layouts = createLayout( filteredLessons );
+		this.setState({
+			filteredLessons,
+			layouts,
+			unfilteredLessons
+		}, this.forceUpdate );
+		this.props.setLessonOrder({
+			id: this.props.namespace._id,
+			lessons: unfilteredLessons.map( x => x._id )
+		});
+	}
+
+	handlePositionChangeFactory = ( idx ) => {
+		return ( event ) => {
+			let bool = false;
+			switch ( event.code ) {
+				case 'ArrowLeft':
+					bool = true;
+					this.repositionLessons( idx, 'left' );
+					break;
+				case 'ArrowRight':
+					bool = true;
+					this.repositionLessons( idx, 'right' );
+					break;
+			}
+			if ( bool ) {
+				event.preventDefault();
+				event.stopPropagation();
+			}
+		};
 	}
 
 	renderLessons() {
@@ -193,20 +249,46 @@ class LessonsPage extends Component {
 		}
 		return (
 			lessons.map( ( e, i ) => {
-				return ( <div className="lesson-grid-item" key={`cell-${e.title}-${i}`}>
-					<Lesson
-						{...lessons[ i ]}
-						addNotification={this.props.addNotification}
-						deleteLesson={this.props.deleteLesson}
-						updateLesson={this.props.updateLesson}
-						deactivateLesson={this.props.deactivateLesson}
-						activateLesson={this.props.activateLesson}
-						showLessonInGallery={this.props.showLessonInGallery}
-						hideLessonInGallery={this.props.hideLessonInGallery}
-						getLessons={this.props.getLessons}
-						getIsleFile={this.props.getIsleFile}
-					/>
-				</div> );
+				const lesson = <Lesson
+					{...lessons[ i ]}
+					addNotification={this.props.addNotification}
+					deleteLesson={this.props.deleteLesson}
+					updateLesson={this.props.updateLesson}
+					deactivateLesson={this.props.deactivateLesson}
+					activateLesson={this.props.activateLesson}
+					showLessonInGallery={this.props.showLessonInGallery}
+					hideLessonInGallery={this.props.hideLessonInGallery}
+					getLessons={this.props.getLessons}
+					getIsleFile={this.props.getIsleFile}
+				/>;
+				if ( this.props.search.type === 'sequentially' ) {
+					return ( <div
+						className="lesson-grid-item"
+						key={`cell-${e.title}-${i}`}
+						tabIndex={0} role="button"
+						ref={input => {
+							if ( input && this.state.activeElement === e.title ) {
+								input.focus();
+							}
+							return input;
+						}}
+						onKeyDown={this.handlePositionChangeFactory( i )}
+						onFocus={() => {
+							this.setState({
+								activeElement: e.title
+							});
+						}}
+					>
+						{lesson}
+					</div> );
+				}
+				return (
+					<div
+						className="lesson-grid-item" key={`cell-${e.title}-${i}`}
+					>
+						{lesson}
+					</div>
+				);
 			})
 		);
 	}
@@ -228,10 +310,11 @@ class LessonsPage extends Component {
 						cols={{ lg: 24, md: 20, sm: 16, xs: 12, xxs: 8, tiny: 4 }}
 						containerPadding={[10, 10]}
 						isResizable={false}
+						isBounded={true}
 						isDraggable={false}
 						rowHeight={isOwner( this.props.user, this.props.namespace ) ? 54.5 : 55}
 					>
-					{this.renderLessons()}
+						{this.renderLessons()}
 					</ResponsiveReactGridLayout>
 				</div>
 			);
@@ -252,6 +335,7 @@ LessonsPage.propTypes = {
 	hideLessonInGallery: PropTypes.func.isRequired,
 	namespace: PropTypes.object.isRequired,
 	search: PropTypes.object.isRequired,
+	setLessonOrder: PropTypes.func.isRequired,
 	showLessonInGallery: PropTypes.func.isRequired,
 	updateLesson: PropTypes.func.isRequired,
 	url: PropTypes.string,
