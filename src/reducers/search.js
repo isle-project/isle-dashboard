@@ -26,7 +26,7 @@ import * as types from 'constants/action_types.js';
 
 const initialState = {
 	phrase: null,
-	type: 'created_at',
+	type: 'sequentially',
 	direction: 'ascending'
 };
 
