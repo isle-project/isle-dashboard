@@ -86,7 +86,7 @@ class ProfilePage extends Component {
 
 	componentDidMount() {
 		if ( !this.props.user.files ) {
-			this.props.getFiles({});
+			this.props.getUserFiles();
 		}
 		const course = this.state.selectedNamespace;
 		if ( course && !course.lessons ) {
@@ -187,7 +187,8 @@ class ProfilePage extends Component {
 	}
 
 	renderFiles() {
-		let files = this.props.user.files;
+		const { t, user } = this.props;
+		let files = user.files;
 		if ( files ) {
 			files = files[ this.state.selectedNamespaceID ];
 		}
@@ -200,7 +201,7 @@ class ProfilePage extends Component {
 			const lessonName = id2Name( this.state.selectedNamespace.lessons, file.lesson );
 
 			let cl = 'fas fa-file-image fa-4x';
-			const pth = path.extname(file.filename);
+			const pth = path.extname( file.filename );
 			switch ( pth ) {
 				case '.html':
 					cl = 'fab fa-html5 fa-4x';
@@ -222,7 +223,7 @@ class ProfilePage extends Component {
 					<a href={server+'/'+file.filename} target="_blank" rel="noopener noreferrer" >
 						<h4>{file.title}</h4>
 					</a>
-					<p>Date: {new Date( file.createdAt ).toLocaleDateString()}, Lesson: {lessonName}</p>
+					<p>{t('common:date')}: {new Date( file.createdAt ).toLocaleDateString()}{lessonName ? `, ${t('common:lesson')}: ${lessonName}` : lessonName}</p>
 				</Media.Body>
 			</Media> );
 		}
@@ -497,7 +498,6 @@ ProfilePage.propTypes = {
 	createTicket: PropTypes.func.isRequired,
 	disableTFA: PropTypes.func.isRequired,
 	enableTFA: PropTypes.func.isRequired,
-	getFiles: PropTypes.func.isRequired,
 	getLessons: PropTypes.func.isRequired,
 	getTfaQRCode: PropTypes.func.isRequired,
 	getUserBadges: PropTypes.func.isRequired,

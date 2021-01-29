@@ -93,6 +93,12 @@ export const getUserFiles = async ( dispatch ) => {
 	}
 };
 
+export const getUserFilesInjector = ( dispatch ) => {
+	return async () => {
+		await getUserFiles( dispatch );
+	};
+};
+
 export const deleteFile = async ( dispatch, _id, namespaceName, owner ) => {
 	try {
 		const res = await axios.post( `${server}/delete_file`, { _id });

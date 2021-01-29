@@ -22,7 +22,7 @@ import { connect } from 'react-redux';
 import ProfilePage from 'components/profile-page';
 import { getLessonsInjector } from 'actions/lesson';
 import { getUserBadgesInjector } from 'actions/badge';
-import { getFilesInjector } from 'actions/file';
+import { getUserFilesInjector } from 'actions/file';
 import { authenticateInjector, uploadProfilePicInjector, updateUserInjector, resendConfirmEmailInjector } from 'actions/user';
 import { addNotificationInjector } from 'actions/notification';
 import { createTicketInjector, getUserTicketsInjector } from 'actions/ticket';
@@ -45,7 +45,7 @@ function mapDispatchToProps( dispatch ) {
 		getUserBadges: getUserBadgesInjector( dispatch ),
 		updateUser: updateUserInjector( dispatch ),
 		authenticate: authenticateInjector( dispatch ),
-		getFiles: getFilesInjector( dispatch ),
+		getUserFiles: getUserFilesInjector( dispatch ),
 		getLessons: getLessonsInjector( dispatch ),
 		resendConfirmEmail: resendConfirmEmailInjector( dispatch ),
 		sendTicketMessage: sendTicketMessageInjector( dispatch ),
