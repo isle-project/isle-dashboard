@@ -28,6 +28,7 @@ import Nav from 'react-bootstrap/Nav';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
 import keys from '@stdlib/utils/keys';
+import isObject from '@stdlib/assert/is-object';
 import isArray from '@stdlib/assert/is-array';
 import anyBy from '@stdlib/utils/any-by';
 import formatTime from 'utils/format_time.js';
@@ -89,7 +90,7 @@ class ProfilePage extends Component {
 			this.props.getUserFiles();
 		}
 		const course = this.state.selectedNamespace;
-		if ( course && !course.lessons ) {
+		if ( course ) {
 			this.props.getLessons( course.title );
 		}
 		this.props.getUserBadges();
@@ -121,7 +122,7 @@ class ProfilePage extends Component {
 			selectedNamespace: this.props.user.enrolledNamespaces[ id ]
 		}, () => {
 			const course = this.props.user.enrolledNamespaces[ id ];
-			if ( !course.lessons ) {
+			if ( !isObject( course.lessons[ 0 ] ) ) {
 				this.props.getLessons( namespaceName );
 			}
 		});
