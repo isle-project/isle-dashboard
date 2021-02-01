@@ -90,7 +90,7 @@
     "react-avatar-editor": "11.1.0",
     "react-bootstrap": "^1.4.3",
     "react-dates": "^21.8.0",
-    "react-datetime-picker": "^3.0.4",
+    "react-datetime-picker": "^3.0.5",
     "react-dom": "17.0.1",
     "react-grid-layout": "^1.2.0",
     "react-i18next": "^11.8.5",
