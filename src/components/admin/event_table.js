@@ -134,14 +134,24 @@ class EventTable extends Component {
 				Header: t('common:actions'),
 				Cell: ( row ) => {
 					return ( <div>
-						<OverlayTrigger placement="bottom" overlay={<Tooltip id="delete_event">{t('namespace:delete-event')}</Tooltip>}>
+						<OverlayTrigger placement="bottom" overlay={<Tooltip id="delete_event">{t('delete-event')}</Tooltip>}>
 							<Button
 								variant="outline-secondary"
 								style={{ marginLeft: 8 }}
 								onClick={this.askToDeleteSelectedEventFactory( row.row._original )}
-								aria-label={t('namespace:delete-event')}
+								aria-label={t('delete-event')}
 							>
 								<div className="fa fa-trash-alt" />
+							</Button>
+						</OverlayTrigger>
+						<OverlayTrigger placement="bottom" overlay={<Tooltip id="trigger_event">{t('trigger-event')}</Tooltip>}>
+							<Button
+								variant="outline-secondary"
+								style={{ marginLeft: 8 }}
+								onClick={this.triggerEventFactory( row.row._original )}
+								aria-label={t('trigger-event')}
+							>
+								<div className="fas fa-share-square" />
 							</Button>
 						</OverlayTrigger>
 					</div> );
@@ -151,6 +161,12 @@ class EventTable extends Component {
 				sortable: false
 			}
 		];
+	}
+
+	triggerEventFactory = ( row ) => {
+		return () => {
+			this.props.triggerEvent( row._id );
+		};
 	}
 
 	askToDeleteSelectedEventFactory = ( event ) => {
@@ -212,8 +228,8 @@ class EventTable extends Component {
 					t={this.props.t}
 				/>
 				{ this.state.showDeleteModal ? <ConfirmModal
-					title={t('lesson:delete-event')}
-					message={<span>{t('namespace:delete-event-confirm')}</span>}
+					title={t('delete-event')}
+					message={<span>{t('delete-event-confirm')}</span>}
 					close={this.toggleDeleteModal}
 					show={this.state.showDeleteModal}
 					onConfirm={this.deleteSelectedEvent}

@@ -224,6 +224,7 @@ class AdminPage extends Component {
 						admin={this.props.admin}
 						deleteEvent={this.props.deleteEvent}
 						getEvents={this.props.getEvents}
+						triggerEvent={this.props.triggerEvent}
 					/>
 				);
 			case 9:
@@ -345,6 +346,7 @@ AdminPage.propTypes = {
 	openTicket: PropTypes.func.isRequired,
 	sanitizeRequest: PropTypes.func.isRequired,
 	sendTicketMessage: PropTypes.func.isRequired,
+	triggerEvent: PropTypes.func.isRequired,
 	updatePriority: PropTypes.func.isRequired,
 	user: PropTypes.object.isRequired
 };

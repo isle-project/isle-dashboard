@@ -156,6 +156,17 @@ export default function admin( state = initialState, action ) {
 			users
 		});
 	}
+	case types.TRIGGERED_EVENT: {
+		const events = state.events.slice();
+		for ( let i = 0; i < events.length; i++ ) {
+			if ( events[ i ]._id === action.payload.id ) {
+				events[ i ].done = true;
+			}
+		}
+		return Object.assign({}, state, {
+			events
+		});
+	}
 	case types.USER_UPDATED_BY_ADMIN: {
 		let users = state.users.slice();
 		for ( let i = 0; i < users.length; i++ ) {

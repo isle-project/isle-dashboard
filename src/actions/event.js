@@ -22,7 +22,7 @@ import axios from 'axios';
 import server from 'constants/server';
 import i18next from 'i18next';
 import { addNotification, addErrorNotification } from 'actions/notification';
-import { DELETED_EVENT, GET_EVENTS } from 'constants/action_types.js';
+import { DELETED_EVENT, GET_EVENTS, TRIGGERED_EVENT } from 'constants/action_types.js';
 
 
 // EXPORTS //
@@ -71,5 +71,32 @@ export const deleteEvent = async ( dispatch, id ) => {
 export const deleteEventInjector = dispatch => {
 	return async ( id ) => {
 		await deleteEvent( dispatch, id );
+	};
+};
+
+export const triggerEvent = async ( dispatch, id ) => {
+	try {
+		const res = await axios.post( server+'/trigger_event', {
+			id
+		});
+		addNotification( dispatch, {
+			title: i18next.t('admin:event-triggered'),
+			message: res.data.message,
+			level: 'success'
+		});
+		dispatch({
+			type: TRIGGERED_EVENT,
+			payload: {
+				id
+			}
+		});
+	} catch ( err ) {
+		return addErrorNotification( dispatch, err );
+	}
+};
+
+export const triggerEventInjector = dispatch => {
+	return async ( id ) => {
+		await triggerEvent( dispatch, id );
 	};
 };
