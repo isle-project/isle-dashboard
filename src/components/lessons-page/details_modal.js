@@ -36,6 +36,13 @@ import SERVER from 'constants/server';
 const debug = logger( 'isle-dashboard' );
 
 
+// FUNCTIONS //
+
+function preventPropagation( event ) {
+	event.stopPropagation();
+}
+
+
 // MAIN //
 
 class DetailsModal extends Component {
@@ -130,7 +137,7 @@ class DetailsModal extends Component {
 		const { t } = this.props;
 		return (
 			<Modal show={this.props.show} onHide={this.props.close}>
-				<Form action={SERVER} method="get" onSubmit={this.onSubmit}>
+				<Form action={SERVER} method="get" onSubmit={this.onSubmit} onKeyDown={preventPropagation} >
 					<Modal.Header>
 						<Modal.Title as="h3">{t('lesson-details')}</Modal.Title>
 					</Modal.Header>
