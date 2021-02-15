@@ -1,8 +1,11 @@
 {
 	"choose-password": "Kies een wachtwoord",
+	"close": "Sluiten",
 	"confirm-password": "Bevestig het wachtwoord",
+	"create-user": "Aanmaken gebruiker",
 	"email-tooltip": "Voer een geldig e-mailadres in.",
 	"enter-name": "Voer naam in",
+	"go-to-login-page": "Ga naar login pagina",
 	"invalid-email": "Geen geldig e-mailadres.",
 	"invalid-name": "De naam moet vier karakters bevatten.",
 	"invalid-password": "Je wachtwoord moet minstens zes karakters bevatten.",

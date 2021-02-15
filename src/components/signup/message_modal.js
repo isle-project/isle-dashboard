@@ -21,6 +21,7 @@ import React from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { withRouter } from 'react-router';
+import i18n from 'i18next';
 
 
 // MAIN //
@@ -28,7 +29,7 @@ import { withRouter } from 'react-router';
 const MessageModal = withRouter( ( props ) => (
 	<Modal variant={props.successful ? 'success' : 'warning'} show={props.show}>
 		<Modal.Header>
-			<Modal.Title>Create User</Modal.Title>
+			<Modal.Title>{i18n.t('signup:create-user')}</Modal.Title>
 		</Modal.Header>
 		<Modal.Body>
 			{props.message}
@@ -37,9 +38,9 @@ const MessageModal = withRouter( ( props ) => (
 			{ props.successful ?
 				<Button onClick={()=>{
 					props.history.push( '/login' );
-				}}>Go to login page</Button> :
+				}}>{i18n.t('signup:go-to-login-page')}</Button> :
 				<Button onClick={props.close}>
-					Close
+					{i18n.t('signup:close')}
 				</Button>
 			}
 		</Modal.Footer>

@@ -1,8 +1,11 @@
 {
 	"choose-password": "Choose Password",
+	"close": "Close",
 	"confirm-password": "Confirm Password",
+	"create-user": "User Creation",
 	"email-tooltip": "Please enter a valid email address.",
 	"enter-name": "Enter Name",
+	"go-to-login-page": "Go to login page",
 	"invalid-email": "Not a valid email address.",
 	"invalid-name": "Name must contain four characters.",
 	"invalid-password-match": "Passwords do not match.",

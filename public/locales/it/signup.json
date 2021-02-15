@@ -1,8 +1,11 @@
 {
 	"choose-password": "Scegliere la password",
+	"close": "Chiudere",
 	"confirm-password": "Conferma la password",
+	"create-user": "Creazione dell'utente",
 	"email-tooltip": "Si prega di inserire un indirizzo e-mail valido.",
 	"enter-name": "Inserisci il nome",
+	"go-to-login-page": "Vai alla pagina di login",
 	"invalid-email": "Non è un indirizzo e-mail valido.",
 	"invalid-name": "Il nome deve contenere quattro caratteri.",
 	"invalid-password": "La password deve contenere almeno sei caratteri.",
