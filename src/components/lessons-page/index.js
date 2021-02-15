@@ -138,12 +138,10 @@ class LessonsPage extends Component {
 
 	componentDidMount() {
 		debug( 'Component did mount...' );
-		if ( this.props.history.action === 'REPLACE' ) {
-			debug( 'Fetch lessons upon navigating back to page...' );
-			const course = this.props.namespace;
-			if ( course.title ) {
-				this.props.getLessons( course.title );
-			}
+		const course = this.props.namespace;
+		if ( course.title ) {
+			debug( 'Fetch lessons...' );
+			this.props.getLessons( course.title );
 		}
 	}
 
