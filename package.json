@@ -135,7 +135,7 @@
     "copy-webpack-plugin": "6.4.1",
     "css-loader": "5.0.2",
     "dotenv": "8.2.0",
-    "eslint": "^7.19.0",
+    "eslint": "^7.20.0",
     "eslint-import-resolver-webpack": "^0.13.0",
     "eslint-loader": "4.0.2",
     "eslint-plugin-import": "^2.22.1",
