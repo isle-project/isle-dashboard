@@ -128,7 +128,7 @@
     "babel-plugin-transform-es2015-modules-commonjs": "^6.26.2",
     "babel-preset-react-app": "9.1.2",
     "bfj": "^7.0.2",
-    "case-sensitive-paths-webpack-plugin": "2.3.0",
+    "case-sensitive-paths-webpack-plugin": "2.4.0",
     "chalk": "4.1.0",
     "codecov": "^3.8.1",
     "connect-history-api-fallback": "1.6.0",
