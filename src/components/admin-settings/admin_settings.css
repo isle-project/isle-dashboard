@@ -36,3 +36,12 @@
 	box-shadow: 0 0 4px darkgray, 0 0 2px darkslategray;
 	padding: 16px;
 }
+
+.admin-settings-configuration-nav {
+	background-color: rgb(245, 245, 255);
+	width: 100%;
+}
+
+.admin-settings-configuration-nav .nav-link.active {
+	background-color: rgb(190, 190, 200);
+}
