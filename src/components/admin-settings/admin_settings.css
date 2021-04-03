@@ -45,3 +45,7 @@
 .admin-settings-configuration-nav .nav-link.active {
 	background-color: rgb(190, 190, 200);
 }
+
+.admin-settings-div input[type=checkbox] {
+	transform: scale(1.5);
+}
