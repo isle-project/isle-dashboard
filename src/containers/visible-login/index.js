@@ -29,7 +29,8 @@ import { handleLoginInjector, restoreLoginInjector } from 'actions/user';
 
 function mapStateToProps( state ) {
 	return {
-		user: state.user
+		user: state.user,
+		settings: state.settings
 	};
 }
 

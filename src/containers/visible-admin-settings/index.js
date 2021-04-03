@@ -26,6 +26,7 @@ import { getLicenseInjector, uploadLicenseInjector, removeLicenseInjector } from
 import { createCustomFieldInjector, deleteCustomFieldInjector, getCustomFieldsInjector,
 	decrementFieldPositionInjector, incrementFieldPositionInjector } from 'actions/custom_field.js';
 import { createBackupInjector, deleteBackupInjector, getBackupsInjector } from 'actions/backup.js';
+import { getSettingsInjector, updateSettingsInjector } from 'actions/settings.js';
 
 
 // FUNCTIONS //
@@ -48,6 +49,8 @@ function mapDispatchToProps( dispatch ) {
 		deleteCustomField: deleteCustomFieldInjector( dispatch ),
 		getCustomFields: getCustomFieldsInjector( dispatch ),
 		getLicense: getLicenseInjector( dispatch ),
+		getSettings: getSettingsInjector( dispatch ),
+		updateSettings: updateSettingsInjector( dispatch ),
 		uploadLicense: uploadLicenseInjector( dispatch ),
 		removeLicense: removeLicenseInjector( dispatch ),
 		incrementFieldPosition: incrementFieldPositionInjector( dispatch ),

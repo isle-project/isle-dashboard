@@ -17,33 +17,22 @@
 
 // MODULES //
 
-import React from 'react';
-import { connect } from 'react-redux';
-import ForgotPassword from 'components/forgot-password';
-import { forgotPasswordInjector } from 'actions/user';
+import * as types from 'constants/action_types.js';
 
 
-// FUNCTIONS //
+// VARIABLES //
 
-function mapStateToProps( state ) {
-	return {
-		user: state.user,
-		settings: state.settings
-	};
-}
-
-function mapDispatchToProps( dispatch ) {
-	return {
-		forgotPassword: forgotPasswordInjector( dispatch )
-	};
-}
-
-
-// MAIN //
-
-const VisibleForgotPassword = connect( mapStateToProps, mapDispatchToProps )( ForgotPassword );
+const initialState = {};
 
 
 // EXPORTS //
 
-export default VisibleForgotPassword;
+export default function settings( state = initialState, action ) {
+	switch ( action.type ) {
+		case types.GET_SETTINGS_PUBLIC: {
+			return Object.assign({}, state, action.payload );
+		}
+	default:
+		return state;
+	}
+}

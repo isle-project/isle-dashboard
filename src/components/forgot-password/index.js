@@ -17,7 +17,7 @@
 
 // MODULES //
 
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { withTranslation } from 'react-i18next';
 import Button from 'react-bootstrap/Button';
@@ -50,7 +50,7 @@ class ForgotPassword extends Component {
 	}
 
 	render() {
-		const { t } = this.props;
+		const { t, settings } = this.props;
 		return (
 			<div className="login">
 				<Card style={{ boxShadow: '0 0 8px rgba(0,0,0,0.3)', borderRadius: '6px', opacity: 0.98, background: 'rgba(255,255,255,0.75)' }}>
@@ -82,8 +82,12 @@ class ForgotPassword extends Component {
 						</Form>
 					</Card.Body>
 					<Card.Footer style={{ background: 'rgba(255,255,255,0.6)', textAlign: 'right' }}>
-						<Link to="/signup">{t('common:register')}</Link>
-						<span> | </span>
+						{settings.allowUserRegistrations ?
+							<Fragment>
+								<Link to="/signup">{t('common:register')}</Link>
+								<span> | </span>
+							</Fragment> : null
+						}
 						<Link to="/login">{t('common:login')}</Link>
 					</Card.Footer>
 				</Card>

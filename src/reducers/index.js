@@ -24,6 +24,7 @@ import badges from './badges';
 import cohorts from './cohorts';
 import namespace from './namespace';
 import notification from './notification';
+import settings from './settings';
 import gallery from './gallery';
 import search from './search';
 import user from './user';
@@ -40,5 +41,6 @@ export default ( history ) => combineReducers({
 	notification,
 	router: connectRouter( history ),
 	search,
+	settings,
 	user
 });

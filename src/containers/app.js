@@ -27,6 +27,7 @@ import asyncComponent from 'components/async';
 import server from 'constants/server';
 import { fetchCredentialsInjector } from 'actions/authentication.js';
 import { getEnrollableCohortsInjector } from 'actions/cohort.js';
+import { getPublicSettingsInjector } from 'actions/settings.js';
 import NotificationSystem from './notification.js';
 import './app.css';
 
@@ -81,6 +82,7 @@ const debug = logger( 'isle-dashboard' );
 class App extends Component {
 	async componentDidMount() {
 		const history = this.props.history;
+		this.props.getPublicSettings();
 		if (
 			!this.props.isLoggedIn &&
 			!RE_PUBLIC_PAGES.test( history.location.pathname )
@@ -140,6 +142,7 @@ class App extends Component {
 	}
 
 	render() {
+		const { settings } = this.props;
 		let AuthenticationBarrier = null;
 		if ( this.props.isLoggedIn ) {
 			AuthenticationBarrier =
@@ -219,7 +222,7 @@ class App extends Component {
 					<Route path="/complete-registration" component={AsyncCompleteRegistration} />
 					<Route path="/confirm-email" component={AsyncConfirmEmail} />
 					<Route path="/shibboleth" component={AsyncShibboleth} />
-					<Route path="/signup" component={AsyncSignup} />
+					{settings.allowUserRegistrations ? <Route path="/signup" component={AsyncSignup} /> : null}
 					<Route path="/forgot-password" component={AsyncForgotPassword} />
 					<Route path="/terms" component={AsyncTerms} />
 					<Route path="/privacy" component={AsyncPrivacy} />
@@ -247,13 +250,15 @@ export default connect( mapStateToProps, mapDispatchToProps )( App );
 function mapStateToProps( state ) {
 	return {
 		isLoggedIn: state.user.loggedIn,
-		user: state.user
+		user: state.user,
+		settings: state.settings
 	};
 }
 
 function mapDispatchToProps( dispatch ) {
 	return {
 		fetchCredentials: fetchCredentialsInjector( dispatch ),
+		getPublicSettings: getPublicSettingsInjector( dispatch ),
 		getEnrollableCohorts: getEnrollableCohortsInjector( dispatch )
 	};
 }

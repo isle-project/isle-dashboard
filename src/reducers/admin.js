@@ -37,7 +37,8 @@ const initialState = {
 	requestStatistics: [],
 	historicalStatistics: [],
 	backups: [],
-	license: null
+	license: null,
+	settings: {}
 };
 
 
@@ -293,6 +294,16 @@ export default function admin( state = initialState, action ) {
 		backups = backups.filter( x => x._id !== action.payload.id );
 		return Object.assign({}, state, {
 			backups
+		});
+	}
+	case types.GET_SETTINGS: {
+		return Object.assign({}, state, {
+			settings: action.payload
+		});
+	}
+	case types.UPDATED_SETTINGS: {
+		return Object.assign({}, state, {
+			settings: action.payload.settings
 		});
 	}
 	default:

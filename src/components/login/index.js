@@ -116,13 +116,13 @@ class Login extends Component {
 	}
 
 	render() {
-		const { t } = this.props;
+		const { t, settings } = this.props;
 		return (
 			<Fragment>
 				<div className="login"><Card className="login-panel">
 					<Card.Header>
 						<Card.Title as="h1" style={{ textAlign: 'center' }} >
-							ISLE <small>Dashboard</small>
+							ISLE <small>{settings.siteTitle}</small>
 						</Card.Title>
 					</Card.Header>
 					<Card.Body>
@@ -173,8 +173,13 @@ class Login extends Component {
 					</Card.Body>
 					<Card.Footer style={{ background: 'rgba(255,255,255,0.6)', textAlign: 'right' }}>
 						<Link to="/forgot-password">{t('common:forgot-password')}</Link>
-						<span> | </span>
-						<Link to="/signup">{t('common:register')}</Link>
+						{settings.allowUserRegistrations ?
+							<Fragment>
+								<span> | </span>
+								<Link to="/signup">{t('common:register')}</Link>
+							</Fragment> :
+							null
+						}
 					</Card.Footer>
 				</Card></div>
 				<Overlay
