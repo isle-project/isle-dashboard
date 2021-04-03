@@ -22,6 +22,7 @@ import PropTypes from 'prop-types';
 import { withTranslation } from 'react-i18next';
 import Nav from 'react-bootstrap/Nav';
 import asyncComponent from 'components/async';
+const Configuration = asyncComponent( () => import( './configuration.js' ) );
 const License = asyncComponent( () => import( './license.js' ) );
 const Backups = asyncComponent( () => import( './backups.js' ) );
 import UserFields from 'ev/components/admin-settings/user-fields';
@@ -109,7 +110,12 @@ class Settings extends Component {
 				/> );
 			case 1:
 				return (
-					<div>CONFIGURATION</div>
+					<Configuration
+						admin={this.props.admin}
+						user={this.props.user}
+						getSettings={this.props.getSettings}
+						updateSettings={this.props.updateSettings}
+					/>
 				);
 			case 2:
 				return (
@@ -159,7 +165,7 @@ class Settings extends Component {
 							<Nav.Link eventKey="0" title="License" >{t('license')}</Nav.Link>
 						</Nav.Item>
 						<Nav.Item>
-							<Nav.Link disabled eventKey="1" title="Configuration" >{t('configuration')}</Nav.Link>
+							<Nav.Link eventKey="1" title="Configuration" >{t('configuration')}</Nav.Link>
 						</Nav.Item>
 						<Nav.Item>
 							<Nav.Link disabled eventKey="2" title="Branding" >{t('branding')}</Nav.Link>
@@ -198,10 +204,12 @@ Settings.propTypes = {
 	getBackups: PropTypes.func.isRequired,
 	getCustomFields: PropTypes.func.isRequired,
 	getLicense: PropTypes.func.isRequired,
+	getSettings: PropTypes.func.isRequired,
 	incrementFieldPosition: PropTypes.func.isRequired,
 	match: PropTypes.object.isRequired,
 	removeLicense: PropTypes.func.isRequired,
 	t: PropTypes.func.isRequired,
+	updateSettings: PropTypes.func.isRequired,
 	uploadLicense: PropTypes.func.isRequired,
 	user: PropTypes.object.isRequired
 };
