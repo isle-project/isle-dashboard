@@ -26,6 +26,7 @@ import { components } from 'react-select';
 import Tooltip from 'react-bootstrap/Tooltip';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import contains from '@stdlib/assert/contains';
+import isNull from '@stdlib/assert/is-null';
 import trim from '@stdlib/string/trim';
 import './text_select.css';
 
@@ -55,6 +56,13 @@ const createOption = ( label ) => ({
 	value: label
 });
 
+const toOptions = ( arr ) => {
+	if ( isNull( arr ) ) {
+		return null;
+	}
+	return arr.map( createOption );
+};
+
 
 // MAIN //
 
@@ -63,8 +71,16 @@ class TextSelect extends Component {
 		super( props );
 		this.state = {
 			inputValue: '',
-			value: props.defaultValue.map( createOption )
+			value: toOptions( props.defaultValue )
 		};
+	}
+
+	componentDidUpdate( prevProps ) {
+		if ( this.props.defaultValue !== prevProps.defaultValue ) {
+			this.setState({
+				value: toOptions( this.props.defaultValue )
+			});
+		}
 	}
 
 	handleChange = ( value ) => {
