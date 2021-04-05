@@ -25,6 +25,7 @@ import CreatableSelect from 'react-select/creatable';
 import { components } from 'react-select';
 import Tooltip from 'react-bootstrap/Tooltip';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
+import isObjectArray from '@stdlib/assert/is-object-array';
 import contains from '@stdlib/assert/contains';
 import isNull from '@stdlib/assert/is-null';
 import trim from '@stdlib/string/trim';
@@ -59,6 +60,9 @@ const createOption = ( label ) => ({
 const toOptions = ( arr ) => {
 	if ( isNull( arr ) ) {
 		return null;
+	}
+	if ( isObjectArray( arr ) && arr[ 0 ].label && arr[ 0 ].value ) {
+		return arr;
 	}
 	return arr.map( createOption );
 };
