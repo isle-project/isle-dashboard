@@ -142,19 +142,25 @@ const CheckboxInput = ({ name, defaultValue, label, updateSettings }) => {
 	);
 };
 
-const TextSelectField = ( props ) => {
-	const [ value, setValue ] = useState( props.defaultValue );
+const TextSelectField = ({ name, placeholder, defaultValue, updateSettings }) => {
+	const [ value, setValue ] = useState( defaultValue );
+	const [ modified, setModified ] = useState( false );
 	const handleChange = useCallback( ( newValue ) => {
-		console.log( newValue );
+		setModified( true );
 		setValue( newValue );
 	}, [] );
+	const handleConfirm = useCallback( () => {
+		const domains = value ? value.map( x => x.label ) : [];
+		updateSettings( name, domains );
+	}, [ updateSettings, name, value ] );
 	const handleReset = useCallback( () => {
-		setValue( props.defaultValue );
-	}, [] );
+		setValue( defaultValue );
+		setModified( false );
+	}, [ defaultValue ] );
 	return (
 		<Fragment>
 			<TextSelect
-				placeholder={props.placeholder}
+				placeholder={placeholder}
 				defaultValue={value}
 				onChange={handleChange}
 				styles={{
@@ -163,12 +169,18 @@ const TextSelectField = ( props ) => {
 					})
 				}}
 			/>
-			{ value !== props.defaultValue ?
+			{ modified ?
 				<Fragment>
-					<Button variant="success" size="sm" style={{ marginRight: 6, marginLeft: 8 }} >
+					<Button
+						onClick={handleConfirm}
+						variant="success" size="sm" style={{ marginRight: 6, marginLeft: 8 }}
+					>
 						<i className="fas fa-check" />
 					</Button>
-					<Button variant="warning" size="sm" style={{ width: 32 }} onClick={handleReset} >
+					<Button
+						onClick={handleReset}
+						variant="warning" size="sm" style={{ width: 32 }}
+					>
 						<i className="fas fa-times" />
 					</Button>
 				</Fragment> : null
@@ -292,14 +304,17 @@ class ConfigurationPage extends Component {
 						/>
 					</Col>
 				</Form.Group>
-				<Form.Group as={Row} controlId="formRegistrations" >
+				<Form.Group as={Row} controlId="permittedEmailDomains" >
 					<Form.Label column sm={4} >
 						{t('permitted-email-domains')}
 					</Form.Label>
 					<Col sm={4} >
 						<TextSelectField
+							name="permittedEmailDomains"
+							key={admin.settings.permittedEmailDomains.join( ',' )}
 							placeholder={t('permitted-email-domains')}
-							defaultValue={this.state.members}
+							defaultValue={admin.settings.permittedEmailDomains}
+							updateSettings={updateSettings}
 						/>
 					</Col>
 					<Col sm={4} >
@@ -308,14 +323,17 @@ class ConfigurationPage extends Component {
 						</Form.Text>
 					</Col>
 				</Form.Group>
-				<Form.Group as={Row} controlId="formRegistrations" >
+				<Form.Group as={Row} controlId="disallowedEmailDomains" >
 					<Form.Label column sm={4} >
 						{t('disallowed-email-domains')}
 					</Form.Label>
 					<Col sm={4} >
 						<TextSelectField
+							name="disallowedEmailDomains"
+							key={admin.settings.disallowedEmailDomains.join( ',' )}
 							placeholder={t('disallowed-email-domains')}
-							defaultValue={this.state.members}
+							defaultValue={admin.settings.disallowedEmailDomains}
+							updateSettings={updateSettings}
 						/>
 					</Col>
 					<Col sm={4} >
