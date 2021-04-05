@@ -366,15 +366,20 @@ class ConfigurationPage extends Component {
 	}
 
 	renderRateLimits() {
-		const { t } = this.props;
+		const { admin, t, updateSettings } = this.props;
 		return (
 			<Container style={{ float: 'left' }} >
-				<Form.Group as={Row} controlId="formRegistrations" >
+				<Form.Group as={Row} controlId="rateLimitNamespaceCreation" >
 					<Form.Label column sm={5} >
 						{t('create-namespaces-per-hour')}
 					</Form.Label>
 					<Col sm={2} >
-						<InputField type="number" defaultValue="" />
+						<InputField
+							name="rateLimitNamespaceCreation"
+							type="number"
+							defaultValue={admin.settings.rateLimitNamespaceCreation}
+							updateSettings={updateSettings}
+						/>
 					</Col>
 					<Col sm={5} >
 						<Form.Text muted >
@@ -382,12 +387,17 @@ class ConfigurationPage extends Component {
 						</Form.Text>
 					</Col>
 				</Form.Group>
-				<Form.Group as={Row} controlId="formRegistrations" >
+				<Form.Group as={Row} controlId="rateLimitUserCreation" >
 					<Form.Label column sm={5} >
 						{t('create-users-per-hour')}
 					</Form.Label>
 					<Col sm={2} >
-						<InputField type="number" defaultValue="" />
+						<InputField
+							name="rateLimitUserCreation"
+							type="number"
+							defaultValue={admin.settings.rateLimitUserCreation}
+							updateSettings={updateSettings}
+						/>
 					</Col>
 					<Col sm={5} >
 						<Form.Text muted >
@@ -395,12 +405,17 @@ class ConfigurationPage extends Component {
 						</Form.Text>
 					</Col>
 				</Form.Group>
-				<Form.Group as={Row} controlId="formRegistrations" >
+				<Form.Group as={Row} controlId="rateLimitBackupCreation" >
 					<Form.Label column sm={5} >
 						{t('create-backups-per-day')}
 					</Form.Label>
 					<Col sm={2} >
-						<InputField type="number" defaultValue="" />
+						<InputField
+							name="rateLimitBackupCreation"
+							type="number"
+							defaultValue={admin.settings.rateLimitBackupCreation}
+							updateSettings={updateSettings}
+						/>
 					</Col>
 					<Col sm={5} >
 						<Form.Text muted >
