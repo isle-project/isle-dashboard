@@ -40,6 +40,8 @@
 	"permitted-email-domains": "Dozwolone domeny e-mail",
 	"permitted-email-domains-description": "Tylko odwiedzający z adresem e-mail z podanych domen mogą się zarejestrować",
 	"rate-limits": "Limity stawek",
+	"reserved-user-names": "Zastrzeżone nazwy użytkowników",
+	"reserved-user-names-description": "Lista zablokowanych nazw użytkowników, pod którymi użytkownicy nie mogą się rejestrować (np. dlatego, że są zastrzeżone dla celów administracyjnych)",
 	"show-on-profile": "Pokaż na profilu",
 	"site-description": "Opis terenu",
 	"site-description-description": "To jest opis pulpitu nawigacyjnego, który pojawia się jako meta-informacja o witrynie",

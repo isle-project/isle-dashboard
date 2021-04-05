@@ -40,6 +40,8 @@
 	"permitted-email-domains": "Domini di posta elettronica consentiti",
 	"permitted-email-domains-description": "Solo i visitatori con un indirizzo e-mail dai domini specificati possono registrarsi",
 	"rate-limits": "Limiti di tasso",
+	"reserved-user-names": "Nomi utente riservati",
+	"reserved-user-names-description": "Una lista di nomi utente bloccati con cui gli utenti non possono registrarsi (ad esempio, perché sono riservati per scopi amministrativi)",
 	"show-on-profile": "Mostra sul profilo",
 	"site-description": "Descrizione del sito",
 	"site-description-description": "Questa è la descrizione della dashboard che appare come meta-informazione del sito",

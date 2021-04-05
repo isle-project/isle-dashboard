@@ -311,7 +311,7 @@ class ConfigurationPage extends Component {
 					<Col sm={4} >
 						<TextSelectField
 							name="permittedEmailDomains"
-							key={admin.settings.permittedEmailDomains.join( ',' )}
+							key={admin.settings.permittedEmailDomains}
 							placeholder={t('permitted-email-domains')}
 							defaultValue={admin.settings.permittedEmailDomains}
 							updateSettings={updateSettings}
@@ -330,7 +330,7 @@ class ConfigurationPage extends Component {
 					<Col sm={4} >
 						<TextSelectField
 							name="disallowedEmailDomains"
-							key={admin.settings.disallowedEmailDomains.join( ',' )}
+							key={admin.settings.disallowedEmailDomains}
 							placeholder={t('disallowed-email-domains')}
 							defaultValue={admin.settings.disallowedEmailDomains}
 							updateSettings={updateSettings}
@@ -339,6 +339,25 @@ class ConfigurationPage extends Component {
 					<Col sm={4} >
 						<Form.Text muted >
 							{t('disallowed-email-domains-description')}
+						</Form.Text>
+					</Col>
+				</Form.Group>
+				<Form.Group as={Row} controlId="reservedUserNames" >
+					<Form.Label column sm={4} >
+						{t('reserved-user-names')}
+					</Form.Label>
+					<Col sm={4} >
+						<TextSelectField
+							name="reservedUserNames"
+							key={admin.settings.reservedUserNames}
+							placeholder={t('reserved-user-names')}
+							defaultValue={admin.settings.reservedUserNames}
+							updateSettings={updateSettings}
+						/>
+					</Col>
+					<Col sm={4} >
+						<Form.Text muted >
+							{t('reserved-user-names-description')}
 						</Form.Text>
 					</Col>
 				</Form.Group>

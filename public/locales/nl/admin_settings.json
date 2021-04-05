@@ -40,6 +40,8 @@
 	"permitted-email-domains": "Toegestane e-maildomeinen",
 	"permitted-email-domains-description": "Alleen bezoekers met een e-mailadres van de opgegeven domeinen kunnen zich registreren",
 	"rate-limits": "Tariefgrenzen",
+	"reserved-user-names": "Gereserveerde gebruikersnamen",
+	"reserved-user-names-description": "Een lijst van geblokkeerde gebruikersnamen waarmee gebruikers zich niet kunnen registreren (bv. omdat ze gereserveerd zijn voor administratieve doeleinden)",
 	"show-on-profile": "Toon op Profiel",
 	"site-description": "Site Beschrijving",
 	"site-description-description": "Dit is de beschrijving van het dashboard dat verschijnt als site meta-informatie",

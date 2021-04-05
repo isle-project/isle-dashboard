@@ -40,6 +40,8 @@
 	"permitted-email-domains": "Domaines de messagerie autorisés",
 	"permitted-email-domains-description": "Seuls les visiteurs disposant d'une adresse électronique dans les domaines spécifiés peuvent s'inscrire.",
 	"rate-limits": "Limites de taux",
+	"reserved-user-names": "Noms d'utilisateur réservés",
+	"reserved-user-names-description": "Une liste de noms d'utilisateurs bloqués avec lesquels les utilisateurs ne peuvent pas s'enregistrer (par exemple, parce qu'ils sont réservés à des fins administratives).",
 	"show-on-profile": "Afficher sur le profil",
 	"site-description": "Description du site",
 	"site-description-description": "Il s'agit de la description du tableau de bord qui apparaît en tant que méta-information du site.",

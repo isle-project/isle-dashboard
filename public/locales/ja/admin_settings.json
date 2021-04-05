@@ -40,6 +40,8 @@
 	"permitted-email-domains": "許可されたメールドメイン",
 	"permitted-email-domains-description": "指定したドメインのメールアドレスを持つ訪問者のみが登録できる",
 	"rate-limits": "レートリミット",
+	"reserved-user-names": "予約したユーザー名",
+	"reserved-user-names-description": "ユーザーが登録できないブロックされたユーザー名のリスト（例：管理目的のために予約されているため",
 	"show-on-profile": "プロフィールに表示",
 	"site-description": "サイトの説明",
 	"site-description-description": "これは、サイトのメタ情報として表示されるダッシュボードの説明です。",

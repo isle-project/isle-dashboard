@@ -26,6 +26,8 @@
 	"main": "Main",
 	"no-custom-fields": "No custom fields available",
 	"rate-limits": "Rate Limits",
+	"reserved-user-names": "Reserved User Names",
+	"reserved-user-names-description": "A list of blocked user names that users cannot register with (e.g., because they are reserved for administration purposes)",
 	"show-on-profile": "Show on Profile",
 	"user-fields": "User Fields",
 	"user-fields-description": "Add additional fields for users.",

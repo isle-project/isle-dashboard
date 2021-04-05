@@ -40,6 +40,8 @@
 	"permitted-email-domains": "允许的电子邮件域名",
 	"permitted-email-domains-description": "只有拥有来自指定域名的电子邮件地址的访问者才能注册。",
 	"rate-limits": "费率限制",
+	"reserved-user-names": "保留用户名称",
+	"reserved-user-names-description": "用户不能注册的被封锁的用户名列表（例如，因为它们是为管理目的保留的）。",
 	"show-on-profile": "显示在资料上",
 	"site-description": "网站说明",
 	"site-description-description": "这是对作为网站元信息出现的仪表板的描述。",

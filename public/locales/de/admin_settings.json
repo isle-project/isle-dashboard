@@ -40,6 +40,8 @@
 	"permitted-email-domains": "Erlaubte E-Mail-Domänen",
 	"permitted-email-domains-description": "Nur Besucher mit einer E-Mail-Adresse aus den angegebenen Domains können sich registrieren",
 	"rate-limits": "Raten-Grenzwerte",
+	"reserved-user-names": "Reservierte Benutzernamen",
+	"reserved-user-names-description": "Eine Liste mit gesperrten Benutzernamen, mit denen sich Benutzer nicht anmelden können (z. B. weil sie für Verwaltungszwecke reserviert sind)",
 	"show-on-profile": "Im Profil zeigen",
 	"site-description": "Standortbeschreibung",
 	"site-description-description": "Dies ist die Beschreibung des Dashboards, die als Site-Meta-Information erscheint",
