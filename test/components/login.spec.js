@@ -34,7 +34,7 @@ describe( '<Login />', function test() {
 	it( 'should render without throwing an error', () => {
 		render(
 			<Router history={history}>
-				<Login handleLogin={noop} fetchCredentials={noop} />
+				<Login handleLogin={noop} fetchCredentials={noop} settings={{ siteTitle: 'Dashboard' }} />
 			</Router>
 		);
 		expect( screen.getByRole( 'heading' ) ).toHaveTextContent( 'Dashboard' );
@@ -43,7 +43,7 @@ describe( '<Login />', function test() {
 	it( 'should update email field on change', () => {
 		const { queryByPlaceholderText } = render(
 			<Router history={history}>
-				<Login handleLogin={noop} fetchCredentials={noop} />
+				<Login handleLogin={noop} fetchCredentials={noop} settings={{}} />
 			</Router>
 		);
 		const emailInput = queryByPlaceholderText( 'common:email' );
@@ -60,7 +60,7 @@ describe( '<Login />', function test() {
 	it( 'should update password field on change', () => {
 		const { queryByPlaceholderText } = render(
 			<Router history={history}>
-				<Login handleLogin={noop} fetchCredentials={noop} />
+				<Login handleLogin={noop} fetchCredentials={noop} settings={{}} />
 			</Router>
 		);
 		const passwordInput = queryByPlaceholderText( 'common:password' );

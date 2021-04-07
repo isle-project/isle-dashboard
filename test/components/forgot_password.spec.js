@@ -34,7 +34,7 @@ describe( '<ForgotPassword />', function test() {
 	it( 'should render without throwing an error', () => {
 		render(
 			<Router history={history}>
-				<ForgotPassword forgotPassword={noop} />
+				<ForgotPassword forgotPassword={noop} settings={{}} />
 			</Router>
 		);
 		expect( screen.getByRole( 'heading' ) ).toHaveTextContent( 'common:forgot-password' );
@@ -43,7 +43,7 @@ describe( '<ForgotPassword />', function test() {
 	it( 'should update email field on change', () => {
 		const { queryByPlaceholderText } = render(
 			<Router history={history}>
-				<ForgotPassword forgotPassword={noop} />
+				<ForgotPassword forgotPassword={noop} settings={{}} />
 			</Router>
 		);
 		const emailInput = queryByPlaceholderText( 'common:enter-email' );
