@@ -4,7 +4,7 @@
 
 const path = require('path');
 const fs = require('fs');
-const { publicUrl, servedPath } = require( './server.json' );
+const { servedPath } = require( './server.json' );
 
 
 // VARIABLES //
@@ -29,6 +29,5 @@ module.exports = {
 	'testsSetup': resolveApp('src/setupTests.js'),
 	'proxySetup': resolveApp('src/setupProxy.js'),
 	'appNodeModules': resolveApp('node_modules'),
-	'publicUrl': process.env.PUBLIC_URL || publicUrl,
 	'servedPath': servedPath
 };
