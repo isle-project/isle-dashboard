@@ -20,8 +20,9 @@
 import axios from 'axios';
 import qs from 'querystring';
 import server from 'constants/server';
+import { isPrimitive as isBoolean } from '@stdlib/assert/is-boolean';
 import { addNotification, addErrorNotification } from 'actions/notification';
-import { DELETED_LESSON, GET_ALL_LESSONS, GET_ROOMS, UPDATED_LESSON, RETRIEVED_LESSONS, RETRIEVED_PUBLIC_LESSONS } from 'constants/action_types.js';
+import { DELETED_LESSON, GET_ALL_LESSONS, GET_TEMPLATE_LESSONS, GET_ROOMS, UPDATED_LESSON, RETRIEVED_LESSONS, RETRIEVED_PUBLIC_LESSONS } from 'constants/action_types.js';
 
 
 // EXPORTS //
@@ -60,6 +61,15 @@ export function retrievedAllLessons( lessons ) {
 		type: GET_ALL_LESSONS,
 		payload: {
 			lessons
+		}
+	};
+}
+
+export function retrievedTemplateLessons( templateLessons ) {
+	return {
+		type: GET_TEMPLATE_LESSONS,
+		payload: {
+			templateLessons
 		}
 	};
 }
@@ -164,6 +174,7 @@ export const copyLesson = async ( dispatch, { sourceName, target, targetName, so
 				message: res.data.message,
 				level: 'success'
 			});
+			return res;
 		} catch ( err ) {
 			addErrorNotification( dispatch, err );
 		}
@@ -290,16 +301,20 @@ export const deactivateLessonInjector = ( dispatch ) => {
 	};
 };
 
-export const updateLesson = async ( dispatch, { lessonName, namespaceName, newTitle, newDescription, lockUntil }) => {
+export const updateLesson = async ( dispatch, { lessonName, namespaceName, newTitle, newDescription, lockUntil, template }) => {
 	if ( namespaceName && lessonName ) {
 		try {
-			const res = await axios.post( server+'/update_lesson', {
+			const query = {
 				namespaceName,
 				lessonName,
 				newTitle,
 				newDescription,
 				lockUntil
-			});
+			};
+			if ( isBoolean( template ) ) {
+				query.template = template;
+			}
+			const res = await axios.post( server+'/update_lesson', query );
 			dispatch( deletedLesson( lessonName ) );
 			addNotification( dispatch, {
 				message: res.data.message,
@@ -316,8 +331,8 @@ export const updateLesson = async ( dispatch, { lessonName, namespaceName, newTi
 };
 
 export const updateLessonInjector = ( dispatch ) => {
-	return async ({ lessonName, namespaceName, newTitle, newDescription, lockUntil }) => {
-		const bool = await updateLesson( dispatch, { lessonName, namespaceName, newTitle, newDescription, lockUntil });
+	return async ({ lessonName, namespaceName, newTitle, newDescription, lockUntil, template }) => {
+		const bool = await updateLesson( dispatch, { lessonName, namespaceName, newTitle, newDescription, lockUntil, template });
 		return bool;
 	};
 };
@@ -336,6 +351,22 @@ export const getAllLessonsInjector = ( dispatch ) => {
 		await getAllLessons( dispatch );
 	};
 };
+
+export const getTemplateLessons = async ( dispatch ) => {
+	try {
+		const res = await axios.get( server+'/get_template_lessons' );
+		dispatch( retrievedTemplateLessons( res.data.lessons ) );
+	} catch ( err ) {
+		addErrorNotification( dispatch, err );
+	}
+};
+
+export const getTemplateLessonsInjector = ( dispatch ) => {
+	return async () => {
+		await getTemplateLessons( dispatch );
+	};
+};
+
 
 export const getRooms = async ( dispatch ) => {
 	try {
