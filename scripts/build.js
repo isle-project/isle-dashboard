@@ -117,17 +117,16 @@ checkBrowsers(paths.appPath, isInteractive)
 			);
 			console.log();
 
-			const publicUrl = paths.publicUrl;
 			const publicPath = config.output.publicPath;
 			const buildFolder = path.relative(process.cwd(), paths.appBuild);
 
 			console.log( 'The build is ready to be deployed.' );
 			console.log();
-			console.log( 'The project was built assuming it is hosted at '+publicPath+' on '+publicUrl );
+			console.log( 'The project was built assuming it is hosted at '+publicPath );
 			console.log();
 			console.log( 'To copy the contents of the "'+buildFolder+'" folder via the command-line: ' );
 			console.log();
-			console.log( 'scp -r '+buildFolder+'/* <user>@'+url.parse( publicUrl ).hostname+':<dirpath>' );
+			console.log( 'scp -r '+buildFolder+'/* <user>@<url>:<dirpath>' );
 			console.log();
 		},
 		err => {
