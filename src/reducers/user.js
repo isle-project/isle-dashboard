@@ -49,7 +49,8 @@ const initialState = {
 	customFields: null,
 	availableCustomFields: [],
 	twoFactorAuth: false,
-	requestTFA: null
+	requestTFA: null,
+	templateLessons: []
 };
 
 
@@ -347,6 +348,11 @@ export default function user( state = initialState, action ) {
 				email: action.payload.email,
 				password: action.payload.password
 			}
+		});
+	}
+	case types.GET_TEMPLATE_LESSONS: {
+		return Object.assign({}, state, {
+			templateLessons: action.payload.templateLessons
 		});
 	}
 	default:
