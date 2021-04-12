@@ -4,7 +4,6 @@
 	"confirm-password": "パスワードの確認",
 	"create-user": "ユーザー作成",
 	"email-tooltip": "有効なメールアドレスを入力してください。",
-	"enter-name": "名前を入力してください",
 	"go-to-login-page": "ログインページへ",
 	"invalid-email": "有効なメールアドレスではありません。",
 	"invalid-name": "名前は4文字でなければなりません。",

@@ -4,7 +4,6 @@
 	"confirm-password": "确认密码",
 	"create-user": "用户创建",
 	"email-tooltip": "请输入有效的电子邮件地址。",
-	"enter-name": "输入姓名",
 	"go-to-login-page": "进入登录页面",
 	"invalid-email": "不是一个有效的电子邮件地址。",
 	"invalid-name": "名称必须包含四个字符。",
