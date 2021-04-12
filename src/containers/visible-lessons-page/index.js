@@ -21,7 +21,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import LessonsPage from 'components/lessons-page';
 import { setLessonOrderInjector } from 'actions/namespace';
-import { activateLessonInjector, deactivateLessonInjector, deleteLessonInjector, getIsleFileInjector, getLessonsInjector,
+import { activateLessonInjector, deactivateLessonInjector, deleteLessonInjector, getIsleFileInjector, getLessonsInjector, getTemplateLessonsInjector,
 	showLessonInGalleryInjector, hideLessonInGalleryInjector, updateLessonInjector } from 'actions/lesson';
 import { addNotificationInjector } from 'actions/notification';
 
@@ -48,6 +48,7 @@ function mapDispatchToProps( dispatch ) {
 		updateLesson: updateLessonInjector( dispatch ),
 		deleteLesson: deleteLessonInjector( dispatch ),
 		getLessons: getLessonsInjector( dispatch ),
+		getTemplateLessons: getTemplateLessonsInjector( dispatch ),
 		getIsleFile: getIsleFileInjector( dispatch ),
 		setLessonOrder: setLessonOrderInjector( dispatch )
 	};

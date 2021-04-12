@@ -17,16 +17,20 @@
 
 // MODULES //
 
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import logger from 'debug';
 import { withTranslation } from 'react-i18next';
 import PropTypes from 'prop-types';
 import { Responsive, WidthProvider } from 'react-grid-layout';
+import Button from 'react-bootstrap/Button';
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
+import Tooltip from 'react-bootstrap/Tooltip';
 import isArray from '@stdlib/assert/is-array';
 import contains from '@stdlib/assert/contains';
 import lowercase from '@stdlib/string/lowercase';
 import pluck from '@stdlib/utils/pluck';
 import floor from '@stdlib/math/base/special/floor';
+import LessonCreator from 'ev/containers/lesson-creator';
 import Lesson from './lesson.js';
 import EnrolledLesson from './enrolled_lesson.js';
 import NoCourseBanner from './no_course_banner.js';
@@ -106,7 +110,8 @@ class LessonsPage extends Component {
 			layouts: createLayout( lessons ),
 			unfilteredLessons: lessons,
 			search: props.search,
-			activeElement: null
+			activeElement: null,
+			showLessonCreator: false
 		};
 	}
 
@@ -149,7 +154,8 @@ class LessonsPage extends Component {
 		if (
 			nextProps.search.direction !== this.props.search.direction ||
 			nextProps.search.type !== this.props.search.type ||
-			nextState.filteredLessons !== this.state.filteredLessons
+			nextState.filteredLessons !== this.state.filteredLessons ||
+			nextState.showLessonCreator !== this.state.showLessonCreator
 		) {
 			debug( 'Should update page...' );
 			return true;
@@ -215,6 +221,20 @@ class LessonsPage extends Component {
 		};
 	}
 
+	toggleCreator = () => {
+		this.props.getTemplateLessons();
+		this.setState({ showLessonCreator: !this.state.showLessonCreator });
+	}
+
+	handleCreate = () => {
+		this.setState({ showLessonCreator: false });
+		const course = this.props.namespace;
+		if ( course.title ) {
+			debug( 'Fetch lessons...' );
+			this.props.getLessons( course.title );
+		}
+	}
+
 	renderLessons() {
 		let lessons = this.state.filteredLessons;
 		if ( !isOwner( this.props.user, this.props.namespace ) ) {
@@ -241,6 +261,7 @@ class LessonsPage extends Component {
 					hideLessonInGallery={this.props.hideLessonInGallery}
 					getLessons={this.props.getLessons}
 					getIsleFile={this.props.getIsleFile}
+					user={this.props.user}
 				/>;
 				if ( this.props.search.type === 'sequentially' ) {
 					return ( <div
@@ -280,24 +301,45 @@ class LessonsPage extends Component {
 		}
 		let lessons = this.state.filteredLessons;
 		if ( isArray( lessons ) ) {
+			const templateButton = <OverlayTrigger placement="left" overlay={<Tooltip id="create-from-template-tooltip">{this.props.t('create-from-template')}</Tooltip>}>
+				<Button className="create-from-template-button" onClick={this.toggleCreator} >
+					<i className="fas fa-plus" />
+				</Button>
+			</OverlayTrigger>;
 			if ( lessons.length === 0 ) {
-				return <NoLessonBanner user={this.props.user} />;
+				return ( <Fragment>
+					<NoLessonBanner user={this.props.user} />
+					{templateButton}
+					{this.state.showLessonCreator ? <LessonCreator
+						onHide={this.toggleCreator}
+						onCreate={this.handleCreate}
+						namespace={this.props.namespace}
+					/> : null}
+				</Fragment> );
 			}
 			return (
-				<div className="lessons-grid-container">
-					<ResponsiveReactGridLayout
-						layouts={this.state.layouts}
-						breakpoints={{ lg: 1800, md: 1550, sm: 1200, xs: 900, xxs: 400, tiny: 0 }}
-						cols={{ lg: 24, md: 20, sm: 16, xs: 12, xxs: 8, tiny: 4 }}
-						containerPadding={[10, 10]}
-						isResizable={false}
-						isBounded={true}
-						isDraggable={false}
-						rowHeight={isOwner( this.props.user, this.props.namespace ) ? 54.5 : 55}
-					>
-						{this.renderLessons()}
-					</ResponsiveReactGridLayout>
-				</div>
+				<Fragment>
+					<div className="lessons-grid-container">
+						<ResponsiveReactGridLayout
+							layouts={this.state.layouts}
+							breakpoints={{ lg: 1800, md: 1550, sm: 1200, xs: 900, xxs: 400, tiny: 0 }}
+							cols={{ lg: 24, md: 20, sm: 16, xs: 12, xxs: 8, tiny: 4 }}
+							containerPadding={[10, 10]}
+							isResizable={false}
+							isBounded={true}
+							isDraggable={false}
+							rowHeight={isOwner( this.props.user, this.props.namespace ) ? 54.5 : 55}
+						>
+							{this.renderLessons()}
+						</ResponsiveReactGridLayout>
+						{templateButton}
+					</div>
+					{this.state.showLessonCreator ? <LessonCreator
+						onHide={this.toggleCreator}
+						onCreate={this.handleCreate}
+						namespace={this.props.namespace}
+					/> : null}
+				</Fragment>
 			);
 		}
 	}
@@ -313,6 +355,7 @@ LessonsPage.propTypes = {
 	deleteLesson: PropTypes.func.isRequired,
 	getIsleFile: PropTypes.func.isRequired,
 	getLessons: PropTypes.func.isRequired,
+	getTemplateLessons: PropTypes.func.isRequired,
 	hideLessonInGallery: PropTypes.func.isRequired,
 	namespace: PropTypes.object.isRequired,
 	search: PropTypes.object.isRequired,

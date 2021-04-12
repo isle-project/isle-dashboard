@@ -102,3 +102,9 @@
 .lesson-link-icon:hover {
 	color: white;
 }
+
+.create-from-template-button {
+	position: fixed;
+	bottom: 32px;
+	right: 23px;
+}
