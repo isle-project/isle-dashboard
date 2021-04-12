@@ -1,0 +1,1 @@
+{"version":3,"sources":["webpack://./src/components/text-select/text_select.css"],"names":[],"mappings":"AAAA,kBACC,WACD,CAEA,yBACC,iCACD","file":"120.6a5da56d.chunk.css","sourcesContent":[".text-select-copy {\n\tcursor: copy;\n}\n\n.text-select-copy:active {\n\tbox-shadow: 0 0 8px rgba(0, 0, 0, 0.3);\n}\n"]}

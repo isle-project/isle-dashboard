@@ -1,0 +1,2 @@
+(window.webpackJsonp=window.webpackJsonp||[]).push([[315],{4074:function(e){e.exports=JSON.parse('{"cancel":"Cancel","delete":"Delete","delete-body":"Are you sure that you want to delete the selected user action?","delete-title":"Delete user action?"}')}}]);
+//# sourceMappingURL=315.16ca90e5.chunk.js.map

@@ -1,0 +1,2 @@
+(window.webpackJsonp=window.webpackJsonp||[]).push([[912],{4193:function(a){a.exports=JSON.parse('{"save-world-cloud":"Salvar la nube de palabras"}')}}]);
+//# sourceMappingURL=912.fc4a0292.chunk.js.map

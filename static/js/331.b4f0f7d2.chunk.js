@@ -1,0 +1,2 @@
+(window.webpackJsonp=window.webpackJsonp||[]).push([[331],{4419:function(e){e.exports=JSON.parse('{"close":"Sluit","fullscreen-header":"Volledig scherm","fullscreen-tooltip":"Schakelaar Fullscreen"}')}}]);
+//# sourceMappingURL=331.b4f0f7d2.chunk.js.map

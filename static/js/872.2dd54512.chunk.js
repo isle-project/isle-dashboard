@@ -1,0 +1,2 @@
+(window.webpackJsonp=window.webpackJsonp||[]).push([[872],{4469:function(e){e.exports=JSON.parse('{"click-to-minimize":"Klik om te minimaliseren","click-to-remove":"Klik om te verwijderen","instructor":"Instructeur","private":"Persoonlijk","public":"Publiek","save":"Bespaar","type-in-the-title":"Typ in de titel","type-in-your-note":"Typ uw notitie in"}')}}]);
+//# sourceMappingURL=872.2dd54512.chunk.js.map

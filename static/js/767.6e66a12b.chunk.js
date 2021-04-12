@@ -1,0 +1,2 @@
+(window.webpackJsonp=window.webpackJsonp||[]).push([[767],{4045:function(e){e.exports=JSON.parse('{"answer-resubmitted":"Antwort erneut eingereicht","answer-submitted":"Antwort eingereicht.","correct":"Korrekt","incorrect":"Inkorrekt","resubmit":"Erneut einreichen","resubmit-message":"Du hast Deine Antwort erfolgreich erneut eingereicht.","submit":"Abschicken","submit-message":"Deine Antwort wurde \xfcbermittelt."}')}}]);
+//# sourceMappingURL=767.6e66a12b.chunk.js.map

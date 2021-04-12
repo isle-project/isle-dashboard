@@ -1,0 +1,2 @@
+(window.webpackJsonp=window.webpackJsonp||[]).push([[668],{4037:function(e){e.exports=JSON.parse('{"answer-submitted":"Antwort eingereicht.","drop-image":"Bild hier ablegen","model-solution":"Modell-L\xf6sung","or":"oder","question-closed":"Frage ist nun geschlossen.","reset":"Zur\xfccksetzen","resubmit":"Erneut einreichen","submit":"Abschicken","submitted":"Abgeschickt","upload":"Datei hochladen"}')}}]);
+//# sourceMappingURL=668.e22002f2.chunk.js.map

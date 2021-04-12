@@ -1,0 +1,2 @@
+(window.webpackJsonp=window.webpackJsonp||[]).push([[327],{4145:function(a){a.exports=JSON.parse('{"close":"Cerrar","fullscreen-header":"Pantalla Completa","fullscreen-tooltip":"Activar/desactivar la vista de pantalla completa"}')}}]);
+//# sourceMappingURL=327.a5c22357.chunk.js.map

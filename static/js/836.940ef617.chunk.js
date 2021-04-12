@@ -1,0 +1,2 @@
+(window.webpackJsonp=window.webpackJsonp||[]).push([[836],{4256:function(e){e.exports=JSON.parse('{"close":"Fermer","missing-children":"Le curseur n\xe9cessite au moins deux \xe9l\xe9ments enfants pour \xeatre rendu.","next":"Suivant","previous":"Pr\xe9c\xe9dent"}')}}]);
+//# sourceMappingURL=836.940ef617.chunk.js.map

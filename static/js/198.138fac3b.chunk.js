@@ -1,0 +1,2 @@
+(window.webpackJsonp=window.webpackJsonp||[]).push([[198],{4197:function(e){e.exports=JSON.parse('{"join-chat":"Rejoindre le chat","join-chat-id":"Rejoindre le chat avec ID {{id}}","leave-chat":"Quitter le chat","leave-chat-id":"Quitter le chat avec ID {{id}}","toggle-chat":"Toggle Chat"}')}}]);
+//# sourceMappingURL=198.138fac3b.chunk.js.map

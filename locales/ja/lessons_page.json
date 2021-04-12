@@ -1,0 +1,8 @@
+{
+	"create-from-template": "テンプレートからの作成",
+	"create-new-one": "の下に新規作成するか",
+	"no-course-description": "のドロップダウンメニューから既存のコースを選択して、既存のコースを開きます。",
+	"no-lessons": "選択されたコースには授業はありません。",
+	"no-lessons-found": "レッスンは見つかりませんでした。",
+	"upload-from-editor": "ISLEエディタからレッスンをアップロードすることができます。"
+}

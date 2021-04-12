@@ -1,0 +1,19 @@
+{
+	"choose-password": "选择密码",
+	"close": "关闭",
+	"confirm-password": "确认密码",
+	"create-user": "用户创建",
+	"email-tooltip": "请输入有效的电子邮件地址。",
+	"enter-name": "输入姓名",
+	"go-to-login-page": "进入登录页面",
+	"invalid-email": "不是一个有效的电子邮件地址。",
+	"invalid-name": "名称必须包含四个字符。",
+	"invalid-password": "您的密码必须包含至少六个字符。",
+	"invalid-password-match": "密码不匹配。",
+	"login": "登录",
+	"name-tooltip": "请输入您的姓和名。",
+	"password": "密码",
+	"password-tooltip": "请输入一个至少六个字符的密码。",
+	"signup-not-valid": "在提交之前，请确保所有的输入值都是有效的。",
+	"tos-disclaimer": "通过点击 \"注册 \"按钮，您同意我们的<1>服务条款</1>。在我们的<3>隐私政策中了解更多关于如何处理您的数据</3>。"
+}

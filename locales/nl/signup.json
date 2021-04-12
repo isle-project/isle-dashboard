@@ -1,0 +1,19 @@
+{
+	"choose-password": "Kies een wachtwoord",
+	"close": "Sluiten",
+	"confirm-password": "Bevestig het wachtwoord",
+	"create-user": "Aanmaken gebruiker",
+	"email-tooltip": "Voer een geldig e-mailadres in.",
+	"enter-name": "Voer naam in",
+	"go-to-login-page": "Ga naar login pagina",
+	"invalid-email": "Geen geldig e-mailadres.",
+	"invalid-name": "De naam moet vier karakters bevatten.",
+	"invalid-password": "Je wachtwoord moet minstens zes karakters bevatten.",
+	"invalid-password-match": "Wachtwoorden komen niet overeen.",
+	"login": "Aanmelden",
+	"name-tooltip": "Vul uw achternaam en voornaam in.",
+	"password": "Wachtwoord",
+	"password-tooltip": "Voer een wachtwoord naar keuze in met ten minste zes karakters",
+	"signup-not-valid": "Zorg ervoor dat alle invoerwaarden geldig zijn voordat u ze indient.",
+	"tos-disclaimer": "Door op de knop \"Aanmelden\" te klikken gaat u akkoord met onze <1>termen van service</1>. Lees meer over hoe uw gegevens worden verwerkt in ons <3>privacybeleid</3>."
+}

@@ -1,0 +1,22 @@
+{
+	"admin": "Admin",
+	"admin-panel": "Administratorseite",
+	"course-data": "Kursdaten",
+	"create-course": "Neuen Kurs erzeugen",
+	"edit-course": "Kurs editieren",
+	"enroll": "Einschreiben",
+	"enrolled-courses": "Eingeschriebene Kurse",
+	"gallery": "Galerie",
+	"goto-course-lessons": "Kurslektionen anzeigen",
+	"help": "Hilfe",
+	"open-admin": "Administratorseite öffnen",
+	"open-gallery": "Galerie öffnen",
+	"open-your-courses": "Kurse anzeigen",
+	"owned-courses": "Eigene Kurse",
+	"search-field": "Suchfeld",
+	"search-field-icon": "Suchicon",
+	"search-placeholder": "Durchsuche Lektionen des Kurses",
+	"select-course": "Kurs auswählen",
+	"sort-default-owner-explanation": "Wählen Sie eine Lektion aus und verschieben Sie sie mit den Pfeiltasten links/rechts an die gewünschte Stelle in der Standardsortierung.",
+	"sort-default-student-explanation": "Standardreihenfolge der Lektionen, wie von den Kursleitern vorgegeben"
+}

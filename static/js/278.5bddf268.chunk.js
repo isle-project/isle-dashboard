@@ -1,0 +1,2 @@
+(window.webpackJsonp=window.webpackJsonp||[]).push([[278],{4414:function(n){n.exports=JSON.parse('{"close-hint":"Hint sluiten","close-hints":"Hints sluiten","get-hint":"Krijg Hint","hint":"Hint","hints":"Hints","next-hint":"Volgende Hint","show-hints":"Toon Hints"}')}}]);
+//# sourceMappingURL=278.5bddf268.chunk.js.map

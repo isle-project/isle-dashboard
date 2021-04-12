@@ -1,0 +1,2 @@
+(window.webpackJsonp=window.webpackJsonp||[]).push([[292],{4002:function(e){e.exports=JSON.parse('{"close":"Schlie\xdfen","copy-link":"Link kopieren","copy-svg":"SVG kopieren","save-image":"Bild speichern","share":"Teilen"}')}}]);
+//# sourceMappingURL=292.588b0cd6.chunk.js.map

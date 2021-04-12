@@ -1,0 +1,9 @@
+{
+	"import": "Importiere",
+	"import-lesson": "Lektion importieren ",
+	"import-lesson-description": "Bitte wähle den Kurs aus, in den die Lektion kopiert werden soll.",
+	"lesson-name": "Name der Lektion",
+	"no-lessons-description": "Keine Lektionen in der Galerie vorhanden oder die Suchkreterien erfüllend",
+	"no-lessons-title": "Keine Lektionen gefunden",
+	"select-course": "Kurs auswählen"
+}

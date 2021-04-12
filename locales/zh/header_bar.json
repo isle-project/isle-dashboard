@@ -1,0 +1,22 @@
+{
+	"admin": "管理员",
+	"admin-panel": "管理员面板",
+	"course-data": "课程数据",
+	"create-course": "创建一个新的课程",
+	"edit-course": "编辑课程",
+	"enroll": "报名",
+	"enrolled-courses": "已注册的课程",
+	"gallery": "画廊",
+	"goto-course-lessons": "进入课程课程",
+	"help": "帮忙",
+	"open-admin": "打开管理面板",
+	"open-gallery": "开放式画廊",
+	"open-your-courses": "打开您的课程",
+	"owned-courses": "自有课程",
+	"search-field": "搜索领域",
+	"search-field-icon": "搜索图标",
+	"search-placeholder": "通过搜索过滤课程",
+	"select-course": "选择课程",
+	"sort-default-owner-explanation": "选择一个课程，使用左/右箭头键将其移动到默认排序中的指定位置。",
+	"sort-default-student-explanation": "课程教师指定的默认课程顺序。"
+}

@@ -1,0 +1,2 @@
+(window.webpackJsonp=window.webpackJsonp||[]).push([[332],{4489:function(e){e.exports=JSON.parse('{"close":"Close","fullscreen-header":"Wy\u015bwietlacz pe\u0142noekranowy","fullscreen-tooltip":"Prze\u0142\u0105czanie Fullscreena"}')}}]);
+//# sourceMappingURL=332.6c9a781f.chunk.js.map

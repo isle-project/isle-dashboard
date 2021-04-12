@@ -1,0 +1,2 @@
+(window.webpackJsonp=window.webpackJsonp||[]).push([[837],{4326:function(e){e.exports=JSON.parse('{"close":"Chiudere","missing-children":"Il cursore richiede almeno due elementi figli per essere reso.","next":"Avanti","previous":"Precedente"}')}}]);
+//# sourceMappingURL=837.0f6d2647.chunk.js.map

@@ -1,0 +1,2 @@
+(window.webpackJsonp=window.webpackJsonp||[]).push([[318],{4278:function(e){e.exports=JSON.parse('{"cancel":"Annulla","delete":"Cancellare","delete-body":"Siete sicuri di voler cancellare l\'azione utente selezionata?","delete-title":"Eliminare l\'azione dell\'utente?"}')}}]);
+//# sourceMappingURL=318.c8290424.chunk.js.map

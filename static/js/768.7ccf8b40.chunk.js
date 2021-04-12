@@ -1,0 +1,2 @@
+(window.webpackJsonp=window.webpackJsonp||[]).push([[768],{4115:function(e){e.exports=JSON.parse('{"answer-resubmitted":"Answer re-submitted.","answer-submitted":"Answer submitted.","correct":"Correct","incorrect":"Incorrect","resubmit":"Resubmit","resubmit-message":"You have successfully re-submitted your answer.","submit":"Submit","submit-message":"Your answer has been submitted."}')}}]);
+//# sourceMappingURL=768.7ccf8b40.chunk.js.map

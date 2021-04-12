@@ -1,0 +1,22 @@
+{
+	"admin": "Admin",
+	"admin-panel": "Beheerderspanel",
+	"course-data": "Cursusgegevens",
+	"create-course": "Creëer een nieuwe koers",
+	"edit-course": "Cursus bewerken",
+	"enroll": "Schrijf je in op",
+	"enrolled-courses": "Inschrijvingscursussen",
+	"gallery": "Galerij",
+	"goto-course-lessons": "Ga naar de cursus lessen",
+	"help": "Help",
+	"open-admin": "Open admin paneel",
+	"open-gallery": "Open galerij",
+	"open-your-courses": "Open uw cursussen",
+	"owned-courses": "Eigendomscursussen",
+	"search-field": "Zoekveld",
+	"search-field-icon": "Zoek icoon",
+	"search-placeholder": "Filter de lessen door te zoeken",
+	"select-course": "Selecteer cursus",
+	"sort-default-owner-explanation": "Selecteer een les en gebruik de pijltjestoetsen links/rechts om deze te verplaatsen naar de aangewezen plaats in de standaardsortering.",
+	"sort-default-student-explanation": "Standaardvolgorde van de lessen zoals bepaald door de cursusleiders"
+}

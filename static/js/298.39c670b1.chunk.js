@@ -1,0 +1,2 @@
+(window.webpackJsonp=window.webpackJsonp||[]).push([[298],{4416:function(e){e.exports=JSON.parse('{"close":"Sluit","copy-link":"Kopieer Link","copy-svg":"Kopieer SVG","save-image":"Afbeelding opslaan","share":"Deel"}')}}]);
+//# sourceMappingURL=298.39c670b1.chunk.js.map

@@ -1,0 +1,2 @@
+(window.webpackJsonp=window.webpackJsonp||[]).push([[652],{4449:function(e){e.exports=JSON.parse('{"change-orientation":"Verander Legenda Ori\xebntatie","close":"Sluit","count":"Tel","drag-plot":"Sleep Plot","given":"gezien","in":"in","linear-fit":"Lineaire pasvorm","of":"van","points":"Punten","proportion":"Aandeel","qqplot-title":"Normaal QQ-plaatje van {{x}}","share":"Deel","smoothed-fit":"Gladde pasvorm","toggle-fullscreen":"Schakelaar volledig scherm","toggle-legend":"Schakellegende","vs":"vs."}')}}]);
+//# sourceMappingURL=652.ea97c77c.chunk.js.map

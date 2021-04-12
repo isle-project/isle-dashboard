@@ -1,0 +1,2 @@
+(window.webpackJsonp=window.webpackJsonp||[]).push([[329],{4279:function(e){e.exports=JSON.parse('{"close":"Chiudere","fullscreen-header":"Display a schermo intero","fullscreen-tooltip":"Attivare o disattivare lo schermo intero"}')}}]);
+//# sourceMappingURL=329.78205778.chunk.js.map

@@ -1,0 +1,2 @@
+(window.webpackJsonp=window.webpackJsonp||[]).push([[359],{4078:function(a){a.exports=JSON.parse('{"change-language":"Change language","choose-language":"Choose language","loading-translations":"Loading translations... It might take a couple of seconds until all translations are loaded."}')}}]);
+//# sourceMappingURL=359.9190ff50.chunk.js.map

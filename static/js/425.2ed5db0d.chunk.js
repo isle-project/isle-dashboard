@@ -1,0 +1,2 @@
+(window.webpackJsonp=window.webpackJsonp||[]).push([[425],{4086:function(o){o.exports=JSON.parse('{"answer":"Answer","basic":"Basic","calculator":"Calculator","copied":"Copied","copied-message":"Result copied to clipboard","copy":"Copy","expand":"Expand","malformed-expression":"Malformed expression","too-many-closing-parens":"Too many closing parentheses","too-many-opening-parens":"Too many opening parentheses"}')}}]);
+//# sourceMappingURL=425.2ed5db0d.chunk.js.map

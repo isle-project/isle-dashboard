@@ -1,0 +1,19 @@
+{
+	"choose-password": "Passwort wählen",
+	"close": "Schließen",
+	"confirm-password": "Passwort bestätigen",
+	"create-user": "Benutzer-Erstellung",
+	"email-tooltip": "Bitte gib eine valide E-Mail-Adresse ein",
+	"enter-name": "Namen eingeben",
+	"go-to-login-page": "Zur Anmeldeseite gehen",
+	"invalid-email": "Keine valide E-Mail-Adresse.",
+	"invalid-name": "Name muss aus mindestens vier Buchstaben bestehen.",
+	"invalid-password": "Dein Passwort muss aus mindestens sechs Buchstaben bestehen.",
+	"invalid-password-match": "Passwörter sind nicht identisch",
+	"login": "Anmelden",
+	"name-tooltip": "Bitte gib Deinen Nachnamen und Vornamen ein.",
+	"password": "Passwort",
+	"password-tooltip": "Bitte gib ein Passwort Deiner Wahl ein (mindestens sechs Buchstaben).",
+	"signup-not-valid": "Bitte stelle sicher dass alle Eingabefelder korrekt ausgefüllt sind.",
+	"tos-disclaimer": "Durch Klicken auf die Schaltfläche \"Registrieren\" erklärst Du Dich mit unseren <1>Nutzungsbedingungen</1> einverstanden. Mehr darüber, wie Deine Daten verarbeitet werden, erfährst Du in unserer <3>Datenschutzerklärung</3>."
+}
