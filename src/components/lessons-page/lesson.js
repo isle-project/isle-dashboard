@@ -111,12 +111,13 @@ class Lesson extends Component {
 		this.closeDeleteModal();
 	}
 
-	update = async ({ newTitle, newDescription, lockUntil }) => {
+	update = async ({ newTitle, newDescription, lockUntil, template }) => {
 		const bool = await this.props.updateLesson({
 			lessonName: this.props.title,
 			namespaceName: this.props.namespace,
 			newTitle,
 			newDescription,
+			template,
 			lockUntil: lockUntil ? lockUntil.getTime() : null
 		});
 		if ( bool ) {
@@ -412,7 +413,8 @@ Lesson.propTypes = {
 	showLessonInGallery: PropTypes.func.isRequired,
 	title: PropTypes.string.isRequired,
 	updateLesson: PropTypes.func.isRequired,
-	url: PropTypes.string.isRequired
+	url: PropTypes.string.isRequired,
+	user: PropTypes.object.isRequired
 };
 
 Lesson.defaultProps = {

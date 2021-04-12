@@ -62,6 +62,7 @@ class DetailsModal extends Component {
 			title: props.title,
 			description: props.description,
 			disabled: false,
+			template: props.template || null,
 			lockLesson,
 			lockUntil
 		};
@@ -74,6 +75,9 @@ class DetailsModal extends Component {
 		}
 		if ( prevProps.description !== this.props.description ) {
 			newState.description = this.props.description;
+		}
+		if ( prevProps.template !== this.props.template ) {
+			newState.template = this.props.template;
 		}
 		if ( prevProps.lockUntil !== this.props.lockUntil ) {
 			if ( this.props.lockUntil ) {
@@ -121,6 +125,12 @@ class DetailsModal extends Component {
 		});
 	}
 
+	handleTemplateChange = ( event ) => {
+		this.setState({
+			template: event.target.checked
+		});
+	}
+
 	onSubmit = ( evt ) => {
 		evt.preventDefault();
 		const details = {
@@ -129,6 +139,9 @@ class DetailsModal extends Component {
 		};
 		if ( this.state.lockLesson ) {
 			details.lockUntil = this.state.lockUntil;
+		}
+		if ( this.state.template === false || this.state.template === true ) {
+			details.template = this.state.template;
 		}
 		this.props.update( details );
 	}
@@ -176,6 +189,14 @@ class DetailsModal extends Component {
 								/> : null }
 							</div>
 						</FormGroup>
+						{ this.props.user.administrator ? <FormGroup>
+							<Form.Check
+								type="checkbox"
+								label={t('provide-as-template')}
+								checked={this.state.template}
+								onChange={this.handleTemplateChange}
+							/>
+						</FormGroup> : null}
 					</Modal.Body>
 					<Modal.Footer>
 						<Button onClick={this.props.close}>{t('common:cancel')}</Button>
@@ -200,7 +221,8 @@ DetailsModal.propTypes = {
 	lockUntil: PropTypes.instanceOf( Date ),
 	show: PropTypes.bool.isRequired,
 	title: PropTypes.string.isRequired,
-	update: PropTypes.func.isRequired
+	update: PropTypes.func.isRequired,
+	user: PropTypes.object.isRequired
 };
 
 DetailsModal.defaultProps = {
