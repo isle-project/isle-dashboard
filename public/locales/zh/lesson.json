@@ -18,6 +18,7 @@
 	"open-details": "打开详情",
 	"open-lesson": "公开课",
 	"private": "私人",
+	"provide-as-template": "作为模板提供",
 	"public": "公众",
 	"remove-from-gallery": "从图库中删除课程",
 	"scheduled-at": "课程将于{{日期}}生效。",

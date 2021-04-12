@@ -18,6 +18,7 @@
 	"open-details": "Detalles Abiertos",
 	"open-lesson": "Lección Abierta",
 	"private": "Privado",
+	"provide-as-template": "Proporcionar como plantilla",
 	"public": "Pública",
 	"remove-from-gallery": "Eliminar la lección de la galería",
 	"scheduled-at": "La lección se activará en {{date}}",

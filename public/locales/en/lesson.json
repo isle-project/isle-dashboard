@@ -18,6 +18,7 @@
 	"open-details": "Open Details",
 	"open-lesson": "Open Lesson",
 	"private": "Private",
+	"provide-as-template": "Provide as Template",
 	"public": "Public",
 	"remove-from-gallery": "Remove lesson from gallery",
 	"scheduled-at": "Lesson will become active on {{date}}",

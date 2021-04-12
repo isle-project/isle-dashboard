@@ -18,6 +18,7 @@
 	"open-details": "Открытая информация",
 	"open-lesson": "Открытый урок",
 	"private": "Частный",
+	"provide-as-template": "Предусмотреть как шаблон",
 	"public": "Общественный",
 	"remove-from-gallery": "Удалить урок из галереи",
 	"scheduled-at": "Урок станет активным в {{дату}}",

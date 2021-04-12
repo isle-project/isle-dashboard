@@ -18,6 +18,7 @@
 	"open-details": "詳細を開く",
 	"open-lesson": "オープンレッスン",
 	"private": "プライベート",
+	"provide-as-template": "テンプレートとして提供",
 	"public": "公共の場",
 	"remove-from-gallery": "ギャラリーからレッスンを外す",
 	"scheduled-at": "レッスンは{{date}}で有効になります。",

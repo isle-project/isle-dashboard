@@ -18,6 +18,7 @@
 	"open-details": "Details anzeigen",
 	"open-lesson": "Lektion öffnen",
 	"private": "Privat",
+	"provide-as-template": "Als Vorlage bereitstellen",
 	"public": "Öffentlich",
 	"remove-from-gallery": "Lektion aus der Gallerie entfernen",
 	"scheduled-at": "Die Lektion wird aktiv gestellt am {{date}}",
