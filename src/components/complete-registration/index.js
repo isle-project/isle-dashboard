@@ -172,7 +172,7 @@ class CompleteRegistration extends Component {
 							<FormControl
 								name="name"
 								type="text"
-								placeholder={t('signup:enter-name')}
+								placeholder={t('enter-name')}
 								onChange={this.handleInputChange}
 								isInvalid={this.state.name && !this.getNameValidationState()}
 							/>

@@ -195,7 +195,7 @@ class Signup extends Component {
 							<FormControl
 								name="name"
 								type="text"
-								placeholder={t('enter-name')}
+								placeholder={t('common:enter-name')}
 								onChange={this.handleInputChange}
 								isInvalid={this.state.name && !this.getNameValidationState()}
 							/>

@@ -98,7 +98,7 @@ class LessonCreator extends Component {
 	render() {
 		const { user, t } = this.props;
 		let content;
-		if ( !user.templateLessons ) {
+		if ( !user.templateLessons || user.templateLessons.length === 0 ) {
 			content = <Fragment>
 				<Modal.Header closeButton >
 					<h1>{t('create-from-template')}</h1>

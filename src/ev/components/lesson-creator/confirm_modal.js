@@ -66,6 +66,10 @@ class ConfirmModal extends Component {
 					</Modal.Title>
 				</Modal.Header>
 				<Modal.Body>
+					<p>
+						<b>{`${t('common:description')}: `}</b>
+						{this.props.lesson.description}
+					</p>
 					<FormGroup>
 						<FormLabel>{t('common:name')}</FormLabel>
 						<FormControl
@@ -73,7 +77,7 @@ class ConfirmModal extends Component {
 							type="text"
 							value={this.state.targetName}
 							onChange={this.handleChange}
-							placeholder={t('enter-name')}
+							placeholder={t('common:enter-name')}
 						/>
 					</FormGroup>
 				</Modal.Body>
