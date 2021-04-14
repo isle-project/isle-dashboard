@@ -35,6 +35,7 @@ import ConfirmModal from 'components/confirm-modal';
 import server from 'constants/server';
 import obsToVar from '@isle-project/utils/obs-to-var';
 import DashboardDataExplorer from 'ev/components/data-explorer';
+import SignupModal from './signup_modal.js';
 import createCategoricalColumn from './create_categorical_column.js';
 import createBooleanColumn from './create_boolean_column.js';
 import createNumericColumn from './create_numeric_column.js';
@@ -60,6 +61,7 @@ class UserPage extends Component {
 			selectedUser: null,
 			showDeleteModal: false,
 			showImpersonateModal: false,
+			showUserCreation: false,
 			password: '',
 			showEditModal: false,
 			columns: this.createColumns()
@@ -427,6 +429,12 @@ class UserPage extends Component {
 		});
 	}
 
+	toggleUserCreation = () => {
+		this.setState({
+			showUserCreation: !this.state.showUserCreation
+		});
+	}
+
 	render() {
 		const { t } = this.props;
 		if ( this.state.showExplorer ) {
@@ -470,6 +478,11 @@ class UserPage extends Component {
 					onButtonClick={this.toggleExplorer}
 					t={t}
 				/>
+				<OverlayTrigger placement="left" overlay={<Tooltip>{t('create-new-user')}</Tooltip>} >
+					<Button style={{ marginRight: -9, float: 'right' }} onClick={this.toggleUserCreation} >
+						<i className="fas fa-plus"></i>
+					</Button>
+				</OverlayTrigger>
 				{ this.state.showImpersonateModal ? <ConfirmModal
 					title={t('impersonate-user')}
 					message={<span>
@@ -503,6 +516,29 @@ class UserPage extends Component {
 					updateUser={this.props.updateUser}
 					onHide={this.toggleEditModal}
 				/> : null }
+				{ this.state.showUserCreation ?
+					<SignupModal
+						user={this.props.user}
+						getCustomFields={this.props.getCustomFields}
+						onHide={this.toggleUserCreation}
+						onConfirm={async ( data ) => {
+							try {
+								await this.props.createUser( data );
+								this.props.addNotification({
+									message: t('user-successfully-created'),
+									level: 'success'
+								});
+								this.toggleUserCreation();
+								this.props.getUsers();
+							} catch ( err ) {
+								this.props.addNotification({
+									message: err.response.data,
+									level: 'error'
+								});
+							}
+						}}
+					/> : null
+				}
 			</Fragment>
 		);
 	}

@@ -183,6 +183,7 @@ class AdminPage extends Component {
 						addNotification={this.props.addNotification}
 						updateUser={this.props.adminUpdateUser}
 						getCustomFields={this.props.getCustomFields}
+						createUser={this.props.createUser}
 					/>
 				);
 			case 4:
@@ -327,6 +328,7 @@ AdminPage.propTypes = {
 	admin: PropTypes.object.isRequired,
 	adminUpdateUser: PropTypes.func.isRequired,
 	closeTicket: PropTypes.func.isRequired,
+	createUser: PropTypes.func.isRequired,
 	deleteCohort: PropTypes.func.isRequired,
 	deleteCurrentNamespace: PropTypes.func.isRequired,
 	deleteEvent: PropTypes.func.isRequired,
