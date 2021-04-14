@@ -9,6 +9,7 @@
 	"automatic-logout": " Notice that this will log you out of your current session.",
 	"average-object-size": "Average Object Size",
 	"created-at": "Created At",
+	"create-new-user": "Create New User",
 	"daily-active-users": "Active users in the last 24 hours",
 	"daily-changes-of": "Daily Changes of ",
 	"daily-statistics": "Daily Statistics",
@@ -79,6 +80,7 @@
 	"overall": "Overall",
 	"over-time": "Over Time",
 	"upload-new-license": "Upload new license",
+	"user-successfully-created": "User successfully created",
 	"validity-period": "Validity Period",
 	"weekly-active-users": "Active users in the last 7 days",
 	"your-license": "Your License"
