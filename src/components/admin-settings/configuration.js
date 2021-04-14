@@ -213,7 +213,6 @@ class ConfigurationPage extends Component {
 
 	renderMain() {
 		const { admin, t, updateSettings } = this.props;
-		console.log( admin.settings );
 		return (
 			<Container style={{ float: 'left' }} >
 				<Form.Group as={Row} controlId="formPlaintextTitle" >
@@ -428,19 +427,21 @@ class ConfigurationPage extends Component {
 	}
 
 	render() {
-		const { user, t } = this.props;
+		const { admin, user, t } = this.props;
 		console.log( user.email );
 		let content;
-		switch ( this.state.selected ) {
-			case 'main':
-				content = this.renderMain();
-			break;
-			case 'login':
-				content = this.renderLogin();
-			break;
-			case 'rate-limits':
-				content = this.renderRateLimits();
-			break;
+		if ( admin.settings ) {
+			switch ( this.state.selected ) {
+				case 'main':
+					content = this.renderMain();
+				break;
+				case 'login':
+					content = this.renderLogin();
+				break;
+				case 'rate-limits':
+					content = this.renderRateLimits();
+				break;
+			}
 		}
 		return (
 			<div className="admin-settings-outer-container" >
@@ -475,10 +476,14 @@ class ConfigurationPage extends Component {
 // PROPERTIES //
 
 ConfigurationPage.propTypes = {
-	admin: PropTypes.object.isRequired,
+	admin: PropTypes.object,
 	getSettings: PropTypes.func.isRequired,
 	updateSettings: PropTypes.func.isRequired,
 	user: PropTypes.object.isRequired
+};
+
+ConfigurationPage.defaultProps = {
+	admin: {}
 };
 
 
