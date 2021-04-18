@@ -1,0 +1,187 @@
+[
+	{
+		"name": "Announcements",
+		"actions": [
+			{
+				"name": "create_announcement",
+				"description": ""
+			},
+			{
+				"name": "edit_announcement",
+				"description": ""
+			},
+			{
+				"name": "delete_announcement",
+				"description": ""
+			}
+		]
+	},
+	{
+		"name": "Cohorts",
+		"actions": [
+			{
+				"name": "create_cohort",
+				"description": ""
+			},
+			{
+				"name": "delete_cohort",
+				"description": ""
+			},
+			{
+				"name": "update_cohort",
+				"description": ""
+			}
+		]
+	},
+	{
+		"name": "Lessons",
+		"actions": [
+			{
+				"name": "create_lesson",
+				"description": ""
+			},
+			{
+				"name": "delete_lesson",
+				"description": ""
+			},
+			{
+				"name": "update_lesson",
+				"description": ""
+			},
+			{
+				"name": "activate_lesson",
+				"description": ""
+			},
+			{
+				"name": "deactivate_lesson",
+				"description": ""
+			},
+			{
+				"name": "show_lesson",
+				"description": ""
+			},
+			{
+				"name": "hide_lesson",
+				"description": ""
+			}
+		]
+	},
+	{
+		"name": "Namespaces",
+		"actions": [
+			{
+				"name": "create_namespace",
+				"description": ""
+			},
+			{
+				"name": "delete_namespace",
+				"description": ""
+			},
+			{
+				"name": "update_namespace",
+				"description": ""
+			}
+		]
+	},
+	{
+		"name": "Admin",
+		"actions": [
+			{
+				"name": "upload_file",
+				"description": ""
+			},
+			{
+				"name": "custom-fields",
+				"description": ""
+			},
+			{
+				"name": "backups",
+				"description": ""
+			},
+			{
+				"name": "license",
+				"description": ""
+			}
+		]
+	},
+	{
+		"name": "Roles",
+		"actions": [
+			{
+				"name": "viewRoles",
+				"description": ""
+			},
+			{
+				"name": "assignRoles",
+				"description": ""
+			},
+			{
+				"name": "editRoles",
+				"description": ""
+			}
+		]
+	},
+	{
+		"name": "Views",
+		"actions": [
+			{
+				"name": "gallery",
+				"description": ""
+			},
+			{
+				"name": "progress",
+				"description": ""
+			},
+			{
+				"name": "grades",
+				"description": ""
+			},
+			{
+				"name": "tickets",
+				"description": ""
+			}
+		]
+	},
+	{
+		"name": "Views",
+		"actions": [
+			{
+				"name": "gallery",
+				"description": ""
+			},
+			{
+				"name": "progress",
+				"description": ""
+			},
+			{
+				"name": "grades",
+				"description": ""
+			},
+			{
+				"name": "tickets",
+				"description": ""
+			}
+		]
+	},
+	{
+		"name": "Views",
+		"actions": [
+			{
+				"name": "gallery",
+				"description": ""
+			},
+			{
+				"name": "progress",
+				"description": ""
+			},
+			{
+				"name": "grades",
+				"description": ""
+			},
+			{
+				"name": "tickets",
+				"description": ""
+			}
+		]
+	}
+]
