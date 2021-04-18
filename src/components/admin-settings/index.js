@@ -25,7 +25,9 @@ import asyncComponent from 'components/async';
 const Configuration = asyncComponent( () => import( './configuration.js' ) );
 const License = asyncComponent( () => import( './license.js' ) );
 const Backups = asyncComponent( () => import( './backups.js' ) );
+const Roles = asyncComponent( () => import( './roles.js' ) );
 import UserFields from 'ev/components/admin-settings/user-fields';
+import Branding from 'ev/components/admin-settings/branding';
 import './admin_settings.css';
 
 
@@ -119,11 +121,11 @@ class Settings extends Component {
 				);
 			case 2:
 				return (
-					<div>BRANDING</div>
+					<Branding />
 				);
 			case 3:
 				return (
-					<div>CREDENTIALS</div>
+					<Roles />
 				);
 			case 4:
 				return (
@@ -171,7 +173,7 @@ class Settings extends Component {
 							<Nav.Link disabled eventKey="2" title="Branding" >{t('branding')}</Nav.Link>
 						</Nav.Item>
 						<Nav.Item>
-							<Nav.Link disabled eventKey="3" title="Credentials" >{t('credentials')}</Nav.Link>
+							<Nav.Link disabled eventKey="3" title="Roles" >{t('roles')}</Nav.Link>
 						</Nav.Item>
 						<Nav.Item>
 							<Nav.Link disabled eventKey="4" title="Badges" >{t('common:badges')}</Nav.Link>
