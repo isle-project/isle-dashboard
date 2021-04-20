@@ -35,7 +35,7 @@
 .login {
 	position: absolute;
 	margin: auto;
-	top: -60px;
+	top: -100px;
 	right: 0;
 	bottom: 0;
 	left: 0;
@@ -50,4 +50,21 @@
 	border-radius: 6px;
 	opacity: 0.98;
 	background: rgba(255, 255, 255, 0.75);
+}
+
+.login-isle-logo {
+	position: absolute;
+	right: 20px;
+	top: 20px;
+	width: 36px;
+	height: 36px;
+}
+
+.login-branding-logo {
+	width: 180px;
+	height: auto;
+	z-index: 10;
+	opacity: 1.0;
+	margin-top: 40px;
+	margin-left: 185px;
 }
