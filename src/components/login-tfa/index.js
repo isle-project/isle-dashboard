@@ -62,48 +62,55 @@ class LoginTFA extends Component {
 	}
 
 	render() {
-		const { t } = this.props;
+		const { t, settings } = this.props;
 		return (
 			<Fragment>
-				<div className="login"><Card className="login-panel">
-					<Card.Header>
-						<Card.Title as="h1" style={{ textAlign: 'center' }} >
-							ISLE <small>Dashboard</small>
-						</Card.Title>
-					</Card.Header>
-					<Card.Body>
-						<p>
-							{t('enter-tfa-token')}
-						</p>
-						<Form>
-							<FormGroup controlId="form-token">
-								<Row>
-									<Col sm={3}>
-										<FormLabel>{t('token')}</FormLabel>
-									</Col>
-									<Col sm={9}>
-										<FormControl
-											type="text"
-											placeholder={t('enter-token')}
-											onChange={( event ) => {
-												this.setState({
-													token: event.target.value
-												});
-											}}
-										/>
-									</Col>
-								</Row>
-							</FormGroup>
-							<Button
-								className="centered"
-								variant="primary"
-								onClick={this.handleSubmit}
-								type="submit"
-								disabled={this.state.token.length !== 6}
-							>{t('common:login')}</Button>
-						</Form>
-					</Card.Body>
-				</Card></div>
+				<div className="login">
+					<Card className="login-panel">
+						<Card.Header>
+							<Card.Title as="h1" style={{ textAlign: 'center' }} >
+								ISLE <small>Dashboard</small>
+							</Card.Title>
+						</Card.Header>
+						<Card.Body>
+							<p>
+								{t('enter-tfa-token')}
+							</p>
+							<Form>
+								<FormGroup controlId="form-token">
+									<Row>
+										<Col sm={3}>
+											<FormLabel>{t('token')}</FormLabel>
+										</Col>
+										<Col sm={9}>
+											<FormControl
+												type="text"
+												placeholder={t('enter-token')}
+												onChange={( event ) => {
+													this.setState({
+														token: event.target.value
+													});
+												}}
+											/>
+										</Col>
+									</Row>
+								</FormGroup>
+								<Button
+									className="centered"
+									variant="primary"
+									onClick={this.handleSubmit}
+									type="submit"
+									disabled={this.state.token.length !== 6}
+								>{t('common:login')}</Button>
+							</Form>
+						</Card.Body>
+					</Card>
+					{settings.brandingLogo ? <img
+						className="login-branding-logo"
+						src={settings.brandingLogo}
+						alt="Branded Logo"
+					/> : null}
+				</div>
 			</Fragment>
 		);
 	}

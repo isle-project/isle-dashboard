@@ -270,7 +270,7 @@ class Signup extends Component {
 	}
 
 	render() {
-		const { t } = this.props;
+		const { t, settings } = this.props;
 		const userCustomFields = this.state.customFields;
 		const availableCustomFields = this.props.user.availableCustomFields || [];
 		return (
@@ -395,6 +395,11 @@ class Signup extends Component {
 							<Link to="/login">{t('common:login')}</Link>
 						</Card.Footer>
 					</Card>
+					{settings.brandingLogo ? <img
+						className="login-branding-logo"
+						src={settings.brandingLogo}
+						alt="Branded Logo"
+					/> : null}
 				</div>
 				<MessageModal
 					show={this.state.showModal}

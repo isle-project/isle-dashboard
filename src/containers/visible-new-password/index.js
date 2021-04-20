@@ -17,37 +17,28 @@
 
 // MODULES //
 
-import React from 'react';
 import { connect } from 'react-redux';
-import LoginTFA from 'components/login-tfa';
-import { fetchCredentialsInjector } from 'actions/authentication';
-import { getEnrollableCohortsInjector } from 'actions/cohort';
-import { handleLoginTFAInjector } from 'actions/user';
+import NewPassword from 'components/new-password';
 
 
 // FUNCTIONS //
 
 function mapStateToProps( state ) {
 	return {
-		user: state.user,
 		settings: state.settings
 	};
 }
 
-function mapDispatchToProps( dispatch ) {
-	return {
-		handleLoginTFA: handleLoginTFAInjector( dispatch ),
-		fetchCredentials: fetchCredentialsInjector( dispatch ),
-		getEnrollableCohorts: getEnrollableCohortsInjector( dispatch )
-	};
+function mapDispatchToProps() {
+	return {};
 }
 
 
 // MAIN //
 
-const VisibleLoginTFA = connect( mapStateToProps, mapDispatchToProps )( LoginTFA );
+const VisibleNewPassword = connect( mapStateToProps, mapDispatchToProps )( NewPassword );
 
 
 // EXPORTS //
 
-export default VisibleLoginTFA;
+export default VisibleNewPassword;

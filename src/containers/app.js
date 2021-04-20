@@ -41,8 +41,8 @@ const AsyncHeaderBar = asyncComponent(() => import( 'containers/visible-header-b
 const AsyncForgotPassword = asyncComponent(() => import( 'containers/visible-forgot-password' ));
 const AsyncCreateNamespace = asyncComponent(() => import( 'containers/visible-create-namespace' ));
 const AsyncEditNamespace = asyncComponent(() => import( 'containers/visible-edit-namespace' ));
-const AsyncNewPassword = asyncComponent(() => import( 'components/new-password' ));
-const AsyncCompleteRegistration = asyncComponent(() => import( 'components/complete-registration' ));
+const AsyncNewPassword = asyncComponent(() => import( 'containers/visible-new-password' ));
+const AsyncCompleteRegistration = asyncComponent(() => import( 'containers/visible-complete-registration' ));
 const AsyncConfirmEmail = asyncComponent(() => import( 'containers/visible-confirm-email' ));
 const AsyncShibboleth = asyncComponent(() => import( 'containers/visible-shibboleth' ));
 const AsyncAdminPage = asyncComponent(() => import( 'containers/visible-admin' ));

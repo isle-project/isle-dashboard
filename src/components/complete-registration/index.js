@@ -243,6 +243,7 @@ class CompleteRegistration extends Component {
 	}
 
 	render() {
+		const { settings } = this.props;
 		return (
 			<div>
 				<div className="login">
@@ -285,6 +286,11 @@ class CompleteRegistration extends Component {
 						Please make sure that the passwords are valid and match each other before submitting.
 					</Popover>
 				</Overlay>
+				{settings.brandingLogo ? <img
+					className="login-branding-logo"
+					src={settings.brandingLogo}
+					alt="Branded Logo"
+				/> : null}
 			</div>
 		);
 	}

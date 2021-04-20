@@ -119,69 +119,77 @@ class Login extends Component {
 		const { t, settings } = this.props;
 		return (
 			<Fragment>
-				<div className="login"><Card className="login-panel">
-					<Card.Header>
-						<Card.Title as="h1" style={{ textAlign: 'center' }} >
-							ISLE <small>{settings.siteTitle}</small>
-						</Card.Title>
-					</Card.Header>
-					<Card.Body>
-						<Form>
-							<FormGroup controlId="form-email">
-								<Row>
-									<Col sm={3}>
-										<FormLabel>{t('common:email')}</FormLabel>
-									</Col>
-									<Col sm={9}>
-										<FormControl
-											name="email"
-											type="email"
-											autoComplete="isle-email"
-											placeholder={t('common:email')}
-											onChange={this.handleInputChange}
-											ref={( input ) => { this.emailInput = input; }}
-										/>
-									</Col>
-								</Row>
-							</FormGroup>
-							<FormGroup controlId="form-password">
-								<Row>
-									<Col sm={3}>
-										<FormLabel>{t('common:password')}</FormLabel>
-									</Col>
-									<Col sm={9}>
-										<FormControl
-											name="password"
-											type="password"
-											autoComplete="isle-password"
-											placeholder={t('common:password')}
-											onChange={this.handleInputChange}
-											ref={( input ) => { this.passwordInput = input; }}
-										/>
-									</Col>
-								</Row>
-							</FormGroup>
-							<FormGroup>
-								<Button
-									className="centered"
-									variant="primary"
-									onClick={this.handleSubmit}
-									type="submit"
-								>{t('common:login')}</Button>
-							</FormGroup>
-						</Form>
-					</Card.Body>
-					<Card.Footer style={{ background: 'rgba(255,255,255,0.6)', textAlign: 'right' }}>
-						<Link to="/forgot-password">{t('common:forgot-password')}</Link>
-						{settings.allowUserRegistrations ?
-							<Fragment>
-								<span> | </span>
-								<Link to="/signup">{t('common:register')}</Link>
-							</Fragment> :
-							null
-						}
-					</Card.Footer>
-				</Card></div>
+				<div className="login">
+					<Card className="login-panel">
+						<Card.Header>
+							<Card.Title as="h1" style={{ textAlign: 'center' }} >
+								<img alt="ISLE Logo" className="login-isle-logo" src="img/isle_logo.svg" />
+								ISLE <small>{settings.siteTitle}</small>
+							</Card.Title>
+						</Card.Header>
+						<Card.Body>
+							<Form>
+								<FormGroup controlId="form-email">
+									<Row>
+										<Col sm={3}>
+											<FormLabel>{t('common:email')}</FormLabel>
+										</Col>
+										<Col sm={9}>
+											<FormControl
+												name="email"
+												type="email"
+												autoComplete="isle-email"
+												placeholder={t('common:email')}
+												onChange={this.handleInputChange}
+												ref={( input ) => { this.emailInput = input; }}
+											/>
+										</Col>
+									</Row>
+								</FormGroup>
+								<FormGroup controlId="form-password">
+									<Row>
+										<Col sm={3}>
+											<FormLabel>{t('common:password')}</FormLabel>
+										</Col>
+										<Col sm={9}>
+											<FormControl
+												name="password"
+												type="password"
+												autoComplete="isle-password"
+												placeholder={t('common:password')}
+												onChange={this.handleInputChange}
+												ref={( input ) => { this.passwordInput = input; }}
+											/>
+										</Col>
+									</Row>
+								</FormGroup>
+								<FormGroup>
+									<Button
+										className="centered"
+										variant="primary"
+										onClick={this.handleSubmit}
+										type="submit"
+									>{t('common:login')}</Button>
+								</FormGroup>
+							</Form>
+						</Card.Body>
+						<Card.Footer style={{ background: 'rgba(255,255,255,0.6)', textAlign: 'right' }}>
+							<Link to="/forgot-password">{t('common:forgot-password')}</Link>
+							{settings.allowUserRegistrations ?
+								<Fragment>
+									<span> | </span>
+									<Link to="/signup">{t('common:register')}</Link>
+								</Fragment> :
+								null
+							}
+						</Card.Footer>
+					</Card>
+					{settings.brandingLogo ? <img
+						className="login-branding-logo"
+						src={settings.brandingLogo}
+						alt="Branded Logo"
+					/> : null}
+				</div>
 				<Overlay
 					show={this.state.showInputOverlay}
 					target={this.state.overlayTarget}

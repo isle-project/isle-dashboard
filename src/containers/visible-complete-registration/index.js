@@ -17,37 +17,28 @@
 
 // MODULES //
 
-import React from 'react';
 import { connect } from 'react-redux';
-import LoginTFA from 'components/login-tfa';
-import { fetchCredentialsInjector } from 'actions/authentication';
-import { getEnrollableCohortsInjector } from 'actions/cohort';
-import { handleLoginTFAInjector } from 'actions/user';
+import CompleteRegistration from 'components/complete-registration';
 
 
 // FUNCTIONS //
 
 function mapStateToProps( state ) {
 	return {
-		user: state.user,
 		settings: state.settings
 	};
 }
 
-function mapDispatchToProps( dispatch ) {
-	return {
-		handleLoginTFA: handleLoginTFAInjector( dispatch ),
-		fetchCredentials: fetchCredentialsInjector( dispatch ),
-		getEnrollableCohorts: getEnrollableCohortsInjector( dispatch )
-	};
+function mapDispatchToProps() {
+	return {};
 }
 
 
 // MAIN //
 
-const VisibleLoginTFA = connect( mapStateToProps, mapDispatchToProps )( LoginTFA );
+const VisibleCompleteRegistration = connect( mapStateToProps, mapDispatchToProps )( CompleteRegistration );
 
 
 // EXPORTS //
 
-export default VisibleLoginTFA;
+export default VisibleCompleteRegistration;

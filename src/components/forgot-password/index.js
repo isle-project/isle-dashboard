@@ -91,6 +91,11 @@ class ForgotPassword extends Component {
 						<Link to="/login">{t('common:login')}</Link>
 					</Card.Footer>
 				</Card>
+				{settings.brandingLogo ? <img
+					className="login-branding-logo"
+					src={settings.brandingLogo}
+					alt="Branded Logo"
+				/> : null}
 			</div>
 		);
 	}

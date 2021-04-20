@@ -50,7 +50,7 @@ class ConfirmEmail extends Component {
 	}
 
 	render() {
-		const { t } = this.props;
+		const { t, settings } = this.props;
 		return (
 			<div className="login">
 				<Card style={{ boxShadow: '0 0 8px rgba(0,0,0,0.3)', borderRadius: '6px', opacity: 0.98, background: 'rgba(255,255,255,0.75)' }}>
@@ -66,6 +66,11 @@ class ConfirmEmail extends Component {
 						<Link to="/login">{t('common:login')}</Link>
 					</Card.Footer>
 				</Card>
+				{settings.brandingLogo ? <img
+					className="login-branding-logo"
+					src={settings.brandingLogo}
+					alt="Branded Logo"
+				/> : null}
 			</div>
 		);
 	}

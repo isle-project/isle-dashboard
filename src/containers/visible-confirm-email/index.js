@@ -25,8 +25,10 @@ import { confirmEmail } from 'actions/user';
 
 // FUNCTIONS //
 
-function mapStateToProps() {
-	return {};
+function mapStateToProps( state ) {
+	return {
+		settings: state.settings
+	};
 }
 
 function mapDispatchToProps( dispatch ) {
