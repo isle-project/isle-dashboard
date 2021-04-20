@@ -33,7 +33,7 @@ describe( '<CompleteRegistration />', function test() {
 	it( 'should render without throwing an error', () => {
 		render(
 			<Router history={history}>
-				<CompleteRegistration />
+				<CompleteRegistration settings={{}} />
 			</Router>
 		);
 		expect( screen.getByRole( 'heading' ) ).toHaveTextContent( 'Complete Registration' );
@@ -42,10 +42,10 @@ describe( '<CompleteRegistration />', function test() {
 	it( 'should update name field on change', () => {
 		const { queryByPlaceholderText } = render(
 			<Router history={history}>
-				<CompleteRegistration />
+				<CompleteRegistration settings={{}} />
 			</Router>
 		);
-		const nameInput = queryByPlaceholderText( 'signup:enter-name' );
+		const nameInput = queryByPlaceholderText( 'enter-name' );
 		const expected = 'ISLE User';
 		const event = {
 			target: {
@@ -59,7 +59,7 @@ describe( '<CompleteRegistration />', function test() {
 	it( 'should update password field on change', () => {
 		const { queryByPlaceholderText } = render(
 			<Router history={history}>
-				<CompleteRegistration />
+				<CompleteRegistration settings={{}} />
 			</Router>
 		);
 		const passwordInput = queryByPlaceholderText( 'common:choose-new-password' );
@@ -76,7 +76,7 @@ describe( '<CompleteRegistration />', function test() {
 	it( 'should update password confirmation field on change', () => {
 		const { queryByPlaceholderText } = render(
 			<Router history={history}>
-				<CompleteRegistration />
+				<CompleteRegistration settings={{}} />
 			</Router>
 		);
 		const passwordInput = queryByPlaceholderText( 'signup:confirm-password' );

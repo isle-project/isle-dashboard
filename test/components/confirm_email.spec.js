@@ -34,7 +34,7 @@ describe( '<ConfirmEmail />', function test() {
 	it( 'should render without throwing an error', () => {
 		render(
 			<Router history={history}>
-				<ConfirmEmail confirmEmail={noop} />
+				<ConfirmEmail confirmEmail={noop} settings={{}} />
 			</Router>
 		);
 		expect( screen.getByRole( 'heading' ) ).toHaveTextContent( 'common:confirm-email' );
@@ -51,7 +51,7 @@ describe( '<ConfirmEmail />', function test() {
 						const msgParagraph = queryByTestId( 'message' );
 						expect( msgParagraph ).toHaveTextContent( msg );
 					});
-				}} />
+				}} settings={{}} />
 			</Router>
 		);
 		const msgParagraph = queryByTestId( 'message' );
