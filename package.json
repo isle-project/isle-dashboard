@@ -114,7 +114,7 @@
     "worker-loader": "2.0.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.13.14",
+    "@babel/core": "^7.13.16",
     "@babel/preset-env": "^7.13.12",
     "@babel/preset-react": "^7.13.13",
     "@testing-library/jest-dom": "^5.11.10",
