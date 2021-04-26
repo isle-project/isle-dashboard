@@ -31,7 +31,7 @@ process.env.NODE_ENV = 'production';
 // Makes the script crash on unhandled rejections instead of silently
 // ignoring them. In the future, promise rejections that are not handled will
 // terminate the Node.js process with a non-zero exit code.
-process.on('unhandledRejection', err => {
+process.on( 'unhandledRejection', err => {
 	throw err;
 });
 
@@ -39,7 +39,6 @@ process.on('unhandledRejection', err => {
 require('../config/env');
 
 const path = require('path');
-const url = require( 'url' );
 const chalk = require('chalk');
 const fs = require('fs-extra');
 const webpack = require('webpack');
@@ -73,7 +72,7 @@ const writeStatsJson = argv.indexOf('--stats') !== -1;
 // We require that you explictly set browsers and do not fall back to
 // browserslist defaults.
 const { checkBrowsers } = require('react-dev-utils/browsersHelper');
-checkBrowsers(paths.appPath, isInteractive)
+checkBrowsers( paths.appPath, isInteractive )
 	.then(() => {
 		// First, read the current file sizes in build directory.
 		// This lets us display how much they changed later.
@@ -90,7 +89,7 @@ checkBrowsers(paths.appPath, isInteractive)
 	})
 	.then(
 		({ stats, previousFileSizes, warnings }) => {
-			if (warnings.length) {
+			if ( warnings.length ) {
 				console.log(chalk.yellow('Compiled with warnings.\n'));
 				console.log(warnings.join('\n\n'));
 				console.log(
@@ -130,66 +129,67 @@ checkBrowsers(paths.appPath, isInteractive)
 			console.log();
 		},
 		err => {
-			console.log(chalk.red('Failed to compile.\n'));
-			printBuildError(err);
-			process.exit(1);
+			console.log( chalk.red( 'Failed to compile.\n' ) );
+			printBuildError( err );
+			process.exit( 1 );
 		}
 	)
 	.catch(err => {
 		if (err && err.message) {
-			console.log(err.message);
+			console.log( err.message );
 		}
-		process.exit(1);
+		process.exit( 1 );
 	});
 
 // Create the production build and print the deployment instructions.
-function build(previousFileSizes) {
-	console.log('Creating an optimized production build...');
+function build( previousFileSizes ) {
+	console.log( 'Creating an optimized production build...' );
 
-	let compiler = webpack(config);
-	return new Promise((resolve, reject) => {
-		compiler.run((err, stats) => {
+	let compiler = webpack( config );
+	return new Promise( ( resolve, reject ) => {
+		compiler.run( ( err, stats ) => {
 			let messages;
-			if (err) {
-				if (!err.message) {
-					return reject(err);
+			if ( err ) {
+				if ( !err.message ) {
+					return reject( err );
 				}
 				messages = formatWebpackMessages({
-					errors: [err.message],
+					errors: [ err.message ],
 					warnings: []
 				});
 			} else {
-				messages = formatWebpackMessages(
-					stats.toJson({ all: false, warnings: true, errors: true })
-				);
+				const rawMessages = stats.toJson({ all: false, warnings: true, errors: true });
+				messages = formatWebpackMessages({
+					errors: rawMessages.errors.map( ( e ) => e.message ),
+					warnings: rawMessages.warnings.map( ( e ) => e.message )
+				});
 			}
-			if (messages.errors.length) {
+			if ( messages.errors.length ) {
 				// Only keep the first error. Others are often indicative
 				// of the same problem, but confuse the reader with noise.
-				if (messages.errors.length > 1) {
+				if ( messages.errors.length > 1 ) {
 					messages.errors.length = 1;
 				}
-				return reject(new Error(messages.errors.join('\n\n')));
+				return reject( new Error( messages.errors.join( '\n\n' ) ) );
 			}
 			const resolveArgs = {
 				stats,
 				previousFileSizes,
 				warnings: messages.warnings
 			};
-			if (writeStatsJson) {
+			if ( writeStatsJson ) {
 				return bfj
-					.write(paths.appBuild + '/bundle-stats.json', stats.toJson())
-					.then(() => resolve(resolveArgs))
-					.catch(error => reject(new Error(error)));
+					.write( paths.appBuild + '/bundle-stats.json', stats.toJson() )
+					.then( () => resolve( resolveArgs ) )
+					.catch( error => reject( new Error( error ) ) );
 			}
-
-			return resolve(resolveArgs);
+			return resolve( resolveArgs );
 		});
 	});
 }
 
 function copyPublicFolder() {
-	fs.copySync(paths.appPublic, paths.appBuild, {
+	fs.copySync( paths.appPublic, paths.appBuild, {
 		dereference: true,
 		filter: file => file !== paths.appHtml
 	});
