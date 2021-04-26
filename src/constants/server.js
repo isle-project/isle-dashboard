@@ -18,12 +18,12 @@
 
 // MODULES //
 
-import { publicUrl } from './../../config/server.json';
+import serverJSON from './../../config/server.json';
 
 
 // VARIABLES //
 
-export const REMOTE = publicUrl;
+export const REMOTE = serverJSON.publicUrl;
 export const LOCAL = 'http://localhost:17777';
 
 
