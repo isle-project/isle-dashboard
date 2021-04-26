@@ -62,7 +62,7 @@
     "@isle-project/session": "^0.50.0",
     "@isle-project/utils": "^0.50.0",
     "@isle-project/webpack-cdn-plugin": "^0.50.0",
-    "@stdlib/stdlib": "0.0.93",
+    "@stdlib/stdlib": "0.0.94",
     "axios": "^0.21.1",
     "babel-plugin-add-module-exports": "^1.0.4",
     "babel-plugin-module-resolver": "^4.1.0",
