@@ -31,7 +31,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const InlineChunkHtmlPlugin = require('react-dev-utils/InlineChunkHtmlPlugin');
 const TerserPlugin = require('terser-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const safePostCssParser = require('postcss-safe-parser');
 const { WebpackManifestPlugin } = require('webpack-manifest-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
@@ -101,9 +101,9 @@ const getStyleLoaders = (cssOptions, preProcessor) => {
 			},
 		},
 	];
-	if (preProcessor) {
+	if ( preProcessor ) {
 		loaders.push({
-			loader: require.resolve(preProcessor),
+			loader: require.resolve( preProcessor ),
 			options: {
 				sourceMap: shouldUseSourceMap,
 			},
@@ -174,24 +174,16 @@ module.exports = {
 				},
 				// Use multi-process parallel running to improve the build speed
 				// Default number of concurrent runs: os.cpus().length - 1
-				parallel: true,
-				// Enable file caching
-				cache: true,
-				sourceMap: shouldUseSourceMap,
+				parallel: true
 			}),
-			new OptimizeCSSAssetsPlugin({
-				cssProcessorOptions: {
-					parser: safePostCssParser,
-					map: {
-						// `inline: false` forces the sourcemap to be output into a
-						// separate file
-						inline: false,
-						// `annotation: true` appends the sourceMappingURL to the end of
-						// the css file, helping the browser find the sourcemap
-						annotation: true,
+			new CssMinimizerPlugin({
+				parallel: false,
+				minimizerOptions: {
+					processorOptions: {
+						parser: safePostCssParser,
 					},
 				},
-			}),
+			})
 		],
 		// Automatically split vendor and commons
 		// https://twitter.com/wSokra/status/969633336732905474
@@ -233,6 +225,15 @@ module.exports = {
 			// guards against forgotten dependencies and such.
 			PnpWebpackPlugin
 		],
+		fallback: {
+			dgram: false,
+			fs: false,
+			net: false,
+			tls: false,
+			child_process: false,
+			path: require.resolve( 'path-browserify' ),
+			stream: require.resolve( 'stream-browserify' )
+		},
 	},
 	resolveLoader: {
 		plugins: [
@@ -279,10 +280,12 @@ module.exports = {
 					// assets smaller than specified size as data URLs to avoid requests.
 					{
 						test: [/\.bmp$/, /\.gif$/, /\.jpe?g$/, /\.png$/],
-						loader: require.resolve('url-loader'),
-						options: {
-							limit: 10000,
-							name: 'static/media/[name].[hash:8].[ext]',
+						use: {
+							loader: require.resolve('url-loader'),
+							options: {
+								limit: 10000,
+								name: 'static/media/[name].[hash:8].[ext]',
+							}
 						},
 					},
 					// Process application JS with Babel.
@@ -293,27 +296,29 @@ module.exports = {
 							paths.appSrc,
 							/@isle-project/
 						],
-						loader: require.resolve('babel-loader'),
-						options: {
-							customize: require.resolve(
-								'babel-preset-react-app/webpack-overrides'
-							),
-							plugins: [
-								[
-									require.resolve('babel-plugin-named-asset-import'),
-									{
-										loaderMap: {
-											svg: {
-												ReactComponent: '@svgr/webpack?-prettier,-svgo![path]',
+						use: {
+							loader: require.resolve('babel-loader'),
+							options: {
+								customize: require.resolve(
+									'babel-preset-react-app/webpack-overrides'
+								),
+								plugins: [
+									[
+										require.resolve('babel-plugin-named-asset-import'),
+										{
+											loaderMap: {
+												svg: {
+													ReactComponent: '@svgr/webpack?-prettier,-svgo![path]',
+												},
 											},
 										},
-									},
+									],
 								],
-							],
-							cacheDirectory: true,
-							// Save disk space when time isn't as important
-							cacheCompression: true,
-							compact: true,
+								cacheDirectory: true,
+								// Save disk space when time isn't as important
+								cacheCompression: true,
+								compact: true,
+							}
 						},
 					},
 					// Process any JS outside of the app with Babel.
@@ -321,25 +326,27 @@ module.exports = {
 					{
 						test: /\.js$/,
 						exclude: /@babel(?:\/|\\{1,2})runtime/,
-						loader: require.resolve('babel-loader'),
-						options: {
-							babelrc: false,
-							configFile: false,
-							compact: false,
-							presets: [
-								[
-									require.resolve('babel-preset-react-app/dependencies'),
-									{ helpers: true },
+						use: {
+							loader: require.resolve('babel-loader'),
+							options: {
+								babelrc: false,
+								configFile: false,
+								compact: false,
+								presets: [
+									[
+										require.resolve('babel-preset-react-app/dependencies'),
+										{ helpers: true },
+									],
 								],
-							],
-							cacheDirectory: true,
-							// Save disk space when time isn't as important
-							cacheCompression: true,
-							// If an error happens in a package, it's possible to be
-							// because it was compiled. Thus, we don't want the browser
-							// debugger to show the original code. Instead, the code
-							// being evaluated would be much more helpful.
-							sourceMaps: false,
+								cacheDirectory: true,
+								// Save disk space when time isn't as important
+								cacheCompression: true,
+								// If an error happens in a package, it's possible to be
+								// because it was compiled. Thus, we don't want the browser
+								// debugger to show the original code. Instead, the code
+								// being evaluated would be much more helpful.
+								sourceMaps: false,
+							},
 						},
 					},
 					// "postcss" loader applies autoprefixer to our CSS.
@@ -350,7 +357,7 @@ module.exports = {
 					{
 						test: cssRegex,
 						exclude: cssModuleRegex,
-						loader: getStyleLoaders({
+						use: getStyleLoaders({
 							importLoaders: 1,
 							sourceMap: shouldUseSourceMap,
 						}),
@@ -365,15 +372,17 @@ module.exports = {
 					// This loader doesn't use a "test" so it will catch all modules
 					// that fall through the other loaders.
 					{
-						loader: require.resolve('file-loader'),
+						use: {
+							loader: require.resolve('file-loader'),
+							options: {
+								name: 'static/media/[name].[hash:8].[ext]',
+							},
+						},
 						// Exclude `js` files to keep "css" loader working as it injects
 						// it's runtime that would otherwise be processed through "file" loader.
 						// Also exclude `html` and `json` extensions so they get processed
 						// by webpacks internal loaders.
-						exclude: [/\.(js|jsx)$/, /\.html$/, /\.json$/, /\.css$/],
-						options: {
-							name: 'static/media/[name].[hash:8].[ext]',
-						},
+						exclude: [/\.(js|jsx)$/, /\.html$/, /\.json$/, /\.css$/]
 					},
 					// ** STOP ** Are you adding a new loader?
 					// Make sure to add the new loader(s) before the "file" loader.
@@ -461,15 +470,6 @@ module.exports = {
 			],
 		})
 	],
-	// Some libraries import Node modules but don't use them in the browser.
-	// Tell Webpack to provide empty mocks for them so importing them works.
-	node: {
-		dgram: 'empty',
-		fs: 'empty',
-		net: 'empty',
-		tls: 'empty',
-		child_process: 'empty',
-	},
 	// Turn off performance processing because we utilize
 	// our own hints via the FileSizeReporter
 	performance: false,

@@ -177,6 +177,8 @@ module.exports = {
 			net: false,
 			tls: false,
 			child_process: false,
+			path: require.resolve( 'path-browserify' ),
+			stream: require.resolve( 'stream-browserify' )
 		},
 	},
 	resolveLoader: {
@@ -200,7 +202,7 @@ module.exports = {
 							formatter: require.resolve('react-dev-utils/eslintFormatter'),
 							eslintPath: require.resolve('eslint')
 						},
-						loader: require.resolve('eslint-loader'),
+						use: require.resolve('eslint-loader'),
 					},
 				],
 				include: paths.appSrc,
@@ -225,7 +227,7 @@ module.exports = {
 					// A missing `test` is equivalent to a match.
 					{
 						test: [/\.bmp$/, /\.gif$/, /\.jpe?g$/, /\.png$/],
-						loader: require.resolve('url-loader'),
+						use: require.resolve('url-loader'),
 						options: {
 							limit: 10000,
 							name: 'static/media/[name].[hash:8].[ext]',
@@ -239,7 +241,7 @@ module.exports = {
 							paths.appSrc,
 							/@isle-project/
 						],
-						loader: require.resolve('babel-loader'),
+						use: require.resolve('babel-loader'),
 						options: {
 							customize: require.resolve(
 								'babel-preset-react-app/webpack-overrides'
@@ -269,7 +271,7 @@ module.exports = {
 					{
 						test: /\.js$/,
 						exclude: /@babel(?:\/|\\{1,2})runtime/,
-						loader: require.resolve('babel-loader'),
+						use: require.resolve('babel-loader'),
 						options: {
 							babelrc: false,
 							configFile: false,
@@ -314,7 +316,7 @@ module.exports = {
 						// Also exclude `html` and `json` extensions so they get processed
 						// by webpacks internal loaders.
 						exclude: [/\.(js|jsx)$/, /\.html$/, /\.json$/, /\.css$/],
-						loader: require.resolve('file-loader'),
+						use: require.resolve('file-loader'),
 						options: {
 							name: 'static/media/[name].[hash:8].[ext]',
 						},
