@@ -21,7 +21,7 @@ import React, { Component } from 'react';
 import { withTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import LanguageSwitcher from 'components/language-switcher';
-import { version as dashboardVersion } from './../../../package.json';
+import pkgJson from './../../../package.json';
 import './footer_bar.css';
 
 
@@ -46,7 +46,7 @@ class FooterBar extends Component {
 			</div>
 			<LanguageSwitcher />
 			<div className="footer-dashboard-version" >
-				Dashboard v{dashboardVersion}
+				Dashboard v{pkgJson.version}
 			</div>
 		</div> );
 	}
