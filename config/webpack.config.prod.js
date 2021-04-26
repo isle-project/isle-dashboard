@@ -33,7 +33,7 @@ const TerserPlugin = require('terser-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const safePostCssParser = require('postcss-safe-parser');
-const ManifestPlugin = require('webpack-manifest-plugin');
+const { WebpackManifestPlugin } = require('webpack-manifest-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
 const InterpolateHtmlPlugin = require('react-dev-utils/InterpolateHtmlPlugin');
 const WorkboxWebpackPlugin = require('workbox-webpack-plugin');
@@ -87,7 +87,7 @@ const getStyleLoaders = (cssOptions, preProcessor) => {
 				// https://github.com/facebook/create-react-app/issues/2677
 				postcssOptions: {
 					ident: 'postcss',
-					plugins: () => [
+					plugins: [
 						require('postcss-flexbugs-fixes'),
 						require('postcss-preset-env')({
 							autoprefixer: {
@@ -244,9 +244,6 @@ module.exports = {
 	module: {
 		strictExportPresence: true,
 		rules: [
-			// Disable require.ensure as it's not a standard language feature.
-			{ parser: { requireEnsure: false } },
-
 			// First, run the linter.
 			// It's important to do this before Babel processes the JS.
 			{
@@ -438,7 +435,7 @@ module.exports = {
 		// Generate a manifest file which contains a mapping of all asset filenames
 		// to their corresponding output file so that tools can pick it up without
 		// having to parse `index.html`.
-		new ManifestPlugin({
+		new WebpackManifestPlugin({
 			fileName: 'asset-manifest.json',
 			publicPath: publicPath,
 		}),

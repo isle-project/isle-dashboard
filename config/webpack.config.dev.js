@@ -34,7 +34,7 @@ const InterpolateHtmlPlugin = require('react-dev-utils/InterpolateHtmlPlugin');
 const WatchMissingNodeModulesPlugin = require('react-dev-utils/WatchMissingNodeModulesPlugin');
 const getClientEnvironment = require('./env');
 const paths = require('./paths');
-const ManifestPlugin = require('webpack-manifest-plugin');
+const { WebpackManifestPlugin } = require('webpack-manifest-plugin');
 const ModuleNotFoundPlugin = require('react-dev-utils/ModuleNotFoundPlugin');
 const WebpackCdnPlugin = require( '@isle-project/webpack-cdn-plugin' );
 
@@ -67,7 +67,7 @@ const getStyleLoaders = (cssOptions, preProcessor) => {
 				// https://github.com/facebook/create-react-app/issues/2677
 				postcssOptions: {
 					ident: 'postcss',
-					plugins: () => [
+					plugins: [
 						require('postcss-flexbugs-fixes'),
 						require('postcss-preset-env')({
 							autoprefixer: {
@@ -115,6 +115,7 @@ module.exports = {
 		// changing JS code would still trigger a refresh.
 	],
 	output: {
+		path: path.resolve( __dirname, 'dist' ),
 		// Add /* filename */ comments to generated require()s in the output.
 		pathinfo: true,
 		// This does not produce a real file. It's just the virtual path that is
@@ -170,6 +171,13 @@ module.exports = {
 			// guards against for,gotten dependencies and such.
 			PnpWebpackPlugin,
 		],
+		fallback: {
+			dgram: false,
+			fs: false,
+			net: false,
+			tls: false,
+			child_process: false,
+		},
 	},
 	resolveLoader: {
 		plugins: [
@@ -181,9 +189,6 @@ module.exports = {
 	module: {
 		strictExportPresence: true,
 		rules: [
-			// Disable require.ensure as it's not a standard language feature.
-			{ parser: { requireEnsure: false } },
-
 			// First, run the linter.
 			// It's important to do this before Babel processes the JS.
 			{
@@ -361,21 +366,11 @@ module.exports = {
 		// Generate a manifest file which contains a mapping of all asset filenames
 		// to their corresponding output file so that tools can pick it up without
 		// having to parse `index.html`.
-		new ManifestPlugin({
+		new WebpackManifestPlugin({
 			fileName: 'asset-manifest.json',
 			publicPath: publicPath,
 		})
 	],
-
-	// Some libraries import Node modules but don't use them in the browser.
-	// Tell Webpack to provide empty mocks for them so importing them works.
-	node: {
-		dgram: 'empty',
-		fs: 'empty',
-		net: 'empty',
-		tls: 'empty',
-		child_process: 'empty',
-	},
 	// Turn off performance processing because we utilize
 	// our own hints via the FileSizeReporter
 	performance: false,

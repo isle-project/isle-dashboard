@@ -85,6 +85,7 @@ if (process.env.HOST) {
 }
 
 process.on( 'uncaughtException', function onError( err ) {
+	console.error( 'Encountered an error: '+err.message );
 	console.log( 'Reset connection...' );
 });
 
