@@ -25,7 +25,6 @@
 'use strict';
 
 const path = require('path');
-const resolve = path.resolve;
 const webpack = require('webpack');
 const PnpWebpackPlugin = require('pnp-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
@@ -47,7 +46,6 @@ const env = getClientEnvironment();
 // style files regexes
 const cssRegex = /\.css$/;
 const cssModuleRegex = /\.module\.css$/;
-
 
 // common function to get style loaders
 const getStyleLoaders = (cssOptions, preProcessor) => {
@@ -121,7 +119,7 @@ module.exports = {
 		// This does not produce a real file. It's just the virtual path that is
 		// served by WebpackDevServer in development. This is the JS bundle
 		// containing code from all our entry points, and the Webpack runtime.
-		filename: 'static/js/bundle.js',
+		filename: 'static/js/[id].bundle.js',
 		// There are also additional JS chunk files if you use code splitting.
 		chunkFilename: 'static/js/[name].chunk.js',
 		// This is the URL that app is served from. We use "/" in development.
@@ -202,7 +200,7 @@ module.exports = {
 							formatter: require.resolve('react-dev-utils/eslintFormatter'),
 							eslintPath: require.resolve('eslint')
 						},
-						use: require.resolve('eslint-loader'),
+						loader: require.resolve('eslint-loader'),
 					},
 				],
 				include: paths.appSrc,
@@ -227,11 +225,13 @@ module.exports = {
 					// A missing `test` is equivalent to a match.
 					{
 						test: [/\.bmp$/, /\.gif$/, /\.jpe?g$/, /\.png$/],
-						use: require.resolve('url-loader'),
-						options: {
-							limit: 10000,
-							name: 'static/media/[name].[hash:8].[ext]',
-						},
+						use: {
+							loader: require.resolve('url-loader'),
+							options: {
+								limit: 10000,
+								name: 'static/media/[name].[hash:8].[ext]',
+							},
+						}
 					},
 					// Process application JS with Babel.
 					// The preset includes JSX, Flow, and some ESnext features.
@@ -241,56 +241,60 @@ module.exports = {
 							paths.appSrc,
 							/@isle-project/
 						],
-						use: require.resolve('babel-loader'),
-						options: {
-							customize: require.resolve(
-								'babel-preset-react-app/webpack-overrides'
-							),
-							plugins: [
-								[
-									require.resolve('babel-plugin-named-asset-import'),
-									{
-										loaderMap: {
-											svg: {
-												ReactComponent: '@svgr/webpack?-prettier,-svgo![path]',
+						use: {
+							loader: require.resolve('babel-loader'),
+							options: {
+								customize: require.resolve(
+									'babel-preset-react-app/webpack-overrides'
+								),
+								plugins: [
+									[
+										require.resolve('babel-plugin-named-asset-import'),
+										{
+											loaderMap: {
+												svg: {
+													ReactComponent: '@svgr/webpack?-prettier,-svgo![path]',
+												},
 											},
 										},
-									},
+									],
 								],
-							],
-							// This is a feature of `babel-loader` for webpack (not Babel itself).
-							// It enables caching results in ./node_modules/.cache/babel-loader/
-							// directory for faster rebuilds.
-							cacheDirectory: true,
-							// Don't waste time on Gzipping the cache
-							cacheCompression: false,
-						},
+								// This is a feature of `babel-loader` for webpack (not Babel itself).
+								// It enables caching results in ./node_modules/.cache/babel-loader/
+								// directory for faster rebuilds.
+								cacheDirectory: true,
+								// Don't waste time on Gzipping the cache
+								cacheCompression: false,
+							},
+						}
 					},
 					// Process any JS outside of the app with Babel.
 					// Unlike the application JS, we only compile the standard ES features.
 					{
 						test: /\.js$/,
 						exclude: /@babel(?:\/|\\{1,2})runtime/,
-						use: require.resolve('babel-loader'),
-						options: {
-							babelrc: false,
-							configFile: false,
-							compact: false,
-							presets: [
-								[
-									require.resolve('babel-preset-react-app/dependencies'),
-									{ helpers: true },
+						use: {
+							loader: require.resolve('babel-loader'),
+							options: {
+								babelrc: false,
+								configFile: false,
+								compact: false,
+								presets: [
+									[
+										require.resolve('babel-preset-react-app/dependencies'),
+										{ helpers: true },
+									],
 								],
-							],
-							cacheDirectory: true,
-							// Don't waste time on Gzipping the cache
-							cacheCompression: false,
-							// If an error happens in a package, it's possible to be
-							// because it was compiled. Thus, we don't want the browser
-							// debugger to show the original code. Instead, the code
-							// being evaluated would be much more helpful.
-							sourceMaps: false,
-						},
+								cacheDirectory: true,
+								// Don't waste time on Gzipping the cache
+								cacheCompression: false,
+								// If an error happens in a package, it's possible to be
+								// because it was compiled. Thus, we don't want the browser
+								// debugger to show the original code. Instead, the code
+								// being evaluated would be much more helpful.
+								sourceMaps: false,
+							},
+						}
 					},
 					// "postcss" loader applies autoprefixer to our CSS.
 					// "css" loader resolves paths in CSS and adds assets as dependencies.
@@ -316,10 +320,12 @@ module.exports = {
 						// Also exclude `html` and `json` extensions so they get processed
 						// by webpacks internal loaders.
 						exclude: [/\.(js|jsx)$/, /\.html$/, /\.json$/, /\.css$/],
-						use: require.resolve('file-loader'),
-						options: {
-							name: 'static/media/[name].[hash:8].[ext]',
-						},
+						use: {
+							loader: require.resolve('file-loader'),
+							options: {
+								name: 'static/media/[name].[hash:8].[ext]',
+							},
+						}
 					},
 				],
 			},
