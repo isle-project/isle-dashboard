@@ -67,11 +67,11 @@ if (!checkRequiredFiles([paths.appHtml, paths.appIndexJs])) {
 const DEFAULT_PORT = parseInt(process.env.PORT, 10) || 3000;
 const HOST = process.env.HOST || '0.0.0.0';
 
-if (process.env.HOST) {
+if ( process.env.HOST ) {
 	console.log(
 		chalk.cyan(
 			`Attempting to bind to HOST environment variable: ${chalk.yellow(
-				chalk.bold(process.env.HOST)
+				chalk.bold( process.env.HOST )
 			)}`
 		)
 	);
@@ -99,7 +99,7 @@ checkBrowsers(paths.appPath, isInteractive)
 		return choosePort(HOST, DEFAULT_PORT);
 	})
 	.then(port => {
-		if (port == null) {
+		if ( port == null ) {
 			// We have not found a port.
 			return;
 		}
@@ -119,14 +119,14 @@ checkBrowsers(paths.appPath, isInteractive)
 		const devServer = new WebpackDevServer(compiler, serverConfig);
 		// Launch WebpackDevServer.
 		devServer.listen(port, HOST, err => {
-			if (err) {
-				return console.log(err);
+			if ( err ) {
+				return console.log( err );
 			}
-			if (isInteractive) {
+			if ( isInteractive ) {
 				clearConsole();
 			}
-			console.log(chalk.cyan('Starting the development server...\n'));
-			openBrowser(urls.localUrlForBrowser);
+			console.log( chalk.cyan('Starting the development server...\n') );
+			openBrowser( urls.localUrlForBrowser );
 		});
 
 		['SIGINT', 'SIGTERM'].forEach(function(sig) {
@@ -136,11 +136,11 @@ checkBrowsers(paths.appPath, isInteractive)
 			});
 		});
 	})
-	.catch(err => {
-		if (err && err.message) {
-			console.log(err.message);
+	.catch( err => {
+		if ( err && err.message ) {
+			console.log( err.message );
 		}
-		process.exit(1);
+		process.exit( 1 );
 	});
 
 
