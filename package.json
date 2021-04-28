@@ -105,7 +105,7 @@
     "react-router-dom": "^5.2.0",
     "react-select": "3.2.0",
     "react-string-avatar": "^1.2.2",
-    "react-table": "6.11.5",
+    "react-table": "7.7.0",
     "redux": "^4.1.0",
     "redux-persist": "^6.0.0",
     "source-map-explorer": "^2.5.2",
