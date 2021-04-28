@@ -1,0 +1,57 @@
+version: 2
+updates:
+- package-ecosystem: npm
+  directory: "/"
+  schedule:
+    interval: daily
+  open-pull-requests-limit: 10
+  ignore:
+  - dependency-name: eslint-plugin-jest
+    versions:
+    - 24.3.6
+  - dependency-name: stylelint-config-standard
+    versions:
+    - 22.0.0
+  - dependency-name: autoprefixer
+    versions:
+    - 10.2.5
+  - dependency-name: workbox-webpack-plugin
+    versions:
+    - 6.1.0
+    - 6.1.1
+    - 6.1.2
+    - 6.1.5
+  - dependency-name: react-select
+    versions:
+    - 4.1.0
+    - 4.2.0
+    - 4.2.1
+    - 4.3.0
+  - dependency-name: webpack-manifest-plugin
+    versions:
+    - 3.1.0
+    - 3.1.1
+  - dependency-name: react-dev-utils
+    versions:
+    - 11.0.2
+    - 11.0.3
+    - 11.0.4
+  - dependency-name: css-loader
+    versions:
+    - 5.1.0
+  - dependency-name: i18next-http-backend
+    versions:
+    - 1.1.1
+    - 1.2.1
+  - dependency-name: worker-loader
+    versions:
+    - 3.0.8
+  - dependency-name: "@babel/core"
+    versions:
+    - 7.13.15
+  - dependency-name: eslint-plugin-react
+    versions:
+    - 7.23.2
+  - dependency-name: "@babel/preset-env"
+    versions:
+    - 7.13.15
