@@ -77,7 +77,7 @@
     "history": "4.10.1",
     "i18next": "^20.2.1",
     "i18next-browser-languagedetector": "^6.1.0",
-    "i18next-http-backend": "^1.2.1",
+    "i18next-http-backend": "^1.2.2",
     "localforage": "^1.9.0",
     "lodash.debounce": "^4.0.8",
     "moment": "2.29.1",
