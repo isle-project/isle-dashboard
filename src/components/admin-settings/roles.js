@@ -71,7 +71,7 @@ const RoleModal = ( props ) => {
 		<Modal show={props.modal !== null} dialogClassName="modal-75w" onHide={props.onHide} >
 			<Modal.Header closeButton >
 				<Modal.Title as="h3" >
-					{props.modal}
+					{props.t( 'common:'+props.modal )}
 				</Modal.Title>
 			</Modal.Header>
 			<Modal.Body >
@@ -95,7 +95,7 @@ const RoleModal = ( props ) => {
 						controlId="form-context"
 						as={Col}
 					>
-						<FormLabel>{props.t('common:search-context')}</FormLabel>
+						<FormLabel>{props.t('search-context')}</FormLabel>
 						<SelectInput
 							options={SEARCH_CONTEXT}
 							onChange={setSearchContext}
