@@ -17,18 +17,18 @@
 
 // MODULES //
 
-import axios from 'axios';
 import server from 'constants/server';
 import i18next from 'i18next';
 import { addNotification, addErrorNotification } from 'actions/notification';
 import { CREATED_CUSTOM_FIELD, DELETED_CUSTOM_FIELD, FIELD_POSITION_INCREMENTED, FIELD_POSITION_DECREMENTED, GET_CUSTOM_FIELDS, UPDATED_CUSTOM_FIELD } from 'constants/action_types.js';
+import { globalAxios } from 'helpers/axios.js';
 
 
 // EXPORTS //
 
 export const getCustomFields = async ( dispatch ) => {
 	try {
-		const res = await axios.get( server+'/get_custom_fields' );
+		const res = await globalAxios.get( server+'/get_custom_fields' );
 		dispatch({
 			type: GET_CUSTOM_FIELDS,
 			payload: {
@@ -48,7 +48,7 @@ export const getCustomFieldsInjector = dispatch => {
 
 export const incrementFieldPosition = async ( dispatch, id ) => {
 	try {
-		const res = await axios.post( server+'/increment_field_position', {
+		const res = await globalAxios.post( server+'/increment_field_position', {
 			id
 		});
 		dispatch({
@@ -70,7 +70,7 @@ export const incrementFieldPositionInjector = dispatch => {
 
 export const decrementFieldPosition = async ( dispatch, id ) => {
 	try {
-		const res = await axios.post( server+'/decrement_field_position', {
+		const res = await globalAxios.post( server+'/decrement_field_position', {
 			id
 		});
 		dispatch({
@@ -92,7 +92,7 @@ export const decrementFieldPositionInjector = dispatch => {
 
 export const deleteCustomField = async ( dispatch, id ) => {
 	try {
-		const res = await axios.post( server+'/delete_custom_field', {
+		const res = await globalAxios.post( server+'/delete_custom_field', {
 			id
 		});
 		addNotification( dispatch, {
@@ -128,7 +128,7 @@ export const createCustomField = async ( dispatch, {
 	editableOnProfile
 }) => {
 	try {
-		const res = await axios.post( server + '/create_custom_field', {
+		const res = await globalAxios.post( server + '/create_custom_field', {
 			name,
 			description,
 			type,
@@ -188,7 +188,7 @@ export const updateCustomField = async ( dispatch, {
 	editableOnProfile
 }) => {
 	try {
-		const res = await axios.post( server + '/update_custom_field', {
+		const res = await globalAxios.post( server + '/update_custom_field', {
 			name,
 			description,
 			type,

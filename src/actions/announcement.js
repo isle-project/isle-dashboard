@@ -17,10 +17,10 @@
 
 // MODULES //
 
-import axios from 'axios';
 import server from 'constants/server';
 import { CREATED_ANNOUNCEMENT, EDITED_ANNOUNCEMENT, DELETED_ANNOUNCEMENT } from 'constants/action_types.js';
 import { addNotification, addErrorNotification } from 'actions/notification';
+import { namespaceAxios } from 'helpers/axios.js';
 
 
 // EXPORTS //
@@ -57,7 +57,7 @@ export function deletedAnnouncement( index, namespaceName ) {
 
 export const addAnnouncement = async ( dispatch, { namespaceName, announcement }) => {
 	try {
-		const res = await axios.post( server+'/new_announcement', {
+		const res = await namespaceAxios.post( server+'/new_announcement', {
 			namespaceName,
 			announcement
 		});
@@ -79,7 +79,7 @@ export const addAnnouncementInjector = dispatch => {
 
 export const deleteAnnouncement = async ( dispatch, { namespaceName, createdAt, index }) => {
 	try {
-		const res = await axios.post( server+'/delete_announcement', {
+		const res = await namespaceAxios.post( server+'/delete_announcement', {
 			namespaceName,
 			createdAt
 		});
@@ -101,7 +101,7 @@ export const deleteAnnouncementInjector = dispatch => {
 
 export const editAnnouncement = async ( dispatch, { namespaceName, announcement }) => {
 	try {
-		const res = await axios.post( server+'/edit_announcement', {
+		const res = await namespaceAxios.post( server+'/edit_announcement', {
 			namespaceName,
 			announcement
 		});

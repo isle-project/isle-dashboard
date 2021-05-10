@@ -34,8 +34,8 @@ axios.interceptors.request.use( ( config ) => {
 	return config;
 });
 
-const courseClient = axios.create();
-courseClient.interceptors.request.use( ( config ) => {
+const namespaceClient = axios.create();
+namespaceClient.interceptors.request.use( ( config ) => {
 	config.headers[ 'Accept-Language' ] = i18next.language;
 	const state = store.getState();
 	const token = state.user.token;
@@ -83,7 +83,7 @@ globalClient.interceptors.request.use( ( config ) => {
 
 // EXPORTS //
 
-export const courseAxios = courseClient;
+export const namespaceAxios = namespaceClient;
 export const programAxios = programClient;
 export const lessonAxios = lessonClient;
 export const globalAxios = globalClient;
