@@ -63,7 +63,7 @@ module.exports = function( proxy, allowedHost ) {
 		hot: true,
 		// It is important to tell WebpackDevServer to use the same "root" path
 		// as we specified in the config. In development, we always serve from /.
-		dev: {
+		devMiddleware: {
 			publicPath: config.output.publicPath,
 		},
 		// Enable HTTPS if the HTTPS environment variable is set to 'true'
