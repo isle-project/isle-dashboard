@@ -20,9 +20,13 @@
 import React, { Component, Fragment, useState } from 'react';
 import { withTranslation } from 'react-i18next';
 import { isPrimitive as isBoolean } from '@stdlib/assert/is-boolean';
+import objectKeys from '@stdlib/utils/keys';
 import Table from 'react-bootstrap/Table';
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Button from 'react-bootstrap/Button';
+import Popover from 'react-bootstrap/Popover';
 import Modal from 'react-bootstrap/Modal';
+import ListGroup from 'react-bootstrap/ListGroup';
 import FormLabel from 'react-bootstrap/FormLabel';
 import FormCheck from 'react-bootstrap/FormCheck';
 import FormControl from 'react-bootstrap/FormControl';
@@ -109,7 +113,7 @@ const RoleModal = ( props ) => {
 					>
 						<FormLabel>{t('authorized-roles')}:</FormLabel>
 						<SelectInput
-							options={SEARCH_CONTEXT || roles.map( x => {
+							options={roles.map( x => {
 								return {
 									label: x.title,
 									value: x
@@ -268,6 +272,43 @@ const RoleModal = ( props ) => {
 	);
 };
 
+const PermissionList = ({ permissions, status, t }) => {
+	const keys = objectKeys( permissions );
+	const out = [];
+	if ( status === 'allowed' ) {
+		for ( let i = 0; i < keys.length; i++ ) {
+			const key = keys[ i ];
+			if ( permissions[ key ] === true ) {
+				out.push(
+					<ListGroup.Item>{key}</ListGroup.Item>
+				);
+			}
+		}
+	}
+	else if ( status === 'disallowed' ) {
+		for ( let i = 0; i < keys.length; i++ ) {
+			const key = keys[ i ];
+			if ( permissions[ key ] === false ) {
+				out.push(
+					<ListGroup.Item>{key}</ListGroup.Item>
+				);
+			}
+		}
+	}
+	if ( out.length === 0 ) {
+		return (
+			<ListGroup variant="flush" >
+				<ListGroup.Item>{t('common:none')}</ListGroup.Item>
+			</ListGroup>
+		);
+	}
+	return (
+		<ListGroup variant="flush" style={{ fontSize: '0.8em' }} >
+			{out.length > 0 ? out : <ListGroup.Item>{t('common:none')}</ListGroup.Item>}
+		</ListGroup>
+	);
+};
+
 
 // MAIN //
 
@@ -302,18 +343,47 @@ class RolesPage extends Component {
 
 	renderRoleItems() {
 		const out = [];
-		const roles = [{
-			name: 'Administrator',
-			createdBy: null,
-			permissions: {},
-			searchContext: 'global'
-		}];
+		const { admin, t } = this.props;
+		const roles = admin.roles || [];
 		for ( let i = 0; i < roles.length; i++ ) {
 			const role = roles[ i ];
 			const li = ( <tr key={i}>
-				<td><b>{role.name}</b></td>
-				<td></td>
-				<td></td>
+				<td><b>{role.title}</b></td>
+				<td>{role.createdBy}</td>
+				<td>
+					<OverlayTrigger
+						placement="left"
+						delay={{ show: 250, hide: 400 }}
+						overlay={<Popover id={`popover-allowed-${i}`} >
+							<Popover.Title as="h3">{t('allowed-permissions')}</Popover.Title>
+							<Popover.Content style={{ maxHeight: '40vh', overflowY: 'auto' }} >
+								<PermissionList status="allowed" permissions={role.permissions} t={t} />
+							</Popover.Content>
+					 	 </Popover>}
+						trigger="click"
+					>
+						<Button variant="success" style={{ marginRight: 8 }} >
+							<i className="fas fa-check-circle"></i>
+						</Button>
+					</OverlayTrigger>
+					<OverlayTrigger
+						placement="right"
+						delay={{ show: 250, hide: 400 }}
+						overlay={<Popover id={`popover-disallowed-${i}`} >
+							<Popover.Title as="h3">{t('disallowed-permissions')}</Popover.Title>
+							<Popover.Content style={{ maxHeight: '40vh', overflowY: 'auto' }} >
+								<PermissionList status="disallowed" permissions={role.permissions} t={t} />
+							</Popover.Content>
+					 	 </Popover>}
+						trigger="click"
+					>
+						<Button variant="danger" >
+							<i className="far fa-times-circle"></i>
+						</Button>
+					</OverlayTrigger>
+				</td>
+				<td>{role.searchContext}</td>
+				<td>{role.authorizedRoles}</td>
 				<td>
 					<Button size="sm" onClick={this.toggleEditModal} style={{ marginRight: 6 }} >
 						<i className="fas fa-edit" ></i>
@@ -340,6 +410,8 @@ class RolesPage extends Component {
 								<th>{t('common:name')}</th>
 								<th>{t('common:created_by')}</th>
 								<th>{t('common:permissions')}</th>
+								<th>{t('search-context')}</th>
+								<th>{t('authorized-roles')}</th>
 								<th>{t('common:actions')}</th>
 							</tr>
 						</thead>
