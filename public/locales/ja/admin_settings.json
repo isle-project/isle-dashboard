@@ -2,6 +2,7 @@
 	"add-user-field": "ユーザーフィールドの追加",
 	"allow-new-registrations": "新規登録の許可",
 	"allow-new-registrations-description": "新しいユーザーアカウントを作成しないようにするには、このオプションをオフにしてください。",
+	"authorized-roles": "このロールを編集する権限を持つ",
 	"backups": "バックアップ",
 	"branding": "ブランディング",
 	"configuration": "構成",

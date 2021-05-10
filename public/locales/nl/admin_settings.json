@@ -2,6 +2,7 @@
 	"add-user-field": "Gebruikersveld toevoegen",
 	"allow-new-registrations": "Nieuwe registraties toestaan",
 	"allow-new-registrations-description": "Vink deze optie uit om het aanmaken van nieuwe gebruikersaccounts te voorkomen",
+	"authorized-roles": "Bevoegd om deze rol te bewerken",
 	"backups": "Back-ups",
 	"branding": "Branding",
 	"configuration": "Configuratie",

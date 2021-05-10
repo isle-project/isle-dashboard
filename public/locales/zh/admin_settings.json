@@ -2,6 +2,7 @@
 	"add-user-field": "增加用户字段",
 	"allow-new-registrations": "允许新注册",
 	"allow-new-registrations-description": "取消勾选此选项，以防止创建新的用户账户。",
+	"authorized-roles": "被授权编辑此角色",
 	"backups": "备份",
 	"branding": "品牌建设",
 	"configuration": "配置",

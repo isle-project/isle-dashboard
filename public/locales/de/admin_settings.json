@@ -2,6 +2,7 @@
 	"add-user-field": "Nutzerfeld hinzufügen",
 	"allow-new-registrations": "Neue Registrierungen zulassen",
 	"allow-new-registrations-description": "Deaktivieren Sie diese Option, um die Erstellung neuer Benutzerkonten zu verhindern",
+	"authorized-roles": "Berechtigt, diese Rolle zu bearbeiten",
 	"backups": "Backups",
 	"branding": "Branding",
 	"configuration": "Konfiguration",

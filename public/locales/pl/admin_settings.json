@@ -2,6 +2,7 @@
 	"add-user-field": "Dodaj pole użytkownika",
 	"allow-new-registrations": "Zezwalaj na nowe rejestracje",
 	"allow-new-registrations-description": "Usuń zaznaczenie tej opcji, aby zapobiec tworzeniu nowych kont użytkowników",
+	"authorized-roles": "Uprawniony do edycji tej roli",
 	"backups": "Kopie zapasowe",
 	"branding": "Branding",
 	"configuration": "Konfiguracja",
