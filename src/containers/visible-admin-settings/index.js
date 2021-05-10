@@ -27,6 +27,7 @@ import { createCustomFieldInjector, deleteCustomFieldInjector, getCustomFieldsIn
 	decrementFieldPositionInjector, incrementFieldPositionInjector } from 'actions/custom_field.js';
 import { createBackupInjector, deleteBackupInjector, getBackupsInjector } from 'actions/backup.js';
 import { getSettingsInjector, updateSettingsInjector } from 'actions/settings.js';
+import { createRoleInjector, getAllRolesInjector } from 'actions/role.js';
 
 
 // FUNCTIONS //
@@ -41,10 +42,12 @@ function mapStateToProps( state ) {
 function mapDispatchToProps( dispatch ) {
 	return {
 		addNotification: addNotificationInjector( dispatch ),
+		getAllRoles: getAllRolesInjector( dispatch ),
 		getBackups: getBackupsInjector( dispatch ),
 		getUsers: getUsersInjector( dispatch ),
 		createBackup: createBackupInjector( dispatch ),
 		createCustomField: createCustomFieldInjector( dispatch ),
+		createRole: createRoleInjector( dispatch ),
 		deleteBackup: deleteBackupInjector( dispatch ),
 		deleteCustomField: deleteCustomFieldInjector( dispatch ),
 		getCustomFields: getCustomFieldsInjector( dispatch ),

@@ -19,6 +19,7 @@
 
 import React, { Component, Fragment, useState } from 'react';
 import { withTranslation } from 'react-i18next';
+import { isPrimitive as isBoolean } from '@stdlib/assert/is-boolean';
 import Table from 'react-bootstrap/Table';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
@@ -60,6 +61,9 @@ const RoleModal = ( props ) => {
 	const [ searchContext, setSearchContext ] = useState( SEARCH_CONTEXT[ 2 ] );
 	const [ permissions, setPermissions ] = useState( {} );
 	const [ show, setShow ] = useState( 'all' );
+	const [ authorizedRoles, setAuthorizedRoles ] = useState( [] );
+	const { createRole, modal, roles, onHide, t } = props;
+
 	const handleActiveChange = ( event ) => {
 		const check = event.target.checked;
 		const show = event.target.dataset.show;
@@ -67,11 +71,19 @@ const RoleModal = ( props ) => {
 			setShow( show );
 		}
 	};
+	const handleCreation = () => {
+		createRole({
+			title,
+			authorizedRoles: authorizedRoles.map( x => x.value._id ),
+			searchContext: searchContext.value,
+			permissions
+		});
+	};
 	return (
-		<Modal show={props.modal !== null} dialogClassName="modal-75w" onHide={props.onHide} >
+		<Modal show={modal !== null} dialogClassName="modal-75w" onHide={onHide} >
 			<Modal.Header closeButton >
 				<Modal.Title as="h3" >
-					{props.t( 'common:'+props.modal )}
+					{t( 'common:'+modal )}
 				</Modal.Title>
 			</Modal.Header>
 			<Modal.Body >
@@ -80,7 +92,7 @@ const RoleModal = ( props ) => {
 						controlId="form-title"
 						as={Col}
 					>
-						<FormLabel>{props.t('common:title')}</FormLabel>
+						<FormLabel>{t('common:title')}</FormLabel>
 						<FormControl
 							name="title"
 							type="text"
@@ -92,10 +104,29 @@ const RoleModal = ( props ) => {
 						/>
 					</FormGroup>
 					<FormGroup
+						controlId="form-authorized-roles"
+						as={Col}
+					>
+						<FormLabel>{t('authorized-roles')}:</FormLabel>
+						<SelectInput
+							options={SEARCH_CONTEXT || roles.map( x => {
+								return {
+									label: x.title,
+									value: x
+								};
+							})}
+							isMulti
+							value={authorizedRoles}
+							onChange={( newValue ) => {
+								setAuthorizedRoles( newValue ? newValue : [] );
+							}}
+						/>
+					</FormGroup>
+					<FormGroup
 						controlId="form-context"
 						as={Col}
 					>
-						<FormLabel>{props.t('search-context')}</FormLabel>
+						<FormLabel>{t('search-context')}</FormLabel>
 						<SelectInput
 							options={SEARCH_CONTEXT}
 							onChange={setSearchContext}
@@ -104,20 +135,25 @@ const RoleModal = ( props ) => {
 					</FormGroup>
 				</Row>
 				<div style={{ height: 50 }}>
-					<h4 style={{ float: 'left', width: 120 }}>Permissions</h4>
+					<h4 style={{ float: 'left', width: 150 }}>{t('permissions')}</h4>
 					<FormCheck
 						data-show="all" type="radio" inline
-						checked={show === 'all'} label='Show All' name="radioGroup"
+						checked={show === 'all'} label={t('show-all')} name="radioGroup"
 						onChange={handleActiveChange}
 					/>
 					<FormCheck
-						data-show="active" type="radio" inline
-						checked={show === 'active'} label='Show Active' name="radioGroup"
+						data-show="allowed" type="radio" inline
+						checked={show === 'allowed'} label={t('show-allowed')} name="radioGroup"
+						onChange={handleActiveChange}
+					/>
+					<FormCheck
+						data-show="disallowed" type="radio" inline
+						checked={show === 'disallowed'} label={t('show-disallowed')} name="radioGroup"
 						onChange={handleActiveChange}
 					/>
 					<FormCheck
 						data-show="inactive" type="radio" inline
-						checked={show === 'inactive'} label='Show Inactive' name="radioGroup"
+						checked={show === 'inactive'} label={t('show-inactive')} name="radioGroup"
 						onChange={handleActiveChange}
 					/>
 					<SearchBar
@@ -125,7 +161,7 @@ const RoleModal = ( props ) => {
 							setSearch( event.target.value );
 						}}
 						value={search || ''}
-						placeholder={props.t('search-permissions')}
+						placeholder={t('search-permissions')}
 						style={{
 							float: 'right'
 						}}
@@ -139,14 +175,21 @@ const RoleModal = ( props ) => {
 									return false;
 								}
 								if (
-									( show === 'active' && !permissions[ x.name ] ) ||
-									( show === 'inactive' && permissions[ x.name ] )
+									( show === 'allowed' && !permissions[ x.name ] ) ||
+									( show === 'disallowed' && permissions[ x.name ] !== false ) ||
+									( show === 'inactive' && isBoolean( permissions[ x.name ] ) )
 								) {
 									return false;
 								}
 								return true;
 							})
 							.map( ( x, j ) => {
+								let color;
+								if ( permissions[ x.name ] === true ) {
+									color = 'green';
+								} else {
+									color = permissions[ x.name ] === false ? 'red' : 'black';
+								}
 								return (
 									<Col
 										key={j}
@@ -160,15 +203,33 @@ const RoleModal = ( props ) => {
 												type="checkbox"
 												checked={permissions[ x.name ]}
 												key={`${x.name}-${j}-input`}
-												onChange={() => {
+												ref={( elem ) => {
+													if ( elem ) {
+														elem.indeterminate = permissions[ x.name ] === false;
+													}
+												}}
+												onChange={( event ) => {
 													const newPermissions = { ...permissions };
-													newPermissions[ x.name ] = !newPermissions[ x.name ];
+													switch ( permissions[ x.name ] ) {
+														case true:
+															newPermissions[ x.name ] = false;
+															event.target.indeterminate = true;
+															break;
+														case false:
+															newPermissions[ x.name ] = null;
+															event.target.indeterminate = false;
+															break;
+														default:
+															newPermissions[ x.name ] = true;
+															event.target.indeterminate = false;
+															break;
+													}
 													setPermissions( newPermissions );
 												}}
 											/>
 											<span
 												style={{
-													color: permissions[ x.name ] ? 'green' : 'black'
+													color
 												}}
 											>
 												{x.name}
@@ -196,11 +257,11 @@ const RoleModal = ( props ) => {
 				</div>
 			</Modal.Body>
 			<Modal.Footer>
-				<Button onClick={props.onHide} >
-					Cancel
+				<Button onClick={onHide} >
+					{t('common:cancel')}
 				</Button>
-				<Button >
-					{props.t('common:create')}
+				<Button onClick={handleCreation} disabled={!title} >
+					{t('common:create')}
 				</Button>
 			</Modal.Footer>
 		</Modal>
@@ -217,6 +278,10 @@ class RolesPage extends Component {
 		this.state = {
 			modal: null
 		};
+	}
+
+	componentDidMount() {
+		this.props.getAllRoles();
 	}
 
 	toggleEditModal = () => {
@@ -288,7 +353,12 @@ class RolesPage extends Component {
 						{t('create-role')}
 					</Button>
 				</div>
-				<RoleModal onHide={this.toggleCreateModal} modal={this.state.modal} t={t} />
+				<RoleModal
+					onHide={this.toggleCreateModal}
+					modal={this.state.modal} t={t}
+					createRole={this.props.createRole}
+					roles={this.props.admin.roles}
+				/>
 			</Fragment>
 		);
 	}

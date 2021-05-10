@@ -125,7 +125,11 @@ class Settings extends Component {
 				);
 			case 3:
 				return (
-					<Roles />
+					<Roles
+						admin={this.props.admin}
+						createRole={this.props.createRole}
+						getAllRoles={this.props.getAllRoles}
+					/>
 				);
 			case 4:
 				return (
@@ -170,10 +174,10 @@ class Settings extends Component {
 							<Nav.Link eventKey="1" title="Configuration" >{t('configuration')}</Nav.Link>
 						</Nav.Item>
 						<Nav.Item>
-							<Nav.Link disabled eventKey="2" title="Branding" >{t('branding')}</Nav.Link>
+							<Nav.Link eventKey="2" title="Branding" >{t('branding')}</Nav.Link>
 						</Nav.Item>
 						<Nav.Item>
-							<Nav.Link disabled eventKey="3" title="Roles" >{t('roles')}</Nav.Link>
+							<Nav.Link eventKey="3" title="Roles" >{t('roles')}</Nav.Link>
 						</Nav.Item>
 						<Nav.Item>
 							<Nav.Link disabled eventKey="4" title="Badges" >{t('common:badges')}</Nav.Link>
@@ -200,9 +204,11 @@ Settings.propTypes = {
 	admin: PropTypes.object.isRequired,
 	createBackup: PropTypes.func.isRequired,
 	createCustomField: PropTypes.func.isRequired,
+	createRole: PropTypes.func.isRequired,
 	decrementFieldPosition: PropTypes.func.isRequired,
 	deleteBackup: PropTypes.func.isRequired,
 	deleteCustomField: PropTypes.func.isRequired,
+	getAllRoles: PropTypes.func.isRequired,
 	getBackups: PropTypes.func.isRequired,
 	getCustomFields: PropTypes.func.isRequired,
 	getLicense: PropTypes.func.isRequired,

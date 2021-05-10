@@ -30,6 +30,7 @@ const initialState = {
 	lessons: [],
 	lessonsMap: {},
 	namespaces: [],
+	roles: [],
 	rooms: [],
 	tickets: [],
 	users: [],
@@ -304,6 +305,12 @@ export default function admin( state = initialState, action ) {
 	case types.UPDATED_SETTINGS: {
 		return Object.assign({}, state, {
 			settings: action.payload.settings
+		});
+	}
+	case types.GET_ALL_ROLES: {
+		const roles = action.payload.roles;
+		return Object.assign({}, state, {
+			roles
 		});
 	}
 	default:

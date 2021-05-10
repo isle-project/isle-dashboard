@@ -45,6 +45,7 @@ export const GET_ALL_COHORTS = 'GET_ALL_COHORTS';
 export const GET_ALL_FILES = 'GET_ALL_FILES';
 export const GET_ALL_LESSONS = 'GET_ALL_LESSONS';
 export const GET_ALL_NAMESPACES = 'GET_ALL_NAMESPACES';
+export const GET_ALL_ROLES = 'GET_ALL_ROLES';
 export const GET_BACKUPS = 'GET_BACKUPS';
 export const GET_EVENTS = 'GET_EVENTS';
 export const GET_ALL_TICKETS = 'GET_ALL_TICKETS';
