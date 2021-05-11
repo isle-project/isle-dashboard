@@ -32,6 +32,8 @@
 	"date": "Date",
 	"delete": "Supprimer",
 	"delete-file-title": "Supprimer un fichier",
+	"delete-role": "Supprimer un rôle d'utilisateur",
+	"delete-role-confirm": "Veuillez confirmer que vous souhaitez supprimer le rôle d'utilisateur suivant :",
 	"deleted": "Supprimé",
 	"description": "Description",
 	"disable": "Désactiver",

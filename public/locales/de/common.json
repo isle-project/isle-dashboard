@@ -32,6 +32,8 @@
 	"date": "Datum",
 	"delete": "Löschen",
 	"delete-file-title": "Datei Löschen",
+	"delete-role": "Benutzerrolle löschen",
+	"delete-role-confirm": "Bitte bestätigen Sie, dass Sie die folgende Benutzerrolle löschen möchten:",
 	"deleted": "Gelöscht",
 	"description": "Beschreibung",
 	"disable": "Abschalten",

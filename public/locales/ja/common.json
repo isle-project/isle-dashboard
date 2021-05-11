@@ -32,6 +32,8 @@
 	"date": "日付",
 	"delete": "削除",
 	"delete-file-title": "ファイルの削除",
+	"delete-role": "ユーザーロールの削除",
+	"delete-role-confirm": "以下のユーザーロールを削除することを確認してください。",
 	"deleted": "削除された",
 	"description": "説明",
 	"disable": "無効化",

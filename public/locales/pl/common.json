@@ -32,6 +32,8 @@
 	"date": "Data",
 	"delete": "Skreślić",
 	"delete-file-title": "Usuń plik",
+	"delete-role": "Usuń rolę użytkownika",
+	"delete-role-confirm": "Proszę potwierdzić, że chcesz usunąć następującą rolę użytkownika:",
 	"deleted": "Skreślony",
 	"description": "Opis",
 	"disable": "Wyłączyć",

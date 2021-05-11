@@ -32,6 +32,8 @@
 	"date": "Data",
 	"delete": "Excluir",
 	"delete-file-title": "Apagar arquivo",
+	"delete-role": "Eliminar o papel do usuário",
+	"delete-role-confirm": "Por favor, confirme que deseja apagar a seguinte função do usuário:",
 	"deleted": "Eliminado",
 	"description": "Descrição",
 	"disable": "Desativar",

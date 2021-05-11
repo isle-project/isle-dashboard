@@ -32,6 +32,8 @@
 	"date": "Datum",
 	"delete": "Verwijder",
 	"delete-file-title": "Bestand verwijderen",
+	"delete-role": "Gebruikersrol verwijderen",
+	"delete-role-confirm": "Bevestig dat u de volgende gebruikersrol wilt verwijderen:",
 	"deleted": "Verwijderd",
 	"description": "Beschrijving",
 	"disable": "Schakel  uit.",

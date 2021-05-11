@@ -32,6 +32,8 @@
 	"date": "日期",
 	"delete": "删除",
 	"delete-file-title": "删除文件",
+	"delete-role": "删除用户角色",
+	"delete-role-confirm": "请确认您希望删除以下用户角色。",
 	"deleted": "已删除",
 	"description": "说明",
 	"disable": "禁用",
