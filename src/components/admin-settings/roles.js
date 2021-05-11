@@ -383,7 +383,7 @@ class RolesPage extends Component {
 					</OverlayTrigger>
 				</td>
 				<td>{role.searchContext}</td>
-				<td>{role.authorizedRoles}</td>
+				<td>{role.authorizedRoles.map( x => x.title ).join( ', ' )}</td>
 				<td>
 					<Button size="sm" onClick={this.toggleEditModal} style={{ marginRight: 6 }} >
 						<i className="fas fa-edit" ></i>
