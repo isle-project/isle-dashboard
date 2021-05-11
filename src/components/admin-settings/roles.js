@@ -408,7 +408,7 @@ class RolesPage extends Component {
 						<thead>
 							<tr>
 								<th>{t('common:name')}</th>
-								<th>{t('common:created_by')}</th>
+								<th>{t('common:created-by')}</th>
 								<th>{t('common:permissions')}</th>
 								<th>{t('search-context')}</th>
 								<th>{t('authorized-roles')}</th>
