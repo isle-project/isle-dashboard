@@ -52,14 +52,16 @@ const BrandingFileUpload = ({ name, t, updateSettings }) => {
 				{ file ?
 					<Fragment>
 						<Button
+							className="branding-confirm-btn"
 							onClick={handleConfirm}
-							variant="success" size="sm" style={{ marginRight: 6, marginLeft: 8 }}
+							variant="success" size="sm"
 						>
 							<i className="fas fa-check" />
 						</Button>
 						<Button
+							className="branding-reset-btn"
 							onClick={handleReset}
-							variant="warning" size="sm" style={{ width: 32 }}
+							variant="warning" size="sm"
 						>
 							<i className="fas fa-times" />
 						</Button>
