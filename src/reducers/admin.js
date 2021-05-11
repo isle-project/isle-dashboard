@@ -93,8 +93,7 @@ export default function admin( state = initialState, action ) {
 		});
 	}
 	case types.DELETED_FILE: {
-		let files = state.files.slice();
-		files = files.filter( x => x._id !== action.payload.id );
+		const files = state.files.filter( x => x._id !== action.payload.id );
 		return Object.assign({}, state, {
 			files
 		});
@@ -145,15 +144,13 @@ export default function admin( state = initialState, action ) {
 		});
 	}
 	case types.DELETED_EVENT: {
-		let events = state.events.slice();
-		events = events.filter( x => x._id !== action.payload.id );
+		const events = state.events.filter( x => x._id !== action.payload.id );
 		return Object.assign({}, state, {
 			events
 		});
 	}
 	case types.DELETED_USER: {
-		let users = state.users.slice();
-		users = users.filter( x => x._id !== action.payload.id );
+		const users = state.users.filter( x => x._id !== action.payload.id );
 		return Object.assign({}, state, {
 			users
 		});
@@ -204,8 +201,7 @@ export default function admin( state = initialState, action ) {
 		});
 	}
 	case types.DELETED_TICKET: {
-		let tickets = state.tickets.slice();
-		tickets = tickets.filter( x => x._id !== action.payload.id );
+		const tickets = state.tickets.filter( x => x._id !== action.payload.id );
 		return Object.assign({}, state, {
 			tickets
 		});
@@ -291,8 +287,7 @@ export default function admin( state = initialState, action ) {
 		});
 	}
 	case types.DELETED_BACKUP: {
-		let backups = state.backups.slice();
-		backups = backups.filter( x => x._id !== action.payload.id );
+		const backups = state.backups.filter( x => x._id !== action.payload.id );
 		return Object.assign({}, state, {
 			backups
 		});
@@ -309,6 +304,19 @@ export default function admin( state = initialState, action ) {
 	}
 	case types.GET_ALL_ROLES: {
 		const roles = action.payload.roles;
+		return Object.assign({}, state, {
+			roles
+		});
+	}
+	case types.CREATED_ROLE: {
+		const roles = state.roles.slice();
+		roles.push( action.payload.role );
+		return Object.assign({}, state, {
+			roles
+		});
+	}
+	case types.DELETED_ROLE: {
+		const roles = state.roles.filter( x => x._id !== action.payload.id );
 		return Object.assign({}, state, {
 			roles
 		});

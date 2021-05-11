@@ -21,7 +21,7 @@ import server from 'constants/server';
 import i18next from 'i18next';
 import { addNotification, addErrorNotification } from 'actions/notification';
 import { globalAxios } from 'helpers/axios.js';
-import { GET_ALL_ROLES } from 'constants/action_types.js';
+import { CREATED_ROLE, DELETED_ROLE, GET_ALL_ROLES } from 'constants/action_types.js';
 
 
 // EXPORTS //
@@ -64,9 +64,14 @@ export const createRole = async ( dispatch, {
 			message: res.data.message,
 			level: 'success'
 		});
+		dispatch({
+			type: CREATED_ROLE,
+			payload: res.data
+		});
 		return res;
 	} catch ( err ) {
-		return addErrorNotification( dispatch, err );
+		addErrorNotification( dispatch, err );
+		return err;
 	}
 };
 
@@ -77,11 +82,39 @@ export const createRoleInjector = dispatch => {
 		searchContext,
 		permissions
 	}) => {
-		await createRole( dispatch, {
+		const res = await createRole( dispatch, {
 			title,
 			authorizedRoles,
 			searchContext,
 			permissions
 		});
+		return res;
+	};
+};
+
+export const deleteRole = async ( dispatch, id ) => {
+	try {
+		const res = await globalAxios.post( server+'/delete_role', {
+			id
+		});
+		addNotification( dispatch, {
+			title: i18next.t('common:deleted'),
+			message: res.data.message,
+			level: 'success'
+		});
+		dispatch({
+			type: DELETED_ROLE,
+			payload: {
+				id
+			}
+		});
+	} catch ( err ) {
+		return addErrorNotification( dispatch, err );
+	}
+};
+
+export const deleteRoleInjector = dispatch => {
+	return async ( id ) => {
+		await deleteRole( dispatch, id );
 	};
 };

@@ -129,6 +129,7 @@ class Settings extends Component {
 						admin={this.props.admin}
 						createRole={this.props.createRole}
 						getAllRoles={this.props.getAllRoles}
+						deleteRole={this.props.deleteRole}
 					/>
 				);
 			case 4:
@@ -208,6 +209,7 @@ Settings.propTypes = {
 	decrementFieldPosition: PropTypes.func.isRequired,
 	deleteBackup: PropTypes.func.isRequired,
 	deleteCustomField: PropTypes.func.isRequired,
+	deleteRole: PropTypes.func.isRequired,
 	getAllRoles: PropTypes.func.isRequired,
 	getBackups: PropTypes.func.isRequired,
 	getCustomFields: PropTypes.func.isRequired,

@@ -18,6 +18,7 @@
 // MODULES //
 
 import React, { Component, Fragment, useState } from 'react';
+import PropTypes from 'prop-types';
 import { withTranslation } from 'react-i18next';
 import { isPrimitive as isBoolean } from '@stdlib/assert/is-boolean';
 import objectKeys from '@stdlib/utils/keys';
@@ -36,6 +37,7 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import SelectInput from 'react-select';
 import SearchBar from 'components/searchbar';
+import ConfirmModal from 'components/confirm-modal';
 import PERMISSIONS from './permissions.json';
 
 
@@ -75,13 +77,16 @@ const RoleModal = ( props ) => {
 			setShow( show );
 		}
 	};
-	const handleCreation = () => {
-		createRole({
+	const handleCreation = async () => {
+		const res = await createRole({
 			title,
 			authorizedRoles: authorizedRoles.map( x => x.value._id ),
 			searchContext: searchContext.value,
 			permissions
 		});
+		if ( res instanceof Error === false ) {
+			onHide();
+		}
 	};
 	return (
 		<Modal show={modal !== null} dialogClassName="modal-75w" onHide={onHide} >
@@ -205,7 +210,7 @@ const RoleModal = ( props ) => {
 										>
 											<FormCheck.Input
 												type="checkbox"
-												checked={permissions[ x.name ]}
+												checked={permissions[ x.name ] === true}
 												key={`${x.name}-${j}-input`}
 												ref={( elem ) => {
 													if ( elem ) {
@@ -317,7 +322,9 @@ class RolesPage extends Component {
 		super( props );
 
 		this.state = {
-			modal: null
+			modal: null,
+			selectedRole: null,
+			showDeleteModal: false
 		};
 	}
 
@@ -338,7 +345,26 @@ class RolesPage extends Component {
 	}
 
 	toggleDeleteModal = () => {
+		this.setState({
+			showDeleteModal: !this.state.showDeleteModal
+		});
+	}
 
+	askToDeleteSelectedRoleFactory = ( role ) => {
+		return () => {
+			this.setState({
+				showDeleteModal: !this.state.showDeleteModal,
+				selectedRole: role
+			});
+		};
+	}
+
+	deleteSelectedRole= () => {
+		this.setState({
+			showDeleteModal: false
+		}, async () => {
+			await this.props.deleteRole( this.state.selectedRole._id );
+		});
 	}
 
 	renderRoleItems() {
@@ -385,10 +411,14 @@ class RolesPage extends Component {
 				<td>{role.searchContext}</td>
 				<td>{role.authorizedRoles.map( x => x.title ).join( ', ' )}</td>
 				<td>
-					<Button size="sm" onClick={this.toggleEditModal} style={{ marginRight: 6 }} >
+					<Button
+						size="sm" onClick={this.toggleEditModal} style={{ marginRight: 6 }}
+					>
 						<i className="fas fa-edit" ></i>
 					</Button>
-					<Button variant="danger" size="sm" onClick={this.toggleDeleteModal} >
+					<Button
+						variant="danger" size="sm" onClick={this.askToDeleteSelectedRoleFactory( role )}
+					>
 						<i className="fas fa-trash" ></i>
 					</Button>
 				</td>
@@ -431,6 +461,16 @@ class RolesPage extends Component {
 					createRole={this.props.createRole}
 					roles={this.props.admin.roles}
 				/>
+				{ this.state.showDeleteModal ? <ConfirmModal
+					title={`${t('common:delete-role')}?`}
+					message={<div>
+						<p>{t('common:delete-role-confirm')}</p>
+						<span style={{ color: 'red' }}>{this.state.selectedRole.title}</span>
+					</div>}
+					close={this.toggleDeleteModal}
+					show={this.state.showDeleteModal}
+					onConfirm={this.deleteSelectedRole}
+				/> : null }
 			</Fragment>
 		);
 	}
@@ -439,7 +479,9 @@ class RolesPage extends Component {
 
 // PROPERTIES //
 
-RolesPage.propTypes = {};
+RolesPage.propTypes = {
+	deleteRole: PropTypes.func.isRequired
+};
 
 
 // EXPORTS //
