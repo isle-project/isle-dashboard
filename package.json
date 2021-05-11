@@ -35,8 +35,8 @@
     "clean": "rm -rf ./node_modules",
     "coverage": "jest && codecov",
     "lint": "eslint src test && stylelint \"src/**/*.css\"",
-    "start": "cross-env REACT_APP_SERVER=remote node --max_old_space_size=4096 scripts/start.js",
-    "start-local": "cross-env REACT_APP_SERVER=local node --max_old_space_size=4096 scripts/start.js",
+    "start": "cross-env REACT_APP_SERVER=remote node --max_old_space_size=16384 scripts/start.js",
+    "start-local": "cross-env REACT_APP_SERVER=local node --max_old_space_size=16384 scripts/start.js",
     "test": "jest"
   },
   "jest": {
