@@ -241,7 +241,8 @@ TicketListModal.propTypes = {
 	onHide: PropTypes.func.isRequired,
 	openTicket: PropTypes.func.isRequired,
 	show: PropTypes.bool.isRequired,
-	submitTicketMessage: PropTypes.func.isRequired
+	submitTicketMessage: PropTypes.func.isRequired,
+	user: PropTypes.object.isRequired
 };
 
 

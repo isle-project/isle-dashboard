@@ -373,10 +373,12 @@ TicketsPage.propTypes = {
 	namespace: PropTypes.object.isRequired,
 	openTicket: PropTypes.func.isRequired,
 	submitTicketMessage: PropTypes.func.isRequired,
+	tickets: PropTypes.array,
 	updatePriority: PropTypes.func.isRequired
 };
 
 TicketsPage.defaultProps = {
+	tickets: []
 };
 
 

@@ -117,7 +117,10 @@ class AdminSettingsUserFields extends Component {
 
 AdminSettingsUserFields.propTypes = {
 	createCustomField: PropTypes.func.isRequired,
+	decrementFieldPosition: PropTypes.func.isRequired,
+	deleteCustomField: PropTypes.func.isRequired,
 	getCustomFields: PropTypes.func.isRequired,
+	incrementFieldPosition: PropTypes.func.isRequired,
 	user: PropTypes.object
 };
 

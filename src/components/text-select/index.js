@@ -201,6 +201,7 @@ class TextSelect extends Component {
 
 TextSelect.propTypes = {
 	defaultValue: PropTypes.array,
+	id: PropTypes.string,
 	isClearable: PropTypes.bool,
 	isInvalid: PropTypes.bool,
 	onChange: PropTypes.func,
@@ -210,6 +211,7 @@ TextSelect.propTypes = {
 
 TextSelect.defaultProps = {
 	defaultValue: [],
+	id: null,
 	isClearable: false,
 	isInvalid: false,
 	onChange() {},

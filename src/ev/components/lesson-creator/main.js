@@ -158,6 +158,8 @@ class LessonCreator extends Component {
 LessonCreator.propTypes = {
 	copyLesson: PropTypes.func.isRequired,
 	namespace: PropTypes.object.isRequired,
+	onCreate: PropTypes.func.isRequired,
+	onHide: PropTypes.func.isRequired,
 	user: PropTypes.object.isRequired
 };
 

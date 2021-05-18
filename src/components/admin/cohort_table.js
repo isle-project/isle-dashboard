@@ -245,6 +245,7 @@ class CohortTable extends Component {
 
 CohortTable.propTypes = {
 	admin: PropTypes.object.isRequired,
+	deleteCohort: PropTypes.func.isRequired,
 	getAllCohorts: PropTypes.func.isRequired,
 	t: PropTypes.func.isRequired
 };

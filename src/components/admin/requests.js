@@ -18,6 +18,7 @@
 // MODULES //
 
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { withTranslation } from 'react-i18next';
 import DashboardTable from 'components/dashboard-table';
 import isArray from '@stdlib/assert/is-array';
@@ -119,7 +120,10 @@ class Requests extends Component {
 
 // PROPERTIES //
 
-Requests.propTypes = {};
+Requests.propTypes = {
+	admin: PropTypes.object.isRequired,
+	getRequestStatistics: PropTypes.func.isRequired
+};
 
 Requests.defaultProps = {};
 

@@ -502,6 +502,7 @@ ProfilePage.propTypes = {
 	getLessons: PropTypes.func.isRequired,
 	getTfaQRCode: PropTypes.func.isRequired,
 	getUserBadges: PropTypes.func.isRequired,
+	getUserFiles: PropTypes.func.isRequired,
 	getUserTickets: PropTypes.func.isRequired,
 	openTicket: PropTypes.func.isRequired,
 	resendConfirmEmail: PropTypes.func.isRequired,

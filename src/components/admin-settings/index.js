@@ -215,6 +215,7 @@ Settings.propTypes = {
 	getCustomFields: PropTypes.func.isRequired,
 	getLicense: PropTypes.func.isRequired,
 	getSettings: PropTypes.func.isRequired,
+	getUsers: PropTypes.func.isRequired,
 	incrementFieldPosition: PropTypes.func.isRequired,
 	match: PropTypes.object.isRequired,
 	removeLicense: PropTypes.func.isRequired,

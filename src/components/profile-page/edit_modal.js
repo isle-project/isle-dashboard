@@ -374,10 +374,12 @@ class EditModal extends Component {
 // PROPERTIES //
 
 EditModal.propTypes = {
+	authenticate: PropTypes.func.isRequired,
 	disableTFA: PropTypes.func.isRequired,
 	enableTFA: PropTypes.func.isRequired,
 	getTfaQRCode: PropTypes.func.isRequired,
 	onHide: PropTypes.func.isRequired,
+	resendConfirmEmail: PropTypes.func.isRequired,
 	show: PropTypes.bool.isRequired,
 	t: PropTypes.func.isRequired,
 	updateUser: PropTypes.func.isRequired,

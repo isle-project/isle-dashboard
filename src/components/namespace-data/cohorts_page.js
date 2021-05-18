@@ -171,7 +171,7 @@ class CohortsPage extends Component {
 
 	renderMemberBadges(member) {
 		const badges = this.props.badges;
-		const time = formatTime(member.spentTime);
+		const time = formatTime( member.spentTime );
 		const list = [];
 		for ( let i = 0; i < badges.length; i++ ) {
 			if ( contains(member.badges, badges[i].name ) ) {
@@ -263,7 +263,8 @@ class CohortsPage extends Component {
 
 CohortsPage.propTypes = {
 	badges: PropTypes.array.isRequired,
-	cohorts: PropTypes.array.isRequired
+	cohorts: PropTypes.array.isRequired,
+	lessons: PropTypes.array.isRequired
 };
 
 CohortsPage.defaultProps = {

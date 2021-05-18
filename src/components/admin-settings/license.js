@@ -217,6 +217,7 @@ class LicensePage extends Component {
 LicensePage.propTypes = {
 	admin: PropTypes.object.isRequired,
 	getLicense: PropTypes.func.isRequired,
+	getUsers: PropTypes.func.isRequired,
 	removeLicense: PropTypes.func.isRequired,
 	t: PropTypes.func.isRequired,
 	uploadLicense: PropTypes.func.isRequired,

@@ -210,7 +210,15 @@ class Login extends Component {
 
 Login.propTypes = {
 	fetchCredentials: PropTypes.func.isRequired,
-	handleLogin: PropTypes.func.isRequired
+	getEnrollableCohorts: PropTypes.func.isRequired,
+	handleLogin: PropTypes.func.isRequired,
+	restoreLogin: PropTypes.func.isRequired,
+	settings: PropTypes.object,
+	user: PropTypes.object.isRequired
+};
+
+Login.defaultProps = {
+	settings: {}
 };
 
 

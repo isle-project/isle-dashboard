@@ -427,10 +427,12 @@ class TicketPage extends Component {
 // PROPERTIES //
 
 TicketPage.propTypes = {
+	admin: PropTypes.object.isRequired,
 	closeTicket: PropTypes.func.isRequired,
 	deleteTicket: PropTypes.func.isRequired,
 	getAllTickets: PropTypes.func.isRequired,
 	openTicket: PropTypes.func.isRequired,
+	submitTicketMessage: PropTypes.func.isRequired,
 	updatePriority: PropTypes.func.isRequired
 };
 

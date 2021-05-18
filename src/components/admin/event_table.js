@@ -246,7 +246,8 @@ EventTable.propTypes = {
 	admin: PropTypes.object.isRequired,
 	deleteEvent: PropTypes.func.isRequired,
 	getEvents: PropTypes.func.isRequired,
-	t: PropTypes.func.isRequired
+	t: PropTypes.func.isRequired,
+	triggerEvent: PropTypes.func.isRequired
 };
 
 

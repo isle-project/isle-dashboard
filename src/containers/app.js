@@ -237,8 +237,12 @@ class App extends Component {
 // PROPERTIES //
 
 App.propTypes = {
+	fetchCredentials: PropTypes.func.isRequired,
+	getEnrollableCohorts: PropTypes.func.isRequired,
+	getPublicSettings: PropTypes.func.isRequired,
 	history: PropTypes.object.isRequired,
 	isLoggedIn: PropTypes.bool.isRequired,
+	settings: PropTypes.object.isRequired,
 	user: PropTypes.object.isRequired
 };
 

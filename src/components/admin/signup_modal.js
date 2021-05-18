@@ -340,7 +340,9 @@ class Signup extends Component {
 // PROPERTIES //
 
 Signup.propTypes = {
+	getCustomFields: PropTypes.func.isRequired,
 	onConfirm: PropTypes.func.isRequired,
+	onHide: PropTypes.func.isRequired,
 	user: PropTypes.object
 };
 

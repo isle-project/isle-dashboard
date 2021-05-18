@@ -822,6 +822,8 @@ class Overview extends Component {
 // PROPERTIES //
 
 Overview.propTypes = {
+	getHistoricalOverviewStats: PropTypes.func.isRequired,
+	getOverviewStatistics: PropTypes.func.isRequired,
 	historicalStatistics: PropTypes.array,
 	statistics: PropTypes.object,
 	t: PropTypes.func.isRequired

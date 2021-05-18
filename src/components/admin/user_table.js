@@ -550,11 +550,15 @@ class UserPage extends Component {
 UserPage.propTypes = {
 	addNotification: PropTypes.func.isRequired,
 	admin: PropTypes.object.isRequired,
+	createUser: PropTypes.func.isRequired,
 	deleteUser: PropTypes.func.isRequired,
+	getCustomFields: PropTypes.func.isRequired,
 	getUsers: PropTypes.func.isRequired,
 	impersonateUser: PropTypes.func.isRequired,
+	sanitizeRequest: PropTypes.func.isRequired,
 	t: PropTypes.func.isRequired,
-	updateUser: PropTypes.func.isRequired
+	updateUser: PropTypes.func.isRequired,
+	user: PropTypes.object.isRequired
 };
 
 

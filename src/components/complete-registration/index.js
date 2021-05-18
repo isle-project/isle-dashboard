@@ -300,7 +300,12 @@ class CompleteRegistration extends Component {
 // PROPERTIES //
 
 CompleteRegistration.propTypes = {
-	history: PropTypes.object.isRequired
+	history: PropTypes.object.isRequired,
+	settings: PropTypes.object
+};
+
+CompleteRegistration.defaultProps = {
+	settings: {}
 };
 
 

@@ -69,6 +69,7 @@ class DashboardTable extends Component {
 // PROPERTIES //
 
 DashboardTable.propTypes = {
+	className: PropTypes.string,
 	columns: PropTypes.array.isRequired,
 	data: PropTypes.oneOfType([
 		PropTypes.object,
@@ -79,6 +80,7 @@ DashboardTable.propTypes = {
 };
 
 DashboardTable.defaultProps = {
+	className: '',
 	t() {}
 };
 

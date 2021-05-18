@@ -121,8 +121,14 @@ class LoginTFA extends Component {
 
 LoginTFA.propTypes = {
 	fetchCredentials: PropTypes.func.isRequired,
+	getEnrollableCohorts: PropTypes.func.isRequired,
 	handleLoginTFA: PropTypes.func.isRequired,
+	settings: PropTypes.object,
 	user: PropTypes.object.isRequired
+};
+
+LoginTFA.defaultProps = {
+	settings: {}
 };
 
 

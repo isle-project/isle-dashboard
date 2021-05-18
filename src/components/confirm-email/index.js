@@ -80,7 +80,12 @@ class ConfirmEmail extends Component {
 // PROPERTIES //
 
 ConfirmEmail.propTypes = {
-	confirmEmail: PropTypes.func.isRequired
+	confirmEmail: PropTypes.func.isRequired,
+	settings: PropTypes.object
+};
+
+ConfirmEmail.defaultProps = {
+	settings: {}
 };
 
 

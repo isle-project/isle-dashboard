@@ -262,11 +262,14 @@ class EditCohortModal extends Component {
 // PROPERTIES //
 
 EditCohortModal.propTypes = {
+	_id: PropTypes.string.isRequired,
+	emailFilter: PropTypes.string.isRequired,
 	endDate: PropTypes.string,
 	members: PropTypes.array.isRequired,
 	onDelete: PropTypes.func,
 	onHide: PropTypes.func.isRequired,
 	onUpdate: PropTypes.func,
+	private: PropTypes.bool.isRequired,
 	show: PropTypes.bool.isRequired,
 	startDate: PropTypes.string.isRequired,
 	t: PropTypes.func.isRequired,
