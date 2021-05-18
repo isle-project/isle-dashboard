@@ -280,6 +280,10 @@
     "react/no-unused-state": 2,
     "react/prefer-es6-class": [ 2, "always" ],
     "react/prefer-stateless-function": 0,
+    "react/prop-types": [ 2, {
+      "skipUndeclared": true,
+      "ignore": [ "children", "history", "t" ]
+    } ],
     "react/require-default-props": 2,
     "react/require-render-return": 2,
     "react/sort-comp": 1,
