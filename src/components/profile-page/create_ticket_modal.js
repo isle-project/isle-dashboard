@@ -192,7 +192,8 @@ class CreateTicketModal extends Component {
 CreateTicketModal.propTypes = {
 	createTicket: PropTypes.func.isRequired,
 	enrolledNamespaces: PropTypes.array,
-	onHide: PropTypes.func.isRequired
+	onHide: PropTypes.func.isRequired,
+	show: PropTypes.bool.isRequired
 };
 
 CreateTicketModal.defaultProps = {

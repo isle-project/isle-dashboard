@@ -97,6 +97,7 @@ ConfirmModal.propTypes = {
 	close: PropTypes.func.isRequired,
 	copyLesson: PropTypes.func.isRequired,
 	lesson: PropTypes.object.isRequired,
+	onCreate: PropTypes.func.isRequired,
 	show: PropTypes.bool.isRequired,
 	t: PropTypes.func.isRequired,
 	targetNamespace: PropTypes.string.isRequired,
