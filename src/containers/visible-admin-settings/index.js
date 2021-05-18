@@ -27,7 +27,7 @@ import { createCustomFieldInjector, deleteCustomFieldInjector, getCustomFieldsIn
 	decrementFieldPositionInjector, incrementFieldPositionInjector } from 'actions/custom_field.js';
 import { createBackupInjector, deleteBackupInjector, getBackupsInjector } from 'actions/backup.js';
 import { getSettingsInjector, updateSettingsInjector } from 'actions/settings.js';
-import { createRoleInjector, deleteRoleInjector, getAllRolesInjector } from 'actions/role.js';
+import { createRoleInjector, deleteRoleInjector, getAllRolesInjector, updateRoleInjector } from 'actions/role.js';
 
 
 // FUNCTIONS //
@@ -54,6 +54,7 @@ function mapDispatchToProps( dispatch ) {
 		getCustomFields: getCustomFieldsInjector( dispatch ),
 		getLicense: getLicenseInjector( dispatch ),
 		getSettings: getSettingsInjector( dispatch ),
+		updateRole: updateRoleInjector( dispatch ),
 		updateSettings: updateSettingsInjector( dispatch ),
 		uploadLicense: uploadLicenseInjector( dispatch ),
 		removeLicense: removeLicenseInjector( dispatch ),

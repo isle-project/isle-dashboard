@@ -130,6 +130,7 @@ class Settings extends Component {
 						createRole={this.props.createRole}
 						getAllRoles={this.props.getAllRoles}
 						deleteRole={this.props.deleteRole}
+						updateRole={this.props.updateRole}
 					/>
 				);
 			case 4:
@@ -220,6 +221,7 @@ Settings.propTypes = {
 	match: PropTypes.object.isRequired,
 	removeLicense: PropTypes.func.isRequired,
 	t: PropTypes.func.isRequired,
+	updateRole: PropTypes.func.isRequired,
 	updateSettings: PropTypes.func.isRequired,
 	uploadLicense: PropTypes.func.isRequired,
 	user: PropTypes.object.isRequired

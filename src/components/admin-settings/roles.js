@@ -62,19 +62,38 @@ const SEARCH_CONTEXT = [
 // FUNCTIONS //
 
 const RoleModal = ( props ) => {
-	const [ title, setTitle ] = useState( '' );
+	const { createRole, modal, roles, onHide, selectedRole, updateRole, t } = props;
+	const [ title, setTitle ] = useState( modal === 'edit' ? selectedRole.title : '' );
 	const [ search, setSearch ] = useState( null );
-	const [ searchContext, setSearchContext ] = useState( SEARCH_CONTEXT[ 2 ] );
-	const [ permissions, setPermissions ] = useState( {} );
+	const [ searchContext, setSearchContext ] = useState( modal === 'edit' ?
+		{ label: selectedRole.searchContext, value: selectedRole.searchContext } :
+		SEARCH_CONTEXT[ 2 ]
+	);
+	const [ permissions, setPermissions ] = useState( modal === 'edit' ? selectedRole.permissions : {} );
 	const [ show, setShow ] = useState( 'all' );
-	const [ authorizedRoles, setAuthorizedRoles ] = useState( [] );
-	const { createRole, modal, roles, onHide, t } = props;
+	const [ authorizedRoles, setAuthorizedRoles ] = useState(
+		modal === 'edit' ?
+			selectedRole.authorizedRoles.map( x => ({ label: x.title, value: x })) :
+			[]
+	);
 
 	const handleActiveChange = ( event ) => {
 		const check = event.target.checked;
 		const show = event.target.dataset.show;
 		if ( check ) {
 			setShow( show );
+		}
+	};
+	const handleUpdate = async () => {
+		const res = await updateRole({
+			id: selectedRole._id,
+			title,
+			authorizedRoles: authorizedRoles.map( x => x.value._id ),
+			searchContext: searchContext.value,
+			permissions: permissions || {}
+		});
+		if ( res instanceof Error === false ) {
+			onHide();
 		}
 	};
 	const handleCreation = async () => {
@@ -269,8 +288,8 @@ const RoleModal = ( props ) => {
 				<Button onClick={onHide} >
 					{t('common:cancel')}
 				</Button>
-				<Button onClick={handleCreation} disabled={!title} >
-					{t('common:create')}
+				<Button onClick={modal === 'create' ? handleCreation : handleUpdate} disabled={!title} >
+					{modal === 'create' ? t('common:create') : t('common:update')}
 				</Button>
 			</Modal.Footer>
 		</Modal>
@@ -332,15 +351,19 @@ class RolesPage extends Component {
 		this.props.getAllRoles();
 	}
 
-	toggleEditModal = () => {
-		this.setState({
-			modal: this.state.modal ? null : 'edit'
-		});
+	toggleEditModalFactory = ( role ) => {
+		return () => {
+			this.setState({
+				modal: this.state.modal ? null : 'edit',
+				selectedRole: this.state.modal ? null : role
+			});
+		};
 	}
 
 	toggleCreateModal = () => {
 		this.setState({
-			modal: this.state.modal ? null : 'create'
+			modal: this.state.modal ? null : 'create',
+			selectedRole: null
 		});
 	}
 
@@ -412,7 +435,7 @@ class RolesPage extends Component {
 				<td>{role.authorizedRoles.map( x => x.title ).join( ', ' )}</td>
 				<td>
 					<Button
-						size="sm" onClick={this.toggleEditModal} style={{ marginRight: 6 }}
+						size="sm" onClick={this.toggleEditModalFactory( role )} style={{ marginRight: 6 }}
 					>
 						<i className="fas fa-edit" ></i>
 					</Button>
@@ -456,10 +479,13 @@ class RolesPage extends Component {
 					</Button>
 				</div>
 				<RoleModal
+					key={this.state.selectedRole ? this.state.selectedRole.title : 'new-role'}
 					onHide={this.toggleCreateModal}
 					modal={this.state.modal} t={t}
 					createRole={this.props.createRole}
+					updateRole={this.props.updateRole}
 					roles={this.props.admin.roles}
+					selectedRole={this.state.selectedRole}
 				/>
 				{ this.state.showDeleteModal ? <ConfirmModal
 					title={`${t('common:delete-role')}?`}
@@ -480,7 +506,11 @@ class RolesPage extends Component {
 // PROPERTIES //
 
 RolesPage.propTypes = {
-	deleteRole: PropTypes.func.isRequired
+	admin: PropTypes.object.isRequired,
+	createRole: PropTypes.func.isRequired,
+	deleteRole: PropTypes.func.isRequired,
+	getAllRoles: PropTypes.func.isRequired,
+	updateRole: PropTypes.func.isRequired
 };
 
 

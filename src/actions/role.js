@@ -21,7 +21,7 @@ import server from 'constants/server';
 import i18next from 'i18next';
 import { addNotification, addErrorNotification } from 'actions/notification';
 import { globalAxios } from 'helpers/axios.js';
-import { CREATED_ROLE, DELETED_ROLE, GET_ALL_ROLES } from 'constants/action_types.js';
+import { CREATED_ROLE, DELETED_ROLE, GET_ALL_ROLES, UPDATED_ROLE } from 'constants/action_types.js';
 
 
 // EXPORTS //
@@ -83,6 +83,55 @@ export const createRoleInjector = dispatch => {
 		permissions
 	}) => {
 		const res = await createRole( dispatch, {
+			title,
+			authorizedRoles,
+			searchContext,
+			permissions
+		});
+		return res;
+	};
+};
+
+export const updateRole = async ( dispatch, {
+	id,
+	title,
+	authorizedRoles,
+	searchContext,
+	permissions
+}) => {
+	try {
+		const res = await globalAxios.post( server + '/update_role', {
+			id,
+			title,
+			authorizedRoles,
+			searchContext,
+			permissions
+		});
+		addNotification( dispatch, {
+			title: i18next.t('common:updated'),
+			message: res.data.message,
+			level: 'success'
+		});
+		dispatch({
+			type: UPDATED_ROLE,
+			payload: res.data
+		});
+		return res;
+	} catch ( err ) {
+		addErrorNotification( dispatch, err );
+		return err;
+	}
+};
+
+export const updateRoleInjector = dispatch => {
+	return async ({
+		id,
+		title,
+		authorizedRoles,
+		searchContext,
+		permissions
+	}) => {
+		const res = await updateRole( dispatch, {
 			title,
 			authorizedRoles,
 			searchContext,
