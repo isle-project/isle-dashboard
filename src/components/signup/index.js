@@ -427,10 +427,13 @@ class Signup extends Component {
 
 Signup.propTypes = {
 	createUser: PropTypes.func.isRequired,
+	getCustomFields: PropTypes.func.isRequired,
+	settings: PropTypes.object,
 	user: PropTypes.object
 };
 
 Signup.defaultProps = {
+	settings: {},
 	user: {}
 };
 

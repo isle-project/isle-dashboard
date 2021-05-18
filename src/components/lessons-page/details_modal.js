@@ -29,6 +29,7 @@ import Modal from 'react-bootstrap/Modal';
 import DateTimePicker from 'react-datetime-picker';
 import isEmptyObject from '@stdlib/assert/is-empty-object';
 import SERVER from 'constants/server';
+import template from 'babel-template';
 
 
 // VARIABLES //
@@ -62,7 +63,7 @@ class DetailsModal extends Component {
 			title: props.title,
 			description: props.description,
 			disabled: false,
-			template: props.template || null,
+			template: props.template,
 			lockLesson,
 			lockUntil
 		};
@@ -220,13 +221,15 @@ DetailsModal.propTypes = {
 	description: PropTypes.string.isRequired,
 	lockUntil: PropTypes.instanceOf( Date ),
 	show: PropTypes.bool.isRequired,
+	template: PropTypes.bool,
 	title: PropTypes.string.isRequired,
 	update: PropTypes.func.isRequired,
 	user: PropTypes.object.isRequired
 };
 
 DetailsModal.defaultProps = {
-	lockUntil: null
+	lockUntil: null,
+	template: null
 };
 
 

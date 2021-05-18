@@ -191,11 +191,17 @@ class EnrolledLesson extends Component {
 
 EnrolledLesson.propTypes = {
 	'_id': PropTypes.string.isRequired,
+	addNotification: PropTypes.func.isRequired,
 	colorIndex: PropTypes.number.isRequired,
 	description: PropTypes.string.isRequired,
+	metadata: PropTypes.object,
 	title: PropTypes.string.isRequired,
 	url: PropTypes.string.isRequired,
 	user: PropTypes.object.isRequired
+};
+
+EnrolledLesson.defaultProps = {
+	metadata: null
 };
 
 

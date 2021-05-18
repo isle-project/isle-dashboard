@@ -401,10 +401,13 @@ class Lesson extends Component {
 Lesson.propTypes = {
 	activateLesson: PropTypes.func.isRequired,
 	active: PropTypes.bool.isRequired,
+	addNotification: PropTypes.func.isRequired,
 	colorIndex: PropTypes.number.isRequired,
+	createdAt: PropTypes.any.isRequired,
 	deactivateLesson: PropTypes.func.isRequired,
 	deleteLesson: PropTypes.func.isRequired,
 	description: PropTypes.string.isRequired,
+	getIsleFile: PropTypes.func.isRequired,
 	getLessons: PropTypes.func.isRequired,
 	hideLessonInGallery: PropTypes.func.isRequired,
 	lockUntil: PropTypes.instanceOf( Date ),
@@ -413,6 +416,7 @@ Lesson.propTypes = {
 	showLessonInGallery: PropTypes.func.isRequired,
 	title: PropTypes.string.isRequired,
 	updateLesson: PropTypes.func.isRequired,
+	updatedAt: PropTypes.any.isRequired,
 	url: PropTypes.string.isRequired,
 	user: PropTypes.object.isRequired
 };

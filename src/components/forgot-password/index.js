@@ -105,7 +105,12 @@ class ForgotPassword extends Component {
 // PROPERTIES //
 
 ForgotPassword.propTypes = {
-	forgotPassword: PropTypes.func.isRequired
+	forgotPassword: PropTypes.func.isRequired,
+	settings: PropTypes.object
+};
+
+ForgotPassword.defaultProps = {
+	settings: {}
 };
 
 

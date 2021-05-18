@@ -577,6 +577,7 @@ class HeaderBar extends Component {
 HeaderBar.propTypes = {
 	history: PropTypes.object.isRequired,
 	logout: PropTypes.func.isRequired,
+	match: PropTypes.object.isRequired,
 	namespace: PropTypes.object.isRequired,
 	onEnrolledNamespace: PropTypes.func.isRequired,
 	onNamespace: PropTypes.func.isRequired,
@@ -584,7 +585,8 @@ HeaderBar.propTypes = {
 	setLessonOrder: PropTypes.func.isRequired,
 	setLessonOrderDirection: PropTypes.func.isRequired,
 	setSearchPhrase: PropTypes.func.isRequired,
-	user: PropTypes.object.isRequired
+	user: PropTypes.object.isRequired,
+	userUpdateCheck: PropTypes.func.isRequired
 };
 
 

@@ -203,12 +203,15 @@ class Lesson extends Component {
 // PROPERTIES//
 
 Lesson.propTypes = {
+	addNotification: PropTypes.func.isRequired,
 	colorIndex: PropTypes.number.isRequired,
+	createdAt: PropTypes.any.isRequired,
 	description: PropTypes.string.isRequired,
 	getIsleFile: PropTypes.func.isRequired,
 	namespace: PropTypes.string.isRequired,
 	onImport: PropTypes.func.isRequired,
 	title: PropTypes.string.isRequired,
+	updatedAt: PropTypes.any.isRequired,
 	url: PropTypes.string.isRequired
 };
 
