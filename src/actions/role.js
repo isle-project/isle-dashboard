@@ -132,6 +132,7 @@ export const updateRoleInjector = dispatch => {
 		permissions
 	}) => {
 		const res = await updateRole( dispatch, {
+			id,
 			title,
 			authorizedRoles,
 			searchContext,
