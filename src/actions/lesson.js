@@ -187,6 +187,30 @@ export const copyLessonInjector = ( dispatch ) => {
 	};
 };
 
+export const copyNamespaceLessons = async ( dispatch, { target, source }) => {
+	try {
+		const res = await axios.post( server+'/copy_namespace_lessons', {
+			target,
+			source
+		});
+		addNotification( dispatch, {
+			message: res.data.message,
+			level: 'success'
+		});
+		return res;
+	} catch ( err ) {
+		addErrorNotification( dispatch, err );
+		return err;
+	}
+};
+
+export const copyNamespaceLessonsInjector = ( dispatch ) => {
+	return async ({ target, source }) => {
+		const res = await copyNamespaceLessons( dispatch, { target, source } );
+		return res;
+	};
+};
+
 export const deleteLesson = async ( dispatch, { lessonName, namespaceName }) => {
 	if ( !namespaceName || !lessonName ) {
 		return;

@@ -46,6 +46,7 @@ import { validateOwners, validateDescription, validateTitle } from 'components/c
 import checkURLPath from 'utils/check_url_path.js';
 import EditCohortModal from './edit_cohort_modal.js';
 import CreateCohortModal from './create_cohort_modal.js';
+import ImportCourseModal from './import_course_modal.js';
 import SERVER from 'constants/server';
 import 'react-dates/lib/css/_datepicker.css';
 import './edit_namespace.css';
@@ -68,6 +69,7 @@ class EditNamespace extends Component {
 			owners,
 			enableTicketing,
 			showDeleteModal: false,
+			showImportModal: false,
 			showCreateCohortModal: false,
 			showEditCohortModal: false,
 			selectedCohort: null
@@ -112,6 +114,12 @@ class EditNamespace extends Component {
 	closeCreateCohortModal = () => {
 		this.setState({
 			showCreateCohortModal: false
+		});
+	}
+
+	closeImportModal = () => {
+		this.setState({
+			showImportModal: false
 		});
 	}
 
@@ -181,6 +189,14 @@ class EditNamespace extends Component {
 					onCreate={this.createCohort}
 					t={this.props.t}
 				/> : null }
+				{ this.state.showImportModal ? <ImportCourseModal
+					show={this.state.showImportModal}
+					close={this.closeImportModal}
+					namespaces={this.props.user.ownedNamespaces}
+					targetNamespace={this.props.namespace}
+					copyNamespaceLessons={this.props.copyNamespaceLessons}
+					t={this.props.t}
+				/> : null }
 				{ this.state.showEditCohortModal ? <EditCohortModal
 					show={this.state.showEditCohortModal}
 					{...this.state.selectedCohort}
@@ -233,10 +249,10 @@ class EditNamespace extends Component {
 		return (
 			<Container className="edit-namespace-container" >
 				<Row>
-					<Col md={6} >
+					<Col sm={4} >
 						<Card>
 							<Card.Header>
-								<Card.Title as="h2">
+								<Card.Title as="h3">
 									{t('edit-course')}
 								</Card.Title>
 							</Card.Header>
@@ -302,44 +318,61 @@ class EditNamespace extends Component {
 										}}
 									/>
 								</Form>
-								<ButtonGroup>
-									<Button
-										type="submit"
-										disabled={!validOwners || !validTitle || !validDescription}
-										onClick={this.handleUpdate}
-									>{t('common:update')}</Button>
-									<Button onClick={() => {
-										this.setState({
-											showDeleteModal: true
-										});
-									}} variant="danger">{t('common:delete')}</Button>
-								</ButtonGroup>
+								<Button
+									type="submit"
+									disabled={!validOwners || !validTitle || !validDescription}
+									onClick={this.handleUpdate}
+								>{t('common:update')}</Button>
 							</Card.Body>
 							{this.renderModals()}
 						</Card>
 					</Col>
-					<Col md={6} >
+					<Col sm={5} >
 						<Card>
 							<Card.Header>
-								<Card.Title as="h2">{t('manage-cohorts')}
-									<Button
-										size="small"
-										variant="success"
-										style={{
-											float: 'right', marginTop: 7, background: '#3c763d'
-										}}
-										onClick={() => {
-											this.setState({
-												showCreateCohortModal: true
-											});
-										}}
-									>
-										{t('create-cohort')}
-									</Button>
+								<Card.Title as="h3">
+									{t('manage-cohorts')}
 								</Card.Title>
 							</Card.Header>
 							<Card.Body>
 								{this.renderCohortList()}
+								<Button
+									size="small"
+									variant="success"
+									style={{
+										float: 'right', marginTop: 14, background: '#3c763d'
+									}}
+									onClick={() => {
+										this.setState({
+											showCreateCohortModal: true
+										});
+									}}
+								>
+									{t('create-cohort')}
+								</Button>
+							</Card.Body>
+						</Card>
+					</Col>
+					<Col sm={3} >
+						<Card>
+							<Card.Header>
+								<Card.Title as="h3">
+									{t('common:actions')}
+								</Card.Title>
+							</Card.Header>
+							<Card.Body>
+								<ButtonGroup vertical>
+									<Button onClick={() => {
+										this.setState({
+											showDeleteModal: true
+										});
+									}} variant="outline-danger">{t('delete-namespace')}</Button>
+									<Button onClick={() => {
+										this.setState({
+											showImportModal: true
+										});
+									}} variant="outline-secondary">{t('import-existing-course')}</Button>
+								</ButtonGroup>
 							</Card.Body>
 						</Card>
 					</Col>
@@ -355,6 +388,7 @@ class EditNamespace extends Component {
 EditNamespace.propTypes = {
 	addNotification: PropTypes.func.isRequired,
 	cohorts: PropTypes.array,
+	copyNamespaceLessons: PropTypes.func.isRequired,
 	createCohort: PropTypes.func.isRequired,
 	deleteCohort: PropTypes.func.isRequired,
 	deleteCurrentNamespace: PropTypes.func.isRequired,

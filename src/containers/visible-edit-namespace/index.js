@@ -23,6 +23,7 @@ import EditNamespace from 'components/edit-namespace';
 import { createCohortInjector, deleteCohortInjector, updateCohortInjector } from 'actions/cohort';
 import { deleteCurrentNamespaceInjector, updateCurrentNamespaceInjector } from 'actions/namespace';
 import { addNotificationInjector } from 'actions/notification';
+import { copyNamespaceLessonsInjector } from 'actions/lesson';
 
 
 // FUNCTIONS //
@@ -42,7 +43,8 @@ function mapDispatchToProps( dispatch ) {
 		deleteCohort: deleteCohortInjector( dispatch ),
 		updateCohort: updateCohortInjector( dispatch ),
 		deleteCurrentNamespace: deleteCurrentNamespaceInjector( dispatch ),
-		updateCurrentNamespace: updateCurrentNamespaceInjector( dispatch )
+		updateCurrentNamespace: updateCurrentNamespaceInjector( dispatch ),
+		copyNamespaceLessons: copyNamespaceLessonsInjector( dispatch )
 	};
 }
 
