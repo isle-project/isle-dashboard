@@ -22,7 +22,7 @@ import { connect } from 'react-redux';
 import AdminSettings from 'components/admin-settings';
 import { getUsersInjector } from 'actions/user.js';
 import { addNotificationInjector } from 'actions/notification.js';
-import { getLicenseInjector, uploadLicenseInjector, removeLicenseInjector } from 'actions/file.js';
+import { getLicenseInjector, uploadLicenseInjector, removeLicenseInjector, uploadLogoInjector } from 'actions/file.js';
 import { createCustomFieldInjector, deleteCustomFieldInjector, getCustomFieldsInjector,
 	decrementFieldPositionInjector, incrementFieldPositionInjector } from 'actions/custom_field.js';
 import { createBackupInjector, deleteBackupInjector, getBackupsInjector } from 'actions/backup.js';
@@ -54,6 +54,7 @@ function mapDispatchToProps( dispatch ) {
 		getCustomFields: getCustomFieldsInjector( dispatch ),
 		getLicense: getLicenseInjector( dispatch ),
 		getSettings: getSettingsInjector( dispatch ),
+		uploadLogo: uploadLogoInjector( dispatch ),
 		updateRole: updateRoleInjector( dispatch ),
 		updateSettings: updateSettingsInjector( dispatch ),
 		uploadLicense: uploadLicenseInjector( dispatch ),

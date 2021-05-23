@@ -27,7 +27,7 @@ import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
 import Button from 'react-bootstrap/Button';
 import { addNotification, addErrorNotification } from 'actions/notification';
-import { DELETED_FILE, GET_ALL_FILES, RECEIVED_FILES, RECEIVED_LICENSE, RECEIVED_NAMESPACE_FILES, REMOVED_LICENSE } from 'constants/action_types.js';
+import { DELETED_FILE, GET_ALL_FILES, RECEIVED_FILES, RECEIVED_LICENSE, RECEIVED_NAMESPACE_FILES, REMOVED_LICENSE, UPDATED_SETTINGS } from 'constants/action_types.js';
 
 
 // FUNCTIONS //
@@ -288,5 +288,36 @@ export const removeLicense = async ( dispatch ) => {
 export const removeLicenseInjector = ( dispatch ) => {
 	return async () => {
 		await removeLicense( dispatch );
+	};
+};
+
+export const uploadLogo = async ( dispatch, { formData, user }) => {
+	try {
+		const query = qs.stringify({
+			jwt: user.token
+		});
+		const res = await axios.post( server+'/upload_logo?'+ query, formData );
+		addNotification( dispatch, {
+			title: i18next.t('common:uploaded'),
+			message: res.data.message,
+			level: 'success',
+			position: 'tl',
+			autoDismiss: 5
+		});
+		dispatch({
+			type: UPDATED_SETTINGS,
+			payload: res.data
+		});
+		return res.data;
+	} catch ( err ) {
+		addErrorNotification( dispatch, err );
+		return err;
+	}
+};
+
+export const uploadLogoInjector = ( dispatch ) => {
+	return async ({ formData, user }) => {
+		const res = await uploadLogo( dispatch, { formData, user } );
+		return res;
 	};
 };

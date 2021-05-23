@@ -2,6 +2,7 @@
 
 import React, { Component, Fragment, useCallback, useState } from 'react';
 import { withTranslation } from 'react-i18next';
+import PropTypes from 'prop-types';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -9,12 +10,42 @@ import Button from 'react-bootstrap/Button';
 import Badge from 'react-bootstrap/Badge';
 import Form from 'react-bootstrap/Form';
 import LicenseBarrier from 'ev/containers/visible-barrier';
+import ConfirmModal from 'components/confirm-modal';
 import './branding.css';
 
 
 // FUNCTIONS //
 
-const BrandingFileUpload = ({ name, t, updateSettings }) => {
+const Branding = ({ logoPath, name, updateSettings, t }) => {
+	const [ showModal, setShowModal ] = useState( false );
+	const deleteLogo = useCallback( () => {
+		updateSettings( name, null );
+	}, [ name, updateSettings ]);
+	const toggleModal = useCallback( () => {
+		setShowModal( !showModal );
+	}, [ showModal ]);
+	return (
+		<div style={{ position: 'relative', width: 'fit-content' }}>
+			<img src={logoPath} alt="Logo" style={{ height: '250px', width: 'auto' }} />
+			<Button
+				style={{ position: 'absolute', top: 0, right: 0 }}
+				onClick={toggleModal}
+				variant="danger"
+			>
+				<i className="fas fa-trash" />
+			</Button>
+			{ showModal ? <ConfirmModal
+				title={t('delete-logo')}
+				message={<span>{t('delete-logo-confirm')}</span>}
+				close={toggleModal}
+				show={showModal}
+				onConfirm={deleteLogo}
+			/> : null }
+		</div>
+	);
+};
+
+const BrandingFileUpload = ({ name, t, uploadLogo, user }) => {
 	const [ file, setFile ] = useState( null );
 	const [ imgSrc, setImgSrc ] = useState( null );
 	const handleFileSelection = useCallback( ( e ) => {
@@ -33,17 +64,28 @@ const BrandingFileUpload = ({ name, t, updateSettings }) => {
 		setFile( null );
 		setImgSrc( null );
 	}, [] );
-	const handleConfirm = useCallback( () => {
-		updateSettings( name, file );
-	}, [ updateSettings, name, file ] );
+	const handleConfirm = useCallback( async () => {
+		const formData = new FormData();
+		formData.append( 'branding', file, file.name );
+		formData.append( 'type', name );
+
+		const res = await uploadLogo({
+			formData,
+			user: user
+		});
+		if ( res instanceof Error === false ) {
+			setFile( null );
+		}
+	}, [ uploadLogo, name, file, user ] );
 	return (
 		<Fragment>
 			<Form.Group style={{ marginBottom: 0 }}>
-				<Form.Label htmlFor="logoUpload" style={{ cursor: 'pointer' }}>
+				<Form.Label htmlFor={`${name}Upload`} style={{ cursor: 'pointer' }}>
 					<h3><Badge variant="success">{t('select-file')}</Badge></h3>
 				</Form.Label>
 				<Form.Control
-					id="logoUpload"
+					id={`${name}Upload`}
+					key={imgSrc}
 					style={{ display: 'none' }}
 					type="file"
 					onChange={handleFileSelection}
@@ -83,7 +125,8 @@ class AdminSettingsBranding extends Component {
 	}
 
 	render() {
-		const { t } = this.props;
+		const { admin, uploadLogo, updateSettings, user, t } = this.props;
+		const settings = admin.settings;
 		return (
 			<Fragment>
 				<div className="admin-settings-outer-container" >
@@ -94,7 +137,18 @@ class AdminSettingsBranding extends Component {
 									<h3>{t('logo')}</h3>
 								</Col>
 								<Col sm={10} >
-									<BrandingFileUpload t={t} />
+									{settings.brandingLogo ?
+										<Branding
+											name="brandingLogo"
+											logoPath={settings.brandingLogo}
+											updateSettings={updateSettings}
+											t={t}
+										/> :
+										<BrandingFileUpload
+											name="brandingLogo"
+											t={t} user={user} uploadLogo={uploadLogo}
+										/>
+									}
 								</Col>
 							</Row>
 							<hr />
@@ -103,7 +157,18 @@ class AdminSettingsBranding extends Component {
 									<h3>{t('small-logo')}</h3>
 								</Col>
 								<Col sm={10} >
-									<BrandingFileUpload t={t} />
+									{settings.brandingSmallLogo ?
+										<Branding
+											name="brandingSmallLogo"
+											logoPath={settings.brandingSmallLogo}
+											updateSettings={updateSettings}
+											t={t}
+										/> :
+										<BrandingFileUpload
+											name="brandingSmallLogo"
+											t={t} user={user} uploadLogo={uploadLogo}
+										/>
+									}
 								</Col>
 							</Row>
 						</Container>
@@ -118,6 +183,10 @@ class AdminSettingsBranding extends Component {
 // PROPERTIES //
 
 AdminSettingsBranding.propTypes = {
+	admin: PropTypes.object.isRequired,
+	updateSettings: PropTypes.func.isRequired,
+	uploadLogo: PropTypes.func.isRequired,
+	user: PropTypes.object.isRequired
 };
 
 AdminSettingsBranding.defaultProps = {

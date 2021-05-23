@@ -121,7 +121,12 @@ class Settings extends Component {
 				);
 			case 2:
 				return (
-					<Branding />
+					<Branding
+						admin={this.props.admin}
+						user={this.props.user}
+						uploadLogo={this.props.uploadLogo}
+						updateSettings={this.props.updateSettings}
+					/>
 				);
 			case 3:
 				return (
@@ -224,6 +229,7 @@ Settings.propTypes = {
 	updateRole: PropTypes.func.isRequired,
 	updateSettings: PropTypes.func.isRequired,
 	uploadLicense: PropTypes.func.isRequired,
+	uploadLogo: PropTypes.func.isRequired,
 	user: PropTypes.object.isRequired
 };
 
