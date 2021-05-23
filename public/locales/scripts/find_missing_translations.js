@@ -19,18 +19,26 @@
 
 // MODULES //
 
-const { basename } = require( 'path' );
+const { basename, resolve } = require( 'path' );
 const { execSync } = require( 'child_process' );
 const glob = require( 'glob' );
 const readJSON = require( '@stdlib/fs/read-json' );
 const objectKeys = require( '@stdlib/utils/keys' );
 
+
+// VARIABLES //
+
+const TOPLEVEL_DIR = resolve( __dirname, '..', '..', '..' );
+
+
 // MAIN //
 
-glob( '**/en/*.json', {}, function onFiles( err, files ) {
+glob( 'public/locales/en/*.json', {
+	cwd: TOPLEVEL_DIR
+}, function onFiles( err, files ) {
 	const translations = new Set();
 	for ( let i = 0; i < files.length; i++ ) {
-		const file = files[ i ];
+		const file = resolve( TOPLEVEL_DIR, files[ i ] );
 		const table = readJSON.sync( file );
 		const keys = objectKeys( table );
 		keys.forEach( key => {
@@ -38,8 +46,10 @@ glob( '**/en/*.json', {}, function onFiles( err, files ) {
 			translations.add( basename( files[ i ], '.json' )+':'+key );
 		});
 	}
-	const command = 'grep -hroP " t\\( ?\'\\K[^\']*(?=\' ?\\))" src/* ';
-	const identifiers = execSync( command )
+	const command = 'grep -hroP "(props.| )t\\( ?\'\\K[^\']*(?=\' ?\\))" src/* ';
+	const identifiers = execSync( command, {
+		cwd: TOPLEVEL_DIR
+	})
 		.toString()
 		.split( '\n' );
 	const unique = new Set( identifiers );
