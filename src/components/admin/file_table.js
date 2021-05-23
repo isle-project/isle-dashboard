@@ -85,7 +85,7 @@ class FilePage extends Component {
 		}
 		return [
 			createTextColumn({
-				Header: t('namespace_data:filename'),
+				Header: t('common:filename'),
 				accessor: 'title',
 				minWidth: 250
 			}),

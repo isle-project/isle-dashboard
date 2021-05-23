@@ -52,6 +52,7 @@
 	"monthly-active-users": "Active users in the last 30 days",
 	"no-instructor": "No Instructor",
 	"no-license-found": "No License Found",
+	"no": "No",
 	"number-of-instructors": "Number of instructors covered under license",
 	"number-of-seats": "Number of users covered under license",
 	"password-placeholder": "Enter Password",
@@ -83,5 +84,6 @@
 	"user-successfully-created": "User successfully created",
 	"validity-period": "Validity Period",
 	"weekly-active-users": "Active users in the last 7 days",
+	"yes": "Yes",
 	"your-license": "Your License"
 }

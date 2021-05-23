@@ -52,6 +52,7 @@
 	"metadata": "元数据",
 	"monthly-active-users": "过去30天内的活跃用户",
 	"ms-on-average": "平均毫秒",
+	"no": "没有",
 	"no-admin": "无管理员",
 	"no-instructor": "无指导老师",
 	"no-license-found": "没有找到许可证",
@@ -83,5 +84,6 @@
 	"validity-period": "有效期",
 	"verified": "已验证",
 	"weekly-active-users": "过去7天内的活跃用户",
+	"yes": "是",
 	"your-license": "您的许可证"
 }

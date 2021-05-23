@@ -52,6 +52,7 @@
 	"metadata": "Metadados",
 	"monthly-active-users": "Usuários ativos nos últimos 30 dias",
 	"ms-on-average": "Milissegundos em média",
+	"no": "Não",
 	"no-admin": "Sem Administrador",
 	"no-instructor": "Sem instrutor",
 	"no-license-found": "Nenhuma licença encontrada",
@@ -83,5 +84,6 @@
 	"validity-period": "Período de validade",
 	"verified": "Verificado",
 	"weekly-active-users": "Usuários ativos nos últimos 7 dias",
+	"yes": "Sim",
 	"your-license": "Sua licença"
 }

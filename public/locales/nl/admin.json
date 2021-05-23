@@ -52,6 +52,7 @@
 	"metadata": "Metadata",
 	"monthly-active-users": "Actieve gebruikers in de laatste 30 dagen",
 	"ms-on-average": "Milliseconden gemiddeld",
+	"no": "Geen",
 	"no-admin": "Geen beheerder",
 	"no-instructor": "Geen instructeur",
 	"no-license-found": "Geen licentie gevonden",
@@ -83,5 +84,6 @@
 	"validity-period": "Geldigheidsperiode",
 	"verified": "Geverifieerd",
 	"weekly-active-users": "Actieve gebruikers in de laatste 7 dagen",
+	"yes": "Ja",
 	"your-license": "Uw licentie"
 }

@@ -52,6 +52,7 @@
 	"metadata": "メタデータ",
 	"monthly-active-users": "過去30日間のアクティブユーザー",
 	"ms-on-average": "平均ミリ秒",
+	"no": "いいえ",
 	"no-admin": "管理者なし",
 	"no-instructor": "インストラクターなし",
 	"no-license-found": "ライセンスが見つかりませんでした。",
@@ -83,5 +84,6 @@
 	"validity-period": "有効期間",
 	"verified": "検証済み",
 	"weekly-active-users": "過去7日間のアクティブユーザー",
+	"yes": "はい。",
 	"your-license": "ライセンス"
 }
