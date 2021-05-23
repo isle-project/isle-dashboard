@@ -35,5 +35,6 @@
 	"select-namespace": "Kurs wählen",
 	"title-description": "Titel / Beschreibung",
 	"title-placeholder": "Vollständigen Kurstitel und/oder Kursbeschreibung eingeben",
-	"title-tooltip": "Vollständiger Kurstitel und/oder Kursbeschreibung."
+	"title-tooltip": "Vollständiger Kurstitel und/oder Kursbeschreibung.",
+	"update-course": "Kurs aktualisieren"
 }

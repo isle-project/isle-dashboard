@@ -35,5 +35,6 @@
 	"select-namespace": "コース選択",
 	"title-description": "タイトル/説明",
 	"title-placeholder": "完全なコース名および/または説明を入力してください。",
-	"title-tooltip": "コース名および/またはコースの説明を記入してください。"
+	"title-tooltip": "コース名および/またはコースの説明を記入してください。",
+	"update-course": "アップデートコース"
 }

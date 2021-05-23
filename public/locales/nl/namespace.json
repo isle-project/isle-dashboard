@@ -35,5 +35,6 @@
 	"select-namespace": "Kies cursus",
 	"title-description": "Titel / Beschrijving",
 	"title-placeholder": "Vul de volledige titel en/of beschrijving van de cursus in",
-	"title-tooltip": "Volledige cursustitel en/of cursusbeschrijving."
+	"title-tooltip": "Volledige cursustitel en/of cursusbeschrijving.",
+	"update-course": "Cursus bijwerken"
 }

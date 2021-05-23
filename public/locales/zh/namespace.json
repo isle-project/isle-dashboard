@@ -35,5 +35,6 @@
 	"select-namespace": "选择课程",
 	"title-description": "标题/描述",
 	"title-placeholder": "输入完整的课程名称和/或描述",
-	"title-tooltip": "完整的课程名称和/或课程说明；"
+	"title-tooltip": "完整的课程名称和/或课程说明；",
+	"update-course": "更新课程"
 }

@@ -35,5 +35,6 @@
 	"select-namespace": "Select Course",
 	"title-description": "Title / Description",
 	"title-placeholder": "Enter full course title and/or description",
-	"title-tooltip": "Full course title and/or course description."
+	"title-tooltip": "Full course title and/or course description.",
+	"update-course": "Update Course"
 }
