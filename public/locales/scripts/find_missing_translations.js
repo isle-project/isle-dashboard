@@ -46,7 +46,7 @@ glob( 'public/locales/en/*.json', {
 			translations.add( basename( files[ i ], '.json' )+':'+key );
 		});
 	}
-	const command = 'grep -hroP "(props.| )t\\( ?\'\\K[^\']*(?=\' ?\\))" src/* ';
+	const command = 'grep -hroP "(props.| |\t|{)t\\( ?\'\\K[^\']*(?=\' ?\\))" src/* ';
 	const identifiers = execSync( command, {
 		cwd: TOPLEVEL_DIR
 	})
