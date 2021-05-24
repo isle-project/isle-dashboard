@@ -20,7 +20,9 @@
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 import LanguageDetector from 'i18next-browser-languagedetector';
-import Backend from 'i18next-http-backend/cjs';
+import HttpApi from 'i18next-http-backend/cjs';
+import Backend from 'i18next-chained-backend';
+import server from 'constants/server';
 import { store } from './../index.js';
 
 
@@ -34,7 +36,18 @@ i18n.use( Backend )
 		lng: localStorage.getItem( 'i18nextLng' ) || 'en',
 		fallbackLng: 'en',
 		backend: {
-			loadPath: './locales/{{lng}}/{{ns}}.json'
+			backends: [
+				HttpApi,
+				HttpApi
+			],
+			backendOptions: [
+				{
+					loadPath: './locales/{{lng}}/{{ns}}.json'
+				},
+				{
+					loadPath: server+'/locales/{{lng}}/{{ns}}.json'
+				}
+			]
 		},
 		react: {
 			useSuspense: false
