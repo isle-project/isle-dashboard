@@ -26,7 +26,7 @@ import { getLicenseInjector, uploadLicenseInjector, removeLicenseInjector, uploa
 import { createCustomFieldInjector, deleteCustomFieldInjector, getCustomFieldsInjector,
 	decrementFieldPositionInjector, incrementFieldPositionInjector } from 'actions/custom_field.js';
 import { createBackupInjector, deleteBackupInjector, getBackupsInjector } from 'actions/backup.js';
-import { getSettingsInjector, updateSettingsInjector } from 'actions/settings.js';
+import { addCustomTranslationInjector, getSettingsInjector, updateSettingsInjector } from 'actions/settings.js';
 import { createRoleInjector, deleteRoleInjector, getAllRolesInjector, updateRoleInjector } from 'actions/role.js';
 
 
@@ -41,6 +41,7 @@ function mapStateToProps( state ) {
 
 function mapDispatchToProps( dispatch ) {
 	return {
+		addCustomTranslation: addCustomTranslationInjector( dispatch ),
 		addNotification: addNotificationInjector( dispatch ),
 		getAllRoles: getAllRolesInjector( dispatch ),
 		getBackups: getBackupsInjector( dispatch ),

@@ -1,6 +1,7 @@
 // MODULES //
 
 import React, { Fragment, useCallback, useState } from 'react';
+import PropTypes from 'prop-types';
 import { withTranslation } from 'react-i18next';
 import SelectInput, { components } from 'react-select';
 import Container from 'react-bootstrap/Container';
@@ -73,22 +74,33 @@ const SingleValue = props => {
 	</components.SingleValue> );
 };
 
-const EditableItem = ({ elem }) => {
+const EditableItem = ({ elem, language, addCustomTranslation }) => {
 	const [ editing, setEditing ] = useState( false );
+	const [ value, setValue ] = useState( elem.text );
 	const toggleEditing = useCallback( () => {
 		setEditing( !editing );
 	}, [ editing ] );
+	const handleSaving = useCallback( async () => {
+		const res = await addCustomTranslation({ language, ns: elem.ns, key: elem.key, value });
+		if ( res instanceof Error === false ) {
+			setEditing( false );
+		}
+	}, [ addCustomTranslation, elem, language, value ] );
 	if ( editing ) {
 		return (
 			<ListGroup.Item>
-				<b>{elem.key}</b><br />
+				<b>{elem.key}</b>
+				<br />
 				<FormControl
-					type="text" defaultValue={elem.text}
+					type="text" value={value}
 					style={{ width: '80%' }}
+					onChange={( event ) => {
+						setValue( event.target.value );
+					}}
 				/>
 				<Button
 					size="sm" variant="success" style={{ float: 'right', marginLeft: 8 }}
-					onClick={toggleEditing}
+					onClick={handleSaving}
 				>
 					{i18next.t('common:save')}
 				</Button>
@@ -119,21 +131,20 @@ const EditableItem = ({ elem }) => {
 // MAIN //
 
 const AdminSettingsTexts = ( props ) => {
-	const { t } = props;
+	const { addCustomTranslation, t } = props;
 	const [ language, setLanguage ] = useState( i18next.language );
 	const [ searchValue, setSearchValue ] = useState( 'user' );
 	const [ onlyOverwritten, setOnlyOverwritten ] = useState( false );
 	const data = i18next.store.data[ language ];
 	const items = [];
 	for ( let i = 0; i < NAMESPACES.length; i++ ) {
-		const keys = objectKeys( data[ NAMESPACES[ i ] ] );
+		const ns = NAMESPACES[ i ];
+		const keys = objectKeys( data[ ns ] );
 		for ( let j = 0; j < keys.length; j++ ) {
-			const txt = data[ NAMESPACES[ i ] ][ keys[ j ] ];
-			if ( contains( uppercase( txt ), searchValue ) ) {
-				items.push({
-					key: keys[ j ],
-					text: txt
-				});
+			const key = keys[ j ];
+			const text = data[ ns ][ key ];
+			if ( contains( uppercase( text ), searchValue ) ) {
+				items.push({ ns, key, text });
 			}
 			if ( items.length >= 25 ) {
 				break;
@@ -200,6 +211,8 @@ const AdminSettingsTexts = ( props ) => {
 									return (
 										<EditableItem
 											elem={x} key={idx}
+											addCustomTranslation={addCustomTranslation}
+											language={language}
 										/>
 									);
 								})}
@@ -224,6 +237,7 @@ const AdminSettingsTexts = ( props ) => {
 // PROPERTIES //
 
 AdminSettingsTexts.propTypes = {
+	addCustomTranslation: PropTypes.func.isRequired
 };
 
 AdminSettingsTexts.defaultProps = {

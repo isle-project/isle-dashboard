@@ -137,7 +137,9 @@ class Settings extends Component {
 				);
 			case 3:
 				return (
-					<Texts />
+					<Texts
+						addCustomTranslation={this.props.addCustomTranslation}
+					/>
 				);
 			case 4:
 				return (
@@ -222,6 +224,7 @@ class Settings extends Component {
 // PROPERTIES //
 
 Settings.propTypes = {
+	addCustomTranslation: PropTypes.func.isRequired,
 	admin: PropTypes.object.isRequired,
 	createBackup: PropTypes.func.isRequired,
 	createCustomField: PropTypes.func.isRequired,
