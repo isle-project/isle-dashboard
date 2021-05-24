@@ -140,6 +140,7 @@ class Settings extends Component {
 					<Texts
 						addCustomTranslation={this.props.addCustomTranslation}
 						translations={this.props.translations}
+						removeCustomTranslation={this.props.removeCustomTranslation}
 					/>
 				);
 			case 4:
@@ -242,6 +243,7 @@ Settings.propTypes = {
 	getUsers: PropTypes.func.isRequired,
 	incrementFieldPosition: PropTypes.func.isRequired,
 	match: PropTypes.object.isRequired,
+	removeCustomTranslation: PropTypes.func.isRequired,
 	removeLicense: PropTypes.func.isRequired,
 	t: PropTypes.func.isRequired,
 	translations: PropTypes.object.isRequired,

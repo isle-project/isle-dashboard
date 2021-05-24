@@ -51,7 +51,11 @@ i18n.store.on( 'added', function onLoaded( lng, ns ) {
 	const custom = translations[ lng ][ ns ];
 	if ( custom ) {
 		const keys = Object.keys( custom );
+		if ( !i18n.store.data[ lng ][ ns+'_ORIGINAL' ] ) {
+			i18n.store.data[ lng ][ ns+'_ORIGINAL' ] = {};
+		}
 		for ( let i = 0; i < keys.length; i++ ) {
+			i18n.store.data[ lng ][ ns+'_ORIGINAL' ][ keys[ i ] ] = i18n.store.data[ lng ][ ns ][ keys[ i ] ];
 			i18n.store.data[ lng ][ ns ][ keys[ i ] ] = custom[ keys[ i ] ];
 		}
 	}

@@ -133,3 +133,31 @@ export const getCustomTranslationsInjector = dispatch => {
 		await getCustomTranslations( dispatch );
 	};
 };
+
+export const removeCustomTranslation = async ( dispatch, { language, ns, key }) => {
+	try {
+		const res = await axios.post( server+'/remove_custom_translation', {
+			language, ns, key
+		});
+		addNotification( dispatch, {
+			title: i18next.t('common:removed'),
+			message: res.data.message,
+			level: 'success'
+		});
+		dispatch({
+			type: UPDATED_TRANSLATIONS,
+			payload: res.data
+		});
+		return res;
+	} catch ( err ) {
+		addErrorNotification( dispatch, err );
+		return err;
+	}
+};
+
+export const removeCustomTranslationInjector = dispatch => {
+	return async ({ language, ns, key }) => {
+		const res = await removeCustomTranslation( dispatch, { language, ns, key });
+		return res;
+	};
+};

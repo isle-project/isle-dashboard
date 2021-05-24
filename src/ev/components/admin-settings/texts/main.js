@@ -16,6 +16,7 @@ import Col from 'react-bootstrap/Col';
 import uppercase from '@stdlib/string/uppercase';
 import objectKeys from '@stdlib/utils/keys';
 import contains from '@stdlib/assert/contains';
+import ConfirmModal from 'components/confirm-modal';
 import LicenseBarrier from 'ev/containers/visible-barrier';
 import SearchBar from 'components/searchbar';
 import i18next from 'helpers/i18n';
@@ -74,15 +75,20 @@ const SingleValue = props => {
 	</components.SingleValue> );
 };
 
-const EditableItem = ({ elem, language, addCustomTranslation }) => {
+const EditableItem = ({ elem, language, addCustomTranslation, removeCustomTranslation }) => {
 	const [ editing, setEditing ] = useState( false );
 	const [ value, setValue ] = useState( elem.text );
+	const [ showResetModal, setShowResetModal ] = useState( false );
 	const toggleEditing = useCallback( () => {
 		setEditing( !editing );
 	}, [ editing ] );
 	const handleSaving = useCallback( async () => {
 		const res = await addCustomTranslation({ language, ns: elem.ns, key: elem.key, value });
 		if ( res instanceof Error === false ) {
+			if ( !i18next.store.data[ language ][ elem.ns+'_ORIGINAL' ] ) {
+				i18next.store.data[ language ][ elem.ns+'_ORIGINAL' ] = {};
+			}
+			i18next.store.data[ language ][ elem.ns+'_ORIGINAL' ][ elem.key ] = i18next.store.data[ language ][ elem.ns ][ elem.key ];
 			i18next.store.data[ language ][ elem.ns ][ elem.key ] = value;
 			i18next.changeLanguage( i18next.language );
 			setEditing( false );
@@ -117,6 +123,19 @@ const EditableItem = ({ elem, language, addCustomTranslation }) => {
 			</ListGroup.Item>
 		);
 	}
+	const handleReset = () => {
+		const res = removeCustomTranslation({
+			language, ns: elem.ns, key: elem.key
+		});
+		if ( res instanceof Error === false ) {
+			i18next.store.data[ language ][ elem.ns ][ elem.key ] = i18next.store.data[ language ][ elem.ns+'_ORIGINAL' ][ elem.key ];
+			i18next.changeLanguage( i18next.language );
+			setShowResetModal( false );
+		}
+	};
+	const toggleResetModal = () => {
+		setShowResetModal( !showResetModal );
+	};
 	return (
 		<ListGroup.Item>
 			<b>{elem.key}</b><br />
@@ -127,6 +146,19 @@ const EditableItem = ({ elem, language, addCustomTranslation }) => {
 			>
 				{i18next.t('common:edit')}
 			</Button>
+			{elem.custom ? <Button
+				size="sm" variant="warning" style={{ marginRight: 8, float: 'right' }}
+				onClick={toggleResetModal}
+			>
+				{i18next.t('common:reset')}
+			</Button> : null}
+			{ showResetModal ? <ConfirmModal
+				title={i18next.t('admin_settings:reset-translation')}
+				message={<span>{i18next.t('admin_settings:reset-translation-confirm')}</span>}
+				close={toggleResetModal}
+				show={showResetModal}
+				onConfirm={handleReset}
+			/> : null }
 		</ListGroup.Item>
 	);
 };
@@ -135,7 +167,7 @@ const EditableItem = ({ elem, language, addCustomTranslation }) => {
 // MAIN //
 
 const AdminSettingsTexts = ( props ) => {
-	const { addCustomTranslation, translations, t } = props;
+	const { addCustomTranslation, removeCustomTranslation, translations, t } = props;
 	const [ language, setLanguage ] = useState( i18next.language );
 	const [ searchValue, setSearchValue ] = useState( '' );
 	const [ onlyOverwritten, setOnlyOverwritten ] = useState( false );
@@ -153,8 +185,12 @@ const AdminSettingsTexts = ( props ) => {
 				if ( !customNS || !customNS[ key ] ) {
 					continue;
 				}
-				if ( !searchValue || contains( uppercase( text ), searchValue ) ) {
-					items.push({ ns, key, text });
+				if (
+					!searchValue ||
+					contains( uppercase( key ), searchValue ) ||
+					contains( uppercase( text ), searchValue )
+				) {
+					items.push({ ns, key, text, custom: true });
 				}
 				if ( items.length >= 25 ) {
 					break;
@@ -168,8 +204,12 @@ const AdminSettingsTexts = ( props ) => {
 			for ( let j = 0; j < keys.length; j++ ) {
 				const key = keys[ j ];
 				const text = data[ ns ][ key ];
-				if ( contains( uppercase( text ), searchValue ) ) {
-					items.push({ ns, key, text });
+				if (
+					contains( uppercase( key ), searchValue ) ||
+					contains( uppercase( text ), searchValue )
+				) {
+					const customNS = customTranslations[ ns ];
+					items.push({ ns, key, text, custom: customNS && customNS[ key ] });
 				}
 				if ( items.length >= 25 ) {
 					break;
@@ -177,7 +217,6 @@ const AdminSettingsTexts = ( props ) => {
 			}
 		}
 	}
-	console.log( translations );
 	return (
 		<Fragment>
 			<div className="admin-settings-outer-container" >
@@ -241,6 +280,7 @@ const AdminSettingsTexts = ( props ) => {
 											key={`${language}-${x.key}-${idx}`}
 											addCustomTranslation={addCustomTranslation}
 											language={language}
+											removeCustomTranslation={removeCustomTranslation}
 										/>
 									);
 								})}
@@ -266,6 +306,7 @@ const AdminSettingsTexts = ( props ) => {
 
 AdminSettingsTexts.propTypes = {
 	addCustomTranslation: PropTypes.func.isRequired,
+	removeCustomTranslation: PropTypes.func.isRequired,
 	translations: PropTypes.object.isRequired
 };
 
