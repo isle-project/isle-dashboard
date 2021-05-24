@@ -1,0 +1,1 @@
+(self.webpackChunkisle_dashboard=self.webpackChunkisle_dashboard||[]).push([[7607],{7607:function(e){"use strict";e.exports=JSON.parse('{"missing-children":"O componente de p\xe1ginas requer pelo menos dois elementos infantis a serem apresentados.","next-page":"Ir para a pr\xf3xima p\xe1gina","previous-page":"Ir para a p\xe1gina anterior"}')}}]);

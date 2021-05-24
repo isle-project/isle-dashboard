@@ -1,2 +1,0 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[188],{4266:function(e){e.exports=JSON.parse('{"edition":"edizione","references":"Riferimenti"}')}}]);
-//# sourceMappingURL=188.167ec0ab.chunk.js.map

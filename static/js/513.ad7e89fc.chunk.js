@@ -1,2 +1,0 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[513],{4092:function(e){e.exports=JSON.parse('{"choose-custom-probs":"Choose custom probabilities for the sides and then throw some dice!","count":"Count","dice":"Dice","invalid-probs":"Please make sure that all probabilities add up to one","probabilities":"Probabilities","relative-frequency":"Relative Frequency","reset":"Reset","side":"Side","simulate-random-dice-throws":"Simulate Random Dice Throws","throw":"Throw","total-number-of-throws":"Total number of throws"}')}}]);
-//# sourceMappingURL=513.ad7e89fc.chunk.js.map

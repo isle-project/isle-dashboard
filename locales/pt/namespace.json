@@ -12,6 +12,7 @@
 	"delete-cohort-confirm": "Confirmo que a seguinte coorte deve ser eliminada:",
 	"delete-course": "Você tem certeza de que quer apagar este curso?",
 	"delete-course-confirm": "Confirmo que o seguinte curso deve ser eliminado:",
+	"delete-namespace": "Excluir Curso",
 	"edit-cohort": "Edit Cohort: {{title}}",
 	"edit-course": "Curso de Edição",
 	"email-filter": "Filtro de e-mail",
@@ -21,6 +22,9 @@
 	"enter-emails": "Digite os endereços de e-mail...",
 	"filter-placeholder": "Digite o filtro de e-mail",
 	"filter-tooltip": "Pode ser uma cadeia ou uma cadeia de expressão regular (começando e terminando com /)",
+	"import-course": "Curso de Importação",
+	"import-course-description": "Importar todas as lições de um curso existente para o curso atualmente aberto.",
+	"import-existing-course": "Curso de Importação Existente",
 	"invalid-description": "A descrição deve ter pelo menos três caracteres.",
 	"invalid-owners": "Deve fornecer pelo menos um proprietário através do endereço de e-mail",
 	"manage-cohorts": "Gerenciar Coortes",
@@ -28,7 +32,9 @@
 	"owner-tooltip": "Digite a lista de endereços de e-mail indicando os administradores para este curso",
 	"prevent-label": "Assinalar para evitar que os alunos se inscrevam",
 	"prevent-tooltip": "Se selecionado, o curso não aparecerá na lista de cursos em que os alunos podem se matricular",
+	"select-namespace": "Selecione o curso",
 	"title-description": "Título / Descrição",
 	"title-placeholder": "Digite o título completo do curso e/ou descrição",
-	"title-tooltip": "Título completo do curso e/ou descrição do curso."
+	"title-tooltip": "Título completo do curso e/ou descrição do curso.",
+	"update-course": "Curso de atualização"
 }

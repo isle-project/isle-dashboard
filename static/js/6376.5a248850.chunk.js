@@ -1,0 +1,1 @@
+(self.webpackChunkisle_dashboard=self.webpackChunkisle_dashboard||[]).push([[6376],{6376:function(s){"use strict";s.exports=JSON.parse('{"confirm":"Potwierdzi\u0107"}')}}]);

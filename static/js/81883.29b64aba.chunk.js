@@ -1,0 +1,1 @@
+(self.webpackChunkisle_dashboard=self.webpackChunkisle_dashboard||[]).push([[81883],{81883:function(e){"use strict";e.exports=JSON.parse('{"all-students":"Tutti gli studenti","contents-of":"contenuto di","from":"da","hide":"Nascondi","message":"Contenuto nascosto dall\'istruttore","reveal":"Rivela","to":"a"}')}}]);

@@ -1,0 +1,1 @@
+(self.webpackChunkisle_dashboard=self.webpackChunkisle_dashboard||[]).push([[4346],{4346:function(a){"use strict";a.exports=JSON.parse('{"save-world-cloud":"Salvar la nube de palabras"}')}}]);

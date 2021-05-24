@@ -1,2 +1,0 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[834],{4122:function(e){e.exports=JSON.parse('{"close":"Close","missing-children":"The slider requires at least two child elements for it to be rendered.","next":"Next","previous":"Previous"}')}}]);
-//# sourceMappingURL=834.b1448a99.chunk.js.map

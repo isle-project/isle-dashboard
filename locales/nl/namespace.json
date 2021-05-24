@@ -12,6 +12,7 @@
 	"delete-cohort-confirm": "Ik bevestig dat het volgende cohort moet worden geschrapt:",
 	"delete-course": "Weet u zeker dat u deze cursus wilt verwijderen?",
 	"delete-course-confirm": "Ik bevestig dat de volgende cursus moet worden geschrapt:",
+	"delete-namespace": "Cursus verwijderen",
 	"edit-cohort": "Bewerk Cohort: {{titel}",
 	"edit-course": "Cursus bewerken",
 	"email-filter": "E-mailfilter",
@@ -21,6 +22,9 @@
 	"enter-emails": "Voer e-mailadressen in...",
 	"filter-placeholder": "Voer e-mailfilter in",
 	"filter-tooltip": "Kan zowel een tekenreeks als een reguliere expressietekenreeks zijn (beginnend en eindigend met /)",
+	"import-course": "Cursus importeren",
+	"import-course-description": "Importeer alle lessen uit een bestaande cursus in de huidige geopende cursus.",
+	"import-existing-course": "Bestaande cursus importeren",
 	"invalid-description": "De beschrijving moet minstens drie karakters lang zijn.",
 	"invalid-owners": "Moet ten minste één eigenaar opgeven via e-mail",
 	"manage-cohorts": "Cohorten beheren",
@@ -28,7 +32,9 @@
 	"owner-tooltip": "Voer de lijst met e-mailadressen in die de beheerders voor deze cursus aangeven",
 	"prevent-label": "Vink aan om te voorkomen dat studenten zich inschrijven",
 	"prevent-tooltip": "Indien aangevinkt, zal de cursus niet verschijnen in de lijst van cursussen die de studenten kunnen inschrijven in zichzelf.",
+	"select-namespace": "Kies cursus",
 	"title-description": "Titel / Beschrijving",
 	"title-placeholder": "Vul de volledige titel en/of beschrijving van de cursus in",
-	"title-tooltip": "Volledige cursustitel en/of cursusbeschrijving."
+	"title-tooltip": "Volledige cursustitel en/of cursusbeschrijving.",
+	"update-course": "Cursus bijwerken"
 }

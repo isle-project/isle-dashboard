@@ -1,2 +1,0 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[835],{4186:function(e){e.exports=JSON.parse('{"close":"Cerca","missing-children":"El deslizador requiere al menos dos elementos infantiles para que se pueda representar.","next":"Siguiente","previous":"Anterior"}')}}]);
-//# sourceMappingURL=835.48df0ea5.chunk.js.map

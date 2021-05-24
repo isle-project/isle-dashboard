@@ -1,2 +1,0 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[626],{4167:function(e){e.exports=JSON.parse('{"missing-children":"El componente de las p\xe1ginas requiere al menos dos elementos de ni\xf1os para ser renderizados.","next-page":"Ir a la siguiente p\xe1gina","previous-page":"Ir a la p\xe1gina anterior"}')}}]);
-//# sourceMappingURL=626.88cf2fe8.chunk.js.map

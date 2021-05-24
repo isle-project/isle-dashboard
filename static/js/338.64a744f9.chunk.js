@@ -1,2 +1,0 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[338],{4146:function(a){a.exports=JSON.parse('{"display-instructor-feedback":"Haga clic para mostrar u ocultar la informaci\xf3n del instructor","your-points":"Sus puntos para la pregunta"}')}}]);
-//# sourceMappingURL=338.64a744f9.chunk.js.map

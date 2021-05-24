@@ -1,0 +1,1 @@
+(self.webpackChunkisle_dashboard=self.webpackChunkisle_dashboard||[]).push([[48343],{48343:function(e){"use strict";e.exports={generate:"\u751f\u6210"}}}]);

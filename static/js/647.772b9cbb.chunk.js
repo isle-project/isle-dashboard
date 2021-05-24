@@ -1,2 +1,0 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[647],{4105:function(o){o.exports=JSON.parse('{"change-orientation":"Change Legend Orientation","close":"Close","count":"Count","drag-plot":"Drag Plot","given":"given","in":"in","linear-fit":"Linear Fit","of":"of","points":"Points","proportion":"Proportion","qqplot-title":"Normal QQ Plot of {{x}}","share":"Share","smoothed-fit":"Smoothed Fit","toggle-fullscreen":"Toggle fullscreen","toggle-legend":"Toggle legend","vs":"vs."}')}}]);
-//# sourceMappingURL=647.772b9cbb.chunk.js.map

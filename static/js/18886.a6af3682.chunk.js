@@ -1,0 +1,1 @@
+(self.webpackChunkisle_dashboard=self.webpackChunkisle_dashboard||[]).push([[18886],{18886:function(e){"use strict";e.exports=JSON.parse('{"not-available":"non disponibile","party":"Festa","president":"Presidente:","questions":"Domande","speech":"Discorso:","state-of-the-union-addresses":"Stato dell\'Unione Indirizzi","year":"Anno"}')}}]);

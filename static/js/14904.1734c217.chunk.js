@@ -1,0 +1,1 @@
+(self.webpackChunkisle_dashboard=self.webpackChunkisle_dashboard||[]).push([[14904],{14904:function(e){"use strict";e.exports=JSON.parse('{"not-available":"nicht verf\xfcgbar","party":"Party","president":"Pr\xe4sident:","questions":"Fragen","speech":"Ansprache:","state-of-the-union-addresses":"Reden zur Lage der Nation","year":"Jahr"}')}}]);

@@ -1,2 +1,0 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[869],{4259:function(e){e.exports=JSON.parse('{"click-to-minimize":"Cliquez pour r\xe9duire","click-to-remove":"Cliquez pour supprimer","instructor":"Instructeur","private":"Personnel","public":"Public","save":"Sauvegarder","type-in-the-title":"Saisissez le titre","type-in-your-note":"Tapez votre note"}')}}]);
-//# sourceMappingURL=869.352444e0.chunk.js.map

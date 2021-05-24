@@ -1,2 +1,0 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[242],{4201:function(e){e.exports=JSON.parse('{"draw-sample":"\xc9chantillon de dessin","sample-size":"Taille de l\'\xe9chantillon"}')}}]);
-//# sourceMappingURL=242.0d342e62.chunk.js.map

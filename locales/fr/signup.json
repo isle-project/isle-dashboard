@@ -4,7 +4,6 @@
 	"confirm-password": "Confirmer le mot de passe",
 	"create-user": "Création d'utilisateurs",
 	"email-tooltip": "Veuillez entrer une adresse électronique valide.",
-	"enter-name": "Entrez le nom",
 	"go-to-login-page": "Aller à la page de connexion",
 	"invalid-email": "Adresse électronique non valide.",
 	"invalid-name": "Le nom doit comporter quatre caractères.",

@@ -1,2 +1,0 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[281],{4001:function(e){e.exports=JSON.parse('{"alert-message":"Externe Inhalte k\xf6nnen nicht angezeigt werden, vermutlich da die Einbettung der Website in Iframes deaktiviert ist."}')}}]);
-//# sourceMappingURL=281.716210c1.chunk.js.map

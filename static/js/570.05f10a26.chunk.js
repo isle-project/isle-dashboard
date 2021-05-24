@@ -1,2 +1,0 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[570],{4441:function(a){a.exports=JSON.parse('{"evaluate-probabilities":"Beoordeel de waarschijnlijkheid:","normal-to-standard-normal":"Van normaal naar standaard normaal","reset":"Reset","standard-deviation":"standaardafwijking","standardize-values":"Waarden standaardiseren","standardized":"Gestandaardiseerd","unstandardized":"Ongestandaardiseerd","x-value":"X-waarde"}')}}]);
-//# sourceMappingURL=570.05f10a26.chunk.js.map

@@ -1,0 +1,1 @@
+(self.webpackChunkisle_dashboard=self.webpackChunkisle_dashboard||[]).push([[37202],{37202:function(a){"use strict";a.exports=JSON.parse('{"save-world-cloud":"Salva nuvola di parole"}')}}]);

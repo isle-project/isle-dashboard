@@ -1,2 +1,0 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[845],{4123:function(o){o.exports=JSON.parse('{"hide-solution":"Hide Solution","show-solution":"Show Solution","solution-available-tooltip":"Solution becomes available after answer is submitted","solution-available-tooltip-hints":"and all hints have been requested"}')}}]);
-//# sourceMappingURL=845.b2c88a4b.chunk.js.map

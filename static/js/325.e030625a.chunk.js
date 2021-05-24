@@ -1,2 +1,0 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[325],{4005:function(e){e.exports=JSON.parse('{"close":"Schlie\xdfen","fullscreen-header":"Vollbildschirm-Anzeige","fullscreen-tooltip":"Vollbildansicht ein-/ausschalten"}')}}]);
-//# sourceMappingURL=325.e030625a.chunk.js.map

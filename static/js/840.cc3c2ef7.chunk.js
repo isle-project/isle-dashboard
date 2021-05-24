@@ -1,2 +1,0 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[840],{4536:function(e){e.exports=JSON.parse('{"close":"Close","missing-children":"Suwak wymaga do jego wykonania co najmniej dw\xf3ch element\xf3w dzieci\u0119cych.","next":"Nast\u0119pnie","previous":"Poprzedni"}')}}]);
-//# sourceMappingURL=840.cc3c2ef7.chunk.js.map

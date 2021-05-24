@@ -1,0 +1,1 @@
+(self.webpackChunkisle_dashboard=self.webpackChunkisle_dashboard||[]).push([[92060],{92060:function(e){"use strict";e.exports=JSON.parse('{"cancel":"Abbrechen","delete":"L\xf6schen","delete-body":"Bist Du sicher, dass Du die ausgew\xe4hlte Benutzeraktion l\xf6schen willst?","delete-title":"Benutzeraktion l\xf6schen"}')}}]);

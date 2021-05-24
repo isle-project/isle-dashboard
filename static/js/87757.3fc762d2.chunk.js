@@ -1,0 +1,1 @@
+(self.webpackChunkisle_dashboard=self.webpackChunkisle_dashboard||[]).push([[87757],{29270:function(e){"use strict";e.exports=JSON.parse('{"change-language":"Verander de taal","choose-language":"Kies de taal","loading-translations":"Het laden van vertalingen... Het kan een paar seconden duren voordat alle vertalingen zijn geladen."}')}}]);

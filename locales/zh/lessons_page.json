@@ -4,5 +4,6 @@
 	"no-course-description": "从上面的下拉菜单中选择一个现有的课程，打开一个课程。",
 	"no-lessons": "所选课程不包含任何课程。",
 	"no-lessons-found": "没有找到教训",
+	"no-templates-created-yet": "目前还没有人创建模板。",
 	"upload-from-editor": "您可以从ISLE编辑器上传课程。"
 }

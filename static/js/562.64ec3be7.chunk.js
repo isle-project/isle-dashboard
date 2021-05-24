@@ -1,2 +1,0 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[562],{4579:function(e){e.exports=JSON.parse('{"not-available":"n\xe3o dispon\xedvel","party":"Festa","president":"Presidente:","questions":"Perguntas","speech":"Discurso:","state-of-the-union-addresses":"Endere\xe7os do Estado da Uni\xe3o","year":"Ano"}')}}]);
-//# sourceMappingURL=562.64ec3be7.chunk.js.map

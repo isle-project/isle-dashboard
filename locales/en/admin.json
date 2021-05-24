@@ -9,6 +9,7 @@
 	"automatic-logout": " Notice that this will log you out of your current session.",
 	"average-object-size": "Average Object Size",
 	"created-at": "Created At",
+	"create-new-user": "Create New User",
 	"daily-active-users": "Active users in the last 24 hours",
 	"daily-changes-of": "Daily Changes of ",
 	"daily-statistics": "Daily Statistics",
@@ -25,6 +26,7 @@
 	"display-daily-changes": "Display Daily Changes",
 	"display-time-series": "Display Time Series",
 	"disk-usage": "Disk Usage",
+	"download-data": "Download Data",
 	"edit-user-data": "Edit User Data",
 	"email-verified": "Verified",
 	"enter-new-password": "Please enter a new user password of at least six letters",
@@ -51,6 +53,7 @@
 	"monthly-active-users": "Active users in the last 30 days",
 	"no-instructor": "No Instructor",
 	"no-license-found": "No License Found",
+	"no": "No",
 	"number-of-instructors": "Number of instructors covered under license",
 	"number-of-seats": "Number of users covered under license",
 	"password-placeholder": "Enter Password",
@@ -79,7 +82,9 @@
 	"overall": "Overall",
 	"over-time": "Over Time",
 	"upload-new-license": "Upload new license",
+	"user-successfully-created": "User successfully created",
 	"validity-period": "Validity Period",
 	"weekly-active-users": "Active users in the last 7 days",
+	"yes": "Yes",
 	"your-license": "Your License"
 }

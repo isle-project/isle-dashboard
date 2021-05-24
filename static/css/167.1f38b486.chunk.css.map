@@ -1,1 +1,0 @@
-{"version":3,"sources":["webpack://./src/components/admin/logs/access/access_log.css"],"names":[],"mappings":"AAAA,oBACC,iBAAkB,CAClB,SAAU,CACV,UAAW,CACX,QAAS,CACT,eACD","file":"167.1f38b486.chunk.css","sourcesContent":[".access-log-wrapper {\n\tposition: absolute;\n\ttop: 100px;\n\twidth: 90vw;\n\tleft: 5vw;\n\tmin-height: 78vh;\n}\n"]}

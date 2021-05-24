@@ -12,6 +12,7 @@
 	"delete-cohort-confirm": "以下のコホートは削除すべきであることを確認しました。",
 	"delete-course": "このコースを削除してもよろしいのでしょうか？",
 	"delete-course-confirm": "以下のコースは削除すべきであることを確認しました。",
+	"delete-namespace": "コースの削除",
 	"edit-cohort": "編集コホート：{{title}}。",
 	"edit-course": "コースの編集",
 	"email-filter": "メールフィルタ",
@@ -21,6 +22,9 @@
 	"enter-emails": "メールアドレスを入力して...",
 	"filter-placeholder": "メールフィルターを入力してください",
 	"filter-tooltip": "文字列または正規表現文字列（/で始まり/で終わる）のいずれかを指定できます。",
+	"import-course": "インポートコース",
+	"import-course-description": "既存のコースのすべてのレッスンを、現在開いているコースにインポートすることができます。",
+	"import-existing-course": "既存のコースを取り込む",
 	"invalid-description": "説明は最低でも3文字以上である必要があります。",
 	"invalid-owners": "メールアドレスを介して少なくとも1人の所有者を提供する必要があります。",
 	"manage-cohorts": "コホートの管理",
@@ -28,7 +32,9 @@
 	"owner-tooltip": "このコースの管理者を示すメールアドレスのリストを入力してください。",
 	"prevent-label": "学生の入学を防ぐためにチェックを入れる",
 	"prevent-tooltip": "チェックを入れた場合、そのコースは学生自身が登録できるコースのリストには表示されません。",
+	"select-namespace": "コース選択",
 	"title-description": "タイトル/説明",
 	"title-placeholder": "完全なコース名および/または説明を入力してください。",
-	"title-tooltip": "コース名および/またはコースの説明を記入してください。"
+	"title-tooltip": "コース名および/またはコースの説明を記入してください。",
+	"update-course": "アップデートコース"
 }

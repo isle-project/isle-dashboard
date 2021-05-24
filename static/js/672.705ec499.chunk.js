@@ -1,2 +1,0 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[672],{4311:function(o){o.exports=JSON.parse('{"answer-submitted":"La risposta \xe8 stata inviata con successo.","drop-image":"Lascia l\'immagine qui","model-solution":"Soluzione modello","or":"oppure","question-closed":"La domanda \xe8 chiusa.","reset":"Reset","resubmit":"Invia di nuovo","submit":"Invia a","submitted":"Presentata all\'indirizzo","upload":"Invio caricato"}')}}]);
-//# sourceMappingURL=672.705ec499.chunk.js.map

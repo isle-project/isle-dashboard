@@ -1,0 +1,1 @@
+(self.webpackChunkisle_dashboard=self.webpackChunkisle_dashboard||[]).push([[27738],{27738:function(e){"use strict";e.exports=JSON.parse('{"alert-message":"El contenido externo no puede mostrarse probablemente debido a que el sitio deshabilita la incrustaci\xf3n en los iframes."}')}}]);

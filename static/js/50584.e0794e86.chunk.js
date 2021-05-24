@@ -1,0 +1,1 @@
+(self.webpackChunkisle_dashboard=self.webpackChunkisle_dashboard||[]).push([[50584],{50584:function(e){"use strict";e.exports=JSON.parse('{"and":" en","key-not-found":"Citationele sleutel niet gevonden in referenties.","no-author":"Auteursveld mag niet leeg zijn.","no-references":"Geen `referenties` gevonden in de preambule van de les."}')}}]);

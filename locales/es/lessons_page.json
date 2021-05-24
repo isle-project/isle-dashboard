@@ -4,5 +4,6 @@
 	"no-course-description": "Abra un curso existente seleccionando uno del menú desplegable arriba en",
 	"no-lessons": "El curso seleccionado no contiene ninguna lección.",
 	"no-lessons-found": "No se Encontraron Lecciones",
+	"no-templates-created-yet": "Todavía no se ha creado ninguna plantilla.",
 	"upload-from-editor": "Puede cargar lecciones del editor ISLE."
 }

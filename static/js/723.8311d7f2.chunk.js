@@ -1,2 +1,0 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[723],{4042:function(e){e.exports=JSON.parse('{"missing-children":"F\xfcr das Frageformular m\xfcssen mindestens zwei Kind-Elemente gerendert werden.","submit":"Abschicken"}')}}]);
-//# sourceMappingURL=723.8311d7f2.chunk.js.map

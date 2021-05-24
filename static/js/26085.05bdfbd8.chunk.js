@@ -1,0 +1,1 @@
+(self.webpackChunkisle_dashboard=self.webpackChunkisle_dashboard||[]).push([[26085],{26085:function(e){"use strict";e.exports=JSON.parse('{"children-missing":"The accordion requires at least two child elements for it to be rendered."}')}}]);

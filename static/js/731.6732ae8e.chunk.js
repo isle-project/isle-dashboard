@@ -1,2 +1,0 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[731],{4594:function(e){e.exports=JSON.parse('{"missing-children":"O formul\xe1rio de perguntas requer pelo menos dois elementos infantis a serem apresentados.","submit":"Enviar para"}')}}]);
-//# sourceMappingURL=731.6732ae8e.chunk.js.map

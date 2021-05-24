@@ -1,2 +1,0 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[571],{4511:function(a){a.exports=JSON.parse('{"evaluate-probabilities":"Oceni\u0107 prawdopodobie\u0144stwo:","normal-to-standard-normal":"Od normalnego do standardowego Normalny","reset":"Zresetowa\u0107","standard-deviation":"odchylenie standardowe","standardize-values":"Standaryzacja warto\u015bci","standardized":"Znormalizowany","unstandardized":"Niestandardowy","x-value":"Warto\u015b\u0107 X"}')}}]);
-//# sourceMappingURL=571.7a03ec3c.chunk.js.map

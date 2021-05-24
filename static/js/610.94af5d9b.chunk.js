@@ -1,2 +1,0 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[610],{4445:function(n){n.exports=JSON.parse('{"copy-link":"Kopieerlink","open-link-tab":"Openen van een link in een nieuw tabblad","open-link-window":"Link openen in nieuw venster","read-aloud":"Voorlezen"}')}}]);
-//# sourceMappingURL=610.94af5d9b.chunk.js.map

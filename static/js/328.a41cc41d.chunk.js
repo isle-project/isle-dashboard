@@ -1,2 +1,0 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[328],{4209:function(e){e.exports=JSON.parse('{"close":"Fermer","fullscreen-header":"Affichage plein \xe9cran","fullscreen-tooltip":"Basculer en plein \xe9cran"}')}}]);
-//# sourceMappingURL=328.a41cc41d.chunk.js.map

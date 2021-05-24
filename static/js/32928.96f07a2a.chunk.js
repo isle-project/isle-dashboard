@@ -1,0 +1,1 @@
+(self.webpackChunkisle_dashboard=self.webpackChunkisle_dashboard||[]).push([[32928],{32928:function(e){"use strict";e.exports=JSON.parse('{"close":"Close","fullscreen-header":"Fullscreen Display","fullscreen-tooltip":"Toggle Fullscreen"}')}}]);

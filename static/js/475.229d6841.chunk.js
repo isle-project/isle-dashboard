@@ -1,2 +1,0 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[475],{4499:function(e){e.exports=JSON.parse('{"available-commands":"Dost\u0119pne komendy g\u0142osowe:","click-to-set-active":"Kliknij, aby ustawi\u0107 element jako aktywny","commands":"Polecenie (polecenia)","description":"Opis"}')}}]);
-//# sourceMappingURL=475.229d6841.chunk.js.map

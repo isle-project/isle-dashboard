@@ -1,2 +1,0 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[471],{4219:function(o){o.exports=JSON.parse('{"available-commands":"Commandes vocales disponibles :","click-to-set-active":"Cliquez pour activer le composant","commands":"Commande(s)","description":"Description"}')}}]);
-//# sourceMappingURL=471.22b8dcf0.chunk.js.map

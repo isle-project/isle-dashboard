@@ -4,5 +4,6 @@
 	"no-course-description": "のドロップダウンメニューから既存のコースを選択して、既存のコースを開きます。",
 	"no-lessons": "選択されたコースには授業はありません。",
 	"no-lessons-found": "レッスンは見つかりませんでした。",
+	"no-templates-created-yet": "まだテンプレートは作成されていません。",
 	"upload-from-editor": "ISLEエディタからレッスンをアップロードすることができます。"
 }

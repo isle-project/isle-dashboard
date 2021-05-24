@@ -1,0 +1,1 @@
+(self.webpackChunkisle_dashboard=self.webpackChunkisle_dashboard||[]).push([[24757],{24757:function(s){"use strict";s.exports=JSON.parse('{"confirm":"Best\xe4tigen"}')}}]);

@@ -1,2 +1,0 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[637],{4168:function(i){i.exports=JSON.parse('{"close":"Cerrar","maximize":"Maximizar","minimize":"Minimizar"}')}}]);
-//# sourceMappingURL=637.964bd5da.chunk.js.map

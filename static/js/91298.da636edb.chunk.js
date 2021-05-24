@@ -1,0 +1,1 @@
+(self.webpackChunkisle_dashboard=self.webpackChunkisle_dashboard||[]).push([[91298],{91298:function(s){"use strict";s.exports=JSON.parse('{"available-commands":"Beschikbare spraakcommando\'s:","click-to-set-active":"Klik om component als actief in te stellen","commands":"Commando\'s","description":"Beschrijving"}')}}]);

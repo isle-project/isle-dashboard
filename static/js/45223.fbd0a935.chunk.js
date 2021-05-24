@@ -1,0 +1,1 @@
+(self.webpackChunkisle_dashboard=self.webpackChunkisle_dashboard||[]).push([[45223],{45223:function(a){"use strict";a.exports=JSON.parse('{"draw-sample":"Dibujar la muestra","sample-size":"Tama\xf1o de la muestra"}')}}]);

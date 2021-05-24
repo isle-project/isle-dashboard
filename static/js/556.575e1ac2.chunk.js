@@ -1,2 +1,0 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[556],{4096:function(e){e.exports=JSON.parse('{"not-available":"not available","party":"Party","president":"President:","questions":"Questions","speech":"Speech:","state-of-the-union-addresses":"State of the Union Addresses","year":"Year"}')}}]);
-//# sourceMappingURL=556.575e1ac2.chunk.js.map

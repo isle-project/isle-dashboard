@@ -4,5 +4,6 @@
 	"no-course-description": "Open een bestaande cursus door er een te selecteren uit het dropdown menu hierboven bij",
 	"no-lessons": "De geselecteerde cursus bevat geen lessen.",
 	"no-lessons-found": "Geen lessen gevonden",
+	"no-templates-created-yet": "Er zijn nog geen sjablonen aangemaakt.",
 	"upload-from-editor": "U kunt lessen uploaden vanuit de ISLE-editor."
 }

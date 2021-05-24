@@ -1,0 +1,1 @@
+(self.webpackChunkisle_dashboard=self.webpackChunkisle_dashboard||[]).push([[21111],{21111:function(e){"use strict";e.exports=JSON.parse('{"close":"Fechar","fullscreen-header":"Exibi\xe7\xe3o em tela cheia","fullscreen-tooltip":"Alternar tela cheia"}')}}]);

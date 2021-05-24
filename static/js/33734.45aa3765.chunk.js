@@ -1,0 +1,1 @@
+(self.webpackChunkisle_dashboard=self.webpackChunkisle_dashboard||[]).push([[33734],{33734:function(s){"use strict";s.exports=JSON.parse('{"close":"Close","maximize":"Maksymalizacja","minimize":"Minimalizuj"}')}}]);

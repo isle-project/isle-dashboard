@@ -1,0 +1,1 @@
+(self.webpackChunkisle_dashboard=self.webpackChunkisle_dashboard||[]).push([[82414],{82414:function(e){"use strict";e.exports=JSON.parse('{"children-missing":"Akordeon wymaga co najmniej dw\xf3ch element\xf3w dzieci\u0119cych do jego wykonania."}')}}]);

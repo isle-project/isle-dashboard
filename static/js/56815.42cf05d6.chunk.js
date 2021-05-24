@@ -1,0 +1,1 @@
+(self.webpackChunkisle_dashboard=self.webpackChunkisle_dashboard||[]).push([[56815],{56815:function(a){"use strict";a.exports=JSON.parse('{"all":"Tutti","day":"Giorno","last-hour":"Ultima ora","month":"Mese","week":"Settimana","year":"Anno"}')}}]);

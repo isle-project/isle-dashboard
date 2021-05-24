@@ -1,2 +1,0 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[474],{4429:function(o){o.exports=JSON.parse('{"available-commands":"Beschikbare spraakcommando\'s:","click-to-set-active":"Klik om component als actief in te stellen","commands":"Commando\'s","description":"Beschrijving"}')}}]);
-//# sourceMappingURL=474.9a18f7f6.chunk.js.map

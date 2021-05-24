@@ -1,0 +1,1 @@
+(self.webpackChunkisle_dashboard=self.webpackChunkisle_dashboard||[]).push([[61343],{61343:function(e){"use strict";e.exports=JSON.parse('{"close":"Schlie\xdfen","copy-link":"Link kopieren","copy-svg":"SVG kopieren","save-image":"Bild speichern","share":"Teilen"}')}}]);

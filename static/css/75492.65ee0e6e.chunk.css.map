@@ -1,0 +1,1 @@
+{"version":3,"sources":["components/admin/logs/access/access_log.css"],"names":[],"mappings":"AAAA,oBAIC,QAAS,CACT,eAAgB,CAJhB,iBAAkB,CAClB,SAAU,CACV,UAGD","file":"static/css/75492.65ee0e6e.chunk.css","sourcesContent":[".access-log-wrapper {\n\tposition: absolute;\n\ttop: 100px;\n\twidth: 90vw;\n\tleft: 5vw;\n\tmin-height: 78vh;\n}\n"],"sourceRoot":""}

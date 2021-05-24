@@ -1,0 +1,1 @@
+(self.webpackChunkisle_dashboard=self.webpackChunkisle_dashboard||[]).push([[26750],{26750:function(s){"use strict";s.exports=JSON.parse('{"close-hint":"Fechar Dica","close-hints":"Fechar Dicas","get-hint":"Obter uma dica","hint":"Dica","hints":"Dicas","next-hint":"Pr\xf3xima Dica","show-hints":"Mostrar Dicas"}')}}]);

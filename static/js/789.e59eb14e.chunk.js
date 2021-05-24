@@ -1,2 +1,0 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[789],{4048:function(e){e.exports=JSON.parse('{"all":"Alle","day":"Tag","last-hour":"Letzte Stunde","month":"Monat","week":"Woche","year":"Jahr"}')}}]);
-//# sourceMappingURL=789.e59eb14e.chunk.js.map

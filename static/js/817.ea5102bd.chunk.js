@@ -1,2 +1,0 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[817],{4464:function(e){e.exports=JSON.parse('{"all-students":"Alle studenten","contents-of":"inhoud van","from":"van","hide":"Verberg","message":"Inhoud verborgen door instructeur","reveal":"Onthul","to":"naar"}')}}]);
-//# sourceMappingURL=817.ea5102bd.chunk.js.map

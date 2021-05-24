@@ -1,0 +1,1 @@
+(self.webpackChunkisle_dashboard=self.webpackChunkisle_dashboard||[]).push([[28328],{28328:function(e){"use strict";e.exports=JSON.parse('{"alert-message":"External content cannot be displayed likely due to site disabling embedding in iframes."}')}}]);

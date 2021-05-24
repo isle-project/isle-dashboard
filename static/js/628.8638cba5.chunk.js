@@ -1,2 +1,0 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[628],{4307:function(e){e.exports=JSON.parse('{"missing-children":"Il componente pagine richiede almeno due elementi figli per essere reso.","next-page":"Vai alla pagina successiva","previous-page":"Vai alla pagina precedente"}')}}]);
-//# sourceMappingURL=628.8638cba5.chunk.js.map

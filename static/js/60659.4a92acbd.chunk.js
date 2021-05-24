@@ -1,0 +1,1 @@
+(self.webpackChunkisle_dashboard=self.webpackChunkisle_dashboard||[]).push([[60659],{60659:function(e){"use strict";e.exports=JSON.parse('{"close":"\u5173\u95ed","maximize":"\u6700\u5927\u5316","minimize":"\u5c3d\u91cf\u51cf\u5c11"}')}}]);

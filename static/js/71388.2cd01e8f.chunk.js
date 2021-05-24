@@ -1,0 +1,1 @@
+(self.webpackChunkisle_dashboard=self.webpackChunkisle_dashboard||[]).push([[71388],{71388:function(e){"use strict";e.exports=JSON.parse('{"close":"Cerca","missing-children":"El deslizador requiere al menos dos elementos infantiles para que se pueda representar.","next":"Siguiente","previous":"Anterior"}')}}]);
