@@ -61,6 +61,8 @@
 	"rate-limits": "Límites de tarifa",
 	"reserved-user-names": "Nombres de usuario reservados",
 	"reserved-user-names-description": "Una lista de nombres de usuario bloqueados con los que los usuarios no pueden registrarse (por ejemplo, porque están reservados para fines administrativos)",
+	"reset-translation": "Restablecimiento de la traducción",
+	"reset-translation-confirm": "¿Desea restablecer esta traducción al valor original?",
 	"roles": "Roles",
 	"russian": "Ruso",
 	"search-context": "Contexto de la búsqueda",

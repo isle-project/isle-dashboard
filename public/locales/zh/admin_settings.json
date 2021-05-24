@@ -61,6 +61,8 @@
 	"rate-limits": "费率限制",
 	"reserved-user-names": "保留用户名称",
 	"reserved-user-names-description": "用户不能注册的被封锁的用户名列表（例如，因为它们是为管理目的保留的）。",
+	"reset-translation": "重置翻译",
+	"reset-translation-confirm": "你想把这个翻译重置为原始值吗？",
 	"roles": "角色",
 	"russian": "俄罗斯",
 	"search-context": "搜索上下文",

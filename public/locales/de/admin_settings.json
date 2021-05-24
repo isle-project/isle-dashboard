@@ -61,6 +61,8 @@
 	"rate-limits": "Raten-Grenzwerte",
 	"reserved-user-names": "Reservierte Benutzernamen",
 	"reserved-user-names-description": "Eine Liste mit gesperrten Benutzernamen, mit denen sich Benutzer nicht anmelden können (z. B. weil sie für Verwaltungszwecke reserviert sind)",
+	"reset-translation": "Übersetzung zurücksetzen",
+	"reset-translation-confirm": "Möchten Sie diese Übersetzung auf den ursprünglichen Wert zurücksetzen?",
 	"roles": "Rollen",
 	"russian": "Russisch",
 	"search-context": "Suchkontext",

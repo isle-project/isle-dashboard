@@ -61,6 +61,8 @@
 	"rate-limits": "レートリミット",
 	"reserved-user-names": "予約したユーザー名",
 	"reserved-user-names-description": "ユーザーが登録できないブロックされたユーザー名のリスト（例：管理目的のために予約されているため",
+	"reset-translation": "翻訳のリセット",
+	"reset-translation-confirm": "この翻訳を元の値に戻しますか？",
 	"roles": "役割",
 	"russian": "ロシア語",
 	"search-context": "検索条件",

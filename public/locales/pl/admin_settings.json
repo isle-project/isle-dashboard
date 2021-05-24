@@ -61,6 +61,8 @@
 	"rate-limits": "Limity stawek",
 	"reserved-user-names": "Zastrzeżone nazwy użytkowników",
 	"reserved-user-names-description": "Lista zablokowanych nazw użytkowników, pod którymi użytkownicy nie mogą się rejestrować (np. dlatego, że są zastrzeżone dla celów administracyjnych)",
+	"reset-translation": "Reset Tłumaczenie",
+	"reset-translation-confirm": "Czy chcesz zresetować to tłumaczenie do pierwotnej wartości?",
 	"roles": "Role",
 	"russian": "Rosyjski",
 	"search-context": "Wyszukaj Kontekst",

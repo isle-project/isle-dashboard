@@ -61,6 +61,8 @@
 	"rate-limits": "Tariefgrenzen",
 	"reserved-user-names": "Gereserveerde gebruikersnamen",
 	"reserved-user-names-description": "Een lijst van geblokkeerde gebruikersnamen waarmee gebruikers zich niet kunnen registreren (bv. omdat ze gereserveerd zijn voor administratieve doeleinden)",
+	"reset-translation": "Reset Vertaling",
+	"reset-translation-confirm": "Wilt u deze vertaling terugzetten naar de oorspronkelijke waarde?",
 	"roles": "Rollen",
 	"russian": "Russisch",
 	"search-context": "Zoek Context",

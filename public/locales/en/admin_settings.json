@@ -47,6 +47,8 @@
 	"rate-limits": "Rate Limits",
 	"reserved-user-names": "Reserved User Names",
 	"reserved-user-names-description": "A list of blocked user names that users cannot register with (e.g., because they are reserved for administration purposes)",
+	"reset-translation": "Reset Translation",
+	"reset-translation-confirm": "Do you want to reset this translation to the original value?",
 	"roles": "Roles",
 	"russian": "Russian",
 	"search-text-to-overwrite": "Search for text to overwrite...",
