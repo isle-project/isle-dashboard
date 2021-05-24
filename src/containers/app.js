@@ -27,7 +27,7 @@ import asyncComponent from 'components/async';
 import server from 'constants/server';
 import { fetchCredentialsInjector } from 'actions/authentication.js';
 import { getEnrollableCohortsInjector } from 'actions/cohort.js';
-import { getPublicSettingsInjector } from 'actions/settings.js';
+import { getPublicSettingsInjector, getCustomTranslationsInjector } from 'actions/settings.js';
 import NotificationSystem from './notification.js';
 import './app.css';
 
@@ -82,6 +82,7 @@ const debug = logger( 'isle-dashboard' );
 class App extends Component {
 	async componentDidMount() {
 		const history = this.props.history;
+		this.props.getCustomTranslations();
 		this.props.getPublicSettings();
 		if (
 			!this.props.isLoggedIn &&
@@ -238,6 +239,7 @@ class App extends Component {
 
 App.propTypes = {
 	fetchCredentials: PropTypes.func.isRequired,
+	getCustomTranslations: PropTypes.func.isRequired,
 	getEnrollableCohorts: PropTypes.func.isRequired,
 	getPublicSettings: PropTypes.func.isRequired,
 	history: PropTypes.object.isRequired,
@@ -262,6 +264,7 @@ function mapStateToProps( state ) {
 function mapDispatchToProps( dispatch ) {
 	return {
 		fetchCredentials: fetchCredentialsInjector( dispatch ),
+		getCustomTranslations: getCustomTranslationsInjector( dispatch ),
 		getPublicSettings: getPublicSettingsInjector( dispatch ),
 		getEnrollableCohorts: getEnrollableCohortsInjector( dispatch )
 	};

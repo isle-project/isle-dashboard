@@ -17,32 +17,25 @@
 
 // MODULES //
 
-import { combineReducers } from 'redux';
-import { connectRouter } from 'connected-react-router';
-import admin from './admin';
-import badges from './badges';
-import cohorts from './cohorts';
-import namespace from './namespace';
-import notification from './notification';
-import translations from './translations';
-import settings from './settings';
-import gallery from './gallery';
-import search from './search';
-import user from './user';
+import * as types from 'constants/action_types.js';
+
+
+// VARIABLES //
+
+const initialState = {};
 
 
 // EXPORTS //
 
-export default ( history ) => combineReducers({
-	admin,
-	badges,
-	cohorts,
-	gallery,
-	namespace,
-	notification,
-	router: connectRouter( history ),
-	search,
-	settings,
-	translations,
-	user
-});
+export default function translations( state = initialState, action ) {
+	switch ( action.type ) {
+		case types.GET_CUSTOM_TRANSLATIONS: {
+			return Object.assign( {}, state, action.payload );
+		}
+		case types.UPDATED_TRANSLATIONS: {
+			return Object.assign( {}, state, action.payload.translations );
+		}
+	default:
+		return state;
+	}
+}

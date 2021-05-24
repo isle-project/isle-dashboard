@@ -22,7 +22,7 @@ import axios from 'axios';
 import server from 'constants/server';
 import i18next from 'i18next';
 import { addNotification, addErrorNotification } from 'actions/notification';
-import { UPDATED_SETTINGS, UPDATED_TRANSLATIONS, GET_SETTINGS_PUBLIC, GET_SETTINGS } from 'constants/action_types.js';
+import { UPDATED_SETTINGS, UPDATED_TRANSLATIONS, GET_CUSTOM_TRANSLATIONS, GET_SETTINGS_PUBLIC, GET_SETTINGS } from 'constants/action_types.js';
 
 
 // EXPORTS //
@@ -113,5 +113,23 @@ export const addCustomTranslationInjector = dispatch => {
 	return async ({ language, ns, key, value }) => {
 		const res = await addCustomTranslation( dispatch, { language, ns, key, value });
 		return res;
+	};
+};
+
+export const getCustomTranslations = async ( dispatch ) => {
+	try {
+		const res = await axios.get( server+'/get_translations' );
+		dispatch({
+			type: GET_CUSTOM_TRANSLATIONS,
+			payload: res.data
+		});
+	} catch ( err ) {
+		return addErrorNotification( dispatch, err );
+	}
+};
+
+export const getCustomTranslationsInjector = dispatch => {
+	return async () => {
+		await getCustomTranslations( dispatch );
 	};
 };

@@ -21,6 +21,7 @@ import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 import LanguageDetector from 'i18next-browser-languagedetector';
 import Backend from 'i18next-http-backend/cjs';
+import { store } from './../index.js';
 
 
 // MAIN //
@@ -42,6 +43,19 @@ i18n.use( Backend )
 			escapeValue: false // Not needed for React!
 		}
 	});
+
+
+i18n.store.on( 'added', function onLoaded( lng, ns ) {
+	const state = store.getState();
+	const translations = state.translations;
+	const custom = translations[ lng ][ ns ];
+	if ( custom ) {
+		const keys = Object.keys( custom );
+		for ( let i = 0; i < keys.length; i++ ) {
+			i18n.store.data[ lng ][ ns ][ keys[ i ] ] = custom[ keys[ i ] ];
+		}
+	}
+});
 
 
 // EXPORTS //
