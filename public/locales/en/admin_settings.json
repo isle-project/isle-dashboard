@@ -64,6 +64,7 @@
 	"show-allowed": "Show Allowed",
 	"show-disallowed": "Show Disallowed",
 	"show-inactive": "Show Inactive",
+	"show-only-overwritten-texts": "Show only overwritten texts",
 	"site-description": "Site Description",
 	"site-description-description": "This is the description of the dashboard that appears as site meta-information",
 	"default-language": "Default Language",
