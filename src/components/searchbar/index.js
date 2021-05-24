@@ -38,6 +38,7 @@ const SearchBar = ( props ) => {
 					value={props.value}
 					onChange={props.onChange}
 					aria-label={props.t('search-field')}
+					style={{ height: '38px' }}
 				/>
 					<InputGroup.Append>
 						<Button aria-label={props.t('search-field-icon')} disabled variant="secondary" style={{ cursor: 'auto' }}>
