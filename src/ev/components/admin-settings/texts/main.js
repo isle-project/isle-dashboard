@@ -83,6 +83,8 @@ const EditableItem = ({ elem, language, addCustomTranslation }) => {
 	const handleSaving = useCallback( async () => {
 		const res = await addCustomTranslation({ language, ns: elem.ns, key: elem.key, value });
 		if ( res instanceof Error === false ) {
+			i18next.store.data[ language ][ elem.ns ][ elem.key ] = value;
+			i18next.changeLanguage( i18next.language );
 			setEditing( false );
 		}
 	}, [ addCustomTranslation, elem, language, value ] );
@@ -92,7 +94,9 @@ const EditableItem = ({ elem, language, addCustomTranslation }) => {
 				<b>{elem.key}</b>
 				<br />
 				<FormControl
-					type="text" value={value}
+					key={`${language}-${elem.key}`}
+					type="text"
+					value={value}
 					style={{ width: '80%' }}
 					onChange={( event ) => {
 						setValue( event.target.value );
@@ -131,26 +135,49 @@ const EditableItem = ({ elem, language, addCustomTranslation }) => {
 // MAIN //
 
 const AdminSettingsTexts = ( props ) => {
-	const { addCustomTranslation, t } = props;
+	const { addCustomTranslation, translations, t } = props;
 	const [ language, setLanguage ] = useState( i18next.language );
-	const [ searchValue, setSearchValue ] = useState( 'user' );
+	const [ searchValue, setSearchValue ] = useState( '' );
 	const [ onlyOverwritten, setOnlyOverwritten ] = useState( false );
 	const data = i18next.store.data[ language ];
 	const items = [];
-	for ( let i = 0; i < NAMESPACES.length; i++ ) {
-		const ns = NAMESPACES[ i ];
-		const keys = objectKeys( data[ ns ] );
-		for ( let j = 0; j < keys.length; j++ ) {
-			const key = keys[ j ];
-			const text = data[ ns ][ key ];
-			if ( contains( uppercase( text ), searchValue ) ) {
-				items.push({ ns, key, text });
+	const customTranslations = translations[ language ] || {};
+	if ( onlyOverwritten ) {
+		for ( let i = 0; i < NAMESPACES.length; i++ ) {
+			const ns = NAMESPACES[ i ];
+			const customNS = customTranslations[ ns ];
+			const keys = objectKeys( data[ ns ] );
+			for ( let j = 0; j < keys.length; j++ ) {
+				const key = keys[ j ];
+				const text = data[ ns ][ key ];
+				if ( !customNS || !customNS[ key ] ) {
+					continue;
+				}
+				if ( !searchValue || contains( uppercase( text ), searchValue ) ) {
+					items.push({ ns, key, text });
+				}
+				if ( items.length >= 25 ) {
+					break;
+				}
 			}
-			if ( items.length >= 25 ) {
-				break;
+		}
+	} else {
+		for ( let i = 0; i < NAMESPACES.length; i++ ) {
+			const ns = NAMESPACES[ i ];
+			const keys = objectKeys( data[ ns ] );
+			for ( let j = 0; j < keys.length; j++ ) {
+				const key = keys[ j ];
+				const text = data[ ns ][ key ];
+				if ( contains( uppercase( text ), searchValue ) ) {
+					items.push({ ns, key, text });
+				}
+				if ( items.length >= 25 ) {
+					break;
+				}
 			}
 		}
 	}
+	console.log( translations );
 	return (
 		<Fragment>
 			<div className="admin-settings-outer-container" >
@@ -210,7 +237,8 @@ const AdminSettingsTexts = ( props ) => {
 								{items.map( ( x, idx ) => {
 									return (
 										<EditableItem
-											elem={x} key={idx}
+											elem={x}
+											key={`${language}-${x.key}-${idx}`}
 											addCustomTranslation={addCustomTranslation}
 											language={language}
 										/>
@@ -237,7 +265,8 @@ const AdminSettingsTexts = ( props ) => {
 // PROPERTIES //
 
 AdminSettingsTexts.propTypes = {
-	addCustomTranslation: PropTypes.func.isRequired
+	addCustomTranslation: PropTypes.func.isRequired,
+	translations: PropTypes.object.isRequired
 };
 
 AdminSettingsTexts.defaultProps = {

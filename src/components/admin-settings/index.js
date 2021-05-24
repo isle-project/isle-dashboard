@@ -139,6 +139,7 @@ class Settings extends Component {
 				return (
 					<Texts
 						addCustomTranslation={this.props.addCustomTranslation}
+						translations={this.props.translations}
 					/>
 				);
 			case 4:
@@ -243,6 +244,7 @@ Settings.propTypes = {
 	match: PropTypes.object.isRequired,
 	removeLicense: PropTypes.func.isRequired,
 	t: PropTypes.func.isRequired,
+	translations: PropTypes.object.isRequired,
 	updateRole: PropTypes.func.isRequired,
 	updateSettings: PropTypes.func.isRequired,
 	uploadLicense: PropTypes.func.isRequired,

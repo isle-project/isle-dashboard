@@ -35,7 +35,8 @@ import { createRoleInjector, deleteRoleInjector, getAllRolesInjector, updateRole
 function mapStateToProps( state ) {
 	return {
 		admin: state.admin,
-		user: state.user
+		user: state.user,
+		translations: state.translations
 	};
 }
 
