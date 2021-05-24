@@ -195,7 +195,7 @@ class Settings extends Component {
 							<Nav.Link eventKey="2" title="Branding" >{t('branding')}</Nav.Link>
 						</Nav.Item>
 						<Nav.Item>
-							<Nav.Link eventKey="3" title="Texts" >{t('texts')}</Nav.Link>
+							<Nav.Link eventKey="3" title="Texts" >{t('common:texts')}</Nav.Link>
 						</Nav.Item>
 						<Nav.Item>
 							<Nav.Link eventKey="4" title="Roles" >{t('roles')}</Nav.Link>
