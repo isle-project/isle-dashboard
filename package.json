@@ -1,6 +1,6 @@
 {
   "name": "isle-dashboard",
-  "version": "0.27.5",
+  "version": "0.28.0",
   "private": true,
   "description": "ISLE (Integrated Statistics Learning Environment) Instructor and Student Dashboard.",
   "bugs": {
