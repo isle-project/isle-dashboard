@@ -28,6 +28,7 @@ const Backups = asyncComponent( () => import( './backups.js' ) );
 const Roles = asyncComponent( () => import( './roles.js' ) );
 import UserFields from 'ev/components/admin-settings/user-fields';
 import Branding from 'ev/components/admin-settings/branding';
+import Texts from 'ev/components/admin-settings/texts';
 import './admin_settings.css';
 
 
@@ -50,17 +51,20 @@ class Settings extends Component {
 			case 'branding':
 				activePage = 2;
 				break;
-			case 'credentials':
+			case 'texts':
 				activePage = 3;
 				break;
-			case 'badges':
+			case 'credentials':
 				activePage = 4;
 				break;
-			case 'user-fields':
+			case 'badges':
 				activePage = 5;
 				break;
-			case 'backups':
+			case 'user-fields':
 				activePage = 6;
+				break;
+			case 'backups':
+				activePage = 7;
 				break;
 		}
 		this.state = {
@@ -82,15 +86,18 @@ class Settings extends Component {
 				history.replace( '/admin/settings/branding' );
 				break;
 			case 3:
-				history.replace( '/admin/settings/credentials' );
+				history.replace( '/admin/settings/texts' );
 				break;
 			case 4:
-				history.replace( '/admin/settings/badges' );
+				history.replace( '/admin/settings/credentials' );
 				break;
 			case 5:
-				history.replace( '/admin/settings/user-fields' );
+				history.replace( '/admin/settings/badges' );
 				break;
 			case 6:
+				history.replace( '/admin/settings/user-fields' );
+				break;
+			case 7:
 				history.replace( '/admin/settings/backups' );
 				break;
 		}
@@ -130,6 +137,10 @@ class Settings extends Component {
 				);
 			case 3:
 				return (
+					<Texts />
+				);
+			case 4:
+				return (
 					<Roles
 						admin={this.props.admin}
 						createRole={this.props.createRole}
@@ -138,11 +149,11 @@ class Settings extends Component {
 						updateRole={this.props.updateRole}
 					/>
 				);
-			case 4:
+			case 5:
 				return (
 					<div>BADGES</div>
 				);
-			case 5:
+			case 6:
 				return (
 					<UserFields
 						admin={this.props.admin}
@@ -154,7 +165,7 @@ class Settings extends Component {
 						decrementFieldPosition={this.props.decrementFieldPosition}
 					/>
 				);
-			case 6:
+			case 7:
 				return (
 					<Backups
 						admin={this.props.admin}
@@ -184,16 +195,19 @@ class Settings extends Component {
 							<Nav.Link eventKey="2" title="Branding" >{t('branding')}</Nav.Link>
 						</Nav.Item>
 						<Nav.Item>
-							<Nav.Link eventKey="3" title="Roles" >{t('roles')}</Nav.Link>
+							<Nav.Link eventKey="3" title="Texts" >{t('texts')}</Nav.Link>
 						</Nav.Item>
 						<Nav.Item>
-							<Nav.Link disabled eventKey="4" title="Badges" >{t('common:badges')}</Nav.Link>
+							<Nav.Link eventKey="4" title="Roles" >{t('roles')}</Nav.Link>
 						</Nav.Item>
 						<Nav.Item>
-							<Nav.Link eventKey="5" title="User Fields" >{t('user-fields')}</Nav.Link>
+							<Nav.Link disabled eventKey="5" title="Badges" >{t('common:badges')}</Nav.Link>
 						</Nav.Item>
 						<Nav.Item>
-							<Nav.Link eventKey="6" title="Backups" >{t('backups')}</Nav.Link>
+							<Nav.Link eventKey="6" title="User Fields" >{t('user-fields')}</Nav.Link>
+						</Nav.Item>
+						<Nav.Item>
+							<Nav.Link eventKey="7" title="Backups" >{t('backups')}</Nav.Link>
 						</Nav.Item>
 					</Nav>
 				</div>
