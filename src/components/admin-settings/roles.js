@@ -333,6 +333,65 @@ const PermissionList = ({ permissions, status, t }) => {
 	);
 };
 
+const RoleItemList = ({ roles, t }) => {
+	const out = [];
+	for ( let i = 0; i < roles.length; i++ ) {
+		const role = roles[ i ];
+		const li = ( <tr key={i}>
+			<td><b>{role.title}</b></td>
+			<td>{role.createdBy}</td>
+			<td>
+				<OverlayTrigger
+					placement="left"
+					delay={{ show: 250, hide: 400 }}
+					overlay={<Popover id={`popover-allowed-${i}`} >
+						<Popover.Title as="h3">{t('allowed-permissions')}</Popover.Title>
+						<Popover.Content style={{ maxHeight: '40vh', overflowY: 'auto' }} >
+							<PermissionList status="allowed" permissions={role.permissions} t={t} />
+						</Popover.Content>
+						</Popover>}
+					trigger="click"
+				>
+					<Button variant="success" style={{ marginRight: 8 }} >
+						<i className="fas fa-check-circle"></i>
+					</Button>
+				</OverlayTrigger>
+				<OverlayTrigger
+					placement="right"
+					delay={{ show: 250, hide: 400 }}
+					overlay={<Popover id={`popover-disallowed-${i}`} >
+						<Popover.Title as="h3">{t('disallowed-permissions')}</Popover.Title>
+						<Popover.Content style={{ maxHeight: '40vh', overflowY: 'auto' }} >
+							<PermissionList status="disallowed" permissions={role.permissions} t={t} />
+						</Popover.Content>
+						</Popover>}
+					trigger="click"
+				>
+					<Button variant="danger" >
+						<i className="far fa-times-circle"></i>
+					</Button>
+				</OverlayTrigger>
+			</td>
+			<td>{role.searchContext}</td>
+			<td>{role.authorizedRoles.map( x => x.title ).join( ', ' )}</td>
+			<td>
+				<Button
+					size="sm" onClick={this.toggleEditModalFactory( role )} style={{ marginRight: 6 }}
+				>
+					<i className="fas fa-edit" ></i>
+				</Button>
+				<Button
+					variant="danger" size="sm" onClick={this.askToDeleteSelectedRoleFactory( role )}
+				>
+					<i className="fas fa-trash" ></i>
+				</Button>
+			</td>
+		</tr> );
+		out.push( li );
+	}
+	return out;
+};
+
 
 // MAIN //
 
@@ -390,69 +449,8 @@ class RolesPage extends Component {
 		});
 	}
 
-	renderRoleItems() {
-		const out = [];
-		const { admin, t } = this.props;
-		const roles = admin.roles || [];
-		for ( let i = 0; i < roles.length; i++ ) {
-			const role = roles[ i ];
-			const li = ( <tr key={i}>
-				<td><b>{role.title}</b></td>
-				<td>{role.createdBy}</td>
-				<td>
-					<OverlayTrigger
-						placement="left"
-						delay={{ show: 250, hide: 400 }}
-						overlay={<Popover id={`popover-allowed-${i}`} >
-							<Popover.Title as="h3">{t('allowed-permissions')}</Popover.Title>
-							<Popover.Content style={{ maxHeight: '40vh', overflowY: 'auto' }} >
-								<PermissionList status="allowed" permissions={role.permissions} t={t} />
-							</Popover.Content>
-					 	 </Popover>}
-						trigger="click"
-					>
-						<Button variant="success" style={{ marginRight: 8 }} >
-							<i className="fas fa-check-circle"></i>
-						</Button>
-					</OverlayTrigger>
-					<OverlayTrigger
-						placement="right"
-						delay={{ show: 250, hide: 400 }}
-						overlay={<Popover id={`popover-disallowed-${i}`} >
-							<Popover.Title as="h3">{t('disallowed-permissions')}</Popover.Title>
-							<Popover.Content style={{ maxHeight: '40vh', overflowY: 'auto' }} >
-								<PermissionList status="disallowed" permissions={role.permissions} t={t} />
-							</Popover.Content>
-					 	 </Popover>}
-						trigger="click"
-					>
-						<Button variant="danger" >
-							<i className="far fa-times-circle"></i>
-						</Button>
-					</OverlayTrigger>
-				</td>
-				<td>{role.searchContext}</td>
-				<td>{role.authorizedRoles.map( x => x.title ).join( ', ' )}</td>
-				<td>
-					<Button
-						size="sm" onClick={this.toggleEditModalFactory( role )} style={{ marginRight: 6 }}
-					>
-						<i className="fas fa-edit" ></i>
-					</Button>
-					<Button
-						variant="danger" size="sm" onClick={this.askToDeleteSelectedRoleFactory( role )}
-					>
-						<i className="fas fa-trash" ></i>
-					</Button>
-				</td>
-			</tr> );
-			out.push( li );
-		}
-		return out;
-	}
-
 	render() {
-		const { t } = this.props;
+		const { admin, t } = this.props;
 		return (
 			<Fragment>
 				<div className="admin-settings-outer-container" >
@@ -469,7 +467,10 @@ class RolesPage extends Component {
 							</tr>
 						</thead>
 						<tbody>
-							{this.renderRoleItems()}
+							<RoleItemList
+								roles={admin.roles || []}
+								t={t}
+							/>
 						</tbody>
 					</Table>
 
