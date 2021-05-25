@@ -1,1 +1,22 @@
-{}
+{
+	"admin": "Admin",
+	"admin-panel": "Järjestelmänvalvojan paneeli",
+	"course-data": "Kurssitiedot",
+	"create-course": "Luo uusi kurssi",
+	"edit-course": "Muokkaa kurssia",
+	"enroll": "Ilmoittaudu",
+	"enrolled-courses": "Ilmoittautuneet kurssit",
+	"gallery": "Galleria",
+	"goto-course-lessons": "Siirry kurssin oppitunteihin",
+	"help": "Apua",
+	"open-admin": "Avaa hallintapaneeli",
+	"open-gallery": "Avaa galleria",
+	"open-your-courses": "Avaa kurssit",
+	"owned-courses": "Omistetut kurssit",
+	"search-field": "Hakukenttä",
+	"search-field-icon": "Haku-kuvake",
+	"search-placeholder": "Suodata oppitunteja etsimällä",
+	"select-course": "Valitse kurssi",
+	"sort-default-owner-explanation": "Valitse oppitunti ja siirrä se vasen/oikea -nuolinäppäimillä oletuslajittelun osoittamaan paikkaan.",
+	"sort-default-student-explanation": "Kurssin opettajien määrittelemä oppituntien oletusjärjestys."
+}

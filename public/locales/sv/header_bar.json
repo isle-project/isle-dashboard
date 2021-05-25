@@ -1,1 +1,22 @@
-{}
+{
+	"admin": "Admin",
+	"admin-panel": "Administratörspanel",
+	"course-data": "Kursuppgifter",
+	"create-course": "Skapa en ny kurs",
+	"edit-course": "Redigera kursen",
+	"enroll": "Registrera dig på",
+	"enrolled-courses": "Inskrivna kurser",
+	"gallery": "Galleri",
+	"goto-course-lessons": "Gå till kurslektioner",
+	"help": "Hjälp",
+	"open-admin": "Öppna administrationspanelen",
+	"open-gallery": "Öppna galleriet",
+	"open-your-courses": "Öppna dina kurser",
+	"owned-courses": "Egna kurser",
+	"search-field": "Sökfält",
+	"search-field-icon": "Sök ikon",
+	"search-placeholder": "Filtrera lektioner genom att söka",
+	"select-course": "Välj kurs",
+	"sort-default-owner-explanation": "Välj en lektion och använd vänster/höger-piltangenterna för att flytta den till den avsedda platsen i standardsorteringen.",
+	"sort-default-student-explanation": "Standardordning av lektionerna enligt kurslärarnas anvisningar."
+}

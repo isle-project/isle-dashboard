@@ -1,1 +1,22 @@
-{}
+{
+	"admin": "Admin",
+	"admin-panel": "Administraatori paneel",
+	"course-data": "Kursuse andmed",
+	"create-course": "Uue kursuse loomine",
+	"edit-course": "Muuda muidugi",
+	"enroll": "Registreeri",
+	"enrolled-courses": "Registreeritud kursused",
+	"gallery": "Galerii",
+	"goto-course-lessons": "Mine kursuse õppetundide juurde",
+	"help": "Abi",
+	"open-admin": "Avage halduspaneel",
+	"open-gallery": "Avatud galerii",
+	"open-your-courses": "Avage oma kursused",
+	"owned-courses": "Omandis olevad kursused",
+	"search-field": "Otsinguväli",
+	"search-field-icon": "Otsingu ikoon",
+	"search-placeholder": "Filtreeri õppetunde otsingu järgi",
+	"select-course": "Valige kursus",
+	"sort-default-owner-explanation": "Valige õppetund ja kasutage vasakule/paremale suunatud nooleklahve, et liigutada see vaikimisi sorteerimisel määratud kohta.",
+	"sort-default-student-explanation": "Kursuse juhendajate poolt määratud tundide vaikimisi järjestus"
+}

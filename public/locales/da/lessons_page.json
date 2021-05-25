@@ -1,1 +1,9 @@
-{}
+{
+	"create-from-template": "Opret fra skabelon",
+	"create-new-one": " eller oprette en ny under ",
+	"no-course-description": "Åbn et eksisterende kursus ved at vælge et fra dropdown-menuen ovenfor på ",
+	"no-lessons": "Det valgte kursus indeholder ikke nogen lektioner.",
+	"no-lessons-found": "Ingen lektioner fundet",
+	"no-templates-created-yet": "Der er endnu ikke oprettet nogen skabeloner.",
+	"upload-from-editor": "Du kan uploade lektioner fra ISLE-editoren."
+}

@@ -1,1 +1,22 @@
-{}
+{
+	"admin": "Admin",
+	"admin-panel": "Panoul administratorului",
+	"course-data": "Date despre curs",
+	"create-course": "Creați un curs nou",
+	"edit-course": "Editare curs",
+	"enroll": "Înscrieți-vă la",
+	"enrolled-courses": "Cursuri înscrise",
+	"gallery": "Galerie",
+	"goto-course-lessons": "Mergeți la lecțiile cursului",
+	"help": "Ajutor",
+	"open-admin": "Deschideți panoul de administrare",
+	"open-gallery": "Deschideți galeria",
+	"open-your-courses": "Deschideți-vă cursurile",
+	"owned-courses": "Cursuri proprii",
+	"search-field": "Câmpul de căutare",
+	"search-field-icon": "Pictograma de căutare",
+	"search-placeholder": "Filtrați lecțiile prin căutare",
+	"select-course": "Selectați cursul",
+	"sort-default-owner-explanation": "Selectați o lecție și utilizați tastele săgeată stânga/dreapta pentru a o muta în locația desemnată în sortarea implicită.",
+	"sort-default-student-explanation": "Ordinea implicită a lecțiilor, așa cum a fost specificată de instructorii cursului"
+}
