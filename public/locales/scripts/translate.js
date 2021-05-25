@@ -37,6 +37,7 @@ const deepl = {
 	'server': 'https://api.deepl.com/v2/translate',
 	'auth_key': ENV.DEEPL_KEY
 };
+const MAX_TRANSLATION_CALLS = 5;
 const TOPLEVEL_DIR = path.resolve( __dirname, '..', '..', '..' );
 const RE_HANDLEBAR_EXPRESSION = /\{\{([^}]+)\}\}/g;
 const RE_XML_GROUPS = /<x>([^<]+)<\/x>/g;
@@ -75,15 +76,17 @@ glob( 'public/locales/en/*.json', options, function onFiles( err, files ) {
 					textToTranslate = replace( textToTranslate, RE_HANDLEBAR_EXPRESSION, '<x>$1</x>' );
 
 					console.log( 'Translate `'+textToTranslate+'` to '+lng ); // eslint-disable-line no-console
-					promiseKeys.push( key );
-					promises.push( axios.post( deepl.server, qs.stringify({
-						auth_key: deepl.auth_key,
-						source_lang: 'EN',
-						text: textToTranslate,
-						tag_handling: 'xml',
-						ignore_tags: 'x',
-						target_lang: lng === 'pt' ? 'PT-BR' : lng.toUpperCase()
-					}) ) );
+					if ( promises.length < MAX_TRANSLATION_CALLS ) {
+						promiseKeys.push( key );
+						promises.push( axios.post( deepl.server, qs.stringify({
+							auth_key: deepl.auth_key,
+							source_lang: 'EN',
+							text: textToTranslate,
+							tag_handling: 'xml',
+							ignore_tags: 'x',
+							target_lang: lng === 'pt' ? 'PT-BR' : lng.toUpperCase()
+						}) ) );
+					}
 				}
 			}
 			Promise.all( promises )
