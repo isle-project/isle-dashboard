@@ -339,7 +339,7 @@ const RoleItemList = ({ roles, askToDeleteSelectedRoleFactory, toggleEditModalFa
 		const role = roles[ i ];
 		const li = ( <tr key={i}>
 			<td><b>{role.title}</b></td>
-			<td>{role.createdBy}</td>
+			<td>{role.createdBy ? `${role.createdBy.name} (${role.createdBy.email})` : ''}</td>
 			<td>
 				<OverlayTrigger
 					placement="left"
