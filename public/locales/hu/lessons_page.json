@@ -1,0 +1,9 @@
+{
+	"create-from-template": "Létrehozás sablonból",
+	"create-new-one": " vagy hozzon létre egy újat a ",
+	"no-course-description": "Nyisson meg egy meglévő tanfolyamot, kiválasztva egyet a fenti legördülő menüből az alábbi menüpontban ",
+	"no-lessons": "A kiválasztott kurzus nem tartalmaz leckéket.",
+	"no-lessons-found": "Nem találtak leckéket",
+	"no-templates-created-yet": "Még nem hoztak létre sablonokat.",
+	"upload-from-editor": "A leckéket az ISLE-szerkesztőből töltheti fel."
+}

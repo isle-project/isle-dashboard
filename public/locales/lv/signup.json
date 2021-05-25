@@ -1,0 +1,18 @@
+{
+	"choose-password": "Izvēlieties paroli",
+	"close": "Aizvērt",
+	"confirm-password": "Paroles apstiprināšana",
+	"create-user": "Lietotāja izveide",
+	"email-tooltip": "Lūdzu, ievadiet derīgu e-pasta adresi.",
+	"go-to-login-page": "Iet uz pieteikšanās lapu",
+	"invalid-email": "Nav derīga e-pasta adrese.",
+	"invalid-name": "Vārdā jābūt četrām rakstzīmēm.",
+	"invalid-password": "Jūsu parolei jāsatur vismaz sešas rakstzīmes.",
+	"invalid-password-match": "Paroles nesakrīt.",
+	"login": "Piesakieties",
+	"name-tooltip": "Lūdzu, ievadiet savu uzvārdu un vārdu.",
+	"password": "Parole",
+	"password-tooltip": "Lūdzu, ievadiet paroli pēc savas izvēles, kurā ir vismaz sešas rakstzīmes.",
+	"signup-not-valid": "Pirms nosūtīšanas pārliecinieties, vai visas ievadītās vērtības ir derīgas.",
+	"tos-disclaimer": "Noklikšķinot uz pogas \"Reģistrēties\", jūs piekrītat mūsu <1>pakalpojumu sniegšanas noteikumiem</1>. Uzziniet vairāk par to, kā tiek apstrādāti jūsu dati, mūsu <3>konfidencialitātes politikā</3>."
+}

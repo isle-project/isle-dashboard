@@ -1,0 +1,22 @@
+{
+	"admin": "Administrátor",
+	"admin-panel": "Panel správcu",
+	"course-data": "Údaje o kurze",
+	"create-course": "Vytvorenie nového kurzu",
+	"edit-course": "Úprava kurzu",
+	"enroll": "Zapísať sa na",
+	"enrolled-courses": "Zapísané kurzy",
+	"gallery": "Galéria",
+	"goto-course-lessons": "Prejsť na lekcie kurzu",
+	"help": "Pomoc",
+	"open-admin": "Otvorte panel správcu",
+	"open-gallery": "Otvorená galéria",
+	"open-your-courses": "Otvorte svoje kurzy",
+	"owned-courses": "Vlastné kurzy",
+	"search-field": "Vyhľadávacie pole",
+	"search-field-icon": "Ikona vyhľadávania",
+	"search-placeholder": "Filtrovanie lekcií podľa vyhľadávania",
+	"select-course": "Vyberte si kurz",
+	"sort-default-owner-explanation": "Vyberte lekciu a pomocou klávesov so šípkou vľavo/vpravo ju presuňte na určené miesto v predvolenom triedení.",
+	"sort-default-student-explanation": "Predvolené poradie lekcií podľa pokynov inštruktorov kurzu"
+}

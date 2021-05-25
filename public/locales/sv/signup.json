@@ -1,0 +1,18 @@
+{
+	"choose-password": "Välj lösenord",
+	"close": "Stäng",
+	"confirm-password": "Bekräfta lösenordet",
+	"create-user": "Skapande av användare",
+	"email-tooltip": "Ange en giltig e-postadress.",
+	"go-to-login-page": "Gå till inloggningssidan",
+	"invalid-email": "Inte en giltig e-postadress.",
+	"invalid-name": "Namnet måste innehålla fyra tecken.",
+	"invalid-password": "Lösenordet måste innehålla minst sex tecken.",
+	"invalid-password-match": "Lösenorden stämmer inte överens.",
+	"login": "Logga in",
+	"name-tooltip": "Ange ditt efternamn och förnamn.",
+	"password": "Lösenord",
+	"password-tooltip": "Ange ett lösenord med minst sex tecken som du själv väljer.",
+	"signup-not-valid": "Kontrollera att alla inmatade värden är giltiga innan du skickar in dem.",
+	"tos-disclaimer": "Genom att klicka på knappen \"Registrera dig\" godkänner du våra <1>användarvillkor</1>. Läs mer om hur dina uppgifter behandlas i vår <3>sekretesspolicy</3>."
+}

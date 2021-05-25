@@ -1,0 +1,9 @@
+{
+	"import": "Tuo",
+	"import-lesson": "Tuo oppitunti ",
+	"import-lesson-description": "Valitse kurssi, johon oppitunti kopioidaan.",
+	"lesson-name": "Oppitunnin nimi",
+	"no-lessons-description": "Galleriaan ei ole vielä lisätty oppitunteja tai ne eivät täytä hakuehtojasi.",
+	"no-lessons-title": "Oppitunteja ei löytynyt",
+	"select-course": "Valitse kurssi"
+}

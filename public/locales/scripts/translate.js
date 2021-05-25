@@ -73,6 +73,7 @@ glob( 'public/locales/en/*.json', options, function onFiles( err, files ) {
 				if ( !targetJSON[ key ] ) {
 					let textToTranslate = reference[ key ];
 					textToTranslate = replace( textToTranslate, RE_HANDLEBAR_EXPRESSION, '<x>$1</x>' );
+
 					console.log( 'Translate `'+textToTranslate+'` to '+lng ); // eslint-disable-line no-console
 					promiseKeys.push( key );
 					promises.push( axios.post( deepl.server, qs.stringify({

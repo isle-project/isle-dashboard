@@ -1,0 +1,9 @@
+{
+	"import": "Importēt",
+	"import-lesson": "Importa nodarbība ",
+	"import-lesson-description": "Lūdzu, izvēlieties kursu, kurā jākopē mācību stunda.",
+	"lesson-name": "Nodarbības nosaukums",
+	"no-lessons-description": "Galerijā vēl nav pieejamas nodarbības, kas atbilst jūsu meklēšanas kritērijiem.",
+	"no-lessons-title": "Nav atrastu mācību stundu",
+	"select-course": "Izvēlieties kursu"
+}
