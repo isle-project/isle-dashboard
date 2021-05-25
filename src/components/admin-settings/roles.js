@@ -333,7 +333,7 @@ const PermissionList = ({ permissions, status, t }) => {
 	);
 };
 
-const RoleItemList = ({ roles, t }) => {
+const RoleItemList = ({ roles, askToDeleteSelectedRoleFactory, toggleEditModalFactory, t }) => {
 	const out = [];
 	for ( let i = 0; i < roles.length; i++ ) {
 		const role = roles[ i ];
@@ -376,12 +376,12 @@ const RoleItemList = ({ roles, t }) => {
 			<td>{role.authorizedRoles.map( x => x.title ).join( ', ' )}</td>
 			<td>
 				<Button
-					size="sm" onClick={this.toggleEditModalFactory( role )} style={{ marginRight: 6 }}
+					size="sm" onClick={toggleEditModalFactory( role )} style={{ marginRight: 6 }}
 				>
 					<i className="fas fa-edit" ></i>
 				</Button>
 				<Button
-					variant="danger" size="sm" onClick={this.askToDeleteSelectedRoleFactory( role )}
+					variant="danger" size="sm" onClick={askToDeleteSelectedRoleFactory( role )}
 				>
 					<i className="fas fa-trash" ></i>
 				</Button>
@@ -469,6 +469,8 @@ class RolesPage extends Component {
 						<tbody>
 							<RoleItemList
 								roles={admin.roles || []}
+								toggleEditModalFactory={this.toggleEditModalFactory}
+								askToDeleteSelectedRoleFactory={this.askToDeleteSelectedRoleFactory}
 								t={t}
 							/>
 						</tbody>
