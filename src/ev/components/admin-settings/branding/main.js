@@ -149,6 +149,9 @@ class AdminSettingsBranding extends Component {
 											t={t} user={user} uploadLogo={uploadLogo}
 										/>
 									}
+									<p>
+										{t('logo-description')}
+									</p>
 								</Col>
 							</Row>
 							<hr />
@@ -169,6 +172,9 @@ class AdminSettingsBranding extends Component {
 											t={t} user={user} uploadLogo={uploadLogo}
 										/>
 									}
+									<p>
+										A small version of the logo to be displayed in the header bar of the ISLE dashboard.
+									</p>
 								</Col>
 							</Row>
 						</Container>
