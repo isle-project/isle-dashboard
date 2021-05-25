@@ -478,7 +478,7 @@ class RolesPage extends Component {
 						{t('create-role')}
 					</Button>
 				</div>
-				<RoleModal
+				{ this.state.modal !== null ? <RoleModal
 					key={this.state.selectedRole ? this.state.selectedRole.title : 'new-role'}
 					onHide={this.toggleCreateModal}
 					modal={this.state.modal} t={t}
@@ -486,7 +486,7 @@ class RolesPage extends Component {
 					updateRole={this.props.updateRole}
 					roles={this.props.admin.roles}
 					selectedRole={this.state.selectedRole}
-				/>
+				/> : null }
 				{ this.state.showDeleteModal ? <ConfirmModal
 					title={`${t('common:delete-role')}?`}
 					message={<div>
