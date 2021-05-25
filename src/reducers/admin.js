@@ -321,6 +321,18 @@ export default function admin( state = initialState, action ) {
 			roles
 		});
 	}
+	case types.UPDATED_ROLE: {
+		const { role } = action.payload;
+		const roles = state.roles.map( x => {
+			if ( role._id === x._id ) {
+				return role;
+			}
+			return x;
+		});
+		return Object.assign({}, state, {
+			roles
+		});
+	}
 	default:
 		return state;
 	}
