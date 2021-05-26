@@ -9,7 +9,6 @@
 
 #### Dependencies
 
-[![Dependabot][dependabot-image]][dependabot-url]
 [![Dependencies][dependencies-image]][dependencies-url] 
 [![DevDependencies][dev-dependencies-image]][dev-dependencies-url]
 
@@ -93,9 +92,6 @@ See [LICENSE][license-url].
 
 [doi-image]: https://zenodo.org/badge/71033733.svg
 [doi-url]: https://zenodo.org/badge/latestdoi/71033733
-
-[dependabot-image]: https://badgen.net/dependabot/isle-project/isle-dashboard?icon=dependabot
-[dependabot-url]: https://dependabot.com/
 
 [dependencies-image]: https://img.shields.io/david/isle-project/isle-dashboard.svg
 [dependencies-url]: https://david-dm.org/isle-project/isle-dashboard/master
