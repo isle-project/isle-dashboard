@@ -38,6 +38,7 @@ i18n.use( Backend )
 		backend: {
 			backends: [
 				HttpApi,
+				HttpApi,
 				HttpApi
 			],
 			backendOptions: [
@@ -46,6 +47,9 @@ i18n.use( Backend )
 				},
 				{
 					loadPath: server+'/locales/{{lng}}/{{ns}}.json'
+				},
+				{
+					loadPath: 'https://cdn.jsdelivr.net/npm/@isle-project/locales/components/{{ns}}/{{lng}}.json'
 				}
 			]
 		},
