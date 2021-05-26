@@ -69,7 +69,86 @@ const NAMESPACES = [
 	'text_select',
 	'ticket_modal',
 	'translation'
-];
+].concat([
+	'accordion',
+	'bibliography',
+	'citation',
+	'dashboard',
+	'data-explorer',
+	'data-sampler',
+	'data-table',
+	'feedback',
+	'general',
+	'hint-button',
+	'iframe',
+	'image',
+	'input',
+	'internal/alert-modal',
+	'internal/chat-button',
+	'internal/delete-modal',
+	'internal/fullscreen-button',
+	'internal/grade-feedback-renderer',
+	'internal/interface-tour',
+	'internal/language-switcher',
+	'internal/lesson',
+	'internal/login',
+	'internal/response-visualizer',
+	'internal/signup',
+	'internal/statusbar',
+	'internal/toolbar',
+	'internal/voice-control',
+	'joyride',
+	'learn/causality-diagram',
+	'learn/clt',
+	'learn/conditional-probability',
+	'learn/confidence-coverage',
+	'learn/dice-throwing',
+	'learn/distribution',
+	'learn/hypothesis-testing',
+	'learn/mean-vs-median',
+	'learn/networks',
+	'learn/sotu',
+	'learn/standardize',
+	'learn/statistical-models',
+	'learn/venn-diagram',
+	'lesson-submit',
+	'likert-scale',
+	'link',
+	'models',
+	'pages',
+	'panel',
+	'plotly',
+	'questions/free-text',
+	'questions/image',
+	'questions/match-list',
+	'questions/multiple-choice',
+	'questions/number',
+	'questions/order',
+	'questions/question-form',
+	'questions/quiz',
+	'questions/range',
+	'questions/select',
+	'questions/select-matrix',
+	'r',
+	'range-picker',
+	'recorder',
+	'revealer',
+	'sketchpad',
+	'slider',
+	'solution-button',
+	'spectacle',
+	'spreadsheet-upload',
+	'sticky-note',
+	'surveys',
+	'tables',
+	'tests',
+	'text-editor',
+	'victory',
+	'video',
+	'weather',
+	'wikipedia',
+	'world-cloud'
+]);
 
 
 // FUNCTIONS //
@@ -110,7 +189,7 @@ const EditableItem = ({ elem, language, addCustomTranslation, removeCustomTransl
 	if ( editing ) {
 		return (
 			<ListGroup.Item>
-				<b>{elem.key}</b>
+				{elem.ns}:<b>{elem.key}</b>
 				<br />
 				<FormControl
 					key={`${language}-${elem.key}`}
@@ -151,7 +230,8 @@ const EditableItem = ({ elem, language, addCustomTranslation, removeCustomTransl
 	};
 	return (
 		<ListGroup.Item>
-			<b>{elem.key}</b><br />
+			{elem.ns}:<b>{elem.key}</b>
+			<br />
 			{elem.text}
 			<Button
 				size="sm" variant="secondary" style={{ float: 'right' }}
@@ -200,6 +280,7 @@ const AdminSettingsTexts = ( props ) => {
 				}
 				if (
 					!searchValue ||
+					contains( uppercase( ns ), searchValue ) ||
 					contains( uppercase( key ), searchValue ) ||
 					contains( uppercase( text ), searchValue )
 				) {
@@ -218,6 +299,7 @@ const AdminSettingsTexts = ( props ) => {
 				const key = keys[ j ];
 				const text = data[ ns ][ key ];
 				if (
+					contains( uppercase( ns ), searchValue ) ||
 					contains( uppercase( key ), searchValue ) ||
 					contains( uppercase( text ), searchValue )
 				) {
