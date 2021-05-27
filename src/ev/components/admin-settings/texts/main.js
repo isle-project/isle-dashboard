@@ -20,36 +20,11 @@ import ConfirmModal from 'components/confirm-modal';
 import LicenseBarrier from 'ev/containers/visible-barrier';
 import SearchBar from 'components/searchbar';
 import i18next from 'helpers/i18n';
+import { LANGUAGES } from 'constants/languages';
 
 
 // VARIABLES //
 
-const LANGUAGES = [
-	{ value: 'en', label: 'english' },
-	{ value: 'bg', label: 'bulgarian' },
-	{ value: 'cs', label: 'czech' },
-	{ value: 'da', label: 'danish' },
-	{ value: 'de', label: 'german' },
-	{ value: 'el', label: 'greek' },
-	{ value: 'es', label: 'spanish' },
-	{ value: 'et', label: 'estonian' },
-	{ value: 'fi', label: 'finnish' },
-	{ value: 'fr', label: 'french' },
-	{ value: 'hu', label: 'hungarian' },
-	{ value: 'it', label: 'italian' },
-	{ value: 'ja', label: 'japanese' },
-	{ value: 'lt', label: 'lithuanian' },
-	{ value: 'lv', label: 'latvian' },
-	{ value: 'nl', label: 'dutch' },
-	{ value: 'pl', label: 'polish' },
-	{ value: 'pt', label: 'portuguese' },
-	{ value: 'ro', label: 'romanian' },
-	{ value: 'ru', label: 'russian' },
-	{ value: 'sk', label: 'slovak' },
-	{ value: 'sl', label: 'slovenian' },
-	{ value: 'sv', label: 'swedish' },
-	{ value: 'zh', label: 'chinese' }
-];
 const NAMESPACES = [
 	'admin_settings',
 	'admin',
@@ -286,7 +261,7 @@ const AdminSettingsTexts = ( props ) => {
 				) {
 					items.push({ ns, key, text, custom: true });
 				}
-				if ( items.length >= 25 ) {
+				if ( items.length >= 50 ) {
 					break;
 				}
 			}

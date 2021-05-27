@@ -18,6 +18,7 @@
 // MODULES //
 
 import React, { Component, Fragment } from 'react';
+import PropTypes from 'prop-types';
 import i18next from 'i18next';
 import { withTranslation } from 'react-i18next';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
@@ -25,6 +26,7 @@ import Tooltip from 'react-bootstrap/Tooltip';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
+import { LANGUAGE_CODES, languageDescription } from 'constants/languages';
 import './language_switcher.css';
 
 
@@ -56,7 +58,9 @@ class LanguageSwitcher extends Component {
 		if ( !this.state.showSelectModal ) {
 			return null;
 		}
-		const { t } = this.props;
+		const { t, languages } = this.props;
+		const availableLanguages = languages || LANGUAGE_CODES;
+		console.log( availableLanguages );
 		return (
 			<Modal show onHide={this.toggleSelectModal} >
 				<Modal.Header closeButton >
@@ -64,30 +68,12 @@ class LanguageSwitcher extends Component {
 				</Modal.Header>
 				<Modal.Body>
 					<ButtonGroup size="sm" vertical style={{ width: '100%' }} >
-						<Button variant="outline-primary" onClick={this.changeLanguageFactory( 'en' )}>English - EN</Button>
-						<Button variant="outline-primary" onClick={this.changeLanguageFactory( 'bg' )}>Български - BG</Button>
-						<Button variant="outline-primary" onClick={this.changeLanguageFactory( 'cs' )}>Česky - CS</Button>
-						<Button variant="outline-primary" onClick={this.changeLanguageFactory( 'da' )}>Dansk - DA</Button>
-						<Button variant="outline-primary" onClick={this.changeLanguageFactory( 'el' )}>Ελληνική - EL</Button>
-						<Button variant="outline-primary" onClick={this.changeLanguageFactory( 'es' )}>Español - ES</Button>
-						<Button variant="outline-primary" onClick={this.changeLanguageFactory( 'et' )}>Eesti - ET</Button>
-						<Button variant="outline-primary" onClick={this.changeLanguageFactory( 'de' )}>Deutsch - DE</Button>
-						<Button variant="outline-primary" onClick={this.changeLanguageFactory( 'fi' )}>Suomalainen - FI</Button>
-						<Button variant="outline-primary" onClick={this.changeLanguageFactory( 'fr' )}>Français - FR</Button>
-						<Button variant="outline-primary" onClick={this.changeLanguageFactory( 'hu' )}>English - HU</Button>
-						<Button variant="outline-primary" onClick={this.changeLanguageFactory( 'it' )}>Italiano - IT</Button>
-						<Button variant="outline-primary" onClick={this.changeLanguageFactory( 'ja' )}>にほんご - JA</Button>
-						<Button variant="outline-primary" onClick={this.changeLanguageFactory( 'lt' )}>Lietuvių kalba - LT</Button>
-						<Button variant="outline-primary" onClick={this.changeLanguageFactory( 'lv' )}>Latviešu - LV</Button>
-						<Button variant="outline-primary" onClick={this.changeLanguageFactory( 'nl' )}>Nederlands - NL</Button>
-						<Button variant="outline-primary" onClick={this.changeLanguageFactory( 'pl' )}>Polski - PL</Button>
-						<Button variant="outline-primary" onClick={this.changeLanguageFactory( 'pt' )}>Porgtugês - PT</Button>
-						<Button variant="outline-primary" onClick={this.changeLanguageFactory( 'ro' )}>Românesc - RO</Button>
-						<Button variant="outline-primary" onClick={this.changeLanguageFactory( 'ru' )}>русский - RU</Button>
-						<Button variant="outline-primary" onClick={this.changeLanguageFactory( 'sk' )}>Slovenská - SK</Button>
-						<Button variant="outline-primary" onClick={this.changeLanguageFactory( 'sl' )}>Slovenski - SL</Button>
-						<Button variant="outline-primary" onClick={this.changeLanguageFactory( 'sv' )}>Svenska - SV</Button>
-						<Button variant="outline-primary" onClick={this.changeLanguageFactory( 'zh' )}>中文 - ZH</Button>
+						{availableLanguages.map( ( x, idx ) => {
+							return ( <Button
+								key={idx} variant="outline-primary"
+								onClick={this.changeLanguageFactory( x )}
+							>{languageDescription( x )}</Button> );
+						})}
 					</ButtonGroup>
 				</Modal.Body>
 			</Modal>
@@ -111,6 +97,16 @@ class LanguageSwitcher extends Component {
 		);
 	}
 }
+
+// PROPERTIES //
+
+LanguageSwitcher.propTypes = {
+	languages: PropTypes.array
+};
+
+LanguageSwitcher.defaultProps = {
+	languages: null
+};
 
 
 // EXPORTS //

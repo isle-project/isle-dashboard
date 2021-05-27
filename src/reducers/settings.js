@@ -29,9 +29,12 @@ const initialState = {};
 
 export default function settings( state = initialState, action ) {
 	switch ( action.type ) {
-		case types.GET_SETTINGS_PUBLIC: {
-			return Object.assign({}, state, action.payload );
-		}
+	case types.GET_SETTINGS_PUBLIC: {
+		return Object.assign({}, state, action.payload );
+	}
+	case types.UPDATED_SETTINGS: {
+		return Object.assign({}, state, action.payload.settings );
+	}
 	default:
 		return state;
 	}

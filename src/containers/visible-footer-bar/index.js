@@ -18,7 +18,24 @@
 // MODULES //
 
 import React from 'react';
+import { connect } from 'react-redux';
 import FooterBar from 'components/footer-bar';
 
 
-export default FooterBar;
+// FUNCTIONS //
+
+function mapStateToProps( state ) {
+	return {
+		settings: state.settings
+	};
+}
+
+
+// MAIN //
+
+const VisibleFooterBar = connect( mapStateToProps )( FooterBar );
+
+
+// EXPORTS //
+
+export default VisibleFooterBar;

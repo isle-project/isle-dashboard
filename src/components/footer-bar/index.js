@@ -18,6 +18,7 @@
 // MODULES //
 
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { withTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import LanguageSwitcher from 'components/language-switcher';
@@ -44,13 +45,22 @@ class FooterBar extends Component {
 			</div>
 			<div>
 			</div>
-			<LanguageSwitcher />
+			<LanguageSwitcher
+				languages={this.props.settings.availableLanguages}
+			/>
 			<div className="footer-dashboard-version" >
 				Dashboard v{pkgJson.version}
 			</div>
 		</div> );
 	}
 }
+
+
+// PROPERTIES //
+
+FooterBar.propTypes = {
+	settings: PropTypes.object.isRequired
+};
 
 
 // EXPORTS //

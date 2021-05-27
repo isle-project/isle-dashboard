@@ -27,7 +27,11 @@ import Form from 'react-bootstrap/Form';
 import Nav from 'react-bootstrap/Nav';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import SelectInput, { components } from 'react-select';
+import deepEqual from '@stdlib/assert/deep-equal';
 import TextSelect from 'components/text-select';
+import { LANGUAGES, languageLabel } from 'constants/languages';
+import i18next from 'helpers/i18n';
 
 
 // FUNCTIONS //
@@ -35,7 +39,8 @@ import TextSelect from 'components/text-select';
 const InputField = ({ name, defaultValue, type, updateSettings }) => {
 	const [ value, setValue ] = useState( defaultValue );
 	const handleChange = useCallback( ( event ) => {
-		setValue( event.target.value );
+		const target = event.target;
+		setValue( target.type === 'number' ? Number( target.value ) : target.value );
 	}, [] );
 	const handleReset = useCallback( () => {
 		setValue( defaultValue );
@@ -189,6 +194,69 @@ const TextSelectField = ({ name, placeholder, defaultValue, updateSettings }) =>
 	);
 };
 
+const Option = props => {
+	return ( <components.Option key={props.data.label} {...props} >
+		<span style={{
+			color: props.isSelected ? 'white' : 'black'
+		}}>{i18next.t( 'admin_settings:'+props.data.label )}</span>
+	</components.Option> );
+};
+
+const MultiValue = props => {
+	return ( <components.MultiValue key={props.data.label} {...props} >
+		<span>{i18next.t( 'admin_settings:'+props.data.label )}</span>
+	</components.MultiValue> );
+};
+
+const MultiSelectInputField = ({ name, options, placeholder, defaultValue, updateSettings }) => {
+	const [ value, setValue ] = useState( defaultValue );
+	const handleReset = useCallback( () => {
+		setValue( defaultValue );
+	}, [ defaultValue ] );
+	const handleConfirm = useCallback( () => {
+		const languageCodes = value.map( x => x.value );
+		updateSettings( name, languageCodes );
+	}, [ updateSettings, name, value ] );
+	return (
+		<Form.Group style={{ marginBottom: 0 }} >
+			<SelectInput
+				value={value}
+				name={name}
+				options={options}
+				placeholder={placeholder}
+				updateSettings={updateSettings}
+				onChange={setValue}
+				isMulti
+				isClearable={false}
+				components={{ Option, MultiValue }}
+				styles={{
+					container: ( provided, state ) => ({
+						...provided,
+						width: '82%',
+						float: 'left'
+					})
+				}}
+			/>
+			{ !deepEqual( value, defaultValue ) ?
+				<Fragment>
+					<Button
+						onClick={handleConfirm}
+						variant="success" size="sm" style={{ marginRight: 6, marginLeft: 8 }}
+					>
+						<i className="fas fa-check" />
+					</Button>
+					<Button
+						onClick={handleReset}
+						variant="warning" size="sm" style={{ width: 32 }}
+					>
+						<i className="fas fa-times" />
+					</Button>
+				</Fragment> : null
+			}
+		</Form.Group>
+	);
+};
+
 
 // MAIN //
 
@@ -213,6 +281,12 @@ class ConfigurationPage extends Component {
 
 	renderMain() {
 		const { admin, t, updateSettings } = this.props;
+		let availableLanguages = admin.settings.availableLanguages;
+		if ( !availableLanguages ) {
+			availableLanguages = LANGUAGES;
+		} else {
+			availableLanguages = availableLanguages.map( x => ({ label: languageLabel( x ), value: x }) );
+		}
 		return (
 			<Container style={{ float: 'left' }} >
 				<Form.Group as={Row} controlId="formPlaintextTitle" >
@@ -263,16 +337,29 @@ class ConfigurationPage extends Component {
 							defaultValue={admin.settings.defaultLanguage}
 							updateSettings={updateSettings}
 						>
-							<option value="en" >English - EN</option>
-							<option value="es" >Español - ES</option>
-							<option value="de" >Deutsch - DE</option>
-							<option value="fr" >Français - FR</option>
-							<option value="it" >Italiano - IT</option>
-							<option value="ja" >にほんご - JA</option>
-							<option value="nl" >Nederlands - NL</option>
-							<option value="pt" >Porgtugês - PT</option>
-							<option value="pl" >Polski - PL</option>
-							<option value="ru" >русский - RU</option>
+							<option value="en">English - EN</option>
+							<option value="bg">Български - BG</option>
+							<option value="cs">Česky - CS</option>
+							<option value="da">Dansk - DA</option>
+							<option value="el">Ελληνική - EL</option>
+							<option value="es">Español - ES</option>
+							<option value="et">Eesti - ET</option>
+							<option value="de">Deutsch - DE</option>
+							<option value="fi">Suomalainen - FI</option>
+							<option value="fr">Français - FR</option>
+							<option value="hu">English - HU</option>
+							<option value="it">Italiano - IT</option>
+							<option value="ja">にほんご - JA</option>
+							<option value="lt">Lietuvių kalba - LT</option>
+							<option value="lv">Latviešu - LV</option>
+							<option value="nl">Nederlands - NL</option>
+							<option value="pl">Polski - PL</option>
+							<option value="pt">Porgtugês - PT</option>
+							<option value="ro">Românesc - RO</option>
+							<option value="ru">русский - RU</option>
+							<option value="sk">Slovenská - SK</option>
+							<option value="sl">Slovenski - SL</option>
+							<option value="sv">Svenska - SV</option>
 							<option value="zh">中文 - ZH</option>
 						</SelectInputField>
 					</Col>
@@ -282,6 +369,25 @@ class ConfigurationPage extends Component {
 						</Form.Text>
 					</Col>
 				</FormGroup>
+				<Form.Group as={Row} controlId="availableLanguages" >
+					<Form.Label column sm={2} >
+						{t('available-languages')}
+					</Form.Label>
+					<Col sm={5} >
+						<MultiSelectInputField
+							name="availableLanguages"
+							defaultValue={availableLanguages}
+							options={LANGUAGES}
+							updateSettings={updateSettings}
+							placeholder={i18next.t('admin_settings:available-languages')}
+						/>
+					</Col>
+					<Col sm={5} >
+						<Form.Text muted >
+							{t('available-languages-description')}
+						</Form.Text>
+					</Col>
+				</Form.Group>
 			</Container>
 		);
 	}
