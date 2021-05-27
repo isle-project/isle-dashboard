@@ -68,7 +68,7 @@ const NAMESPACES = [
 	'signup',
 	'text_select',
 	'ticket_modal',
-	'translation'
+	'server'
 ].concat([
 	'accordion',
 	'bibliography',
