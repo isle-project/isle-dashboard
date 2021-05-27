@@ -4,6 +4,8 @@
 	"allow-new-registrations-description": "Махнете отметката от тази опция, за да предотвратите създаването на нови потребителски акаунти",
 	"allowed-permissions": "Разрешени разрешения",
 	"authorized-roles": "Оторизиран да редактира тази роля",
+	"available-languages": "Налични езици",
+	"available-languages-description": "Езици, между които потребителите могат да превключват",
 	"backups": "Резервни копия",
 	"branding": "Брандиране",
 	"bulgarian": "Български",

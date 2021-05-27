@@ -4,6 +4,8 @@
 	"allow-new-registrations-description": "Atceliet šo opciju, lai novērstu jaunu lietotāju kontu izveidi.",
 	"allowed-permissions": "Atļautās atļaujas",
 	"authorized-roles": "Pilnvarots rediģēt šo lomu",
+	"available-languages": "Pieejamās valodas",
+	"available-languages-description": "Valodas, starp kurām lietotāji var pārslēgties",
 	"backups": "Rezerves kopijas",
 	"branding": "Zīmolvedība",
 	"bulgarian": "Bulgāru",

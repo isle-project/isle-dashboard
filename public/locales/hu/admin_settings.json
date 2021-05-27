@@ -4,6 +4,8 @@
 	"allow-new-registrations-description": "Vegye ki ezt a jelölőnégyzetet, ha szeretné megakadályozni az új felhasználói fiókok létrehozását.",
 	"allowed-permissions": "Engedélyezett engedélyek",
 	"authorized-roles": "Engedélyezve a szerepkör szerkesztésére",
+	"available-languages": "Elérhető nyelvek",
+	"available-languages-description": "Nyelvek, amelyek között a felhasználók válthatnak",
 	"backups": "Biztonsági mentések",
 	"branding": "Márkaépítés",
 	"bulgarian": "Bolgár",

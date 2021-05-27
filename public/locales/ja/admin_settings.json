@@ -4,6 +4,8 @@
 	"allow-new-registrations-description": "新しいユーザーアカウントを作成しないようにするには、このオプションをオフにしてください。",
 	"allowed-permissions": "許可されたパーミッション",
 	"authorized-roles": "このロールを編集する権限を持つ",
+	"available-languages": "使用可能な言語",
+	"available-languages-description": "ユーザーが切り替え可能な言語",
 	"backups": "バックアップ",
 	"branding": "ブランディング",
 	"bulgarian": "ブルガリア語",

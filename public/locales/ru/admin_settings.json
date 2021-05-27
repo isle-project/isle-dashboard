@@ -4,6 +4,8 @@
 	"allow-new-registrations-description": "Снимите этот флажок, чтобы предотвратить создание новых учетных записей пользователей.",
 	"allowed-permissions": "Разрешенные разрешения",
 	"authorized-roles": "Имеет право редактировать эту роль",
+	"available-languages": "Доступные языки",
+	"available-languages-description": "Языки, между которыми пользователи могут переключаться",
 	"backups": "Резервные копии",
 	"branding": "Брендинг",
 	"bulgarian": "Болгарский",

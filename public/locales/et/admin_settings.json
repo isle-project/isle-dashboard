@@ -4,6 +4,8 @@
 	"allow-new-registrations-description": "Võtke see valik välja, et vältida uute kasutajakontode loomist.",
 	"allowed-permissions": "Lubatud õigused",
 	"authorized-roles": "Volitatud seda rolli redigeerima",
+	"available-languages": "Saadaval olevad keeled",
+	"available-languages-description": "Keeled, mille vahel kasutajad saavad vahetada",
 	"backups": "Varukoopiaid",
 	"branding": "Branding",
 	"bulgarian": "Bulgaaria",

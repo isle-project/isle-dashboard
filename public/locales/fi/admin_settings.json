@@ -4,6 +4,8 @@
 	"allow-new-registrations-description": "Poista tämä valinta, jos haluat estää uusien käyttäjätilien luomisen.",
 	"allowed-permissions": "Sallitut oikeudet",
 	"authorized-roles": "Valtuutettu muokkaamaan tätä roolia",
+	"available-languages": "Saatavilla olevat kielet",
+	"available-languages-description": "Kielet, joiden välillä käyttäjät voivat vaihtaa",
 	"backups": "Varmuuskopiot",
 	"branding": "Brändäys",
 	"bulgarian": "Bulgarian",

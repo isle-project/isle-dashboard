@@ -4,6 +4,8 @@
 	"allow-new-registrations-description": "Desmarque esta opción para impedir la creación de nuevas cuentas de usuario",
 	"allowed-permissions": "Permisos permitidos",
 	"authorized-roles": "Autorizado a editar este rol",
+	"available-languages": "Idiomas disponibles",
+	"available-languages-description": "Lenguas entre las que los usuarios pueden cambiar",
 	"backups": "Copias de seguridad",
 	"branding": "Branding",
 	"bulgarian": "Búlgaro",

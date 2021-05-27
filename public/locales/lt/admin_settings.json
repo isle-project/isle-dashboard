@@ -4,6 +4,8 @@
 	"allow-new-registrations-description": "Panaikinkite šios parinkties žymėjimą, jei norite užkirsti kelią naujų naudotojų paskyrų kūrimui",
 	"allowed-permissions": "Leidžiami leidimai",
 	"authorized-roles": "Įgaliotas redaguoti šį vaidmenį",
+	"available-languages": "Galimos kalbos",
+	"available-languages-description": "Kalbos, kurias naudotojai gali perjungti",
 	"backups": "Atsarginės kopijos",
 	"branding": "Prekės ženklo kūrimas",
 	"bulgarian": "Bulgarų",

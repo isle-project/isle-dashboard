@@ -4,6 +4,8 @@
 	"allow-new-registrations-description": "Deseleziona questa opzione per impedire la creazione di nuovi account utente",
 	"allowed-permissions": "Permessi consentiti",
 	"authorized-roles": "Autorizzato a modificare questo ruolo",
+	"available-languages": "Lingue disponibili",
+	"available-languages-description": "Lingue tra le quali gli utenti possono passare",
 	"backups": "Backups",
 	"branding": "Marchiatura",
 	"bulgarian": "Bulgaro",

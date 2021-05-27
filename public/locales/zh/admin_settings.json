@@ -4,6 +4,8 @@
 	"allow-new-registrations-description": "取消勾选此选项，以防止创建新的用户账户。",
 	"allowed-permissions": "允许的权限",
 	"authorized-roles": "被授权编辑此角色",
+	"available-languages": "可用的语言",
+	"available-languages-description": "用户可以切换的语言",
 	"backups": "备份",
 	"branding": "品牌建设",
 	"bulgarian": "保加利亚语",

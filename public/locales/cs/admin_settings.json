@@ -4,6 +4,8 @@
 	"allow-new-registrations-description": "Zrušením zaškrtnutí této možnosti zabráníte vytváření nových uživatelských účtů.",
 	"allowed-permissions": "Povolená oprávnění",
 	"authorized-roles": "Oprávnění k úpravám této role",
+	"available-languages": "Dostupné jazyky",
+	"available-languages-description": "Jazyky, mezi kterými mohou uživatelé přepínat",
 	"backups": "Zálohování",
 	"branding": "Branding",
 	"bulgarian": "Bulharský",

@@ -4,6 +4,8 @@
 	"allow-new-registrations-description": "Avmarkera det här alternativet om du vill förhindra att nya användarkonton skapas.",
 	"allowed-permissions": "Tillåtna behörigheter",
 	"authorized-roles": "Behörig att redigera denna roll",
+	"available-languages": "Tillgängliga språk",
+	"available-languages-description": "Språk som användarna kan växla mellan",
 	"backups": "Säkerhetskopior",
 	"branding": "Varumärkesprofilering",
 	"bulgarian": "Bulgariska",

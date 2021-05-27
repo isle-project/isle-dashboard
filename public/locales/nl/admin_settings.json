@@ -4,6 +4,8 @@
 	"allow-new-registrations-description": "Vink deze optie uit om het aanmaken van nieuwe gebruikersaccounts te voorkomen",
 	"allowed-permissions": "Toegestane rechten",
 	"authorized-roles": "Bevoegd om deze rol te bewerken",
+	"available-languages": "Beschikbare talen",
+	"available-languages-description": "Talen waartussen gebruikers kunnen schakelen",
 	"backups": "Back-ups",
 	"branding": "Branding",
 	"bulgarian": "Bulgaars",

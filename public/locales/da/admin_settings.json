@@ -4,6 +4,8 @@
 	"allow-new-registrations-description": "Fjern markeringen af denne indstilling for at forhindre oprettelsen af nye brugerkonti",
 	"allowed-permissions": "Tilladte tilladelser",
 	"authorized-roles": "Autoriseret til at redigere denne rolle",
+	"available-languages": "Tilgængelige sprog",
+	"available-languages-description": "Sprog, som brugerne kan skifte mellem",
 	"backups": "Sikkerhedskopiering",
 	"branding": "Branding",
 	"bulgarian": "Bulgarsk",

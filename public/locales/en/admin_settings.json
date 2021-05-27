@@ -2,6 +2,8 @@
 	"add-user-field": "Add user field",
 	"allowed-permissions": "Allowed Permissions",
 	"authorized-roles": "Authorized to edit this role",
+	"available-languages": "Available Languages",
+	"available-languages-description": "Languages which users can switch between",
 	"backups": "Backups",
 	"branding": "Branding",
 	"bulgarian": "Bulgarian",
