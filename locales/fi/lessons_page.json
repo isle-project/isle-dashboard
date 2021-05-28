@@ -1,0 +1,9 @@
+{
+	"create-from-template": "Luo mallista",
+	"create-new-one": " tai luo uusi osoitteessa ",
+	"no-course-description": "Avaa olemassa oleva kurssi valitsemalla se yläpuolella olevasta pudotusvalikosta osoitteessa ",
+	"no-lessons": "Valittu kurssi ei sisällä oppitunteja.",
+	"no-lessons-found": "Oppitunteja ei löytynyt",
+	"no-templates-created-yet": "Malleja ei ole vielä luotu.",
+	"upload-from-editor": "Voit ladata oppitunteja ISLE-editorista."
+}

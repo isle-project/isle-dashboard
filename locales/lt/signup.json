@@ -1,0 +1,18 @@
+{
+	"choose-password": "Pasirinkite slaptažodį",
+	"close": "Uždaryti",
+	"confirm-password": "Patvirtinti slaptažodį",
+	"create-user": "Naudotojo kūrimas",
+	"email-tooltip": "Įveskite galiojantį el. pašto adresą.",
+	"go-to-login-page": "Eikite į prisijungimo puslapį",
+	"invalid-email": "Tai nėra galiojantis el. pašto adresas.",
+	"invalid-name": "Vardą turi sudaryti keturi simboliai.",
+	"invalid-password": "Slaptažodį turi sudaryti ne mažiau kaip šeši simboliai.",
+	"invalid-password-match": "Slaptažodžiai nesutampa.",
+	"login": "Prisijungti",
+	"name-tooltip": "Įveskite savo pavardę ir vardą.",
+	"password": "Slaptažodis",
+	"password-tooltip": "Įveskite pasirinktą slaptažodį, kurį sudaro ne mažiau kaip šeši simboliai.",
+	"signup-not-valid": "Prieš pateikdami įsitikinkite, kad visos įvesties reikšmės yra galiojančios.",
+	"tos-disclaimer": "Paspaudę mygtuką \"Registruotis\" sutinkate su mūsų <1>paslaugų teikimo sąlygomis</1>. Daugiau informacijos apie tai, kaip tvarkomi jūsų duomenys, rasite mūsų <3>privatumo politikoje</3>."
+}

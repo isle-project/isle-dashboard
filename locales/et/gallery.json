@@ -1,0 +1,9 @@
+{
+	"import": "Import",
+	"import-lesson": "Imporditund ",
+	"import-lesson-description": "Palun valige kursus, kuhu õppetund tuleks kopeerida.",
+	"lesson-name": "Tunni nimi",
+	"no-lessons-description": "Ühtegi õppetundi ei ole veel galeriis kättesaadavaks tehtud või ei vasta teie otsingukriteeriumidele.",
+	"no-lessons-title": "Õppetunde ei ole leitud",
+	"select-course": "Valige kursus"
+}

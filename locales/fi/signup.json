@@ -1,0 +1,18 @@
+{
+	"choose-password": "Valitse salasana",
+	"close": "Sulje",
+	"confirm-password": "Vahvista salasana",
+	"create-user": "Käyttäjän luominen",
+	"email-tooltip": "Kirjoita voimassa oleva sähköpostiosoite.",
+	"go-to-login-page": "Siirry kirjautumissivulle",
+	"invalid-email": "Ei kelvollinen sähköpostiosoite.",
+	"invalid-name": "Nimen on sisällettävä neljä merkkiä.",
+	"invalid-password": "Salasanan on sisällettävä vähintään kuusi merkkiä.",
+	"invalid-password-match": "Salasanat eivät täsmää.",
+	"login": "Kirjaudu sisään",
+	"name-tooltip": "Kirjoita sukunimesi ja etunimesi.",
+	"password": "Salasana",
+	"password-tooltip": "Kirjoita valitsemasi salasana, jossa on vähintään kuusi merkkiä.",
+	"signup-not-valid": "Varmista ennen lähettämistä, että kaikki syöttöarvot ovat voimassa.",
+	"tos-disclaimer": "Klikkaamalla \"Rekisteröidy\" -painiketta hyväksyt <1>palvelumme käyttö</1>ehdot. Lue lisää tietojesi käsittelystä <3>tietosuojaselosteestamme</3>."
+}

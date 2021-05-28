@@ -1,0 +1,22 @@
+{
+	"admin": "Administrators",
+	"admin-panel": "Administratora panelis",
+	"course-data": "Kursu dati",
+	"create-course": "Izveidot jaunu kursu",
+	"edit-course": "Rediģēšanas kurss",
+	"enroll": "Reģistrēties",
+	"enrolled-courses": "Reģistrētie kursi",
+	"gallery": "Galerija",
+	"goto-course-lessons": "Pārejiet uz kursa nodarbībām",
+	"help": "Palīdzība",
+	"open-admin": "Atveriet administratora paneli",
+	"open-gallery": "Atvērt galeriju",
+	"open-your-courses": "Atveriet savus kursus",
+	"owned-courses": "Īpašumā esošie kursi",
+	"search-field": "Meklēšanas lauks",
+	"search-field-icon": "Meklēšanas ikona",
+	"search-placeholder": "Mācību nodarbību filtrēšana pēc meklēšanas",
+	"select-course": "Izvēlieties kursu",
+	"sort-default-owner-explanation": "Izvēlieties mācību stundu un ar bulttaustiņiem pa kreisi/pa labi pārvietojiet to uz norādīto vietu noklusējuma sakārtojumā.",
+	"sort-default-student-explanation": "Nodarbību noklusējuma secība, kā to norādījuši kursa pasniedzēji."
+}

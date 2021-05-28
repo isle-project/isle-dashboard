@@ -1,0 +1,18 @@
+{
+	"choose-password": "Alegeți parola",
+	"close": "Închideți",
+	"confirm-password": "Confirmați parola",
+	"create-user": "Crearea utilizatorului",
+	"email-tooltip": "Vă rugăm să introduceți o adresă de e-mail validă.",
+	"go-to-login-page": "Mergeți la pagina de autentificare",
+	"invalid-email": "Nu este o adresă de e-mail validă.",
+	"invalid-name": "Numele trebuie să conțină patru caractere.",
+	"invalid-password": "Parola trebuie să conțină cel puțin șase caractere.",
+	"invalid-password-match": "Parolele nu se potrivesc.",
+	"login": "Autentificare",
+	"name-tooltip": "Vă rugăm să introduceți numele de familie și prenumele dumneavoastră.",
+	"password": "Parola",
+	"password-tooltip": "Vă rugăm să introduceți o parolă la alegere cu cel puțin șase caractere.",
+	"signup-not-valid": "Vă rugăm să vă asigurați că toate valorile introduse sunt valide înainte de a le trimite.",
+	"tos-disclaimer": "Prin apăsarea butonului \"Înscrieți-vă\" sunteți de acord cu <1>termenii</1> și condițiile noastre <1>de utilizare</1>. Aflați mai multe despre modul în care sunt procesate datele dvs. în <3>politica</3> noastră <3>de confidențialitate</3>."
+}

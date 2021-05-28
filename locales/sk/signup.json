@@ -1,0 +1,18 @@
+{
+	"choose-password": "Zvoľte si heslo",
+	"close": "Zatvoriť",
+	"confirm-password": "Potvrdenie hesla",
+	"create-user": "Vytvorenie používateľa",
+	"email-tooltip": "Zadajte platnú e-mailovú adresu.",
+	"go-to-login-page": "Prejsť na prihlasovaciu stránku",
+	"invalid-email": "Nie je to platná e-mailová adresa.",
+	"invalid-name": "Názov musí obsahovať štyri znaky.",
+	"invalid-password": "Vaše heslo musí obsahovať aspoň šesť znakov.",
+	"invalid-password-match": "Heslá sa nezhodujú.",
+	"login": "Prihlásiť sa",
+	"name-tooltip": "Zadajte svoje priezvisko a meno.",
+	"password": "Heslo",
+	"password-tooltip": "Zadajte heslo podľa vlastného výberu, ktoré obsahuje aspoň šesť znakov.",
+	"signup-not-valid": "Pred odoslaním sa uistite, že sú všetky vstupné hodnoty platné.",
+	"tos-disclaimer": "Kliknutím na tlačidlo \"Zaregistrovať sa\" vyjadrujete súhlas s našimi <1>podmienkami poskytovania služieb</1>. Viac informácií o spracovaní vašich údajov nájdete v našich <3>zásadách ochrany osobných údajov</3>."
+}

@@ -1,0 +1,9 @@
+{
+	"import": "Import",
+	"import-lesson": "Lektion om import ",
+	"import-lesson-description": "Välj den kurs som lektionen ska kopieras till.",
+	"lesson-name": "Lektionens namn",
+	"no-lessons-description": "Inga lektioner har gjorts tillgängliga för galleriet ännu eller uppfyller dina sökkriterier.",
+	"no-lessons-title": "Inga lektioner hittades",
+	"select-course": "Välj kurs"
+}
