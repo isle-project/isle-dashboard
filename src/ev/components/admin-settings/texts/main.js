@@ -281,7 +281,7 @@ const AdminSettingsTexts = ( props ) => {
 					const customNS = customTranslations[ ns ];
 					items.push({ ns, key, text, custom: customNS && customNS[ key ] });
 				}
-				if ( items.length >= 25 ) {
+				if ( items.length >= 80 ) {
 					break;
 				}
 			}
