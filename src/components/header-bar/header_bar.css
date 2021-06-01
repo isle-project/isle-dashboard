@@ -163,7 +163,7 @@
 
 #popover-courses {
 	overflow-y: auto;
-	max-height: 500px;
+	max-height: calc(100vh - 60px);
 }
 
 .label-display {
