@@ -27,7 +27,7 @@ import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
 import Popover from 'react-bootstrap/Popover';
 import capitalize from '@stdlib/string/capitalize';
-import PINF from '@stdlib/constants/math/float64-pinf';
+import PINF from '@stdlib/constants/float64/pinf';
 import obsToVar from '@isle-project/utils/obs-to-var';
 import DashboardTable from 'components/dashboard-table';
 import DashboardDataExplorer from 'ev/components/data-explorer';

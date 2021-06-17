@@ -23,7 +23,7 @@ import logger from 'debug';
 import { withTranslation } from 'react-i18next';
 import moment from 'moment';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
-import PINF from '@stdlib/constants/math/float64-pinf';
+import PINF from '@stdlib/constants/float64/pinf';
 import omit from '@stdlib/utils/omit';
 import Popover from 'react-bootstrap/Popover';
 import Tooltip from 'react-bootstrap/Tooltip';

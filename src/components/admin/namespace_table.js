@@ -25,7 +25,7 @@ import moment from 'moment';
 import Button from 'react-bootstrap/Button';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
-import PINF from '@stdlib/constants/math/float64-pinf';
+import PINF from '@stdlib/constants/float64/pinf';
 import DashboardTable from 'components/dashboard-table';
 import ConfirmModal from 'components/confirm-modal';
 import obsToVar from '@isle-project/utils/obs-to-var';

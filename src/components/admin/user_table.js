@@ -28,7 +28,7 @@ import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
 import Popover from 'react-bootstrap/Popover';
 import round from '@stdlib/math/base/special/round';
-import PINF from '@stdlib/constants/math/float64-pinf';
+import PINF from '@stdlib/constants/float64/pinf';
 import mapKeys from '@stdlib/utils/map-keys';
 import DashboardTable from 'components/dashboard-table';
 import ConfirmModal from 'components/confirm-modal';
