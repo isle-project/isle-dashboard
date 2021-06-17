@@ -1,1 +1,0 @@
-(self.webpackChunkisle_dashboard=self.webpackChunkisle_dashboard||[]).push([[75667],{75667:function(e){"use strict";e.exports=JSON.parse('{"close":"Sluit","missing-children":"De schuifregelaar heeft ten minste twee kinderelementen nodig om hem te kunnen weergeven.","next":"Volgende","previous":"Vorige"}')}}]);

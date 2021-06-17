@@ -1,1 +1,0 @@
-(self.webpackChunkisle_dashboard=self.webpackChunkisle_dashboard||[]).push([[24239],{24239:function(a){"use strict";a.exports=JSON.parse('{"missing-children":"Formularz pytania wymaga podania co najmniej dw\xf3ch element\xf3w dzieci\u0119cych.","submit":"Zg\u0142o\u015b si\u0119"}')}}]);

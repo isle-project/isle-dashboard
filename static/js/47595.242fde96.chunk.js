@@ -1,1 +1,0 @@
-(self.webpackChunkisle_dashboard=self.webpackChunkisle_dashboard||[]).push([[47595],{47595:function(a){"use strict";a.exports=JSON.parse('{"display-instructor-feedback":"Clique para exibir ou ocultar o feedback do instrutor","your-points":"Seus pontos para a pergunta"}')}}]);

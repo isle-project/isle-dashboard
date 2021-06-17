@@ -1,1 +1,0 @@
-(self.webpackChunkisle_dashboard=self.webpackChunkisle_dashboard||[]).push([[88194],{88194:function(e){"use strict";e.exports=JSON.parse('{"alert-message":"Externe Inhalte k\xf6nnen nicht angezeigt werden, vermutlich da die Einbettung der Website in Iframes deaktiviert ist."}')}}]);

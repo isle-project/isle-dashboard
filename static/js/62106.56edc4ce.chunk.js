@@ -1,1 +1,0 @@
-(self.webpackChunkisle_dashboard=self.webpackChunkisle_dashboard||[]).push([[62106],{62106:function(e){"use strict";e.exports=JSON.parse('{"generate":"Generieren"}')}}]);

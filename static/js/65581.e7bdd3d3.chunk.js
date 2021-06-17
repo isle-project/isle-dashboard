@@ -1,1 +1,0 @@
-(self.webpackChunkisle_dashboard=self.webpackChunkisle_dashboard||[]).push([[65581],{65581:function(e){"use strict";e.exports=JSON.parse('{"alert-message":"Externe inhoud kan waarschijnlijk niet worden weergegeven omdat de site niet meer in de iframes kan worden opgenomen."}')}}]);

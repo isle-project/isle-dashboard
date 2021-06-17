@@ -1,1 +1,0 @@
-(self.webpackChunkisle_dashboard=self.webpackChunkisle_dashboard||[]).push([[46760],{46760:function(e){"use strict";e.exports=JSON.parse('{"join-chat":"Chat beitreten","join-chat-id":"Chat mit ID {{id}} beitreten","leave-chat":"Chat mit ID {{id}} verlassen","leave-chat-id":"Leave chat with ID {{id}}","toggle-chat":"Chat ein-/ausschalten"}')}}]);

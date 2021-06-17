@@ -1,1 +1,0 @@
-(self.webpackChunkisle_dashboard=self.webpackChunkisle_dashboard||[]).push([[6194],{6194:function(e){"use strict";e.exports=JSON.parse('{"back":"Zur\xfcck","close":"Schlie\xdfen","last":"Zuletzt","next":"Weiter","skip":"\xdcberspringen"}')}}]);

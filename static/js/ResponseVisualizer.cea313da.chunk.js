@@ -1,1 +1,0 @@
-(self.webpackChunkisle_dashboard=self.webpackChunkisle_dashboard||[]).push([[29115],{46601:function(){},93995:function(){},43881:function(){}}]);

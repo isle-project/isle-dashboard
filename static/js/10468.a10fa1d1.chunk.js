@@ -1,1 +1,0 @@
-(self.webpackChunkisle_dashboard=self.webpackChunkisle_dashboard||[]).push([[10468],{10468:function(e){"use strict";e.exports=JSON.parse('{"missing-children":"O formul\xe1rio de perguntas requer pelo menos dois elementos infantis a serem apresentados.","submit":"Enviar para"}')}}]);

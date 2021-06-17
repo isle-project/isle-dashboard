@@ -1,1 +1,0 @@
-(self.webpackChunkisle_dashboard=self.webpackChunkisle_dashboard||[]).push([[87513],{87513:function(a){"use strict";a.exports=JSON.parse('{"copy-link":"Copiar link","open-link-tab":"Abrir link em nova aba","open-link-window":"Abrir link em nova janela","read-aloud":"Leia em voz alta"}')}}]);

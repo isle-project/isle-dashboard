@@ -1,1 +1,0 @@
-(self.webpackChunkisle_dashboard=self.webpackChunkisle_dashboard||[]).push([[24083],{24083:function(s){"use strict";s.exports=JSON.parse('{"draw-sample":"Rysuj Pr\xf3bk\u0119","sample-size":"Wielko\u015b\u0107 pr\xf3bki"}')}}]);

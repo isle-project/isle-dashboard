@@ -1,1 +1,0 @@
-(self.webpackChunkisle_dashboard=self.webpackChunkisle_dashboard||[]).push([[85770],{85770:function(e){"use strict";e.exports=JSON.parse('{"save-world-cloud":"Sauver le nuage de mots"}')}}]);

@@ -1,1 +1,0 @@
-(self.webpackChunkisle_dashboard=self.webpackChunkisle_dashboard||[]).push([[42989],{42989:function(e){"use strict";e.exports=JSON.parse('{"draw-sample":"Draw Sample","sample-size":"Sample size"}')}}]);

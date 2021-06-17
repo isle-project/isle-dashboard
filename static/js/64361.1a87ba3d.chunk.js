@@ -1,1 +1,0 @@
-(self.webpackChunkisle_dashboard=self.webpackChunkisle_dashboard||[]).push([[64361],{64361:function(s){"use strict";s.exports=JSON.parse('{"available-commands":"Commandes vocales disponibles :","click-to-set-active":"Cliquez pour activer le composant","commands":"Commande(s)","description":"Description"}')}}]);

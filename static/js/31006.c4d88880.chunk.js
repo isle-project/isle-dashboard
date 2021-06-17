@@ -1,1 +1,0 @@
-(self.webpackChunkisle_dashboard=self.webpackChunkisle_dashboard||[]).push([[31006],{31006:function(e){"use strict";e.exports=JSON.parse('{"generate":"\u0421\u043e\u0437\u0434\u0430\u0442\u044c"}')}}]);

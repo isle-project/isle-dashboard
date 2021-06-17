@@ -1,1 +1,0 @@
-(self.webpackChunkisle_dashboard=self.webpackChunkisle_dashboard||[]).push([[42725],{42725:function(e){"use strict";e.exports=JSON.parse('{"edition":"edici\xf3n","references":"Referencias"}')}}]);

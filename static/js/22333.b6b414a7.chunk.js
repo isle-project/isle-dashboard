@@ -1,1 +1,0 @@
-(self.webpackChunkisle_dashboard=self.webpackChunkisle_dashboard||[]).push([[22333],{22333:function(e){"use strict";e.exports=JSON.parse('{"missing-children":"F\xfcr die Seitenkomponente m\xfcssen mindestens zwei Kind-Elemente gerendert werden.","next-page":"Weiter zur n\xe4chsten Seite","previous-page":"Gehe zur vorherigen Seite"}')}}]);

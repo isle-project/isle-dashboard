@@ -1,1 +1,0 @@
-(self.webpackChunkisle_dashboard=self.webpackChunkisle_dashboard||[]).push([[35],{35:function(s){"use strict";s.exports=JSON.parse('{"back":"Voltar","close":"Fechar","last":"\xdaltimo","next":"Pr\xf3ximo","skip":"Pular"}')}}]);

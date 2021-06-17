@@ -1,2 +1,0 @@
-(self.webpackChunkisle_dashboard=self.webpackChunkisle_dashboard||[]).push([[17643],{17643:function(e,s,a){"use strict";a.r(s);var n=(0,a(37086).Z)((function(){return Promise.all([a.e(4806),a.e(459)]).then(a.bind(a,4806))}));s.default=n}}]);
-//# sourceMappingURL=17643.41d71e6a.chunk.js.map

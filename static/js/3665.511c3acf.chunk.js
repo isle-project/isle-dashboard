@@ -1,1 +1,0 @@
-(self.webpackChunkisle_dashboard=self.webpackChunkisle_dashboard||[]).push([[3665],{3665:function(e){"use strict";e.exports=JSON.parse('{"cancel":"Annuleer","delete":"Verwijder","delete-body":"Weet u zeker dat u de geselecteerde gebruikersactie wilt verwijderen?","delete-title":"Gebruikersactie verwijderen?"}')}}]);

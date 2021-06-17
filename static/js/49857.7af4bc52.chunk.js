@@ -1,1 +1,0 @@
-(self.webpackChunkisle_dashboard=self.webpackChunkisle_dashboard||[]).push([[49857],{49857:function(a){"use strict";a.exports=JSON.parse('{"close":"Cerrar","fullscreen-header":"Pantalla Completa","fullscreen-tooltip":"Activar/desactivar la vista de pantalla completa"}')}}]);

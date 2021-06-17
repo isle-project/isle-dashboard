@@ -1,0 +1,1 @@
+{"version":3,"sources":["components/admin/logs/errors/errors_log.css"],"names":[],"mappings":"AAAA,mBAIC,QAAS,CACT,eAAgB,CAJhB,iBAAkB,CAClB,SAAU,CACV,UAGD","file":"static/css/8488.6fd30663.chunk.css","sourcesContent":[".error-log-wrapper {\n\tposition: absolute;\n\ttop: 100px;\n\twidth: 90vw;\n\tleft: 5vw;\n\tmin-height: 78vh;\n}\n"],"sourceRoot":""}

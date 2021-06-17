@@ -1,1 +1,0 @@
-(self.webpackChunkisle_dashboard=self.webpackChunkisle_dashboard||[]).push([[93725],{93725:function(e){"use strict";e.exports=JSON.parse('{"close":"Chiudere","fullscreen-header":"Display a schermo intero","fullscreen-tooltip":"Attivare o disattivare lo schermo intero"}')}}]);

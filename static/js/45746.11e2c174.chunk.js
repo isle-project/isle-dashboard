@@ -1,1 +1,0 @@
-(self.webpackChunkisle_dashboard=self.webpackChunkisle_dashboard||[]).push([[45746],{45746:function(s){"use strict";s.exports={confirm:"\u78ba\u8a8d"}}}]);

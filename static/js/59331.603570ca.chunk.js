@@ -1,1 +1,0 @@
-(self.webpackChunkisle_dashboard=self.webpackChunkisle_dashboard||[]).push([[59331],{59331:function(e){"use strict";e.exports=JSON.parse('{"close":"\u5173\u95ed","fullscreen-header":"\u5168\u5c4f\u663e\u793a","fullscreen-tooltip":"\u5207\u6362\u5168\u5c4f"}')}}]);

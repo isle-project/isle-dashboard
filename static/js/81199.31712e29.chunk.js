@@ -1,1 +1,0 @@
-(self.webpackChunkisle_dashboard=self.webpackChunkisle_dashboard||[]).push([[81199],{81199:function(e){"use strict";e.exports=JSON.parse('{"close":"Chiudere","missing-children":"Il cursore richiede almeno due elementi figli per essere reso.","next":"Avanti","previous":"Precedente"}')}}]);

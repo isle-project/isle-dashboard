@@ -1,1 +1,0 @@
-(self.webpackChunkisle_dashboard=self.webpackChunkisle_dashboard||[]).push([[10773],{10773:function(s){"use strict";s.exports=JSON.parse('{"save-world-cloud":"\u4fdd\u5b58\u6587\u5b57\u4e91"}')}}]);

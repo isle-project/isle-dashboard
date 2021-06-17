@@ -1,1 +1,0 @@
-(self.webpackChunkisle_dashboard=self.webpackChunkisle_dashboard||[]).push([[55283],{55283:function(s){"use strict";s.exports=JSON.parse('{"available-commands":"Available voice commands:","click-to-set-active":"Click to set component as active","commands":"Command(s)","description":"Description"}')}}]);

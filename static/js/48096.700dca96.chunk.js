@@ -1,1 +1,0 @@
-(self.webpackChunkisle_dashboard=self.webpackChunkisle_dashboard||[]).push([[48096],{48096:function(e){"use strict";e.exports=JSON.parse('{"children-missing":"De accordeon vereist ten minste twee kinderelementen voor de weergave ervan."}')}}]);

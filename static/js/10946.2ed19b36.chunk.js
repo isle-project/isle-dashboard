@@ -1,1 +1,0 @@
-(self.webpackChunkisle_dashboard=self.webpackChunkisle_dashboard||[]).push([[10946],{10946:function(e){"use strict";e.exports=JSON.parse('{"missing-children":"Il modulo di domanda richiede che siano resi almeno due elementi figli.","submit":"Invia a"}')}}]);

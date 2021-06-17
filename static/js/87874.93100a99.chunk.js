@@ -1,1 +1,0 @@
-(self.webpackChunkisle_dashboard=self.webpackChunkisle_dashboard||[]).push([[87874],{87874:function(e){"use strict";e.exports=JSON.parse('{"copy-link":"Kopieerlink","open-link-tab":"Openen van een link in een nieuw tabblad","open-link-window":"Link openen in nieuw venster","read-aloud":"Voorlezen"}')}}]);

@@ -1,0 +1,1 @@
+import e from"./build/index.js";export const Manager=e.Manager;export const Socket=e.Socket;export{e as io};export default e;

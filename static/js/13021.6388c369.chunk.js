@@ -1,1 +1,0 @@
-(self.webpackChunkisle_dashboard=self.webpackChunkisle_dashboard||[]).push([[13021],{13021:function(e){"use strict";e.exports=JSON.parse('{"generate":"Generowa\u0107"}')}}]);

@@ -1,1 +1,0 @@
-(self.webpackChunkisle_dashboard=self.webpackChunkisle_dashboard||[]).push([[59115],{59115:function(e){"use strict";e.exports=JSON.parse('{"alert-message":"O conte\xfado externo n\xe3o pode ser exibido provavelmente devido \xe0 desativa\xe7\xe3o da incorpora\xe7\xe3o do site em iframes."}')}}]);
