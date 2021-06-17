@@ -171,6 +171,7 @@ module.exports = {
 			PnpWebpackPlugin,
 		],
 		fallback: {
+			assert: false,
 			dgram: false,
 			fs: false,
 			net: false,
@@ -237,7 +238,7 @@ module.exports = {
 					// Process application JS with Babel.
 					// The preset includes JSX, Flow, and some ESnext features.
 					{
-						test: /\.(js|jsx)$/,
+						test: /\.(js|jsx|cjs)$/,
 						include: [
 							paths.appSrc,
 							/@isle-project/
@@ -272,7 +273,7 @@ module.exports = {
 					// Process any JS outside of the app with Babel.
 					// Unlike the application JS, we only compile the standard ES features.
 					{
-						test: /\.js$/,
+						test: /\.(js|cjs)$/,
 						exclude: /@babel(?:\/|\\{1,2})runtime/,
 						use: {
 							loader: require.resolve('babel-loader'),
