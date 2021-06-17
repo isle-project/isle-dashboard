@@ -227,6 +227,7 @@ module.exports = {
 			PnpWebpackPlugin
 		],
 		fallback: {
+			assert: false,
 			dgram: false,
 			fs: false,
 			net: false,
