@@ -70,6 +70,8 @@
 	"reserved-storage-size": "Reserved Storage Size",
 	"sanitize-user": "Sanitize user",
 	"settings": "Settings",
+	"show-data": "Show {{name}}",
+	"hide-data": "Hide {{name}}",
 	"start-date": "Start Date",
 	"time-series-of": "Time Series of ",
 	"end-date": "End Date",
