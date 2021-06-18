@@ -169,8 +169,8 @@ h5 {
 
 .btn-primary {
 	filter: saturate(90%);
-	background-color: #0055ba;
-	border-color: #0055ba;
+	background-color: #005fd3;
+	border-color: #005fd3;
 }
 
 .badge-success {
@@ -260,4 +260,12 @@ label {
 .modal-close {
 	font-weight: 700;
 	line-height: 1;
+}
+
+a {
+	color: #016ee3;
+}
+
+.badge-primary {
+	background-color: #016ee3;
 }
