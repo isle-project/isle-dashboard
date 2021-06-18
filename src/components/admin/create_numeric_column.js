@@ -19,6 +19,8 @@
 
 import React from 'react';
 import InputRange from 'react-input-range';
+import replace from '@stdlib/string/replace';
+import lowercase from '@stdlib/string/lowercase';
 import roundn from '@stdlib/math/base/special/roundn';
 import 'css/input_range.css';
 
@@ -37,8 +39,9 @@ const defaultFormatLabel = ( value ) => roundn( value, -2 );
 // MAIN //
 
 function createNumericColumn({ Header, accessor, Cell, minValue = 0, maxValue = 1, maxWidth = 150, filterMethod, formatLabel }) {
+	const id = `header-${lowercase( replace( Header, ' ', '-' ) )}`;
 	return {
-		Header: <span id={Header} >{Header}</span>,
+		Header: <span id={id} >{Header}</span>,
 		accessor,
 		Cell: Cell ? Cell : ( row ) => row.value ? `${roundn( row.value, -3 )}` : 'NA',
 		filterMethod: filterMethod || defaultFilterMethod,
@@ -57,7 +60,7 @@ function createNumericColumn({ Header, accessor, Cell, minValue = 0, maxValue = 
 					paddingTop: '8px'
 				}}>
 					<InputRange
-						ariaLabelledby={Header}
+						ariaLabelledby={id}
 						ariaControls="dashboard-table"
 						allowSameValues
 						maxValue={maxValue}

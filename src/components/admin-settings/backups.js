@@ -99,15 +99,15 @@ class BackupsPage extends Component {
 							<td>{`${size} MB`}</td>
 							<td>{x.createdAt}</td>
 							<td>
-								<a href={`${server}/${x.filename}`} target="_blank" rel="noopener noreferrer" >
+								<a aria-label={t('download-backup')} href={`${server}/${x.filename}`} target="_blank" rel="noopener noreferrer" >
 									<OverlayTrigger placement="bottom" overlay={<Tooltip id="download-backup-tooltip">{t('download-backup')}</Tooltip>}>
-										<Button size="sm" variant="secondary" style={{ marginRight: 8 }} >
+										<Button aria-label={t('download-backup')} size="sm" variant="secondary" style={{ marginRight: 8 }} >
 											<i className="fas fa-cloud-download-alt" ></i>
 										</Button>
 									</OverlayTrigger>
 								</a>
 								<OverlayTrigger placement="bottom" overlay={<Tooltip id="delete-backup-tooltip">{t('delete-backup')}</Tooltip>}>
-									<Button size="sm" variant="danger" onClick={this.askToDeleteSelectedBackupFactory( x )} >
+									<Button aria-label={t('delete-backup')} size="sm" variant="danger" onClick={this.askToDeleteSelectedBackupFactory( x )} >
 										<i className="fas fa-trash-alt" ></i>
 									</Button>
 								</OverlayTrigger>

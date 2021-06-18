@@ -308,6 +308,7 @@ class EditNamespace extends Component {
 										</FormGroup>
 									</OverlayTrigger>
 									<Form.Check
+										aria-label={t('enable-ticketing')}
 										type="checkbox"
 										label={t('enable-ticketing')}
 										defaultChecked={this.state.enableTicketing}

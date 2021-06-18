@@ -133,8 +133,8 @@ class FilesPage extends Component {
 				Cell: ( row ) => {
 					return (
 						<OverlayTrigger placement="left" overlay={<Tooltip id="external-link-tooltip">{t('open-file')}</Tooltip>}>
-							<a href={server+'/'+row.value} target="_blank" rel="noopener noreferrer" >
-								<Button size="sm" variant="outline-secondary">
+							<a aria-label={t('open-file')} href={server+'/'+row.value} target="_blank" rel="noopener noreferrer" >
+								<Button aria-label={t('open-file')} size="sm" variant="outline-secondary">
 									<i className="fa fa-external-link-alt"></i>
 								</Button>
 							</a>
@@ -152,7 +152,7 @@ class FilesPage extends Component {
 				Cell: ( row ) => {
 					return (
 						<OverlayTrigger placement="right" overlay={<Tooltip id="copy-clipboard-tooltip">{t('common:copy-link')}</Tooltip>}>
-							<Button variant="outline-secondary" size="sm"
+							<Button aria-label={t('common:copy-link')} variant="outline-secondary" size="sm"
 								onClick={() => {
 									copyToClipboard( server+'/'+row.value );
 									this.props.addNotification({
@@ -184,7 +184,7 @@ class FilesPage extends Component {
 					return (
 						<OverlayTrigger placement="right" overlay={<Tooltip id="open-lesson-tooltip">{t('open-lesson-new-tab')}</Tooltip>}>
 							<div style={{ width: '100%', height: '100%' }} >
-								<a href={row.row.lesson.url} target="_blank" rel="noopener noreferrer" >
+								<a aria-label={t('open-lesson-new-tab')} href={row.row.lesson.url} target="_blank" rel="noopener noreferrer" >
 									{row.row.lesson.title}
 								</a>
 							</div>
@@ -297,6 +297,7 @@ class FilesPage extends Component {
 					return (
 						<OverlayTrigger placement="left" overlay={<Tooltip id="delete-file-tooltip">{t('delete-file-tooltip')}</Tooltip>}>
 							<Button
+								aria-label={t('delete-file-tooltip')}
 								size="sm" variant="outline-secondary"
 								onClick={() => {
 								this.setState({
@@ -397,7 +398,7 @@ class FilesPage extends Component {
 				</ButtonGroup>
 				{ this.props.ownerFiles ? <FormGroup className="file-upload-button" >
 					<FormLabel htmlFor="fileUpload" style={{ cursor: 'pointer' }}>
-						<h3><Badge variant="success">{t('upload-file')}</Badge></h3>
+						<Badge id="fileUploadBadge" variant="success">{t('upload-file')}</Badge>
 						<input
 							id="fileUpload"
 							key={this.state.fileInputKey}
