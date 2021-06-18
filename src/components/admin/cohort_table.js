@@ -120,13 +120,15 @@ class CohortTable extends Component {
 				Header: t('start-date'),
 				accessor: 'startDate',
 				startDate: minTime,
-				endDate: maxTime
+				endDate: maxTime,
+				t
 			}),
 			createDateColumn({
 				Header: t('end-date'),
 				accessor: 'endDate',
 				startDate: minTime,
-				endDate: maxTime
+				endDate: maxTime,
+				t
 			}),
 			createNumericColumn({
 				Header: t( 'common:number-of-students' ),
