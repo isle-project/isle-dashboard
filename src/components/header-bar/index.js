@@ -298,6 +298,7 @@ class HeaderBar extends Component {
 					<Button
 						onClick={this.goToAdmin.bind( this )}
 						className="header-bar-container-button"
+						aria-label={t('open-admin')}
 					>
 						<i className="fa fa-cogs"></i>
 						<small className="admin-label">{t('admin')}</small>
@@ -557,6 +558,7 @@ class HeaderBar extends Component {
 								<div key="logout" className="header-bar-link-div" >
 									<button
 										key="logoutButton"
+										aria-label={t('common:logout')}
 										className="header-bar-link empty-button"
 										onClick={this.props.logout}
 									>
