@@ -37,6 +37,7 @@ function createTextColumn({ id, Header, Cell, accessor, maxWidth = 150, minWidth
 		Filter: ({ filter, onChange }) => {
 			return (
 				<FormControl
+					aria-label={Header}
 					autoComplete="none"
 					onChange={( event ) => {
 						onChange( event.target.value );

@@ -300,7 +300,8 @@ class UserPage extends Component {
 					return new Date( row.value ).toLocaleString();
 				},
 				startDate: minTime,
-				endDate: maxTime
+				endDate: maxTime,
+				t
 			}),
 			createDateColumn({
 				Header: t('created-at'),
@@ -309,7 +310,8 @@ class UserPage extends Component {
 					return new Date( row.value ).toLocaleString();
 				},
 				startDate: minTime,
-				endDate: maxTime
+				endDate: maxTime,
+				t
 			}),
 			{
 				Header: t( 'common:data' ),

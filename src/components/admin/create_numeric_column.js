@@ -38,7 +38,7 @@ const defaultFormatLabel = ( value ) => roundn( value, -2 );
 
 function createNumericColumn({ Header, accessor, Cell, minValue = 0, maxValue = 1, maxWidth = 150, filterMethod, formatLabel }) {
 	return {
-		Header,
+		Header: <span id={Header} >{Header}</span>,
 		accessor,
 		Cell: Cell ? Cell : ( row ) => row.value ? `${roundn( row.value, -3 )}` : 'NA',
 		filterMethod: filterMethod || defaultFilterMethod,
@@ -57,6 +57,8 @@ function createNumericColumn({ Header, accessor, Cell, minValue = 0, maxValue = 
 					paddingTop: '8px'
 				}}>
 					<InputRange
+						ariaLabelledby={Header}
+						ariaControls="dashboard-table"
 						allowSameValues
 						maxValue={maxValue}
 						minValue={minValue}

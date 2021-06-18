@@ -96,7 +96,7 @@ class FilePage extends Component {
 					return (
 						<OverlayTrigger placement="left" overlay={<Tooltip id="external-link-tooltip">{t('namespace_data:open-file')}</Tooltip>}>
 							<a href={server+'/'+row.value} target="_blank" rel="noopener noreferrer" >
-								<Button size="sm" variant="outline-secondary">
+								<Button aria-label={t('namespace_data:open-file')} size="sm" variant="outline-secondary">
 									<i className="fa fa-external-link-alt"></i>
 								</Button>
 							</a>
@@ -114,7 +114,7 @@ class FilePage extends Component {
 				Cell: ( row ) => {
 					return (
 						<OverlayTrigger placement="right" overlay={<Tooltip id="copy-clipboard-tooltip">{t('common:copy-link')}</Tooltip>}>
-							<Button variant="outline-secondary" size="sm"
+							<Button aria-label={`${t('common:copy-link')}: ${server+'/'+row.value}`} variant="outline-secondary" size="sm"
 								onClick={() => {
 									copyToClipboard( server+'/'+row.value );
 									this.props.addNotification({
@@ -221,7 +221,8 @@ class FilePage extends Component {
 			}),
 			createDateColumn({
 				Header: t('common:date'),
-				accessor: 'updatedAt'
+				accessor: 'updatedAt',
+				t
 			}),
 			{
 				Header: 'Del',
@@ -230,6 +231,7 @@ class FilePage extends Component {
 					return (
 						<OverlayTrigger placement="left" overlay={<Tooltip id="delete-file-tooltip">{t('namespace_data:delete-file-tooltip')}</Tooltip>}>
 							<Button
+								aria-label={t('namespace_data:delete-file-tooltip')}
 								size="sm" variant="outline-secondary"
 								onClick={() => {
 								this.setState({

@@ -125,13 +125,15 @@ class NamespacePage extends Component {
 				Header: t('last-updated'),
 				accessor: 'updatedAt',
 				startDate: minTime,
-				endDate: maxTime
+				endDate: maxTime,
+				t
 			}),
 			createDateColumn({
 				Header: t('created-at'),
 				accessor: 'createdAt',
 				startDate: minTime,
-				endDate: maxTime
+				endDate: maxTime,
+				t
 			}),
 			{
 				Header: t('common:actions'),

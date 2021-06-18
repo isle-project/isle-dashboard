@@ -77,7 +77,8 @@ class Rooms extends Component {
 			createDateColumn({
 				Header: t( 'common:time' ),
 				accessor: 'startTime',
-				style: { marginTop: '2px', color: 'darkslategrey' }
+				style: { marginTop: '2px', color: 'darkslategrey' },
+				t
 			}),
 			createUsersColumn({
 				Header: t( 'admin:users' ),

@@ -80,6 +80,7 @@ class CustomDatePicker extends Component {
 					isOutsideRange={() => false}
 				/>
 				<Button
+					aria-label={this.props.t('common:close')}
 					variant="warning"
 					onClick={this.handleReset}
 					style={{
@@ -102,7 +103,7 @@ const DefaultCell = ( row ) => {
 
 // MAIN //
 
-function createBooleanColumn({ Header, accessor, Cell, style, startDate, endDate, maxWidth = 150 }) {
+function createBooleanColumn({ Header, accessor, Cell, style, startDate, endDate, t, maxWidth = 150 }) {
 	return {
 		Header,
 		accessor,
@@ -129,7 +130,7 @@ function createBooleanColumn({ Header, accessor, Cell, style, startDate, endDate
 		Filter: ({ filter, onChange }) => {
 			const filterValue = filter ? ( filter.value || {} ) : {};
 			const popover = <Popover id="popover-data" style={{ maxWidth: 400 }}>
-				<Popover.Title as="h3">Dates</Popover.Title>
+				<Popover.Title as="h3">{t('common:dates')}</Popover.Title>
 				<Popover.Content style={{ backgroundColor: 'grey' }} >
 					<CustomDatePicker
 						startDate={filterValue.startDate || startDate}
@@ -139,12 +140,13 @@ function createBooleanColumn({ Header, accessor, Cell, style, startDate, endDate
 						onDatesChange={({ startDate, endDate }) => {
 							onChange({ startDate, endDate });
 						}}
+						t={t}
 					/>
 				</Popover.Content>
 			</Popover>;
 			return (
 				<OverlayTrigger trigger="click" placement="right" overlay={popover}>
-					<Button size="sm" style={{ float: 'left', marginLeft: 6 }} variant="secondary" >
+					<Button aria-label={t('common:toggle-calendar')} size="sm" style={{ float: 'left', marginLeft: 6 }} variant="secondary" >
 						<i className="far fa-calendar-alt"></i>
 					</Button>
 				</OverlayTrigger>

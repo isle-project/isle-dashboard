@@ -73,7 +73,8 @@ class EventTable extends Component {
 				Header: t( 'common:time' ),
 				accessor: 'time',
 				style: { marginTop: '2px', color: 'darkslategrey' },
-				maxWidth: 150
+				maxWidth: 150,
+				t
 			}),
 			{
 				Header: t( 'common:data' ),

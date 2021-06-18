@@ -546,6 +546,7 @@ class Overview extends Component {
 					{this.props.t('common:actions')}
 					<OverlayTrigger placement="right" overlay={<Tooltip id="explorer-action-types-tooltip">{this.props.t('common:data-explorer')}</Tooltip>}>
 						<Button
+							aria-label={this.props.t('common:data-explorer')}
 							onClick={() => {
 								this.setState({
 									dataExplorer: 'action-types'
@@ -614,11 +615,11 @@ class Overview extends Component {
 			});
 		};
 		if ( this.state.displayInPlot[ name ] ) {
-			return ( <Button variant="warning" size="sm" onClick={clickHandler} >
+			return ( <Button aria-label={this.props.t('hide-data', { name })} variant="warning" size="sm" onClick={clickHandler} >
 				<i className={icon ? icon : `fas fa-arrow-circle-${side}`} ></i>
 			</Button> );
 		}
-		return ( <Button variant="secondary" size="sm" onClick={clickHandler} >
+		return ( <Button aria-label={this.props.t('show-data', { name })} variant="secondary" size="sm" onClick={clickHandler} >
 				<i className={icon ? icon : `fas fa-arrow-circle-${reverse( side )}`} ></i>
 		</Button> );
 	}
@@ -660,6 +661,7 @@ class Overview extends Component {
 						{this.props.t('overall')}
 						<OverlayTrigger placement="right" overlay={<Tooltip id="explorer-overview-tooltip">{t('common:data-explorer')}</Tooltip>}>
 							<Button
+								aria-label={t('common:data-explorer')}
 								onClick={() => {
 									this.setState({
 										dataExplorer: 'overview-statistics'

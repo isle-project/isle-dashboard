@@ -38,6 +38,7 @@ class DashboardTable extends Component {
 			<Fragment>
 				<ReactTable
 					{...this.props}
+					id="dashboard-table"
 					filterable
 					className={`dashboard-table ${this.props.className}`}
 					data={this.props.data}
@@ -55,7 +56,7 @@ class DashboardTable extends Component {
 				/>
 				{this.props.onButtonClick ? <ButtonGroup vertical style={{ float: 'right', marginRight: -9 }} >
 					<OverlayTrigger placement="left" overlay={<Tooltip id="explorer-tooltip">{t('common:data-explorer')}</Tooltip>}>
-						<Button variant="primary" style={{ marginBottom: 8 }} onClick={this.props.onButtonClick} >
+						<Button aria-label={t('common:data-explorer')} variant="primary" style={{ marginBottom: 8 }} onClick={this.props.onButtonClick} >
 							<i className="fas fa-chart-bar" ></i>
 						</Button>
 					</OverlayTrigger>

@@ -295,7 +295,8 @@ class TicketsPage extends Component {
 				Header: t('created-at'),
 				accessor: 'createdAt',
 				startDate: minTime,
-				endDate: maxTime
+				endDate: maxTime,
+				t
 			})
 		];
 	}

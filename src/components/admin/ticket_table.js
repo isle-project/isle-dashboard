@@ -193,6 +193,7 @@ class TicketPage extends Component {
 					return (
 						<OverlayTrigger placement="left" overlay={<Tooltip id="open-ticket-tooltip">{t('common:open-ticket-tooltip')}</Tooltip>}>
 							<Button
+								aria-label={t('common:open-ticket-tooltip')}
 								size="sm" variant="outline-secondary"
 								onClick={() => {
 									this.setState({
@@ -246,6 +247,7 @@ class TicketPage extends Component {
 							{row.value}
 						</Badge>
 						<Button
+							aria-label={t('increase-priority')}
 							size="sm" variant="outline-secondary"
 							onClick={() => {
 								this.props.updatePriority( row.original._id, higher );
@@ -255,6 +257,7 @@ class TicketPage extends Component {
 							<i className="fas fa-arrow-up"></i>
 						</Button>
 						<Button
+							aria-label={t('decrease-priority')}
 							size="sm" variant="outline-secondary"
 							onClick={() => {
 								this.props.updatePriority( row.original._id, lower );
@@ -320,13 +323,15 @@ class TicketPage extends Component {
 				Header: t('last-updated'),
 				accessor: 'updatedAt',
 				startDate: minTime,
-				endDate: maxTime
+				endDate: maxTime,
+				t
 			}),
 			createDateColumn({
 				Header: t('created-at'),
 				accessor: 'createdAt',
 				startDate: minTime,
-				endDate: maxTime
+				endDate: maxTime,
+				t
 			}),
 			{
 				Header: t('common:actions'),
