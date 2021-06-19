@@ -144,7 +144,7 @@ class CohortsPage extends Component {
 			list.push(
 				<div key={i} >
 					<div className="cohort-actual-member-lesson-title">{lessons[i].title}</div>
-					<ProgressBar className="cohort-actual-member-lesson-progress" style={{ float: 'left', fontSize: '10px', height: '12px'
+					<ProgressBar aria-label="lesson-progress" className="cohort-actual-member-lesson-progress" style={{ float: 'left', fontSize: '10px', height: '12px'
 					}} now={progress} label={`${progress}%`} />
 					<span className="cohort-actual-member-lesson-time">{spentTime}</span>
 				</div>

@@ -23,8 +23,8 @@ import { withTranslation } from 'react-i18next';
 import DashboardTable from 'components/dashboard-table';
 import isArray from '@stdlib/assert/is-array';
 import ceil from '@stdlib/math/base/special/ceil';
-import createNumericColumn from './create_numeric_column.js';
-import createTextColumn from './create_text_column.js';
+import createNumericColumn from 'utils/create_numeric_column.js';
+import createTextColumn from 'utils/create_text_column.js';
 import obsToVar from '@isle-project/utils/obs-to-var';
 import DashboardDataExplorer from 'ev/components/data-explorer';
 

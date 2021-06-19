@@ -95,7 +95,7 @@ class EnrolledLesson extends Component {
 		const { t } = this.props;
 		return ( <div className="enrolled-lesson-progress">
 			<OverlayTrigger placement="top" overlay={<Tooltip id="open_details">{t('your-progress')}</Tooltip>}>
-				<ProgressBar variant='success' now={progress} label={`${progress}%`} />
+				<ProgressBar aria-label={t('your-progress')} variant='success' now={progress} label={`${progress}%`} />
 			</OverlayTrigger>
 		</div> );
 	}

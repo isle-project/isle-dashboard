@@ -35,15 +35,15 @@ import ConfirmModal from 'components/confirm-modal';
 import server from 'constants/server';
 import obsToVar from '@isle-project/utils/obs-to-var';
 import DashboardDataExplorer from 'ev/components/data-explorer';
-import SignupModal from './signup_modal.js';
-import createCategoricalColumn from './create_categorical_column.js';
-import createBooleanColumn from './create_boolean_column.js';
-import createNumericColumn from './create_numeric_column.js';
-import createDateColumn from './create_date_column.js';
-import createTextColumn from './create_text_column.js';
-import EditModal from './user_edit_modal.js';
-import textFilter from './text_filter.js';
+import createCategoricalColumn from 'utils/create_categorical_column.js';
+import createBooleanColumn from 'utils/create_boolean_column.js';
+import createNumericColumn from 'utils/create_numeric_column.js';
+import createDateColumn from 'utils/create_date_column.js';
+import createTextColumn from 'utils/create_text_column.js';
+import textFilter from 'utils/text_filter.js';
 import formatTime from 'utils/format_time.js';
+import SignupModal from './signup_modal.js';
+import EditModal from './user_edit_modal.js';
 
 
 // VARIABLES //

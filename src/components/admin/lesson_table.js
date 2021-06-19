@@ -33,9 +33,9 @@ import DashboardTable from 'components/dashboard-table';
 import DashboardDataExplorer from 'ev/components/data-explorer';
 import ConfirmModal from 'components/confirm-modal';
 import server from 'constants/server';
-import createBooleanColumn from './create_boolean_column.js';
-import createDateColumn from './create_date_column.js';
-import textFilter from './text_filter.js';
+import createBooleanColumn from 'utils/create_boolean_column.js';
+import createDateColumn from 'utils/create_date_column.js';
+import textFilter from 'utils/text_filter.js';
 
 
 // VARIABLES //

@@ -96,6 +96,7 @@ class EditableProgress extends Component {
 					></i>
 				</span>
 			</Fragment>: <ProgressBar
+				aria-label="new-progress"
 				style={{
 					fontSize: '10px',
 					height: '12px'

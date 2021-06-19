@@ -32,9 +32,9 @@ import server from 'constants/server';
 import FILE_TYPE_ICONS from 'constants/file_type_icons.js';
 import obsToVar from '@isle-project/utils/obs-to-var';
 import DashboardDataExplorer from 'ev/components/data-explorer';
-import createNumericColumn from './create_numeric_column';
-import createTextColumn from './create_text_column.js';
-import createDateColumn from './create_date_column.js';
+import createNumericColumn from 'utils/create_numeric_column';
+import createTextColumn from 'utils/create_text_column.js';
+import createDateColumn from 'utils/create_date_column.js';
 
 
 // MAIN //

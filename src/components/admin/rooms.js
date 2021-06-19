@@ -25,10 +25,10 @@ import isArray from '@stdlib/assert/is-array';
 import objectKeys from '@stdlib/utils/keys';
 import DashboardTable from 'components/dashboard-table';
 import COLORS from 'constants/colors';
-import createUsersColumn from './create_users_column.js';
-import createDateColumn from './create_date_column.js';
-import createTextColumn from './create_text_column.js';
-import createNumericColumn from './create_numeric_column.js';
+import createUsersColumn from 'utils/create_users_column.js';
+import createDateColumn from 'utils/create_date_column.js';
+import createTextColumn from 'utils/create_text_column.js';
+import createNumericColumn from 'utils/create_numeric_column.js';
 
 
 // FUNCTIONS //

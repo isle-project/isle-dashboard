@@ -29,9 +29,9 @@ import DashboardTable from 'components/dashboard-table';
 import pick from '@stdlib/utils/pick';
 import server from 'constants/server';
 import ConfirmModal from 'components/confirm-modal';
-import createBooleanColumn from './create_boolean_column.js';
-import createTextColumn from './create_text_column.js';
-import createDateColumn from './create_date_column.js';
+import createBooleanColumn from 'utils/create_boolean_column.js';
+import createTextColumn from 'utils/create_text_column.js';
+import createDateColumn from 'utils/create_date_column.js';
 import obsToVar from '@isle-project/utils/obs-to-var';
 import DashboardDataExplorer from 'ev/components/data-explorer';
 

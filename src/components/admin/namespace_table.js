@@ -30,10 +30,10 @@ import DashboardTable from 'components/dashboard-table';
 import ConfirmModal from 'components/confirm-modal';
 import obsToVar from '@isle-project/utils/obs-to-var';
 import DashboardDataExplorer from 'ev/components/data-explorer';
-import textFilter from './text_filter.js';
-import createUsersColumn from './create_users_column.js';
-import createNumericColumn from './create_numeric_column.js';
-import createDateColumn from './create_date_column.js';
+import textFilter from 'utils/text_filter.js';
+import createUsersColumn from 'utils/create_users_column.js';
+import createNumericColumn from 'utils/create_numeric_column.js';
+import createDateColumn from 'utils/create_date_column.js';
 
 
 // VARIABLES //
