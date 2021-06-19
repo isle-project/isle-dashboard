@@ -302,7 +302,7 @@ class LessonsPage extends Component {
 		let lessons = this.state.filteredLessons;
 		if ( isArray( lessons ) ) {
 			const templateButton = <OverlayTrigger placement="left" overlay={<Tooltip id="create-from-template-tooltip">{this.props.t('create-from-template')}</Tooltip>}>
-				<Button className="create-from-template-button" onClick={this.toggleCreator} >
+				<Button aria-label={this.props.t('create-from-template')} className="create-from-template-button" onClick={this.toggleCreator} >
 					<i className="fas fa-plus" />
 				</Button>
 			</OverlayTrigger>;
