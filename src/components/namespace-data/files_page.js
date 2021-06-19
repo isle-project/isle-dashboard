@@ -22,7 +22,6 @@ import PropTypes from 'prop-types';
 import logger from 'debug';
 import { withTranslation } from 'react-i18next';
 import stringify from 'csv-stringify';
-import InputRange from 'react-input-range';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import Button from 'react-bootstrap/Button';
 import FormLabel from 'react-bootstrap/FormLabel';
@@ -43,6 +42,9 @@ import DashboardTable from 'components/dashboard-table';
 import ConfirmModal from 'components/confirm-modal';
 import server from 'constants/server';
 import saveAs from 'utils/file_saver.js';
+import createDateColumn from 'utils/create_date_column.js';
+import createTextColumn from 'utils/create_text_column.js';
+import createNumericColumn from 'utils/create_numeric_column.js';
 import 'css/input_range.css';
 import './files_page.css';
 
@@ -71,7 +73,6 @@ const prepareExportData = ( data ) => {
 class FilesPage extends Component {
 	constructor( props ) {
 		super( props );
-		this.columns = this.createColumns();
 		this.state = {
 			showDeleteModal: false,
 			deletionID: null,
@@ -79,6 +80,7 @@ class FilesPage extends Component {
 			fileInputKey: 0,
 			showExplorer: false
 		};
+		this.columns = this.createColumns();
 	}
 
 	componentDidMount() {
@@ -119,14 +121,14 @@ class FilesPage extends Component {
 	createColumns = () => {
 		const { t } = this.props;
 		return [
-			{
+			createTextColumn({
 				Header: t('common:filename'),
 				accessor: 'title',
 				minWidth: 250,
 				filterMethod: ( filter, row ) => {
 					return contains( lowercase( row[ filter.id ] ), lowercase( filter.value ) );
 				}
-			},
+			}),
 			{
 				Header: t('common:open'),
 				accessor: 'filename',
@@ -173,7 +175,7 @@ class FilesPage extends Component {
 				sortable: false,
 				width: 45
 			},
-			{
+			createTextColumn({
 				Header: t('common:lesson'),
 				accessor: 'lesson',
 				maxWidth: 160,
@@ -194,8 +196,8 @@ class FilesPage extends Component {
 				filterMethod: ( filter, row ) => {
 					return row[ filter.id ].title.startsWith( filter.value );
 				}
-			},
-			{
+			}),
+			createTextColumn({
 				Header: t('first-name'),
 				id: 'first_name',
 				accessor: d => {
@@ -207,12 +209,11 @@ class FilesPage extends Component {
 					return parts[ 0 ];
 				},
 				maxWidth: 75,
-				style: { color: 'darkslategrey' },
 				filterMethod: ( filter, row ) => {
 					return contains( lowercase( row[ filter.id ] ), lowercase( filter.value ) );
 				}
-			},
-			{
+			}),
+			createTextColumn({
 				Header: t('last-name'),
 				id: 'last_name',
 				accessor: d => {
@@ -223,27 +224,26 @@ class FilesPage extends Component {
 					return '';
 				},
 				maxWidth: 75,
-				style: { color: 'darkslategrey' },
 				filterMethod: ( filter, row ) => {
 					return contains( lowercase( row[ filter.id ] ), lowercase( filter.value ) );
 				}
-			},
-			{
+			}),
+			createTextColumn({
 				Header: t('common:email'),
 				accessor: 'email',
 				maxWidth: 160,
 				filterMethod: ( filter, row ) => {
 					return contains( lowercase( row[ filter.id ] ), lowercase( filter.value ) );
 				}
-			},
-			{
+			}),
+			createTextColumn({
 				Header: t('type'),
 				accessor: 'type',
 				filterMethod: ( filter, row ) => {
 					return contains( row[ filter.id ], filter.value );
 				}
-			},
-			{
+			}),
+			createNumericColumn({
 				Header: t('common:size'),
 				accessor: 'size',
 				Cell: row => row.value ? `${roundn( row.value, -3 )}mb` : 'NA',
@@ -252,34 +252,11 @@ class FilesPage extends Component {
 					const size = row[ id ];
 					return size >= filter.value.min && size <= filter.value.max;
 				},
-				Filter: ({ filter, onChange }) => {
-					const maxValue = ceil( this.state.fileMaxSize ) || 1;
-					const defaultVal = {
-						max: maxValue,
-						min: 0
-					};
-					return (
-						<div style={{
-							paddingLeft: '4px',
-							paddingRight: '4px',
-							paddingTop: '8px'
-						}}>
-							<InputRange
-								allowSameValues
-								maxValue={maxValue}
-								minValue={0}
-								step={0.1}
-								value={filter ? filter.value : defaultVal}
-								onChange={( newValue ) => {
-									onChange( newValue );
-								}}
-								formatLabel={value => roundn( value, -2 )}
-							/>
-						</div>
-					);
-				}
-			},
-			{
+				formatLabel: value => roundn( value, -2 ),
+				maxValue: ceil( this.state.fileMaxSize ) || 1,
+				minValue: 0
+			}),
+			createDateColumn({
 				Header: t('common:date'),
 				accessor: 'updatedAt',
 				Cell: ( row ) => {
@@ -288,8 +265,9 @@ class FilesPage extends Component {
 					}
 					return '';
 				},
-				maxWidth: 120
-			},
+				maxWidth: 120,
+				t: t
+			}),
 			{
 				Header: 'Del',
 				accessor: '_id',

@@ -32,13 +32,18 @@ import './table.css';
 // MAIN //
 
 class DashboardTable extends Component {
+	getProps = () => {
+		return {
+			id: this.props.id || 'dashboard-table'
+		};
+	}
+
 	render() {
 		const { t } = this.props;
 		return (
 			<Fragment>
 				<ReactTable
 					{...this.props}
-					id="dashboard-table"
 					filterable
 					className={`dashboard-table ${this.props.className}`}
 					data={this.props.data}
@@ -53,6 +58,7 @@ class DashboardTable extends Component {
 					ref={( table ) => {
 						this.table = table;
 					}}
+					getProps={this.getProps}
 				/>
 				{this.props.onButtonClick ? <ButtonGroup vertical style={{ float: 'right', marginRight: -9 }} >
 					<OverlayTrigger placement="left" overlay={<Tooltip id="explorer-tooltip">{t('common:data-explorer')}</Tooltip>}>

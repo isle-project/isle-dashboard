@@ -41,6 +41,7 @@ import DashboardDataExplorer from 'ev/components/data-explorer';
 import obsToVar from '@isle-project/utils/obs-to-var';
 import server from 'constants/server';
 import saveAs from 'utils/file_saver.js';
+import createTextColumn from 'utils/create_text_column.js';
 import EditableProgress from './editable_progress.js';
 import formatTime from 'utils/format_time.js';
 import './progress_page.css';
@@ -177,35 +178,32 @@ class ProgressPage extends Component {
 				sortable: false,
 				style: { color: 'darkslategrey' }
 			},
-			{
+			createTextColumn({
 				Header: t('first-name'),
 				id: 'first_name',
 				accessor: 'firstName',
 				maxWidth: 75,
-				style: { marginTop: '8px', color: 'darkslategrey' },
 				filterMethod: ( filter, row ) => {
 					return contains( lowercase( row[ filter.id ] ), lowercase( filter.value ) );
 				}
-			},
-			{
+			}),
+			createTextColumn({
 				Header: t('last-name'),
 				id: 'last_name',
 				accessor: 'lastName',
 				maxWidth: 75,
-				style: { marginTop: '8px', color: 'darkslategrey' },
 				filterMethod: ( filter, row ) => {
 					return contains( lowercase( row[ filter.id ] ), lowercase( filter.value ) );
 				}
-			},
-			{
+			}),
+			createTextColumn({
 				Header: t('common:email'),
 				accessor: 'email',
 				maxWidth: 200,
-				style: { marginTop: '8px', color: 'darkslategrey' },
 				filterMethod: ( filter, row ) => {
 					return contains( lowercase( row[ filter.id ] ), lowercase( filter.value ) );
 				}
-			},
+			}),
 			{
 				Header: t('common:cohort'),
 				accessor: 'cohort',
@@ -245,9 +243,10 @@ class ProgressPage extends Component {
 			}
 		];
 		for ( let i = 0; i < lessons.length; i++ ) {
+			const id = 'lesson_'+i;
 			COLUMNS.push({
-				id: 'lesson_'+i,
-				Header: lessons[ i ].title,
+				id,
+				Header: <span id={id} >{lessons[ i ].title}</span>,
 				_lesson: lessons[ i ],
 				Cell: this.accessorFactory( lessons, i ),
 				accessor: 'lessonData',
@@ -265,6 +264,8 @@ class ProgressPage extends Component {
 							paddingTop: '8px'
 						}}>
 							<InputRange
+								ariaLabelledby={id}
+								ariaControls="dashboard-table"
 								allowSameValues
 								maxValue={100}
 								minValue={0}
