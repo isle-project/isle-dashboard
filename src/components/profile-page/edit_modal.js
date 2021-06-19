@@ -185,6 +185,7 @@ class EditModal extends Component {
 									>{t('common:email-not-verified')}
 										<OverlayTrigger placement="right" overlay={createTooltip( t('resend-confirm-email') )}>
 											<Button
+												aria-label={t('resend-confirm-email')}
 												size="sm" variant="outline-light" onClick={this.props.resendConfirmEmail}
 												style={{ fontSize: 12, marginLeft: 6 }}
 											>

@@ -28,6 +28,7 @@ const Branding = ({ logoPath, name, updateSettings, t }) => {
 		<div style={{ position: 'relative', width: 'fit-content' }}>
 			<img src={logoPath} alt="Logo" style={{ height: '250px', width: 'auto' }} />
 			<Button
+				aria-label={t('common:delete')}
 				style={{ position: 'absolute', top: 0, right: 0 }}
 				onClick={toggleModal}
 				variant="danger"
@@ -94,6 +95,7 @@ const BrandingFileUpload = ({ name, t, uploadLogo, user }) => {
 				{ file ?
 					<Fragment>
 						<Button
+							aria-label={t('common:confirm')}
 							className="branding-confirm-btn"
 							onClick={handleConfirm}
 							variant="success" size="sm"
@@ -101,6 +103,7 @@ const BrandingFileUpload = ({ name, t, uploadLogo, user }) => {
 							<i className="fas fa-check" />
 						</Button>
 						<Button
+							aria-label={t('common:reset')}
 							className="branding-reset-btn"
 							onClick={handleReset}
 							variant="warning" size="sm"

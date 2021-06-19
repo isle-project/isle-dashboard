@@ -27,7 +27,7 @@ const DashboardDataExplorer = ( props ) => {
 				<OverlayTrigger placement="left" overlay={<Tooltip id="explorerCloseButtonTooltip">
 					{props.t('common:close')}
 				</Tooltip>} >
-					<Button onClick={props.close} style={{ float: 'right' }} >
+					<Button aria-label={props.t('common:close')} onClick={props.close} style={{ float: 'right' }} >
 						<i className="fas fa-times"></i>
 					</Button>
 				</OverlayTrigger>

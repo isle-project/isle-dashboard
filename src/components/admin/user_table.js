@@ -481,7 +481,7 @@ class UserPage extends Component {
 					t={t}
 				/>
 				<OverlayTrigger placement="left" overlay={<Tooltip>{t('create-new-user')}</Tooltip>} >
-					<Button style={{ marginRight: -9, float: 'right' }} onClick={this.toggleUserCreation} >
+					<Button aria-label={t('create-new-user')} style={{ marginRight: -9, float: 'right' }} onClick={this.toggleUserCreation} >
 						<i className="fas fa-plus"></i>
 					</Button>
 				</OverlayTrigger>

@@ -150,7 +150,7 @@ class TicketModal extends Component {
 								<br />
 								<span className="title">{`${t('common:attachments')}: `}</span>
 								{ticket.attachments.map( ( file, idx ) => {
-									return ( <a href={`${server}/attachments/${file.filename}`} key={idx} style={{ marginLeft: 6 }} target="_blank" rel="noopener noreferrer" >
+									return ( <a aria-label={t('common:attachments')} href={`${server}/attachments/${file.filename}`} key={idx} style={{ marginLeft: 6 }} target="_blank" rel="noopener noreferrer" >
 										<i className="fas fa-link" style={{ marginRight: 2 }} ></i>
 										{file.title}
 									</a> );

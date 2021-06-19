@@ -71,6 +71,7 @@ class AdminSettingsUserFields extends Component {
 											</Button>
 										</OverlayTrigger>
 										<Button
+											aria-label={t('increment-position')}
 											variant="outline-secondary"
 											onClick={() => {
 												this.props.incrementFieldPosition( field._id );
@@ -80,6 +81,7 @@ class AdminSettingsUserFields extends Component {
 											<i className="fas fa-arrow-down"></i>
 										</Button>
 										<Button
+											aria-label={t('decrement-position')}
 											variant="outline-secondary"
 											onClick={() => {
 												this.props.decrementFieldPosition( field._id );

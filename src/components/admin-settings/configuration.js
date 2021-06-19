@@ -36,7 +36,7 @@ import i18next from 'helpers/i18n';
 
 // FUNCTIONS //
 
-const InputField = ({ name, defaultValue, type, updateSettings }) => {
+const InputField = ({ name, defaultValue, type, updateSettings, t }) => {
 	const [ value, setValue ] = useState( defaultValue );
 	const handleChange = useCallback( ( event ) => {
 		const target = event.target;
@@ -54,12 +54,14 @@ const InputField = ({ name, defaultValue, type, updateSettings }) => {
 			{ value !== defaultValue ?
 				<Fragment>
 					<Button
+						aria-label={t('common:confirm')}
 						onClick={handleConfirm}
 						variant="success" size="sm" style={{ marginRight: 6, marginLeft: 8 }}
 					>
 						<i className="fas fa-check" />
 					</Button>
 					<Button
+						aria-label={t('common:reset')}
 						onClick={handleReset}
 						variant="warning" size="sm" style={{ width: 32 }}
 					>
@@ -300,6 +302,7 @@ class ConfigurationPage extends Component {
 							type="text"
 							defaultValue={admin.settings.siteTitle}
 							updateSettings={updateSettings}
+							t={t}
 						/>
 					</Col>
 					<Col sm={5} >
@@ -319,6 +322,7 @@ class ConfigurationPage extends Component {
 							type="text"
 							defaultValue={admin.settings.siteDescription}
 							updateSettings={updateSettings}
+							t={t}
 						/>
 					</Col>
 					<Col sm={5} >
@@ -484,6 +488,7 @@ class ConfigurationPage extends Component {
 							type="number"
 							defaultValue={admin.settings.rateLimitNamespaceCreation}
 							updateSettings={updateSettings}
+							t={t}
 						/>
 					</Col>
 					<Col sm={5} >
@@ -502,6 +507,7 @@ class ConfigurationPage extends Component {
 							type="number"
 							defaultValue={admin.settings.rateLimitUserCreation}
 							updateSettings={updateSettings}
+							t={t}
 						/>
 					</Col>
 					<Col sm={5} >
@@ -520,6 +526,7 @@ class ConfigurationPage extends Component {
 							type="number"
 							defaultValue={admin.settings.rateLimitBackupCreation}
 							updateSettings={updateSettings}
+							t={t}
 						/>
 					</Col>
 					<Col sm={5} >

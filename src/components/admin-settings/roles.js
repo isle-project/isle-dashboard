@@ -352,7 +352,7 @@ const RoleItemList = ({ roles, askToDeleteSelectedRoleFactory, toggleEditModalFa
 						</Popover>}
 					trigger="click"
 				>
-					<Button variant="success" style={{ marginRight: 8 }} >
+					<Button aria-label={t('show-allowed-permissions')} variant="success" style={{ marginRight: 8 }} >
 						<i className="fas fa-check-circle"></i>
 					</Button>
 				</OverlayTrigger>
@@ -367,7 +367,7 @@ const RoleItemList = ({ roles, askToDeleteSelectedRoleFactory, toggleEditModalFa
 						</Popover>}
 					trigger="click"
 				>
-					<Button variant="danger" >
+					<Button aria-label={t('show-disallowed-permissions')} variant="danger" >
 						<i className="far fa-times-circle"></i>
 					</Button>
 				</OverlayTrigger>
@@ -376,11 +376,13 @@ const RoleItemList = ({ roles, askToDeleteSelectedRoleFactory, toggleEditModalFa
 			<td>{role.authorizedRoles.map( x => x.title ).join( ', ' )}</td>
 			<td>
 				<Button
+					aria-label={t('common:edit')}
 					size="sm" onClick={toggleEditModalFactory( role )} style={{ marginRight: 6 }}
 				>
 					<i className="fas fa-edit" ></i>
 				</Button>
 				<Button
+					aria-label={t('common:delete')}
 					variant="danger" size="sm" onClick={askToDeleteSelectedRoleFactory( role )}
 				>
 					<i className="fas fa-trash" ></i>
