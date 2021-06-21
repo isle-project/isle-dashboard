@@ -132,7 +132,6 @@ class TextSelect extends Component {
 			case 'Enter':
 			case 'Tab': {
 				this.addInputValues();
-				event.preventDefault();
 			}
 		}
 	}
