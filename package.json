@@ -62,7 +62,7 @@
     "@isle-project/locales": "^0.50.4",
     "@isle-project/session": "^0.50.4",
     "@isle-project/utils": "^0.50.4",
-    "@isle-project/webpack-cdn-plugin": "^0.50.4",
+    "@isle-project/webpack-cdn-plugin": "^0.50.6",
     "@stdlib/array": "^0.0.8",
     "@stdlib/assert": "^0.0.8",
     "@stdlib/constants": "^0.0.8",
