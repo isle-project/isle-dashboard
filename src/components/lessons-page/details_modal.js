@@ -63,6 +63,7 @@ class DetailsModal extends Component {
 			description: props.description,
 			disabled: false,
 			template: props.template,
+			changedTemplate: false,
 			lockLesson,
 			lockUntil
 		};
@@ -127,7 +128,8 @@ class DetailsModal extends Component {
 
 	handleTemplateChange = ( event ) => {
 		this.setState({
-			template: event.target.checked
+			template: event.target.checked,
+			changedTemplate: true
 		});
 	}
 
@@ -140,7 +142,7 @@ class DetailsModal extends Component {
 		if ( this.state.lockLesson ) {
 			details.lockUntil = this.state.lockUntil;
 		}
-		if ( this.state.template === false || this.state.template === true ) {
+		if ( this.state.changedTemplate ) {
 			details.template = this.state.template;
 		}
 		this.props.update( details );
