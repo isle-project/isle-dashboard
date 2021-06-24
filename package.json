@@ -170,7 +170,7 @@
     "postcss-loader": "6.1.0",
     "postcss-safe-parser": "^6.0.0",
     "react-dev-utils": "11.0.4",
-    "style-loader": "2.0.0",
+    "style-loader": "3.0.0",
     "stylelint": "^13.13.1",
     "stylelint-config-standard": "^22.0.0",
     "terser-webpack-plugin": "5.1.3",
