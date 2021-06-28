@@ -66,7 +66,7 @@
     "@stdlib/array": "^0.0.8",
     "@stdlib/assert": "^0.0.8",
     "@stdlib/constants": "^0.0.8",
-    "@stdlib/fs": "^0.0.8",
+    "@stdlib/fs": "^0.0.9",
     "@stdlib/math": "^0.0.7",
     "@stdlib/process": "^0.0.8",
     "@stdlib/stats": "^0.0.9",
