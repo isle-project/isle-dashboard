@@ -65,7 +65,7 @@
     "@isle-project/webpack-cdn-plugin": "^0.50.6",
     "@stdlib/array": "^0.0.9",
     "@stdlib/assert": "^0.0.9",
-    "@stdlib/constants": "^0.0.8",
+    "@stdlib/constants": "^0.0.9",
     "@stdlib/fs": "^0.0.9",
     "@stdlib/math": "^0.0.8",
     "@stdlib/process": "^0.0.9",
