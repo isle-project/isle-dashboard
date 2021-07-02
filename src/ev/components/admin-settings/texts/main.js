@@ -16,6 +16,7 @@ import Col from 'react-bootstrap/Col';
 import uppercase from '@stdlib/string/uppercase';
 import objectKeys from '@stdlib/utils/keys';
 import contains from '@stdlib/assert/contains';
+import isUndefined from '@stdlib/assert/is-undefined';
 import ConfirmModal from 'components/confirm-modal';
 import LicenseBarrier from 'ev/containers/visible-barrier';
 import SearchBar from 'components/searchbar';
@@ -250,7 +251,7 @@ const AdminSettingsTexts = ( props ) => {
 			for ( let j = 0; j < keys.length; j++ ) {
 				const key = keys[ j ];
 				const text = data[ ns ][ key ];
-				if ( !customNS || !customNS[ key ] ) {
+				if ( !customNS || isUndefined( customNS[ key ] ) ) {
 					continue;
 				}
 				if (
