@@ -100,6 +100,12 @@ export const languageLabel = ( code ) => {
 	}
 };
 
+/**
+* Returns the language description for a given language code.
+*
+* @param {string} code - the language code
+* @returns {string} the language description
+*/
 export const languageDescription = ( code ) => {
 	switch ( code ) {
 	case 'en':
