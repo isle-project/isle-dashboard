@@ -27,6 +27,12 @@ import { UPDATED_SETTINGS, UPDATED_TRANSLATIONS, GET_CUSTOM_TRANSLATIONS, GET_SE
 
 // EXPORTS //
 
+/**
+ * Makes a GET request to the server to retrieve the server instance settings.
+ *
+ * @param {Function} dispatch - dispatch function
+ * @returns {void}
+ */
 export const getSettings = async ( dispatch ) => {
 	try {
 		const res = await axios.get( server+'/get_settings' );
@@ -39,12 +45,24 @@ export const getSettings = async ( dispatch ) => {
 	}
 };
 
+/**
+ * Returns a function to make a GET request to the server to retrieve the server instance settings with a bound dispatch function.
+ *
+ * @param {Function} dispatch - dispatch function
+ * @returns {Function} function to make a GET request to the server to retrieve the server instance settings
+ */
 export const getSettingsInjector = dispatch => {
 	return async () => {
 		await getSettings( dispatch );
 	};
 };
 
+/**
+ * Makes a GET request to the server to retrieve the server instance's public settings.
+ *
+ * @param {Function} dispatch - dispatch function
+ * @returns {void}
+ */
 export const getPublicSettings = async ( dispatch ) => {
 	try {
 		const res = await axios.get( server+'/get_public_settings' );
@@ -57,12 +75,26 @@ export const getPublicSettings = async ( dispatch ) => {
 	}
 };
 
+/**
+ * Returns a function to make a GET request to the server to retrieve the server instance's public settings with a bound dispatch function.
+ *
+ * @param {Function} dispatch - dispatch function
+ * @returns {Function} function to make a GET request to the server to retrieve the server instance's public settings
+ */
 export const getPublicSettingsInjector = dispatch => {
 	return async () => {
 		await getPublicSettings( dispatch );
 	};
 };
 
+/**
+ * Makes a POST request to the server to update a server instance setting.
+ *
+ * @param {Function} dispatch - dispatch function
+ * @param {string} name - name of the setting to update
+ * @param {string} value - value of the setting to update
+ * @returns {void}
+ */
 export const updateSettings = async ( dispatch, name, value ) => {
 	try {
 		const res = await axios.post( server+'/update_settings', {
@@ -82,12 +114,29 @@ export const updateSettings = async ( dispatch, name, value ) => {
 	}
 };
 
+/**
+ * Returns a function to make a POST request to the server to update a server instance setting with a bound dispatch function.
+ *
+ * @param {Function} dispatch - dispatch function
+ * @returns {Function} function to make a POST request to the server to update a server instance setting
+ */
 export const updateSettingsInjector = dispatch => {
 	return async ( name, value ) => {
 		await updateSettings( dispatch, name, value );
 	};
 };
 
+/**
+ * Makes a POST request to the server to add a custom translation.
+ *
+ * @param {Function} dispatch - dispatch function
+ * @param {Object} translation - the translation to add
+ * @param {string} translation.language - the locale of the translation
+ * @param {string} translation.ns - the namespace of the translation
+ * @param {string} translation.key - the translation's key
+ * @param {string} translation.value - the translation's value
+ * @returns {(Object|Error)} the translation added or an error
+ */
 export const addCustomTranslation = async ( dispatch, { language, ns, key, value }) => {
 	try {
 		const res = await axios.post( server+'/add_custom_translation', {
@@ -109,6 +158,12 @@ export const addCustomTranslation = async ( dispatch, { language, ns, key, value
 	}
 };
 
+/**
+ * Returns a function to make a POST request to the server to add a custom translation with a bound dispatch function.
+ *
+ * @param {Function} dispatch - dispatch function
+ * @returns {Function} function to make a POST request to the server to add a custom translation
+ */
 export const addCustomTranslationInjector = dispatch => {
 	return async ({ language, ns, key, value }) => {
 		const res = await addCustomTranslation( dispatch, { language, ns, key, value });
@@ -116,6 +171,12 @@ export const addCustomTranslationInjector = dispatch => {
 	};
 };
 
+/**
+ * Makes a POST request to the server to get all custom translations.
+ *
+ * @param {Function} dispatch - dispatch function
+ * @returns {void}
+ */
 export const getCustomTranslations = async ( dispatch ) => {
 	try {
 		const res = await axios.get( server+'/get_translations' );
@@ -128,12 +189,28 @@ export const getCustomTranslations = async ( dispatch ) => {
 	}
 };
 
+/**
+ * Returns a function to make a POST request to the server to get all custom translations with a bound dispatch function.
+ *
+ * @param {Function} dispatch - dispatch function
+ * @returns {Function} function to make a POST request to the server to get all custom translations
+ */
 export const getCustomTranslationsInjector = dispatch => {
 	return async () => {
 		await getCustomTranslations( dispatch );
 	};
 };
 
+/**
+ * Makes a POST request to the server to remove a custom translation.
+ *
+ * @param {Function} dispatch - dispatch function
+ * @param {Object} translation - the translation to remove
+ * @param {string} translation.language - the locale of the translation
+ * @param {string} translation.ns - the namespace of the translation
+ * @param {string} translation.key - the translation's key
+ * @returns {(Object|Error)} the server response or an error
+ */
 export const removeCustomTranslation = async ( dispatch, { language, ns, key }) => {
 	try {
 		const res = await axios.post( server+'/remove_custom_translation', {
@@ -155,6 +232,12 @@ export const removeCustomTranslation = async ( dispatch, { language, ns, key }) 
 	}
 };
 
+/**
+ * Returns a function to make a POST request to the server to remove a custom translation with a bound dispatch function.
+ *
+ * @param {Function} dispatch - dispatch function
+ * @returns {Function} function to make a POST request to the server to remove a custom translation
+ */
 export const removeCustomTranslationInjector = dispatch => {
 	return async ({ language, ns, key }) => {
 		const res = await removeCustomTranslation( dispatch, { language, ns, key });

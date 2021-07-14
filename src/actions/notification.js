@@ -22,6 +22,12 @@ import { ADD_NOTIFICATION, ADD_ERROR_NOTIFICATION } from 'constants/action_types
 
 // EXPORTS //
 
+/**
+ * Dispatches an action object to add a notification.
+ *
+ * @param {Function} dispatch - dispatch function
+ * @param {Object} notification - Notification object
+ */
 export function addNotification( dispatch, notification ) {
 	dispatch({
 		type: ADD_NOTIFICATION,
@@ -29,12 +35,24 @@ export function addNotification( dispatch, notification ) {
 	});
 }
 
+/**
+ * Returns a function to dispatch an action object to add a notification.
+ *
+ * @param {Function} dispatch - dispatch function
+ * @returns {Function} function to dispatch action object to add a notification
+ */
 export const addNotificationInjector = dispatch => {
 	return notification => {
 		addNotification( dispatch, notification );
 	};
 };
 
+/**
+ * Dispatches an action object to add an error notification.
+ *
+ * @param {Function} dispatch - dispatch function
+ * @param {Error} err - error object
+ */
 export function addErrorNotification( dispatch, err ) {
 	let msg;
 	if ( err.response ) {
@@ -49,6 +67,12 @@ export function addErrorNotification( dispatch, err ) {
 	});
 }
 
+/**
+ * Returns a function to dispatch an action object to add an error notification with a bound dispatch function.
+ *
+ * @param {Function} dispatch - dispatch function
+ * @returns {Function} function to dispatch action object to add an error notification
+ */
 export const addErrorNotificationInjector = dispatch => {
 	return message => {
 		addErrorNotification( dispatch, message );
