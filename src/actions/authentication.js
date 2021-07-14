@@ -31,6 +31,12 @@ const debug = logger( 'isle-dashboard:actions:authentication' );
 
 // FUNCTIONS //
 
+/**
+ * Sanitizes the user object.
+ *
+ * @param {Object} user - user object
+ * @returns {Array} sanitized user object and a boolean indicating whether the user object needs sanitizing on the server
+ */
 const sanitizeUser = ( user ) => {
 	// Check for duplicated enrolled and owned namespaces:
 	const ownedNamespaces = user.ownedNamespaces;
@@ -65,6 +71,13 @@ const sanitizeUser = ( user ) => {
 
 // MAIN //
 
+/**
+ * Makes a POST request to the server to sanitize the user.
+ *
+ * @param {Function} dispatch - dispatch function
+ * @param {Object} user - user object
+ * @returns {(Promise|null)} promise or null
+ */
 export const sanitizeRequest = ( dispatch, user ) => {
 	try {
 		return axios.post( server+'/sanitize_user', {
@@ -76,6 +89,12 @@ export const sanitizeRequest = ( dispatch, user ) => {
 	}
 };
 
+/**
+ * Returns a function to make a POST request to the server to sanitize the user with a bound dispatch function.
+ *
+ * @param {Function} dispatch - dispatch function
+ * @returns {Function} function to make a POST request to the server to sanitize the user
+ */
 export const sanitizeRequestInjector = dispatch => {
 	return async ( user ) => {
 		const result = await sanitizeRequest( dispatch, user );
@@ -83,6 +102,13 @@ export const sanitizeRequestInjector = dispatch => {
 	};
 };
 
+/**
+ * Makes a POST request to the server to fetch the user's credentials.
+ *
+ * @param {Function} dispatch - dispatch function
+ * @param {Object} obj - object with a `id` property and a `token` property
+ * @returns {(Object|null)} user object or null
+ */
 export const fetchCredentials = async ( dispatch, obj ) => {
 	debug( 'Fetch user credentials...' );
 	localStorage.setItem( 'ISLE_USER_'+server, JSON.stringify( obj ) );
@@ -110,6 +136,12 @@ export const fetchCredentials = async ( dispatch, obj ) => {
 	}
 };
 
+/**
+ * Returns a function to make a POST request to the server to fetch the user's credentials with a bound dispatch function.
+ *
+ * @param {Function} dispatch - dispatch function
+ * @returns {Function} function to make a POST request to the server to fetch the user's credentials
+ */
 export const fetchCredentialsInjector = dispatch => {
 	return async ( obj ) => {
 		const result = await fetchCredentials( dispatch, obj );
@@ -117,6 +149,18 @@ export const fetchCredentialsInjector = dispatch => {
 	};
 };
 
+/**
+ * Makes a POST request to authenticate the user via Shibboleth.
+ *
+ * @param {Function} dispatch - dispatch function
+ * @param {Object} shibboleth - shibboleth object
+ * @param {string} shibboleth.eppn - user EPPN
+ * @param {string} shibboleth.affil - user affiliation
+ * @param {string} shibboleth.time - time of authentication
+ * @param {string} shibboleth.salt - salt
+ * @param {string} shibboleth.token - token
+ * @returns {(Object|null)} user object or null
+ */
 export const shibboleth = async ( dispatch, { eppn, name, affil, time, salt, token }) => {
 	try {
 		const res = await axios.post( server+'/shibboleth', {
@@ -127,9 +171,16 @@ export const shibboleth = async ( dispatch, { eppn, name, affil, time, salt, tok
 	}
 	catch ( err ) {
 		addErrorNotification( dispatch, err );
+		return null;
 	}
 };
 
+/**
+ * Returns a function to make a POST request to authenticate the user via Shibboleth with a bound dispatch function.
+ *
+ * @param {Function} dispatch - dispatch function
+ * @returns {Function} function to make a POST request to authenticate the user via Shibboleth
+ */
 export const shibbolethInjector = dispatch => {
 	return async ({ eppn, name, affil, time, salt, token }) => {
 		const result = await shibboleth( dispatch, { eppn, name, affil, time, salt, token } );
