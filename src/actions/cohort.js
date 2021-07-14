@@ -35,6 +35,16 @@ const debug = logger( 'isle-dashboard:actions:cohorts' );
 
 // MAIN //
 
+/**
+ * Returns an action for a new enrolled namespace.
+ *
+ * @param {Object} namespace - namespace object
+ * @param {string} namespace._id - namespace ID
+ * @param {string} namespace.title - namespace title
+ * @param {string} namespace.description - namespace description
+ * @param {Array} namespace.owners - namespace owners
+ * @returns {Object} action
+ */
 export function addEnrolledNamespace({ title, owners, description, _id }) {
 	return {
 		type: ADD_ENROLLED_NAMESPACE,
@@ -47,6 +57,13 @@ export function addEnrolledNamespace({ title, owners, description, _id }) {
 	};
 }
 
+/**
+ * Returns an action for retrieving all enrollable cohorts.
+ *
+ * @param {Array} cohorts - cohorts
+ * @param {Object} user - user object
+ * @returns {Object} action
+ */
 export function retrievedEnrollableCohorts( cohorts, user ) {
 	return {
 		type: RETRIEVED_ENROLLABLE_COHORTS,
@@ -57,6 +74,13 @@ export function retrievedEnrollableCohorts( cohorts, user ) {
 	};
 }
 
+/**
+ * Returns an action for retrieved cohorts.
+ *
+ * @param {Array} cohorts - cohorts
+ * @param {Object} user - user object
+ * @returns {Object} action
+ */
 export function retrievedCohorts( cohorts, user ) {
 	return {
 		type: RETRIEVED_COHORTS,
@@ -67,6 +91,12 @@ export function retrievedCohorts( cohorts, user ) {
 	};
 }
 
+/**
+ * Returns an action for retrieving all cohorts.
+ *
+ * @param {Array} cohorts - cohorts
+ * @returns {Object} action
+ */
 export function retrievedAllCohorts( cohorts ) {
 	return {
 		type: GET_ALL_COHORTS,
@@ -79,6 +109,12 @@ export function retrievedAllCohorts( cohorts ) {
 
 // EXPORTS //
 
+/**
+ * Makes a GET request for retrieving all enrollable cohorts.
+ *
+ * @param {Function} dispatch - dispatch function
+ * @param {Object} user - user object
+ */
 export const getEnrollableCohorts = async ( dispatch, user ) => {
 	try {
 		const res = await axios.get( server+'/get_enrollable_cohorts' );
@@ -90,12 +126,25 @@ export const getEnrollableCohorts = async ( dispatch, user ) => {
 	}
 };
 
+/**
+ * Returns a function making a GET request for retrieving all enrollable cohorts with a bound dispatch function.
+ *
+ * @param {Function} dispatch - dispatch function
+ * @returns {Function} function to make GET request for retrieving all enrollable cohorts
+ */
 export const getEnrollableCohortsInjector = dispatch => {
 	return async ( user ) => {
 		await getEnrollableCohorts( dispatch, user );
 	};
 };
 
+/**
+ * Makes a GET request for retrieving all cohorts for the selected course.
+ *
+ * @param {Function} dispatch - dispatch function
+ * @param {Object} options - request options
+ * @param {string} options.namespaceID - course ID
+ */
 export const getCohorts = async ( dispatch, { namespaceID }) => {
 	try {
 		const res = await axios.get( server+'/get_cohorts?'+qs.stringify({ namespaceID }) );
@@ -105,12 +154,25 @@ export const getCohorts = async ( dispatch, { namespaceID }) => {
 	}
 };
 
+/**
+ * Returns a function making a GET request for retrieving all cohorts for the selected course with a bound dispatch function.
+ *
+ * @param {Function} dispatch - dispatch function
+ * @returns {Function} function to make GET request for retrieving all cohorts for the selected course
+ */
 export const getCohortsInjector = ( dispatch ) => {
 	return async ({ namespaceID, userToken }) => {
 		await getCohorts( dispatch, { namespaceID, userToken });
 	};
 };
 
+/**
+ * Makes a POST request for adding the user to the selected cohort.
+ *
+ * @param {Function} dispatch - dispatch function
+ * @param {string} cohortID - cohort ID
+ * @param {Object} namespace - namespace object
+ */
 export const addUserToCohort = async ( dispatch, cohortID, namespace ) => {
 	try {
 		const res = await axios.post( server+'/add_to_cohort', { cohortID });
@@ -126,12 +188,25 @@ export const addUserToCohort = async ( dispatch, cohortID, namespace ) => {
 	}
 };
 
+/**
+ * Returns a function making a POST request for adding the user to the selected cohort with a bound dispatch function.
+ *
+ * @param {Function} dispatch - dispatch function
+ * @returns {Function} function to make POST request for adding the user to the selected cohort
+ */
 export const addUserToCohortInjector = ( dispatch ) => {
 	return async ( cohortID, namespace ) => {
 		await addUserToCohort( dispatch, cohortID, namespace );
 	};
 };
 
+/**
+ * Makes a POST request for deleting the selected cohort.
+ *
+ * @param {Function} dispatch - dispatch function
+ * @param {string} _id - cohort ID
+ * @param {string} namespaceID - namespace identifier corresponding to the cohort
+ */
 export const deleteCohort = async ( dispatch, _id, namespaceID ) => {
 	try {
 		const res = await axios.post( server+'/delete_cohort', { _id });
@@ -150,12 +225,25 @@ export const deleteCohort = async ( dispatch, _id, namespaceID ) => {
 	}
 };
 
+/**
+ * Returns a function making a POST request for deleting the selected cohort with a bound dispatch function.
+ *
+ * @param {Function} dispatch - dispatch function
+ * @returns {Function} function to make POST request for deleting the selected cohort
+ */
 export const deleteCohortInjector = ( dispatch ) => {
 	return async ( _id, namespaceID ) => {
 		await deleteCohort( dispatch, _id, namespaceID );
 	};
 };
 
+/**
+ * Makes a POST request for creating a new cohort.
+ *
+ * @param {Function} dispatch - dispatch function
+ * @param {Object} cohort - cohort object
+ * @param {string} namespaceID - namespace identifier corresponding to the cohort
+ */
 export const createCohort = async ( dispatch, cohort, namespaceID ) => {
 	try {
 		const res = await axios.post( server+'/create_cohort', cohort );
@@ -170,12 +258,25 @@ export const createCohort = async ( dispatch, cohort, namespaceID ) => {
 	}
 };
 
+/**
+ * Returns a function making a POST request for creating a new cohort with a bound dispatch function.
+ *
+ * @param {Function} dispatch - dispatch function
+ * @returns {Function} function to make POST request for creating a new cohort
+ */
 export const createCohortInjector = ( dispatch ) => {
 	return async ( cohort, namespaceID ) => {
 		await createCohort( dispatch, cohort, namespaceID );
 	};
 };
 
+/**
+ * Makes a POST request for updating the selected cohort.
+ *
+ * @param {Function} dispatch - dispatch function
+ * @param {Object} cohort - cohort object
+ * @param {string} namespaceID - namespace identifier corresponding to the cohort
+ */
 export const updateCohort = async ( dispatch, cohort, namespaceID ) => {
 	try {
 		const res = await axios.post( server+'/update_cohort', { cohort });
@@ -207,12 +308,23 @@ export const updateCohort = async ( dispatch, cohort, namespaceID ) => {
 	}
 };
 
+/**
+ * Returns a function making a POST request for updating the selected cohort with a bound dispatch function.
+ *
+ * @param {Function} dispatch - dispatch function
+ * @returns {Function} function to make POST request for updating the selected cohort
+ */
 export const updateCohortInjector = ( dispatch ) => {
 	return async ( cohort, namespaceID ) => {
 		await updateCohort( dispatch, cohort, namespaceID );
 	};
 };
 
+/**
+ * Makes a POST request for retrieving the list of cohorts.
+ *
+ * @param {Function} dispatch - dispatch function
+ */
 export const getAllCohorts = async ( dispatch ) => {
 	try {
 		const res = await axios.get( server+'/get_all_cohorts' );
@@ -222,6 +334,12 @@ export const getAllCohorts = async ( dispatch ) => {
 	}
 };
 
+/**
+ * Returns a function making a POST request for retrieving the list of all cohorts with a bound dispatch function.
+ *
+ * @param {Function} dispatch - dispatch function
+ * @returns {Function} function to make POST request for retrieving the list of all cohorts
+ */
 export const getAllCohortsInjector = ( dispatch ) => {
 	return async () => {
 		await getAllCohorts( dispatch );
