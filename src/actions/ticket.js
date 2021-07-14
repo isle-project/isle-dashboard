@@ -30,6 +30,12 @@ import { CREATED_TICKET, DELETED_TICKET, GET_ALL_TICKETS,
 
 // EXPORTS //
 
+/**
+ * Makes a GET request to the server to get all tickets.
+ *
+ * @param {Function} dispatch - dispatch object
+ * @returns {void}
+ */
 export const getAllTickets = async ( dispatch ) => {
 	try {
 		const res = await axios.get( server+'/get_all_tickets' );
@@ -44,12 +50,25 @@ export const getAllTickets = async ( dispatch ) => {
 	}
 };
 
+/**
+ * Returns a function that makes a GET request to get all tickets with a bound dispatch function.
+ *
+ * @param {Function} dispatch - dispatch function
+ * @returns {Function} a function that makes a GET request to get all tickets
+ */
 export const getAllTicketsInjector = dispatch => {
 	return async () => {
 		await getAllTickets( dispatch );
 	};
 };
 
+/**
+ * Makes a GET request to get all tickets for the given course.
+ *
+ * @param {Function} dispatch - dispatch function
+ * @param {string} namespaceID - course id
+ * @returns {void}
+ */
 export const getCourseTickets = async ( dispatch, namespaceID ) => {
 	try {
 		const res = await axios.get( server+'/get_course_tickets?'+qs.stringify({ namespaceID }) );
@@ -64,12 +83,24 @@ export const getCourseTickets = async ( dispatch, namespaceID ) => {
 	}
 };
 
+/**
+ * Returns a function that makes a GET request to get all tickets for the given course with a bound dispatch function.
+ *
+ * @param {Function} dispatch - dispatch function
+ * @returns {Function} a function that makes a GET request to get all tickets for the given course
+ */
 export const getCourseTicketsInjector = dispatch => {
 	return async ( id ) => {
 		await getCourseTickets( dispatch, id );
 	};
 };
 
+/**
+ * Makes a GET request to get all tickets for the user making the request.
+ *
+ * @param {Function} dispatch - dispatch function
+ * @returns {void}
+ */
 export const getUserTickets = async ( dispatch ) => {
 	try {
 		const res = await axios.get( server+'/get_user_tickets' );
@@ -84,12 +115,25 @@ export const getUserTickets = async ( dispatch ) => {
 	}
 };
 
+/**
+ * Returns a function that makes a GET request to get tickets for the user making the request with a bound dispatch function.
+ *
+ * @param {Function} dispatch - dispatch function
+ * @returns {Function} a function that makes a GET request to get tickets for the user making the request
+ */
 export const getUserTicketsInjector = dispatch => {
 	return async () => {
 		await getUserTickets( dispatch );
 	};
 };
 
+/**
+ * Makes a POST request to delete a ticket.
+ *
+ * @param {Function} dispatch - dispatch function
+ * @param {string} id - ticket id
+ * @returns {void}
+ */
 export const deleteTicket = async ( dispatch, id ) => {
 	try {
 		const res = await axios.post( server+'/delete_ticket', {
@@ -111,12 +155,30 @@ export const deleteTicket = async ( dispatch, id ) => {
 	}
 };
 
+/**
+ * Returns a function that makes a POST request to delete a ticket with a bound dispatch function.
+ *
+ * @param {Function} dispatch - dispatch function
+ * @returns {Function} a function that makes a POST request to delete a ticket
+ */
 export const deleteTicketInjector = dispatch => {
 	return async ( id ) => {
 		await deleteTicket( dispatch, id );
 	};
 };
 
+/**
+ * Makes a POST request to create a ticket.
+ *
+ * @param {Function} dispatch - dispatch function
+ * @param {Object} ticket - ticket object
+ * @param {string} ticket.title - ticket title
+ * @param {string} ticket.description - ticket description
+ * @param {Object} ticket.platform - user platform
+ * @param {Object} ticket.namespace - namespace object
+ * @param {Array} ticket.files - array of files
+ * @returns {void}
+ */
 export const createTicket = async ( dispatch, {
 	title,
 	description,
@@ -168,6 +230,12 @@ export const createTicket = async ( dispatch, {
 	}
 };
 
+/**
+ * Returns a function that makes a POST request to create a ticket with a bound dispatch function.
+ *
+ * @param {Function} dispatch - dispatch function
+ * @returns {Function} a function that makes a POST request to create a ticket
+ */
 export const createTicketInjector = dispatch => {
 	return async ({
 		title,
@@ -186,6 +254,16 @@ export const createTicketInjector = dispatch => {
 	};
 };
 
+/**
+ * Makes a POST request to send a message to a ticket.
+ *
+ * @param {Function} dispatch - dispatch function
+ * @param {Object} opts - message options
+ * @param {string} opts.message - message content
+ * @param {string} opts.ticketID - ticket id
+ * @param {Object} opts.user - user object
+ * @returns {void}
+ */
 export const sendTicketMessage = async ( dispatch, { message, ticketID, user } ) => {
 	try {
 		const res = await axios.post( server+'/add_ticket_message', {
@@ -216,12 +294,25 @@ export const sendTicketMessage = async ( dispatch, { message, ticketID, user } )
 	}
 };
 
+/**
+ * Returns a function that makes a POST request to send a message to a ticket with a bound dispatch function.
+ *
+ * @param {Function} dispatch - dispatch function
+ * @returns {Function} a function that makes a POST request to send a message to a ticket
+ */
 export const sendTicketMessageInjector = dispatch => {
 	return async ({ message, ticketID, user }) => {
 		await sendTicketMessage( dispatch, { message, ticketID, user } );
 	};
 };
 
+/**
+ * Makes a POST request to close a ticket.
+ *
+ * @param {Function} dispatch - dispatch function
+ * @param {string} id - ticket id
+ * @returns {void}
+ */
 export const closeTicket = async ( dispatch, id ) => {
 	try {
 		const res = await axios.post( server+'/close_ticket', {
@@ -243,12 +334,26 @@ export const closeTicket = async ( dispatch, id ) => {
 	}
 };
 
+/**
+ * Returns a function that makes a POST request to close a ticket with a bound dispatch function.
+ *
+ * @param {Function} dispatch - dispatch function
+ * @returns {Function} a function that makes a POST request to close a ticket
+ */
 export const closeTicketInjector = dispatch => {
 	return async ( id ) => {
 		await closeTicket( dispatch, id );
 	};
 };
 
+/**
+ * Makes a POST request to update priority of a ticket.
+ *
+ * @param {Function} dispatch - dispatch function
+ * @param {string} id - ticket id
+ * @param {string} priority - new priority
+ * @returns {void}
+ */
 export const updatePriority = async ( dispatch, id, priority ) => {
 	try {
 		const res = await axios.post( server+'/update_ticket_priority', {
@@ -272,12 +377,25 @@ export const updatePriority = async ( dispatch, id, priority ) => {
 	}
 };
 
+/**
+ * Returns a function that makes a POST request to update priority of a ticket with a bound dispatch function.
+ *
+ * @param {Function} dispatch - dispatch function
+ * @returns {Function} a function that makes a POST request to update priority of a ticket
+ */
 export const updatePriorityInjector = dispatch => {
 	return async ( id, priority ) => {
 		await updatePriority( dispatch, id, priority );
 	};
 };
 
+/**
+ * Makes a POST request to open a ticket.
+ *
+ * @param {Function} dispatch - dispatch function
+ * @param {string} id - ticket id
+ * @returns {void}
+ */
 export const openTicket = async ( dispatch, id ) => {
 	try {
 		const res = await axios.post( server+'/open_ticket', {
@@ -299,6 +417,12 @@ export const openTicket = async ( dispatch, id ) => {
 	}
 };
 
+/**
+ * Returns a function that makes a POST request to open a ticket with a bound dispatch function.
+ *
+ * @param {Function} dispatch - dispatch function
+ * @returns {Function} a function that makes a POST request to open a ticket
+ */
 export const openTicketInjector = dispatch => {
 	return async ( id ) => {
 		await openTicket( dispatch, id );
