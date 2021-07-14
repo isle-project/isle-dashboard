@@ -26,6 +26,12 @@ import { CREATED_BACKUP, DELETED_BACKUP, GET_BACKUPS } from 'constants/action_ty
 
 // EXPORTS //
 
+/**
+ * Makes a GET request to the server to get the list of backups.
+ *
+ * @param {Function} dispatch - dispatch function
+ * @returns {void}
+ */
 export const getBackups = async ( dispatch ) => {
 	try {
 		const res = await axios.get( server+'/get_backups' );
@@ -40,12 +46,24 @@ export const getBackups = async ( dispatch ) => {
 	}
 };
 
+/**
+ * Returns a function making a GET request to the server to get the list of backups with a bound dispatch function.
+ *
+ * @param {Function} dispatch - dispatch function
+ * @returns {Function} a function making a GET request to the server to get the list of backups
+ */
 export const getBackupsInjector = dispatch => {
 	return async () => {
 		await getBackups( dispatch );
 	};
 };
 
+/**
+ * Makes a POST request to the server to create a backup.
+ *
+ * @param {Function} dispatch - dispatch function
+ * @returns {void}
+ */
 export const createBackup = async ( dispatch ) => {
 	try {
 		const res = await axios.post( server+'/create_backup' );
@@ -65,12 +83,24 @@ export const createBackup = async ( dispatch ) => {
 	}
 };
 
+/**
+ * Returns a function making a POST request to the server to create a backup with a bound dispatch function.
+ *
+ * @param {Function} dispatch - dispatch function
+ * @returns {Function} a function making a POST request to the server to create a backup
+ */
 export const createBackupInjector = dispatch => {
 	return async () => {
 		await createBackup( dispatch );
 	};
 };
 
+/**
+ * Returns a function making a POST request to the server to delete a backup with a bound dispatch function.
+ *
+ * @param {Function} dispatch - dispatch function
+ * @param {string} id - the id of the backup to delete
+ */
 export const deleteBackup = async ( dispatch, id ) => {
 	try {
 		const res = await axios.post( server+'/delete_backup', {
@@ -92,6 +122,12 @@ export const deleteBackup = async ( dispatch, id ) => {
 	}
 };
 
+/**
+ * Returns a function making a POST request to the server to delete a backup with a bound dispatch function.
+ *
+ * @param {Function} dispatch - dispatch function
+ * @returns {Function} a function making a POST request to the server to delete a backup
+ */
 export const deleteBackupInjector = dispatch => {
 	return async ( id ) => {
 		await deleteBackup( dispatch, id );
