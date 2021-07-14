@@ -26,6 +26,12 @@ import { DISABLED_TFA, ENABLED_TFA, GET_TFA_QRCODE } from 'constants/action_type
 
 // EXPORTS //
 
+/**
+ * Makes a request to the server to get the two-factor authentication qrcode.
+ *
+ * @param {Function} dispatch - dispatch function
+ * @returns {(Object|void)} qrcode or void
+ */
 export const getTfaQRCode = async ( dispatch ) => {
 	try {
 		const res = await axios.get( server+'/get_tfa_qrcode' );
@@ -41,6 +47,12 @@ export const getTfaQRCode = async ( dispatch ) => {
 	}
 };
 
+/**
+ * Returns a function to make a request for a two-factor authentication qrcode with a bound dispatch function.
+ *
+ * @param {Function} dispatch - dispatch function
+ * @returns {Function} function to make a request for a two-factor authentication qrcode
+ */
 export const getTfaQRCodeInjector = dispatch => {
 	return async () => {
 		const result = await getTfaQRCode( dispatch );
@@ -48,6 +60,13 @@ export const getTfaQRCodeInjector = dispatch => {
 	};
 };
 
+/**
+ * Makes a POST request to the server to enable two-factor authentication for the user making the request.
+ *
+ * @param {Function} dispatch - dispatch function
+ * @param {string} token - the token to use for the two-factor authentication
+ * @returns {void}
+ */
 export const enableTFA = async ( dispatch, token ) => {
 	try {
 		const res = await axios.post( server+'/enable_tfa', {
@@ -69,12 +88,24 @@ export const enableTFA = async ( dispatch, token ) => {
 	}
 };
 
+/**
+ * Returns a function to make a POST request to enable two-factor authentication for the user making the request with a bound dispatch function.
+ *
+ * @param {Function} dispatch - dispatch function
+ * @returns {Function} function to make a POST request to enable two-factor authentication for the user making the request
+ */
 export const enableTFAInjector = dispatch => {
 	return async ( token ) => {
 		await enableTFA( dispatch, token );
 	};
 };
 
+/**
+ * Makes a POST request to the server to disable two-factor authentication for the user making the request.
+ *
+ * @param {Function} dispatch - dispatch function
+ * @returns {void}
+ */
 export const disableTFA = async ( dispatch ) => {
 	try {
 		const res = await axios.post( server+'/disable_tfa' );
@@ -95,6 +126,12 @@ export const disableTFA = async ( dispatch ) => {
 	}
 };
 
+/**
+ * Returns a function to make a POST request to disable two-factor authentication for the user making the request with a bound dispatch function.
+ *
+ * @param {Function} dispatch - dispatch function
+ * @returns {Function} function to make a POST request to disable two-factor authentication for the user making the request
+ */
 export const disableTFAInjector = dispatch => {
 	return async () => {
 		await disableTFA( dispatch );
