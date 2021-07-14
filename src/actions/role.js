@@ -26,6 +26,12 @@ import { CREATED_ROLE, DELETED_ROLE, GET_ALL_ROLES, UPDATED_ROLE } from 'constan
 
 // EXPORTS //
 
+/**
+ * Makes a GET request to the server to get all roles.
+ *
+ * @param {Function} dispatch - dispatch function
+ * @returns {void}
+ */
 export const getAllRoles = async ( dispatch ) => {
 	try {
 		const res = await globalAxios.get( server+'/get_all_roles' );
@@ -40,12 +46,29 @@ export const getAllRoles = async ( dispatch ) => {
 	}
 };
 
+/**
+ * Returns a function to make a GET request to the server toe retrieve all roles with a bound dispatch function.
+ *
+ * @param {Function} dispatch - dispatch function
+ * @returns {Function} a function to make a GET request to the server to retrieve all roles
+ */
 export const getAllRolesInjector = dispatch => {
 	return async () => {
 		await getAllRoles( dispatch );
 	};
 };
 
+/**
+ * Makes a POST request to the server to create a new role.
+ *
+ * @param {Function} dispatch - dispatch function
+ * @param {Object} role - the role to create
+ * @param {string} role.title - the title of the role
+ * @param {Array} role.authorizedRoles - the roles authorized to edit this role
+ * @param {Object} role.permissions - the permissions of the role
+ * @param {string} role.searchContext - the search context for the role governing where it can be used
+ * @returns {(Object|Error)} result of the POST request or an error
+ */
 export const createRole = async ( dispatch, {
 	title,
 	authorizedRoles,
@@ -75,6 +98,12 @@ export const createRole = async ( dispatch, {
 	}
 };
 
+/**
+ * Returns a function to make a POST request to the server to create a new role with a bound dispatch function.
+ *
+ * @param {Function} dispatch - dispatch function
+ * @returns {Function} a function to make a POST request to the server to create a new role
+ */
 export const createRoleInjector = dispatch => {
 	return async ({
 		title,
@@ -92,6 +121,18 @@ export const createRoleInjector = dispatch => {
 	};
 };
 
+/**
+ * Makes a POST request to the server to update a role.
+ *
+ * @param {Function} dispatch - dispatch function
+ * @param {Object} role - the role to update
+ * @param {string} role.id - the id of the role
+ * @param {string} role.title - the new title of the role
+ * @param {Array} role.authorizedRoles - the roles authorized to edit this role
+ * @param {Object} role.permissions - the permissions of the role
+ * @param {string} role.searchContext - the search context for the role governing where it can be used
+ * @returns {(Object|Error)} result of the POST request or an error
+ */
 export const updateRole = async ( dispatch, {
 	id,
 	title,
@@ -123,6 +164,12 @@ export const updateRole = async ( dispatch, {
 	}
 };
 
+/**
+ * Returns a function to make a POST request to the server to update a role with a bound dispatch function.
+ *
+ * @param {Function} dispatch - dispatch function
+ * @returns {Function} a function to make a POST request to the server to update a role
+ */
 export const updateRoleInjector = dispatch => {
 	return async ({
 		id,
@@ -142,6 +189,13 @@ export const updateRoleInjector = dispatch => {
 	};
 };
 
+/**
+ * Makes a POST request to the server to delete a role.
+ *
+ * @param {Function} dispatch - dispatch function
+ * @param {string} id - the id of the role to delete
+ * @returns {void}
+ */
 export const deleteRole = async ( dispatch, id ) => {
 	try {
 		const res = await globalAxios.post( server+'/delete_role', {
@@ -163,6 +217,12 @@ export const deleteRole = async ( dispatch, id ) => {
 	}
 };
 
+/**
+ * Returns a function to make a POST request to the server to delete a role with a bound dispatch function.
+ *
+ * @param {Function} dispatch - dispatch function
+ * @returns {Function} a function to make a POST request to the server to delete a role
+ */
 export const deleteRoleInjector = dispatch => {
 	return async ( id ) => {
 		await deleteRole( dispatch, id );
