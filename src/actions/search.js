@@ -22,6 +22,12 @@ import { SEARCH_PHRASE_SET, LESSON_ORDER, LESSON_ORDER_DIRECTION } from 'constan
 
 // EXPORTS //
 
+/**
+ * Returns an action object to set the search phrase.
+ *
+ * @param {string} phrase - search phrase
+ * @returns {Object} action object
+ */
 export function setSearchPhrase( phrase ) {
 	return {
 		type: SEARCH_PHRASE_SET,
@@ -31,6 +37,12 @@ export function setSearchPhrase( phrase ) {
 	};
 }
 
+/**
+ * Returns an action object to set the lesson order.
+ *
+ * @param {string} type - type of order
+ * @returns {Object} action object
+ */
 export function setLessonOrder( type ) {
 	return {
 		type: LESSON_ORDER,
@@ -40,6 +52,12 @@ export function setLessonOrder( type ) {
 	};
 }
 
+/**
+ * Returns an action object to set the lesson order direction.
+ *
+ * @param {string} direction - direction of order (either `ascending` or `descending`)
+ * @returns {Object} action object
+ */
 export function setLessonOrderDirection( direction ) {
 	return {
 		type: LESSON_ORDER_DIRECTION,
@@ -49,18 +67,36 @@ export function setLessonOrderDirection( direction ) {
 	};
 }
 
+/**
+ * Returns a function that dispatches a set search phrase action.
+ *
+ * @param {Function} dispatch - dispatch function
+ * @returns {Function} function to dispatch an action
+ */
 export const setSearchPhraseInjector = ( dispatch ) => {
 	return ( str ) => {
 		dispatch( setSearchPhrase( str ) );
 	};
 };
 
+/**
+ * Returns a function that dispatches a set lesson order action.
+ *
+ * @param {Function} dispatch - dispatch function
+ * @returns {Function} function to dispatch an action
+ */
 export const setLessonOrderInjector = ( dispatch ) => {
 	return ( order ) => {
 		dispatch( setLessonOrder( order ) );
 	};
 };
 
+/**
+ * Returns a function that dispatches a set lesson order direction action.
+ *
+ * @param {Function} dispatch - dispatch function
+ * @returns {Function} function to dispatch an action
+ */
 export const setLessonOrderDirInjector = ( dispatch ) => {
 	return ( direction ) => {
 		dispatch( setLessonOrderDirection( direction ) );
