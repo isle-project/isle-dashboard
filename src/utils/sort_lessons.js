@@ -24,6 +24,14 @@ const OPTS = {
 
 // MAIN //
 
+/**
+* Sorts lessons according to the `search` object in place.
+*
+* @param {Array} lessons - a list of lessons
+* @param {Object} search - search object
+* @param {string} search.type - either `sequentially`, `alphabetically`, `created_at`, or `updated_at`
+* @param {string} search.direction - either `ascending` or `descending`
+*/
 function sortLessons( lessons, search ) {
 	const { type, direction } = search;
 	if ( type === 'sequentially' ) {

@@ -22,6 +22,13 @@ import isObject from '@stdlib/assert/is-object';
 
 // MAIN //
 
+/**
+* Validates if a user is an owner of the specified namespace.
+*
+* @param {Object} user - user object
+* @param {Object} namespace - namespace object
+* @returns {boolean} boolean indicating if the user is an owner of the namespace
+*/
 function isOwner( user, namespace ) {
 	let bool = false;
 	for ( let i = 0; i < namespace.owners.length; i++ ) {

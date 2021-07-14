@@ -20,8 +20,19 @@
 const REGEXP_CHARS = /[‘“!#$%&+^<=>{}()[\]`]/;
 
 
-// EXPORTS //
+// MAIN //
 
-export default function checkURLPath( str ) {
+/**
+* Validates a string as a URL path.
+*
+* @param {string} str - value to validate
+* @returns {boolean} boolean indicating if a string is a URL path
+*/
+function checkURLPath( str ) {
 	return str.match( REGEXP_CHARS );
 }
+
+
+// EXPORTS //
+
+export default checkURLPath;

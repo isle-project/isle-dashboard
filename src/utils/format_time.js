@@ -22,6 +22,16 @@ import floor from '@stdlib/math/base/special/floor';
 
 // MAIN //
 
+/**
+* Formats a timestamp in a human readable format.
+*
+* @param {number} timestamp - timestamp
+* @param {Object} [opts] - options
+* @param {string} [opts.hours] - hours
+* @param {string} [opts.minutes] - minutes
+* @param {string} [opts.seconds] - seconds
+* @returns {string} formatted timestamp
+*/
 const formatTime = ( time, opts = { hours: true, minutes: true, seconds: true }) => {
 	time = time / 1000;
 	const hours = floor( time / ( 60*60 ) );
