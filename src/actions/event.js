@@ -27,6 +27,12 @@ import { DELETED_EVENT, GET_EVENTS, TRIGGERED_EVENT } from 'constants/action_typ
 
 // EXPORTS //
 
+/**
+ * Makes a GET request to the server to get all events.
+ *
+ * @param {Function} dispatch - dispatch function
+ * @returns {void}
+ */
 export const getEvents = async ( dispatch ) => {
 	try {
 		const res = await axios.get( server+'/get_events' );
@@ -41,12 +47,25 @@ export const getEvents = async ( dispatch ) => {
 	}
 };
 
+/**
+ * Returns a function to make a GET request to retrieve all events with a bound dispatch function.
+ *
+ * @param {Function} dispatch - dispatch function
+ * @returns {Function} a function to make a GET request to retrieve all events
+ */
 export const getEventsInjector = dispatch => {
 	return async () => {
 		await getEvents( dispatch );
 	};
 };
 
+/**
+ * Makes a POST request to delete an event.
+ *
+ * @param {Function} dispatch - dispatch function
+ * @param {string} id - event id
+ * @returns {void}
+ */
 export const deleteEvent = async ( dispatch, id ) => {
 	try {
 		const res = await axios.post( server+'/delete_event', {
@@ -68,12 +87,25 @@ export const deleteEvent = async ( dispatch, id ) => {
 	}
 };
 
+/**
+ * Returns a function to make a POST request to delete an event with a bound dispatch function.
+ *
+ * @param {Function} dispatch - dispatch function
+ * @returns {Function} a function to make a POST request to delete an event
+ */
 export const deleteEventInjector = dispatch => {
 	return async ( id ) => {
 		await deleteEvent( dispatch, id );
 	};
 };
 
+/**
+ * Makes a POST request to trigger an event.
+ *
+ * @param {Function} dispatch - dispatch function
+ * @param {string} id - event id
+ * @returns {void}
+ */
 export const triggerEvent = async ( dispatch, id ) => {
 	try {
 		const res = await axios.post( server+'/trigger_event', {
@@ -95,6 +127,12 @@ export const triggerEvent = async ( dispatch, id ) => {
 	}
 };
 
+/**
+ * Returns a function to make a POST request to trigger an event with a bound dispatch function.
+ *
+ * @param {Function} dispatch - dispatch function
+ * @returns {Function} a function to make a POST request to trigger an event
+ */
 export const triggerEventInjector = dispatch => {
 	return async ( id ) => {
 		await triggerEvent( dispatch, id );
