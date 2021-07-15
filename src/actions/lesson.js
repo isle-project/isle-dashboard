@@ -27,6 +27,12 @@ import { DELETED_LESSON, GET_ALL_LESSONS, GET_TEMPLATE_LESSONS, GET_ROOMS, UPDAT
 
 // EXPORTS //
 
+/**
+ * Returns an action signifying a lesson has been deleted.
+ *
+ * @param {string} lessonName - name of the lesson
+ * @returns {Object} action
+ */
 export function deletedLesson( lessonName ) {
 	return {
 		type: DELETED_LESSON,
@@ -36,6 +42,13 @@ export function deletedLesson( lessonName ) {
 	};
 }
 
+/**
+ * Returns an action indicating that a lesson has been updated.
+ *
+ * @param {string} lessonName - name of the lesson
+ * @param {Object} props - properties of the lesson
+ * @returns {Object} action
+ */
 export function updatedLesson( lessonName, props ) {
 	return {
 		type: UPDATED_LESSON,
@@ -46,6 +59,13 @@ export function updatedLesson( lessonName, props ) {
 	};
 }
 
+/**
+ * Returns an action indicating that lessons have been retrieved.
+ *
+ * @param {Array} lessons - lessons
+ * @param {string} namespaceName - namespace name
+ * @returns {Object} action
+ */
 export function retrievedLessons({ lessons, namespaceName }) {
 	return {
 		type: RETRIEVED_LESSONS,
@@ -56,6 +76,12 @@ export function retrievedLessons({ lessons, namespaceName }) {
 	};
 }
 
+/**
+ * Returns an action indicating that all lessons have been retrieved for an admin user.
+ *
+ * @param {Array} lessons - lessons
+ * @returns {Object} action
+ */
 export function retrievedAllLessons( lessons ) {
 	return {
 		type: GET_ALL_LESSONS,
@@ -65,6 +91,12 @@ export function retrievedAllLessons( lessons ) {
 	};
 }
 
+/**
+ * Returns an action indicating that all lessons that may serve as templates have been retrieved.
+ *
+ * @param {Array} templateLessons - lessons that may serve as templates
+ * @returns {Object} action
+ */
 export function retrievedTemplateLessons( templateLessons ) {
 	return {
 		type: GET_TEMPLATE_LESSONS,
@@ -74,6 +106,12 @@ export function retrievedTemplateLessons( templateLessons ) {
 	};
 }
 
+/**
+ * Returns an action indicating that all chat rooms have been retrieved.
+ *
+ * @param {Array} rooms - chat rooms
+ * @returns {Object} action
+ */
 export function retrievedRooms( rooms ) {
 	return {
 		type: GET_ROOMS,
@@ -83,6 +121,12 @@ export function retrievedRooms( rooms ) {
 	};
 }
 
+/**
+ * Returns an action indicating that all public lessons have been retrieved.
+ *
+ * @param {Array} lessons - lessons
+ * @returns {Object} action
+ */
 export function retrievedPublicLessons( lessons ) {
 	return {
 		type: RETRIEVED_PUBLIC_LESSONS,
@@ -92,6 +136,11 @@ export function retrievedPublicLessons( lessons ) {
 	};
 }
 
+/**
+ * Makes a POST request to retrieve all public lessons.
+ *
+ * @param {Function} dispatch - dispatch function
+ */
 export const getPublicLessons = async ( dispatch ) => {
 	try {
 		const res = await axios.get( server+'/get_public_lessons' );
@@ -101,12 +150,27 @@ export const getPublicLessons = async ( dispatch ) => {
 	}
 };
 
+/**
+ * Returns a function to make a POST request to retrieve all public lessons.
+ *
+ * @param {Function} dispatch - dispatch function
+ * @returns {Function} function to make a POST request to retrieve all public lessons
+ */
 export const getPublicLessonsInjector = ( dispatch ) => {
 	return async () => {
 		await getPublicLessons( dispatch );
 	};
 };
 
+/**
+ * Makes a GET request to retrieve the ISLE file for a lesson.
+ *
+ * @param {Function} dispatch - dispatch function
+ * @param {Object} options - request options
+ * @param {string} options.lessonName - name of the lesson
+ * @param {string} options.namespaceName - namespace name
+ * @returns {(Object|null)} file data or null if the file does not exist
+ */
 export const getIsleFile = async ( dispatch, { lessonName, namespaceName }) => {
 	try {
 		const res = await axios.get( server+'/get_isle_file?'+qs.stringify({
@@ -120,6 +184,12 @@ export const getIsleFile = async ( dispatch, { lessonName, namespaceName }) => {
 	}
 };
 
+/**
+ * Returns a function to make a GET request to retrieve the ISLE file for a lesson.
+ *
+ * @param {Function} dispatch - dispatch function
+ * @returns {Function} function to make a GET request to retrieve the ISLE file for a lesson
+ */
 export const getIsleFileInjector = ( dispatch ) => {
 	return async ({ lessonName, namespaceName }) => {
 		const file = await getIsleFile( dispatch, { lessonName, namespaceName });
@@ -127,6 +197,12 @@ export const getIsleFileInjector = ( dispatch ) => {
 	};
 };
 
+/**
+ * Makes a GET request to retrieve all lessons for a given namespace.
+ *
+ * @param {Function} dispatch - dispatch function
+ * @param {string} namespaceName - namespace name
+ */
 export const getLessons = async ( dispatch, namespaceName ) => {
 	if ( namespaceName ) {
 		try {
@@ -155,12 +231,29 @@ export const getLessons = async ( dispatch, namespaceName ) => {
 	}
 };
 
+/**
+ * Returns a function to make a GET request to retrieve all lessons for a given namespace.
+ *
+ * @param {Function} dispatch - dispatch function
+ * @returns {Function} function to make a GET request to retrieve all lessons for a given namespace
+ */
 export const getLessonsInjector = ( dispatch ) => {
 	return async ( namespaceName ) => {
 		await getLessons( dispatch, namespaceName );
 	};
 };
 
+/**
+ * Makes a POST request to copy a lesson from a source namespace to a target namespace.
+ *
+ * @param {Function} dispatch - dispatch function
+ * @param {Object} options - request options
+ * @param {string} options.sourceName - source lesson name
+ * @param {string} options.targetName - target lesson name
+ * @param {string} options.source - source namespace name
+ * @param {string} options.target - target namespace name
+ * @returns {(Object|Error)} response data or an error if encountered
+ */
 export const copyLesson = async ( dispatch, { sourceName, target, targetName, source }) => {
 	if ( sourceName && target && source ) {
 		try {
@@ -177,16 +270,32 @@ export const copyLesson = async ( dispatch, { sourceName, target, targetName, so
 			return res;
 		} catch ( err ) {
 			addErrorNotification( dispatch, err );
+			return err;
 		}
 	}
 };
 
+/**
+ * Returns a function to make a POST request to copy a lesson from a source namespace to a target namespace.
+ *
+ * @param {Function} dispatch - dispatch function
+ * @returns {Function} function to make a POST request to copy a lesson from a source namespace to a target namespace
+ */
 export const copyLessonInjector = ( dispatch ) => {
 	return async ({ sourceName, target, targetName, source }) => {
 		await copyLesson( dispatch, { sourceName, target, targetName, source } );
 	};
 };
 
+/**
+ * Makes a POST request to copy all lessons from a source namespace to a target namespace.
+ *
+ * @param {Function} dispatch - dispatch function
+ * @param {Object} options - request options
+ * @param {string} options.source - source namespace name
+ * @param {string} options.target - target namespace name
+ * @returns {(Object|Error)} response data or an error if encountered
+ */
 export const copyNamespaceLessons = async ( dispatch, { target, source }) => {
 	try {
 		const res = await axios.post( server+'/copy_namespace_lessons', {
@@ -204,6 +313,12 @@ export const copyNamespaceLessons = async ( dispatch, { target, source }) => {
 	}
 };
 
+/**
+ * Returns a function to make a POST request to copy all lessons from a source namespace to a target namespace.
+ *
+ * @param {Function} dispatch - dispatch function
+ * @returns {Function} function to make a POST request to copy all lessons from a source namespace to a target namespace
+ */
 export const copyNamespaceLessonsInjector = ( dispatch ) => {
 	return async ({ target, source }) => {
 		const res = await copyNamespaceLessons( dispatch, { target, source } );
@@ -211,9 +326,20 @@ export const copyNamespaceLessonsInjector = ( dispatch ) => {
 	};
 };
 
+/**
+ * Makes a POST request to delete a lesson.
+ *
+ * @param {Function} dispatch - dispatch function
+ * @param {Object} options - request options
+ * @param {string} options.lessonName - lesson name
+ * @param {string} options.namespaceName - namespace name
+ * @returns {(Object|Error)} response data or an error if encountered
+ */
 export const deleteLesson = async ( dispatch, { lessonName, namespaceName }) => {
 	if ( !namespaceName || !lessonName ) {
-		return;
+		const err = new Error( 'Missing `namespaceName` or `lessonName`.' );
+		addErrorNotification( dispatch, err );
+		return err;
 	}
 	try {
 		const res = await axios.post( server+'/delete_lesson', {
@@ -228,15 +354,30 @@ export const deleteLesson = async ( dispatch, { lessonName, namespaceName }) => 
 		return res;
 	} catch ( err ) {
 		addErrorNotification( dispatch, err );
+		return err;
 	}
 };
 
+/**
+ * Returns a function to make a POST request to delete a lesson.
+ *
+ * @param {Function} dispatch - dispatch function
+ * @returns {Function} function to make a POST request to delete a lesson
+ */
 export const deleteLessonInjector = ( dispatch ) => {
 	return async ({ lessonName, namespaceName }) => {
 		await deleteLesson( dispatch, { lessonName, namespaceName } );
 	};
 };
 
+/**
+ * Makes a POST request to show a lesson in the gallery of the dashboard.
+ *
+ * @param {Function} dispatch - dispatch function
+ * @param {Object} options - request options
+ * @param {string} options.lessonName - lesson name
+ * @param {string} options.namespaceName - namespace name
+ */
 export const showLessonInGallery = async ( dispatch, { lessonName, namespaceName }) => {
 	try {
 		const res = await axios.post( server+'/show_lesson', {
@@ -253,12 +394,27 @@ export const showLessonInGallery = async ( dispatch, { lessonName, namespaceName
 	}
 };
 
+/**
+ * Returns a function to make a POST request to show a lesson in the gallery of the dashboard.
+ *
+ * @param {Function} dispatch - dispatch function
+ * @returns {Function} function to make a POST request to show a lesson in the gallery of the dashboard
+ */
 export const showLessonInGalleryInjector = ( dispatch ) => {
 	return async ({ lessonName, namespaceName }) => {
 		await showLessonInGallery( dispatch, { lessonName, namespaceName });
 	};
 };
 
+
+/**
+ * Makes a POST request to hide a lesson in the gallery of the dashboard.
+ *
+ * @param {Function} dispatch - dispatch function
+ * @param {Object} options - request options
+ * @param {string} options.lessonName - lesson name
+ * @param {string} options.namespaceName - namespace name
+ */
 export const hideLessonInGallery = async ( dispatch, { lessonName, namespaceName }) => {
 	try {
 		const res = await axios.post( server+'/hide_lesson', {
@@ -275,12 +431,26 @@ export const hideLessonInGallery = async ( dispatch, { lessonName, namespaceName
 	}
 };
 
+/**
+ * Returns a function to make a POST request to hide a lesson in the gallery of the dashboard.
+ *
+ * @param {Function} dispatch - dispatch function
+ * @returns {Function} function to make a POST request to hide a lesson in the gallery of the dashboard
+ */
 export const hideLessonInGalleryInjector = ( dispatch ) => {
 	return async ({ lessonName, namespaceName }) => {
 		await hideLessonInGallery( dispatch, { lessonName, namespaceName });
 	};
 };
 
+/**
+ * Makes a POST request to make a lesson available to users, i.e. set it to being active.
+ *
+ * @param {Function} dispatch - dispatch function
+ * @param {Object} options - request options
+ * @param {string} options.lessonName - lesson name
+ * @param {string} options.namespaceName - namespace name
+ */
 export const activateLesson = async ( dispatch, { lessonName, namespaceName }) => {
 	try {
 		const res = await axios.post( server+'/activate_lesson?', {
@@ -297,12 +467,26 @@ export const activateLesson = async ( dispatch, { lessonName, namespaceName }) =
 	}
 };
 
+/**
+ * Returns a function to make a POST request to make a lesson available to users, i.e. set it to being active.
+ *
+ * @param {Function} dispatch - dispatch function
+ * @returns {Function} function to make a POST request to make a lesson available to users, i.e. set it to being active
+ */
 export const activateLessonInjector = ( dispatch ) => {
 	return async ({ lessonName, namespaceName }) => {
 		await activateLesson( dispatch, { lessonName, namespaceName });
 	};
 };
 
+/**
+ * Makes a POST request to make a lesson hidden from users, i.e. set it to being inactive.
+ *
+ * @param {Function} dispatch - dispatch function
+ * @param {Object} options - request options
+ * @param {string} options.lessonName - lesson name
+ * @param {string} options.namespaceName - namespace name
+ */
 export const deactivateLesson = async ( dispatch, { lessonName, namespaceName }) => {
 	try {
 		const res = await axios.post( server+'/deactivate_lesson', {
@@ -319,12 +503,31 @@ export const deactivateLesson = async ( dispatch, { lessonName, namespaceName })
 	}
 };
 
+/**
+ * Returns a function to make a POST request to make a lesson hidden from users, i.e. set it to being inactive.
+ *
+ * @param {Function} dispatch - dispatch function
+ * @returns {Function} function to make a POST request to make a lesson hidden from users, i.e. set it to being inactive
+ */
 export const deactivateLessonInjector = ( dispatch ) => {
 	return async ({ lessonName, namespaceName }) => {
 		await deactivateLesson( dispatch, { lessonName, namespaceName });
 	};
 };
 
+/**
+ * Makes a POST request to update a lesson.
+ *
+ * @param {Function} dispatch - dispatch function
+ * @param {Object} options - request options
+ * @param {string} options.lessonName - lesson name
+ * @param {string} options.namespaceName - namespace name
+ * @param {string} options.newTitle - new title
+ * @param {string} options.newDescription - new description
+ * @param {string} options.lockUntil - date on which the lesson should be made available to users
+ * @param {boolean} options.template - controls whether the lesson shall be a template or not
+ * @returns {boolean} true if the lesson was updated, false otherwise
+ */
 export const updateLesson = async ( dispatch, { lessonName, namespaceName, newTitle, newDescription, lockUntil, template }) => {
 	if ( namespaceName && lessonName ) {
 		try {
@@ -354,6 +557,12 @@ export const updateLesson = async ( dispatch, { lessonName, namespaceName, newTi
 	return false;
 };
 
+/**
+ * Returns a function to make a POST request to update a lesson.
+ *
+ * @param {Function} dispatch - dispatch function
+ * @returns {Function} function to make a POST request to update a lesson
+ */
 export const updateLessonInjector = ( dispatch ) => {
 	return async ({ lessonName, namespaceName, newTitle, newDescription, lockUntil, template }) => {
 		const bool = await updateLesson( dispatch, { lessonName, namespaceName, newTitle, newDescription, lockUntil, template });
@@ -361,6 +570,11 @@ export const updateLessonInjector = ( dispatch ) => {
 	};
 };
 
+/**
+ * Makes a GET request to retrieve all lessons for an admin user.
+ *
+ * @param {Function} dispatch - dispatch function
+ */
 export const getAllLessons = async ( dispatch ) => {
 	try {
 		const res = await axios.get( server+'/get_all_lessons' );
@@ -370,12 +584,23 @@ export const getAllLessons = async ( dispatch ) => {
 	}
 };
 
+/**
+ * Returns a function to make a GET request to retrieve all lessons for an admin user.
+ *
+ * @param {Function} dispatch - dispatch function
+ * @returns {Function} function to make a GET request to retrieve all lessons for an admin user
+ */
 export const getAllLessonsInjector = ( dispatch ) => {
 	return async () => {
 		await getAllLessons( dispatch );
 	};
 };
 
+/**
+ * Makes a GET request to retrieve all template lessons.
+ *
+ * @param {Function} dispatch - dispatch function
+ */
 export const getTemplateLessons = async ( dispatch ) => {
 	try {
 		const res = await axios.get( server+'/get_template_lessons' );
@@ -385,6 +610,12 @@ export const getTemplateLessons = async ( dispatch ) => {
 	}
 };
 
+/**
+ * Returns a function to make a GET request to retrieve all template lessons.
+ *
+ * @param {Function} dispatch - dispatch function
+ * @returns {Function} function to make a GET request to retrieve all template lessons
+ */
 export const getTemplateLessonsInjector = ( dispatch ) => {
 	return async () => {
 		await getTemplateLessons( dispatch );
@@ -392,6 +623,11 @@ export const getTemplateLessonsInjector = ( dispatch ) => {
 };
 
 
+/**
+ * Makes a GET request to retrieve all chat rooms
+ *
+ * @param {Function} dispatch - dispatch function
+ */
 export const getRooms = async ( dispatch ) => {
 	try {
 		const res = await axios.get( server+'/get_open_rooms' );
@@ -401,6 +637,12 @@ export const getRooms = async ( dispatch ) => {
 	}
 };
 
+/**
+ * Returns a function to make a GET request to retrieve all chat rooms
+ *
+ * @param {Function} dispatch - dispatch function
+ * @returns {Function} function to make a GET request to retrieve all chat rooms
+ */
 export const getRoomsInjector = ( dispatch ) => {
 	return async () => {
 		await getRooms( dispatch );
