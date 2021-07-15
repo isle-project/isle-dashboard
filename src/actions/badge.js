@@ -28,6 +28,15 @@ import { RETRIEVED_BADGES, USER_RECEIVED_BADGES } from 'constants/action_types.j
 
 // FUNCTIONS //
 
+/**
+ * Create a badge notification object for use in the `react-notification-system` component.
+ *
+ * @param {Object} opts - options
+ * @param {string} opts.name - name of the badge
+ * @param {string} opts.description - description of the badge
+ * @param {string} opts.picture - URL with icon of the badge
+ * @returns {Object} `react-notification-system` component configuration
+ */
 function createBadgeNotification({ name, description, picture }) {
 	const pic = server + '/badges/' + picture;
 	return {
@@ -53,6 +62,12 @@ function createBadgeNotification({ name, description, picture }) {
 
 // FUNCTIONS //
 
+/**
+ * Returns an action for retrieving the user's badges.
+ *
+ * @param {Array} badges - retrieved user badges
+ * @returns {Object} action
+ */
 export function receivedUserBadges( badges ) {
 	return {
 		type: USER_RECEIVED_BADGES,
@@ -62,6 +77,12 @@ export function receivedUserBadges( badges ) {
 	};
 }
 
+/**
+ * Returns an action for retrieved available badges.
+ *
+ * @param {Array} badges - retrieved available badges
+ * @returns {Object} action
+ */
 export function retrievedBadges( badges ) {
 	return {
 		type: RETRIEVED_BADGES,
@@ -71,6 +92,11 @@ export function retrievedBadges( badges ) {
 	};
 }
 
+/**
+ * Makes a GET request to retrieve the user's badges.
+ *
+ * @param {Function} dispatch - dispatch function
+ */
 export const getUserBadges = async ( dispatch ) => {
 	try {
 		const res = await axios.get( server+'/get_user_badges' );
@@ -89,12 +115,23 @@ export const getUserBadges = async ( dispatch ) => {
 	}
 };
 
+/**
+ * Returns a function to make a GET request to retrieve the user's badges.
+ *
+ * @param {Function} dispatch - dispatch function
+ * @returns {Function} function to make a GET request to retrieve the user's badges
+ */
 export const getUserBadgesInjector = ( dispatch ) => {
 	return async () => {
 		await getUserBadges( dispatch );
 	};
 };
 
+/**
+ * Makes a GET request to retrieve the available badges.
+ *
+ * @param {Function} dispatch - dispatch function
+ */
 export const getAvailableBadges = async ( dispatch ) => {
 	try {
 		const res = await axios.get( server+'/get_available_badges' );
@@ -104,6 +141,12 @@ export const getAvailableBadges = async ( dispatch ) => {
 	}
 };
 
+/**
+ * Returns a function to make a GET request to retrieve the available badges.
+ *
+ * @param {Function} dispatch - dispatch function
+ * @returns {Function} function to make a GET request to retrieve the available badges
+ */
 export const getAvailableBadgesInjector = ( dispatch ) => {
 	return async () => {
 		await getAvailableBadges( dispatch );
