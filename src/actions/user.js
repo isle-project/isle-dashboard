@@ -35,6 +35,12 @@ const debug = logger( 'isle-dashboard:actions:user' );
 
 // EXPORTS //
 
+/**
+ * Returns an action signaling that the user has been authenticated.
+ *
+ * @param {Object} user - user object
+ * @returns {Object} action
+ */
 export function loggedIn( user ) {
 	return {
 		type: LOGGED_IN,
@@ -61,6 +67,14 @@ export function loggedIn( user ) {
 	};
 }
 
+/**
+ * Returns an action signaling that the user has logged-in and a JSON web token has been received.
+ *
+ * @param {Object} options - function options
+ * @param {string} options.token - JSON web token
+ * @param {string} options.id - user id
+ * @returns {Object} action
+ */
 export function receivedToken({ token, id }) {
 	return {
 		type: RECEIVED_TOKEN,
@@ -71,6 +85,14 @@ export function receivedToken({ token, id }) {
 	};
 }
 
+/**
+* Returns an action signaling that a request for a two-factor authentication token has been made.
+*
+* @param {Object} options - function options
+* @param {string} options.email - user email
+* @param {string} options.password - user password
+* @returns {Object} action
+*/
 export function requestTFA({ email, password }) {
 	return {
 		type: REQUEST_TFA,
@@ -81,18 +103,34 @@ export function requestTFA({ email, password }) {
 	};
 }
 
+/**
+ * Returns an action signaling that the user has been logged-out.
+ *
+ * @returns {Object} action
+ */
 export function loggedOut() {
 	return {
 		type: LOGGED_OUT
 	};
 }
 
+/**
+ * Returns an action signaling that the user has been authenticated.
+ *
+ * @returns {Object} action
+ */
 export function authenticated() {
 	return {
 		type: AUTHENTICATED
 	};
 }
 
+/**
+ * Returns an action signaling that the user's picture has been updated.
+ *
+ * @param {Object} picture - user picture
+ * @returns {Object} action
+ */
 export function updateUserPicture( picture ) {
 	return {
 		type: USER_PICTURE_MODIFIED,
@@ -102,6 +140,14 @@ export function updateUserPicture( picture ) {
 	};
 }
 
+/**
+ * Returns an action signaling that the user's name or organization has been updated.
+ *
+ * @param {Object} user - user object
+ * @param {string} user.name - user name
+ * @param {string} user.organization - user organization
+ * @returns {Object} action
+ */
 export const updatedUser = ({ name, organization }) => {
 	return {
 		type: USER_UPDATED,
@@ -112,6 +158,12 @@ export const updatedUser = ({ name, organization }) => {
 	};
 };
 
+/**
+ * Returns an action signaling that a user has been updated by an administrator.
+ *
+ * @param {Object} user - user object
+ * @returns {Object} action
+ */
 export const updatedUserByAdmin = ( user ) => {
 	return {
 		type: USER_UPDATED_BY_ADMIN,
@@ -119,6 +171,12 @@ export const updatedUserByAdmin = ( user ) => {
 	};
 };
 
+/**
+ * Makes a GET request to the server to retrieve list of users.
+ *
+ * @param {Function} dispatch - dispatch function
+ * @returns {void}
+ */
 export const getUsers = async ( dispatch ) => {
 	try {
 		const res = await axios.get( server+'/get_users' );
@@ -133,12 +191,26 @@ export const getUsers = async ( dispatch ) => {
 	}
 };
 
+/**
+ * Returns a function to make a GET request to the server to retrieve list of users with a bound dispatch function.
+ *
+ * @param {Function} dispatch - dispatch function
+ * @returns {Function} function to make a GET request to the server to retrieve list of users
+ */
 export const getUsersInjector = dispatch => {
 	return async () => {
 		await getUsers( dispatch );
 	};
 };
 
+/**
+ * Makes a POST request to the server to impersonate a user.
+ *
+ * @param {Function} dispatch - dispatch function
+ * @param {Object} options - request options
+ * @param {string} options.id - user id
+ * @param {string} options.password - user password
+ */
 export const impersonateUser = async ( dispatch, { id, password }) => {
 	debug( 'Impersonating user with id '+id );
 	try {
@@ -154,12 +226,25 @@ export const impersonateUser = async ( dispatch, { id, password }) => {
 	}
 };
 
+/**
+ * Returns a function to make a POST request to the server to impersonate a user with a bound dispatch function.
+ *
+ * @param {Function} dispatch - dispatch function
+ * @returns {Function} function to make a POST request to the server to impersonate a user
+ */
 export const impersonateUserInjector = dispatch => {
 	return async ({ id, password }) => {
 		await impersonateUser( dispatch, { id, password } );
 	};
 };
 
+/**
+ * Makes a POST request to the server to delete a user.
+ *
+ * @param {Function} dispatch - dispatch function
+ * @param {Object} options - request options
+ * @param {string} options.id - user id
+ */
 export const deleteUser = async ( dispatch, { id }) => {
 	try {
 		const res = await axios.post( server+'/delete_user', { id });
@@ -179,13 +264,27 @@ export const deleteUser = async ( dispatch, { id }) => {
 	}
 };
 
+/**
+ * Returns a function to make a POST request to the server to delete a user with a bound dispatch function.
+ *
+ * @param {Function} dispatch - dispatch function
+ * @returns {Function} function to make a POST request to the server to delete a user
+ */
 export const deleteUserInjector = dispatch => {
 	return async ({ id }) => {
 		await deleteUser( dispatch, { id } );
 	};
 };
 
-export const uploadProfilePic = async ( dispatch, { token, avatarData, thumbnailData }) => {
+/**
+ * Makes POST requests to the server to upload a user's profile picture.
+ *
+ * @param {Function} dispatch - dispatch function
+ * @param {Object} options - request options
+ * @param {Object} options.avatarData - user avatar picture data
+ * @param {Object} options.thumbnailData - user thumbnail picture data
+ */
+export const uploadProfilePic = async ( dispatch, { avatarData, thumbnailData }) => {
 	try {
 		let res = await axios.post( server+'/upload_profile_pic', avatarData );
 		const message = res.data.message;
@@ -205,12 +304,26 @@ export const uploadProfilePic = async ( dispatch, { token, avatarData, thumbnail
 	}
 };
 
+/**
+ * Returns a function to make POST requests to the server to upload a user's profile picture with a bound dispatch function.
+ *
+ * @param {Function} dispatch - dispatch function
+ * @returns {Function} function to make POST requests to the server to upload a user's profile picture
+ */
 export const uploadProfilePicInjector = ( dispatch ) => {
 	return async ({ avatarData, thumbnailData }) => {
 		await uploadProfilePic( dispatch, { avatarData, thumbnailData });
 	};
 };
 
+/**
+ * Makes a POST request to the server to authenticate a user as an instructor.
+ *
+ * @param {Function} dispatch - dispatch function
+ * @param {Object} options - request options
+ * @param {string} options.writeAccessToken - write access token to enable instructor access
+ * @returns {boolean} true if the user is now an instructor, false otherwise
+ */
 export const authenticate = async ( dispatch, { writeAccessToken }) => {
 	try {
 		const res = await axios.post( server+'/set_write_access', { token: writeAccessToken });
@@ -227,6 +340,12 @@ export const authenticate = async ( dispatch, { writeAccessToken }) => {
 	}
 };
 
+/**
+ * Returns a function to make a POST request to the server to authenticate a user as an instructor with a bound dispatch function.
+ *
+ * @param {Function} dispatch - dispatch function
+ * @returns {Function} function to make a POST request to the server to authenticate a user as an instructor
+ */
 export const authenticateInjector = ( dispatch ) => {
 	return async ({ writeAccessToken }) => {
 		const result = await authenticate( dispatch, { writeAccessToken });
@@ -234,6 +353,13 @@ export const authenticateInjector = ( dispatch ) => {
 	};
 };
 
+/**
+ * Makes a POST request to the server to trigger an email to be sent to the user to change their password.
+ *
+ * @param {Function} dispatch - dispatch function
+ * @param {Object} options - request options
+ * @param {string} options.email - user email
+ */
 export const forgotPassword = async ( dispatch, { email }) => {
 	try {
 		await axios.get( server+'/forgot_password?'+qs.stringify({ email }) );
@@ -246,12 +372,27 @@ export const forgotPassword = async ( dispatch, { email }) => {
 	}
 };
 
+/**
+ * Returns a function to make a POST request to the server to trigger an email to be sent to the user to change their password with a bound dispatch function.
+ *
+ * @param {Function} dispatch - dispatch function
+ * @returns {Function} function to make a POST request to the server to trigger an email to be sent to the user to change their password
+ */
 export const forgotPasswordInjector = ( dispatch ) => {
 	return async ({ email }) => {
 		await forgotPassword( dispatch, { email });
 	};
 };
 
+/**
+ * Makes a POST request to the server to change a user's data.
+ *
+ * @param {Function} dispatch - dispatch function
+ * @param {Object} form - form data
+ * @param {string} form.name - user name
+ * @param {string} form.organization- user organization
+ * @param {Object} form.customFields - user custom fields
+ */
 export const updateUser = async ( dispatch, form ) => {
 	try {
 		const res = await axios.post( server+'/update_user', form );
@@ -269,16 +410,35 @@ export const updateUser = async ( dispatch, form ) => {
 	}
 };
 
+/**
+ * Returns a function to make a POST request to the server to change a user's data with a bound dispatch function.
+ *
+ * @param {Function} dispatch - dispatch function
+ * @returns {Function} function to make a POST request to the server to change a user's data
+ */
 export const updateUserInjector = ( dispatch ) => {
 	return async ({ name, organization, password, customFields }) => {
 		await updateUser( dispatch, { name, organization, password, customFields });
 	};
 };
 
+/**
+ * Makes a POST request to the server to create a new user.
+ *
+ * @param {Object} form - form data
+ * @returns {Promise} promise that resolves to the server response
+ */
 export const createUser = ( form ) => {
 	return axios.post( server+'/create_user', form );
 };
 
+/**
+ * Makes a POST request to the server to login a user.
+ *
+ * @param {Function} dispatch - dispatch function
+ * @param {Object} form - form data
+ * @returns {Object} server response
+ */
 export const handleLogin = async ( dispatch, form ) => {
 	const res = await axios.post( server+'/login', form );
 	if ( res.data.message === 'finish-login-via-tfa' ) {
@@ -289,6 +449,12 @@ export const handleLogin = async ( dispatch, form ) => {
 	return res;
 };
 
+/**
+ * Returns a function to make a POST request to the server to login a user with a bound dispatch function.
+ *
+ * @param {Function} dispatch - dispatch function
+ * @returns {Function} function to make a POST request to the server to login a user
+ */
 export const handleLoginInjector = ( dispatch ) => {
 	return async ( form ) => {
 		const result = await handleLogin( dispatch, form );
@@ -296,6 +462,13 @@ export const handleLoginInjector = ( dispatch ) => {
 	};
 };
 
+/**
+ * Makes a POST request to the server to login a user with a TFA code.
+ *
+ * @param {Function} dispatch - dispatch function
+ * @param {Object} form - form data
+ * @returns {(Object|Error)} server response or an error if the TFA code is invalid
+ */
 export const handleLoginTFA = async ( dispatch, form ) => {
 	try {
 		const res = await axios.post( server+'/login_tfa', form );
@@ -303,9 +476,16 @@ export const handleLoginTFA = async ( dispatch, form ) => {
 		return res;
 	} catch ( err ) {
 		addErrorNotification( dispatch, err );
+		return err;
 	}
 };
 
+/**
+ * Returns a function to make a POST request to the server to login a user with a TFA code with a bound dispatch function.
+ *
+ * @param {Function} dispatch - dispatch function
+ * @returns {Function} function to make a POST request to the server to login a user with a TFA code
+ */
 export const handleLoginTFAInjector = ( dispatch ) => {
 	return async ( form ) => {
 		const result = await handleLoginTFA( dispatch, form );
@@ -313,27 +493,56 @@ export const handleLoginTFAInjector = ( dispatch ) => {
 	};
 };
 
+/**
+ * Restores a users' login session.
+ *
+ * @param {Function} dispatch - dispatch function
+ * @param {Object} user - user object
+ */
 export const restoreLogin = ( dispatch, user ) => {
 	dispatch( loggedIn( user ) );
 };
 
+/**
+ * Returns a function to restore a users' login session with a bound dispatch function.
+ *
+ * @param {Function} dispatch - dispatch function
+ * @returns {Function} function to restore a users' login session
+ */
 export const restoreLoginInjector = ( dispatch ) => {
 	return ( user ) => {
 		restoreLogin( dispatch, user );
 	};
 };
 
+/**
+ * Logs a user out.
+ *
+ * @param {Function} dispatch - dispatch function
+ */
 export const logout = ( dispatch ) => {
 	localStorage.removeItem( 'ISLE_USER_'+server );
 	dispatch( loggedOut() );
 };
 
+/**
+ * Returns a function to log a user out with a bound dispatch function.
+ *
+ * @param {Function} dispatch - dispatch function
+ * @returns {Function} function to log a user out
+ */
 export const logoutInjector = ( dispatch ) => {
 	return () => {
 		logout( dispatch );
 	};
 };
 
+/**
+ * Makes a GET request to the server to check whether a user's locally stored data has to be updated.
+ *
+ * @param {Function} dispatch - dispatch function
+ * @param {Object} user - user object
+ */
 export const userUpdateCheck = async ( dispatch, user ) => {
 	try {
 		const res = await axios.get( server+'/user_update_check?'+qs.stringify({
@@ -361,12 +570,24 @@ export const userUpdateCheck = async ( dispatch, user ) => {
 	}
 };
 
+/**
+ * Returns a function to make a GET request to the server to check whether a user's locally stored data has to be updated with a bound dispatch function.
+ *
+ * @param {Function} dispatch - dispatch function
+ * @returns {Function} function to make a GET request to the server to check whether a user's locally stored data has to be updated
+ */
 export const userUpdateCheckInjector = ( dispatch ) => {
 	return async ( user ) => {
 		await userUpdateCheck( dispatch, user );
 	};
 };
 
+/**
+ * Makes a POST request to the server to confirm a user's email address.
+ *
+ * @param {string} token - user token
+ * @returns {string} server response message or error message
+ */
 export const confirmEmail = async ( token ) => {
 	try {
 		const res = await axios.post( server+'/confirm_email', {
@@ -381,6 +602,12 @@ export const confirmEmail = async ( token ) => {
 	}
 };
 
+/**
+ * Make a POST request to the server to trigger a new email for confirming a user's email address.
+ *
+ * @param {Function} dispatch - dispatch function
+ * @param {Object} user - user object
+ */
 export const resendConfirmEmail = async ( dispatch, user ) => {
 	try {
 		await axios.post( server+'/resend_confirm_email' );
@@ -395,12 +622,24 @@ export const resendConfirmEmail = async ( dispatch, user ) => {
 	}
 };
 
+/**
+ * Returns a function to make a POST request to the server to trigger a new email for confirming a user's email address with a bound dispatch function.
+ *
+ * @param {Function} dispatch - dispatch function
+ * @returns {Function} function to make a POST request to the server to trigger a new email for confirming a user's email address
+ */
 export const resendConfirmEmailInjector = ( dispatch ) => {
 	return async ( user ) => {
 		await resendConfirmEmail( dispatch, user );
 	};
 };
 
+/**
+ * Makes a POST request to the server by an administrator to update an arbitrary user's data.
+ *
+ * @param {Function} dispatch - dispatch function
+ * @param {Object} form - form object with new user data
+ */
 export const adminUpdateUser = async ( dispatch, form ) => {
 	try {
 		const res = await axios.post( server+'/admin_update_user', form );
@@ -414,6 +653,12 @@ export const adminUpdateUser = async ( dispatch, form ) => {
 	}
 };
 
+/**
+ * Returns a function to make a POST request to the server by an administrator to update an arbitrary user's data with a bound dispatch function.
+ *
+ * @param {Function} dispatch - dispatch function
+ * @returns {Function} function to make a POST request to the server by an administrator to update an arbitrary user's data
+ */
 export const adminUpdateUserInjector = ( dispatch ) => {
 	return async ( form ) => {
 		await adminUpdateUser( dispatch, form );
