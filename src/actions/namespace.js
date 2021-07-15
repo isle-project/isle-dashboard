@@ -29,6 +29,12 @@ import { APPEND_CREATED_NAMESPACE, CHANGED_NAMESPACE, DELETED_CURRENT_NAMESPACE,
 
 // EXPORTS //
 
+/**
+ * Returns an action object to be used in signalling that a namespace has been created.
+ *
+ * @param {Object} namespace - the created namespace
+ * @returns {Object} the action object
+ */
 export function appendCreatedNamespace( namespace ) {
 	return {
 		type: APPEND_CREATED_NAMESPACE,
@@ -38,6 +44,19 @@ export function appendCreatedNamespace( namespace ) {
 	};
 }
 
+/**
+ * Returns an action object to be used in signalling that a namespace has been changed.
+ *
+ * @param {Object} namespace - the changed namespace
+ * @param {string} namespace.title - namespace title
+ * @param {Array} namespace.owners - ids of owners
+ * @param {Array} namespace.announcements - announcements
+ * @param {Array} namespace.cohorts - cohorts
+ * @param {string} namespace.description - namespace description
+ * @param {boolean} namespace.enableTicketing - controls if ticketing is enabled for the namespace
+ * @param {string} namespace._id - id of the namespace
+ * @returns {Object} the action object
+ */
 export function changedNamespace({ title, owners, announcements = [], cohorts = [], description, enableTicketing, _id }) {
 	return {
 		type: CHANGED_NAMESPACE,
@@ -53,6 +72,12 @@ export function changedNamespace({ title, owners, announcements = [], cohorts = 
 	};
 }
 
+/**
+ * Returns an action object to be used in signalling that a namespace has been deleted.
+ *
+ * @param {string} id - the id of the namespace to be deleted
+ * @returns {Object} the action object
+ */
 export function deletedCurrentNamespace( id ) {
 	return {
 		type: DELETED_CURRENT_NAMESPACE,
@@ -62,6 +87,15 @@ export function deletedCurrentNamespace( id ) {
 	};
 }
 
+/**
+ * Returns an action object to be used in signalling that a student's progress has been updated.
+ *
+ * @param {Object} options - progress of the student
+ * @param {string} options.email - email of the student
+ * @param {string} options.lessonId - lesson id
+ * @param {number} options.progress - progress of the student
+ * @param {Object} options.cohort - cohort of the student
+ */
 export function updateStudentProgress({ email, lessonID, progress, cohort }) {
 	return {
 		type: UPDATED_STUDENT_PROGRESS,
@@ -71,6 +105,16 @@ export function updateStudentProgress({ email, lessonID, progress, cohort }) {
 	};
 }
 
+/**
+ * Returns an action object to be used in signalling that an owned namespace has been updated.
+ *
+ * @param {Object} namespace - the updated namespace
+ * @param {string} namespace.title - namespace title
+ * @param {Array} namespace.owners - ids of owners
+ * @param {Array} namespace.enableTicketing - controls if ticketing is enabled for the namespace
+ * @param {string} namespace._id - id of the namespace
+ * @returns {Object} the action object
+ */
 export function updatedOwnedNamespace({ title, owners, description, enableTicketing, _id }) {
 	return {
 		type: UPDATED_OWNED_NAMESPACE,
@@ -84,6 +128,16 @@ export function updatedOwnedNamespace({ title, owners, description, enableTicket
 	};
 }
 
+/**
+ * Makes a POST request to create a new namespace.
+ *
+ * @param {Function} dispatch - dispatch function
+ * @param {Object} namespace - the new namespace
+ * @param {string} namespace.title - namespace title
+ * @param {Array} namespace.description - namespace description
+ * @param {Array} namespace.owners - ids of owners
+ * @param {Object} namespace.props - properties of the invoking component
+ */
 export const createNamespace = async ( dispatch, { title, description, owners, props }) => {
 	try {
 		const res = await axios.post( server+'/create_namespace', { title, description, owners });
@@ -103,12 +157,26 @@ export const createNamespace = async ( dispatch, { title, description, owners, p
 	}
 };
 
+/**
+ * Returns a function to make a POST request to create a new namespace.
+ *
+ * @param {Function} dispatch - dispatch function
+ * @returns {Function} function to make the POST request to create a new namespace
+ */
 export const createNamespaceInjector = dispatch => {
 	return async ({ title, description, owners, props }) => {
 		await createNamespace( dispatch, { title, description, owners, props } );
 	};
 };
 
+/**
+ * Makes a POST request to delete a namespace.
+ *
+ * @param {Function} dispatch - dispatch function
+ * @param {string} id - the id of the namespace to be deleted
+ * @param {Object} history - browser history object
+ * @returns {void}
+ */
 export const deleteCurrentNamespace = async ( dispatch, id, history ) => {
 	try {
 		const res = await axios.post( server+'/delete_namespace', { id });
@@ -125,12 +193,24 @@ export const deleteCurrentNamespace = async ( dispatch, id, history ) => {
 	}
 };
 
+/**
+ * Returns a function to make a POST request to delete a namespace.
+ *
+ * @param {Function} dispatch - dispatch function
+ * @returns {Function} function to make the POST request to delete a namespace
+ */
 export const deleteCurrentNamespaceInjector = ( dispatch ) => {
 	return async ( id, history ) => {
 		await deleteCurrentNamespace( dispatch, id, history );
 	};
 };
 
+/**
+ * Makes a POST request to update a namespace.
+ *
+ * @param {Function} dispatch - dispatch function
+ * @param {Object} ns - the updated namespace
+ */
 export const updateCurrentNamespace = async ( dispatch, ns ) => {
 	try {
 		const res = await axios.post( server+'/update_namespace', { ns });
@@ -148,12 +228,27 @@ export const updateCurrentNamespace = async ( dispatch, ns ) => {
 	}
 };
 
+/**
+ * Returns a function to make a POST request to update a namespace.
+ *
+ * @param {Function} dispatch - dispatch function
+ * @returns {Function} function to make the POST request to update a namespace
+ */
 export const updateCurrentNamespaceInjector = ( dispatch ) => {
 	return async ( id, ns ) => {
 		await updateCurrentNamespace( dispatch, id, ns );
 	};
 };
 
+/**
+ * Makes a GET request to get a namespace's actions.
+ *
+ * @param {Function} dispatch - dispatch function
+ * @param {Object} options - request options
+ * @param {string} options.namespaceID - id of the namespace
+ * @param {string} options.namespaceTitle - title of the namespace
+ * @returns {void}
+ */
 export const getNamespaceActions = async ( dispatch, { namespaceID, namespaceTitle } ) => {
 	try {
 		const res = await axios.get( server+'/get_namespace_actions?'+qs.stringify({ namespaceID }) );
@@ -167,12 +262,29 @@ export const getNamespaceActions = async ( dispatch, { namespaceID, namespaceTit
 	}
 };
 
+/**
+ * Returns a function to make a GET request to get a namespace's actions.
+ *
+ * @param {Function} dispatch - dispatch function
+ * @returns {Function} function to make the GET request to get a namespace's actions
+ */
 export const getNamespaceActionsInjector = ( dispatch ) => {
 	return async ({ namespaceID, namespaceTitle }) => {
 		await getNamespaceActions( dispatch, { namespaceID, namespaceTitle });
 	};
 };
 
+/**
+ * Makes a POST request to update a user's lesson progress.
+ *
+ * @param {Function} dispatch - dispatch function
+ * @param {Object} options - request options
+ * @param {string} options.namespaceID - id of the namespace
+ * @param {string} options.lessonID - id of the lesson
+ * @param {string} options.email - email of the user
+ * @param {number} options.progress - progress of the user
+ * @param {Object} options.cohort - cohort of the user
+ */
 export const adjustProgress = async ( dispatch, { email, lessonID, namespaceID, progress, cohort }) => {
 	const res = await axios.post( server+'/user_adjust_progress', {
 		email, lessonID, namespaceID, progress
@@ -185,12 +297,24 @@ export const adjustProgress = async ( dispatch, { email, lessonID, namespaceID, 
 	dispatch( updateStudentProgress({ email, lessonID, progress, cohort }) );
 };
 
+/**
+ * Returns a function to make a POST request to update a user's lesson progress.
+ *
+ * @param {Function} dispatch - dispatch function
+ * @returns {Function} function to make the POST request to update a user's lesson progress
+ */
 export const adjustProgressInjector = ( dispatch ) => {
 	return async ( { email, lessonID, namespaceID, progress, cohort } ) => {
 		await adjustProgress( dispatch, { email, lessonID, namespaceID, progress, cohort } );
 	};
 };
 
+/**
+ * Makes a GET request to get a all available namespaces.
+ *
+ * @param {Function} dispatch - dispatch function
+ * @returns {void}
+ */
 export const getAllNamespaces = async ( dispatch ) => {
 	try {
 		const res = await axios.get( server+'/get_all_namespaces' );
@@ -205,12 +329,27 @@ export const getAllNamespaces = async ( dispatch ) => {
 	}
 };
 
+/**
+ * Returns a function to make a GET request to get a all available namespaces.
+ *
+ * @param {Function} dispatch - dispatch function
+ * @returns {Function} function to make the GET request to get a all available namespaces
+ */
 export const getAllNamespacesInjector = ( dispatch ) => {
 	return async () => {
 		await getAllNamespaces( dispatch );
 	};
 };
 
+/**
+ * Makes a POST request to set the order lessons appear on the dashboard.
+ *
+ * @param {Function} dispatch - dispatch function
+ * @param {Object} options - request options
+ * @param {Array} options.lessons - lessons of the course in the order to be displayed on the dashboard
+ * @param {string} options.id - id of the namespace
+ * @returns {void}
+ */
 export const setLessonOrder = async ( dispatch, { lessons, id }) => {
 	try {
 		await axios.post( server+'/set_lesson_order', {
@@ -221,6 +360,12 @@ export const setLessonOrder = async ( dispatch, { lessons, id }) => {
 	}
 };
 
+/**
+ * Returns a function to make a POST request to set the order lessons appear on the dashboard.
+ *
+ * @param {Function} dispatch - dispatch function
+ * @returns {Function} function to make the POST request to set the order lessons appear on the dashboard
+ */
 export const setLessonOrderInjector = ( dispatch ) => {
 	return async ({ lessons, id }) => {
 		await setLessonOrder( dispatch, { lessons, id } );
