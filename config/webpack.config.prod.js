@@ -139,6 +139,7 @@ module.exports = {
 			path
 				.relative(paths.appSrc, info.absoluteResourcePath)
 				.replace(/\\/g, '/'),
+		assetModuleFilename: 'static/media/[hash][ext][query]'
 	},
 	optimization: {
 		minimizer: [
@@ -282,13 +283,7 @@ module.exports = {
 					// assets smaller than specified size as data URLs to avoid requests.
 					{
 						test: [/\.bmp$/, /\.gif$/, /\.jpe?g$/, /\.png$/],
-						use: {
-							loader: require.resolve('url-loader'),
-							options: {
-								limit: 10000,
-								name: 'static/media/[name].[hash:8].[ext]',
-							}
-						},
+						type: 'asset'
 					},
 					// Process application JS with Babel.
 					// The preset includes JSX, Flow, and some ESnext features.

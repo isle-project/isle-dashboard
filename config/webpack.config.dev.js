@@ -127,6 +127,7 @@ module.exports = {
 		// Point sourcemap entries to original disk location (format as URL on Windows)
 		devtoolModuleFilenameTemplate: info =>
 			path.resolve(info.absoluteResourcePath).replace(/\\/g, '/'),
+		assetModuleFilename: 'static/media/[hash][ext][query]'
 	},
 	optimization: {
 		// Automatically split vendor and commons
@@ -227,13 +228,7 @@ module.exports = {
 					// A missing `test` is equivalent to a match.
 					{
 						test: [/\.bmp$/, /\.gif$/, /\.jpe?g$/, /\.png$/],
-						use: {
-							loader: require.resolve('url-loader'),
-							options: {
-								limit: 10000,
-								name: 'static/media/[name].[hash:8].[ext]',
-							},
-						}
+						type: 'asset'
 					},
 					// Process application JS with Babel.
 					// The preset includes JSX, Flow, and some ESnext features.
