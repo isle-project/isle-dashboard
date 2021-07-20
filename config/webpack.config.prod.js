@@ -374,12 +374,8 @@ module.exports = {
 					// This loader doesn't use a "test" so it will catch all modules
 					// that fall through the other loaders.
 					{
-						use: {
-							loader: require.resolve('file-loader'),
-							options: {
-								name: 'static/media/[name].[hash:8].[ext]',
-							},
-						},
+
+						type: 'asset/resource',
 						// Exclude `js` files to keep "css" loader working as it injects
 						// it's runtime that would otherwise be processed through "file" loader.
 						// Also exclude `html` and `json` extensions so they get processed
