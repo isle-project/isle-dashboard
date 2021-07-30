@@ -57,6 +57,16 @@ const debug = logger( 'isle:files-page' );
 
 // FUNCTIONS //
 
+/**
+ * Keeps the part of the file path after `/media/`.
+ *
+ * @param {string} filepath - file path
+ * @returns {string} part of the file path after `/media/`
+ */
+const getPartAfterMedia = ( filepath ) => {
+	return filepath.substring( filepath.indexOf( '/media/' ) + 7 );
+};
+
 const prepareExportData = ( data ) => {
 	for ( let i = 0; i < data.length; i++ ) {
 		const row = pick( data[ i ], EXPORT_COLUMNS );
@@ -135,7 +145,7 @@ class FilesPage extends Component {
 				Cell: ( row ) => {
 					return (
 						<OverlayTrigger placement="left" overlay={<Tooltip id="external-link-tooltip">{t('open-file')}</Tooltip>}>
-							<a aria-label={t('open-file')} href={server+'/'+row.value} target="_blank" rel="noopener noreferrer" >
+							<a aria-label={t('open-file')} href={server+'/'+getPartAfterMedia( row.value )} target="_blank" rel="noopener noreferrer" >
 								<Button aria-label={t('open-file')} size="sm" variant="outline-secondary">
 									<i className="fa fa-external-link-alt"></i>
 								</Button>
