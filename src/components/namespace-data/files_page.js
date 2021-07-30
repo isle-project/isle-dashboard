@@ -131,7 +131,7 @@ class FilesPage extends Component {
 			}),
 			{
 				Header: t('common:open'),
-				accessor: 'filename',
+				accessor: 'path',
 				Cell: ( row ) => {
 					return (
 						<OverlayTrigger placement="left" overlay={<Tooltip id="external-link-tooltip">{t('open-file')}</Tooltip>}>
