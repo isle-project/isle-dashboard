@@ -142,7 +142,7 @@
     "babel-preset-react-app": "10.0.0",
     "bfj": "^7.0.2",
     "case-sensitive-paths-webpack-plugin": "2.4.0",
-    "chalk": "4.1.1",
+    "chalk": "4.1.2",
     "codecov": "^3.8.3",
     "connect-history-api-fallback": "1.6.0",
     "copy-webpack-plugin": "9.0.1",
