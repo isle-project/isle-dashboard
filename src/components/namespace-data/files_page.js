@@ -160,13 +160,13 @@ class FilesPage extends Component {
 			{
 				Header: t('common:copy'),
 				id: 'copy-path',
-				accessor: 'filename',
+				accessor: 'path',
 				Cell: ( row ) => {
 					return (
 						<OverlayTrigger placement="right" overlay={<Tooltip id="copy-clipboard-tooltip">{t('common:copy-link')}</Tooltip>}>
 							<Button aria-label={t('common:copy-link')} variant="outline-secondary" size="sm"
 								onClick={() => {
-									copyToClipboard( server+'/'+row.value );
+									copyToClipboard( server+'/'+getPartAfterMedia( row.value ) );
 									this.props.addNotification({
 										title: 'Copied',
 										message: 'Link copied to clipboard',
