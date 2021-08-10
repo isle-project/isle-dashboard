@@ -175,7 +175,7 @@
     "terser-webpack-plugin": "5.1.4",
     "webpack": "5.50.0",
     "webpack-dev-server": "4.0.0-rc.0",
-    "workbox-webpack-plugin": "6.2.2"
+    "workbox-webpack-plugin": "6.2.3"
   },
   "browserslist": [
     ">0.2%",
