@@ -1,2 +1,0 @@
-(self.webpackChunkisle_dashboard=self.webpackChunkisle_dashboard||[]).push([[2136],{65681:function(e,r,a){"use strict";a.r(r);var s=a(41488),n=a(20175);r.default=function(){return s.createElement(n.Z,{header:"Terms of Service",body:""})}}}]);
-//# sourceMappingURL=2136.78a56a80.chunk.js.map
