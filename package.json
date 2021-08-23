@@ -69,7 +69,7 @@
     "@stdlib/fs": "^0.0.11",
     "@stdlib/math": "^0.0.10",
     "@stdlib/process": "^0.0.11",
-    "@stdlib/stats": "^0.0.12",
+    "@stdlib/stats": "^0.0.13",
     "@stdlib/string": "^0.0.12",
     "@stdlib/utils": "^0.0.11",
     "axios": "^0.21.1",
