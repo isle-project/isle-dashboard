@@ -172,7 +172,7 @@
     "style-loader": "3.2.1",
     "stylelint": "^13.13.1",
     "stylelint-config-standard": "^22.0.0",
-    "terser-webpack-plugin": "5.2.3",
+    "terser-webpack-plugin": "5.2.4",
     "webpack": "5.52.0",
     "webpack-dev-server": "4.1.1",
     "workbox-webpack-plugin": "6.2.4"
