@@ -26,6 +26,16 @@ An online dashboard used to deploy, organize and monitor *integrated statistics 
 
 #### [Open Documentation][docs]
 
+## Deployment
+
+The `build` branch of the repository can be used to deploy the ISLE dashboard. On the server running the `isle-server` program, simply clone the repository in an appropriate location (e.g., `/var/www/html`) and change the [`nginx` configuration][nginx-configuration] file to point to the `isle-dashboard` folder.
+
+``` bash
+git clone -b build https://github.com/isle-project/isle-dashboard.git
+```
+
+## Building from Source
+
 #### Prerequisites
 
 Developing the ISLE dashboard has the following prerequisites:
@@ -57,7 +67,7 @@ Edit the [config/server.json](https://github.com/isle-project/isle-dashboard/blo
 
 Execute the `npm run build` command to create a bundle of the ISLE dashboard, which can then be hosted on the server. 
 
-#### Deploy
+#### Deployment of the bundle
 
 Deploy the bundled page by copying to the correct path on your server. From the project directory, run 
 
@@ -105,3 +115,4 @@ See [LICENSE][license-url].
 [docs]: http://isledocs.com/
 [isle-server]: https://github.com/isle-project/isle-server
 [isle-editor]: https://github.com/isle-project/isle-editor
+[nginx-configuration]: https://github.com/isle-project/isle-server/blob/13710ded84d07de94b4e17aae6e92f4844764f4e/etc/nginx/sites-available/isle#L73
