@@ -146,7 +146,7 @@
     "codecov": "^3.8.3",
     "connect-history-api-fallback": "1.6.0",
     "copy-webpack-plugin": "9.0.1",
-    "css-loader": "6.2.0",
+    "css-loader": "6.3.0",
     "css-minimizer-webpack-plugin": "^3.0.2",
     "dotenv": "10.0.0",
     "eslint": "^7.31.0",
