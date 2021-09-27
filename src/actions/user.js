@@ -528,6 +528,7 @@ export const restoreLoginInjector = ( dispatch ) => {
  * @param {Function} dispatch - dispatch function
  */
 export const logout = ( dispatch ) => {
+	debug( 'Logging out the current user...' );
 	localStorage.removeItem( 'ISLE_USER_'+server );
 	dispatch( loggedOut() );
 };
