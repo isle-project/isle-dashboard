@@ -362,7 +362,10 @@ module.exports = {
 		// solution that requires the user to opt into importing specific locales.
 		// https://github.com/jmblog/how-to-optimize-momentjs-with-webpack
 		// You can remove this if you don't use Moment.js:
-		new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
+		new webpack.IgnorePlugin({
+			resourceRegExp: /^\.\/locale$/,
+			contextRegExp: /moment$/
+		}),
 		// Generate a manifest file which contains a mapping of all asset filenames
 		// to their corresponding output file so that tools can pick it up without
 		// having to parse `index.html`.
