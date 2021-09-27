@@ -39,12 +39,6 @@ module.exports = function( proxy, allowedHost ) {
 		allowedHosts: 'auto',
 		// Enable gzip compression of generated files.
 		compress: true,
-		// Enable hot reloading server. It will provide /sockjs-node/ endpoint
-		// for the WebpackDevServer client so it can learn when the files were
-		// updated. The WebpackDevServer client is included as an entry point
-		// in the Webpack development configuration. Note that only changes
-		// to CSS are currently hot reloaded. JS changes will refresh the browser.
-		hot: true,
 		// It is important to tell WebpackDevServer to use the same "root" path
 		// as we specified in the config. In development, we always serve from /.
 		devMiddleware: {
@@ -62,14 +56,15 @@ module.exports = function( proxy, allowedHost ) {
 			disableDotRule: true,
 		},
 		proxy,
-		onBeforeSetupMiddleware( app, server ) {
+		onBeforeSetupMiddleware( devServer ) {
+			const app = devServer.app;
 			if (fs.existsSync(paths.proxySetup)) {
 				// This registers user provided middleware for proxy reasons
 				require(paths.proxySetup)(app);
 			}
 
 			// This lets us fetch source contents from webpack for the error overlay
-			app.use( evalSourceMapMiddleware( server ) );
+			app.use( evalSourceMapMiddleware( devServer ) );
 			// This lets us open files from the runtime error overlay.
 			app.use( errorOverlayMiddleware() );
 

@@ -154,14 +154,14 @@ function build( previousFileSizes ) {
 					return reject( err );
 				}
 				messages = formatWebpackMessages({
-					errors: [ err.message ],
+					errors: [ err.message || '' ],
 					warnings: []
 				});
 			} else {
 				const rawMessages = stats.toJson({ all: false, warnings: true, errors: true });
 				messages = formatWebpackMessages({
-					errors: rawMessages.errors.map( ( e ) => e.message ),
-					warnings: rawMessages.warnings.map( ( e ) => e.message )
+					errors: rawMessages.errors.map( ( e ) => e.message || '' ),
+					warnings: rawMessages.warnings.map( ( e ) => e.message || '' )
 				});
 			}
 			if ( messages.errors.length ) {
