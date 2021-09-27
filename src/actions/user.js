@@ -218,6 +218,13 @@ export const impersonateUser = async ( dispatch, { id, password }) => {
 		const user = await fetchCredentials( dispatch, {
 			id: res.data.id
 		});
+		// Save user token to local storage:
+		const JWT = {
+			token: res.data.token,
+			id: res.data.id
+		};
+		const userVal = 'ISLE_USER_' + server;
+		localStorage.setItem( userVal, JSON.stringify( JWT ) );
 		if ( user ) {
 			getEnrollableCohorts( dispatch, user );
 		}
