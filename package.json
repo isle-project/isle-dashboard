@@ -72,7 +72,7 @@
     "@stdlib/stats": "^0.0.13",
     "@stdlib/string": "^0.0.13",
     "@stdlib/utils": "^0.0.12",
-    "axios": "^0.21.4",
+    "axios": "^0.22.0",
     "babel-plugin-add-module-exports": "^1.0.4",
     "babel-plugin-module-resolver": "^4.1.0",
     "babel-plugin-named-asset-import": "^0.3.7",
