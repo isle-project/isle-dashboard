@@ -63,10 +63,6 @@
       "properties": "never"
     }],
     "id-match": 0,
-    "import/no-unresolved": [ 2, {
-      "ignore": [ "electron" ],
-      "commonjs": true
-    }],
     "indent": [ 0, "tab" ],
     "key-spacing": [ 2, {
       "beforeColon": false,
@@ -322,7 +318,6 @@
     "plugin:jsx-a11y/recommended"
   ],
   "plugins": [
-    "import",
     "react",
     "react-hooks",
     "jest",
@@ -331,16 +326,6 @@
   "settings": {
     "react": {
       "version": "16"
-    },
-    "import/external-module-folders": [ "node_modules" ],
-    "import/core-modules": [ "electron", "@stdlib" ],
-    "import/resolver": {
-      "node": {
-        "moduleDirectory": [
-          "src",
-          "node_modules"
-        ]
-      }
     }
   }
 }
