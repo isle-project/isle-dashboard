@@ -248,22 +248,6 @@ module.exports = {
 	module: {
 		strictExportPresence: true,
 		rules: [
-			// First, run the linter.
-			// It's important to do this before Babel processes the JS.
-			{
-				test: /\.(js|jsx)$/,
-				enforce: 'pre',
-				use: [
-					{
-						options: {
-							formatter: require.resolve('react-dev-utils/eslintFormatter'),
-							eslintPath: require.resolve('eslint')
-						},
-						loader: require.resolve('eslint-loader'),
-					},
-				],
-				include: paths.appSrc,
-			},
 			{
 				// `mjs` support is still in its infancy in the ecosystem, so we don't
 				// support it.
@@ -296,9 +280,6 @@ module.exports = {
 						use: {
 							loader: require.resolve('babel-loader'),
 							options: {
-								customize: require.resolve(
-									'babel-preset-react-app/webpack-overrides'
-								),
 								plugins: [
 									[
 										require.resolve('babel-plugin-named-asset-import'),
@@ -329,12 +310,7 @@ module.exports = {
 								babelrc: false,
 								configFile: false,
 								compact: false,
-								presets: [
-									[
-										require.resolve('babel-preset-react-app/dependencies'),
-										{ helpers: true },
-									],
-								],
+								presets: [],
 								cacheDirectory: true,
 								// Save disk space when time isn't as important
 								cacheCompression: true,
