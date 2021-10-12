@@ -233,9 +233,12 @@ module.exports = {
 			fs: false,
 			net: false,
 			tls: false,
+			punycode: false,
 			child_process: false,
 			path: require.resolve( 'path-browserify' ),
-			stream: require.resolve( 'stream-browserify' )
+			stream: require.resolve( 'stream-browserify' ),
+			querystring: require.resolve( 'querystring-es3' ),
+			buffer: require.resolve( 'buffer' )
 		},
 	},
 	resolveLoader: {
