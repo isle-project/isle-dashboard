@@ -49,23 +49,35 @@ class DetailsModal extends Component {
 	constructor( props ) {
 		super( props );
 
+		let unlockLesson;
 		let lockLesson;
 		let lockUntil;
+		let lockAfter;
 		if ( props.lockUntil ) {
-			lockLesson = true;
+			unlockLesson = true;
 			lockUntil = props.lockUntil;
 		} else {
-			lockLesson = false;
+			unlockLesson = false;
 			lockUntil = new Date();
+		}
+		if ( props.lockAfter ) {
+			lockLesson = true;
+			lockAfter = props.lockAfter;
+		} else {
+			lockLesson = false;
+			lockAfter = new Date();
 		}
 		this.state = {
 			title: props.title,
 			description: props.description,
 			disabled: false,
+			hideFromDashboard: props.hideFromDashboard,
 			template: props.template,
 			changedTemplate: false,
+			unlockLesson,
+			lockUntil,
 			lockLesson,
-			lockUntil
+			lockAfter
 		};
 	}
 
@@ -82,11 +94,20 @@ class DetailsModal extends Component {
 		}
 		if ( prevProps.lockUntil !== this.props.lockUntil ) {
 			if ( this.props.lockUntil ) {
-				newState.lockLesson = true;
+				newState.unlockLesson = true;
 				newState.lockUntil = this.props.lockUntil;
 			} else {
-				newState.lockLesson = false;
+				newState.unlockLesson = false;
 				newState.lockUntil = new Date();
+			}
+		}
+		if ( prevProps.lockAfter !== this.props.lockAfter ) {
+			if ( this.props.lockAfter ) {
+				newState.lockLesson = true;
+				newState.lockAfter = this.props.lockAfter;
+			} else {
+				newState.lockLesson = false;
+				newState.lockAfter = new Date();
 			}
 		}
 		if ( !isEmptyObject( newState ) ) {
@@ -114,15 +135,27 @@ class DetailsModal extends Component {
 		});
 	}
 
+	handleUnlockChange = ( event ) => {
+		this.setState({
+			unlockLesson: event.target.checked
+		});
+	}
+
 	handleLockChange = ( event ) => {
 		this.setState({
 			lockLesson: event.target.checked
 		});
 	}
 
-	handleTimeChange = ( value ) => {
+	handleTimeUntilChange = ( value ) => {
 		this.setState({
 			lockUntil: value
+		});
+	}
+
+	handleTimeAfterChange = ( value ) => {
+		this.setState({
+			lockAfter: value
 		});
 	}
 
@@ -133,14 +166,26 @@ class DetailsModal extends Component {
 		});
 	}
 
+	hideFromDashboardChange = ( event ) => {
+		this.setState({
+			hideFromDashboard: event.target.checked
+		});
+	}
+
 	onSubmit = ( evt ) => {
 		evt.preventDefault();
 		const details = {
 			newTitle: this.state.title,
 			newDescription: this.state.description
 		};
-		if ( this.state.lockLesson ) {
+		if ( this.state.unlockLesson ) {
 			details.lockUntil = this.state.lockUntil;
+		}
+		if ( this.state.lockLesson ) {
+			details.lockAfter = this.state.lockAfter;
+		}
+		if ( this.state.hideFromDashboard !== this.props.hideFromDashboard ) {
+			details.hideFromDashboard = this.state.hideFromDashboard;
 		}
 		if ( this.state.changedTemplate ) {
 			details.template = this.state.template;
@@ -179,17 +224,41 @@ class DetailsModal extends Component {
 							<Form.Check
 								type="checkbox"
 								label={t('common:lock-until')}
+								checked={this.state.unlockLesson}
+								onChange={this.handleUnlockChange}
+							/>
+							<div>
+								{this.state.unlockLesson ? <DateTimePicker
+									minDate={new Date()}
+									onChange={this.handleTimeUntilChange}
+									value={this.state.lockUntil}
+									clearIcon={null}
+								/> : null }
+							</div>
+						</FormGroup>
+						<FormGroup>
+							<Form.Check
+								type="checkbox"
+								label={t('common:lock-after')}
 								checked={this.state.lockLesson}
 								onChange={this.handleLockChange}
 							/>
 							<div>
 								{this.state.lockLesson ? <DateTimePicker
 									minDate={new Date()}
-									onChange={this.handleTimeChange}
-									value={this.state.lockUntil}
+									onChange={this.handleTimeAfterChange}
+									value={this.state.lockAfter}
 									clearIcon={null}
 								/> : null }
 							</div>
+						</FormGroup>
+						<FormGroup>
+							<Form.Check
+								type="checkbox"
+								label={t('common:hide-from-dashboard')}
+								checked={this.state.hideFromDashboard}
+								onChange={this.hideFromDashboardChange}
+							/>
 						</FormGroup>
 						{ this.props.user.administrator ? <FormGroup>
 							<Form.Check
@@ -220,6 +289,8 @@ class DetailsModal extends Component {
 DetailsModal.propTypes = {
 	close: PropTypes.func.isRequired,
 	description: PropTypes.string.isRequired,
+	hideFromDashboard: PropTypes.bool,
+	lockAfter: PropTypes.instanceOf( Date ),
 	lockUntil: PropTypes.instanceOf( Date ),
 	show: PropTypes.bool.isRequired,
 	template: PropTypes.bool,
@@ -229,6 +300,8 @@ DetailsModal.propTypes = {
 };
 
 DetailsModal.defaultProps = {
+	hideFromDashboard: false,
+	lockAfter: null,
 	lockUntil: null,
 	template: null
 };
