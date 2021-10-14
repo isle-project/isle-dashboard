@@ -524,11 +524,13 @@ export const deactivateLessonInjector = ( dispatch ) => {
  * @param {string} options.namespaceName - namespace name
  * @param {string} options.newTitle - new title
  * @param {string} options.newDescription - new description
+ * @param {string} options.lockAfter - date on which the lesson should be made unavailable to users
  * @param {string} options.lockUntil - date on which the lesson should be made available to users
  * @param {boolean} options.template - controls whether the lesson shall be a template or not
+ * @param {boolean} options.hideFromDashboard - controls whether the lesson shall be hidden from the dashboard (but may still be active and accessible)
  * @returns {boolean} true if the lesson was updated, false otherwise
  */
-export const updateLesson = async ( dispatch, { lessonName, namespaceName, newTitle, newDescription, lockUntil, template }) => {
+export const updateLesson = async ( dispatch, { lessonName, namespaceName, newTitle, newDescription, lockAfter, lockUntil, template, hideFromDashboard }) => {
 	if ( namespaceName && lessonName ) {
 		try {
 			const query = {
@@ -536,7 +538,9 @@ export const updateLesson = async ( dispatch, { lessonName, namespaceName, newTi
 				lessonName,
 				newTitle,
 				newDescription,
-				lockUntil
+				lockAfter,
+				lockUntil,
+				hideFromDashboard
 			};
 			if ( isBoolean( template ) ) {
 				query.template = template;
@@ -564,8 +568,8 @@ export const updateLesson = async ( dispatch, { lessonName, namespaceName, newTi
  * @returns {Function} function to make a POST request to update a lesson
  */
 export const updateLessonInjector = ( dispatch ) => {
-	return async ({ lessonName, namespaceName, newTitle, newDescription, lockUntil, template }) => {
-		const bool = await updateLesson( dispatch, { lessonName, namespaceName, newTitle, newDescription, lockUntil, template });
+	return async ({ lessonName, namespaceName, newTitle, newDescription, lockAfter, lockUntil, hideFromDashboard, template }) => {
+		const bool = await updateLesson( dispatch, { lessonName, namespaceName, newTitle, newDescription, lockAfter, lockUntil, hideFromDashboard, template });
 		return bool;
 	};
 };
