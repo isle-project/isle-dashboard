@@ -322,7 +322,7 @@ class Lesson extends Component {
 		const { t } = this.props;
 		return (
 			<Card className="animated-lesson-card">
-				<Card.Body style={{ padding: 0 }}>
+				<Card.Body style={{ padding: 0, opacity: this.props.hideFromDashboard ? 0.6 : 1.0 }}>
 					<div style={{
 						filter: 'grayscale(30%)',
 						background: COLORS[ this.props.colorIndex ]
@@ -411,7 +411,9 @@ Lesson.propTypes = {
 	description: PropTypes.string.isRequired,
 	getIsleFile: PropTypes.func.isRequired,
 	getLessons: PropTypes.func.isRequired,
+	hideFromDashboard: PropTypes.bool.isRequired,
 	hideLessonInGallery: PropTypes.func.isRequired,
+	lockAfter: PropTypes.instanceOf( Date ),
 	lockUntil: PropTypes.instanceOf( Date ),
 	namespace: PropTypes.string.isRequired,
 	public: PropTypes.bool.isRequired,
@@ -424,6 +426,7 @@ Lesson.propTypes = {
 };
 
 Lesson.defaultProps = {
+	lockAfter: null,
 	lockUntil: null
 };
 
