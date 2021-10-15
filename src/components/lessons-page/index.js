@@ -102,8 +102,8 @@ class LessonsPage extends Component {
 
 		let lessons = props.namespace.lessons;
 		if ( !isOwner( props.user, props.namespace ) ) {
-			debug( 'Filter out inactive lessons for enrolled students...' );
-			lessons = lessons.filter( e => e.active === true );
+			debug( 'Filter out inactive or hidden lessons for enrolled students...' );
+			lessons = lessons.filter( e => e.active === true && e.hideFromDashboard !== true );
 		}
 		this.state = {
 			filteredLessons: searchLessons( lessons, props.search.phrase ),
@@ -125,8 +125,8 @@ class LessonsPage extends Component {
 			debug( 'Get derived state...' );
 			let lessons = nextProps.namespace.lessons || [];
 			if ( !isOwner( nextProps.user, nextProps.namespace ) ) {
-				debug( 'Filter out inactive lessons for enrolled students...' );
-				lessons = lessons.filter( e => e.active === true );
+				debug( 'Filter out inactive or hidden lessons for enrolled students...' );
+				lessons = lessons.filter( e => e.active === true && e.hideFromDashboard !== true );
 			}
 			const filteredLessons = searchLessons( lessons, nextProps.search.phrase );
 			sortLessons( filteredLessons, nextProps.search );
