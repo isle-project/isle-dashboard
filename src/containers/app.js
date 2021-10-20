@@ -22,6 +22,8 @@ import PropTypes from 'prop-types';
 import logger from 'debug';
 import { connect } from 'react-redux';
 import { Route } from 'react-router-dom';
+import { Helmet, HelmetProvider } from 'react-helmet-async';
+import capitalize from '@stdlib/string/capitalize';
 import { ConnectedRouter } from 'connected-react-router';
 import asyncComponent from 'components/async';
 import server from 'constants/server';
@@ -30,6 +32,7 @@ import { getEnrollableCohortsInjector } from 'actions/cohort.js';
 import { getPublicSettingsInjector, getCustomTranslationsInjector } from 'actions/settings.js';
 import NotificationSystem from './notification.js';
 import './app.css';
+import axios from 'axios';
 
 
 // VARIABLES //
@@ -77,6 +80,16 @@ const RE_PUBLIC_PAGES = /(?:courses|new-password|complete-registration|confirm-e
 const debug = logger( 'isle-dashboard' );
 
 
+// FUNCTIONS //
+
+function generateTitle( ) {
+	console.log( window.location.hash );
+	const title = capitalize( window.location.hash.replace( /^\//, '' ) );
+	console.log( title );
+	return `${title} | ISLE Dashboard`;
+}
+
+
 // MAIN //
 
 class App extends Component {
@@ -92,6 +105,12 @@ class App extends Component {
 			if ( isle ) {
 				isle = JSON.parse( isle );
 				const user = await this.props.fetchCredentials( isle );
+				if ( user ) {
+					this.props.getEnrollableCohorts( user );
+				}
+			} else {
+				const res = await axios.get( server+'/saml/session' );
+				const user = await this.props.fetchCredentials( res.data );
 				if ( user ) {
 					this.props.getEnrollableCohorts( user );
 				}
@@ -209,28 +228,33 @@ class App extends Component {
 				</Fragment>;
 		}
 		return (
-			<ConnectedRouter history={this.props.history}>
-				<div className="App">
-					{AuthenticationBarrier}
-					<Route
-						path="/*"
-						component={AsyncFooterBar}
-						history={this.props.history}
-					/>
-					<Route exact path="/" component={AsyncLogin} />
-					<Route path="/login" component={AsyncLogin} />
-					<Route path="/login-tfa" component={AsyncLoginTFA} />
-					<Route path="/new-password" component={AsyncNewPassword} />
-					<Route path="/complete-registration" component={AsyncCompleteRegistration} />
-					<Route path="/confirm-email" component={AsyncConfirmEmail} />
-					<Route path="/shibboleth" component={AsyncShibboleth} />
-					{settings.allowUserRegistrations ? <Route path="/signup" component={AsyncSignup} /> : null}
-					<Route path="/forgot-password" component={AsyncForgotPassword} />
-					<Route path="/terms" component={AsyncTerms} />
-					<Route path="/privacy" component={AsyncPrivacy} />
-					<NotificationSystem />
-				</div>
-			</ConnectedRouter>
+			<HelmetProvider>
+				<ConnectedRouter history={this.props.history}>
+					<div className="App">
+						{AuthenticationBarrier}
+						<Helmet>
+							<title>{generateTitle()}</title>
+						</Helmet>
+						<Route
+							path="/*"
+							component={AsyncFooterBar}
+							history={this.props.history}
+						/>
+						<Route exact path="/" component={AsyncLogin} />
+						<Route path="/login" component={AsyncLogin} />
+						<Route path="/login-tfa" component={AsyncLoginTFA} />
+						<Route path="/new-password" component={AsyncNewPassword} />
+						<Route path="/complete-registration" component={AsyncCompleteRegistration} />
+						<Route path="/confirm-email" component={AsyncConfirmEmail} />
+						<Route path="/shibboleth" component={AsyncShibboleth} />
+						{settings.allowUserRegistrations ? <Route path="/signup" component={AsyncSignup} /> : null}
+						<Route path="/forgot-password" component={AsyncForgotPassword} />
+						<Route path="/terms" component={AsyncTerms} />
+						<Route path="/privacy" component={AsyncPrivacy} />
+						<NotificationSystem />
+					</div>
+				</ConnectedRouter>
+			</HelmetProvider>
 		);
 	}
 }
