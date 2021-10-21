@@ -25,14 +25,15 @@ import { Route } from 'react-router-dom';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 import capitalize from '@stdlib/string/capitalize';
 import { ConnectedRouter } from 'connected-react-router';
+import axios from 'axios';
 import asyncComponent from 'components/async';
 import server from 'constants/server';
 import { fetchCredentialsInjector } from 'actions/authentication.js';
 import { getEnrollableCohortsInjector } from 'actions/cohort.js';
 import { getPublicSettingsInjector, getCustomTranslationsInjector } from 'actions/settings.js';
+import { receivedToken } from 'actions/user.js';
 import NotificationSystem from './notification.js';
 import './app.css';
-import axios from 'axios';
 
 
 // VARIABLES //
@@ -109,13 +110,16 @@ class App extends Component {
 					this.props.getEnrollableCohorts( user );
 				}
 			} else {
-				const res = await axios.get( server+'/saml/session' );
-				const user = await this.props.fetchCredentials( res.data );
-				if ( user ) {
-					this.props.getEnrollableCohorts( user );
+				try {
+					const res = await axios.get( server+'/saml/session' );
+					this.props.dispatch( receivedToken( res.data ) );
+					const user = await this.props.fetchCredentials( res.data );
+					if ( user ) {
+						this.props.getEnrollableCohorts( user );
+					}
+				} catch ( err ) {
+					history.replace( '/login' );
 				}
-			} else {
-				history.replace( '/login' );
 			}
 		}
 		if ( this.props.isLoggedIn ) {
@@ -263,6 +267,7 @@ class App extends Component {
 // PROPERTIES //
 
 App.propTypes = {
+	dispatch: PropTypes.func.isRequired,
 	fetchCredentials: PropTypes.func.isRequired,
 	getCustomTranslations: PropTypes.func.isRequired,
 	getEnrollableCohorts: PropTypes.func.isRequired,
@@ -288,6 +293,7 @@ function mapStateToProps( state ) {
 
 function mapDispatchToProps( dispatch ) {
 	return {
+		dispatch: dispatch,
 		fetchCredentials: fetchCredentialsInjector( dispatch ),
 		getCustomTranslations: getCustomTranslationsInjector( dispatch ),
 		getPublicSettings: getPublicSettingsInjector( dispatch ),
