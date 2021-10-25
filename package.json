@@ -140,7 +140,7 @@
     "@testing-library/react": "^12.1.2",
     "autoprefixer": "10.3.7",
     "babel-jest": "^27.3.0",
-    "babel-loader": "8.2.2",
+    "babel-loader": "8.2.3",
     "babel-plugin-css-modules-transform": "^1.6.1",
     "bfj": "^7.0.2",
     "case-sensitive-paths-webpack-plugin": "2.4.0",
