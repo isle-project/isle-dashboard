@@ -15,7 +15,7 @@
 	background: white;
 	border: solid 1px darkgray;
 	box-shadow: 0 0 2px darkslategray;
-	font-family: Open Sans Condensed;
+	font-family: "Open Sans Condensed";
 	font-size: 12px;
 	font-weight: 800;
 	text-align: center;
@@ -81,7 +81,7 @@
 	background: white;
 	box-shadow: 0 0 6px darkgray;
 	z-index: 2;
-	font-family: Open Sans Condensed;
+	font-family: "Open Sans Condensed";
 	font-size: 16px;
 	font-weight: 600;
 	display: grid;
@@ -121,7 +121,7 @@
 	font-weight: 800;
 	cursor: pointer;
 	text-align: right;
-	font-family: Open Sans;
+	font-family: "Open Sans";
 }
 
 .cohort-actual-member-exit:hover {
@@ -245,7 +245,7 @@
 	text-align: right;
 	vertical-align: text-bottom;
 	font-size: 20px;
-	font-family: Open Sans Condensed;
+	font-family: "Open Sans Condensed";
 }
 
 .cohort-actual-member-lesson-title {

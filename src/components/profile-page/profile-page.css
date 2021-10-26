@@ -33,14 +33,14 @@
 .profile-page-left {
 	grid-area: left;
 	border-right: solid 1px silver;
-	background-image: url(./../../../public/img/white_carbonfiber.png);
+	background-image: url("./../../../public/img/white_carbonfiber.png");
 }
 
 .profile-page-badge-title {
 	grid-area: middle;
 	margin-left: 10px;
 	border-top: solid 1px darkgray;
-	font-family: Open Sans Condensed;
+	font-family: "Open Sans Condensed";
 	font-size: 28px;
 	margin-bottom: 8px;
 	color: #767676;
@@ -74,7 +74,7 @@
 /* END OF THE WHOLE PROFILE PAGE */
 .profile-page-statistics-data-select {
 	grid-area: dataselect;
-	font-family: Open Sans Condensed;
+	font-family: "Open Sans Condensed";
 	font-size: 28px;
 	color: #767676;
 	border-top: solid 1px darkgray;
@@ -85,7 +85,7 @@
 	overflow-y: auto;
 	grid-area: navi;
 	padding-left: 15px;
-	font-family: Open Sans Condensed;
+	font-family: "Open Sans Condensed";
 	font-size: 28px;
 	color: #767676;
 	border-top: solid 1px darkgray;
@@ -93,7 +93,7 @@
 
 .profile-page-statistics-navigation-title {
 	grid-area: navicomment;
-	font-family: Open Sans Condensed;
+	font-family: "Open Sans Condensed";
 	font-size: 28px;
 	color: #767676;
 	border-top: solid 1px darkgray;
@@ -105,7 +105,7 @@
 /* BEGINNING OF THE INNER STAT SELECTION */
 .profile-page-statistics-select {
 	grid-area: statselect;
-	font-family: Open Sans Condensed;
+	font-family: "Open Sans Condensed";
 	font-size: 28px;
 	color: #767676;
 	padding-left: 10px;
@@ -158,7 +158,7 @@
 
 .profile-page-statistics-top-actions {
 	grid-area: topactions;
-	font-family: Open Sans Condensed;
+	font-family: "Open Sans Condensed";
 	font-size: 28px;
 	color: darkgrey;
 	border-top: solid 1px darkgray;
@@ -190,7 +190,7 @@
 
 .profile-page-statistics-title2 {
 	grid-area: topr;
-	font-family: Open Sans Condensed;
+	font-family: "Open Sans Condensed";
 	font-size: 28px;
 	color: #767676;
 	border-top: solid 1px darkgray;
@@ -255,12 +255,12 @@
 	transition: all 0.3s;
 	border-radius: 50%;
 	box-shadow: 0 0 darkgray;
-	background-image: url(./img/badge_circle_background.svg);
+	background-image: url("./img/badge_circle_background.svg");
 	background-size: 100% auto;
 }
 
 .badge-svg {
-	stroke: 'blue';
+	stroke: "blue";
 }
 
 .profile-page-badge-item:hover {
@@ -391,7 +391,7 @@
 
 .profile-page-user-portrait:hover::after {
 	position: absolute;
-	font-family: Open Sans Condensed;
+	font-family: "Open Sans Condensed";
 	pointer-events: none;
 	font-size: 24px;
 	text-shadow: 2px 2px 0 black;
@@ -407,7 +407,7 @@
 	position: relative;
 	grid-area: personal;
 	width: 300px;
-	background-image: url(./../../../public/img/white_carbonfiber.png);
+	background-image: url("./../../../public/img/white_carbonfiber.png");
 }
 
 .profile-page-user-personal-name {
@@ -417,7 +417,7 @@
 .profile-page-user-legend {
 	float: left;
 	width: 62%;
-	font-family: Open Sans Condensed;
+	font-family: "Open Sans Condensed";
 	font-size: calc(16px + 0.4vw);
 	font-weight: 600;
 	color: #767676;
@@ -428,7 +428,7 @@
 .profile-page-user-value {
 	float: left;
 	width: 38%;
-	font-family: Open Sans Condensed;
+	font-family: "Open Sans Condensed";
 	font-size: calc(16px + 0.4vw);
 	font-weight: 600;
 	color: #767676;
@@ -437,7 +437,7 @@
 .profile-page-user-score {
 	float: left;
 	border: solid 1px darkgray;
-	font-family: Open Sans Condensed;
+	font-family: "Open Sans Condensed";
 	color: silver;
 	font-weight: 800;
 	font-size: 32px;

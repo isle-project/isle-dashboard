@@ -4,7 +4,7 @@
 	top: 120px;
 	height: calc(100vh - 144px);
 	overflow-y: scroll;
-	background: url(./../../../public/img/white_carbonfiber.png);
+	background: url("./../../../public/img/white_carbonfiber.png");
 }
 
 .gallery-pagination {
@@ -65,7 +65,7 @@
 	margin-left: 5px;
 	margin-top: 8px;
 	color: #0070f4;
-	font-family: Open Sans Condensed;
+	font-family: "Open Sans Condensed";
 	font-size: 14px;
 	font-weight: 600;
 }

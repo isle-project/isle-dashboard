@@ -1,26 +1,37 @@
 {
   "extends": "stylelint-config-standard",
   "rules": {
+    "alpha-value-notation": null,
+    "at-rule-no-vendor-prefix": null,
     "block-closing-brace-empty-line-before": "never",
     "block-no-empty": true,
+    "color-function-notation": null,
     "color-no-invalid-hex": true,
     "comment-empty-line-before": [ "always", {
       "ignore": ["stylelint-commands", "after-comment"]
     } ],
     "declaration-block-trailing-semicolon": "always",
+    "declaration-block-no-redundant-longhand-properties": null,
     "declaration-colon-space-after": [ "always", {
       "severity": "warning"
     } ],
     "font-family-no-missing-generic-family-keyword": null,
     "indentation": "tab",
+    "keyframes-name-pattern": null,
     "length-zero-no-unit": null,
     "max-empty-lines": 2,
+    "max-line-length": [ 120, {
+      "ignorePattern": "/range/"
+    } ],
     "no-descending-specificity": null,
+    "property-no-vendor-prefix": null,
     "rule-empty-line-before": [ "always", {
       "except": ["first-nested"],
       "ignore": ["after-comment"]
     } ],
+    "selector-class-pattern": null,
     "selector-max-empty-lines": 1,
+    "shorthand-property-no-redundant-values": null,
     "value-keyword-case": null
   }
 }

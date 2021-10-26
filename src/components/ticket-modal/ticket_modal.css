@@ -37,7 +37,7 @@
 }
 
 .message-author-line {
-	font-family: Open Sans Condensed;
+	font-family: "Open Sans Condensed";
 	float: left;
 	font-size: 16px;
 	height: 48px;
@@ -58,7 +58,7 @@
 	width: 100%;
 	font-size: 22px;
 	background: gainsboro;
-	font-family: Open Sans Condensed;
+	font-family: "Open Sans Condensed";
 	margin-top: 8px;
 	margin-bottom: 8px;
 	border-radius: 8px;

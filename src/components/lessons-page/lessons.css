@@ -4,7 +4,7 @@
 	margin-bottom: 6px;
 	font-size: 15px;
 	cursor: pointer;
-	font-family: Open Sans Condensed;
+	font-family: "Open Sans Condensed";
 }
 
 .lessons-jumbotron {
@@ -19,7 +19,7 @@
 	top: 52px;
 	height: calc(100vh - 76px);
 	overflow-y: scroll;
-	background: url(./../../../public/img/white_carbonfiber.png);
+	background: url("./../../../public/img/white_carbonfiber.png");
 }
 
 @media screen and (max-width: 800px) {
@@ -42,7 +42,7 @@
 	width: 36%;
 	height: 20px;
 	margin-top: 7px;
-	font-family: Open Sans Condensed;
+	font-family: "Open Sans Condensed";
 	font-weight: 600;
 	font-variant: small-caps;
 	font-size: 14px;
@@ -57,7 +57,7 @@
 	margin-left: 3px;
 	margin-top: 8px;
 	color: gainsboro;
-	font-family: Open Sans Condensed;
+	font-family: "Open Sans Condensed";
 	font-size: 14px;
 	stroke: #b52808;
 	font-weight: 600;

@@ -20,7 +20,7 @@
 	top: 0;
 	width: 100%;
 	height: 100%;
-	background-image: url(./../../../public/img/pexels_background.jpeg);
+	background-image: url("./../../../public/img/pexels_background.jpeg");
 	background-size: 100% 100%;
 	animation: fade-in 8s forwards;
 }
@@ -93,7 +93,7 @@
 	width: max-content;
 	font-size: 16px;
 	font-weight: 800;
-	font-family: Open Sans Condensed;
+	font-family: "Open Sans Condensed";
 }
 
 .enroll-page-course-teacher {

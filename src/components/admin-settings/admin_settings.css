@@ -14,7 +14,7 @@
 	box-shadow: 0 0 2px darkslategray;
 	padding: 1rem;
 	margin: 8px;
-	background-image: url(./../../../public/img/white_carbonfiber.png);
+	background-image: url("./../../../public/img/white_carbonfiber.png");
 	height: calc(100vh - 200px);
 	overflow-x: hidden;
 	overflow-y: hidden;
@@ -47,6 +47,6 @@
 	background-color: rgb(190, 190, 200);
 }
 
-.admin-settings-div input[type=checkbox] {
+.admin-settings-div input[type="checkbox"] {
 	transform: scale(1.5);
 }

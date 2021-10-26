@@ -21,7 +21,7 @@
 	box-shadow: 0 0 2px darkslategray;
 	padding: 1rem;
 	margin: 8px;
-	background-image: url(./../../../public/img/white_carbonfiber.png);
+	background-image: url("./../../../public/img/white_carbonfiber.png");
 	height: calc(100vh - 150px);
 	overflow-x: hidden;
 	overflow-y: hidden;
@@ -38,7 +38,7 @@
 	height: 40px;
 }
 
-.data-icon[aria-describedby='popover-data'] {
+.data-icon[aria-describedby="popover-data"] {
 	color: rgb(125, 170, 185);
 }
 

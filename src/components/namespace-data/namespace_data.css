@@ -49,7 +49,7 @@
 	box-shadow: 0 0 2px darkslategray;
 	padding: 1rem;
 	margin: 8px;
-	background-image: url(./../../../public/img/white_carbonfiber.png);
+	background-image: url("./../../../public/img/white_carbonfiber.png");
 	height: calc(100vh - 125px);
 	overflow-x: hidden;
 }
