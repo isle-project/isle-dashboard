@@ -57,7 +57,7 @@
     "@babel/plugin-proposal-class-properties": "^7.14.5",
     "@babel/plugin-syntax-dynamic-import": "^7.8.3",
     "@babel/plugin-transform-react-jsx": "^7.14.9",
-    "@babel/runtime": "^7.15.4",
+    "@babel/runtime": "^7.16.0",
     "@isle-project/components": "^0.50.6",
     "@isle-project/constants": "^0.50.4",
     "@isle-project/locales": "^0.50.33",
