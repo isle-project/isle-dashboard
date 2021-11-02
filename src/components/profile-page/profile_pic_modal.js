@@ -92,7 +92,7 @@ class ProfilePicModal extends Component {
 				});
 			});
 		}
-	}
+	};
 
 	handleFileSelection = (e) => {
 		const file = e.target.files[ 0 ];
@@ -103,13 +103,13 @@ class ProfilePicModal extends Component {
 				ext: ext
 			});
 		}
-	}
+	};
 
 	changeZoom = (e) => {
 		this.setState({
 			zoom: Number( e.target.value )
 		});
-	}
+	};
 
 	renderAvatarEditor = () => {
 		const t = this.props.t;
@@ -142,7 +142,7 @@ class ProfilePicModal extends Component {
 				</Form.Group>
 			</Fragment>
 		);
-	}
+	};
 
 	rotateFactory = ( degrees ) => {
 		return () => {
@@ -150,7 +150,7 @@ class ProfilePicModal extends Component {
 				rotate: this.state.rotate + degrees
 			});
 		};
-	}
+	};
 
 	render() {
 		const { t } = this.props;

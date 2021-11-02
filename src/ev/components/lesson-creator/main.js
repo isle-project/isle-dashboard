@@ -60,13 +60,13 @@ class LessonCreator extends Component {
 				confirmModal: this.props.user.templateLessons[ idx ]
 			});
 		};
-	}
+	};
 
 	closeCreateModal = () => {
 		this.setState({
 			confirmModal: null
 		});
-	}
+	};
 
 	renderTemplates() {
 		const out = [];

@@ -53,7 +53,7 @@ class TicketModal extends Component {
 		this.setState({
 			response: event.target.value
 		});
-	}
+	};
 
 	handleResponseSubmit = () => {
 		this.props.submitTicketMessage({
@@ -63,7 +63,7 @@ class TicketModal extends Component {
 		this.setState({
 			response: ''
 		});
-	}
+	};
 
 	toggleCompletion = () => {
 		if ( this.props.ticket.done ) {
@@ -71,7 +71,7 @@ class TicketModal extends Component {
 		} else {
 			this.props.closeTicket( this.props.ticket._id );
 		}
-	}
+	};
 
 	renderMessage = ( val, idx ) => {
 		const t = this.props.t;
@@ -92,7 +92,7 @@ class TicketModal extends Component {
 				</div>
 			</div>
 		);
-	}
+	};
 
 	render() {
 		const t = this.props.t;

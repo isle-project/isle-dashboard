@@ -156,7 +156,7 @@ class NamespacePage extends Component {
 				sortable: false
 			}
 		];
-	}
+	};
 
 	askToDeleteSelectedCourseFactory = ( course ) => {
 		return () => {
@@ -165,7 +165,7 @@ class NamespacePage extends Component {
 				selectedCourse: course
 			});
 		};
-	}
+	};
 
 	deleteSelectedCourse = () => {
 		debug( `Delete course ${this.state.selectedCourse.title} with id ${this.state.selectedCourse._id}` );
@@ -175,19 +175,19 @@ class NamespacePage extends Component {
 			await this.props.deleteCurrentNamespace( this.state.selectedCourse._id );
 			this.props.getAllNamespaces();
 		});
-	}
+	};
 
 	toggleDeleteModal = () => {
 		this.setState({
 			showDeleteModal: !this.state.showDeleteModal
 		});
-	}
+	};
 
 	toggleExplorer = () => {
 		this.setState({
 			showExplorer: !this.state.showExplorer
 		});
-	}
+	};
 
 	render() {
 		const { t } = this.props;

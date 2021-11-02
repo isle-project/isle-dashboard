@@ -321,7 +321,7 @@ class ProgressPage extends Component {
 			}
 			return <span></span>;
 		};
-	}
+	};
 
 	assembleData() {
 		const displayedMembers = this.dashboardTable.table.getResolvedState().sortedData;
@@ -373,7 +373,7 @@ class ProgressPage extends Component {
 		});
 		const name = `completion_${this.props.namespace.title}.json`;
 		saveAs( blob, name );
-	}
+	};
 
 	saveCSV = () => {
 		const data = this.assembleData();
@@ -394,13 +394,13 @@ class ProgressPage extends Component {
 			const name = `completion_${this.props.namespace.title}.csv`;
 			saveAs( blob, name );
 		});
-	}
+	};
 
 	toggleExplorer = () => {
 		this.setState({
 			showExplorer: !this.state.showExplorer
 		});
-	}
+	};
 
 	reorderColumns( lessonOrder, lessonSortDirection ) {
 		debug( 'Sort columns by '+lessonOrder+' in '+lessonSortDirection+' order' );

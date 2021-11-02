@@ -70,7 +70,7 @@ class CreateFieldModal extends Component {
 		}
 		this.props.createCustomField( field );
 		this.props.onHide();
-	}
+	};
 
 	handleInputChange = ( event ) => {
 		const target = event.target;
@@ -79,7 +79,7 @@ class CreateFieldModal extends Component {
 		this.setState({
 			[ name ]: value
 		});
-	}
+	};
 
 	handleCheckboxChangeFactory = ( name ) => {
 		return ( event ) => {
@@ -87,7 +87,7 @@ class CreateFieldModal extends Component {
 				[ name ]: event.target.checked
 			});
 		};
-	}
+	};
 
 	render() {
 		const t = this.props.t;

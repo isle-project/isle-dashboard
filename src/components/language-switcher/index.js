@@ -46,13 +46,13 @@ class LanguageSwitcher extends Component {
 			this.toggleSelectModal();
 			await i18next.changeLanguage( lng );
 		};
-	}
+	};
 
 	toggleSelectModal = () => {
 		this.setState({
 			showSelectModal: !this.state.showSelectModal
 		});
-	}
+	};
 
 	renderSelectModal() {
 		if ( !this.state.showSelectModal ) {

@@ -95,7 +95,7 @@ class CreateCohortModal extends Component {
 				})
 			});
 		});
-	}
+	};
 
 	onCreate = () => {
 		const cohort = {
@@ -107,7 +107,7 @@ class CreateCohortModal extends Component {
 			students: this.state.students.join( ',' )
 		};
 		this.props.onCreate( cohort );
-	}
+	};
 
 	handleStudentChange = ( newValue ) => {
 		const students = isArray( newValue ) ? newValue.map( x => x.value ) : [];
@@ -118,7 +118,7 @@ class CreateCohortModal extends Component {
 				title: this.state.title
 			})
 		});
-	}
+	};
 
 	renderBody() {
 		const { t } = this.props;

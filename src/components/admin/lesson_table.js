@@ -195,7 +195,7 @@ class LessonTable extends Component {
 				sortable: false
 			}
 		];
-	}
+	};
 
 	askToDeleteSelectedLessonFactory = ( lesson ) => {
 		return () => {
@@ -204,7 +204,7 @@ class LessonTable extends Component {
 				selectedLesson: lesson
 			});
 		};
-	}
+	};
 
 	deleteSelectedLesson = () => {
 		const lessonName = this.state.selectedLesson.title;
@@ -219,19 +219,19 @@ class LessonTable extends Component {
 			});
 			this.props.getAllLessons();
 		});
-	}
+	};
 
 	toggleDeleteModal = () => {
 		this.setState({
 			showDeleteModal: !this.state.showDeleteModal
 		});
-	}
+	};
 
 	toggleExplorer = () => {
 		this.setState({
 			showExplorer: !this.state.showExplorer
 		});
-	}
+	};
 
 	render() {
 		const { t } = this.props;

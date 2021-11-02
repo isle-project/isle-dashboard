@@ -172,7 +172,7 @@ class Rooms extends Component {
 				filterable: false
 			}
 		];
-	}
+	};
 
 	render() {
 		const { t } = this.props;

@@ -52,14 +52,14 @@ class EditableProgress extends Component {
 			isEditing: !this.state.isEditing,
 			newProgress: this.props.progress
 		});
-	}
+	};
 
 	handleChange = ( event ) => {
 		this.setState({
 			newProgress: clamp( event.target.value, 0, 100 ),
 			hasChanged: true
 		});
-	}
+	};
 
 	handleSubmit = () => {
 		this.setState({
@@ -67,7 +67,7 @@ class EditableProgress extends Component {
 			hasChanged: false
 		});
 		this.props.onSubmit( this.state.newProgress );
-	}
+	};
 
 	render() {
 		return (

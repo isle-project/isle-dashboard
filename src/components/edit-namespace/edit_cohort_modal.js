@@ -95,7 +95,7 @@ class EditCohortModal extends Component {
 				})
 			});
 		});
-	}
+	};
 
 	handleUpdate = () => {
 		const updatedCohort = {
@@ -109,19 +109,19 @@ class EditCohortModal extends Component {
 		};
 		this.props.onUpdate( updatedCohort );
 		this.props.onHide();
-	}
+	};
 
 	handleDelete = () => {
 		this.props.onDelete( this.props._id );
 		this.closeDeleteModal();
 		this.props.onHide();
-	}
+	};
 
 	closeDeleteModal = () => {
 		this.setState({
 			showDeleteModal: false
 		});
-	}
+	};
 
 	handleStudentChange = ( newValue ) => {
 		debug( 'Handle change of cohort members...' );
@@ -133,7 +133,7 @@ class EditCohortModal extends Component {
 				title: this.state.title
 			})
 		});
-	}
+	};
 
 	render() {
 		const { t } = this.props;

@@ -47,7 +47,7 @@ class ForgotPassword extends Component {
 		this.props.forgotPassword({
 			email: this.state.email
 		});
-	}
+	};
 
 	render() {
 		const { t, settings } = this.props;

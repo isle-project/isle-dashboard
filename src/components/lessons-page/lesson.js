@@ -89,7 +89,7 @@ class Lesson extends Component {
 		} else {
 			this.props.activateLesson( query );
 		}
-	}
+	};
 
 	toggleLessonVisibility = () => {
 		const query = {
@@ -101,7 +101,7 @@ class Lesson extends Component {
 		} else {
 			this.props.showLessonInGallery( query );
 		}
-	}
+	};
 
 	delete = () => {
 		this.props.deleteLesson({
@@ -109,7 +109,7 @@ class Lesson extends Component {
 			namespaceName: this.props.namespace
 		});
 		this.closeDeleteModal();
-	}
+	};
 
 	update = async ({ newTitle, newDescription, lockAfter, lockUntil, hideFromDashboard, template }) => {
 		const bool = await this.props.updateLesson({
@@ -125,15 +125,15 @@ class Lesson extends Component {
 		if ( bool ) {
 			this.closeDetailsModal();
 		}
-	}
+	};
 
 	showDeleteModal = () => {
 		this.setState({ showDeleteModal: true });
-	}
+	};
 
 	showDetailsModal = () => {
 		this.setState({ showDetailsModal: true });
-	}
+	};
 
 	closeDeleteModal = () => {
 		this.setState({ showDeleteModal: false });
@@ -141,7 +141,7 @@ class Lesson extends Component {
 
 	closeDetailsModal = () => {
 		this.setState({ showDetailsModal: false });
-	}
+	};
 
 	getIsleFile = async () => {
 		debug( 'Request ISLE source code from server...' );
@@ -156,7 +156,7 @@ class Lesson extends Component {
 				});
 			}
 		}
-	}
+	};
 
 	copyIsleFileToClipboard = () => {
 		if ( !this.state.isleFile ) {
@@ -177,7 +177,7 @@ class Lesson extends Component {
 				level: 'error'
 			});
 		});
-	}
+	};
 
 	copyLinkToClipboard = () => {
 		const promise = copyToClipboard( this.props.url );
@@ -192,7 +192,7 @@ class Lesson extends Component {
 				level: 'error'
 			});
 		});
-	}
+	};
 
 	copyNameToClipboard = ( event ) => {
 		event.stopPropagation();
@@ -208,11 +208,11 @@ class Lesson extends Component {
 				level: 'error'
 			});
 		});
-	}
+	};
 
 	showPreviewImage = () => {
 		this.img.src = this.props.url+'/preview.jpg';
-	}
+	};
 
 	openLesson = () => {
 		if ( IS_IOS ) {
@@ -221,7 +221,7 @@ class Lesson extends Component {
 			const win = window.open( this.props.url, '_blank' );
 			win.focus();
 		}
-	}
+	};
 
 	renderButtonToolbarDate() {
 		const { t } = this.props;

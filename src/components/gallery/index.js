@@ -116,13 +116,13 @@ class Gallery extends Component {
 			namespace,
 			title
 		});
-	}
+	};
 
 	closeImportModal = () => {
 		this.setState({
 			showImportModal: false
 		});
-	}
+	};
 
 	searchLessons( lessons, phrase ) {
 		if ( !phrase ) {

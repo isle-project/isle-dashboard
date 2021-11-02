@@ -47,7 +47,7 @@ class BackupsPage extends Component {
 
 	handleBackupCreation = () => {
 		this.props.createBackup();
-	}
+	};
 
 	askToDeleteSelectedBackupFactory = ( backup ) => {
 		return () => {
@@ -56,7 +56,7 @@ class BackupsPage extends Component {
 				selectedBackup: backup
 			});
 		};
-	}
+	};
 
 	deleteSelectedBackup= () => {
 		this.setState({
@@ -64,13 +64,13 @@ class BackupsPage extends Component {
 		}, async () => {
 			await this.props.deleteBackup( this.state.selectedBackup._id );
 		});
-	}
+	};
 
 	toggleDeleteModal = () => {
 		this.setState({
 			showDeleteModal: !this.state.showDeleteModal
 		});
-	}
+	};
 
 	renderBackupList() {
 		if ( !this.props.admin.backups ) {

@@ -43,7 +43,7 @@ class ConfirmModal extends Component {
 		this.setState({
 			[ name ]: value
 		});
-	}
+	};
 
 	handleImport = async () => {
 		await this.props.copyLesson({
@@ -53,7 +53,7 @@ class ConfirmModal extends Component {
 			targetName: this.state.targetName
 		});
 		this.props.onCreate();
-	}
+	};
 
 	render() {
 		const { t } = this.props;

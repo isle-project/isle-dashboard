@@ -36,7 +36,7 @@ class DashboardTable extends Component {
 		return {
 			id: this.props.id || 'dashboard-table'
 		};
-	}
+	};
 
 	render() {
 		const { t } = this.props;

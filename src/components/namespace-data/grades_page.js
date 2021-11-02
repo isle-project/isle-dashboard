@@ -309,7 +309,7 @@ class GradesPage extends Component {
 			}
 			return <span></span>;
 		};
-	}
+	};
 
 	reorderColumns( lessonOrder, lessonSortDirection ) {
 		debug( 'Sort columns by '+lessonOrder+' in '+lessonSortDirection+' order' );
@@ -379,7 +379,7 @@ class GradesPage extends Component {
 		});
 		const name = `grades_${this.props.namespace.title}.json`;
 		saveAs( blob, name );
-	}
+	};
 
 	saveCSV = () => {
 		const data = this.assembleData();
@@ -400,13 +400,13 @@ class GradesPage extends Component {
 			const name = `grades_${this.props.namespace.title}.csv`;
 			saveAs( blob, name );
 		});
-	}
+	};
 
 	toggleExplorer = () => {
 		this.setState({
 			showExplorer: !this.state.showExplorer
 		});
-	}
+	};
 
 	renderSortButton() {
 		const { t } = this.props;

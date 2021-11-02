@@ -90,7 +90,7 @@ class TextSelect extends Component {
 	handleChange = ( value ) => {
 		this.setState({ value });
 		this.props.onChange( value );
-	}
+	};
 
 	handleInputChange = ( inputValue, action ) => {
 		if ( action.action === 'menu-close' ) {
@@ -101,7 +101,7 @@ class TextSelect extends Component {
 				inputValue
 			});
 		}
-	}
+	};
 
 	addInputValues = () => {
 		let { inputValue, value } = this.state;
@@ -125,7 +125,7 @@ class TextSelect extends Component {
 		}, () => {
 			this.props.onChange( this.state.value );
 		});
-	}
+	};
 
 	handleKeyDown = ( event ) => {
 		switch ( event.key ) {
@@ -134,7 +134,7 @@ class TextSelect extends Component {
 				this.addInputValues();
 			}
 		}
-	}
+	};
 
 	render() {
 		const { inputValue, value } = this.state;

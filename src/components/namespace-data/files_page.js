@@ -120,13 +120,13 @@ class FilesPage extends Component {
 	handleDelete = () => {
 		this.props.handleFileDeletion( this.state.deletionID, this.props.ownerFiles );
 		this.toggleDeleteModal();
-	}
+	};
 
 	toggleDeleteModal = () => {
 		this.setState({
 			showDeleteModal: !this.state.showDeleteModal
 		});
-	}
+	};
 
 	createColumns = () => {
 		const { t } = this.props;
@@ -304,7 +304,7 @@ class FilesPage extends Component {
 				width: 45
 			}
 		];
-	}
+	};
 
 	saveJSON = () => {
 		const currentFiles = this.dashboardTable.table.getResolvedState().sortedData;
@@ -314,7 +314,7 @@ class FilesPage extends Component {
 		});
 		const name = `files_${this.props.namespace.title}.json`;
 		saveAs( blob, name );
-	}
+	};
 
 	saveCSV = () => {
 		const currentFiles = this.dashboardTable.table.getResolvedState().sortedData;
@@ -336,13 +336,13 @@ class FilesPage extends Component {
 			const name = `files_${this.props.namespace.title}.csv`;
 			saveAs( blob, name );
 		});
-	}
+	};
 
 	toggleExplorer = () => {
 		this.setState({
 			showExplorer: !this.state.showExplorer
 		});
-	}
+	};
 
 	render() {
 		const { t } = this.props;

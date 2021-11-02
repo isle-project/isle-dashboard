@@ -59,7 +59,7 @@ class LoginTFA extends Component {
 				}
 			}
 		}
-	}
+	};
 
 	render() {
 		const { t, settings } = this.props;

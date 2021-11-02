@@ -46,15 +46,15 @@ class TwoFactorAuthentication extends Component {
 				}
 			});
 		}
-	}
+	};
 
 	enableTfa = () => {
 		this.props.enableTFA( this.state.token );
-	}
+	};
 
 	disableTfa = () => {
 		this.props.disableTFA();
-	}
+	};
 
 	renderQRCode = () => {
 		if ( !this.state.tfaQRCode ) {
@@ -90,7 +90,7 @@ class TwoFactorAuthentication extends Component {
 			</Fragment>
 		);
 		/* eslint-enable react/no-danger */
-	}
+	};
 
 	render() {
 		const t = this.props.t;

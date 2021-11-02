@@ -165,7 +165,7 @@ class LessonsPage extends Component {
 
 	preventOpeningLink = ( event ) => {
 		event.preventDefault();
-	}
+	};
 
 	repositionLessons( idx, direction ) {
 		const unfilteredLessons = this.state.unfilteredLessons.slice();
@@ -219,12 +219,12 @@ class LessonsPage extends Component {
 				event.stopPropagation();
 			}
 		};
-	}
+	};
 
 	toggleCreator = () => {
 		this.props.getTemplateLessons();
 		this.setState({ showLessonCreator: !this.state.showLessonCreator });
-	}
+	};
 
 	handleCreate = () => {
 		this.setState({ showLessonCreator: false });
@@ -233,7 +233,7 @@ class LessonsPage extends Component {
 			debug( 'Fetch lessons...' );
 			this.props.getLessons( course.title );
 		}
-	}
+	};
 
 	renderLessons() {
 		let lessons = this.state.filteredLessons;

@@ -68,7 +68,7 @@ class AnnouncementsPage extends Component {
 		this.props.deleteAnnouncement( announcement.createdAt, ndx );
 		this.clear();
 		this.closeDeleteModal();
-	}
+	};
 
 	renderMessages() {
 		const { t } = this.props;
@@ -136,7 +136,7 @@ class AnnouncementsPage extends Component {
 			this.props.editAnnouncement( message );
 		}
 		this.clear();
-	}
+	};
 
 	handleInputChange = ( event ) => {
 		const target = event.target;
@@ -145,7 +145,7 @@ class AnnouncementsPage extends Component {
 		this.setState({
 			[ name ]: value
 		});
-	}
+	};
 
 	clear = () => {
 		this.setState({
@@ -154,14 +154,14 @@ class AnnouncementsPage extends Component {
 			mode: 'new-announcement',
 			editItem: null
 		});
-	}
+	};
 
 	closeDeleteModal = () => {
 		this.setState({
 			editItem: null,
 			showDeleteModal: false
 		});
-	}
+	};
 
 	render() {
 		const { t } = this.props;

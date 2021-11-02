@@ -125,7 +125,7 @@ class NewPassword extends Component {
 			});
 		}
 		return false;
-	}
+	};
 
 	handleInputChange = ( event ) => {
 		const target = event.target;
@@ -134,7 +134,7 @@ class NewPassword extends Component {
 		this.setState({
 			[ name ]: value
 		});
-	}
+	};
 
 	getPasswordValidationState = () => {
 		const { password, passwordRepeat } = this.state;
@@ -145,11 +145,11 @@ class NewPassword extends Component {
 			return false;
 		}
 		return true;
-	}
+	};
 
 	close = () => {
 		this.props.history.replace( '/' );
-	}
+	};
 
 	render() {
 		const enteredPasswords = this.state.password || this.state.passwordRepeat;

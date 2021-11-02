@@ -85,13 +85,13 @@ class Requests extends Component {
 				maxValue: ceil( maxMean )
 			})
 		];
-	}
+	};
 
 	toggleExplorer = () => {
 		this.setState({
 			showExplorer: !this.state.showExplorer
 		});
-	}
+	};
 
 	render() {
 		const { t } = this.props;

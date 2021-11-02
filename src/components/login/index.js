@@ -103,7 +103,7 @@ class Login extends Component {
 				});
 			}
 		}
-	}
+	};
 
 	handleInputChange = ( event ) => {
 		const target = event.target;
@@ -113,7 +113,7 @@ class Login extends Component {
 		this.setState({
 			[ name ]: value
 		});
-	}
+	};
 
 	render() {
 		const { t, settings } = this.props;

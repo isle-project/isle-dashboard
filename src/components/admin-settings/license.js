@@ -56,18 +56,18 @@ class LicensePage extends Component {
 			formData,
 			user: this.props.user
 		});
-	}
+	};
 
 	handleRemoval = () => {
 		this.toggleDeleteModal();
 		this.props.removeLicense();
-	}
+	};
 
 	toggleDeleteModal = () => {
 		this.setState({
 			showDeleteModal: !this.state.showDeleteModal
 		});
-	}
+	};
 
 	renderLicenseInformation() {
 		const { admin, t } = this.props;

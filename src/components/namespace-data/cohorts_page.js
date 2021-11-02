@@ -83,13 +83,13 @@ class CohortsPage extends Component {
 			selectedCohorts: cohorts,
 			displayedMembers: members
 		});
-	}
+	};
 
 	showUser = (member) => {
 		this.setState({
 			actualMember: member
 		});
-	}
+	};
 
 	renderMember( member, key ) {
 		let phase = 0.3 + key*0.05;
@@ -167,7 +167,7 @@ class CohortsPage extends Component {
 		this.setState({
 			actualMember: null
 		});
-	}
+	};
 
 	renderMemberBadges(member) {
 		const badges = this.props.badges;

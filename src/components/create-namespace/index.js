@@ -91,7 +91,7 @@ class CreateNamespace extends Component {
 		this.setState({
 			[ name ]: value
 		});
-	}
+	};
 
 	handleSubmit = () => {
 		this.props.createNamespace({
@@ -100,7 +100,7 @@ class CreateNamespace extends Component {
 			owners: this.state.owners,
 			props: this.props
 		});
-	}
+	};
 
 	handleOwnerChange = ( newValue ) => {
 		if ( !newValue ) {
@@ -112,7 +112,7 @@ class CreateNamespace extends Component {
 		this.setState({
 			owners: owners
 		});
-	}
+	};
 
 	render() {
 		const validTitle = validateTitle( this.state.title );

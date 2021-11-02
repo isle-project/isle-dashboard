@@ -74,19 +74,19 @@ class TicketListModal extends Component {
 		this.setState({
 			showCreateModal: !this.state.showCreateModal
 		});
-	}
+	};
 
 	toggleTicketModal = () => {
 		this.setState({
 			showMessagesModal: !this.state.showMessagesModal
 		});
-	}
+	};
 
 	toggleShowAll = () => {
 		this.setState({
 			showOpen: !this.state.showOpen
 		});
-	}
+	};
 
 	renderTicketList() {
 		const out = [];

@@ -52,25 +52,25 @@ class CreateTicketModal extends Component {
 			});
 		};
 		input.click();
-	}
+	};
 
 	handleTitleChange = ( event ) => {
 		this.setState({
 			title: event.target.value
 		});
-	}
+	};
 
 	handleDescriptionChange = ( event ) => {
 		this.setState({
 			description: event.target.value
 		});
-	}
+	};
 
 	handleCourseChange = ( newValue ) => {
 		this.setState({
 			selectedCourse: newValue
 		});
-	}
+	};
 
 	handleSubmit = async () => {
 		debug( 'Create ticket...' );
@@ -89,7 +89,7 @@ class CreateTicketModal extends Component {
 			files: this.state.files
 		});
 		this.props.onHide();
-	}
+	};
 
 	removeFileFactory = ( idx ) => {
 		return () => {
@@ -99,7 +99,7 @@ class CreateTicketModal extends Component {
 				files: newFiles
 			});
 		};
-	}
+	};
 
 	renderAttachments() {
 		if ( this.state.files.length === 0 ) {

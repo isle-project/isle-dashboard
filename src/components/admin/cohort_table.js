@@ -159,7 +159,7 @@ class CohortTable extends Component {
 				sortable: false
 			}
 		];
-	}
+	};
 
 	askToDeleteSelectedCohortFactory = ( cohort ) => {
 		return () => {
@@ -168,7 +168,7 @@ class CohortTable extends Component {
 				selectedCohort: cohort
 			});
 		};
-	}
+	};
 
 	deleteSelectedCohort = () => {
 		this.setState({
@@ -177,19 +177,19 @@ class CohortTable extends Component {
 			await this.props.deleteCohort( this.state.selectedCohort._id );
 			this.props.getAllCohorts();
 		});
-	}
+	};
 
 	toggleDeleteModal = () => {
 		this.setState({
 			showDeleteModal: !this.state.showDeleteModal
 		});
-	}
+	};
 
 	toggleExplorer = () => {
 		this.setState({
 			showExplorer: !this.state.showExplorer
 		});
-	}
+	};
 
 	render() {
 		const { t } = this.props;

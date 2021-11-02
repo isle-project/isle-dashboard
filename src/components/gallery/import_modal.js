@@ -59,7 +59,7 @@ class ImportModal extends Component {
 		this.setState({
 			[ name ]: value
 		});
-	}
+	};
 
 	handleImport = () => {
 		this.props.copyLesson({
@@ -69,13 +69,13 @@ class ImportModal extends Component {
 			targetName: this.state.targetName
 		});
 		this.props.close();
-	}
+	};
 
 	handleCourseChange = ( newValue ) => {
 		this.setState({
 			selected: newValue
 		});
-	}
+	};
 
 	render() {
 		const { t } = this.props;

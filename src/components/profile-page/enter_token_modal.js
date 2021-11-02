@@ -46,7 +46,7 @@ class EnterTokenModal extends Component {
 		this.setState({
 			token: event.target.value
 		});
-	}
+	};
 
 	handleSubmit = async () => {
 		const success = await this.props.authenticate({
@@ -55,7 +55,7 @@ class EnterTokenModal extends Component {
 		if ( success ) {
 			this.props.onHide();
 		}
-	}
+	};
 
 	render() {
 		return (

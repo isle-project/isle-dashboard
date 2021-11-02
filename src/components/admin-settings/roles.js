@@ -419,20 +419,20 @@ class RolesPage extends Component {
 				selectedRole: this.state.modal ? null : role
 			});
 		};
-	}
+	};
 
 	toggleCreateModal = () => {
 		this.setState({
 			modal: this.state.modal ? null : 'create',
 			selectedRole: null
 		});
-	}
+	};
 
 	toggleDeleteModal = () => {
 		this.setState({
 			showDeleteModal: !this.state.showDeleteModal
 		});
-	}
+	};
 
 	askToDeleteSelectedRoleFactory = ( role ) => {
 		return () => {
@@ -441,7 +441,7 @@ class RolesPage extends Component {
 				selectedRole: role
 			});
 		};
-	}
+	};
 
 	deleteSelectedRole= () => {
 		this.setState({
@@ -449,7 +449,7 @@ class RolesPage extends Component {
 		}, async () => {
 			await this.props.deleteRole( this.state.selectedRole._id );
 		});
-	}
+	};
 
 	render() {
 		const { admin, t } = this.props;

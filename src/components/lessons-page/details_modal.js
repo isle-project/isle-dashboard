@@ -133,44 +133,44 @@ class DetailsModal extends Component {
 				});
 			}
 		});
-	}
+	};
 
 	handleUnlockChange = ( event ) => {
 		this.setState({
 			unlockLesson: event.target.checked
 		});
-	}
+	};
 
 	handleLockChange = ( event ) => {
 		this.setState({
 			lockLesson: event.target.checked
 		});
-	}
+	};
 
 	handleTimeUntilChange = ( value ) => {
 		this.setState({
 			lockUntil: value
 		});
-	}
+	};
 
 	handleTimeAfterChange = ( value ) => {
 		this.setState({
 			lockAfter: value
 		});
-	}
+	};
 
 	handleTemplateChange = ( event ) => {
 		this.setState({
 			template: event.target.checked,
 			changedTemplate: true
 		});
-	}
+	};
 
 	hideFromDashboardChange = ( event ) => {
 		this.setState({
 			hideFromDashboard: event.target.checked
 		});
-	}
+	};
 
 	onSubmit = ( evt ) => {
 		evt.preventDefault();
@@ -191,7 +191,7 @@ class DetailsModal extends Component {
 			details.template = this.state.template;
 		}
 		this.props.update( details );
-	}
+	};
 
 	render() {
 		const { t } = this.props;

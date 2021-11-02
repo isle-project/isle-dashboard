@@ -95,7 +95,7 @@ class EditModal extends Component {
 			this.props.updateUser( form );
 			this.props.onHide();
 		}
-	}
+	};
 
 	handleInputChange = ( event ) => {
 		const target = event.target;
@@ -105,7 +105,7 @@ class EditModal extends Component {
 			[ name ]: value,
 			changed: true
 		});
-	}
+	};
 
 	getNameValidationState = () => {
 		const { name } = this.state;
@@ -113,7 +113,7 @@ class EditModal extends Component {
 			return true;
 		}
 		return false;
-	}
+	};
 
 	getPasswordValidationState = () => {
 		const { password, passwordRepeat } = this.state;
@@ -124,13 +124,13 @@ class EditModal extends Component {
 			return false;
 		}
 		return true;
-	}
+	};
 
 	toggleTokenModal = () => {
 		this.setState({
 			showTokenModal: !this.state.showTokenModal
 		});
-	}
+	};
 
 	renderInstructorButton() {
 		if ( this.props.user.writeAccess ) {

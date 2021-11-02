@@ -127,7 +127,7 @@ class CompleteRegistration extends Component {
 			});
 		}
 		return false;
-	}
+	};
 
 	handleInputChange = ( event ) => {
 		const target = event.target;
@@ -136,7 +136,7 @@ class CompleteRegistration extends Component {
 		this.setState({
 			[ name ]: value
 		});
-	}
+	};
 
 	getPasswordValidationState = () => {
 		const { password, passwordRepeat } = this.state;
@@ -147,15 +147,15 @@ class CompleteRegistration extends Component {
 			return false;
 		}
 		return true;
-	}
+	};
 
 	close = () => {
 		this.props.history.replace( '/' );
-	}
+	};
 
 	getNameValidationState = () => {
 		return this.state.name.length > 3;
-	}
+	};
 
 	renderName() {
 		const { t } = this.props;

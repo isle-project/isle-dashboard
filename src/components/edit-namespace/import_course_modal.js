@@ -40,7 +40,7 @@ class ImportCourseModal extends Component {
 		this.setState({
 			selectedCourse: obj.value
 		});
-	}
+	};
 
 	handleImport = async () => {
 		const res = await this.props.copyNamespaceLessons({
@@ -50,7 +50,7 @@ class ImportCourseModal extends Component {
 		if ( res instanceof Error === false ) {
 			this.props.close();
 		}
-	}
+	};
 
 	render() {
 		const { t } = this.props;

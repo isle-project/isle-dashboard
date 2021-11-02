@@ -78,13 +78,13 @@ class FilePage extends Component {
 	handleDelete = () => {
 		this.props.deleteFile( this.state.deletionID );
 		this.toggleDeleteModal();
-	}
+	};
 
 	toggleDeleteModal = () => {
 		this.setState({
 			showDeleteModal: !this.state.showDeleteModal
 		});
-	}
+	};
 
 	createColumns = () => {
 		const { t } = this.props;
@@ -263,13 +263,13 @@ class FilePage extends Component {
 				width: 45
 			}
 		];
-	}
+	};
 
 	toggleExplorer = () => {
 		this.setState({
 			showExplorer: !this.state.showExplorer
 		});
-	}
+	};
 
 	render() {
 		const { t } = this.props;

@@ -62,13 +62,13 @@ class ActionsPage extends Component {
 			namespaceID: this.props.namespace._id,
 			namespaceTitle: this.props.namespace.title
 		});
-	}
+	};
 
 	handleRadioChange = ( val ) => {
 		this.setState({
 			anonymized: !this.state.anonymized
 		});
-	}
+	};
 
 	handleCohortChange = ( cohorts ) => {
 		let members = [];
@@ -81,7 +81,7 @@ class ActionsPage extends Component {
 		}, () => {
 			debug( 'New number of displayed members: '+this.state.displayedMembers.length );
 		});
-	}
+	};
 
 	renderCohorts() {
 		return (
@@ -119,14 +119,14 @@ class ActionsPage extends Component {
 		this.setState({
 			lessonActionsPage: false
 		});
-	}
+	};
 
 	showLessonActions = (lesson) => {
 		this.setState({
 			lessonActionsPage: true,
 			actualLesson: lesson
 		});
-	}
+	};
 
 	renderLessons() {
 		const lessons = this.props.namespace.lessons;

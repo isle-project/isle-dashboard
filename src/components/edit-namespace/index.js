@@ -83,7 +83,7 @@ class EditNamespace extends Component {
 		this.setState({
 			[ name ]: value
 		});
-	}
+	};
 
 	handleUpdate = () => {
 		this.props.updateCurrentNamespace({
@@ -93,49 +93,49 @@ class EditNamespace extends Component {
 			enableTicketing: this.state.enableTicketing,
 			owners: this.state.owners
 		});
-	}
+	};
 
 	handleDelete = () => {
 		this.props.deleteCurrentNamespace( this.props.namespace._id, this.props.history );
-	}
+	};
 
 	close = () => {
 		this.setState({
 			showModal: false
 		});
-	}
+	};
 
 	closeDeleteModal = () => {
 		this.setState({
 			showDeleteModal: false
 		});
-	}
+	};
 
 	closeCreateCohortModal = () => {
 		this.setState({
 			showCreateCohortModal: false
 		});
-	}
+	};
 
 	closeImportModal = () => {
 		this.setState({
 			showImportModal: false
 		});
-	}
+	};
 
 	createCohort = ( cohort ) => {
 		cohort.namespaceID = this.props.namespace._id;
 		this.props.createCohort( cohort, this.props.namespace._id );
 		this.closeCreateCohortModal();
-	}
+	};
 
 	deleteCohort = ( cohortID ) => {
 		this.props.deleteCohort( cohortID, this.props.namespace._id );
-	}
+	};
 
 	updateCohort = ( cohort ) => {
 		this.props.updateCohort( cohort, this.props.namespace._id );
-	}
+	};
 
 	handleOwnerChange = ( newValue ) => {
 		if ( !newValue ) {
@@ -147,14 +147,14 @@ class EditNamespace extends Component {
 		this.setState({
 			owners: owners
 		});
-	}
+	};
 
 	closeEditCohortModal = () => {
 		this.setState({
 			selectedCohort: null,
 			showEditCohortModal: false
 		});
-	}
+	};
 
 	cohortModalFactory = ( idx ) => {
 		return () => {
@@ -163,7 +163,7 @@ class EditNamespace extends Component {
 				showEditCohortModal: true
 			});
 		};
-	}
+	};
 
 	renderModals() {
 		const { t } = this.props;

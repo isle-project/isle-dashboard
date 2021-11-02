@@ -32,13 +32,13 @@ class AdminSettingsUserFields extends Component {
 		this.setState({
 			showCreateModal: !this.state.showCreateModal
 		});
-	}
+	};
 
 	handleDeletionFactory = ( id ) => {
 		return () => {
 			this.props.deleteCustomField( id );
 		};
-	}
+	};
 
 	render() {
 		const { t } = this.props;

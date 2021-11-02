@@ -100,19 +100,19 @@ class ProfilePage extends Component {
 		this.setState({
 			showEditModal: !this.state.showEditModal
 		});
-	}
+	};
 
 	toggleTicketListModal = () => {
 		this.setState({
 			showTicketListModal: !this.state.showTicketListModal
 		});
-	}
+	};
 
 	toggleProfilePicModal = () => {
 		this.setState({
 			showProfilePicModal: !this.state.showProfilePicModal
 		});
-	}
+	};
 
 	handleSelect = ( newValue, event ) => {
 		const namespaceName = event.target.title;
@@ -126,13 +126,13 @@ class ProfilePage extends Component {
 				this.props.getLessons( namespaceName );
 			}
 		});
-	}
+	};
 
 	handleStatsSelect = ( newValue, event ) => {
 		this.setState({
 			selectedStatsType: newValue
 		});
-	}
+	};
 
 	renderRightPanel() {
 		if ( !this.state.selectedNamespace ) {
@@ -161,11 +161,11 @@ class ProfilePage extends Component {
 		this.setState({
 			selectedDataType: newValue
 		});
-	}
+	};
 
 	submitTicketMessage = ({ message, ticketID }) => {
 		this.props.sendTicketMessage({ message, ticketID, user: this.props.user });
-	}
+	};
 
 	renderLeftPanel() {
 		if ( !this.state.selectedNamespace ) {

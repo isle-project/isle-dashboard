@@ -55,7 +55,7 @@ class CustomDatePicker extends Component {
 		}, () => {
 			this.props.onDatesChange( this.state );
 		});
-	}
+	};
 
 	handleReset = () => {
 		this.setState({
@@ -64,7 +64,7 @@ class CustomDatePicker extends Component {
 		}, () => {
 			this.props.onDatesChange( this.state );
 		});
-	}
+	};
 
 	render() {
 		return (

@@ -162,13 +162,13 @@ class EventTable extends Component {
 				sortable: false
 			}
 		];
-	}
+	};
 
 	triggerEventFactory = ( row ) => {
 		return () => {
 			this.props.triggerEvent( row._id );
 		};
-	}
+	};
 
 	askToDeleteSelectedEventFactory = ( event ) => {
 		return () => {
@@ -177,7 +177,7 @@ class EventTable extends Component {
 				selectedEvent: event
 			});
 		};
-	}
+	};
 
 	deleteSelectedEvent = () => {
 		this.setState({
@@ -189,19 +189,19 @@ class EventTable extends Component {
 			debug( 'Retrieve events from server...' );
 			this.props.getEvents();
 		});
-	}
+	};
 
 	toggleDeleteModal = () => {
 		this.setState({
 			showDeleteModal: !this.state.showDeleteModal
 		});
-	}
+	};
 
 	toggleExplorer = () => {
 		this.setState({
 			showExplorer: !this.state.showExplorer
 		});
-	}
+	};
 
 	render() {
 		const { t } = this.props;

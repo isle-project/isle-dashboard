@@ -92,7 +92,7 @@ class Course extends Component {
 		this.setState({
 			showModal: false
 		});
-	}
+	};
 
 	handleFormClick = ( event ) => {
 		const check = event.target.checked;
@@ -102,7 +102,7 @@ class Course extends Component {
 				checked: Number(pos)
 			});
 		}
-	}
+	};
 
 	renderAvailableCohorts() {
 		const list = [];
@@ -128,7 +128,7 @@ class Course extends Component {
 		this.setState({
 			showModal: !this.state.showModal
 		});
-	}
+	};
 
 	render() {
 		const { t } = this.props;

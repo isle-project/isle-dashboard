@@ -62,7 +62,7 @@ class Lesson extends Component {
 				});
 			}
 		}
-	}
+	};
 
 	copyIsleFileToClipboard = () => {
 		if ( !this.state.isleFile ) {
@@ -83,7 +83,7 @@ class Lesson extends Component {
 				level: 'error'
 			});
 		});
-	}
+	};
 
 	copyIncludeToClipboard = () => {
 		const promise = copyToClipboard( `<!-- #include "${this.props.url}" -->` );
@@ -98,12 +98,12 @@ class Lesson extends Component {
 				level: 'error'
 			});
 		});
-	}
+	};
 
 	openLesson = () => {
 		const win = window.open( this.props.url, '_blank' );
 		win.focus();
-	}
+	};
 
 	renderButtonToolbarDate() {
 		if ( !this.props.updatedAt ) {

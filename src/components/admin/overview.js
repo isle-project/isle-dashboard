@@ -419,7 +419,7 @@ class Overview extends Component {
 		this.setState({
 			dataExplorer: 'hidden'
 		});
-	}
+	};
 
 	renderDiskUsage() {
 		if ( !this.props.statistics.database ) {
@@ -533,7 +533,7 @@ class Overview extends Component {
 		this.setState({
 			filteredActionTypes: filtered
 		});
-	}
+	};
 
 	renderActionTypes() {
 		const actionTypes = this.state.filteredActionTypes;
@@ -648,7 +648,7 @@ class Overview extends Component {
 				break;
 		}
 		return explorer;
-	}
+	};
 
 	render() {
 		debug( 'Rendering overview page...' );

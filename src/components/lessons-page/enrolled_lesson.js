@@ -56,12 +56,12 @@ class EnrolledLesson extends Component {
 
 	showPreviewImage = () => {
 		this.img.src = this.props.url+'/preview.jpg';
-	}
+	};
 
 	openLesson = () => {
 		const win = window.open( this.props.url, '_blank' );
 		win.focus();
-	}
+	};
 
 	copyLinkToClipboard = () => {
 		const promise = copyToClipboard( this.props.url );
@@ -76,7 +76,7 @@ class EnrolledLesson extends Component {
 				level: 'error'
 			});
 		});
-	}
+	};
 
 	renderProgress() {
 		let progress;

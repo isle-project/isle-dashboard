@@ -93,7 +93,7 @@ class NamespaceData extends Component {
 			formData: formData,
 			user: this.props.user
 		});
-	}
+	};
 
 	handleAnnouncementDeletion = (createdAt, index) => {
 		this.props.deleteAnnouncement( {
@@ -101,29 +101,29 @@ class NamespaceData extends Component {
 			index,
 			createdAt
 		});
-	}
+	};
 
 	handleAnnouncementEdit = ( announcement ) => {
 		this.props.editAnnouncement({
 			namespaceName: this.props.namespace.title,
 			announcement
 		});
-	}
+	};
 
 	handleAnnouncementCreation = ( announcement ) => {
 		this.props.addAnnouncement({
 			namespaceName: this.props.namespace.title,
 			announcement
 		});
-	}
+	};
 
 	handleFileDeletion = ( _id, ownerFiles ) => {
 		this.props.deleteFile( _id, this.props.namespace.title, ownerFiles );
-	}
+	};
 
 	submitTicketMessage = ({ message, ticketID }) => {
 		this.props.sendTicketMessage({ message, ticketID, user: this.props.user });
-	}
+	};
 
 	handleSelect = ( selectedKey ) => {
 		selectedKey = Number( selectedKey );
@@ -157,7 +157,7 @@ class NamespaceData extends Component {
 		this.setState({
 			activePage: selectedKey
 		});
-	}
+	};
 
 	renderPage() {
 		switch ( this.state.activePage ) {

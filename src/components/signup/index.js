@@ -116,7 +116,7 @@ class Signup extends Component {
 				}, 4000 );
 			});
 		}
-	}
+	};
 
 	handleInputChange = ( event ) => {
 		const target = event.target;
@@ -125,15 +125,15 @@ class Signup extends Component {
 		this.setState({
 			[ name ]: value
 		});
-	}
+	};
 
 	getEmailValidationState = () => {
 		return isEmail( this.state.email );
-	}
+	};
 
 	getNameValidationState = () => {
 		return this.state.name.length > 3;
-	}
+	};
 
 	getPasswordValidationState = () => {
 		const { password, passwordRepeat } = this.state;
@@ -144,13 +144,13 @@ class Signup extends Component {
 			return false;
 		}
 		return true;
-	}
+	};
 
 	close = () => {
 		this.setState({
 			showModal: false
 		});
-	}
+	};
 
 	renderEmail() {
 		const { t } = this.props;

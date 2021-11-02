@@ -90,7 +90,7 @@ class TicketsPage extends Component {
 		this.setState({
 			showTicketModal: !this.state.showTicketModal
 		});
-	}
+	};
 
 	createColumns = () => {
 		const { t } = this.props;
@@ -299,13 +299,13 @@ class TicketsPage extends Component {
 				t
 			})
 		];
-	}
+	};
 
 	toggleExplorer = () => {
 		this.setState({
 			showExplorer: !this.state.showExplorer
 		});
-	}
+	};
 
 	assembleExplorerData = () => {
 		let tickets = this.props.tickets;
@@ -331,7 +331,7 @@ class TicketsPage extends Component {
 		}
 		data = obsToVar( data );
 		return data;
-	}
+	};
 
 	render() {
 		const { t } = this.props;

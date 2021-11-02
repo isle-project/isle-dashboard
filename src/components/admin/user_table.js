@@ -88,19 +88,19 @@ class UserPage extends Component {
 		this.setState({
 			showImpersonateModal: !this.state.showImpersonateModal
 		});
-	}
+	};
 
 	toggleDeleteModal = () => {
 		this.setState({
 			showDeleteModal: !this.state.showDeleteModal
 		});
-	}
+	};
 
 	toggleEditModal = () => {
 		this.setState({
 			showEditModal: !this.state.showEditModal
 		});
-	}
+	};
 
 	impersonateUser = () => {
 		this.setState({
@@ -111,7 +111,7 @@ class UserPage extends Component {
 				password: this.state.password
 			});
 		});
-	}
+	};
 
 	deleteSelectedUser = () => {
 		debug( `Delete user ${this.state.selectedUser.name} with id ${this.state.selectedUser._id}` );
@@ -122,7 +122,7 @@ class UserPage extends Component {
 				id: this.state.selectedUser._id
 			});
 		});
-	}
+	};
 
 	askToImpersonateSelectedUserFactory = ( user ) => {
 		return () => {
@@ -131,7 +131,7 @@ class UserPage extends Component {
 				selectedUser: user
 			});
 		};
-	}
+	};
 
 	askToDeleteSelectedUserFactory = ( user ) => {
 		return () => {
@@ -140,7 +140,7 @@ class UserPage extends Component {
 				selectedUser: user
 			});
 		};
-	}
+	};
 
 	askToEditUserFactory = ( user ) => {
 		return () => {
@@ -149,7 +149,7 @@ class UserPage extends Component {
 				selectedUser: user
 			});
 		};
-	}
+	};
 
 	sanitizeFactory = ( user ) => {
 		return async () => {
@@ -165,13 +165,13 @@ class UserPage extends Component {
 				});
 			}
 		};
-	}
+	};
 
 	handlePassword = ( event ) => {
 		this.setState({
 			password: event.target.value
 		});
-	}
+	};
 
 	createColumns = () => {
 		const { t } = this.props;
@@ -423,19 +423,19 @@ class UserPage extends Component {
 				sortable: false
 			}
 		];
-	}
+	};
 
 	toggleExplorer = () => {
 		this.setState({
 			showExplorer: !this.state.showExplorer
 		});
-	}
+	};
 
 	toggleUserCreation = () => {
 		this.setState({
 			showUserCreation: !this.state.showUserCreation
 		});
-	}
+	};
 
 	render() {
 		const { t } = this.props;

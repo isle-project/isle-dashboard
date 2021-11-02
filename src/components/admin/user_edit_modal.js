@@ -103,7 +103,7 @@ class EditModal extends Component {
 			this.props.updateUser( form );
 			this.props.onHide();
 		}
-	}
+	};
 
 	handleInputChange = ( event ) => {
 		const target = event.target;
@@ -112,7 +112,7 @@ class EditModal extends Component {
 		this.setState({
 			[ name ]: value
 		});
-	}
+	};
 
 	handleCheckboxChangeFactory = ( name ) => {
 		return ( event ) => {
@@ -120,17 +120,17 @@ class EditModal extends Component {
 				[ name ]: event.target.checked
 			});
 		};
-	}
+	};
 
 	getNameValidationState = () => {
 		const { name } = this.state;
 		return name && name.length > 3;
-	}
+	};
 
 	getPasswordValidationState = () => {
 		const { password } = this.state;
 		return password.length >= 6;
-	}
+	};
 
 	render() {
 		const validPasswords = this.getPasswordValidationState();

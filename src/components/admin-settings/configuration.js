@@ -279,7 +279,7 @@ class ConfigurationPage extends Component {
 		this.setState({
 			selected: key
 		});
-	}
+	};
 
 	renderMain() {
 		const { admin, t, updateSettings } = this.props;

@@ -104,7 +104,7 @@ class Settings extends Component {
 		this.setState({
 			activePage: selectedKey
 		});
-	}
+	};
 
 	renderPage() {
 		switch ( this.state.activePage ) {

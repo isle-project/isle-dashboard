@@ -126,7 +126,7 @@ class HeaderBar extends Component {
 	handleVisibilityChange = () => {
 		debug(`Your page is ${document.visibilityState}`);
 		this.props.userUpdateCheck( this.props.user );
-	}
+	};
 
 	enrolledClickFactory = ( id ) => {
 		return () => {
@@ -137,7 +137,7 @@ class HeaderBar extends Component {
 				searchPhrase: ''
 			});
 		};
-	}
+	};
 
 	ownedClickFactory = ( id ) => {
 		return () => {
@@ -148,13 +148,13 @@ class HeaderBar extends Component {
 				searchPhrase: ''
 			});
 		};
-	}
+	};
 
 	setProfileLocation = () => {
 		this.setState({
 			location: this.props.t('common:profile')
 		});
-	}
+	};
 
 	goBackToLesson = () => {
 		this.props.history.replace( `/lessons/${this.props.namespace.title}` );
@@ -162,7 +162,7 @@ class HeaderBar extends Component {
 		this.setState({
 			location: this.props.t('common:course')
 		});
-	}
+	};
 
 	goToCreateCoursePage() {
 		this.props.history.replace( '/create-namespace' );
@@ -177,7 +177,7 @@ class HeaderBar extends Component {
 			location: this.props.t('common:enroll'),
 			showNamespacesOverlay: false
 		});
-	}
+	};
 
 	goToCourseEditPage() {
 		this.props.history.replace( `/edit-namespace/${this.props.namespace.title}` );
@@ -220,7 +220,7 @@ class HeaderBar extends Component {
 			searchPhrase: value
 		});
 		this.debouncedChange( value );
-	}
+	};
 
 	renderCreateButton() {
 		if ( !this.props.user.writeAccess ) {

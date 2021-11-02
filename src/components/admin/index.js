@@ -106,7 +106,7 @@ class AdminPage extends Component {
 
 	submitTicketMessage = ({ message, ticketID }) => {
 		this.props.sendTicketMessage({ message, ticketID, user: this.props.user });
-	}
+	};
 
 	handleSelect = ( selectedKey ) => {
 		selectedKey = Number( selectedKey );
@@ -155,7 +155,7 @@ class AdminPage extends Component {
 		this.setState({
 			activePage: selectedKey
 		});
-	}
+	};
 
 	renderPage() {
 		switch ( this.state.activePage ) {

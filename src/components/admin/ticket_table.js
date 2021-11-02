@@ -93,13 +93,13 @@ class TicketPage extends Component {
 		this.setState({
 			showDeleteModal: !this.state.showDeleteModal
 		});
-	}
+	};
 
 	toggleTicketModal = () => {
 		this.setState({
 			showTicketModal: !this.state.showTicketModal
 		});
-	}
+	};
 
 	askToDeleteSelectedTicketFactory = ( event ) => {
 		return () => {
@@ -108,7 +108,7 @@ class TicketPage extends Component {
 				selectedTicket: event
 			});
 		};
-	}
+	};
 
 	deleteSelectedTicket = () => {
 		this.setState({
@@ -117,7 +117,7 @@ class TicketPage extends Component {
 			await this.props.deleteTicket( this.state.selectedTicket._id );
 			this.props.getAllTickets();
 		});
-	}
+	};
 
 	createColumns = () => {
 		const { t } = this.props;
@@ -354,13 +354,13 @@ class TicketPage extends Component {
 				sortable: false
 			}
 		];
-	}
+	};
 
 	toggleExplorer = () => {
 		this.setState({
 			showExplorer: !this.state.showExplorer
 		});
-	}
+	};
 
 	assembleExplorerData = () => {
 		let tickets = this.props.admin.tickets;
@@ -387,7 +387,7 @@ class TicketPage extends Component {
 		}
 		data = obsToVar( data );
 		return data;
-	}
+	};
 
 	render() {
 		const { t } = this.props;
