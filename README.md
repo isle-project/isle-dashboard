@@ -1,4 +1,4 @@
-# ISLE Dashboard [![LICENSE][license-image]][license-url] [![DOI][doi-image]][doi-url]
+# ISLE Dashboard [![LICENSE][license-image]][license-url]
 
 <div class="image" align="center">
     <img width="250" height="auto" src="https://raw.githubusercontent.com/isle-project/www/master/images/isle_icon_transparent.png" alt="ISLE logo">
@@ -6,11 +6,6 @@
 </div>
 
 ---
-
-#### Dependencies
-
-[![Dependencies][dependencies-image]][dependencies-url] 
-[![DevDependencies][dev-dependencies-image]][dev-dependencies-url]
 
 #### Tests
 
@@ -99,15 +94,6 @@ See [LICENSE][license-url].
 
 [actions-image]: https://github.com/isle-project/isle-dashboard/workflows/NodeCI/badge.svg
 [actions-url]: https://github.com/isle-project/isle-dashboard/actions
-
-[doi-image]: https://zenodo.org/badge/71033733.svg
-[doi-url]: https://zenodo.org/badge/latestdoi/71033733
-
-[dependencies-image]: https://img.shields.io/david/isle-project/isle-dashboard.svg
-[dependencies-url]: https://david-dm.org/isle-project/isle-dashboard/master
-
-[dev-dependencies-image]: https://img.shields.io/david/dev/isle-project/isle-dashboard.svg
-[dev-dependencies-url]: https://david-dm.org/isle-project/isle-dashboard/master?type=dev
 
 [codecov-image]: https://codecov.io/gh/isle-project/isle-dashboard/branch/master/graph/badge.svg
 [codecov-url]: https://codecov.io/gh/isle-project/isle-dashboard
