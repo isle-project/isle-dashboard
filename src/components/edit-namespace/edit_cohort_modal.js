@@ -101,8 +101,8 @@ class EditCohortModal extends Component {
 		const updatedCohort = {
 			_id: this.props._id,
 			emailFilter: this.state.emailFilter,
-			startDate: this.state.startDate.toDate(),
-			endDate: this.state.endDate.toDate(),
+			startDate: this.state.startDate.startOf( 'day' ).toDate(),
+			endDate: this.state.endDate.endOf( 'day' ).toDate(),
 			members: this.state.members.join( ',' ),
 			title: this.state.title,
 			private: this.state.private

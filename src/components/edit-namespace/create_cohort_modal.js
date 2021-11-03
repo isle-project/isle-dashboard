@@ -101,8 +101,8 @@ class CreateCohortModal extends Component {
 		const cohort = {
 			emailFilter: this.state.emailFilter,
 			title: this.state.title,
-			startDate: this.state.startDate.toDate(),
-			endDate: this.state.endDate.toDate(),
+			startDate: this.state.startDate.startOf( 'day' ).toDate(),
+			endDate: this.state.endDate.endOf( 'day' ).toDate(),
 			private: this.state.private,
 			students: this.state.students.join( ',' )
 		};
