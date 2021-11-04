@@ -1,1 +1,0 @@
-{"version":3,"file":"static/css/8488.6fd30663.chunk.css","mappings":"AAAA,mBAIC,QAAS,CACT,eAAgB,CAJhB,iBAAkB,CAClB,SAAU,CACV,UAGD","sources":["../8488.6fd30663.chunk.css"],"sourcesContent":[".error-log-wrapper {\n\tposition: absolute;\n\ttop: 100px;\n\twidth: 90vw;\n\tleft: 5vw;\n\tmin-height: 78vh;\n}\n\n"],"names":[],"sourceRoot":""}
