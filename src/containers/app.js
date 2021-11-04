@@ -111,7 +111,7 @@ class App extends Component {
 				}
 			} else {
 				try {
-					const res = await axios.get( server+'/saml/session' );
+					const res = await axios.get( server+'/saml-xmw/session' );
 					this.props.dispatch( receivedToken( res.data ) );
 					const user = await this.props.fetchCredentials( res.data );
 					if ( user ) {
