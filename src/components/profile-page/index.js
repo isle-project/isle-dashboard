@@ -23,7 +23,6 @@ import { withTranslation } from 'react-i18next';
 import path from 'path';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
-import Media from 'react-bootstrap/Media';
 import Nav from 'react-bootstrap/Nav';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
@@ -214,19 +213,19 @@ class ProfilePage extends Component {
 					cl = 'fas fa-file-image fa-4x';
 				break;
 			}
-			out.push( <Media key={i}>
+			out.push( <div className="media" key={i}>
 				<div className="mr-3">
 					<a href={server+'/'+file.filename} target="_blank" rel="noopener noreferrer" >
 						<i className={cl} />
 					</a>
 				</div>
-				<Media.Body>
+				<div className="media-body" >
 					<a href={server+'/'+file.filename} target="_blank" rel="noopener noreferrer" >
 						<h4>{file.title}</h4>
 					</a>
 					<p>{t('common:date')}: {new Date( file.createdAt ).toLocaleDateString()}{lessonName ? `, ${t('common:lesson')}: ${lessonName}` : lessonName}</p>
-				</Media.Body>
-			</Media> );
+				</div>
+			</div> );
 		}
 		return out;
 	}

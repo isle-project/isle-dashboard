@@ -23,7 +23,6 @@ import logger from 'debug';
 import { withTranslation } from 'react-i18next';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
-import Jumbotron from 'react-bootstrap/Jumbotron';
 import Tooltip from 'react-bootstrap/Tooltip';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
@@ -340,14 +339,15 @@ class Overview extends Component {
 		layout.xaxis.domain = domain;
 		layout.title = `${!this.state.useDifferencing ? this.props.t('time-series-of') : this.props.t('daily-changes-of')}${title}`;
 		if ( displayedData.length === 0 ) {
-			return ( <Jumbotron
+			return ( <div
+				className="jumbotron"
 				style={{
 					width: '100%',
 					height: '73.7%'
 				}}
 			>
 				<h3 style={{ textAlign: 'center', marginTop: '12%' }}>Select a variable to be displayed...</h3>
-			</Jumbotron> );
+			</div> );
 		}
 		return (
 			<Fragment>

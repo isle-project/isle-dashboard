@@ -19,7 +19,6 @@
 
 import React from 'react';
 import { withTranslation } from 'react-i18next';
-import Jumbotron from 'react-bootstrap/Jumbotron';
 
 
 // MAIN //
@@ -32,11 +31,11 @@ const NoCourseBanner = ( props ) => {
 	} else {
 		appendix = ' .';
 	}
-	return ( <Jumbotron className="lessons-jumbotron" >
+	return ( <div className="jumbotron lessons-jumbotron" >
 		<h1>{t('common:no-course-selected')}</h1>
 		<p>{t('no-course-description')}<i className="fa fa-align-justify"></i>{appendix}
 		</p>
-	</Jumbotron> );
+	</div> );
 };
 
 

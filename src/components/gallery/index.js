@@ -21,7 +21,6 @@ import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { withTranslation } from 'react-i18next';
 import Pagination from 'react-bootstrap/Pagination';
-import Jumbotron from 'react-bootstrap/Jumbotron';
 import { Responsive, WidthProvider } from 'react-grid-layout';
 import isArray from '@stdlib/assert/is-array';
 import contains from '@stdlib/assert/contains';
@@ -197,10 +196,10 @@ class Gallery extends Component {
 		const { t } = this.props;
 		let lessons = this.state.filteredLessons;
 		if ( !isArray( lessons ) || lessons.length === 0 ) {
-			return ( <Jumbotron className="gallery-jumbotron">
+			return ( <div className="jumbotron gallery-jumbotron">
 				<h1>{t('no-lessons-title')}</h1>
 				<p>{t('no-lessons-description')}</p>
-			</Jumbotron> );
+			</div> );
 		}
 		lessons = this.selectPageLessons( lessons );
 		const layouts = ( lessons.length === NO_LESSONS_PER_PAGE ) ?

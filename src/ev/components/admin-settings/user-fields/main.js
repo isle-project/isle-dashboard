@@ -5,7 +5,6 @@ import { withTranslation } from 'react-i18next';
 import PropTypes from 'prop-types';
 import Button from 'react-bootstrap/Button';
 import Tooltip from 'react-bootstrap/Tooltip';
-import Jumbotron from 'react-bootstrap/Jumbotron';
 import ListGroup from 'react-bootstrap/ListGroup';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import LicenseBarrier from 'ev/containers/visible-barrier';
@@ -93,9 +92,9 @@ class AdminSettingsUserFields extends Component {
 									</ListGroup.Item>
 								);
 							})}
-						</ListGroup> : <Jumbotron className="admin-settings-fields-jumbotron" >
+						</ListGroup> : <div className="jumbotron admin-settings-fields-jumbotron" >
 							{t('no-custom-fields')}
-						</Jumbotron> }
+						</div> }
 						<Button variant="primary" onClick={this.toggleCreateModal} >
 							<i className="fas fa-plus" style={{ marginRight: 8 }}></i>
 							{this.props.t('add-user-field')}

@@ -20,7 +20,6 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { withTranslation } from 'react-i18next';
-import Jumbotron from 'react-bootstrap/Jumbotron';
 import Button from 'react-bootstrap/Button';
 import Table from 'react-bootstrap/Table';
 import FormLabel from 'react-bootstrap/FormLabel';
@@ -74,7 +73,8 @@ class LicensePage extends Component {
 		const license = admin.license;
 		if ( !license || !license.valid ) {
 			return (
-				<Jumbotron
+				<div
+					className="jumbotron"
 					style={{
 						width: '100%',
 						height: '73.7%'
@@ -83,7 +83,7 @@ class LicensePage extends Component {
 					<h3 style={{ textAlign: 'center', marginTop: '12%' }}>
 						{t('no-license-found')}
 					</h3>
-				</Jumbotron>
+				</div>
 			);
 		}
 		let usersInTrial;

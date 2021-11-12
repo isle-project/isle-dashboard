@@ -3,7 +3,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withTranslation } from 'react-i18next';
-import Jumbotron from 'react-bootstrap/Jumbotron';
 
 
 // MAIN //
@@ -14,7 +13,8 @@ class LicenseBarrier extends Component {
 		const user = this.props.user;
 		if ( !user.licensed && ( !admin.license || !admin.license.valid ) ) {
 			return (
-				<Jumbotron
+				<div
+					className="jumbotron"
 					style={{
 						width: '100%',
 						height: '73.7%'
@@ -23,7 +23,7 @@ class LicenseBarrier extends Component {
 					<h3 style={{ textAlign: 'center', marginTop: '12%' }}>
 						{this.props.t('not-available-in-community-edition')}
 					</h3>
-				</Jumbotron>
+				</div>
 			);
 		}
 		return this.props.children;

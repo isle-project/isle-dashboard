@@ -19,7 +19,6 @@
 
 import React from 'react';
 import { withTranslation } from 'react-i18next';
-import Jumbotron from 'react-bootstrap/Jumbotron';
 
 
 // MAIN //
@@ -30,10 +29,10 @@ const NoLessonBanner = ( props ) => {
 	if ( user.writeAccess ) {
 		description += t('upload-from-editor');
 	}
-	return ( <Jumbotron className="lessons-jumbotron">
+	return ( <div className="jumbotron lessons-jumbotron">
 		<h1>{t('no-lessons-found')}</h1>
 		<p>{description}</p>
-	</Jumbotron> );
+	</div> );
 };
 
 

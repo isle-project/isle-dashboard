@@ -4,7 +4,6 @@ import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { withTranslation } from 'react-i18next';
 import { Responsive, WidthProvider } from 'react-grid-layout';
-import Jumbotron from 'react-bootstrap/Jumbotron';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
@@ -104,11 +103,11 @@ class LessonCreator extends Component {
 					<h1>{t('create-from-template')}</h1>
 				</Modal.Header>
 				<Modal.Body>
-					<Jumbotron>
+					<div className="jumbotron" >
 						<h1 style={{ textAlign: 'center', marginTop: '12%' }}>
 							{t('no-templates-created-yet')}
 						</h1>
-					</Jumbotron>
+					</div>
 				</Modal.Body>
 			</Fragment>;
 		} else {
