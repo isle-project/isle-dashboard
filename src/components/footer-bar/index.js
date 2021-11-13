@@ -17,9 +17,9 @@
 
 // MODULES //
 
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import { withTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import LanguageSwitcher from 'components/language-switcher';
 import pkgJson from './../../../package.json';
@@ -28,32 +28,38 @@ import './footer_bar.css';
 
 // MAIN //
 
-class FooterBar extends Component {
-	render() {
-		return ( <div className="footer-bar" >
-			<div className="isle-logo" >
-				<img src="img/isle_logo.svg" alt="ISLE Logo" />
-				<div className="footer-bar-copyright" >
-					© 2016-2021 The ISLE Authors. All rights reserved.
-				</div>
+/**
+* A footer bar component rendering the ISLE logo, copyright notice, dashboard version number, and links to the terms and privacy policy.
+*
+* @property {Object} props - component properties
+* @property {Object} props.settings - ISLE instance settings
+* @returns {ReactElement} component
+*/
+const FooterBar = ({ settings }) => {
+	const { t } = useTranslation( [ 'footer_bar', 'common' ] );
+	return ( <div className="footer-bar" >
+		<div className="isle-logo" >
+			<img src="img/isle_logo.svg" alt="ISLE Logo" />
+			<div className="footer-bar-copyright" >
+				© 2016-2021 The ISLE Authors. All rights reserved.
 			</div>
-			<div className="isle-terms" >
-				{' | '}
-				<Link target="_blank" to="/terms" >Terms</Link>
-				{' | '}
-				<Link target="_blank" to="/privacy" >Privacy</Link>
-			</div>
-			<div>
-			</div>
-			<LanguageSwitcher
-				languages={this.props.settings.availableLanguages}
-			/>
-			<div className="footer-dashboard-version" >
-				Dashboard v{pkgJson.version}
-			</div>
-		</div> );
-	}
-}
+		</div>
+		<div className="isle-terms" >
+			{' | '}
+			<Link target="_blank" to="/terms" >{t('terms')}</Link>
+			{' | '}
+			<Link target="_blank" to="/privacy" >{t('privacy')}</Link>
+		</div>
+		<div>
+		</div>
+		<LanguageSwitcher
+			languages={settings.availableLanguages}
+		/>
+		<div className="footer-dashboard-version" >
+			Dashboard v{pkgJson.version}
+		</div>
+	</div> );
+};
 
 
 // PROPERTIES //
@@ -65,4 +71,4 @@ FooterBar.propTypes = {
 
 // EXPORTS //
 
-export default withTranslation( [ 'footer_bar', 'common' ] )( FooterBar );
+export default FooterBar;
