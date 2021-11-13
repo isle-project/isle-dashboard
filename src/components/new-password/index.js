@@ -17,9 +17,10 @@
 
 // MODULES //
 
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
-import { withTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
+import { useHistory } from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import Col from 'react-bootstrap/Col';
@@ -33,18 +34,10 @@ import Overlay from 'react-bootstrap/Overlay';
 import Popover from 'react-bootstrap/Popover';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
-import { withRouter } from 'react-router';
 import PropTypes from 'prop-types';
 import queryString from 'query-string';
 import server from 'constants/server';
 import 'css/login.css';
-
-
-// FUNCTIONS //
-
-const createTooltip = ( str ) => {
-	return <Tooltip id="tooltip">{str}</Tooltip>;
-};
 
 
 // VARIABLES //
@@ -74,30 +67,48 @@ MsgModal.propTypes = {
 
 // MAIN //
 
-class NewPassword extends Component {
-	constructor( props ) {
-		super( props );
-		this.state = {
-			password: '',
-			passwordRepeat: '',
-			showModal: false
-		};
-	}
+/**
+ * Renders a component for choosing a new password.
+ *
+ * @returns {ReactElement} component
+ */
+const NewPassword = () => {
+	const [ password, setPassword ] = useState( '' );
+	const [ passwordRepeat, setPasswordRepeat ] = useState( '' );
+	const [ modal, setModal ] = useState({
+		message: '',
+		show: false
+	});
+	const [ submitOverlay, setSubmitOverlay ] = useState({
+		show: false,
+		target: null
+	});
+	const { t } = useTranslation( [ 'common', 'signup' ] );
+	const history = useHistory();
 
-	handleSubmit = async ( event ) => {
+	const validatePasswords = () => {
+		if ( password.length < 6 || passwordRepeat.length === 0 ) {
+			return false;
+		}
+		if ( password !== passwordRepeat ) {
+			return false;
+		}
+		return true;
+	};
+	const handleSubmit = async ( event ) => {
 		event.preventDefault();
-		if ( this.getPasswordValidationState() ) {
+		if ( validatePasswords() ) {
 			const hash = window.location.hash.substring( 15 );
 			const qs = queryString.parse( hash );
 			const token = qs[ 'token' ];
 			try {
 				const res = await axios.post( server+'/update_user_password', {
 					id: token,
-					newPassword: this.state.password
+					newPassword: password
 				});
-				this.setState({
+				setModal({
 					message: res.data.message,
-					showModal: true
+					show: true
 				});
 			} catch ( err ) {
 				let msg;
@@ -107,152 +118,135 @@ class NewPassword extends Component {
 				} else {
 					msg = err.message;
 				}
-				this.setState({
+				setModal({
 					message: msg,
-					showModal: true
+					show: true
 				});
 			}
 		} else {
-			this.setState({
-				showSubmitOverlay: true,
-				overlayTarget: event.target
-			}, () => {
+			setSubmitOverlay({
+				show: true,
+				target: event.target
+			});
 				setTimeout( () => {
-					this.setState({
-						showSubmitOverlay: false
+					setSubmitOverlay({
+						show: false,
+						target: null
 					});
 				}, 4000 );
-			});
 		}
 		return false;
 	};
-
-	handleInputChange = ( event ) => {
-		const target = event.target;
-		const value = target.value;
-		const name = target.name;
-		this.setState({
-			[ name ]: value
-		});
+	const handleClose = () => {
+		history.replace( '/' );
 	};
-
-	getPasswordValidationState = () => {
-		const { password, passwordRepeat } = this.state;
-		if ( password.length < 6 || passwordRepeat.length === 0 ) {
-			return false;
-		}
-		if ( password !== passwordRepeat ) {
-			return false;
-		}
-		return true;
+	const handlePasswordChange = ( event ) => {
+		setPassword( event.target.value );
 	};
-
-	close = () => {
-		this.props.history.replace( '/' );
+	const handlePasswordRepeatChange = ( event ) => {
+		setPasswordRepeat( event.target.value );
 	};
-
-	render() {
-		const enteredPasswords = this.state.password || this.state.passwordRepeat;
-		const validPasswords = this.getPasswordValidationState();
-		return (
-			<div>
-				<div className="login">
-					<Card style={{ opacity: 0.9 }}>
-						<Card.Header>
-							<Card.Title as="h1">
-								<small>Choose a new Password</small>
-							</Card.Title>
-						</Card.Header>
-						<Card.Body>
-							<Form>
-								<OverlayTrigger placement="right" overlay={createTooltip( 'Please enter a new password with at least six characters' )}>
-									<FormGroup
-										controlId="form-password"
-									>
-										<Row>
-											<Col sm={2}>
-												<FormLabel>{this.props.t('common:password')}</FormLabel>
-											</Col>
-											<Col sm={10}>
-												<FormControl
-													name="password"
-													type="password"
-													placeholder="Enter new password"
-													onChange={this.handleInputChange}
-													maxLength={30}
-													minLength={6}
-													autoComplete="new-password"
-													isInvalid={enteredPasswords && !validPasswords}
-												/>
-												<FormControl.Feedback type="invalid">
-													Please enter a new password with at least six characters.
-												</FormControl.Feedback>
-											</Col>
-										</Row>
-									</FormGroup>
-								</OverlayTrigger>
+	const enteredPasswords = password || passwordRepeat;
+	const validPasswords = validatePasswords();
+	return (
+		<div>
+			<div className="login">
+				<Card style={{ opacity: 0.9 }}>
+					<Card.Header>
+						<Card.Title as="h1">
+							<small>Choose a new Password</small>
+						</Card.Title>
+					</Card.Header>
+					<Card.Body>
+						<Form>
+							<OverlayTrigger
+								placement="right"
+								overlay={<Tooltip id="tooltip">Please enter a new password with at least six characters</Tooltip>}
+							>
 								<FormGroup
-									controlId="form-password-confirmation"
+									controlId="form-password"
 								>
 									<Row>
-										<Col sm={{ span: 10, offset: 2 }}>
+										<Col sm={2}>
+											<FormLabel>{t('common:password')}</FormLabel>
+										</Col>
+										<Col sm={10}>
 											<FormControl
-												name="passwordRepeat"
+												name="password"
 												type="password"
-												placeholder="Confirm new password"
-												onChange={this.handleInputChange}
+												placeholder="Enter new password"
+												onChange={handlePasswordChange}
 												maxLength={30}
 												minLength={6}
 												autoComplete="new-password"
 												isInvalid={enteredPasswords && !validPasswords}
 											/>
 											<FormControl.Feedback type="invalid">
-												Passwords do not match.
+												Please enter a new password with at least six characters.
 											</FormControl.Feedback>
 										</Col>
 									</Row>
 								</FormGroup>
-								<FormGroup>
-									<Button
-										variant="primary"
-										type="submit"
-										onClick={this.handleSubmit}
-										className="centered"
-									>{this.props.t('common:confirm')}</Button>
-								</FormGroup>
-							</Form>
-						</Card.Body>
-					</Card>
-				</div>
-				{ this.state.showModal ? <MsgModal
-					show={this.state.showModal}
-					close={this.close}
-					message={this.state.message}
-					t={this.props.t}
-				/> : null }
-				<Overlay
-					show={this.state.showSubmitOverlay}
-					target={this.state.overlayTarget}
-					placement="bottom"
-					containerPadding={20}
-				>
-					<Popover id="popover-contained" title="Input fields are not valid">
-						Please make sure that the passwords are valid and match each other before submitting.
-					</Popover>
-				</Overlay>
+							</OverlayTrigger>
+							<FormGroup
+								controlId="form-password-confirmation"
+							>
+								<Row>
+									<Col sm={{ span: 10, offset: 2 }}>
+										<FormControl
+											name="passwordRepeat"
+											type="password"
+											placeholder="Confirm new password"
+											onChange={handlePasswordRepeatChange}
+											maxLength={30}
+											minLength={6}
+											autoComplete="new-password"
+											isInvalid={enteredPasswords && !validPasswords}
+										/>
+										<FormControl.Feedback type="invalid">
+											Passwords do not match.
+										</FormControl.Feedback>
+									</Col>
+								</Row>
+							</FormGroup>
+							<FormGroup>
+								<Button
+									variant="primary"
+									type="submit"
+									onClick={handleSubmit}
+									className="centered"
+								>{t('common:confirm')}</Button>
+							</FormGroup>
+						</Form>
+					</Card.Body>
+				</Card>
 			</div>
-		);
-	}
-}
+			{ modal.show ? <MsgModal
+				show={modal.show}
+				close={handleClose}
+				message={modal.message}
+				t={t}
+			/> : null }
+			<Overlay
+				show={submitOverlay.show}
+				target={submitOverlay.target}
+				placement="bottom"
+				containerPadding={20}
+			>
+				<Popover id="popover-contained" title="Input fields are not valid">
+					Please make sure that the passwords are valid and match each other before submitting.
+				</Popover>
+			</Overlay>
+		</div>
+	);
+};
 
 
 // PROPERTIES //
 
-NewPassword.propTypes = {
-	history: PropTypes.object.isRequired
-};
+NewPassword.propTypes = {};
 
 
 // EXPORTS //
 
-export default withRouter( withTranslation( [ 'common', 'signup' ] )( NewPassword ) );
+export default NewPassword;
