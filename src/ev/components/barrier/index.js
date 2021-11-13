@@ -1,34 +1,39 @@
 // MODULES //
 
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import { withTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 
 
 // MAIN //
 
-class LicenseBarrier extends Component {
-	render() {
-		const admin = this.props.admin;
-		const user = this.props.user;
-		if ( !user.licensed && ( !admin.license || !admin.license.valid ) ) {
-			return (
-				<div
-					className="jumbotron"
-					style={{
-						width: '100%',
-						height: '73.7%'
-					}}
-				>
-					<h3 style={{ textAlign: 'center', marginTop: '12%' }}>
-						{this.props.t('not-available-in-community-edition')}
-					</h3>
-				</div>
-			);
-		}
-		return this.props.children;
+/**
+* A component which renders a barrier if no ISLE license is available.
+*
+* @property {Object} props - component properties
+* @property {string} props.admin - admin settings
+* @property {string} props.user - user settings
+* @returns {ReactElement} license barrier
+*/
+const LicenseBarrier = ({ admin, user, children }) => {
+	const { t } = useTranslation( 'common' );
+	if ( !user.licensed && ( !admin.license || !admin.license.valid ) ) {
+		return (
+			<div
+				className="jumbotron"
+				style={{
+					width: '100%',
+					height: '73.7%'
+				}}
+			>
+				<h3 style={{ textAlign: 'center', marginTop: '12%' }}>
+					{t('not-available-in-community-edition')}
+				</h3>
+			</div>
+		);
 	}
-}
+	return children;
+};
 
 
 // PROPERTIES //
@@ -46,4 +51,4 @@ LicenseBarrier.defaultProps = {
 
 // EXPORTS //
 
-export default withTranslation( 'common' )( LicenseBarrier );
+export default LicenseBarrier;
