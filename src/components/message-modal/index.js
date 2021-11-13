@@ -25,16 +25,26 @@ import PropTypes from 'prop-types';
 
 // MAIN //
 
-const MsgModal = ( props ) => (
-	<Modal show={props.show} onHide={props.close}>
+/**
+ * A modal dialog for displaying messages.
+ *
+ * @param {Object} props - component properties
+ * @param {string} props.message - message to display
+ * @param {string} props.title - title of the modal
+ * @param {boolean} props.show - boolean indicating whether the modal is shown
+ * @param {Function} props.close - callback invoked upon closing the modal
+ * @returns {ReactElement} modal dialog
+ */
+const MsgModal = ({ show, close, message, title }) => (
+	<Modal show={show} onHide={close}>
 		<Modal.Header closeButton>
-			<Modal.Title>{props.title}</Modal.Title>
+			<Modal.Title>{title}</Modal.Title>
 		</Modal.Header>
 		<Modal.Body>
-			{props.message}
+			{message}
 		</Modal.Body>
 		<Modal.Footer>
-			<Button onClick={props.close}>
+			<Button onClick={close}>
 				Close
 			</Button>
 		</Modal.Footer>
