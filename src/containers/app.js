@@ -48,7 +48,6 @@ const AsyncEditNamespace = asyncComponent(() => import( 'containers/visible-edit
 const AsyncNewPassword = asyncComponent(() => import( 'containers/visible-new-password' ));
 const AsyncCompleteRegistration = asyncComponent(() => import( 'containers/visible-complete-registration' ));
 const AsyncConfirmEmail = asyncComponent(() => import( 'containers/visible-confirm-email' ));
-const AsyncShibboleth = asyncComponent(() => import( 'containers/visible-shibboleth' ));
 const AsyncAdminPage = asyncComponent(() => import( 'containers/visible-admin' ));
 const AsyncAdminSettings = asyncComponent(() => import( 'containers/visible-admin-settings' ));
 const AsyncLogin = asyncComponent(() => import( 'containers/visible-login' ));
@@ -77,7 +76,7 @@ const ALL_LOGGEDIN_PATHS = [
 	'/admin',
 	'/admin-settings'
 ];
-const RE_PUBLIC_PAGES = /(?:courses|new-password|complete-registration|confirm-email|shibboleth|signup|login|login-tfa|terms|privacy)/;
+const RE_PUBLIC_PAGES = /(?:courses|new-password|complete-registration|confirm-email|signup|login|login-tfa|terms|privacy)/;
 const debug = logger( 'isle-dashboard' );
 
 
@@ -145,7 +144,7 @@ class App extends Component {
 				const path = this.props.user.writeAccess ? '/lessons' : '/profile';
 				history.push( path );
 			}
-			else if ( pathname && pathname !== '/' && pathname !== '/login' && pathname !== '/shibboleth' ) {
+			else if ( pathname && pathname !== '/' && pathname !== '/login' ) {
 				debug( 'User has logged in, redirecting to: '+pathname );
 				history.push( history.location.pathname );
 			} else {
@@ -159,7 +158,7 @@ class App extends Component {
 		}
 		else if (
 			this.props.isLoggedIn && pathname &&
-			( pathname === '/' || pathname === '/login' || pathname === '/login-tfa' || pathname === '/shibboleth' )
+			( pathname === '/' || pathname === '/login' || pathname === '/login-tfa' )
 		) {
 			const path = this.props.user.writeAccess ? '/lessons' : '/profile';
 			history.push( path );
@@ -250,7 +249,6 @@ class App extends Component {
 						<Route path="/new-password" component={AsyncNewPassword} />
 						<Route path="/complete-registration" component={AsyncCompleteRegistration} />
 						<Route path="/confirm-email" component={AsyncConfirmEmail} />
-						<Route path="/shibboleth" component={AsyncShibboleth} />
 						{settings.allowUserRegistrations ? <Route path="/signup" component={AsyncSignup} /> : null}
 						<Route path="/forgot-password" component={AsyncForgotPassword} />
 						<Route path="/terms" component={AsyncTerms} />
