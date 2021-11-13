@@ -20,22 +20,29 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Card from 'react-bootstrap/Card';
-import { withTranslation } from 'react-i18next';
 import './info_box.css';
 
 
 // MAIN //
 
-const InfoBox = ( props ) => {
+/**
+* Renders an info box.
+*
+* @param {Object} props - component properties
+* @param {string} props.header - header text
+* @param {boolean} props.body - body text
+* @returns {ReactElement} component
+*/
+const InfoBox = ({ header, body }) => {
 	return (
 		<div className="info-box" >
 			<Card>
 				<Card.Header as="h1" style={{ textAlign: 'center' }} >
 					<img src="img/isle_logo.svg" alt="ISLE Logo" />
-					{props.header}
+					{header}
 				</Card.Header>
 				<Card.Body>
-					{props.body}
+					{body}
 				</Card.Body>
 			</Card>
 		</div>
@@ -53,4 +60,4 @@ InfoBox.propTypes = {
 
 // EXPORTS //
 
-export default withTranslation( [ 'common' ] )( InfoBox );
+export default InfoBox;
