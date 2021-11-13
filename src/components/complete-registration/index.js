@@ -17,8 +17,9 @@
 
 // MODULES //
 
-import React, { Component, Fragment } from 'react';
-import { withTranslation } from 'react-i18next';
+import React, { useState, Fragment } from 'react';
+import { useTranslation } from 'react-i18next';
+import { useHistory } from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import Col from 'react-bootstrap/Col';
@@ -32,7 +33,6 @@ import Overlay from 'react-bootstrap/Overlay';
 import Popover from 'react-bootstrap/Popover';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
-import { withRouter } from 'react-router';
 import PropTypes from 'prop-types';
 import queryString from 'query-string';
 import axios from 'axios';
@@ -49,6 +49,15 @@ const createTooltip = ( str ) => {
 
 // VARIABLES //
 
+/**
+ * Renders a modal confirming that the user has completed the registration process.
+ *
+ * @param {Object} props - component props
+ * @param {boolean} props.show - boolean indicating whether the modal is visible
+ * @param {Function} props.close - callback to invoke when the modal is closed
+ * @param {string} props.message - message to display in the modal
+ * @returns {ReactElement} modal component
+ */
 const MsgModal = ( props ) => (
 	<Modal show={props.show} onHide={props.close} >
 		<Modal.Header>
@@ -74,32 +83,64 @@ MsgModal.propTypes = {
 
 // MAIN //
 
-class CompleteRegistration extends Component {
-	constructor( props ) {
-		super( props );
-		this.state = {
-			name: '',
-			password: '',
-			passwordRepeat: '',
-			showModal: false
-		};
-	}
+/**
+ * A component which allows a user to complete their registration by choosing a password and entering their name.
+ *
+ * @param {Object} props - component properties
+ * @param {Object} props.settings - ISLE instance settings
+ * @returns {ReactElement} component
+ */
+const CompleteRegistration = ({ settings }) => {
+	const [ name, setName ] = useState( '' );
+	const [ password, setPassword ] = useState( '' );
+	const [ passwordRepeat, setPasswordRepeat ] = useState( '' );
+	const [ modal, setModal ] = useState({
+		show: false,
+		message: ''
+	});
+	const [ submitOverlay, setSubmitOverlay ] = useState({
+		show: false,
+		target: null
+	});
+	const { t } = useTranslation([ 'common', 'signup' ]);
+	const history = useHistory();
 
-	handleSubmit = async ( event ) => {
+	const validName = () => {
+		return name && name.length > 3;
+	};
+	const validPasswords = () => {
+		if ( password.length < 6 || passwordRepeat.length === 0 ) {
+			return false;
+		}
+		if ( password !== passwordRepeat ) {
+			return false;
+		}
+		return true;
+	};
+	const handleNameChange = ( event ) => {
+		setName( event.target.value );
+	};
+	const handlePasswordChange = ( event ) => {
+		setPassword( event.target.value );
+	};
+	const handlePasswordRepeatChange = ( event ) => {
+		setPasswordRepeat( event.target.value );
+	};
+	const handleSubmit = async ( event ) => {
 		event.preventDefault();
-		if ( this.getPasswordValidationState() && this.getNameValidationState() ) {
+		if ( validPasswords() && validName() ) {
 			try {
 				const hash = window.location.hash.substring( 24 );
 				const qs = queryString.parse( hash );
 				const token = qs[ 'token' ];
 				const res = await axios.post( server+'/complete_registration', {
 					id: token,
-					newName: this.state.name,
-					newPassword: this.state.password
+					newName: name,
+					newPassword: password
 				});
-				this.setState({
-					message: res.data.message,
-					showModal: true
+				setModal({
+					show: true,
+					message: res.data.message
 				});
 			} catch ( err ) {
 				let msg;
@@ -109,198 +150,157 @@ class CompleteRegistration extends Component {
 				} else {
 					msg = err.message;
 				}
-				this.setState({
-					message: msg,
-					showModal: true
+				setModal({
+					show: true,
+					message: msg
 				});
 			}
 		} else {
-			this.setState({
-				showSubmitOverlay: true,
-				overlayTarget: event.target
-			}, () => {
-				setTimeout( () => {
-					this.setState({
-						showSubmitOverlay: false
-					});
-				}, 4000 );
+			setSubmitOverlay({
+				show: true,
+				target: event.target
 			});
+			setTimeout( () => {
+				setSubmitOverlay({
+					show: false,
+					target: null
+				});
+			}, 4000 );
 		}
 		return false;
 	};
-
-	handleInputChange = ( event ) => {
-		const target = event.target;
-		const value = target.value;
-		const name = target.name;
-		this.setState({
-			[ name ]: value
-		});
+	const handleClose = () => {
+		history.replace( '/' );
 	};
-
-	getPasswordValidationState = () => {
-		const { password, passwordRepeat } = this.state;
-		if ( password.length < 6 || passwordRepeat.length === 0 ) {
-			return false;
-		}
-		if ( password !== passwordRepeat ) {
-			return false;
-		}
-		return true;
-	};
-
-	close = () => {
-		this.props.history.replace( '/' );
-	};
-
-	getNameValidationState = () => {
-		return this.state.name.length > 3;
-	};
-
-	renderName() {
-		const { t } = this.props;
-		return (
-			<OverlayTrigger placement="right" overlay={createTooltip( t('signup:name-tooltip') )}>
-				<FormGroup
-					controlId="form-name"
-				>
-					<Row>
-						<Col sm={3}>
-							<FormLabel>{t('common:name')}</FormLabel>
-						</Col>
-						<Col sm={9}>
-							<FormControl
-								name="name"
-								type="text"
-								placeholder={t('enter-name')}
-								onChange={this.handleInputChange}
-								isInvalid={this.state.name && !this.getNameValidationState()}
-							/>
-							<Form.Control.Feedback type="invalid">
-								{t('signup:invalid-name')}
-							</Form.Control.Feedback>
-						</Col>
-					</Row>
-				</FormGroup>
-			</OverlayTrigger>
-		);
-	}
-
-	renderPassword() {
-		const enteredPasswords = this.state.password || this.state.passwordRepeat;
-		const validPasswords = this.getPasswordValidationState();
-		return (
-			<Fragment>
-				<OverlayTrigger placement="right" overlay={createTooltip( 'Please enter a new password with at least six characters' )}>
-					<FormGroup
-						controlId="form-password"
-					>
-						<Row>
-							<Col sm={3}>
-								<FormLabel>{this.props.t('common:password')}</FormLabel>
-							</Col>
-							<Col sm={9}>
-								<FormControl
-									name="password"
-									type="password"
-									placeholder={this.props.t('common:choose-new-password')}
-									onChange={this.handleInputChange}
-									maxLength={30}
-									minLength={6}
-									autoComplete="new-password"
-									isInvalid={enteredPasswords && !validPasswords}
-								/>
-								<FormControl.Feedback type="invalid">
-									Please enter a new password with at least six characters.
-								</FormControl.Feedback>
-							</Col>
-						</Row>
-					</FormGroup>
-				</OverlayTrigger>
-				<FormGroup
-					controlId="form-password-confirmation"
-				>
-					<Row>
-						<Col sm={{ span: 9, offset: 3 }} >
-							<FormControl
-								name="passwordRepeat"
-								type="password"
-								placeholder={this.props.t('signup:confirm-password')}
-								onChange={this.handleInputChange}
-								maxLength={30}
-								minLength={6}
-								autoComplete="new-password"
-								isInvalid={enteredPasswords && !validPasswords}
-							/>
-							<FormControl.Feedback type="invalid">
-								{this.props.t('signup:invalid-password')}
-							</FormControl.Feedback>
-						</Col>
-					</Row>
-				</FormGroup>
-			</Fragment>
-		);
-	}
-
-	render() {
-		const { settings } = this.props;
-		return (
-			<div>
-				<div className="login">
-					<Card style={{ opacity: 0.9 }}>
-						<Card.Header>
-							<Card.Title as="h1">
-								<small>Complete Registration</small>
-							</Card.Title>
-						</Card.Header>
-						<Card.Body>
-							<Form>
-								{this.renderName()}
-								{this.renderPassword()}
-								<FormGroup>
-									<Button
-										variant="primary"
-										type="submit"
-										onClick={this.handleSubmit}
-										className="centered"
-										disabled={!this.getNameValidationState() || !this.getPasswordValidationState()}
-									>Confirm</Button>
-								</FormGroup>
-							</Form>
-						</Card.Body>
-					</Card>
-				</div>
-				{ this.state.showModal ? <MsgModal
-					show={this.state.showModal}
-					close={this.close}
-					message={this.state.message}
-					t={this.props.t}
-				/> : null }
-				<Overlay
-					show={this.state.showSubmitOverlay}
-					target={this.state.overlayTarget}
-					placement="bottom"
-					containerPadding={20}
-				>
-					<Popover id="popover-contained" title="Input fields are not valid">
-						Please make sure that the passwords are valid and match each other before submitting.
-					</Popover>
-				</Overlay>
-				{settings.brandingLogo ? <img
-					className="login-branding-logo"
-					src={settings.brandingLogo}
-					alt="Branded Logo"
-				/> : null}
+	const renderedName = <OverlayTrigger placement="right" overlay={createTooltip( t('signup:name-tooltip') )}>
+		<FormGroup
+			controlId="form-name"
+		>
+			<Row>
+				<Col sm={3}>
+					<FormLabel>{t('common:name')}</FormLabel>
+				</Col>
+				<Col sm={9}>
+					<FormControl
+						name="name"
+						type="text"
+						placeholder={t('enter-name')}
+						onChange={handleNameChange}
+						isInvalid={name && !validName()}
+					/>
+					<Form.Control.Feedback type="invalid">
+						{t('signup:invalid-name')}
+					</Form.Control.Feedback>
+				</Col>
+			</Row>
+		</FormGroup>
+	</OverlayTrigger>;
+	const enteredPasswords = password || passwordRepeat;
+	const validPasswords = validPasswords();
+	const renderedPassword = <Fragment>
+		<OverlayTrigger placement="right" overlay={createTooltip( 'Please enter a new password with at least six characters' )}>
+			<FormGroup
+				controlId="form-password"
+			>
+				<Row>
+					<Col sm={3}>
+						<FormLabel>{t('common:password')}</FormLabel>
+					</Col>
+					<Col sm={9}>
+						<FormControl
+							name="password"
+							type="password"
+							placeholder={t('common:choose-new-password')}
+							onChange={handlePasswordChange}
+							maxLength={30}
+							minLength={6}
+							autoComplete="new-password"
+							isInvalid={enteredPasswords && !validPasswords}
+						/>
+						<FormControl.Feedback type="invalid">
+							Please enter a new password with at least six characters.
+						</FormControl.Feedback>
+					</Col>
+				</Row>
+			</FormGroup>
+		</OverlayTrigger>
+		<FormGroup
+			controlId="form-password-confirmation"
+		>
+			<Row>
+				<Col sm={{ span: 9, offset: 3 }} >
+					<FormControl
+						name="passwordRepeat"
+						type="password"
+						placeholder={t('signup:confirm-password')}
+						onChange={handlePasswordRepeatChange}
+						maxLength={30}
+						minLength={6}
+						autoComplete="new-password"
+						isInvalid={enteredPasswords && !validPasswords}
+					/>
+					<FormControl.Feedback type="invalid">
+						{t('signup:invalid-password')}
+					</FormControl.Feedback>
+				</Col>
+			</Row>
+		</FormGroup>
+	</Fragment>;
+	return (
+		<div>
+			<div className="login">
+				<Card style={{ opacity: 0.9 }}>
+					<Card.Header>
+						<Card.Title as="h1">
+							<small>Complete Registration</small>
+						</Card.Title>
+					</Card.Header>
+					<Card.Body>
+						<Form>
+							{renderedName}
+							{renderedPassword}
+							<FormGroup>
+								<Button
+									variant="primary"
+									type="submit"
+									onClick={handleSubmit}
+									className="centered"
+									disabled={!validName() || !validPasswords()}
+								>Confirm</Button>
+							</FormGroup>
+						</Form>
+					</Card.Body>
+				</Card>
 			</div>
-		);
-	}
-}
+			{ modal.show ? <MsgModal
+				show={modal.show}
+				close={handleClose}
+				message={modal.message}
+				t={t}
+			/> : null }
+			<Overlay
+				show={submitOverlay.show}
+				target={submitOverlay.target}
+				placement="bottom"
+				containerPadding={20}
+			>
+				<Popover id="popover-contained" title="Input fields are not valid">
+					Please make sure that the passwords are valid and match each other before submitting.
+				</Popover>
+			</Overlay>
+			{settings.brandingLogo ? <img
+				className="login-branding-logo"
+				src={settings.brandingLogo}
+				alt="Branded Logo"
+			/> : null}
+		</div>
+	);
+};
 
 
 // PROPERTIES //
 
 CompleteRegistration.propTypes = {
-	history: PropTypes.object.isRequired,
 	settings: PropTypes.object
 };
 
@@ -311,4 +311,4 @@ CompleteRegistration.defaultProps = {
 
 // EXPORTS //
 
-export default withRouter( withTranslation( [ 'common', 'signup' ] )( CompleteRegistration ) );
+export default CompleteRegistration;
