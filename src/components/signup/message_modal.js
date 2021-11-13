@@ -18,34 +18,47 @@
 // MODULES //
 
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-import { withRouter } from 'react-router';
 import i18n from 'i18next';
 
 
 // MAIN //
 
-const MessageModal = withRouter( ( props ) => (
-	<Modal variant={props.successful ? 'success' : 'warning'} show={props.show}>
-		<Modal.Header>
-			<Modal.Title>{i18n.t('signup:create-user')}</Modal.Title>
-		</Modal.Header>
-		<Modal.Body>
-			{props.message}
-		</Modal.Body>
-		<Modal.Footer>
-			{ props.successful ?
-				<Button onClick={()=>{
-					props.history.push( '/login' );
-				}}>{i18n.t('signup:go-to-login-page')}</Button> :
-				<Button onClick={props.close}>
-					{i18n.t('signup:close')}
-				</Button>
-			}
-		</Modal.Footer>
-	</Modal>
-) );
+/**
+ * A modal dialog for displaying a message after signing up.
+ *
+ * @param {Object} props - component properties
+ * @param {string} props.message - message to display
+ * @param {boolean} props.show - boolean indicating whether the modal should be shown
+ * @param {Function} props.close - callback to invoke when the modal is hidden
+ * @param {boolean} props.successful - boolean indicating whether the signup was successful
+ * @returns {ReactElement} modal dialog
+ */
+const MessageModal = ( props ) => {
+	const history = useHistory();
+	return (
+		<Modal variant={props.successful ? 'success' : 'warning'} show={props.show}>
+			<Modal.Header>
+				<Modal.Title>{i18n.t('signup:create-user')}</Modal.Title>
+			</Modal.Header>
+			<Modal.Body>
+				{props.message}
+			</Modal.Body>
+			<Modal.Footer>
+				{ props.successful ?
+					<Button onClick={()=>{
+						history.push( '/login' );
+					}}>{i18n.t('signup:go-to-login-page')}</Button> :
+					<Button onClick={props.close}>
+						{i18n.t('signup:close')}
+					</Button>
+				}
+			</Modal.Footer>
+		</Modal>
+	);
+};
 
 
 // EXPORTS //
