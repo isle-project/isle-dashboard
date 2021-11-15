@@ -163,7 +163,10 @@ module.exports = {
 			// Support React Native Web
 			// https://www.smashingmagazine.com/2016/08/a-glimpse-into-the-future-with-react-native-for-web/
 			'react-native': 'react-native-web',
-			'csv-stringify': require.resolve( 'csv-stringify/lib/browser/index.js' )
+			'csv-stringify': require.resolve( 'csv-stringify/lib/browser/index.js' ),
+			'@restart/ui/Overlay': '@restart/ui/cjs/Overlay.js',
+			'@restart/ui/DropdownMenu': '@restart/ui/cjs/DropdownMenu.js',
+			'@restart/ui/Dropdown': '@restart/ui/cjs/Dropdown.js'
 		},
 		plugins: [
 			// Adds support for installing with Plug'n'Play, leading to faster installs and adding
