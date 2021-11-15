@@ -17,9 +17,9 @@
 
 // MODULES //
 
-import React, { Component, Fragment } from 'react';
+import React, { useEffect, useState, Fragment } from 'react';
 import PropTypes from 'prop-types';
-import { Trans, withTranslation } from 'react-i18next';
+import { Trans, useTranslation } from 'react-i18next';
 import SelectInput from 'react-select';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
@@ -50,6 +50,24 @@ const extractUserData = ({ name, email, password, customFields }) => {
 	return { name, email, password, customFields };
 };
 
+const validateEmail = ( email ) => {
+	return isEmail( email );
+};
+
+const validateName = ( name ) => {
+	return name.length > 3;
+};
+
+const validatePasswords = ( password, passwordRepeat ) => {
+	if ( password.length < 6 || passwordRepeat.length === 0 ) {
+		return false;
+	}
+	if ( password !== passwordRepeat ) {
+		return false;
+	}
+	return true;
+};
+
 
 // VARIABLES //
 
@@ -58,37 +76,48 @@ const debug = logger( 'isle-dashboard:signup' );
 
 // MAIN //
 
-class Signup extends Component {
-	constructor( props ) {
-		super( props );
-
-		this.state = {
-			name: '',
-			email: '',
-			password: '',
-			passwordRepeat: '',
-			showModal: false,
-			customFields: {}
-		};
-	}
-
-	componentDidMount() {
-		this.props.getCustomFields();
-	}
-
-	handleSubmit = async ( event ) => {
+/**
+ * A screen which allows users to sign up for an account.
+ *
+ * @param {Object} props - component properties
+ * @param {Function} props.createUser - function to create a new user
+ * @param {Function} props.getCustomFields - function to get custom fields for a user
+ * @param ops.user - user object
+ * @param {Object} props.settings - ISLE instance settings
+ * @returns {ReactElement} signup screen
+ */
+const Signup = ({ createUser, getCustomFields, user, settings }) => {
+	const { t } = useTranslation( [ 'signup', 'common' ] );
+	const [ name, setName ] = useState( '' );
+	const [ email, setEmail ] = useState( '' );
+	const [ password, setPassword ] = useState( '' );
+	const [ passwordRepeat, setPasswordRepeat ] = useState( '' );
+	const [ customFields, setCustomFields ] = useState( {} );
+	const [ modal, setModal ] = useState({
+		show: false,
+		message: '',
+		successful: false
+	});
+	const [ submitOverlay, setSubmitOverlay ] = useState({
+		show: false,
+		target: null
+	});
+	useEffect( () => {
+		getCustomFields();
+	}, [ getCustomFields ] );
+	const handleSubmit = async ( event ) => {
 		event.preventDefault();
 		if (
-			this.getEmailValidationState() &&
-			this.getNameValidationState() &&
-			this.getPasswordValidationState()
+			validateEmail( email ) &&
+			validateName( name ) &&
+			validatePasswords( password, passwordRepeat )
 		) {
 			try {
-				const res = await this.props.createUser( extractUserData( this.state ) );
-				this.setState({
+				const res = await createUser( extractUserData( this.state ) );
+				setModal({
 					message: res.data.message,
 					successful: true,
-					showModal: true
+					show: true
 				});
 			} catch ( err ) {
 				let message;
@@ -98,329 +127,277 @@ class Signup extends Component {
 					message = err.message;
 				}
 				debug( 'Encountered an error: ' + message );
-				this.setState({
+				setModal({
 					message,
 					successful: false,
-					showModal: true
+					show: true
 				});
 			}
 		} else {
-			this.setState({
-				showSubmitOverlay: true,
-				overlayTarget: event.target
+			setSubmitOverlay({
+				show: true,
+				target: event.target
 			}, () => {
 				setTimeout( () => {
-					this.setState({
-						showSubmitOverlay: false
+					setSubmitOverlay({
+						show: false,
+						target: null
 					});
 				}, 4000 );
 			});
 		}
 	};
-
-	handleInputChange = ( event ) => {
-		const target = event.target;
-		const value = target.value;
-		const name = target.name;
-		this.setState({
-			[ name ]: value
+	const close = () => {
+		setModal({
+			show: false,
+			message: '',
+			successful: false
 		});
 	};
-
-	getEmailValidationState = () => {
-		return isEmail( this.state.email );
-	};
-
-	getNameValidationState = () => {
-		return this.state.name.length > 3;
-	};
-
-	getPasswordValidationState = () => {
-		const { password, passwordRepeat } = this.state;
-		if ( password.length < 6 || passwordRepeat.length === 0 ) {
-			return false;
-		}
-		if ( password !== passwordRepeat ) {
-			return false;
-		}
-		return true;
-	};
-
-	close = () => {
-		this.setState({
-			showModal: false
-		});
-	};
-
-	renderEmail() {
-		const { t } = this.props;
-		return ( <OverlayTrigger placement="right" overlay={createTooltip( t('email-tooltip') )}>
-			<FormGroup
-				controlId="form-email"
-			>
-				<Row>
-					<Col sm={3}>
-						<FormLabel>{t('common:email')}</FormLabel>
-					</Col>
-					<Col sm={9}>
-						<FormControl
-							name="email"
-							type="email"
-							autoComplete="username email"
-							placeholder={t('common:enter-email')}
-							onChange={this.handleInputChange}
-							isInvalid={this.state.email && !this.getEmailValidationState()}
-						/>
-						<Form.Control.Feedback type="invalid">
-							{t('invalid-email')}
-						</Form.Control.Feedback>
-					</Col>
-				</Row>
-			</FormGroup>
-		</OverlayTrigger> );
-	}
-
-	renderName() {
-		const { t } = this.props;
-		return (
-			<OverlayTrigger placement="right" overlay={createTooltip( t('name-tooltip') )}>
-				<FormGroup
-					controlId="form-name"
-				>
-					<Row>
-						<Col sm={3}>
-							<FormLabel>{t('common:name')}</FormLabel>
-						</Col>
-						<Col sm={9}>
-							<FormControl
-								name="name"
-								type="text"
-								placeholder={t('common:enter-name')}
-								onChange={this.handleInputChange}
-								isInvalid={this.state.name && !this.getNameValidationState()}
-							/>
-							<Form.Control.Feedback type="invalid">
-								{t('invalid-name')}
-							</Form.Control.Feedback>
-						</Col>
-					</Row>
-				</FormGroup>
-			</OverlayTrigger>
-		);
-	}
-
-	renderPasswordFields() {
-		const { t } = this.props;
-		const validPasswords = this.getPasswordValidationState();
-		const enteredPasswords = this.state.password || this.state.passwordRepeat;
-		return (
-			<Fragment>
-				<OverlayTrigger placement="right" overlay={createTooltip( t('password-tooltip') )}>
-					<FormGroup
-						controlId="form-password"
-					>
-						<Row>
-							<Col sm={3}>
-								<FormLabel>{t('common:password')}</FormLabel>
-							</Col>
-							<Col sm={9}>
-								<FormControl
-									name="password"
-									type="password"
-									autoComplete="new-password"
-									placeholder={t('choose-password')}
-									onChange={this.handleInputChange}
-									maxLength={30}
-									minLength={6}
-									isInvalid={enteredPasswords && !validPasswords}
-								/>
-								<Form.Control.Feedback type="invalid">
-									{t('invalid-password')}
-								</Form.Control.Feedback>
-							</Col>
-						</Row>
-					</FormGroup>
-				</OverlayTrigger>
-				<FormGroup
-					controlId="form-repeat-password"
-				>
-					<Row>
-						<Col sm={3}>
-							<FormLabel>{t('common:repeat')}</FormLabel>
-						</Col>
-						<Col sm={{ span: 9 }}>
-							<FormControl
-								name="passwordRepeat"
-								type="password"
-								autoComplete="new-password"
-								placeholder={t('confirm-password')}
-								onChange={this.handleInputChange}
-								maxLength={30}
-								minLength={6}
-								isInvalid={enteredPasswords && !validPasswords}
-							/>
-							<Form.Control.Feedback type="invalid">
-								{t('invalid-password-match')}
-							</Form.Control.Feedback>
-						</Col>
-					</Row>
-				</FormGroup>
-			</Fragment>
-		);
-	}
-
-	render() {
-		const { t, settings } = this.props;
-		const userCustomFields = this.state.customFields;
-		const availableCustomFields = this.props.user.availableCustomFields || [];
-		return (
-			<Fragment>
-				<div className="login">
-					<Card style={{ boxShadow: '0 0 8px rgba(0,0,0,0.3)', borderRadius: '6px', opacity: 0.98, background: 'rgba(255,255,255,0.75)' }}>
-						<Card.Header>
-							<Card.Title as="h1" style={{ textAlign: 'center' }}>
-								ISLE <small>Dashboard</small>
-							</Card.Title>
-						</Card.Header>
-						<Card.Body>
-							<Form>
-								{this.renderEmail()}
-								{this.renderName()}
-								{this.renderPasswordFields()}
-								{availableCustomFields.filter( x => x.editableOnSignup ).map( ( x, idx ) => {
-									let input;
-									const value = userCustomFields[ x.name ];
-									if ( x.type === 'checkbox' ) {
-										input = <FormGroup
-											controlId={`form-${x.name}`}
-											as={Row}
-										>
-											<Col sm={3}></Col>
-											<Col sm={3}>
-												<Form.Check
-													type="checkbox"
-													label={x.name}
-													defaultChecked={value}
-													onChange={( event ) => {
-														const newCustomFields = { ...this.state.customFields };
-														newCustomFields[ x.name ] = event.target.checked;
-														this.setState({
-															customFields: newCustomFields,
-															changed: true
-														});
-													}}
-												/>
-											</Col>
-										</FormGroup>;
-									} else if ( x.type === 'text' ) {
-										input = <FormGroup
-											controlId={`form-${x.name}`}
-											as={Row}
-										>
-											<Col sm={3}>
-												<FormLabel>{x.name}</FormLabel>
-											</Col>
-											<Col sm={9} >
-												<FormControl
-													name={x.name}
-													type="text"
-													value={value}
-													placeholder={`Enter ${x.name}...`}
-													onChange={( event ) => {
-														const newCustomFields = { ...this.state.customFields };
-														newCustomFields[ x.name ] = event.target.value;
-														this.setState({
-															customFields: newCustomFields,
-															changed: true
-														});
-													}}
-													autoComplete="none"
-												/>
-											</Col>
-										</FormGroup>;
-									} else {
-										// Case: dropdown menu
-										input = <FormGroup
-											controlId={`form-${x.name}`}
-											as={Row}
-										>
-											<Col sm={3}>
-												<FormLabel>{x.name}</FormLabel>
-											</Col>
-											<Col sm={9}>
-												<SelectInput
-													defaultValue={value ?
-														{ label: value, value: value } :
-														null
-													}
-													options={x.options.map( e => {
-														return { value: e, label: e };
-													})}
-													onChange={( elem ) => {
-														const newCustomFields = { ...this.state.customFields };
-														newCustomFields[ x.name ] = elem.value;
-														this.setState({
-															customFields: newCustomFields,
-															changed: true
-														});
-													}}
-												/>
-											</Col>
-										</FormGroup>;
-									}
-									return (
-										<OverlayTrigger key={idx} placement="top" overlay={createTooltip( x.description )} >
-											{input}
-										</OverlayTrigger>
-									);
-								})}
-								<p>
-									<Trans i18nKey="signup:tos-disclaimer" >
-										Through clicking the signup button you agree to our <Link to="/terms">terms of service</Link>. Learn more about how your data is processed in our <Link to="/privacy" >privacy policy</Link>.
-									</Trans>
-								</p>
-								<FormGroup>
-									<Button
-										variant="primary"
-										className="centered"
-										type="submit"
-										onClick={this.handleSubmit}
-									>{t('common:register')}</Button>
+	const userCustomFields = customFields;
+	const availableCustomFields = user.availableCustomFields || [];
+	const validPasswords = validatePasswords( password, passwordRepeat );
+	const enteredPasswords = password || passwordRepeat;
+	return (
+		<Fragment>
+			<div className="login">
+				<Card style={{ boxShadow: '0 0 8px rgba(0,0,0,0.3)', borderRadius: '6px', opacity: 0.98, background: 'rgba(255,255,255,0.75)' }}>
+					<Card.Header>
+						<Card.Title as="h1" style={{ textAlign: 'center' }}>
+							ISLE <small>Dashboard</small>
+						</Card.Title>
+					</Card.Header>
+					<Card.Body>
+						<Form>
+							<OverlayTrigger placement="right" overlay={createTooltip( t('email-tooltip') )}>
+								<FormGroup
+									controlId="form-email"
+								>
+									<Row>
+										<Col sm={3}>
+											<FormLabel>{t('common:email')}</FormLabel>
+										</Col>
+										<Col sm={9}>
+											<FormControl
+												name="email"
+												type="email"
+												autoComplete="username email"
+												placeholder={t('common:enter-email')}
+												onChange={( event ) => {
+													setEmail( event.target.value );
+												}}
+												isInvalid={email && !validateEmail( email )}
+											/>
+											<Form.Control.Feedback type="invalid">
+												{t('invalid-email')}
+											</Form.Control.Feedback>
+										</Col>
+									</Row>
 								</FormGroup>
-							</Form>
-						</Card.Body>
-						<Card.Footer style={{ background: 'rgba(255,255,255,0.6)', textAlign: 'right' }}>
-							<Link to="/forgot-password">{t('common:forgot-password')}</Link>
-							<span> | </span>
-							<Link to="/login">{t('common:login')}</Link>
-						</Card.Footer>
-					</Card>
-					{settings.brandingLogo ? <img
-						className="login-branding-logo"
-						src={settings.brandingLogo}
-						alt="Branded Logo"
-					/> : null}
-				</div>
-				<MessageModal
-					show={this.state.showModal}
-					close={this.close}
-					message={this.state.message}
-					successful={this.state.successful}
-				/>
-				<Overlay
-					show={this.state.showSubmitOverlay}
-					target={this.state.overlayTarget}
-					placement="right"
-					containerPadding={20}
-				>
-					<Popover id="popover-contained" title="Input fields are not valid">
-						{t('signup-not-valid')}
-					</Popover>
-				</Overlay>
-			</Fragment>
-		);
-	}
-}
+							</OverlayTrigger>
+							<OverlayTrigger placement="right" overlay={createTooltip( t('name-tooltip') )}>
+								<FormGroup
+									controlId="form-name"
+								>
+									<Row>
+										<Col sm={3}>
+											<FormLabel>{t('common:name')}</FormLabel>
+										</Col>
+										<Col sm={9}>
+											<FormControl
+												name="name"
+												type="text"
+												placeholder={t('common:enter-name')}
+												onChange={( event ) => {
+													setName( event.target.value );
+												}}
+												isInvalid={name && !validateName( name )}
+											/>
+											<Form.Control.Feedback type="invalid">
+												{t('invalid-name')}
+											</Form.Control.Feedback>
+										</Col>
+									</Row>
+								</FormGroup>
+							</OverlayTrigger>
+							<OverlayTrigger placement="right" overlay={createTooltip( t('password-tooltip') )}>
+								<FormGroup
+									controlId="form-password"
+								>
+									<Row>
+										<Col sm={3}>
+											<FormLabel>{t('common:password')}</FormLabel>
+										</Col>
+										<Col sm={9}>
+											<FormControl
+												name="password"
+												type="password"
+												autoComplete="new-password"
+												placeholder={t('choose-password')}
+												onChange={( event ) => {
+													setPassword( event.target.value );
+												}}
+												maxLength={30}
+												minLength={6}
+												isInvalid={enteredPasswords && !validPasswords}
+											/>
+											<Form.Control.Feedback type="invalid">
+												{t('invalid-password')}
+											</Form.Control.Feedback>
+										</Col>
+									</Row>
+								</FormGroup>
+							</OverlayTrigger>
+							<FormGroup
+								controlId="form-repeat-password"
+							>
+								<Row>
+									<Col sm={3}>
+										<FormLabel>{t('common:repeat')}</FormLabel>
+									</Col>
+									<Col sm={{ span: 9 }}>
+										<FormControl
+											name="passwordRepeat"
+											type="password"
+											autoComplete="new-password"
+											placeholder={t('confirm-password')}
+											onChange={( event ) => {
+												setPasswordRepeat( event.target.value );
+											}}
+											maxLength={30}
+											minLength={6}
+											isInvalid={enteredPasswords && !validPasswords}
+										/>
+										<Form.Control.Feedback type="invalid">
+											{t('invalid-password-match')}
+										</Form.Control.Feedback>
+									</Col>
+								</Row>
+							</FormGroup>
+							{availableCustomFields.filter( x => x.editableOnSignup ).map( ( x, idx ) => {
+								let input;
+								const value = userCustomFields[ x.name ];
+								if ( x.type === 'checkbox' ) {
+									input = <FormGroup
+										controlId={`form-${x.name}`}
+										as={Row}
+									>
+										<Col sm={3}></Col>
+										<Col sm={3}>
+											<Form.Check
+												type="checkbox"
+												label={x.name}
+												defaultChecked={value}
+												onChange={( event ) => {
+													const newCustomFields = { ...customFields };
+													newCustomFields[ x.name ] = event.target.checked;
+													setCustomFields( newCustomFields );
+												}}
+											/>
+										</Col>
+									</FormGroup>;
+								} else if ( x.type === 'text' ) {
+									input = <FormGroup
+										controlId={`form-${x.name}`}
+										as={Row}
+									>
+										<Col sm={3}>
+											<FormLabel>{x.name}</FormLabel>
+										</Col>
+										<Col sm={9} >
+											<FormControl
+												name={x.name}
+												type="text"
+												value={value}
+												placeholder={`Enter ${x.name}...`}
+												onChange={( event ) => {
+													const newCustomFields = { ...customFields };
+													newCustomFields[ x.name ] = event.target.value;
+													setCustomFields( newCustomFields );
+												}}
+												autoComplete="none"
+											/>
+										</Col>
+									</FormGroup>;
+								} else {
+									// Case: dropdown menu
+									input = <FormGroup
+										controlId={`form-${x.name}`}
+										as={Row}
+									>
+										<Col sm={3}>
+											<FormLabel>{x.name}</FormLabel>
+										</Col>
+										<Col sm={9}>
+											<SelectInput
+												defaultValue={value ?
+													{ label: value, value: value } :
+													null
+												}
+												options={x.options.map( e => {
+													return { value: e, label: e };
+												})}
+												onChange={( elem ) => {
+													const newCustomFields = { ...customFields };
+													newCustomFields[ x.name ] = elem.value;
+													setCustomFields( newCustomFields );
+												}}
+											/>
+										</Col>
+									</FormGroup>;
+								}
+								return (
+									<OverlayTrigger key={idx} placement="top" overlay={createTooltip( x.description )} >
+										{input}
+									</OverlayTrigger>
+								);
+							})}
+							<p>
+								<Trans i18nKey="signup:tos-disclaimer" >
+									Through clicking the signup button you agree to our <Link to="/terms">terms of service</Link>. Learn more about how your data is processed in our <Link to="/privacy" >privacy policy</Link>.
+								</Trans>
+							</p>
+							<FormGroup>
+								<Button
+									variant="primary"
+									className="centered"
+									type="submit"
+									onClick={handleSubmit}
+								>{t('common:register')}</Button>
+							</FormGroup>
+						</Form>
+					</Card.Body>
+					<Card.Footer style={{ background: 'rgba(255,255,255,0.6)', textAlign: 'right' }}>
+						<Link to="/forgot-password">{t('common:forgot-password')}</Link>
+						<span> | </span>
+						<Link to="/login">{t('common:login')}</Link>
+					</Card.Footer>
+				</Card>
+				{settings.brandingLogo ? <img
+					className="login-branding-logo"
+					src={settings.brandingLogo}
+					alt="Branded Logo"
+				/> : null}
+			</div>
+			<MessageModal
+				show={modal.show}
+				close={close}
+				message={modal.message}
+				successful={modal.successful}
+			/>
+			<Overlay
+				show={submitOverlay.show}
+				target={submitOverlay.target}
+				placement="right"
+				containerPadding={20}
+			>
+				<Popover id="popover-contained" title="Input fields are not valid">
+					{t('signup-not-valid')}
+				</Popover>
+			</Overlay>
+		</Fragment>
+	);
+};
 
 
 // PROPERTIES //
@@ -440,4 +417,4 @@ Signup.defaultProps = {
 
 // EXPORTS //
 
-export default withTranslation( [ 'signup', 'common' ] )( Signup );
+export default Signup;
