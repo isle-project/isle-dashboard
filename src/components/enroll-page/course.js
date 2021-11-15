@@ -17,7 +17,7 @@
 
 // MODULES //
 
-import React, { Component, Fragment } from 'react';
+import React, { useCallback, useState, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
@@ -33,7 +33,15 @@ import server from 'constants/server';
 
 // FUNCTIONS //
 
-function renderUserBadge( user, idx ) {
+/**
+ * A component which displays a user badge.
+ *
+ * @param {Object} props - component properties
+ * @param {Object} props.user - user object
+ * @param {number} props.idx - index of the user
+ * @returns {ReactElement} badge component
+ */
+const UserBadge = ({ user, idx }) => {
 	if ( !user ) {
 		return null;
 	}
@@ -47,131 +55,172 @@ function renderUserBadge( user, idx ) {
 			</span>
 		</span>
 	</Col> );
-}
+};
+
+/**
+ * A component which displays a list of available cohorts.
+ *
+ * @param {Object} props - component properties
+ * @param {ObjectArray} props.cohorts - list of available cohorts
+ * @param {Function} props.onCohortSelect - callback to handle cohort selection
+ * @param {boolean} props.checked - indicates whether a cohort is selected
+ * @returns {ReactElement} cohort list component
+ */
+const AvailableCohorts = ( props ) => {
+	const list = [];
+	for ( let i = 0; i < props.cohorts.length; i++) {
+		const cohort = props.cohorts[ i ];
+		const from = new Date( cohort.startDate ).toLocaleDateString();
+		const to = new Date( cohort.endDate ).toLocaleDateString();
+		const label = <Fragment>
+				<span>{cohort.title}</span><span className="enroll-cohort-date">{from} - {to}</span>
+			</Fragment>;
+		list.push(
+			<FormCheck
+				id={i} key={i} data-pos={i} type="radio"
+				checked={props.checked===i} label={label} name="radioGroup"
+				onChange={props.onCohortSelect}
+			/>
+		);
+	}
+	return list;
+};
+
+/**
+ * A component which displays a modal window for enrolling a user.
+ *
+ * @param {Object} props - component properties
+ * @param {boolean} props.show - indicates whether the modal is visible
+ * @param {Function} props.onHide - callback to handle hiding the modal
+ * @param {Function} props.onCohortSelect - callback to handle cohort selection
+ * @param {ObjectArray} props.cohorts - list of available cohorts
+ * @param {Object} props.namespace - namespace object
+ * @param {Function} props.onEnroll - callback to handle enrolling a user
+ * @param {Function} props.t - translation function
+ * @returns {ReactElement} modal component
+ */
+const EnrollModal = ( props ) => {
+	return (
+		<Modal onHide={props.onHide} show={props.show}>
+			<Modal.Header closeButton>
+				<h1>{props.namespace.title}</h1>
+			</Modal.Header>
+			<Modal.Body>
+				<div className="enroll-page-cohort-information">
+					({props.t('select-cohort')})
+				</div>
+				<div className="enroll-page-cohorts-list">
+					<FormGroup>
+						<AvailableCohorts
+							cohorts={props.cohorts}
+							onCohortSelect={props.onCohortSelect}
+							checked={props.checked}
+						/>
+					</FormGroup>
+				</div>
+				<Button onClick={props.onEnroll} size="sm" className="enroll-button-modal">
+					{props.t('enroll-in-course')}
+				</Button>
+			</Modal.Body>
+		</Modal>
+	);
+};
+
+/**
+ * A component which displays a list of course owners.
+ *
+ * @param {Object} props - component properties
+ * @param {Object} props.namespace - namespace object
+ * @returns {ReactElement} owner list component
+ */
+const OwnersList = ( props ) => {
+	const profiles = [];
+	const owners = props.namespace.owners.filter( x => x.writeAccess );
+	const colsPerRow = floor( sqrt( owners.length ) );
+	for ( let i = 0; i < owners.length; i += colsPerRow ) {
+		const row = [];
+		for ( let j = 0; j < colsPerRow; j++ ) {
+			row[ j ] = <UserBadge user={owners[ i+j ]} idx={i+j} key={`badge-${i+j}`} />;
+		}
+		profiles.push(
+			<Row key={`row-${i}`} >
+				{row}
+			</Row>
+		);
+	}
+	return (
+		<div className="enroll-page-course-owner-wrapper" >
+			<Container className="enroll-page-course-owners">
+				{profiles}
+			</Container>
+		</div>
+	);
+};
 
 
 // MAIN //
 
-class Course extends Component {
-	constructor( props ) {
-		super( props );
-
-		this.state = {
-			showModal: false,
-			checked: null
-		};
-	}
-
-	renderOwners() {
-		const profiles = [];
-		const owners = this.props.namespace.owners.filter( x => x.writeAccess );
-		const colsPerRow = floor( sqrt( owners.length ) );
-		for ( let i = 0; i < owners.length; i += colsPerRow ) {
-			const row = [];
-			for ( let j = 0; j < colsPerRow; j++ ) {
-				row[ j ] = renderUserBadge( owners[ i+j ], i+j );
-			}
-			profiles.push(
-				<Row key={`row-${i}`} >
-					{row}
-				</Row>
-			);
-		}
-		return (
-			<div className="enroll-page-course-owner-wrapper" >
-				<Container className="enroll-page-course-owners">
-					{profiles}
-				</Container>
-			</div>
-		);
-	}
-
-	handleEnroll = () => {
-		const cohortID = this.props.cohorts[ this.state.checked ]._id;
-		this.props.addUserToCohort( cohortID, this.props.namespace );
-		this.setState({
-			showModal: false
-		});
-	};
-
-	handleFormClick = ( event ) => {
+/**
+ * A component which displays a course.
+ *
+ * @param {Object} props - component properties
+ * @param {Object} props.namespace - namespace object
+ * @param {ObjectArray} props.cohorts - list of available cohorts
+ * @param {boolean} props.enrollable - indicates whether the user can enroll in the course
+ * @param {Function} props.addUserToCohort - callback to handle adding a user to a cohort
+ * @param {Function} props.t - translation function
+ * @returns {ReactElement} course component
+ */
+const Course = ({ cohorts, namespace, enrollable, addUserToCohort, t }) => {
+	const [ checked, setChecked ] = useState( false );
+	const [ showModal, setShowModal ] = useState( false );
+	const handleEnroll = useCallback( () => {
+		const cohortID = cohorts[ checked ]._id;
+		addUserToCohort( cohortID, namespace );
+		setShowModal( false );
+	}, [ checked, cohorts, namespace, addUserToCohort ] );
+	const toggleModal = useCallback( () => {
+		setShowModal( !showModal );
+	}, [ showModal ] );
+	const handleCohortSelect = useCallback( ( event ) => {
 		const check = event.target.checked;
 		const pos = event.target.dataset.pos;
 		if ( check ) {
-			this.setState({
-				checked: Number(pos)
-			});
+			setChecked( Number( pos ) );
 		}
-	};
+	}, [] );
 
-	renderAvailableCohorts() {
-		const list = [];
-		for ( let i = 0; i < this.props.cohorts.length; i++) {
-			const cohort = this.props.cohorts[ i ];
-			const from = new Date( cohort.startDate ).toLocaleDateString();
-			const to = new Date( cohort.endDate ).toLocaleDateString();
-			const label = <Fragment>
-					<span>{cohort.title}</span><span className="enroll-cohort-date">{from} - {to}</span>
-				</Fragment>;
-			list.push(
-				<FormCheck
-					id={i} key={i} data-pos={i} type="radio"
-					checked={this.state.checked===i} label={label} name="radioGroup"
-					onChange={this.handleFormClick}
-				/>
-			);
-		}
-		return list;
+	let cardClassName = 'enroll-page-course-item';
+	let buttonText = t('common:enroll');
+	if ( enrollable === false ) {
+		cardClassName = 'enroll-item-deactivated';
+		buttonText = t('already-enrolled');
 	}
-
-	toggleModal = () => {
-		this.setState({
-			showModal: !this.state.showModal
-		});
-	};
-
-	render() {
-		const { t } = this.props;
-		let cardClassName = 'enroll-page-course-item';
-		let buttonText = t('common:enroll');
-		if ( this.props.enrollable === false ) {
-			cardClassName = 'enroll-item-deactivated';
-			buttonText = t('already-enrolled');
-		}
-		return (
-			<Fragment>
-				<div className={cardClassName}>
-					<h1>{this.props.namespace.title}</h1>
-					<div className="enroll-page-course-description">
-						{this.props.namespace.description}
-					</div>
-					{this.renderOwners()}
-					<Button
-						size="sm" className="enroll-button"
-						disabled={!this.props.enrollable}
-						onClick={this.toggleModal}
-					>{ buttonText }</Button>
+	return (
+		<Fragment>
+			<div className={cardClassName}>
+				<h1>{namespace.title}</h1>
+				<div className="enroll-page-course-description">
+					{namespace.description}
 				</div>
-				<Modal onHide={this.toggleModal} show={this.state.showModal}>
-					<Modal.Header closeButton>
-						<h1>{this.props.namespace.title}</h1>
-					</Modal.Header>
-					<Modal.Body>
-						<div className="enroll-page-cohort-information">
-							({t('select-cohort')})
-						</div>
-						<div className="enroll-page-cohorts-list">
-							<FormGroup>
-								{this.renderAvailableCohorts(this.props.cohorts)}
-							</FormGroup>
-						</div>
-						<Button onClick={this.handleEnroll} size="sm" className="enroll-button-modal">{t('enroll-in-course')}</Button>
-					</Modal.Body>
-				</Modal>
-			</Fragment>
-		);
-	}
-}
+				<OwnersList namespace={namespace} />
+				<Button
+					size="sm" className="enroll-button"
+					disabled={!enrollable}
+					onClick={toggleModal}
+				>{ buttonText }</Button>
+			</div>
+			<EnrollModal
+				namespace={namespace} cohorts={cohorts}
+				onHide={toggleModal} show={showModal}
+				onEnroll={handleEnroll}
+				onCohortSelect={handleCohortSelect}
+				checked={checked}
+				t={t}
+			/>
+		</Fragment>
+	);
+};
 
 
 // PROPERTIES //
