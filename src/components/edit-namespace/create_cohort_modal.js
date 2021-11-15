@@ -17,7 +17,7 @@
 
 // MODULES //
 
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
@@ -40,7 +40,15 @@ import './cohort_modal.css';
 
 // FUNCTIONS //
 
-function validateInputs({ emails, title }) {
+/**
+ * Validate a list of emails and namespace title.
+ *
+ * @private
+ * @param {Array<string>} emails - list of emails
+ * @param {string} title - namespace title
+ * @returns {boolean} boolean indicating whether the list of emails and namespace title are valid
+ */
+function validateInputs( emails, title ) {
 	let invalid = false;
 	emails.forEach( owner => {
 		if ( !isEmail( owner ) ) {
@@ -56,169 +64,142 @@ function validateInputs({ emails, title }) {
 
 // MAIN //
 
-class CreateCohortModal extends Component {
-	constructor( props ) {
-		super( props );
-
-		const startDate = moment().startOf( 'day' );
-		const endDate = moment()
+/**
+ * A modal for creating a new cohort.
+ *
+ * @param {Object} props - component properties
+ * @param {boolean} props.show - boolean indicating whether the modal is visible
+ * @param {Function} props.close - callback to invoke upon hiding the modal
+ * @param {Function} props.onCreate - callback to invoke upon creating a new cohort
+ * @param {Function} props.t - i18n translation function
+ * @returns {ReactElement} modal dialog
+ */
+const CreateCohortModal = ({ close, onCreate, show, t }) => {
+	const [ title, setTitle ] = useState( '' );
+	const [ emailFilter, setEmailFilter ] = useState( '' );
+	const [ dates, setDates ] = useState({
+		start: moment()
+			.startOf( 'day' ),
+		end: moment()
 			.add( 3, 'months' )
-			.endOf( 'day' );
-		const initialState = {
-			startDate,
-			endDate,
-			disabled: true,
-			students: [],
-			private: false,
-			emailFilter: '',
-			title: ''
-		};
-		this.state = initialState;
+			.endOf( 'day' )
+	});
+	const [ isPrivate, setIsPrivate ] = useState( false );
+	const [ students, setStudents ] = useState( [] );
+	const [ focusedInput, setFocusedInput ] = useState( null );
 
-		this.onClose = () => {
-			this.setState( initialState );
-			this.props.close();
-		};
-	}
-
-	handleInputChange = ( event ) => {
-		const target = event.target;
-		const name = target.name;
-		let value = target.value;
-		this.setState({
-			[ name ]: value
-		}, () => {
-			this.setState({
-				disabled: !validateInputs({
-					emails: this.state.students,
-					title: this.state.title
-				})
-			});
-		});
+	const handleClose = () => {
+		close();
 	};
-
-	onCreate = () => {
+	const handleCreate = () => {
 		const cohort = {
-			emailFilter: this.state.emailFilter,
-			title: this.state.title,
-			startDate: this.state.startDate.startOf( 'day' ).toDate(),
-			endDate: this.state.endDate.endOf( 'day' ).toDate(),
-			private: this.state.private,
-			students: this.state.students.join( ',' )
+			emailFilter,
+			title,
+			startDate: dates.start.startOf( 'day' ).toDate(),
+			endDate: dates.end.endOf( 'day' ).toDate(),
+			private: isPrivate,
+			students: students.join( ',' )
 		};
-		this.props.onCreate( cohort );
+		onCreate( cohort );
 	};
-
-	handleStudentChange = ( newValue ) => {
-		const students = isArray( newValue ) ? newValue.map( x => x.value ) : [];
-		this.setState({
-			students: students,
-			disabled: !validateInputs({
-				emails: students,
-				title: this.state.title
-			})
-		});
-	};
-
-	renderBody() {
-		const { t } = this.props;
-		return ( <Form style={{ paddingLeft: 20, paddingRight: 20 }}>
-			<Row>
-				<Col md={6}>
-					<OverlayTrigger placement="right" overlay={<Tooltip id="titleTooltip">{t('cohort-title-tooltip')}</Tooltip>}>
-						<FormGroup>
-							<FormLabel>{t('common:title')}</FormLabel>
-							<FormControl
-								name="title"
-								type="text"
-								placeholder={t('cohort-title-placeholder')}
-								onChange={this.handleInputChange}
-							/>
-						</FormGroup>
-					</OverlayTrigger>
-				</Col>
-				<Col md={6}>
+	const disabled = !validateInputs( students, title );
+	const body = <Form style={{ paddingLeft: 20, paddingRight: 20 }}>
+		<Row>
+			<Col md={6}>
+				<OverlayTrigger placement="right" overlay={<Tooltip id="titleTooltip">{t('cohort-title-tooltip')}</Tooltip>}>
 					<FormGroup>
-						<FormLabel>{t('cohort-period')}</FormLabel>
-						<DateRangePicker
-							startDateId="start_date_input"
-							endDateId="end_date_input"
-							startDate={this.state.startDate}
-							endDate={this.state.endDate}
-							onDatesChange={({ startDate, endDate }) =>
-								this.setState({ startDate, endDate })
-							}
-							focusedInput={this.state.focusedInput}
-							onFocusChange={focusedInput => this.setState({ focusedInput })}
-						/>
-					</FormGroup>
-				</Col>
-			</Row>
-			<hr />
-			<Row>
-				<OverlayTrigger placement="right" overlay={<Tooltip id="enrolledTooltip">{t('enrolled-tooltip')}</Tooltip>}>
-					<FormGroup className="cohort-modal-enrolled-group" >
-						<FormLabel>{t('enrolled-students')}</FormLabel>
-						<TextSelect
-							placeholder={t('enter-emails')}
-							onChange={this.handleStudentChange}
-							defaultValue={this.state.students}
-							isClearable
-							styles={{
-								control: () => ({
-									width: '100%'
-								})
-							}}
-						/>
-					</FormGroup>
-				</OverlayTrigger>
-			</Row>
-			<hr />
-			<Row>
-				<OverlayTrigger placement="left" overlay={<Tooltip id="preventTooltip">{t('prevent-tooltip')}</Tooltip>}>
-					<FormCheck checked={this.state.private} onChange={() => {
-						this.setState({
-							private: !this.state.private
-						});
-					}} type="checkbox" label={t('prevent-label')} />
-				</OverlayTrigger>
-			</Row>
-			<hr />
-			<Row>
-				<OverlayTrigger placement="right" overlay={<Tooltip id="filterTooltip">{t('filter-tooltip')}</Tooltip>}>
-					<FormGroup>
-						<FormLabel>{t('email-filter')}</FormLabel>
+						<FormLabel>{t('common:title')}</FormLabel>
 						<FormControl
-							style={{ width: '25vw' }}
-							name="emailFilter"
+							name="title"
 							type="text"
-							placeholder={t('filter-placeholder')}
-							onChange={this.handleInputChange}
+							placeholder={t('cohort-title-placeholder')}
+							onChange={( event ) => setTitle( event.target.value )}
 						/>
 					</FormGroup>
 				</OverlayTrigger>
-			</Row>
-		</Form> );
-	}
-
-	render() {
-		const { t } = this.props;
-		return (
-			<Modal size="lg" show={this.props.show} onHide={this.onClose}>
-				<Modal.Header closeButton>
-					<Modal.Title as="h3">{t('create-new-cohort')}</Modal.Title>
-				</Modal.Header>
-				<Modal.Body>
-					{this.renderBody()}
-				</Modal.Body>
-				<Modal.Footer>
-					<Button onClick={this.onClose}>{t('common:cancel')}</Button>
-					<Button variant="success" disabled={this.state.disabled} onClick={this.onCreate}>{t('common:create')}</Button>
-				</Modal.Footer>
-			</Modal>
-		);
-	}
-}
+			</Col>
+			<Col md={6}>
+				<FormGroup>
+					<FormLabel>{t('cohort-period')}</FormLabel>
+					<DateRangePicker
+						startDateId="start_date_input"
+						endDateId="end_date_input"
+						startDate={dates.start}
+						endDate={dates.end}
+						onDatesChange={({ startDate, endDate }) => {
+							setDates({ start: startDate, end: endDate });
+						}}
+						focusedInput={focusedInput}
+						onFocusChange={setFocusedInput}
+					/>
+				</FormGroup>
+			</Col>
+		</Row>
+		<hr />
+		<Row>
+			<OverlayTrigger placement="right" overlay={<Tooltip id="enrolledTooltip">{t('enrolled-tooltip')}</Tooltip>}>
+				<FormGroup className="cohort-modal-enrolled-group" >
+					<FormLabel>{t('enrolled-students')}</FormLabel>
+					<TextSelect
+						placeholder={t('enter-emails')}
+						onChange={( newValue ) => {
+							const newStudents = isArray( newValue ) ? newValue.map( x => x.value ) : [];
+							setStudents( newStudents );
+						}}
+						defaultValue={students}
+						isClearable
+						styles={{
+							control: () => ({
+								width: '100%'
+							})
+						}}
+					/>
+				</FormGroup>
+			</OverlayTrigger>
+		</Row>
+		<hr />
+		<Row>
+			<OverlayTrigger placement="left" overlay={<Tooltip id="preventTooltip">{t('prevent-tooltip')}</Tooltip>}>
+				<FormCheck checked={isPrivate} onChange={() => {
+					setIsPrivate( !isPrivate );
+				}} type="checkbox" label={t('prevent-label')} />
+			</OverlayTrigger>
+		</Row>
+		<hr />
+		<Row>
+			<OverlayTrigger placement="right" overlay={<Tooltip id="filterTooltip">{t('filter-tooltip')}</Tooltip>}>
+				<FormGroup>
+					<FormLabel>{t('email-filter')}</FormLabel>
+					<FormControl
+						style={{ width: '25vw' }}
+						name="emailFilter"
+						type="text"
+						placeholder={t('filter-placeholder')}
+						onChange={( event ) => setEmailFilter( event.target.value )}
+					/>
+				</FormGroup>
+			</OverlayTrigger>
+		</Row>
+	</Form>;
+	return (
+		<Modal size="lg" show={show} onHide={handleClose}>
+			<Modal.Header closeButton>
+				<Modal.Title as="h3">{t('create-new-cohort')}</Modal.Title>
+			</Modal.Header>
+			<Modal.Body>
+				{body}
+			</Modal.Body>
+			<Modal.Footer>
+				<Button onClick={handleClose}>
+					{t('common:cancel')}
+				</Button>
+				<Button variant="success" disabled={disabled} onClick={handleCreate} >
+					{t('common:create')}
+				</Button>
+			</Modal.Footer>
+		</Modal>
+	);
+};
 
 
 // PROPERTIES //
