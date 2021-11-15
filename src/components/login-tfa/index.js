@@ -41,13 +41,12 @@ import 'css/login.css';
  * @param {Function} props.fetchCredentials - callback to fetch credentials
  * @param {Function} props.getEnrollableCohorts - callback to get enrollable cohorts
  * @param {Object} props.user - user object
- * @param {Function} props.t - i18n translation function
  * @param {Object} props.settings - ISLE instance settings
  * @returns {ReactElement} component
  */
-const LoginTFA = ({ handleLoginTFA, fetchCredentials, getEnrollableCohorts, user, t, settings }) => {
+const LoginTFA = ({ handleLoginTFA, fetchCredentials, getEnrollableCohorts, user, settings }) => {
 	const [ token, setToken ] = useState( '' );
-	const { t } = useTranslation( [ 'login', 'common' ]  );
+	const { t } = useTranslation( [ 'login', 'common' ] );
 	const handleSubmit = async ( event ) => {
 		event.preventDefault();
 		const form = {
