@@ -18,13 +18,22 @@
 // MODULES //
 
 import React from 'react';
-import { withTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 
 
 // MAIN //
 
+/**
+ * A component which displays a message to the user indicating that they have not selected a course.
+ *
+ * @param {Object} props - component properties
+ * @param {Object} props.t - i18next translation function
+ * @param {Object} props.user - user object
+ * @returns {ReactElement} banner component
+ */
 const NoCourseBanner = ( props ) => {
-	const { user, t } = props;
+	const { user } = props;
+	const { t } = useTranslation( [ 'lessons_page', 'common' ] );
 	let appendix = null;
 	if ( user.writeAccess ) {
 		appendix = <span>{t('create-new-one')}<i className="fa fa-pencil-alt"></i>.</span>;
@@ -41,4 +50,4 @@ const NoCourseBanner = ( props ) => {
 
 // EXPORTS //
 
-export default withTranslation( [ 'lessons_page', 'common' ] )( NoCourseBanner );
+export default NoCourseBanner;
