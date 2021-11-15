@@ -20,7 +20,7 @@
 import React, { useEffect, useRef, useState, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import Col from 'react-bootstrap/Col';
@@ -29,15 +29,27 @@ import FormLabel from 'react-bootstrap/FormLabel';
 import FormControl from 'react-bootstrap/FormControl';
 import FormGroup from 'react-bootstrap/FormGroup';
 import Form from 'react-bootstrap/Form';
-import Overlay from 'react-bootstrap/Overlay';
 import Popover from 'react-bootstrap/Popover';
+import Overlay from 'react-bootstrap/Overlay';
 import { Link } from 'react-router-dom';
 import 'css/login.css';
 
 
 // MAIN //
 
-const Login = ({ user, restoreLogin, getEnrollableCohorts, handleLogin, settings, t }) => {
+/**
+ * Login screen component.
+ *
+ * @param {Object} props - component properties
+ * @param {Object} props.user - user object
+ * @param {Function} props.restoreLogin - callback to restore login
+ * @param {Function} props.fetchCredentials - callback to fetch user information
+ * @param {Function} props.getEnrollableCohorts - callback to get enrollable cohorts of a user from the server
+ * @param {Function} props.handleLogin - function to handle login
+ * @param {Object} props.settings - ISLE instance settings
+ * @returns {ReactElement} component
+ */
+const Login = ({ user, restoreLogin, fetchCredentials, getEnrollableCohorts, handleLogin, settings }) => {
 	const [ email, setEmail ] = useState( '' );
 	const [ password, setPassword ] = useState( '' );
 	const [ overlay, setOverlay ] = useState({
@@ -48,7 +60,7 @@ const Login = ({ user, restoreLogin, getEnrollableCohorts, handleLogin, settings
 	const passwordInput = useRef( null );
 	const emailInput = useRef( null );
 	const { t } = useTranslation( [ 'login', 'common' ] );
-	const history = useHistory();
+	const navigate = useNavigate();
 	useEffect( () => {
 		if ( user && user.loggedIn ) {
 			restoreLogin( user );
@@ -68,7 +80,7 @@ const Login = ({ user, restoreLogin, getEnrollableCohorts, handleLogin, settings
 		if ( form.email === '' ) {
 			setOverlay({
 				show: true,
-				target: this.emailInput,
+				target: emailInput.current,
 				message: 'Enter your email address.'
 			});
 		}
@@ -84,7 +96,7 @@ const Login = ({ user, restoreLogin, getEnrollableCohorts, handleLogin, settings
 				const res = await handleLogin( form );
 				const { message } = res.data;
 				if ( message === 'finish-login-via-tfa' ) {
-					history.push( '/login-tfa' );
+					navigate( '/login-tfa' );
 				}
 				else if ( message === 'ok' ) {
 					const { token, id } = res.data;

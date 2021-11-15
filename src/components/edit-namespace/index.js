@@ -36,7 +36,6 @@ import ListGroup from 'react-bootstrap/ListGroup';
 import ListGroupItem from 'react-bootstrap/ListGroupItem';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
-import { withRouter } from 'react-router';
 import isArray from '@stdlib/assert/is-array';
 import trim from '@stdlib/string/trim';
 import TextSelect from 'components/text-select';
@@ -408,4 +407,4 @@ EditNamespace.defaultProps = {
 
 // EXPORTS //
 
-export default withTranslation( [ 'namespace', 'common' ] )( withRouter( EditNamespace ) );
+export default withTranslation( [ 'namespace', 'common' ] )( EditNamespace );

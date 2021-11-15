@@ -19,7 +19,7 @@
 
 import React, { useState, Fragment } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import Col from 'react-bootstrap/Col';
@@ -103,12 +103,12 @@ const CompleteRegistration = ({ settings }) => {
 		target: null
 	});
 	const { t } = useTranslation([ 'common', 'signup' ]);
-	const history = useHistory();
+	const navigate = useNavigate();
 
-	const validName = () => {
+	const validateName = () => {
 		return name && name.length > 3;
 	};
-	const validPasswords = () => {
+	const validatePasswords = () => {
 		if ( password.length < 6 || passwordRepeat.length === 0 ) {
 			return false;
 		}
@@ -128,7 +128,7 @@ const CompleteRegistration = ({ settings }) => {
 	};
 	const handleSubmit = async ( event ) => {
 		event.preventDefault();
-		if ( validPasswords() && validName() ) {
+		if ( validatePasswords() && validateName() ) {
 			try {
 				const hash = window.location.hash.substring( 24 );
 				const qs = queryString.parse( hash );
@@ -170,7 +170,7 @@ const CompleteRegistration = ({ settings }) => {
 		return false;
 	};
 	const handleClose = () => {
-		history.replace( '/' );
+		navigate( '/' );
 	};
 	const renderedName = <OverlayTrigger placement="right" overlay={createTooltip( t('signup:name-tooltip') )}>
 		<FormGroup
@@ -186,7 +186,7 @@ const CompleteRegistration = ({ settings }) => {
 						type="text"
 						placeholder={t('enter-name')}
 						onChange={handleNameChange}
-						isInvalid={name && !validName()}
+						isInvalid={name && !validateName()}
 					/>
 					<Form.Control.Feedback type="invalid">
 						{t('signup:invalid-name')}
@@ -196,7 +196,7 @@ const CompleteRegistration = ({ settings }) => {
 		</FormGroup>
 	</OverlayTrigger>;
 	const enteredPasswords = password || passwordRepeat;
-	const validPasswords = validPasswords();
+	const validPasswords = validatePasswords();
 	const renderedPassword = <Fragment>
 		<OverlayTrigger placement="right" overlay={createTooltip( 'Please enter a new password with at least six characters' )}>
 			<FormGroup
@@ -265,7 +265,7 @@ const CompleteRegistration = ({ settings }) => {
 									type="submit"
 									onClick={handleSubmit}
 									className="centered"
-									disabled={!validName() || !validPasswords()}
+									disabled={!validateName() || !validPasswords()}
 								>Confirm</Button>
 							</FormGroup>
 						</Form>

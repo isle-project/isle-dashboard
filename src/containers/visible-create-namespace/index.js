@@ -19,7 +19,6 @@
 
 import React from 'react';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router';
 import CreateNamespace from 'components/create-namespace';
 import { changedNamespace, createNamespaceInjector } from 'actions/namespace';
 import { addNotificationInjector } from 'actions/notification';
@@ -53,4 +52,4 @@ const VisibleCreateNamespace = connect( mapStateToProps, mapDispatchToProps )( C
 
 // EXPORTS //
 
-export default withRouter( VisibleCreateNamespace );
+export default VisibleCreateNamespace;

@@ -18,7 +18,7 @@
 // MODULES //
 
 import React from 'react';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import i18n from 'i18next';
@@ -37,7 +37,7 @@ import i18n from 'i18next';
  * @returns {ReactElement} modal dialog
  */
 const MessageModal = ( props ) => {
-	const history = useHistory();
+	const navigate = useNavigate();
 	return (
 		<Modal variant={props.successful ? 'success' : 'warning'} show={props.show}>
 			<Modal.Header>
@@ -49,7 +49,7 @@ const MessageModal = ( props ) => {
 			<Modal.Footer>
 				{ props.successful ?
 					<Button onClick={()=>{
-						history.push( '/login' );
+						navigate( '/login' );
 					}}>{i18n.t('signup:go-to-login-page')}</Button> :
 					<Button onClick={props.close}>
 						{i18n.t('signup:close')}

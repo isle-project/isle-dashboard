@@ -20,7 +20,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useTranslation } from 'react-i18next';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import Col from 'react-bootstrap/Col';
@@ -84,7 +84,7 @@ const NewPassword = () => {
 		target: null
 	});
 	const { t } = useTranslation( [ 'common', 'signup' ] );
-	const history = useHistory();
+	const navigate = useNavigate();
 
 	const validatePasswords = () => {
 		if ( password.length < 6 || passwordRepeat.length === 0 ) {
@@ -138,7 +138,7 @@ const NewPassword = () => {
 		return false;
 	};
 	const handleClose = () => {
-		history.replace( '/' );
+		navigate( '/' );
 	};
 	const handlePasswordChange = ( event ) => {
 		setPassword( event.target.value );
