@@ -17,9 +17,9 @@
 
 // MODULES //
 
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { withTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import FormLabel from 'react-bootstrap/FormLabel';
@@ -45,6 +45,13 @@ const debug = logger( 'isle-dashboard:create-namespace' );
 
 // FUNCTIONS //
 
+/**
+ * Validates that a list of owners contains only email addresses.
+ *
+ * @private
+ * @param {Array<string>} owners - list of owners
+ * @returns {boolean} boolean indicating if the list of owners contains only email addresses
+ */
 export function validateOwners( owners ) {
 	let invalid = false;
 	if ( owners.length === 0 ) {
@@ -62,10 +69,24 @@ export function validateOwners( owners ) {
 	return true;
 }
 
+/**
+ * Validates a namespace name.
+ *
+ * @private
+ * @param {string} title - namespace name
+ * @returns {boolean} boolean indicating if the namespace name is valid
+ */
 export function validateTitle( title ) {
 	return title.length >= 3 && !contains( title, ' ' ) && !checkURLPath( title );
 }
 
+/**
+ * Validates a namespace description.
+ *
+ * @private
+ * @param {string} description - namespace description
+ * @returns {boolean} boolean indicating if the namespace description is valid
+ */
 export function validateDescription( description ) {
 	return description.length >= 3;
 }
@@ -73,124 +94,117 @@ export function validateDescription( description ) {
 
 // MAIN //
 
-class CreateNamespace extends Component {
-	constructor( props ) {
-		super( props );
+/**
+ * A component for creating a new namespace.
+ *
+ * @param {Object} props - component properties
+ * @param {Object} props.user - user object
+ * @param {Function} props.createNamespace - callback function for creating a new namespace with the specified title, description, and owners
+ * @returns {ReactElement} component for creating a new namespace
+ */
+const CreateNamespace = ( props ) => {
+	const [ title, setTitle ] = useState( '' );
+	const [ description, setDescription ] = useState( '' );
+	const [ owners, setOwners ] = useState( [ props.user.email ] );
+	const { t } = useTranslation( [ 'namespace', 'common' ] );
 
-		this.state = {
-			title: '',
-			description: '',
-			owners: [ this.props.user.email ]
-		};
-	}
-
-	handleInputChange = ( event ) => {
-		const target = event.target;
-		const value = target.value;
-		const name = target.name;
-		this.setState({
-			[ name ]: value
+	const handleSubmit = () => {
+		props.createNamespace({
+			title,
+			description,
+			owners,
+			props
 		});
 	};
-
-	handleSubmit = () => {
-		this.props.createNamespace({
-			title: this.state.title,
-			description: this.state.description,
-			owners: this.state.owners,
-			props: this.props
-		});
-	};
-
-	handleOwnerChange = ( newValue ) => {
+	const handleOwnerChange = ( newValue ) => {
 		if ( !newValue ) {
-			return this.setState({
-				owners: []
-			});
+			setOwners( [] );
 		}
-		const owners = newValue.map( x => trim( x.value ) );
-		this.setState({
-			owners: owners
-		});
+		const newOwners = newValue.map( x => trim( x.value ) );
+		setOwners( newOwners );
 	};
-
-	render() {
-		const validTitle = validateTitle( this.state.title );
-		const invalidTitleChars = checkURLPath( this.state.title );
-		const validDescription = validateDescription( this.state.description );
-		const validOwners = validateOwners( this.state.owners );
-		debug( 'Validation status of input fields: ' );
-		debug( `Title: ${validTitle}` );
-		debug( `Description: ${validDescription}` );
-		debug( `Owners: ${validOwners}` );
-		const { t } = this.props;
-		return (
-			<div className="create-namespace-container" >
-				<Card className="create-namespace-card" >
-					<Card.Header>
-						<Card.Title as="h2" >{t('create-course')}</Card.Title>
-					</Card.Header>
-					<Form style={{ padding: '20px' }}>
-						<OverlayTrigger placement="right" overlay={<Tooltip id="ownerTooltip">{t('owner-tooltip')}</Tooltip>}>
-							<FormGroup controlId="form-owners" >
-								<FormLabel>{t('common:owners')}</FormLabel>
-								<TextSelect
-									id="owners-text-select"
-									onChange={this.handleOwnerChange}
-									defaultValue={this.state.owners}
-									isInvalid={!validOwners}
-									placeholder={t('enter-emails')}
-								/>
-								<FormControl.Feedback type="invalid">
-									{t('invalid-owners')}
-								</FormControl.Feedback>
-							</FormGroup>
-						</OverlayTrigger>
-						<OverlayTrigger placement="right" overlay={<Tooltip id="courseTooltip" >{t('accessible-at')}<code>{SERVER+'/<course>/<lesson>'}</code></Tooltip>}>
-							<FormGroup controlId="form-course" >
-								<FormLabel>{t('common:course')}</FormLabel>
-								<FormControl
-									name="title"
-									type="text"
-									placeholder={t('course-placeholder')}
-									onChange={this.handleInputChange}
-									isInvalid={this.state.title && !validTitle}
-								/>
-								<FormControl.Feedback type="invalid">
-									{ invalidTitleChars ?
-										'Course identifier contains invalid character(s): '+invalidTitleChars[ 0 ] :
-										'Course identifier must be at least three characters long and should not contain any spaces.'
-									}
-								</FormControl.Feedback>
-							</FormGroup>
-						</OverlayTrigger>
-						<OverlayTrigger placement="right" overlay={<Tooltip id="titleTooltip">{t('title-tooltip')}</Tooltip>}>
-							<FormGroup controlId="form-description" >
-								<FormLabel>{t('title-description')}</FormLabel>
-								<FormControl
-									name="description"
-									type="text"
-									placeholder={t('title-placeholder')}
-									onChange={this.handleInputChange}
-									isInvalid={this.state.description && !validDescription}
-								/>
-								<FormControl.Feedback type="invalid">
-									{t('invalid-description')}
-								</FormControl.Feedback>
-							</FormGroup>
-						</OverlayTrigger>
-					</Form>
-					<Button
-						variant="success"
-						onClick={this.handleSubmit}
-						disabled={!validOwners || !validTitle || !validDescription}
-						block
-					>{t('common:create')}</Button>
-				</Card>
-			</div>
-		);
-	}
-}
+	const handleTitleChange = ( event ) => {
+		const value = event.target.value;
+		setTitle( value );
+	};
+	const handleDescriptionChange = ( event ) => {
+		const value = event.target.value;
+		setDescription( value );
+	};
+	const validTitle = validateTitle( title );
+	const invalidTitleChars = checkURLPath( title );
+	const validDescription = validateDescription( description );
+	const validOwners = validateOwners( owners );
+	debug( 'Validation status of input fields: ' );
+	debug( `Title: ${validTitle}` );
+	debug( `Description: ${validDescription}` );
+	debug( `Owners: ${validOwners}` );
+	return (
+		<div className="create-namespace-container" >
+			<Card className="create-namespace-card" >
+				<Card.Header>
+					<Card.Title as="h2" >{t('create-course')}</Card.Title>
+				</Card.Header>
+				<Form style={{ padding: '20px' }}>
+					<OverlayTrigger placement="right" overlay={<Tooltip id="ownerTooltip">{t('owner-tooltip')}</Tooltip>}>
+						<FormGroup controlId="form-owners" >
+							<FormLabel>{t('common:owners')}</FormLabel>
+							<TextSelect
+								id="owners-text-select"
+								onChange={handleOwnerChange}
+								defaultValue={owners}
+								isInvalid={!validOwners}
+								placeholder={t('enter-emails')}
+							/>
+							<FormControl.Feedback type="invalid">
+								{t('invalid-owners')}
+							</FormControl.Feedback>
+						</FormGroup>
+					</OverlayTrigger>
+					<OverlayTrigger placement="right" overlay={<Tooltip id="courseTooltip" >{t('accessible-at')}<code>{SERVER+'/<course>/<lesson>'}</code></Tooltip>}>
+						<FormGroup controlId="form-course" >
+							<FormLabel>{t('common:course')}</FormLabel>
+							<FormControl
+								name="title"
+								type="text"
+								placeholder={t('course-placeholder')}
+								onChange={handleTitleChange}
+								isInvalid={title && !validTitle}
+							/>
+							<FormControl.Feedback type="invalid">
+								{ invalidTitleChars ?
+									'Course identifier contains invalid character(s): '+invalidTitleChars[ 0 ] :
+									'Course identifier must be at least three characters long and should not contain any spaces.'
+								}
+							</FormControl.Feedback>
+						</FormGroup>
+					</OverlayTrigger>
+					<OverlayTrigger placement="right" overlay={<Tooltip id="titleTooltip">{t('title-tooltip')}</Tooltip>}>
+						<FormGroup controlId="form-description" >
+							<FormLabel>{t('title-description')}</FormLabel>
+							<FormControl
+								name="description"
+								type="text"
+								placeholder={t('title-placeholder')}
+								onChange={handleDescriptionChange}
+								isInvalid={description && !validDescription}
+							/>
+							<FormControl.Feedback type="invalid">
+								{t('invalid-description')}
+							</FormControl.Feedback>
+						</FormGroup>
+					</OverlayTrigger>
+				</Form>
+				<Button
+					variant="success"
+					onClick={handleSubmit}
+					disabled={!validOwners || !validTitle || !validDescription}
+					block
+				>{t('common:create')}</Button>
+			</Card>
+		</div>
+	);
+};
 
 
 // PROPERTIES //
@@ -206,4 +220,4 @@ CreateNamespace.defaultProps = {
 
 // EXPORTS //
 
-export default withTranslation( [ 'namespace', 'common' ] )( CreateNamespace );
+export default CreateNamespace;
