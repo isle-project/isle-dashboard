@@ -17,9 +17,10 @@
 
 // MODULES //
 
-import React, { Component, Fragment } from 'react';
+import React, { useEffect, useRef, useState, Fragment } from 'react';
 import PropTypes from 'prop-types';
-import { withTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
+import { useHistory } from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import Col from 'react-bootstrap/Col';
@@ -36,174 +37,163 @@ import 'css/login.css';
 
 // MAIN //
 
-class Login extends Component {
-	constructor( props ) {
-		super( props );
-
-		this.state = {
-			email: '',
-			password: ''
-		};
-	}
-
-	componentDidMount() {
-		const { user } = this.props;
+const Login = ({ user, restoreLogin, getEnrollableCohorts, handleLogin, settings, t }) => {
+	const [ email, setEmail ] = useState( '' );
+	const [ password, setPassword ] = useState( '' );
+	const [ overlay, setOverlay ] = useState({
+		show: false,
+		target: null,
+		message: ''
+	});
+	const passwordInput = useRef( null );
+	const emailInput = useRef( null );
+	const { t } = useTranslation( [ 'login', 'common' ] );
+	const history = useHistory();
+	useEffect( () => {
 		if ( user && user.loggedIn ) {
-			this.props.restoreLogin( user );
-			this.props.getEnrollableCohorts( user );
+			restoreLogin( user );
+			getEnrollableCohorts( user );
 		}
-	}
+	}, [ user, restoreLogin, getEnrollableCohorts ] );
 
-	handleSubmit = async ( event ) => {
+	const handleEmailChange = ( event ) => {
+		setEmail( event.target.value );
+	};
+	const handlePasswordChange = ( event ) => {
+		setPassword( event.target.value );
+	};
+	const handleSubmit = async ( event ) => {
 		event.preventDefault();
-		const form = {
-			password: this.state.password,
-			email: this.state.email
-		};
+		const form = { password, email };
 		if ( form.email === '' ) {
-			this.setState({
-				showInputOverlay: true,
-				overlayTarget: this.emailInput,
-				invalidInputMessage: 'Enter your email address.'
+			setOverlay({
+				show: true,
+				target: this.emailInput,
+				message: 'Enter your email address.'
 			});
 		}
 		else if ( form.password === '' ) {
-			this.setState({
-				showInputOverlay: true,
-				overlayTarget: this.passwordInput,
-				invalidInputMessage: 'Enter your password.'
+			setOverlay({
+				show: true,
+				target: passwordInput.current,
+				message: 'Enter your password.'
 			});
 		}
 		else {
 			try {
-				const res = await this.props.handleLogin( form );
+				const res = await handleLogin( form );
 				const { message } = res.data;
 				if ( message === 'finish-login-via-tfa' ) {
-					this.props.history.push( '/login-tfa' );
+					history.push( '/login-tfa' );
 				}
 				else if ( message === 'ok' ) {
 					const { token, id } = res.data;
-					const user = await this.props.fetchCredentials({ token, id });
+					const user = await fetchCredentials({ token, id });
 					if ( user ) {
-						this.props.getEnrollableCohorts( user );
+						getEnrollableCohorts( user );
 					}
 				}
 			} catch ( err ) {
 				const msg = err.response ? err.response.data : err.message;
-				this.setState({
-					showInputOverlay: true,
-					overlayTarget: msg === 'Password is not correct.' ? this.passwordInput : this.emailInput,
-					invalidInputMessage: msg
-				}, () => {
-					setTimeout( () => {
-						this.setState({
-							showInputOverlay: false
-						});
-					}, 4000 );
+				setOverlay({
+					show: true,
+					target: msg === 'Password is not correct.' ? passwordInput.current : emailInput.current,
+					message: msg
 				});
+				setTimeout( () => {
+					setOverlay({
+						show: false
+					});
+				}, 4000 );
 			}
 		}
 	};
-
-	handleInputChange = ( event ) => {
-		const target = event.target;
-		const value = target.value;
-		const name = target.name;
-
-		this.setState({
-			[ name ]: value
-		});
-	};
-
-	render() {
-		const { t, settings } = this.props;
-		return (
-			<Fragment>
-				<div className="login">
-					<Card className="login-panel">
-						<Card.Header>
-							<Card.Title as="h1" style={{ textAlign: 'center' }} >
-								<img alt="ISLE Logo" className="login-isle-logo" src="img/isle_logo.svg" />
-								ISLE <small>{settings.siteTitle}</small>
-							</Card.Title>
-						</Card.Header>
-						<Card.Body>
-							<Form>
-								<FormGroup controlId="form-email">
-									<Row>
-										<Col sm={3}>
-											<FormLabel>{t('common:email')}</FormLabel>
-										</Col>
-										<Col sm={9}>
-											<FormControl
-												name="email"
-												type="email"
-												autoComplete="isle-email"
-												placeholder={t('common:email')}
-												onChange={this.handleInputChange}
-												ref={( input ) => { this.emailInput = input; }}
-											/>
-										</Col>
-									</Row>
-								</FormGroup>
-								<FormGroup controlId="form-password">
-									<Row>
-										<Col sm={3}>
-											<FormLabel>{t('common:password')}</FormLabel>
-										</Col>
-										<Col sm={9}>
-											<FormControl
-												name="password"
-												type="password"
-												autoComplete="isle-password"
-												placeholder={t('common:password')}
-												onChange={this.handleInputChange}
-												ref={( input ) => { this.passwordInput = input; }}
-											/>
-										</Col>
-									</Row>
-								</FormGroup>
-								<FormGroup>
-									<Button
-										className="centered"
-										variant="primary"
-										onClick={this.handleSubmit}
-										type="submit"
-									>{t('common:login')}</Button>
-								</FormGroup>
-							</Form>
-						</Card.Body>
-						<Card.Footer style={{ background: 'rgba(255,255,255,0.6)', textAlign: 'right' }}>
-							<Link to="/forgot-password">{t('common:forgot-password')}</Link>
-							{settings.allowUserRegistrations ?
-								<Fragment>
-									<span> | </span>
-									<Link to="/signup">{t('common:register')}</Link>
-								</Fragment> :
-								null
-							}
-						</Card.Footer>
-					</Card>
-					{settings.brandingLogo ? <img
-						className="login-branding-logo"
-						src={settings.brandingLogo}
-						alt="Branded Logo"
-					/> : null}
-				</div>
-				<Overlay
-					show={this.state.showInputOverlay}
-					target={this.state.overlayTarget}
-					placement="right"
-					containerPadding={20}
-				>
-					<Popover id="popover-contained" title="Not valid">
-						{this.state.invalidInputMessage}
-					</Popover>
-				</Overlay>
-			</Fragment>
-		);
-	}
-}
+	return (
+		<Fragment>
+			<div className="login">
+				<Card className="login-panel">
+					<Card.Header>
+						<Card.Title as="h1" style={{ textAlign: 'center' }} >
+							<img alt="ISLE Logo" className="login-isle-logo" src="img/isle_logo.svg" />
+							ISLE <small>{settings.siteTitle}</small>
+						</Card.Title>
+					</Card.Header>
+					<Card.Body>
+						<Form>
+							<FormGroup controlId="form-email">
+								<Row>
+									<Col sm={3}>
+										<FormLabel>{t('common:email')}</FormLabel>
+									</Col>
+									<Col sm={9}>
+										<FormControl
+											name="email"
+											type="email"
+											autoComplete="isle-email"
+											placeholder={t('common:email')}
+											onChange={handleEmailChange}
+											ref={emailInput}
+										/>
+									</Col>
+								</Row>
+							</FormGroup>
+							<FormGroup controlId="form-password">
+								<Row>
+									<Col sm={3}>
+										<FormLabel>{t('common:password')}</FormLabel>
+									</Col>
+									<Col sm={9}>
+										<FormControl
+											name="password"
+											type="password"
+											autoComplete="isle-password"
+											placeholder={t('common:password')}
+											onChange={handlePasswordChange}
+											ref={passwordInput}
+										/>
+									</Col>
+								</Row>
+							</FormGroup>
+							<FormGroup>
+								<Button
+									className="centered"
+									variant="primary"
+									onClick={handleSubmit}
+									type="submit"
+								>{t('common:login')}</Button>
+							</FormGroup>
+						</Form>
+					</Card.Body>
+					<Card.Footer style={{ background: 'rgba(255,255,255,0.6)', textAlign: 'right' }}>
+						<Link to="/forgot-password">{t('common:forgot-password')}</Link>
+						{settings.allowUserRegistrations ?
+							<Fragment>
+								<span> | </span>
+								<Link to="/signup">{t('common:register')}</Link>
+							</Fragment> :
+							null
+						}
+					</Card.Footer>
+				</Card>
+				{settings.brandingLogo ? <img
+					className="login-branding-logo"
+					src={settings.brandingLogo}
+					alt="Branded Logo"
+				/> : null}
+			</div>
+			<Overlay
+				show={overlay.show}
+				target={overlay.target}
+				placement="right"
+				containerPadding={20}
+			>
+				<Popover id="popover-contained" title="Not valid">
+					{overlay.message}
+				</Popover>
+			</Overlay>
+		</Fragment>
+	);
+};
 
 
 // PROPERTIES //
@@ -224,4 +214,4 @@ Login.defaultProps = {
 
 // EXPORTS //
 
-export default withTranslation( [ 'login', 'common' ] )( Login );
+export default Login;

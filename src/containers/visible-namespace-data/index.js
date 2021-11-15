@@ -19,7 +19,6 @@
 
 import React from 'react';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router';
 import NamespaceData from 'components/namespace-data';
 import { addAnnouncementInjector, deleteAnnouncementInjector, editAnnouncementInjector } from 'actions/announcement';
 import { getAvailableBadgesInjector } from 'actions/badge';
@@ -69,4 +68,4 @@ const VisibleNamespaceData = connect( mapStateToProps, mapDispatchToProps )( Nam
 
 // EXPORTS //
 
-export default withRouter( VisibleNamespaceData );
+export default VisibleNamespaceData;

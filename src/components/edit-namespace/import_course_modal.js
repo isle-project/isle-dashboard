@@ -17,7 +17,7 @@
 
 // MODULES //
 
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import SelectInput from 'react-select';
 import Button from 'react-bootstrap/Button';
@@ -27,64 +27,63 @@ import Form from 'react-bootstrap/Form';
 
 // MAIN //
 
-class ImportCourseModal extends Component {
-	constructor( props ) {
-		super( props );
+/**
+* A modal dialog for importing an existing course into a namespace.
+*
+* @param {Object} props - component props
+* @param {boolean} props.show - boolean indicating whether the modal is visible
+* @param {Function} props.close - callback to hide the modal
+* @param {Function} props.copyNamespaceLessons - callback to copy a course's lessons into a namespace
+* @param {Object} props.targetNamespace - target namespace
+* @param {Object} props.namespaces - available namespaces
+* @param {Function} props.t - translation function
+* @returns {ReactElement} modal dialog
+*/
+const ImportCourseModal = ({ namespaces, show, close, targetNamespace, copyNamespaceLessons, t }) => {
+	const [ selectedCourse, setSelectedCourse ] = useState( null );
 
-		this.state = {
-			selectedCourse: null
-		};
-	}
-
-	handleSelection = ( obj ) => {
-		this.setState({
-			selectedCourse: obj.value
-		});
+	const handleSelection = ( obj ) => {
+		setSelectedCourse( obj.value );
 	};
-
-	handleImport = async () => {
-		const res = await this.props.copyNamespaceLessons({
-			source: this.state.selectedCourse.title,
-			target: this.props.targetNamespace.title
+	const handleImport = async () => {
+		const res = await copyNamespaceLessons({
+			source: selectedCourse.title,
+			target: targetNamespace.title
 		});
 		if ( res instanceof Error === false ) {
-			this.props.close();
+			close();
 		}
 	};
-
-	render() {
-		const { t } = this.props;
-		const options = this.props.namespaces.map( x => {
-			return {
-				label: x.title,
-				value: x
-			};
-		});
-		return (
-			<Modal size="lg" show={this.props.show} onHide={this.props.close}>
-				<Modal.Header closeButton>
-					<Modal.Title as="h3">{t('import-course')}</Modal.Title>
-				</Modal.Header>
-				<Modal.Body>
-					<p>
-						{t('import-course-description')}
-					</p>
-					<Form.Group controlId="form-course-select" >
-						<Form.Label>{t('select-namespace')}</Form.Label>
-						<SelectInput
-							options={options}
-							onChange={this.handleSelection}
-						/>
-					</Form.Group>
-				</Modal.Body>
-				<Modal.Footer>
-					<Button onClick={this.props.close}>{t('common:cancel')}</Button>
-					<Button variant="success" disabled={!this.state.selectedCourse} onClick={this.handleImport}>{t('common:import')}</Button>
-				</Modal.Footer>
-			</Modal>
-		);
-	}
-}
+	const options = namespaces.map( x => {
+		return {
+			label: x.title,
+			value: x
+		};
+	});
+	return (
+		<Modal size="lg" show={show} onHide={close}>
+			<Modal.Header closeButton>
+				<Modal.Title as="h3">{t('import-course')}</Modal.Title>
+			</Modal.Header>
+			<Modal.Body>
+				<p>
+					{t('import-course-description')}
+				</p>
+				<Form.Group controlId="form-course-select" >
+					<Form.Label>{t('select-namespace')}</Form.Label>
+					<SelectInput
+						options={options}
+						onChange={handleSelection}
+					/>
+				</Form.Group>
+			</Modal.Body>
+			<Modal.Footer>
+				<Button onClick={close}>{t('common:cancel')}</Button>
+				<Button variant="success" disabled={!selectedCourse} onClick={handleImport}>{t('common:import')}</Button>
+			</Modal.Footer>
+		</Modal>
+	);
+};
 
 
 // PROPERTIES //
