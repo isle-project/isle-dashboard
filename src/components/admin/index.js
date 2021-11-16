@@ -157,7 +157,7 @@ const AdminPage = ( props ) => {
 						getEvents={props.getEvents}
 						triggerEvent={props.triggerEvent} />}
 					/>
-					<Route path="rooms" element={<Rooms
+					<Route path="active-rooms" element={<Rooms
 						admin={props.admin}
 						getRooms={props.getRooms} />}
 					/>
