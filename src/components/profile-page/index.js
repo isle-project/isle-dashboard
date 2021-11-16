@@ -425,9 +425,9 @@ class ProfilePage extends Component {
 								</div>
 							</Card.Body>
 						</Card>
-						<div>
-							<Button style={{ marginTop: 15 }} block onClick={this.toggleEditModal}>{t('edit-profile')}</Button>
-							{ showTicketingButton ? <Button style={{ marginTop: 15 }} block onClick={this.toggleTicketListModal}>{t('show-tickets')}</Button> : null}
+						<div className="d-grid gap-2" >
+							<Button style={{ marginTop: 15 }} onClick={this.toggleEditModal}>{t('edit-profile')}</Button>
+							{ showTicketingButton ? <Button style={{ marginTop: 15 }} onClick={this.toggleTicketListModal}>{t('show-tickets')}</Button> : null}
 						</div>
 					</div>
 				</div>

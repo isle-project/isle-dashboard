@@ -201,7 +201,7 @@ class DetailsModal extends Component {
 					<Modal.Header>
 						<Modal.Title as="h3">{t('lesson-details')}</Modal.Title>
 					</Modal.Header>
-					<Modal.Body>
+					<Modal.Body className="d-grid gap-2" >
 						<FormGroup>
 							<FormLabel>{t('common:title')}</FormLabel>
 							<FormControl

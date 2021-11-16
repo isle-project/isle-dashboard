@@ -162,7 +162,7 @@ class EditModal extends Component {
 							<Col md={4} >
 								<img src={`${server}/avatar/${this.props.user.picture}`} alt="Profile Pic" width="160px" />
 							</Col>
-							<Col md={4} >
+							<Col md={4} className="d-grid gap-2" >
 								<FormGroup
 									controlId="form-email"
 								>
@@ -210,7 +210,7 @@ class EditModal extends Component {
 									</FormGroup>
 								</OverlayTrigger>
 							</Col>
-							<Col md={4} >
+							<Col md={4} className="d-grid gap-2" >
 								<OverlayTrigger placement="right" overlay={createTooltip( t('admin:enter-new-password') )}>
 									<FormGroup
 										controlId="form-password"
@@ -333,7 +333,7 @@ class EditModal extends Component {
 						</Row>
 					</Form>
 					<Card>
-						<Button block disabled={false} onClick={this.handleUpdate}>
+						<Button disabled={false} onClick={this.handleUpdate}>
 							{t('common:update')}
 						</Button>
 					</Card>

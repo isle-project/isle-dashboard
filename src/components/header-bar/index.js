@@ -220,7 +220,7 @@ const CoursesButton = ({ user, namespace, goBackToLesson, onEnroll, ownedClickFa
 			>
 				<Popover id="popover-courses" onClick={() => {
 					setShowNamespacesOverlay( false );
-				}}>
+				}} className="d-grid">
 					{ user.ownedNamespaces.length > 0 ? <Fragment>
 						<span className="label-display">{t('owned-courses')}</span>
 						{namespaceListGroup( user.ownedNamespaces, ownedClickFactory )}
@@ -230,7 +230,7 @@ const CoursesButton = ({ user, namespace, goBackToLesson, onEnroll, ownedClickFa
 						<span className="label-display">{t('enrolled-courses')}</span>
 						{namespaceListGroup( user.enrolledNamespaces, enrolledClickFactory )}
 					</Fragment> : null}
-					<Button onClick={onEnroll} style={{ marginTop: 10 }} size="sm" block variant="outline-success" >
+					<Button onClick={onEnroll} style={{ marginTop: 10 }} size="sm" variant="outline-success" >
 						{t('enroll')}
 					</Button>
 				</Popover>

@@ -352,8 +352,8 @@ class EditModal extends Component {
 							/>
 						</Col>
 					</Form>
-					<Row style={{ paddingTop: 10 }} >
-						<Button block disabled={!this.state.changed || !validName || ( !validPasswords && enteredPasswords )} onClick={this.handleUpdate}>
+					<Row style={{ paddingTop: 10 }} className="d-grid" >
+						<Button disabled={!this.state.changed || !validName || ( !validPasswords && enteredPasswords )} onClick={this.handleUpdate}>
 							{t('common:update')}
 						</Button>
 					</Row>
