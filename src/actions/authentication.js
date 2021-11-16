@@ -21,7 +21,7 @@ import axios from 'axios';
 import logger from 'debug';
 import server from 'constants/server';
 import { addErrorNotification } from 'actions/notification.js';
-import { loggedIn, receivedToken } from 'actions/user';
+import { loggedIn } from 'actions/user';
 
 
 // VARIABLES //

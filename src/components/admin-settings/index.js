@@ -80,31 +80,31 @@ const Settings = ( props ) => {
 					getLicense={props.getLicense}
 					user={props.user}
 					removeLicense={props.removeLicense}
-					getUsers={props.getUsers} /> }
+					getUsers={props.getUsers} />}
 				/>
 				<Route path="configuration" element={<Configuration
 					admin={props.admin}
 					user={props.user}
 					getSettings={props.getSettings}
-					updateSettings={props.updateSettings} /> }
+					updateSettings={props.updateSettings} />}
 				/>
 				<Route path="branding" element={<Branding
 					admin={props.admin}
 					user={props.user}
 					uploadLogo={props.uploadLogo}
-					updateSettings={props.updateSettings} /> }
+					updateSettings={props.updateSettings} />}
 				/>
 				<Route path="texts" element={<Texts
 					addCustomTranslation={props.addCustomTranslation}
 					translations={props.translations}
-					removeCustomTranslation={props.removeCustomTranslation} /> }
+					removeCustomTranslation={props.removeCustomTranslation} />}
 				/>
 				<Route path="credentials" element={<Roles
 					admin={props.admin}
 					createRole={props.createRole}
 					getAllRoles={props.getAllRoles}
 					deleteRole={props.deleteRole}
-					updateRole={props.updateRole} /> }
+					updateRole={props.updateRole} />}
 				/>
 				<Route path="user-fields" element={<UserFields
 					admin={props.admin}
@@ -113,14 +113,14 @@ const Settings = ( props ) => {
 					deleteCustomField={props.deleteCustomField}
 					getCustomFields={props.getCustomFields}
 					incrementFieldPosition={props.incrementFieldPosition}
-					decrementFieldPosition={props.decrementFieldPosition} /> }
+					decrementFieldPosition={props.decrementFieldPosition} />}
 				/>
 				<Route path="backups" element={<Backups
 					admin={props.admin}
 					user={props.user}
 					createBackup={props.createBackup}
 					getBackups={props.getBackups}
-					deleteBackup={props.deleteBackup} /> }
+					deleteBackup={props.deleteBackup} />}
 				/>
 			</Routes>
 		</Fragment>
