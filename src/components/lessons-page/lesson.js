@@ -254,7 +254,7 @@ class Lesson extends Component {
 			</Tooltip>} >
 				<Badge
 					className="lessons-status"
-					variant={activeStyle}
+					bg={activeStyle}
 					style={{
 						opacity: 0.3
 					}}
@@ -268,7 +268,7 @@ class Lesson extends Component {
 				<Badge
 					className="lessons-status"
 					onClick={this.toggleLessonState}
-					variant={activeStyle}
+					bg={activeStyle}
 				>
 					{this.props.active ? t('active') : t('inactive')}
 				</Badge>
@@ -302,7 +302,7 @@ class Lesson extends Component {
 			</ButtonGroup>
 			{this.renderActivateButton()}
 			<OverlayTrigger placement="top" overlay={<Tooltip id="toggle_visibility">{this.props.public ? t('remove-from-gallery') : t('show-in-gallery') }</Tooltip>}>
-				<Badge className="lessons-status" onClick={this.toggleLessonVisibility} variant={publicStyle}>{this.props.public ? t(('public')) : t('private')}</Badge>
+				<Badge className="lessons-status" onClick={this.toggleLessonVisibility} bg={publicStyle}>{this.props.public ? t(('public')) : t('private')}</Badge>
 			</OverlayTrigger>
 			{ this.renderButtonToolbarDate() }
 		</ButtonToolbar> );

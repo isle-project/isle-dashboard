@@ -386,7 +386,7 @@ class FilesPage extends Component {
 				</ButtonGroup>
 				{ this.props.ownerFiles ? <FormGroup className="file-upload-button" >
 					<FormLabel htmlFor="fileUpload" style={{ cursor: 'pointer' }}>
-						<Badge id="file-upload-badge" variant="success">{t('upload-file')}</Badge>
+						<Badge id="file-upload-badge" bg="success">{t('upload-file')}</Badge>
 						<input
 							id="fileUpload"
 							key={this.state.fileInputKey}

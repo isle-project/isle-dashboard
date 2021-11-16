@@ -225,7 +225,7 @@ class EditNamespace extends Component {
 						<span style={{ marginLeft: 5, color: 'black' }} >
 							({t('no-students')}:
 						</span>
-						<Badge variant="primary">{cohort.members.length}</Badge>
+						<Badge bg="primary">{cohort.members.length}</Badge>
 						<span style={{ color: 'black' }} >)</span>
 						<Button size="sm" onClick={this.cohortModalFactory( idx )} style={{ float: 'right' }}>{t('common:edit')}</Button>
 					</ListGroupItem>

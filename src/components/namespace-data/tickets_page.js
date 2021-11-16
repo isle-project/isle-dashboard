@@ -210,11 +210,11 @@ class TicketsPage extends Component {
 							break;
 					}
 					return ( <div>
-						<Badge variant={variant} style={{ marginRight: 6, fontSize: '1em' }} >
+						<Badge bg={variant} style={{ marginRight: 6, fontSize: '1em' }} >
 							{row.value}
 						</Badge>
 						<Button
-							size="sm" variant="outline-secondary"
+							size="sm" bg="outline-secondary"
 							onClick={() => {
 								this.props.updatePriority( row.original._id, higher );
 							}}
@@ -223,7 +223,7 @@ class TicketsPage extends Component {
 							<i className="fas fa-arrow-up"></i>
 						</Button>
 						<Button
-							size="sm" variant="outline-secondary"
+							size="sm" bg="outline-secondary"
 							onClick={() => {
 								this.props.updatePriority( row.original._id, lower );
 							}}
@@ -245,7 +245,7 @@ class TicketsPage extends Component {
 					const url = `${server}/${this.props.namespace.title}/${row.value}`;
 					return (
 						<OverlayTrigger placement="right" overlay={<Tooltip id="open-lesson-tooltip">{t('namespace_data:open-lesson-new-tab')}</Tooltip>}>
-							<Badge variant="light" style={{ fontSize: '1em' }} >
+							<Badge bg="light" style={{ fontSize: '1em' }} >
 								<a href={url} target="_blank" rel="noopener noreferrer" >
 									{row.value}
 								</a>

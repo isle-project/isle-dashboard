@@ -166,7 +166,7 @@ class ProfilePicModal extends Component {
 				<Modal.Body style={{ paddingBottom: 0 }}>
 					<Form.Group style={{ marginBottom: 0 }}>
 						<Form.Label htmlFor="imageUpload" style={{ cursor: 'pointer' }}>
-							<h3><Badge variant="success">{t('select-file')}</Badge></h3>
+							<h3><Badge bg="success">{t('select-file')}</Badge></h3>
 						</Form.Label>
 						<FormControl
 							id="imageUpload"

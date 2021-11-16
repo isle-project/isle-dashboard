@@ -131,7 +131,7 @@ class TicketListModal extends Component {
 							}}
 						>
 							{t('common:messages')}
-							<Badge className="ticket-badge" variant="secondary" >{ticket.messages.length}</Badge>
+							<Badge className="ticket-badge" bg="secondary" >{ticket.messages.length}</Badge>
 						</Button>
 					</ListGroup.Item>
 				);
@@ -149,7 +149,7 @@ class TicketListModal extends Component {
 							{t('common:open-ticket')}
 						</Tooltip>}>
 							<Button
-								variant="outline-secondary"
+								bg="outline-secondary"
 								size="sm" style={{ float: 'right', marginLeft: 6 }}
 								onClick={() => {
 									this.props.openTicket( ticket._id );
@@ -169,7 +169,7 @@ class TicketListModal extends Component {
 							}}
 						>
 							{t('common:messages')}
-							<Badge className="ticket-badge" variant="secondary" >{ticket.messages.length}</Badge>
+							<Badge className="ticket-badge" bg="secondary" >{ticket.messages.length}</Badge>
 						</Button>
 					</ListGroup.Item>
 				);

@@ -242,7 +242,7 @@ class TicketPage extends Component {
 							break;
 					}
 					return ( <div>
-						<Badge variant={variant} style={{ marginRight: 6, fontSize: '1em' }} >
+						<Badge bg={variant} style={{ marginRight: 6, fontSize: '1em' }} >
 							{row.value}
 						</Badge>
 						<Button
@@ -278,7 +278,7 @@ class TicketPage extends Component {
 					}
 					const url = `${server}/${row.original.namespace.title}/${row.value}`;
 					return (
-						<Badge variant="light" style={{ fontSize: '1em' }} >
+						<Badge bg="light" style={{ fontSize: '1em' }} >
 							<a href={url} target="_blank" rel="noopener noreferrer" >
 								{row.value}
 							</a>

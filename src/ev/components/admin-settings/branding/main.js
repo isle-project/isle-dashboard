@@ -82,7 +82,7 @@ const BrandingFileUpload = ({ name, t, uploadLogo, user }) => {
 		<Fragment>
 			<Form.Group style={{ marginBottom: 0 }}>
 				<Form.Label htmlFor={`${name}Upload`} style={{ cursor: 'pointer' }}>
-					<h3><Badge variant="success">{t('select-file')}</Badge></h3>
+					<h3><Badge bg="success">{t('select-file')}</Badge></h3>
 				</Form.Label>
 				<Form.Control
 					id={`${name}Upload`}
@@ -98,7 +98,7 @@ const BrandingFileUpload = ({ name, t, uploadLogo, user }) => {
 							aria-label={t('common:confirm')}
 							className="branding-confirm-btn"
 							onClick={handleConfirm}
-							variant="success" size="sm"
+							bg="success" size="sm"
 						>
 							<i className="fas fa-check" />
 						</Button>
@@ -106,7 +106,7 @@ const BrandingFileUpload = ({ name, t, uploadLogo, user }) => {
 							aria-label={t('common:reset')}
 							className="branding-reset-btn"
 							onClick={handleReset}
-							variant="warning" size="sm"
+							bg="warning" size="sm"
 						>
 							<i className="fas fa-times" />
 						</Button>

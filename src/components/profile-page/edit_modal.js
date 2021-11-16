@@ -174,14 +174,14 @@ class EditModal extends Component {
 				</Modal.Header>
 				<Modal.Body>
 					<Form as={Row} >
-						<Col sm={6} >
+						<Col sm={6} className="d-grid gap-2" >
 							<FormGroup
 								controlId="form-email"
 							>
 								<FormLabel style={{ width: '100%' }}>
 									{t('common:email')}
 									{!user.verifiedEmail ? <Badge
-										variant="danger" style={{ float: 'right' }}
+										bg="danger" style={{ float: 'right' }}
 									>{t('common:email-not-verified')}
 										<OverlayTrigger placement="right" overlay={createTooltip( t('resend-confirm-email') )}>
 											<Button
@@ -304,7 +304,7 @@ class EditModal extends Component {
 								);
 							})}
 						</Col>
-						<Col sm={6} >
+						<Col sm={6} className="d-grid gap-3" >
 							<OverlayTrigger placement="right" overlay={createTooltip( t('enter-password') )}>
 								<FormGroup
 									controlId="form-password"
@@ -344,7 +344,6 @@ class EditModal extends Component {
 									{t('invalid-password')}
 								</Form.Control.Feedback>
 							</FormGroup>
-							<hr />
 							<TwoFactorAuthentication
 								user={this.props.user} t={this.props.t}
 								disableTFA={this.props.disableTFA}

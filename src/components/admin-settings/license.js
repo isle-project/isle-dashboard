@@ -188,7 +188,7 @@ class LicensePage extends Component {
 			<div className="admin-settings-outer-container" >
 				<FormGroup className="license-upload-button" >
 					<FormLabel htmlFor="fileUpload" style={{ cursor: 'pointer' }}>
-						<h2><Badge variant="secondary" >{t('upload-new-license')}</Badge></h2>
+						<h2><Badge bg="secondary" >{t('upload-new-license')}</Badge></h2>
 						<input
 							id="fileUpload"
 							type="file"
