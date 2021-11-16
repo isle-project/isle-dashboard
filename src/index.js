@@ -24,9 +24,9 @@ import localforage from 'localforage';
 import { Provider } from 'react-redux';
 import { persistStore, persistReducer } from 'redux-persist';
 import { PersistGate } from 'redux-persist/integration/react';
-import { createHashHistory } from 'history';
-import { createStore, applyMiddleware } from 'redux';
-import { routerMiddleware } from 'connected-react-router';
+import { createStore } from 'redux';
+import { BrowserRouter } from 'react-router-dom';
+import { HelmetProvider } from 'react-helmet-async';
 import createRootReducer from 'reducers';
 import App from 'containers/app.js';
 import * as serviceWorker from './service_worker.js';
@@ -42,13 +42,10 @@ const persistConfig = {
 	blacklist: [ 'router', 'license', 'requestTFA' ],
 	storage: localforage
 };
-const history = createHashHistory();
 const rootReducer = createRootReducer( history );
 const persistedReducer = persistReducer( persistConfig, rootReducer );
 
-// Apply the middleware to the store:
-const middleware = routerMiddleware( history );
-export const store = createStore( persistedReducer, applyMiddleware( middleware ) );
+export const store = createStore( persistedReducer );
 const persistor = persistStore( store );
 
 
@@ -57,7 +54,11 @@ const persistor = persistStore( store );
 ReactDOM.render(
 	<Provider store={store} >
 		<PersistGate loading={null} persistor={persistor}>
-			<App history={history} />
+			<HelmetProvider>
+				<BrowserRouter >
+					<App />
+				</BrowserRouter>
+			</HelmetProvider>
 		</PersistGate>
 	</Provider>,
 	document.getElementById( 'root' )

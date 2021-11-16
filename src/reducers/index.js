@@ -18,7 +18,6 @@
 // MODULES //
 
 import { combineReducers } from 'redux';
-import { connectRouter } from 'connected-react-router';
 import admin from './admin';
 import badges from './badges';
 import cohorts from './cohorts';
@@ -33,14 +32,13 @@ import user from './user';
 
 // EXPORTS //
 
-export default ( history ) => combineReducers({
+export default () => combineReducers({
 	admin,
 	badges,
 	cohorts,
 	gallery,
 	namespace,
 	notification,
-	router: connectRouter( history ),
 	search,
 	settings,
 	translations,
