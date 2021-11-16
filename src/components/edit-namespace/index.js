@@ -256,7 +256,7 @@ class EditNamespace extends Component {
 								</Card.Title>
 							</Card.Header>
 							<Card.Body>
-								<Form style={{ padding: '20px' }}>
+								<Form style={{ padding: '20px' }} className="d-grid gap-3" >
 									<OverlayTrigger placement="right" overlay={<Tooltip id="ownerTooltip">{t('owner-tooltip')}</Tooltip>}>
 										<FormGroup >
 											<FormLabel htmlFor="owners-text-select" >{t('common:owners')}</FormLabel>

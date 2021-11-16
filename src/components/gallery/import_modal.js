@@ -86,7 +86,7 @@ class ImportModal extends Component {
 						{t('import-lesson')}<span style={{ color: 'darkred' }}>{this.props.namespace}: {this.props.title}</span>
 					</Modal.Title>
 				</Modal.Header>
-				<Modal.Body>
+				<Modal.Body className="d-grid gap-2">
 					<p>{t('import-lesson-description')}</p>
 					<FormGroup>
 						<FormLabel>{t('select-course')}</FormLabel>
