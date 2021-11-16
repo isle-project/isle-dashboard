@@ -411,7 +411,7 @@ Lesson.propTypes = {
 	description: PropTypes.string.isRequired,
 	getIsleFile: PropTypes.func.isRequired,
 	getLessons: PropTypes.func.isRequired,
-	hideFromDashboard: PropTypes.bool.isRequired,
+	hideFromDashboard: PropTypes.bool,
 	hideLessonInGallery: PropTypes.func.isRequired,
 	lockAfter: PropTypes.instanceOf( Date ),
 	lockUntil: PropTypes.instanceOf( Date ),
@@ -426,6 +426,7 @@ Lesson.propTypes = {
 };
 
 Lesson.defaultProps = {
+	hideFromDashboard: false,
 	lockAfter: null,
 	lockUntil: null
 };
