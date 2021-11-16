@@ -18,7 +18,7 @@
 // MODULES //
 
 import React from 'react';
-import { Router } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
 import { createMemoryHistory } from 'history';
 import { fireEvent, render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
@@ -33,18 +33,18 @@ describe( '<Login />', function test() {
 
 	it( 'should render without throwing an error', () => {
 		render(
-			<Router history={history}>
+			<BrowserRouter>
 				<Login handleLogin={noop} fetchCredentials={noop} getEnrollableCohorts={noop} restoreLogin={noop} settings={{ siteTitle: 'Dashboard' }} user={{}} />
-			</Router>
+			</BrowserRouter>
 		);
 		expect( screen.getByRole( 'heading' ) ).toHaveTextContent( 'Dashboard' );
 	});
 
 	it( 'should update email field on change', () => {
 		const { queryByPlaceholderText } = render(
-			<Router history={history}>
+			<BrowserRouter>
 				<Login handleLogin={noop} fetchCredentials={noop} getEnrollableCohorts={noop} restoreLogin={noop} settings={{}} user={{}} />
-			</Router>
+			</BrowserRouter>
 		);
 		const emailInput = queryByPlaceholderText( 'common:email' );
 		const expected = 'isle@stat.cmu.edu';
@@ -59,9 +59,9 @@ describe( '<Login />', function test() {
 
 	it( 'should update password field on change', () => {
 		const { queryByPlaceholderText } = render(
-			<Router history={history}>
+			<BrowserRouter>
 				<Login handleLogin={noop} fetchCredentials={noop} getEnrollableCohorts={noop} restoreLogin={noop} settings={{}} user={{}} />
-			</Router>
+			</BrowserRouter>
 		);
 		const passwordInput = queryByPlaceholderText( 'common:password' );
 		const expected = 'birthday';

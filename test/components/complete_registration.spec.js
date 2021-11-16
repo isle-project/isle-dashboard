@@ -18,8 +18,7 @@
 // MODULES //
 
 import React from 'react';
-import { Router } from 'react-router-dom';
-import { createMemoryHistory } from 'history';
+import { BrowserRouter } from 'react-router-dom';
 import { fireEvent, render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 import CompleteRegistration from '../../src/components/complete-registration';
@@ -28,22 +27,20 @@ import CompleteRegistration from '../../src/components/complete-registration';
 // TESTS //
 
 describe( '<CompleteRegistration />', function test() {
-	const history = createMemoryHistory();
-
 	it( 'should render without throwing an error', () => {
 		render(
-			<Router history={history}>
+			<BrowserRouter>
 				<CompleteRegistration settings={{}} />
-			</Router>
+			</BrowserRouter>
 		);
 		expect( screen.getByRole( 'heading' ) ).toHaveTextContent( 'Complete Registration' );
 	});
 
 	it( 'should update name field on change', () => {
 		const { queryByPlaceholderText } = render(
-			<Router history={history}>
+			<BrowserRouter>
 				<CompleteRegistration settings={{}} />
-			</Router>
+			</BrowserRouter>
 		);
 		const nameInput = queryByPlaceholderText( 'enter-name' );
 		const expected = 'ISLE User';
@@ -58,9 +55,9 @@ describe( '<CompleteRegistration />', function test() {
 
 	it( 'should update password field on change', () => {
 		const { queryByPlaceholderText } = render(
-			<Router history={history}>
+			<BrowserRouter>
 				<CompleteRegistration settings={{}} />
-			</Router>
+			</BrowserRouter>
 		);
 		const passwordInput = queryByPlaceholderText( 'common:choose-new-password' );
 		const expected = 'birthday';
@@ -75,9 +72,9 @@ describe( '<CompleteRegistration />', function test() {
 
 	it( 'should update password confirmation field on change', () => {
 		const { queryByPlaceholderText } = render(
-			<Router history={history}>
+			<BrowserRouter>
 				<CompleteRegistration settings={{}} />
-			</Router>
+			</BrowserRouter>
 		);
 		const passwordInput = queryByPlaceholderText( 'signup:confirm-password' );
 		const expected = 'birthday';

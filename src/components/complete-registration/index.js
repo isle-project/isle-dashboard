@@ -265,7 +265,7 @@ const CompleteRegistration = ({ settings }) => {
 									type="submit"
 									onClick={handleSubmit}
 									className="centered"
-									disabled={!validateName() || !validPasswords()}
+									disabled={!validateName() || !validPasswords}
 								>Confirm</Button>
 							</FormGroup>
 						</Form>

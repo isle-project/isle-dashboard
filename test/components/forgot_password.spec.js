@@ -18,8 +18,7 @@
 // MODULES //
 
 import React from 'react';
-import { Router } from 'react-router-dom';
-import { createMemoryHistory } from 'history';
+import { BrowserRouter } from 'react-router-dom';
 import { fireEvent, render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 import noop from '@stdlib/utils/noop';
@@ -29,22 +28,20 @@ import ForgotPassword from '../../src/components/forgot-password';
 // TESTS //
 
 describe( '<ForgotPassword />', function test() {
-	const history = createMemoryHistory();
-
 	it( 'should render without throwing an error', () => {
 		render(
-			<Router history={history}>
+			<BrowserRouter>
 				<ForgotPassword forgotPassword={noop} settings={{}} />
-			</Router>
+			</BrowserRouter>
 		);
 		expect( screen.getByRole( 'heading' ) ).toHaveTextContent( 'common:forgot-password' );
 	});
 
 	it( 'should update email field on change', () => {
 		const { queryByPlaceholderText } = render(
-			<Router history={history}>
+			<BrowserRouter>
 				<ForgotPassword forgotPassword={noop} settings={{}} />
-			</Router>
+			</BrowserRouter>
 		);
 		const emailInput = queryByPlaceholderText( 'common:enter-email' );
 		const expected = 'isle@stat.cmu.edu';

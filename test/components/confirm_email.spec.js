@@ -18,43 +18,36 @@
 // MODULES //
 
 import React from 'react';
-import { Router } from 'react-router-dom';
-import { createMemoryHistory } from 'history';
-import { render, screen } from '@testing-library/react';
+import { BrowserRouter } from 'react-router-dom';
+import { render, screen, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
-import noop from '@stdlib/utils/noop';
 import ConfirmEmail from '../../src/components/confirm-email';
 
 
 // TESTS //
 
 describe( '<ConfirmEmail />', function test() {
-	const history = createMemoryHistory();
-
-	it( 'should render without throwing an error', () => {
+	it( 'should render without throwing an error', async () => {
 		render(
-			<Router history={history}>
-				<ConfirmEmail confirmEmail={noop} settings={{}} />
-			</Router>
+			<BrowserRouter>
+				<ConfirmEmail confirmEmail={() => Promise.resolve( true )} settings={{}} />
+			</BrowserRouter>
 		);
-		expect( screen.getByRole( 'heading' ) ).toHaveTextContent( 'common:confirm-email' );
+		await waitFor(() => {
+			expect( screen.getByRole( 'heading' ) ).toHaveTextContent( 'common:confirm-email' );
+		});
 	});
 
-	it( 'should display a message retrieved from server', () => {
+	it( 'should display a message retrieved from server', async () => {
 		const msg = 'Your email is confirmed';
 		const { queryByTestId } = render(
-			<Router history={history}>
-				<ConfirmEmail confirmEmail={() => {
-					return new Promise( () => {
-						return msg;
-					}).then( () => {
-						const msgParagraph = queryByTestId( 'message' );
-						expect( msgParagraph ).toHaveTextContent( msg );
-					});
-				}} settings={{}} />
-			</Router>
+			<BrowserRouter>
+				<ConfirmEmail confirmEmail={() => Promise.resolve( msg )} settings={{}} />
+			</BrowserRouter>
 		);
-		const msgParagraph = queryByTestId( 'message' );
-		expect( msgParagraph ).toHaveTextContent( 'common:waiting' );
+		await waitFor(() => {
+			const msgParagraph = queryByTestId( 'message' );
+			expect( msgParagraph ).toHaveTextContent( msg );
+		});
 	});
 });

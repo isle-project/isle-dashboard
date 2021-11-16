@@ -1,6 +1,7 @@
 // MODULES //
 
 import React from 'react';
+import identity from '@stdlib/utils/identity-function';
 
 
 // EXPORTS //
@@ -15,3 +16,9 @@ export const withTranslation = () => {
 export const Trans = ({ children }) => children;
 
 export const translate = () => Component => props => <Component t={() => ''} {...props} />;
+
+export const useTranslation = () => {
+	return {
+		t: identity
+	};
+};

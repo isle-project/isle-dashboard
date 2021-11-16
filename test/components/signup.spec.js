@@ -18,8 +18,7 @@
 // MODULES //
 
 import React from 'react';
-import { Router } from 'react-router-dom';
-import { createMemoryHistory } from 'history';
+import { BrowserRouter } from 'react-router-dom';
 import { fireEvent, render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 import noop from '@stdlib/utils/noop';
@@ -29,22 +28,20 @@ import Signup from './../../src/components/signup';
 // TESTS //
 
 describe( '<Signup />', function test() {
-	const history = createMemoryHistory();
-
 	it( 'should render without throwing an error', () => {
 		render(
-			<Router history={history}>
+			<BrowserRouter>
 				<Signup createUser={noop} getCustomFields={noop} settings={{}} />
-			</Router>
+			</BrowserRouter>
 		);
 		expect( screen.getByRole( 'heading' ) ).toHaveTextContent( 'Dashboard' );
 	});
 
 	it( 'should update email field on change', () => {
 		const { queryByPlaceholderText } = render(
-			<Router history={history}>
+			<BrowserRouter>
 				<Signup createUser={noop} getCustomFields={noop} settings={{}} />
-			</Router>
+			</BrowserRouter>
 		);
 		const emailInput = queryByPlaceholderText( 'common:enter-email' );
 		const expected = 'isle@stat.cmu.edu';
@@ -59,9 +56,9 @@ describe( '<Signup />', function test() {
 
 	it( 'should update name field on change', () => {
 		const { queryByPlaceholderText } = render(
-			<Router history={history}>
+			<BrowserRouter>
 				<Signup createUser={noop} getCustomFields={noop} settings={{}} />
-			</Router>
+			</BrowserRouter>
 		);
 		const nameInput = queryByPlaceholderText( 'common:enter-name' );
 		const expected = 'ISLE User';
@@ -76,9 +73,9 @@ describe( '<Signup />', function test() {
 
 	it( 'should update password field on change', () => {
 		const { queryByPlaceholderText } = render(
-			<Router history={history}>
+			<BrowserRouter>
 				<Signup createUser={noop} getCustomFields={noop} settings={{}} />
-			</Router>
+			</BrowserRouter>
 		);
 		const passwordInput = queryByPlaceholderText( 'choose-password' );
 		const expected = 'birthday';
@@ -93,9 +90,9 @@ describe( '<Signup />', function test() {
 
 	it( 'should update password confirmation field on change', () => {
 		const { queryByPlaceholderText } = render(
-			<Router history={history}>
+			<BrowserRouter>
 				<Signup createUser={noop} getCustomFields={noop} settings={{}} />
-			</Router>
+			</BrowserRouter>
 		);
 		const passwordInput = queryByPlaceholderText( 'confirm-password' );
 		const expected = 'birthday';
