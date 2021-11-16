@@ -49,7 +49,6 @@ const AsyncNewPassword = lazy(() => import( 'containers/visible-new-password' ))
 const AsyncCompleteRegistration = lazy(() => import( 'containers/visible-complete-registration' ));
 const AsyncConfirmEmail = lazy(() => import( 'containers/visible-confirm-email' ));
 const AsyncAdminPage = lazy(() => import( 'containers/visible-admin' ));
-const AsyncAdminSettings = lazy(() => import( 'containers/visible-admin-settings' ));
 const AsyncLogin = lazy(() => import( 'containers/visible-login' ));
 const AsyncLoginTFA = lazy(() => import( 'containers/visible-login-tfa' ));
 const AsyncSignup = lazy(() => import( 'containers/visible-signup' ));
@@ -217,18 +216,6 @@ const App =({ isLoggedIn, dispatch, getCustomTranslations, getPublicSettings, fe
 						path="/admin/*"
 						element={<Suspense fallback={<div>Loading...</div>}>
 							<AsyncAdminPage />
-						</Suspense>}
-					/>
-					<Route
-						path="/admin/settings"
-						element={<Suspense fallback={<div>Loading...</div>}>
-							<AsyncAdminSettings />
-						</Suspense>}
-					/>
-					<Route
-						path="/admin/settings/:subpage"
-						element={<Suspense fallback={<div>Loading...</div>}>
-							<AsyncAdminSettings />
 						</Suspense>}
 					/>
 				</Routes>

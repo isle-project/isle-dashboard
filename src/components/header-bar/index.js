@@ -428,7 +428,7 @@ const HeaderBar = ({ logout, namespace, user, search, onEnrolledNamespace, onNam
 		setLocation( t('common:course') );
 	};
 	const goToAdminPage = () => {
-		navigate( '/admin' );
+		navigate( '/admin/overview' );
 		setLocation( 'Administrator Panel' );
 		setSearchPhrase( '' );
 	};

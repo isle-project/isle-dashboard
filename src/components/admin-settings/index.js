@@ -17,9 +17,10 @@
 
 // MODULES //
 
-import React, { Component } from 'react';
+import React, { useState, Fragment } from 'react';
 import PropTypes from 'prop-types';
-import { withTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
+import { useNavigate, Route, Routes } from 'react-router-dom';
 import Nav from 'react-bootstrap/Nav';
 import asyncComponent from 'components/async';
 const Configuration = asyncComponent( () => import( './configuration.js' ) );
@@ -34,194 +35,98 @@ import './admin_settings.css';
 
 // MAIN //
 
-class Settings extends Component {
-	constructor( props ) {
-		super( props );
-
-		const subpage = props.match.params.subpage;
-		let activePage;
-		switch ( subpage ) {
-			default:
-			case 'license':
-				activePage = 0;
-				break;
-			case 'configuration':
-				activePage = 1;
-				break;
-			case 'branding':
-				activePage = 2;
-				break;
-			case 'texts':
-				activePage = 3;
-				break;
-			case 'credentials':
-				activePage = 4;
-				break;
-			case 'badges':
-				activePage = 5;
-				break;
-			case 'user-fields':
-				activePage = 6;
-				break;
-			case 'backups':
-				activePage = 7;
-				break;
-		}
-		this.state = {
-			activePage
-		};
-	}
-
-	handleSelect = ( selectedKey ) => {
-		selectedKey = Number( selectedKey );
-		const { history } = this.props;
-		switch ( selectedKey ) {
-			case 0:
-				history.replace( '/admin/settings/license' );
-				break;
-			case 1:
-				history.replace( '/admin/settings/configuration' );
-				break;
-			case 2:
-				history.replace( '/admin/settings/branding' );
-				break;
-			case 3:
-				history.replace( '/admin/settings/texts' );
-				break;
-			case 4:
-				history.replace( '/admin/settings/credentials' );
-				break;
-			case 5:
-				history.replace( '/admin/settings/badges' );
-				break;
-			case 6:
-				history.replace( '/admin/settings/user-fields' );
-				break;
-			case 7:
-				history.replace( '/admin/settings/backups' );
-				break;
-		}
-		this.setState({
-			activePage: selectedKey
-		});
+const Settings = ( props ) => {
+	const [ activePage, setActivePage ] = useState( window.location.pathname );
+	const { t } = useTranslation( [ 'admin_settings', 'common' ] );
+	const navigate = useNavigate();
+	const handleSelect = ( selectedKey ) => {
+		navigate( selectedKey );
+		setActivePage( selectedKey );
 	};
-
-	renderPage() {
-		switch ( this.state.activePage ) {
-			case 0:
-				return ( <License
-					admin={this.props.admin}
-					uploadLicense={this.props.uploadLicense}
-					getLicense={this.props.getLicense}
-					user={this.props.user}
-					removeLicense={this.props.removeLicense}
-					getUsers={this.props.getUsers}
-				/> );
-			case 1:
-				return (
-					<Configuration
-						admin={this.props.admin}
-						user={this.props.user}
-						getSettings={this.props.getSettings}
-						updateSettings={this.props.updateSettings}
-					/>
-				);
-			case 2:
-				return (
-					<Branding
-						admin={this.props.admin}
-						user={this.props.user}
-						uploadLogo={this.props.uploadLogo}
-						updateSettings={this.props.updateSettings}
-					/>
-				);
-			case 3:
-				return (
-					<Texts
-						addCustomTranslation={this.props.addCustomTranslation}
-						translations={this.props.translations}
-						removeCustomTranslation={this.props.removeCustomTranslation}
-					/>
-				);
-			case 4:
-				return (
-					<Roles
-						admin={this.props.admin}
-						createRole={this.props.createRole}
-						getAllRoles={this.props.getAllRoles}
-						deleteRole={this.props.deleteRole}
-						updateRole={this.props.updateRole}
-					/>
-				);
-			case 5:
-				return (
-					<div>BADGES</div>
-				);
-			case 6:
-				return (
-					<UserFields
-						admin={this.props.admin}
-						user={this.props.user}
-						createCustomField={this.props.createCustomField}
-						deleteCustomField={this.props.deleteCustomField}
-						getCustomFields={this.props.getCustomFields}
-						incrementFieldPosition={this.props.incrementFieldPosition}
-						decrementFieldPosition={this.props.decrementFieldPosition}
-					/>
-				);
-			case 7:
-				return (
-					<Backups
-						admin={this.props.admin}
-						user={this.props.user}
-						createBackup={this.props.createBackup}
-						getBackups={this.props.getBackups}
-						deleteBackup={this.props.deleteBackup}
-					/>
-				);
-		}
-	}
-
-	render() {
-		const page = this.renderPage();
-		const { t } = this.props;
-		return (
-			<div className="admin-settings-div" >
-				<div className="admin-settings-navbar" >
-					<Nav variant="pills" activeKey={this.state.activePage} onSelect={this.handleSelect}>
-						<Nav.Item>
-							<Nav.Link eventKey="0" title="License" >{t('license')}</Nav.Link>
-						</Nav.Item>
-						<Nav.Item>
-							<Nav.Link eventKey="1" title="Configuration" >{t('configuration')}</Nav.Link>
-						</Nav.Item>
-						<Nav.Item>
-							<Nav.Link eventKey="2" title="Branding" >{t('branding')}</Nav.Link>
-						</Nav.Item>
-						<Nav.Item>
-							<Nav.Link eventKey="3" title="Texts" >{t('common:texts')}</Nav.Link>
-						</Nav.Item>
-						<Nav.Item>
-							<Nav.Link eventKey="4" title="Roles" >{t('roles')}</Nav.Link>
-						</Nav.Item>
-						<Nav.Item>
-							<Nav.Link disabled eventKey="5" title="Badges" >{t('common:badges')}</Nav.Link>
-						</Nav.Item>
-						<Nav.Item>
-							<Nav.Link eventKey="6" title="User Fields" >{t('user-fields')}</Nav.Link>
-						</Nav.Item>
-						<Nav.Item>
-							<Nav.Link eventKey="7" title="Backups" >{t('backups')}</Nav.Link>
-						</Nav.Item>
-					</Nav>
-				</div>
-				<div className="admin-settings-container" >
-					{page}
-				</div>
+	return (
+		<Fragment>
+			<div className="admin-settings-navbar" >
+				<Nav variant="pills" activeKey={activePage} onSelect={handleSelect}>
+					<Nav.Item>
+						<Nav.Link eventKey="/admin/settings/license" title="License" >{t('license')}</Nav.Link>
+					</Nav.Item>
+					<Nav.Item>
+						<Nav.Link eventKey="/admin/settings/configuration" title="Configuration" >{t('configuration')}</Nav.Link>
+					</Nav.Item>
+					<Nav.Item>
+						<Nav.Link eventKey="/admin/settings/branding" title="Branding" >{t('branding')}</Nav.Link>
+					</Nav.Item>
+					<Nav.Item>
+						<Nav.Link eventKey="/admin/settings/texts" title="Texts" >{t('common:texts')}</Nav.Link>
+					</Nav.Item>
+					<Nav.Item>
+						<Nav.Link eventKey="/admin/settings/credentials" title="Roles" >{t('roles')}</Nav.Link>
+					</Nav.Item>
+					<Nav.Item>
+						<Nav.Link disabled eventKey="/admin/settings/badges" title="Badges" >{t('common:badges')}</Nav.Link>
+					</Nav.Item>
+					<Nav.Item>
+						<Nav.Link eventKey="/admin/settings/user-fields" title="User Fields" >{t('user-fields')}</Nav.Link>
+					</Nav.Item>
+					<Nav.Item>
+						<Nav.Link eventKey="/admin/settings/backups" title="Backups" >{t('backups')}</Nav.Link>
+					</Nav.Item>
+				</Nav>
 			</div>
-		);
-	}
-}
+			<Routes>
+				<Route path="license" element={<License
+					admin={props.admin}
+					uploadLicense={props.uploadLicense}
+					getLicense={props.getLicense}
+					user={props.user}
+					removeLicense={props.removeLicense}
+					getUsers={props.getUsers} /> }
+				/>
+				<Route path="configuration" element={<Configuration
+					admin={props.admin}
+					user={props.user}
+					getSettings={props.getSettings}
+					updateSettings={props.updateSettings} /> }
+				/>
+				<Route path="branding" element={<Branding
+					admin={props.admin}
+					user={props.user}
+					uploadLogo={props.uploadLogo}
+					updateSettings={props.updateSettings} /> }
+				/>
+				<Route path="texts" element={<Texts
+					addCustomTranslation={props.addCustomTranslation}
+					translations={props.translations}
+					removeCustomTranslation={props.removeCustomTranslation} /> }
+				/>
+				<Route path="credentials" element={<Roles
+					admin={props.admin}
+					createRole={props.createRole}
+					getAllRoles={props.getAllRoles}
+					deleteRole={props.deleteRole}
+					updateRole={props.updateRole} /> }
+				/>
+				<Route path="user-fields" element={<UserFields
+					admin={props.admin}
+					user={props.user}
+					createCustomField={props.createCustomField}
+					deleteCustomField={props.deleteCustomField}
+					getCustomFields={props.getCustomFields}
+					incrementFieldPosition={props.incrementFieldPosition}
+					decrementFieldPosition={props.decrementFieldPosition} /> }
+				/>
+				<Route path="backups" element={<Backups
+					admin={props.admin}
+					user={props.user}
+					createBackup={props.createBackup}
+					getBackups={props.getBackups}
+					deleteBackup={props.deleteBackup} /> }
+				/>
+			</Routes>
+		</Fragment>
+	);
+};
+
 
 // PROPERTIES //
 
@@ -242,10 +147,8 @@ Settings.propTypes = {
 	getSettings: PropTypes.func.isRequired,
 	getUsers: PropTypes.func.isRequired,
 	incrementFieldPosition: PropTypes.func.isRequired,
-	match: PropTypes.object.isRequired,
 	removeCustomTranslation: PropTypes.func.isRequired,
 	removeLicense: PropTypes.func.isRequired,
-	t: PropTypes.func.isRequired,
 	translations: PropTypes.object.isRequired,
 	updateRole: PropTypes.func.isRequired,
 	updateSettings: PropTypes.func.isRequired,
@@ -257,4 +160,4 @@ Settings.propTypes = {
 
 // EXPORTS //
 
-export default withTranslation( [ 'admin_settings', 'common' ] )( Settings );
+export default Settings;

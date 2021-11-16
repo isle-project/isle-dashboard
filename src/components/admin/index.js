@@ -23,6 +23,7 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate, Route, Routes } from 'react-router-dom';
 import Nav from 'react-bootstrap/Nav';
 import asyncComponent from 'components/async';
+const AsyncAdminSettings = asyncComponent(() => import( 'containers/visible-admin-settings' ));
 const ErrorsLog = asyncComponent( () => import( './logs/errors' ) );
 const AccessLog = asyncComponent( () => import( './logs/access' ) );
 const CohortTable = asyncComponent( () => import( './cohort_table.js' ) );
@@ -95,7 +96,7 @@ const AdminPage = ( props ) => {
 				<Nav.Link eventKey="/admin/requests" title="Requests" >{t('common:requests')}</Nav.Link>
 			</Nav.Item>
 			<Nav.Item>
-				<Nav.Link eventKey="/admin/settings" title="Settings" >{t('settings')}</Nav.Link>
+				<Nav.Link eventKey="/admin/settings/license" title="Settings" >{t('settings')}</Nav.Link>
 			</Nav.Item>
 		</Nav>
 	</div>;
@@ -104,20 +105,20 @@ const AdminPage = ( props ) => {
 			{navbar}
 			<div className="admin-page-container" >
 				<Routes>
-					<Route path="/overview" element={<Overview
+					<Route path="overview" element={<Overview
 						getOverviewStatistics={props.getOverviewStatistics}
 						getHistoricalOverviewStats={props.getHistoricalOverviewStats}
 						statistics={props.admin.statistics}
 						historicalStatistics={props.admin.historicalStatistics}
 						admin={props.admin} />}
 					/>
-					<Route path="/access-logs" element={<AccessLog
+					<Route path="access-logs" element={<AccessLog
 						user={props.user} />}
 					/>
-					<Route path="/error-logs" element={<ErrorsLog
+					<Route path="error-logs" element={<ErrorsLog
 						user={props.user} />}
 					/>
-					<Route path="/users" element={<UserTable
+					<Route path="users" element={<UserTable
 						user={props.user}
 						admin={props.admin}
 						deleteUser={props.deleteUser}
@@ -129,38 +130,38 @@ const AdminPage = ( props ) => {
 						getCustomFields={props.getCustomFields}
 						createUser={props.createUser} />}
 					/>
-					<Route path="/courses" element={<NamespaceTable
+					<Route path="courses" element={<NamespaceTable
 						admin={props.admin}
 						getAllNamespaces={props.getAllNamespaces}
 						deleteCurrentNamespace={props.deleteCurrentNamespace} />}
 					/>
-					<Route path="/lessons" element={<LessonTable
+					<Route path="lessons" element={<LessonTable
 						admin={props.admin}
 						getAllLessons={props.getAllLessons}
 						deleteLesson={props.deleteLesson} />}
 					/>
-					<Route path="/cohorts" element={<CohortTable
+					<Route path="cohorts" element={<CohortTable
 						admin={props.admin}
 						getAllCohorts={props.getAllCohorts}
 						deleteCohort={props.deleteCohort} />}
 					/>
-					<Route path="/files" element={<FileTable
+					<Route path="files" element={<FileTable
 						admin={props.admin}
 						deleteFile={props.deleteFile}
 						getAllFiles={props.getAllFiles}
 						addNotification={props.addNotification} />}
 					/>
-					<Route path="/events" element={<EventTable
+					<Route path="events" element={<EventTable
 						admin={props.admin}
 						deleteEvent={props.deleteEvent}
 						getEvents={props.getEvents}
 						triggerEvent={props.triggerEvent} />}
 					/>
-					<Route path="/rooms" element={<Rooms
+					<Route path="rooms" element={<Rooms
 						admin={props.admin}
 						getRooms={props.getRooms} />}
 					/>
-					<Route path="/tickets" element={<TicketTable
+					<Route path="tickets" element={<TicketTable
 						admin={props.admin}
 						getAllTickets={props.getAllTickets}
 						deleteTicket={props.deleteTicket}
@@ -172,9 +173,13 @@ const AdminPage = ( props ) => {
 						history={props.history}
 						updatePriority={props.updatePriority} />}
 					/>
-					<Route path="/requests" element={<Requests
+					<Route path="requests" element={<Requests
 						admin={props.admin}
 						getRequestStatistics={props.getRequestStatistics} />}
+					/>
+					<Route
+						path="settings/*"
+						element={<AsyncAdminSettings />}
 					/>
 				</Routes>
 			</div>
