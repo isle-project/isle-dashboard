@@ -264,6 +264,11 @@ label {
 
 a {
 	color: #016ee3;
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
 }
 
 .badge-primary {
