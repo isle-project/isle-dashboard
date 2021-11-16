@@ -21,7 +21,7 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import logger from 'debug';
 import { useTranslation } from 'react-i18next';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useNavigate, Route, Routes } from 'react-router-dom';
 import Alert from 'react-bootstrap/Alert';
 import Nav from 'react-bootstrap/Nav';
 import FilesPage from './files_page.js';
@@ -47,14 +47,13 @@ const NamespaceData = ({
 		adjustProgress, getCourseTickets, getNamespaceActions, openTicket, closeTicket,
 		updatePriority, getOwnerFiles
 }) => {
-	const subpage = useParams().subpage;
-	const [ activePage, setActivePage ] = useState( subpage );
+	const [ activePage, setActivePage ] = useState( window.location.pathname );
 	const { t } = useTranslation( [ 'namespace_data', 'common' ] );
 	const navigate = useNavigate();
 	useEffect( () => {
 		debug( 'Getting badges upon mounting...' );
 		getBadges();
-	}, [] );
+	}, [ getBadges ] );
 	if ( !namespace._id ) {
 		return ( <div className="namespace-data-div">
 			<Alert variant="danger">{t('common:no-course-selected')}</Alert>
@@ -94,90 +93,15 @@ const NamespaceData = ({
 	const submitTicketMessage = ({ message, ticketID }) => {
 		sendTicketMessage({ message, ticketID, user: user });
 	};
-	let page;
-	switch ( activePage ) {
-		case 1:
-			page = <AnnouncementsPage
-				namespace={namespace} editAnnouncement={handleAnnouncementEdit}
-				deleteAnnouncement={handleAnnouncementDeletion}
-				addAnnouncement={handleAnnouncementCreation} user={user}
-			/>;
-			break;
-		case 2:
-			page = <ProgressPage adjustProgress={adjustProgress} addNotification={addNotification}
-				namespace={namespace} cohorts={namespace.cohorts}
-				lessons={namespace.lessons} user={user}
-			/>;
-			break;
-		case 3:
-			page = <GradesPage addNotification={addNotification} namespace={namespace}
-				cohorts={namespace.cohorts} lessons={namespace.lessons} user={user}
-			/>;
-			break;
-		case 4:
-			page = <CohortsPage badges={badges} cohorts={namespace.cohorts}
-				lessons={namespace.lessons}
-			/>;
-			break;
-		case 5:
-			page = <FilesPage ownerFiles files={namespace.ownerFiles} namespace={namespace}
-				handleUpload={handleUpload} handleFileDeletion={handleFileDeletion}
-				addNotification={addNotification} getFiles={getOwnerFiles}
-			/>;
-			break;
-		case 6:
-			page = <FilesPage files={namespace.files} namespace={namespace} handleUpload={handleUpload}
-				handleFileDeletion={handleFileDeletion} addNotification={addNotification} getFiles={getFiles}
-			/>;
-			break;
-		case 7:
-			page = <TicketsPage tickets={namespace.tickets} namespace={namespace}
-				getCourseTickets={getCourseTickets} submitTicketMessage={submitTicketMessage}
-				openTicket={openTicket} closeTicket={closeTicket}
-				updatePriority={updatePriority}
-			/>;
-			break;
-		case 8:
-			page = <ActionsPage namespace={namespace} getNamespaceActions={getNamespaceActions}
-				user={user} cohorts={namespace.cohorts}
-			/>;
-			break;
-	}
 	const handleSelect = ( selectedKey ) => {
-		selectedKey = Number( selectedKey );
 		const title = namespace.title;
-		switch ( selectedKey ) {
-			case 1:
-				navigate( `/namespace-data/${title}/announcements` );
-				break;
-			case 2:
-				navigate( `/namespace-data/${title}/progress` );
-				break;
-			case 3:
-				navigate( `/namespace-data/${title}/grades` );
-				break;
-			case 4:
-				navigate( `/namespace-data/${title}/cohorts` );
-				break;
-			case 5:
-				navigate( `/namespace-data/${title}/owner-files` );
-				break;
-			case 6:
-				navigate( `/namespace-data/${title}/student-files` );
-				break;
-			case 7:
-				navigate( `/namespace-data/${title}/tickets` );
-				break;
-			case 8:
-				navigate( `/namespace-data/${title}/actions` );
-				break;
-		}
+		navigate( `/namespace-data/${title}/${selectedKey}` );
 		setActivePage( selectedKey );
 	};
 	return (
-		<div className="namespace-data-div">
-			<div className="namespace-data-navbar">
-				<Nav variant="pills" className="namespace-data-navbar-pills" activeKey={activePage} onSelect={handleSelect}>
+		<div className="namespace-data-div" >
+			<div className="namespace-data-navbar" >
+				<Nav variant="pills" className="namespace-data-navbar-pills" activeKey={activePage} onSelect={handleSelect} >
 					<Nav.Item>
 						<Nav.Link eventKey="announcements" title="Announcements" >{t('common:announcements')}</Nav.Link>
 					</Nav.Item>
@@ -205,7 +129,38 @@ const NamespaceData = ({
 				</Nav>
 			</div>
 			<div className="namespace-data-page-container" style={{ overflowY: 'auto' }}>
-				{page}
+				<Routes>
+					<Route path="announcements" element={<AnnouncementsPage
+						namespace={namespace} editAnnouncement={handleAnnouncementEdit}
+						deleteAnnouncement={handleAnnouncementDeletion}
+						addAnnouncement={handleAnnouncementCreation} user={user} />}
+					/>
+					<Route path="progress" element={<ProgressPage adjustProgress={adjustProgress} addNotification={addNotification}
+						namespace={namespace} cohorts={namespace.cohorts}
+						lessons={namespace.lessons} user={user} />}
+					/>
+					<Route path="grades" element={<GradesPage addNotification={addNotification} namespace={namespace}
+						cohorts={namespace.cohorts} lessons={namespace.lessons} user={user} />}
+					/>
+					<Route path="cohorts" element={<CohortsPage badges={badges} cohorts={namespace.cohorts}
+						lessons={namespace.lessons} />}
+					/>
+					<Route path="owner-files" element={<FilesPage ownerFiles files={namespace.ownerFiles} namespace={namespace}
+						handleUpload={handleUpload} handleFileDeletion={handleFileDeletion}
+						addNotification={addNotification} getFiles={getOwnerFiles} />}
+					/>
+					<Route path="student-files" element={<FilesPage files={namespace.files} namespace={namespace} handleUpload={handleUpload}
+						handleFileDeletion={handleFileDeletion} addNotification={addNotification} getFiles={getFiles} />}
+					/>
+					<Route path="tickets" element={<TicketsPage tickets={namespace.tickets} namespace={namespace}
+						getCourseTickets={getCourseTickets} submitTicketMessage={submitTicketMessage}
+						openTicket={openTicket} closeTicket={closeTicket}
+						updatePriority={updatePriority} />}
+					/>
+					<Route path="actions" element={<ActionsPage namespace={namespace} getNamespaceActions={getNamespaceActions}
+						user={user} cohorts={namespace.cohorts} />}
+					/>
+				</Routes>
 			</div>
 		</div>
 	);

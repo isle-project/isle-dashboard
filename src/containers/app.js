@@ -171,13 +171,7 @@ const App =({ isLoggedIn, dispatch, getCustomTranslations, getPublicSettings, fe
 						</Suspense>}
 					/>
 					<Route
-						path="/namespace-data/:namespace"
-						element={<Suspense fallback={<div>Loading...</div>}>
-							<AsyncNamespaceData />
-						</Suspense>}
-					/>
-					<Route
-						path="/namespace-data/:namespace/:subpage"
+						path="/namespace-data/:namespace/*"
 						element={<Suspense fallback={<div>Loading...</div>}>
 							<AsyncNamespaceData />
 						</Suspense>}
