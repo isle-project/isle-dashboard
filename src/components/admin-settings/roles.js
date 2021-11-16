@@ -345,10 +345,10 @@ const RoleItemList = ({ roles, askToDeleteSelectedRoleFactory, toggleEditModalFa
 					placement="left"
 					delay={{ show: 250, hide: 400 }}
 					overlay={<Popover id={`popover-allowed-${i}`} >
-						<Popover.Title as="h3">{t('allowed-permissions')}</Popover.Title>
-						<Popover.Content style={{ maxHeight: '40vh', overflowY: 'auto' }} >
+						<Popover.Header as="h3">{t('allowed-permissions')}</Popover.Header>
+						<Popover.Body style={{ maxHeight: '40vh', overflowY: 'auto' }} >
 							<PermissionList status="allowed" permissions={role.permissions} t={t} />
-						</Popover.Content>
+						</Popover.Body>
 						</Popover>}
 					trigger="click"
 				>
@@ -360,10 +360,10 @@ const RoleItemList = ({ roles, askToDeleteSelectedRoleFactory, toggleEditModalFa
 					placement="right"
 					delay={{ show: 250, hide: 400 }}
 					overlay={<Popover id={`popover-disallowed-${i}`} >
-						<Popover.Title as="h3">{t('disallowed-permissions')}</Popover.Title>
-						<Popover.Content style={{ maxHeight: '40vh', overflowY: 'auto' }} >
+						<Popover.Header as="h3">{t('disallowed-permissions')}</Popover.Header>
+						<Popover.Body style={{ maxHeight: '40vh', overflowY: 'auto' }} >
 							<PermissionList status="disallowed" permissions={role.permissions} t={t} />
-						</Popover.Content>
+						</Popover.Body>
 						</Popover>}
 					trigger="click"
 				>

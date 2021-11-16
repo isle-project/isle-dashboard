@@ -83,11 +83,11 @@ class EventTable extends Component {
 				Cell: ( row ) => {
 					if ( row.value ) {
 						const popover = <Popover id="popover-data" style={{ maxWidth: 400 }}>
-							<Popover.Title as="h3">Data</Popover.Title>
-							<Popover.Content style={{ backgroundColor: 'lightblue' }} >
+							<Popover.Header as="h3">Data</Popover.Header>
+							<Popover.Body style={{ backgroundColor: 'lightblue' }} >
 								<pre>{JSON.stringify( row.value, null, 2 )}
 								</pre>
-							</Popover.Content>
+							</Popover.Body>
 						</Popover>;
 						return (
 							<OverlayTrigger trigger="click" placement="right" overlay={popover}>

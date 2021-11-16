@@ -271,12 +271,12 @@ class TicketsPage extends Component {
 							style={{ maxWidth: 500, maxHeight: '80vh', overflowY: 'auto' }}
 							arrowProps={{ display: 'none' }}
 						>
-							<Popover.Title as="h3">{row.row._original.title}</Popover.Title>
-							<Popover.Content style={{ backgroundColor: 'lightblue' }} >
+							<Popover.Header as="h3">{row.row._original.title}</Popover.Header>
+							<Popover.Body style={{ backgroundColor: 'lightblue' }} >
 								<pre>
 									{JSON.stringify( omit( row.value, [ 'description' ] ), null, 2 )}
 								</pre>
-							</Popover.Content>
+							</Popover.Body>
 						</Popover>;
 						return (
 							<OverlayTrigger trigger="click" placement="left" overlay={popover}>

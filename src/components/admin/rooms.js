@@ -103,11 +103,11 @@ class Rooms extends Component {
 						for ( let i = 0; i < groups.length; i++ ) {
 							const group = groups[ i ];
 							const popover = <Popover key={`groups-${i}`} id="popover-data" style={{ maxWidth: 400 }}>
-								<Popover.Title as="h3">{group.name}</Popover.Title>
-								<Popover.Content style={{ backgroundColor: 'lightblue' }} >
+								<Popover.Header as="h3">{group.name}</Popover.Header>
+								<Popover.Body style={{ backgroundColor: 'lightblue' }} >
 									<pre>{JSON.stringify( group, groupReplacer, 2 )}
 									</pre>
-								</Popover.Content>
+								</Popover.Body>
 							</Popover>;
 							out[ i ] = (
 								<OverlayTrigger keu={`overlay-${i}`} trigger="click" placement="right" overlay={popover}>
@@ -143,13 +143,13 @@ class Rooms extends Component {
 							const chat = chats[ key ];
 							const name = chat.name.substring( chat.name.indexOf( ':' )+1 );
 							const popover = <Popover key={`chats-${i}`} id="popover-data" style={{ maxWidth: 400 }}>
-								<Popover.Title as="h3">{name}</Popover.Title>
-								<Popover.Content style={{ backgroundColor: 'lightblue' }} >
+								<Popover.Header as="h3">{name}</Popover.Header>
+								<Popover.Body style={{ backgroundColor: 'lightblue' }} >
 									<pre>{chat.messages.map( x => {
 										return `${x.user}: ${x.content}`;
 									}).join('\n' )}
 									</pre>
-								</Popover.Content>
+								</Popover.Body>
 							</Popover>;
 							out[ i ] = (
 								<OverlayTrigger key={`overlay-${i}`} trigger="click" placement="right" overlay={popover}>

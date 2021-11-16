@@ -130,8 +130,8 @@ function createBooleanColumn({ Header, accessor, Cell, style, startDate, endDate
 		Filter: ({ filter, onChange }) => {
 			const filterValue = filter ? ( filter.value || {} ) : {};
 			const popover = <Popover id="popover-data" style={{ maxWidth: 400 }}>
-				<Popover.Title as="h3">{t('common:dates')}</Popover.Title>
-				<Popover.Content style={{ backgroundColor: 'grey' }} >
+				<Popover.Header as="h3">{t('common:dates')}</Popover.Header>
+				<Popover.Body style={{ backgroundColor: 'grey' }} >
 					<CustomDatePicker
 						startDate={filterValue.startDate || startDate}
 						minDate={startDate}
@@ -142,7 +142,7 @@ function createBooleanColumn({ Header, accessor, Cell, style, startDate, endDate
 						}}
 						t={t}
 					/>
-				</Popover.Content>
+				</Popover.Body>
 			</Popover>;
 			return (
 				<OverlayTrigger trigger="click" placement="right" overlay={popover}>

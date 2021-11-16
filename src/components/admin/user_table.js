@@ -326,11 +326,11 @@ class UserPage extends Component {
 							return key;
 						});
 						const popover = <Popover id="popover-data" style={{ maxWidth: 400, maxHeight: '80vh', overflowY: 'auto' }}>
-							<Popover.Title as="h3">Data</Popover.Title>
-							<Popover.Content style={{ backgroundColor: 'lightblue' }} >
+							<Popover.Header as="h3">Data</Popover.Header>
+							<Popover.Body style={{ backgroundColor: 'lightblue' }} >
 								<pre>{JSON.stringify( lessonData, null, 2 )}
 								</pre>
-							</Popover.Content>
+							</Popover.Body>
 						</Popover>;
 						return (
 							<OverlayTrigger trigger="click" placement="left" overlay={popover}>
