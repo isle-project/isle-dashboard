@@ -17,9 +17,10 @@
 
 // MODULES //
 
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { withTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
+import { useNavigate, Route, Routes } from 'react-router-dom';
 import Nav from 'react-bootstrap/Nav';
 import asyncComponent from 'components/async';
 const ErrorsLog = asyncComponent( () => import( './logs/errors' ) );
@@ -39,286 +40,147 @@ import './admin_page.css';
 
 // MAIN //
 
-class AdminPage extends Component {
-	constructor( props ) {
-		super( props );
+const AdminPage = ( props ) => {
+	const [ activePage, setActivePage ] = useState( window.location.pathname );
+	const { t } = useTranslation( [ 'admin', 'common' ] );
+	const navigate = useNavigate();
 
-		const subpage = props.match.params.subpage;
-		let activePage;
-		switch ( subpage ) {
-			default:
-			case 'overview':
-				activePage = 0;
-				break;
-			case 'access-logs':
-				activePage = 1;
-				break;
-			case 'error-logs':
-				activePage = 2;
-				break;
-			case 'users':
-				activePage = 3;
-				break;
-			case 'courses':
-				activePage = 4;
-				break;
-			case 'lessons':
-				activePage = 5;
-				break;
-			case 'cohorts':
-				activePage = 6;
-				break;
-			case 'files':
-				activePage = 7;
-				break;
-			case 'events':
-				activePage = 8;
-				break;
-			case 'rooms':
-				activePage = 9;
-				break;
-			case 'tickets':
-				activePage = 10;
-				break;
-			case 'requests':
-				activePage = 11;
-				break;
-			case 'settings':
-				activePage = null;
-				break;
+	const user = props.user;
+	useEffect( () => {
+		if ( !user.administrator ) {
+			navigate( '/profile' );
 		}
-		this.state = {
-			activePage
-		};
-	}
+	}, [ user, navigate ] );
 
-	componentDidMount() {
-		if ( !this.props.user.administrator ) {
-			this.props.history.replace( '/profile' );
-		}
-	}
-
-	componentDidUpdate() {
-		if ( !this.props.user.administrator ) {
-			this.props.history.replace( '/profile' );
-		}
-	}
-
-	submitTicketMessage = ({ message, ticketID }) => {
-		this.props.sendTicketMessage({ message, ticketID, user: this.props.user });
+	const handleSelect = ( selectedKey ) => {
+		navigate( selectedKey );
+		setActivePage( selectedKey );
 	};
-
-	handleSelect = ( selectedKey ) => {
-		selectedKey = Number( selectedKey );
-		const { history } = this.props;
-		switch ( selectedKey ) {
-			case 0:
-				history.replace( '/admin/overview' );
-				break;
-			case 1:
-				history.replace( '/admin/access-logs' );
-				break;
-			case 2:
-				history.replace( '/admin/error-logs' );
-				break;
-			case 3:
-				history.replace( '/admin/users' );
-				break;
-			case 4:
-				history.replace( '/admin/courses' );
-				break;
-			case 5:
-				history.replace( '/admin/lessons' );
-				break;
-			case 6:
-				history.replace( '/admin/cohorts' );
-				break;
-			case 7:
-				history.replace( '/admin/files' );
-				break;
-			case 8:
-				history.replace( '/admin/events' );
-				break;
-			case 9:
-				history.replace( '/admin/rooms' );
-				break;
-			case 10:
-				history.replace( '/admin/tickets' );
-				break;
-			case 11:
-				history.replace( '/admin/requests' );
-				break;
-			case 12:
-				history.replace( '/admin/settings' );
-				break;
-		}
-		this.setState({
-			activePage: selectedKey
-		});
-	};
-
-	renderPage() {
-		switch ( this.state.activePage ) {
-			case 0:
-				return ( <Overview
-					getOverviewStatistics={this.props.getOverviewStatistics}
-					getHistoricalOverviewStats={this.props.getHistoricalOverviewStats}
-					statistics={this.props.admin.statistics}
-					historicalStatistics={this.props.admin.historicalStatistics}
-					admin={this.props.admin}
-				/> );
-			case 1:
-				return <AccessLog user={this.props.user} />;
-			case 2:
-				return <ErrorsLog user={this.props.user} />;
-			case 3:
-				return (
-					<UserTable
-						user={this.props.user}
-						admin={this.props.admin}
-						deleteUser={this.props.deleteUser}
-						impersonateUser={this.props.impersonateUser}
-						getUsers={this.props.getUsers}
-						sanitizeRequest={this.props.sanitizeRequest}
-						addNotification={this.props.addNotification}
-						updateUser={this.props.adminUpdateUser}
-						getCustomFields={this.props.getCustomFields}
-						createUser={this.props.createUser}
+	const navbar = <div className="admin-page-navbar">
+		<Nav variant="pills" activeKey={activePage} onSelect={handleSelect}>
+			<Nav.Item>
+				<Nav.Link eventKey="/admin/overview" title="Overview" >{t('overview')} </Nav.Link>
+			</Nav.Item>
+			<Nav.Item>
+				<Nav.Link eventKey="/admin/access-logs" title="Access Log" >{t('access-log')}</Nav.Link>
+			</Nav.Item>
+			<Nav.Item>
+				<Nav.Link eventKey="/admin/error-logs" title="Error Log" >{t('error-log')}</Nav.Link>
+			</Nav.Item>
+			<Nav.Item>
+				<Nav.Link eventKey="/admin/users" title="Users" >{t('users')}</Nav.Link>
+			</Nav.Item>
+			<Nav.Item>
+				<Nav.Link eventKey="/admin/courses" title="Courses" >{t('common:courses')}</Nav.Link>
+			</Nav.Item>
+			<Nav.Item>
+				<Nav.Link eventKey="/admin/lessons" title="Lessons" >{t('common:lessons')}</Nav.Link>
+			</Nav.Item>
+			<Nav.Item>
+				<Nav.Link eventKey="/admin/cohorts" title="Cohorts" >{t('common:cohorts')}</Nav.Link>
+			</Nav.Item>
+			<Nav.Item>
+				<Nav.Link eventKey="/admin/files" title="Files" >{t('common:files')}</Nav.Link>
+			</Nav.Item>
+			<Nav.Item>
+				<Nav.Link eventKey="/admin/events" title="Events" >{t('common:events')}</Nav.Link>
+			</Nav.Item>
+			<Nav.Item>
+				<Nav.Link eventKey="/admin/active-rooms" title="Active Rooms" >{t('active-rooms')}</Nav.Link>
+			</Nav.Item>
+			<Nav.Item>
+				<Nav.Link eventKey="/admin/tickets" title="Tickets" >{t('common:tickets')}</Nav.Link>
+			</Nav.Item>
+			<Nav.Item>
+				<Nav.Link eventKey="/admin/requests" title="Requests" >{t('common:requests')}</Nav.Link>
+			</Nav.Item>
+			<Nav.Item>
+				<Nav.Link eventKey="/admin/settings" title="Settings" >{t('settings')}</Nav.Link>
+			</Nav.Item>
+		</Nav>
+	</div>;
+	return (
+		<div className="admin-page-div">
+			{navbar}
+			<div className="admin-page-container" >
+				<Routes>
+					<Route path="/overview" element={<Overview
+						getOverviewStatistics={props.getOverviewStatistics}
+						getHistoricalOverviewStats={props.getHistoricalOverviewStats}
+						statistics={props.admin.statistics}
+						historicalStatistics={props.admin.historicalStatistics}
+						admin={props.admin} />}
 					/>
-				);
-			case 4:
-				return (
-					<NamespaceTable
-						admin={this.props.admin}
-						getAllNamespaces={this.props.getAllNamespaces}
-						deleteCurrentNamespace={this.props.deleteCurrentNamespace}
+					<Route path="/access-logs" element={<AccessLog
+						user={props.user} />}
 					/>
-				);
-			case 5:
-				return (
-					<LessonTable
-						admin={this.props.admin}
-						getAllLessons={this.props.getAllLessons}
-						deleteLesson={this.props.deleteLesson}
+					<Route path="/error-logs" element={<ErrorsLog
+						user={props.user} />}
 					/>
-				);
-			case 6:
-				return (
-					<CohortTable
-						admin={this.props.admin}
-						getAllCohorts={this.props.getAllCohorts}
-						deleteCohort={this.props.deleteCohort}
+					<Route path="/users" element={<UserTable
+						user={props.user}
+						admin={props.admin}
+						deleteUser={props.deleteUser}
+						impersonateUser={props.impersonateUser}
+						getUsers={props.getUsers}
+						sanitizeRequest={props.sanitizeRequest}
+						addNotification={props.addNotification}
+						updateUser={props.adminUpdateUser}
+						getCustomFields={props.getCustomFields}
+						createUser={props.createUser} />}
 					/>
-				);
-			case 7:
-				return (
-					<FileTable
-						admin={this.props.admin}
-						deleteFile={this.props.deleteFile}
-						getAllFiles={this.props.getAllFiles}
-						addNotification={this.props.addNotification}
+					<Route path="/courses" element={<NamespaceTable
+						admin={props.admin}
+						getAllNamespaces={props.getAllNamespaces}
+						deleteCurrentNamespace={props.deleteCurrentNamespace} />}
 					/>
-				);
-			case 8:
-				return (
-					<EventTable
-						admin={this.props.admin}
-						deleteEvent={this.props.deleteEvent}
-						getEvents={this.props.getEvents}
-						triggerEvent={this.props.triggerEvent}
+					<Route path="/lessons" element={<LessonTable
+						admin={props.admin}
+						getAllLessons={props.getAllLessons}
+						deleteLesson={props.deleteLesson} />}
 					/>
-				);
-			case 9:
-				return (
-					<Rooms
-						admin={this.props.admin}
-						getRooms={this.props.getRooms}
+					<Route path="/cohorts" element={<CohortTable
+						admin={props.admin}
+						getAllCohorts={props.getAllCohorts}
+						deleteCohort={props.deleteCohort} />}
 					/>
-				);
-			case 10:
-				return (
-					<TicketTable
-						admin={this.props.admin}
-						getAllTickets={this.props.getAllTickets}
-						deleteTicket={this.props.deleteTicket}
-						submitTicketMessage={this.submitTicketMessage}
-						closeTicket={this.props.closeTicket}
-						openTicket={this.props.openTicket}
-						history={this.props.history}
-						updatePriority={this.props.updatePriority}
+					<Route path="/files" element={<FileTable
+						admin={props.admin}
+						deleteFile={props.deleteFile}
+						getAllFiles={props.getAllFiles}
+						addNotification={props.addNotification} />}
 					/>
-				);
-			case 11:
-				return (
-					<Requests
-						admin={this.props.admin}
-						getRequestStatistics={this.props.getRequestStatistics}
+					<Route path="/events" element={<EventTable
+						admin={props.admin}
+						deleteEvent={props.deleteEvent}
+						getEvents={props.getEvents}
+						triggerEvent={props.triggerEvent} />}
 					/>
-				);
-		}
-	}
-
-	render() {
-		const page = this.renderPage();
-		const { t } = this.props;
-		const navbar = <div className="admin-page-navbar">
-			<Nav variant="pills" activeKey={this.state.activePage} onSelect={this.handleSelect}>
-				<Nav.Item>
-					<Nav.Link eventKey="0" title="Overview" >{t('overview')}</Nav.Link>
-				</Nav.Item>
-				<Nav.Item>
-					<Nav.Link eventKey="1" title="Access Log" >{t('access-log')}</Nav.Link>
-				</Nav.Item>
-				<Nav.Item>
-					<Nav.Link eventKey="2" title="Error Log" >{t('error-log')}</Nav.Link>
-				</Nav.Item>
-				<Nav.Item>
-					<Nav.Link eventKey="3" title="Users" >{t('users')}</Nav.Link>
-				</Nav.Item>
-				<Nav.Item>
-					<Nav.Link eventKey="4" title="Courses" >{t('common:courses')}</Nav.Link>
-				</Nav.Item>
-				<Nav.Item>
-					<Nav.Link eventKey="5" title="Lessons" >{t('common:lessons')}</Nav.Link>
-				</Nav.Item>
-				<Nav.Item>
-					<Nav.Link eventKey="6" title="Cohorts" >{t('common:cohorts')}</Nav.Link>
-				</Nav.Item>
-				<Nav.Item>
-					<Nav.Link eventKey="7" title="Files" >{t('common:files')}</Nav.Link>
-				</Nav.Item>
-				<Nav.Item>
-					<Nav.Link eventKey="8" title="Events" >{t('common:events')}</Nav.Link>
-				</Nav.Item>
-				<Nav.Item>
-					<Nav.Link eventKey="9" title="Active Rooms" >{t('active-rooms')}</Nav.Link>
-				</Nav.Item>
-				<Nav.Item>
-					<Nav.Link eventKey="10" title="Tickets" >{t('common:tickets')}</Nav.Link>
-				</Nav.Item>
-				<Nav.Item>
-					<Nav.Link eventKey="11" title="Requests" >{t('common:requests')}</Nav.Link>
-				</Nav.Item>
-				<Nav.Item>
-					<Nav.Link eventKey="12" title="Settings" >{t('settings')}</Nav.Link>
-				</Nav.Item>
-			</Nav>
-		</div>;
-		if ( !page ) {
-			return ( <div className="admin-page-div">
-				{navbar}
-			</div> );
-		}
-		return (
-			<div className="admin-page-div">
-				{navbar}
-				<div className="admin-page-container" >
-					{page}
-				</div>
+					<Route path="/rooms" element={<Rooms
+						admin={props.admin}
+						getRooms={props.getRooms} />}
+					/>
+					<Route path="/tickets" element={<TicketTable
+						admin={props.admin}
+						getAllTickets={props.getAllTickets}
+						deleteTicket={props.deleteTicket}
+						submitTicketMessage={({ message, ticketID }) => {
+							props.sendTicketMessage({ message, ticketID, user: props.user });
+						}}
+						closeTicket={props.closeTicket}
+						openTicket={props.openTicket}
+						history={props.history}
+						updatePriority={props.updatePriority} />}
+					/>
+					<Route path="/requests" element={<Requests
+						admin={props.admin}
+						getRequestStatistics={props.getRequestStatistics} />}
+					/>
+				</Routes>
 			</div>
-		);
-	}
-}
+		</div>
+	);
+};
 
 
 // PROPERTIES //
@@ -349,7 +211,6 @@ AdminPage.propTypes = {
 	getRooms: PropTypes.func.isRequired,
 	getUsers: PropTypes.func.isRequired,
 	impersonateUser: PropTypes.func.isRequired,
-	match: PropTypes.object.isRequired,
 	openTicket: PropTypes.func.isRequired,
 	sanitizeRequest: PropTypes.func.isRequired,
 	sendTicketMessage: PropTypes.func.isRequired,
@@ -361,4 +222,4 @@ AdminPage.propTypes = {
 
 // EXPORTS //
 
-export default withTranslation( [ 'admin', 'common' ] )( AdminPage );
+export default AdminPage;
