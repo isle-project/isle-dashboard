@@ -61,9 +61,8 @@ class TicketPage extends Component {
 
 	async componentDidMount() {
 		await this.props.getAllTickets();
-
-		if ( this.props.history.location.search ) {
-			const match = RE_TICKET.exec( this.props.history.location.search );
+		if ( window.location.search ) {
+			const match = RE_TICKET.exec( window.location.search );
 			if ( match && match[ 1 ] ) {
 				const { tickets } = this.props.admin;
 				for ( let i = 0; i < tickets.length; i++ ) {
@@ -300,11 +299,11 @@ class TicketPage extends Component {
 				Cell: ( row ) => {
 					if ( row.value ) {
 						const popover = <Popover id="popover-data" style={{ width: 400, maxHeight: '80vh', overflowY: 'auto' }}>
-							<Popover.Title as="h3">{row.row._original.title}</Popover.Title>
-							<Popover.Content style={{ backgroundColor: 'lightblue' }} >
+							<Popover.Header as="h3">{row.row._original.title}</Popover.Header>
+							<Popover.Body style={{ backgroundColor: 'lightblue' }} >
 								<pre>{JSON.stringify( omit( row.value, [ 'description' ] ), null, 2 )}
 								</pre>
-							</Popover.Content>
+							</Popover.Body>
 						</Popover>;
 						return (
 							<OverlayTrigger trigger="click" placement="left" overlay={popover}>
