@@ -17,16 +17,16 @@
 
 // MODULES //
 
-import React, { Component, Fragment } from 'react';
+import React, { lazy, Suspense, useEffect, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import logger from 'debug';
 import { connect } from 'react-redux';
-import { Route } from 'react-router-dom';
-import { Helmet, HelmetProvider } from 'react-helmet-async';
+import { Route, Routes, useNavigate } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 import capitalize from '@stdlib/string/capitalize';
-import { ConnectedRouter } from 'connected-react-router';
 import axios from 'axios';
-import asyncComponent from 'components/async';
+import usePrevious from 'hooks/use-previous';
+import useMountEffect from 'hooks/use-mount-effect/index.js';
 import server from 'constants/server';
 import { fetchCredentialsInjector } from 'actions/authentication.js';
 import { getEnrollableCohortsInjector } from 'actions/cohort.js';
@@ -38,44 +38,31 @@ import './app.css';
 
 // VARIABLES //
 
-const AsyncFooterBar = asyncComponent(() => import( 'containers/visible-footer-bar' ));
-const AsyncTerms = asyncComponent(() => import( 'containers/visible-terms' ));
-const AsyncPrivacy = asyncComponent(() => import( 'containers/visible-privacy' ));
-const AsyncHeaderBar = asyncComponent(() => import( 'containers/visible-header-bar' ));
-const AsyncForgotPassword = asyncComponent(() => import( 'containers/visible-forgot-password' ));
-const AsyncCreateNamespace = asyncComponent(() => import( 'containers/visible-create-namespace' ));
-const AsyncEditNamespace = asyncComponent(() => import( 'containers/visible-edit-namespace' ));
-const AsyncNewPassword = asyncComponent(() => import( 'containers/visible-new-password' ));
-const AsyncCompleteRegistration = asyncComponent(() => import( 'containers/visible-complete-registration' ));
-const AsyncConfirmEmail = asyncComponent(() => import( 'containers/visible-confirm-email' ));
-const AsyncAdminPage = asyncComponent(() => import( 'containers/visible-admin' ));
-const AsyncAdminSettings = asyncComponent(() => import( 'containers/visible-admin-settings' ));
-const AsyncLogin = asyncComponent(() => import( 'containers/visible-login' ));
-const AsyncLoginTFA = asyncComponent(() => import( 'containers/visible-login-tfa' ));
-const AsyncSignup = asyncComponent(() => import( 'containers/visible-signup' ));
-const AsyncNamespaceData = asyncComponent(() => import( 'containers/visible-namespace-data' ));
-const AsyncGallery = asyncComponent(() => import( 'containers/visible-gallery' ));
-const AsyncLessonsPage = asyncComponent(() => import( 'containers/visible-lessons-page' ));
-const AsyncProfilePage = asyncComponent(() => import( 'containers/visible-profile-page' ));
-const AsyncEnrollPage = asyncComponent(() => import( 'containers/visible-enroll-page' ));
+import FooterBar from 'containers/visible-footer-bar';
+const AsyncTerms = lazy(() => import( 'containers/visible-terms' ));
+const AsyncPrivacy = lazy(() => import( 'containers/visible-privacy' ));
+const AsyncHeaderBar = lazy(() => import( 'containers/visible-header-bar' ));
+const AsyncForgotPassword = lazy(() => import( 'containers/visible-forgot-password' ));
+const AsyncCreateNamespace = lazy(() => import( 'containers/visible-create-namespace' ));
+const AsyncEditNamespace = lazy(() => import( 'containers/visible-edit-namespace' ));
+const AsyncNewPassword = lazy(() => import( 'containers/visible-new-password' ));
+const AsyncCompleteRegistration = lazy(() => import( 'containers/visible-complete-registration' ));
+const AsyncConfirmEmail = lazy(() => import( 'containers/visible-confirm-email' ));
+const AsyncAdminPage = lazy(() => import( 'containers/visible-admin' ));
+const AsyncAdminSettings = lazy(() => import( 'containers/visible-admin-settings' ));
+const AsyncLogin = lazy(() => import( 'containers/visible-login' ));
+const AsyncLoginTFA = lazy(() => import( 'containers/visible-login-tfa' ));
+const AsyncSignup = lazy(() => import( 'containers/visible-signup' ));
+const AsyncNamespaceData = lazy(() => import( 'containers/visible-namespace-data' ));
+const AsyncGallery = lazy(() => import( 'containers/visible-gallery' ));
+const AsyncLessonsPage = lazy(() => import( 'containers/visible-lessons-page' ));
+const AsyncProfilePage = lazy(() => import( 'containers/visible-profile-page' ));
+const AsyncEnrollPage = lazy(() => import( 'containers/visible-enroll-page' ));
 const USER_STORAGE_ID = 'ISLE_USER_'+server;
 
 
 // VARIABLES //
 
-const ALL_LOGGEDIN_PATHS = [
-	'/create-namespace',
-	'/edit-namespace/:namespace',
-	'/edit-namespace',
-	'/namespace-data/:namespace',
-	'/profile',
-	'/lessons/:namespace',
-	'/lessons',
-	'/gallery',
-	'/enroll',
-	'/admin',
-	'/admin-settings'
-];
 const RE_PUBLIC_PAGES = /(?:courses|new-password|complete-registration|confirm-email|signup|login|login-tfa|terms|privacy)/;
 const debug = logger( 'isle-dashboard' );
 
@@ -92,36 +79,38 @@ function generateTitle( ) {
 
 // MAIN //
 
-class App extends Component {
-	async componentDidMount() {
-		const history = this.props.history;
-		this.props.getCustomTranslations();
-		this.props.getPublicSettings();
+const App =({ isLoggedIn, dispatch, getCustomTranslations, getPublicSettings, fetchCredentials, getEnrollableCohorts, user, settings }) => {
+	const oldIsLoggedIn = usePrevious( isLoggedIn );
+	const writeAccess = user.writeAccess;
+	const navigate = useNavigate();
+	useMountEffect( async () => {
+		getCustomTranslations();
+		getPublicSettings();
 		if (
-			!this.props.isLoggedIn &&
-			!RE_PUBLIC_PAGES.test( history.location.pathname )
+			!isLoggedIn &&
+			!RE_PUBLIC_PAGES.test( window.location.pathname )
 		) {
 			let isle = localStorage.getItem( USER_STORAGE_ID );
 			if ( isle ) {
 				isle = JSON.parse( isle );
-				const user = await this.props.fetchCredentials( isle );
+				const user = await fetchCredentials( isle );
 				if ( user ) {
-					this.props.getEnrollableCohorts( user );
+					getEnrollableCohorts( user );
 				}
 			} else {
 				try {
 					const res = await axios.get( server+'/saml-xmw/session' );
-					this.props.dispatch( receivedToken( res.data ) );
-					const user = await this.props.fetchCredentials( res.data );
+					dispatch( receivedToken( res.data ) );
+					const user = await fetchCredentials( res.data );
 					if ( user ) {
-						this.props.getEnrollableCohorts( user );
+						getEnrollableCohorts( user );
 					}
 				} catch ( err ) {
-					history.replace( '/login' );
+					navigate( '/login' );
 				}
 			}
 		}
-		if ( this.props.isLoggedIn ) {
+		if ( isLoggedIn ) {
 			debug( 'User is logged in, check local storage...' );
 			const isle = localStorage.getItem( USER_STORAGE_ID );
 			if ( !isle ) {
@@ -132,134 +121,162 @@ class App extends Component {
 				}) );
 			}
 		}
-	}
-
-	componentDidUpdate( prevProps ) {
-		const history = this.props.history;
-		const isLoggingOut = prevProps.isLoggedIn && !this.props.isLoggedIn;
-		const isLoggingIn = !prevProps.isLoggedIn && this.props.isLoggedIn;
-		const pathname = history.location.pathname;
+	});
+	useEffect( () => {
+		const isLoggingOut = oldIsLoggedIn && !isLoggedIn;
+		const isLoggingIn = !oldIsLoggedIn && isLoggedIn;
+		const pathname = window.location.pathname;
 		if ( isLoggingIn ) {
 			if ( pathname === '/login-tfa' ) {
-				const path = this.props.user.writeAccess ? '/lessons' : '/profile';
-				history.push( path );
+				const path = writeAccess ? '/lessons' : '/profile';
+				navigate( path );
 			}
 			else if ( pathname && pathname !== '/' && pathname !== '/login' ) {
 				debug( 'User has logged in, redirecting to: '+pathname );
-				history.push( history.location.pathname );
+				navigate( pathname );
 			} else {
-				const path = this.props.user.writeAccess ? '/lessons' : '/profile';
+				const path = writeAccess ? '/lessons' : '/profile';
 				debug( 'User has logged in, redirecting to default page: '+pathname );
-				history.push( path );
+				navigate( path );
 			}
 		}
 		else if ( isLoggingOut ) {
-			history.push( '/login' );
+			navigate( '/login' );
 		}
 		else if (
-			this.props.isLoggedIn && pathname &&
+			isLoggedIn && pathname &&
 			( pathname === '/' || pathname === '/login' || pathname === '/login-tfa' )
 		) {
-			const path = this.props.user.writeAccess ? '/lessons' : '/profile';
-			history.push( path );
+			const path = writeAccess ? '/lessons' : '/profile';
+			navigate( path );
 		}
-	}
-
-	render() {
-		const { settings } = this.props;
-		let AuthenticationBarrier = null;
-		if ( this.props.isLoggedIn ) {
-			AuthenticationBarrier =
-				<Fragment>
-					<Route
-						path={ALL_LOGGEDIN_PATHS}
-						component={AsyncHeaderBar}
-						history={this.props.history}
-					/>
+	}, [ isLoggedIn, navigate, oldIsLoggedIn, writeAccess ] );
+	let AuthenticationBarrier = null;
+	if ( isLoggedIn ) {
+		AuthenticationBarrier =
+			<Fragment>
+				<Suspense fallback={<div>Loading...</div>}>
+					<AsyncHeaderBar />
+				</Suspense>
+				<Routes>
 					<Route
 						path="/create-namespace"
-						component={AsyncCreateNamespace}
+						element={<Suspense fallback={<div>Loading...</div>}>
+							<AsyncCreateNamespace />
+						</Suspense>}
 					/>
 					<Route
 						path="/edit-namespace/:namespace"
-						component={AsyncEditNamespace}
+						element={<Suspense fallback={<div>Loading...</div>}>
+							<AsyncEditNamespace />
+						</Suspense>}
 					/>
 					<Route
-						path="/namespace-data/:namespace" exact
-						component={AsyncNamespaceData}
+						path="/namespace-data/:namespace"
+						element={<Suspense fallback={<div>Loading...</div>}>
+							<AsyncNamespaceData />
+						</Suspense>}
 					/>
 					<Route
 						path="/namespace-data/:namespace/:subpage"
-						component={AsyncNamespaceData}
+						element={<Suspense fallback={<div>Loading...</div>}>
+							<AsyncNamespaceData />
+						</Suspense>}
 					/>
 					<Route
 						path="/profile"
-						component={AsyncProfilePage}
+						element={<Suspense fallback={<div>Loading...</div>}>
+							<AsyncProfilePage />
+						</Suspense>}
 					/>
 					<Route
-						path="/lessons" exact
-						component={AsyncLessonsPage}
+						path="/lessons"
+						element={<Suspense fallback={<div>Loading...</div>}>
+							<AsyncLessonsPage />
+						</Suspense>}
 					/>
 					<Route
 						path="/lessons/:namespace"
-						component={AsyncLessonsPage}
+						element={<Suspense fallback={<div>Loading...</div>}>
+							<AsyncLessonsPage />
+						</Suspense>}
 					/>
 					<Route
 						path="/gallery"
-						component={AsyncGallery}
+						element={<Suspense fallback={<div>Loading...</div>}>
+							<AsyncGallery />
+						</Suspense>}
 					/>
 					<Route
 						path="/enroll"
-						component={AsyncEnrollPage}
+						element={<Suspense fallback={<div>Loading...</div>}>
+							<AsyncEnrollPage />
+						</Suspense>}
 					/>
 					<Route
-						path="/admin" exact
-						component={AsyncAdminPage}
+						path="/admin/*"
+						element={<Suspense fallback={<div>Loading...</div>}>
+							<AsyncAdminPage />
+						</Suspense>}
 					/>
 					<Route
-						path="/admin/:subpage"
-						component={AsyncAdminPage}
-					/>
-					<Route
-						path="/admin/settings" exact
-						component={AsyncAdminSettings}
+						path="/admin/settings"
+						element={<Suspense fallback={<div>Loading...</div>}>
+							<AsyncAdminSettings />
+						</Suspense>}
 					/>
 					<Route
 						path="/admin/settings/:subpage"
-						component={AsyncAdminSettings}
+						element={<Suspense fallback={<div>Loading...</div>}>
+							<AsyncAdminSettings />
+						</Suspense>}
 					/>
-				</Fragment>;
-		}
-		return (
-			<HelmetProvider>
-				<ConnectedRouter history={this.props.history}>
-					<div className="App">
-						{AuthenticationBarrier}
-						<Helmet>
-							<title>{generateTitle()}</title>
-						</Helmet>
-						<Route
-							path="/*"
-							component={AsyncFooterBar}
-							history={this.props.history}
-						/>
-						<Route exact path="/" component={AsyncLogin} />
-						<Route path="/login" component={AsyncLogin} />
-						<Route path="/login-tfa" component={AsyncLoginTFA} />
-						<Route path="/new-password" component={AsyncNewPassword} />
-						<Route path="/complete-registration" component={AsyncCompleteRegistration} />
-						<Route path="/confirm-email" component={AsyncConfirmEmail} />
-						{settings.allowUserRegistrations ? <Route path="/signup" component={AsyncSignup} /> : null}
-						<Route path="/forgot-password" component={AsyncForgotPassword} />
-						<Route path="/terms" component={AsyncTerms} />
-						<Route path="/privacy" component={AsyncPrivacy} />
-						<NotificationSystem />
-					</div>
-				</ConnectedRouter>
-			</HelmetProvider>
-		);
+				</Routes>
+			</Fragment>;
 	}
-}
+	return (
+		<div className="App">
+			<Helmet>
+				<title>{generateTitle()}</title>
+			</Helmet>
+			{AuthenticationBarrier}
+			<Routes>
+				<Route path="/" element={<Suspense fallback={<div>Loading...</div>}>
+					<AsyncLogin />
+				</Suspense>} />
+				<Route path="/login" element={<Suspense fallback={<div>Loading...</div>}>
+					<AsyncLogin />
+				</Suspense>} />
+				<Route path="/login-tfa" element={<Suspense fallback={<div>Loading...</div>}>
+					<AsyncLoginTFA />
+				</Suspense>} />
+				<Route path="/new-password" element={<Suspense fallback={<div>Loading...</div>}>
+					<AsyncNewPassword />
+				</Suspense>} />
+				<Route path="/complete-registration" element={<Suspense fallback={<div>Loading...</div>}>
+					<AsyncCompleteRegistration />
+				</Suspense>} />
+				<Route path="/confirm-email" element={<Suspense fallback={<div>Loading...</div>}>
+					<AsyncConfirmEmail />
+				</Suspense>} />
+				{settings.allowUserRegistrations ? <Route path="/signup" element={<Suspense fallback={<div>Loading...</div>}>
+					<AsyncSignup />
+				</Suspense>} /> : null}
+				<Route path="/forgot-password" element={<Suspense fallback={<div>Loading...</div>}>
+					<AsyncForgotPassword />
+				</Suspense>} />
+				<Route path="/terms" element={<Suspense fallback={<div>Loading...</div>}>
+					<AsyncTerms />
+				</Suspense>} />
+				<Route path="/privacy" element={<Suspense fallback={<div>Loading...</div>}>
+					<AsyncPrivacy />
+				</Suspense>} />
+			</Routes>
+			<FooterBar />
+			<NotificationSystem />
+		</div>
+	);
+};
 
 
 // PROPERTIES //
@@ -270,7 +287,6 @@ App.propTypes = {
 	getCustomTranslations: PropTypes.func.isRequired,
 	getEnrollableCohorts: PropTypes.func.isRequired,
 	getPublicSettings: PropTypes.func.isRequired,
-	history: PropTypes.object.isRequired,
 	isLoggedIn: PropTypes.bool.isRequired,
 	settings: PropTypes.object.isRequired,
 	user: PropTypes.object.isRequired
