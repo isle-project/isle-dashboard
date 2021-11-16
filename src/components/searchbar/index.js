@@ -18,7 +18,7 @@
 // MODULES //
 
 import React from 'react';
-import { withTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 import FormGroup from 'react-bootstrap/FormGroup';
 import FormControl from 'react-bootstrap/FormControl';
 import InputGroup from 'react-bootstrap/InputGroup';
@@ -28,6 +28,7 @@ import Button from 'react-bootstrap/Button';
 // MAIN //
 
 const SearchBar = ( props ) => {
+	const { t } = useTranslation( [ 'header_bar', 'common' ] );
 	return (
 		<FormGroup style={{ width: '14vw', minWidth: '120px', float: 'left', marginBottom: '4px', marginRight: '5px', ...props.style }}>
 			<InputGroup>
@@ -37,14 +38,12 @@ const SearchBar = ( props ) => {
 					placeholder={props.placeholder}
 					value={props.value}
 					onChange={props.onChange}
-					aria-label={props.t('search-field')}
+					aria-label={t('search-field')}
 					style={{ height: '38px' }}
 				/>
-					<InputGroup.Append>
-						<Button aria-label={props.t('search-field-icon')} disabled variant="secondary" style={{ cursor: 'auto' }}>
-							<i className="fa fa-search"></i>
-						</Button>
-					</InputGroup.Append>
+				<Button aria-label={t('search-field-icon')} disabled variant="secondary" style={{ cursor: 'auto' }}>
+					<i className="fa fa-search"></i>
+				</Button>
 			</InputGroup>
 		</FormGroup>
 	);
@@ -53,4 +52,4 @@ const SearchBar = ( props ) => {
 
 // EXPORTS //
 
-export default withTranslation( [ 'header_bar', 'common' ] )( SearchBar );
+export default SearchBar;
