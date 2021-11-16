@@ -58,25 +58,21 @@ const ForgotPassword = ({ forgotPassword, settings }) => {
 					<Card.Title as="h3">{t('common:forgot-password')}</Card.Title>
 				</Card.Header>
 				<Card.Body>
-					<Form inline >
-						<FormGroup controlId="form-email">
+					<Form className="d-grid gap-3" >
+						<FormGroup inline controlId="form-email">
 							<FormLabel>{t('common:email-address')}</FormLabel>
 							<FormControl
 								type="email"
 								placeholder={t('common:enter-email')}
 								value={email}
 								onChange={handleEmailChange}
-								style={{
-									marginLeft: '10px',
-									marginRight: '6px'
-								}}
 							/>
-							<Button
-								disabled={!isEmail( email )}
-								onClick={handleClick} variant="primary"
-								type="submit"
-							>{t('common:reset')}</Button>
 						</FormGroup>
+						<Button
+							disabled={!isEmail( email )}
+							onClick={handleClick} variant="primary"
+							type="submit"
+						>{t('common:reset')}</Button>
 					</Form>
 				</Card.Body>
 				<Card.Footer style={{ background: 'rgba(255,255,255,0.6)', textAlign: 'right' }}>

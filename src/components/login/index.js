@@ -17,7 +17,7 @@
 
 // MODULES //
 
-import React, { useEffect, useRef, useState, Fragment } from 'react';
+import React, { useRef, useState, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
@@ -32,6 +32,7 @@ import Form from 'react-bootstrap/Form';
 import Popover from 'react-bootstrap/Popover';
 import Overlay from 'react-bootstrap/Overlay';
 import { Link } from 'react-router-dom';
+import useMountEffect from 'hooks/use-mount-effect';
 import 'css/login.css';
 
 
@@ -61,12 +62,12 @@ const Login = ({ user, restoreLogin, fetchCredentials, getEnrollableCohorts, han
 	const emailInput = useRef( null );
 	const { t } = useTranslation( [ 'login', 'common' ] );
 	const navigate = useNavigate();
-	useEffect( () => {
+	useMountEffect( () => {
 		if ( user && user.loggedIn ) {
 			restoreLogin( user );
 			getEnrollableCohorts( user );
 		}
-	}, [ user, restoreLogin, getEnrollableCohorts ] );
+	});
 
 	const handleEmailChange = ( event ) => {
 		setEmail( event.target.value );
@@ -131,7 +132,7 @@ const Login = ({ user, restoreLogin, fetchCredentials, getEnrollableCohorts, han
 						</Card.Title>
 					</Card.Header>
 					<Card.Body>
-						<Form>
+						<Form className="d-grid gap-3" >
 							<FormGroup controlId="form-email">
 								<Row>
 									<Col sm={3}>

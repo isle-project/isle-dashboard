@@ -168,7 +168,7 @@ const Signup = ({ createUser, getCustomFields, user, settings }) => {
 						</Card.Title>
 					</Card.Header>
 					<Card.Body>
-						<Form>
+						<Form className="d-grid gap-3" >
 							<OverlayTrigger placement="right" overlay={createTooltip( t('email-tooltip') )}>
 								<FormGroup
 									controlId="form-email"
