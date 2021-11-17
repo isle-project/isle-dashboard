@@ -102,7 +102,7 @@ class CreateFieldModal extends Component {
 							{t('admin_settings:create-user-field')}
 						</Modal.Title>
 					</Modal.Header>
-					<Modal.Body>
+					<Modal.Body className="d-grid gap-2" >
 						<FormGroup controlId="formFieldName" >
 							<FormLabel>{t('field-name')}</FormLabel>
 							<FormControl

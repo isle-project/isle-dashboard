@@ -290,7 +290,7 @@ class ConfigurationPage extends Component {
 			availableLanguages = availableLanguages.map( x => ({ label: languageLabel( x ), value: x }) );
 		}
 		return (
-			<Container style={{ float: 'left' }} >
+			<Container style={{ float: 'left' }} className="d-grid gap-3" >
 				<Form.Group as={Row} controlId="formPlaintextTitle" >
 					<Form.Label column sm={2} >
 						{t('title')}
@@ -399,7 +399,7 @@ class ConfigurationPage extends Component {
 	renderLogin() {
 		const { admin, t, updateSettings } = this.props;
 		return (
-			<Container style={{ float: 'left' }} >
+			<Container style={{ float: 'left' }} className="d-grid gap-3" >
 				<Form.Group as={Row} controlId="formRegistrations" >
 					<Form.Label column sm={4} >
 						{t('allow-new-registrations')}
@@ -477,7 +477,7 @@ class ConfigurationPage extends Component {
 	renderRateLimits() {
 		const { admin, t, updateSettings } = this.props;
 		return (
-			<Container style={{ float: 'left' }} >
+			<Container style={{ float: 'left' }} className="d-grid gap-3" >
 				<Form.Group as={Row} controlId="rateLimitNamespaceCreation" >
 					<Form.Label column sm={5} >
 						{t('create-namespaces-per-hour')}

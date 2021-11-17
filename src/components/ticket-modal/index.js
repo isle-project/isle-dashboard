@@ -178,22 +178,19 @@ class TicketModal extends Component {
 							>
 							</FormControl>
 						</FormGroup>
-						<div style={{ float: 'right', width: '180px' }} >
+						<div style={{ float: 'right', width: '180px' }} className="d-grid gap-2" >
 							<Button
-								block
 								onClick={this.handleResponseSubmit}
 								disabled={!this.state.response || ticket.done}
 							>
 								{t('submit-response')}
 							</Button>
 							<Button
-								block
 								onClick={this.toggleCompletion}
 							>
 								{ticket.done ? t('common:open-ticket') : t('common:close-ticket')}
 							</Button>
 							<Button
-								block
 								onClick={this.props.onHide}
 							>
 								{t('common:hide')}

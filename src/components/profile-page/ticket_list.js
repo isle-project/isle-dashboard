@@ -49,8 +49,8 @@ class TicketListModal extends Component {
 
 	async componentDidMount() {
 		await this.props.getUserTickets();
-		if ( this.props.history && this.props.history.location.search ) {
-			const match = RE_TICKET.exec( this.props.history.location.search );
+		if ( window && window.location.search ) {
+			const match = RE_TICKET.exec( window.location.search );
 			if ( match && match[ 1 ] ) {
 				const { tickets } = this.props.user;
 				if ( tickets ) {
