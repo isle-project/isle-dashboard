@@ -793,7 +793,7 @@ class Overview extends Component {
 					<h2>{this.props.t('over-time')}</h2>
 					{this.renderTimeSeries()}
 				</Col>
-				<Col sm={12} md={3} >
+				<Col sm={12} md={3} style={{ position: 'relative' }} >
 					{this.renderActionTypes()}
 				</Col>
 			</Row>

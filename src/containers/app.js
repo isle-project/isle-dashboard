@@ -58,10 +58,6 @@ const AsyncLessonsPage = lazy(() => import( 'containers/visible-lessons-page' ))
 const AsyncProfilePage = lazy(() => import( 'containers/visible-profile-page' ));
 const AsyncEnrollPage = lazy(() => import( 'containers/visible-enroll-page' ));
 const USER_STORAGE_ID = 'ISLE_USER_'+server;
-
-
-// VARIABLES //
-
 const RE_PUBLIC_PAGES = /(?:courses|new-password|complete-registration|confirm-email|signup|login|login-tfa|terms|privacy)/;
 const debug = logger( 'isle-dashboard' );
 
@@ -154,9 +150,9 @@ const App =({ isLoggedIn, dispatch, getCustomTranslations, getPublicSettings, fe
 	if ( isLoggedIn ) {
 		AuthenticationBarrier =
 			<Fragment>
-				<Suspense fallback={<div>Loading...</div>}>
+				{!RE_PUBLIC_PAGES.test( window.location.pathname ) ? <Suspense fallback={<div>Loading...</div>}>
 					<AsyncHeaderBar />
-				</Suspense>
+				</Suspense> : null}
 				<Routes>
 					<Route
 						path="/create-namespace"

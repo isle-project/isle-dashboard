@@ -1,6 +1,6 @@
 .lessons-status {
 	margin-top: 6px;
-	margin-right: 4px;
+	margin-right: 1px;
 	margin-bottom: 6px;
 	font-size: 15px;
 	cursor: pointer;
@@ -65,7 +65,7 @@
 
 .lessons-uploaded-image {
 	margin-top: -4px;
-	margin-left: 6px;
+	margin-left: 1px;
 	width: 16px;
 	height: 16px;
 	stroke: #b52808;

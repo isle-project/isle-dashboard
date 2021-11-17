@@ -280,7 +280,7 @@ class Lesson extends Component {
 		const { t } = this.props;
 		const publicStyle = this.props.public === true ? 'success' : 'warning';
 		return ( <ButtonToolbar className="lesson-button-toolbar">
-			<ButtonGroup style={{ marginRight: '5px' }} >
+			<ButtonGroup style={{ marginRight: '2px' }} >
 				<OverlayTrigger placement="top" overlay={<Tooltip id="open_details">{t('open-details')}</Tooltip>}>
 					<Button size="sm" variant="secondary" onClick={this.showDetailsModal} aria-label={t('open-details')} >
 						<i className="fa fa-cog"></i>

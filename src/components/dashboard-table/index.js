@@ -18,7 +18,7 @@
 
 // MODULES //
 
-import React, { Component, Fragment } from 'react';
+import React, { Fragment, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import ReactTable from 'react-table';
 import Button from 'react-bootstrap/Button';
@@ -31,46 +31,51 @@ import './table.css';
 
 // MAIN //
 
-class DashboardTable extends Component {
-	getProps = () => {
+/**
+ * A table component for displaying data.
+ *
+ * @param {Object} props - component properties
+ * @param {(Array|Object)} props.data - array of objects containing data
+ * @param {Array} props.columns - array of column objects
+ * @param {Function} props.onButtonClick - callback to invoke upon clicking the data explorer button
+ * @param {string} props.className - CSS class name
+ * @param {Function} props.t - i18n translation function
+ * @returns {ReactElement} component
+ */
+const DashboardTable = ( props ) => {
+	const { id, t } = props;
+	const getProps = useCallback( () => {
 		return {
-			id: this.props.id || 'dashboard-table'
+			id: id || 'dashboard-table'
 		};
-	};
-
-	render() {
-		const { t } = this.props;
-		return (
-			<Fragment>
-				<ReactTable
-					{...this.props}
-					filterable
-					className={`dashboard-table ${this.props.className}`}
-					data={this.props.data}
-					columns={this.props.columns}
-					previousText={t('common:previous')}
-					nextText={t('common:next')}
-					loadingText={t('common:loading')}
-					noDataText={t('common:no-rows-found')}
-					pageText={t('common:page')}
-					ofText={t('common:of')}
-					rowsText={t('common:rows')}
-					ref={( table ) => {
-						this.table = table;
-					}}
-					getProps={this.getProps}
-				/>
-				{this.props.onButtonClick ? <ButtonGroup vertical style={{ float: 'right', marginRight: -9 }} >
-					<OverlayTrigger placement="left" overlay={<Tooltip id="explorer-tooltip">{t('common:data-explorer')}</Tooltip>}>
-						<Button aria-label={t('common:data-explorer')} variant="primary" style={{ marginBottom: 8 }} onClick={this.props.onButtonClick} >
-							<i className="fas fa-chart-bar" ></i>
-						</Button>
-					</OverlayTrigger>
-				</ButtonGroup> : null}
-			</Fragment>
-		);
-	}
-}
+	}, [ id ] );
+	return (
+		<Fragment>
+			<ReactTable
+				{...props}
+				filterable
+				className={`dashboard-table ${props.className}`}
+				data={props.data}
+				columns={props.columns}
+				previousText={t('common:previous')}
+				nextText={t('common:next')}
+				loadingText={t('common:loading')}
+				noDataText={t('common:no-rows-found')}
+				pageText={t('common:page')}
+				ofText={t('common:of')}
+				rowsText={t('common:rows')}
+				getProps={getProps}
+			/>
+			{props.onButtonClick ? <ButtonGroup vertical style={{ float: 'right', marginRight: -9 }} >
+				<OverlayTrigger placement="left" overlay={<Tooltip id="explorer-tooltip">{t('common:data-explorer')}</Tooltip>}>
+					<Button aria-label={t('common:data-explorer')} variant="primary" style={{ marginBottom: 8 }} onClick={props.onButtonClick} >
+						<i className="fas fa-chart-bar" ></i>
+					</Button>
+				</OverlayTrigger>
+			</ButtonGroup> : null}
+		</Fragment>
+	);
+};
 
 
 // PROPERTIES //
