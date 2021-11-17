@@ -67,8 +67,8 @@ class TicketsPage extends Component {
 		debug( 'Component did mount...' );
 		await this.props.getCourseTickets( this.props.namespace._id );
 
-		if ( this.props.history.location.search ) {
-			const match = RE_TICKET.exec( this.props.history.location.search );
+		if ( window.location.search ) {
+			const match = RE_TICKET.exec( window.location.search );
 			if ( match && match[ 1 ] ) {
 				const tickets = this.props.tickets;
 				for ( let i = 0; i < tickets.length; i++ ) {

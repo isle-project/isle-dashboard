@@ -18,13 +18,20 @@
 // MODULES //
 
 import React from 'react';
-import { withTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 
 
 // MAIN //
 
-const NoLessonBanner = ( props ) => {
-	const { user, t } = props;
+/**
+ * A banner displayed for a course that has no lessons.
+ *
+ * @param {Object} props - component props
+ * @param {Object} props.user - user object
+ * @returns {ReactElement} banner
+ */
+const NoLessonBanner = ({ user }) => {
+	const { t } = useTranslation( [ 'lessons_page', 'common' ] );
 	let description = t('no-lessons');
 	if ( user.writeAccess ) {
 		description += t('upload-from-editor');
@@ -38,5 +45,5 @@ const NoLessonBanner = ( props ) => {
 
 // EXPORTS //
 
-export default withTranslation( [ 'lessons_page', 'common' ] )( NoLessonBanner );
+export default NoLessonBanner;
 

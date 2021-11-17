@@ -25,6 +25,17 @@ import Modal from 'react-bootstrap/Modal';
 
 // MAIN //
 
+/**
+ * Delete modal component.
+ *
+ * @param {Object} props - component properties
+ * @param {boolean} props.show - boolean indicating if the modal is visible
+ * @param {Function} props.close - callback to invoke when the modal is closed
+ * @param {Function} props.delete - callback to invoke when the delete button is clicked
+ * @param {string} props.title - lesson title
+ * @param {Function} props.t - i18n translate function
+ * @returns {ReactElement} delete modal
+ */
 const DeleteModal = ( props ) => (
 	<Modal show={props.show} onHide={props.close}>
 		<Modal.Header>
