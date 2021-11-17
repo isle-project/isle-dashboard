@@ -26,8 +26,19 @@ import Modal from 'react-bootstrap/Modal';
 
 // MAIN //
 
+/**
+ * A confirmation modal component.
+ *
+ * @param {Object} props - component properties
+ * @param {string} props.title - modal title
+ * @param {string} props.message - modal message
+ * @param {boolean} props.show - boolean indicating whether the modal is visible
+ * @param {Function} props.close - callback to invoke upon hiding the modal
+ * @param {Function} props.onConfirm - callback to invoke upon confirming the modal
+ * @returns {ReactElement} modal component
+ */
 const ConfirmModal = ( props ) => (
-	<Modal show={props.show} onHide={props.close}>
+	<Modal show={props.show} onHide={props.close} >
 		<Modal.Header>
 			<Modal.Title as="h3">{props.title}</Modal.Title>
 		</Modal.Header>
@@ -35,8 +46,12 @@ const ConfirmModal = ( props ) => (
 			{props.message}
 		</Modal.Body>
 		<Modal.Footer>
-			<Button onClick={props.close}>{props.t('cancel')}</Button>
-			<Button variant="danger" onClick={props.onConfirm}>{props.t('confirm')}</Button>
+			<Button onClick={props.close}>
+				{props.t('cancel')}
+			</Button>
+			<Button variant="danger" onClick={props.onConfirm}>
+				{props.t('confirm')}
+			</Button>
 		</Modal.Footer>
 	</Modal>
 );

@@ -275,9 +275,9 @@ const RoleModal = ( props ) => {
 						return (
 							<Fragment key={`${group.name}-${i}`} >
 								<h5>{group.name}</h5>
-								<Form.Row style={{ marginBottom: 16 }} >
+								<Row style={{ marginBottom: 16 }} >
 									{actions}
-								</Form.Row>
+								</Row>
 								<hr />
 							</Fragment>
 						);

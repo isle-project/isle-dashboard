@@ -35,6 +35,12 @@ import './admin_settings.css';
 
 // MAIN //
 
+/**
+ * Renders the admin settings page.
+ *
+ * @param {Object} props - component properties
+ * @returns {ReactElement} setting page
+ */
 const Settings = ( props ) => {
 	const [ activePage, setActivePage ] = useState( window.location.pathname );
 	const { t } = useTranslation( [ 'admin_settings', 'common' ] );
