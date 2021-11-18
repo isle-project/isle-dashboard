@@ -18,7 +18,7 @@
 // MODULES //
 
 import React, { Component } from 'react';
-import Spinner from './spinner.js';
+import Spinner from 'components/spinner';
 
 
 // MAIN //

@@ -25,6 +25,7 @@ import { Route, Routes, useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import capitalize from '@stdlib/string/capitalize';
 import axios from 'axios';
+import Spinner from 'components/spinner';
 import usePrevious from 'hooks/use-previous';
 import useMountEffect from 'hooks/use-mount-effect/index.js';
 import server from 'constants/server';
@@ -58,7 +59,7 @@ const AsyncLessonsPage = lazy(() => import( 'containers/visible-lessons-page' ))
 const AsyncProfilePage = lazy(() => import( 'containers/visible-profile-page' ));
 const AsyncEnrollPage = lazy(() => import( 'containers/visible-enroll-page' ));
 const USER_STORAGE_ID = 'ISLE_USER_'+server;
-const RE_PUBLIC_PAGES = /(?:courses|new-password|complete-registration|confirm-email|signup|login|login-tfa|terms|privacy)/;
+const RE_PUBLIC_PAGES = /(?:new-password|complete-registration|confirm-email|signup|login|login-tfa|terms|privacy)/;
 const debug = logger( 'isle-dashboard' );
 
 
@@ -150,61 +151,61 @@ const App =({ isLoggedIn, dispatch, getCustomTranslations, getPublicSettings, fe
 	if ( isLoggedIn ) {
 		AuthenticationBarrier =
 			<Fragment>
-				{!RE_PUBLIC_PAGES.test( window.location.pathname ) ? <Suspense fallback={<div>Loading...</div>}>
+				{!RE_PUBLIC_PAGES.test( window.location.pathname ) ? <Suspense fallback={<Spinner />}>
 					<AsyncHeaderBar />
 				</Suspense> : null}
 				<Routes>
 					<Route
 						path="/create-namespace"
-						element={<Suspense fallback={<div>Loading...</div>}>
+						element={<Suspense fallback={<Spinner />}>
 							<AsyncCreateNamespace />
 						</Suspense>}
 					/>
 					<Route
 						path="/edit-namespace/:namespace"
-						element={<Suspense fallback={<div>Loading...</div>}>
+						element={<Suspense fallback={<Spinner />}>
 							<AsyncEditNamespace />
 						</Suspense>}
 					/>
 					<Route
 						path="/namespace-data/:namespace/*"
-						element={<Suspense fallback={<div>Loading...</div>}>
+						element={<Suspense fallback={<Spinner />}>
 							<AsyncNamespaceData />
 						</Suspense>}
 					/>
 					<Route
 						path="/profile"
-						element={<Suspense fallback={<div>Loading...</div>}>
+						element={<Suspense fallback={<Spinner />}>
 							<AsyncProfilePage />
 						</Suspense>}
 					/>
 					<Route
 						path="/lessons"
-						element={<Suspense fallback={<div>Loading...</div>}>
+						element={<Suspense fallback={<Spinner />}>
 							<AsyncLessonsPage />
 						</Suspense>}
 					/>
 					<Route
 						path="/lessons/:namespace"
-						element={<Suspense fallback={<div>Loading...</div>}>
+						element={<Suspense fallback={<Spinner />}>
 							<AsyncLessonsPage />
 						</Suspense>}
 					/>
 					<Route
 						path="/gallery"
-						element={<Suspense fallback={<div>Loading...</div>}>
+						element={<Suspense fallback={<Spinner />}>
 							<AsyncGallery />
 						</Suspense>}
 					/>
 					<Route
 						path="/enroll"
-						element={<Suspense fallback={<div>Loading...</div>}>
+						element={<Suspense fallback={<Spinner />}>
 							<AsyncEnrollPage />
 						</Suspense>}
 					/>
 					<Route
 						path="/admin/*"
-						element={<Suspense fallback={<div>Loading...</div>}>
+						element={<Suspense fallback={<Spinner />}>
 							<AsyncAdminPage />
 						</Suspense>}
 					/>
@@ -218,34 +219,34 @@ const App =({ isLoggedIn, dispatch, getCustomTranslations, getPublicSettings, fe
 			</Helmet>
 			{AuthenticationBarrier}
 			<Routes>
-				<Route path="/" element={<Suspense fallback={<div>Loading...</div>}>
+				<Route path="/" element={<Suspense fallback={<Spinner />}>
 					<AsyncLogin />
 				</Suspense>} />
-				<Route path="/login" element={<Suspense fallback={<div>Loading...</div>}>
+				<Route path="/login" element={<Suspense fallback={<Spinner />}>
 					<AsyncLogin />
 				</Suspense>} />
-				<Route path="/login-tfa" element={<Suspense fallback={<div>Loading...</div>}>
+				<Route path="/login-tfa" element={<Suspense fallback={<Spinner />}>
 					<AsyncLoginTFA />
 				</Suspense>} />
-				<Route path="/new-password" element={<Suspense fallback={<div>Loading...</div>}>
+				<Route path="/new-password" element={<Suspense fallback={<Spinner />}>
 					<AsyncNewPassword />
 				</Suspense>} />
-				<Route path="/complete-registration" element={<Suspense fallback={<div>Loading...</div>}>
+				<Route path="/complete-registration" element={<Suspense fallback={<Spinner />}>
 					<AsyncCompleteRegistration />
 				</Suspense>} />
-				<Route path="/confirm-email" element={<Suspense fallback={<div>Loading...</div>}>
+				<Route path="/confirm-email" element={<Suspense fallback={<Spinner />}>
 					<AsyncConfirmEmail />
 				</Suspense>} />
-				{settings.allowUserRegistrations ? <Route path="/signup" element={<Suspense fallback={<div>Loading...</div>}>
+				{settings.allowUserRegistrations ? <Route path="/signup" element={<Suspense fallback={<Spinner />}>
 					<AsyncSignup />
 				</Suspense>} /> : null}
-				<Route path="/forgot-password" element={<Suspense fallback={<div>Loading...</div>}>
+				<Route path="/forgot-password" element={<Suspense fallback={<Spinner />}>
 					<AsyncForgotPassword />
 				</Suspense>} />
-				<Route path="/terms" element={<Suspense fallback={<div>Loading...</div>}>
+				<Route path="/terms" element={<Suspense fallback={<Spinner />}>
 					<AsyncTerms />
 				</Suspense>} />
-				<Route path="/privacy" element={<Suspense fallback={<div>Loading...</div>}>
+				<Route path="/privacy" element={<Suspense fallback={<Spinner />}>
 					<AsyncPrivacy />
 				</Suspense>} />
 			</Routes>
