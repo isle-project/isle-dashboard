@@ -46,10 +46,6 @@ const IS_IOS = isIOS();
 
 // FUNCTIONS //
 
-function addDefaultSrc( event ) {
-	event.target.src = background;
-}
-
 function isIOS() {
 	return [
 		'iPad Simulator',
@@ -210,10 +206,6 @@ class Lesson extends Component {
 		});
 	};
 
-	showPreviewImage = () => {
-		this.img.src = this.props.url+'/preview.jpg';
-	};
-
 	openLesson = () => {
 		if ( IS_IOS ) {
 			window.location = this.props.url;
@@ -323,12 +315,12 @@ class Lesson extends Component {
 		return (
 			<Card className="animated-lesson-card">
 				<Card.Body style={{ padding: 0, opacity: this.props.hideFromDashboard ? 0.6 : 1.0 }}>
-					<div style={{
-						filter: 'grayscale(30%)',
-						background: COLORS[ this.props.colorIndex ]
-					}} className="hovereffect"
-						onMouseOver={this.showPreviewImage}
-						onFocus={this.showPreviewImage}
+					<div
+						style={{
+							filter: 'grayscale(30%)',
+							background: COLORS[ this.props.colorIndex ]
+						}}
+						className="hovereffect"
 					>
 						<img
 							className="img-responsive"
@@ -336,12 +328,11 @@ class Lesson extends Component {
 							ref={( div ) => {
 								this.img = div;
 							}}
-							alt=""
+							alt="Tile background"
 							style={{
 								width: '100%',
 								height: 180
 							}}
-							onError={addDefaultSrc}
 						/>
 						<div
 							className="overlay"
