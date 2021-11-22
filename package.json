@@ -60,7 +60,7 @@
     "@babel/runtime": "^7.16.3",
     "@isle-project/components": "^0.50.6",
     "@isle-project/constants": "^0.50.6",
-    "@isle-project/locales": "^0.50.36",
+    "@isle-project/locales": "^0.50.37",
     "@isle-project/session": "^0.50.6",
     "@isle-project/utils": "^0.50.6",
     "@isle-project/webpack-cdn-plugin": "^0.50.6",
