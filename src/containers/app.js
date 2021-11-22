@@ -112,8 +112,8 @@ const App =({ isLoggedIn, dispatch, getCustomTranslations, getPublicSettings, fe
 			if ( !isle ) {
 				debug( 'User is logged in, but no local storage found -> write to local storage' );
 				localStorage.setItem( USER_STORAGE_ID, JSON.stringify({
-					token: this.props.user.token,
-					id: this.props.user.id
+					token: user.token,
+					id: user.id
 				}) );
 			}
 		}
