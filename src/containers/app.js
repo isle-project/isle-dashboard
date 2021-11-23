@@ -65,6 +65,12 @@ const debug = logger( 'isle-dashboard' );
 
 // FUNCTIONS //
 
+/**
+* Injects the application title into the document's title tag.
+*
+* @private
+* @returns {ReactElement} helmet component
+*/
 const Title = () => {
 	const { pathname } = useLocation();
 	let title = capitalize( pathname.replace( /^[\s\S]*\//, '' ) ) || 'Login';
@@ -76,6 +82,14 @@ const Title = () => {
 	);
 };
 
+/**
+* Generates a destination URL based off the query string or a sensible default.
+*
+* @private
+* @param {string} search - query string
+* @param {boolean} writeAccess - whether or not the user has write access
+* @returns {string} destination URL
+*/
 function destination( search, writeAccess ) {
 	let url = new URLSearchParams( search ).get( 'url' );
 	if ( !url ) {
@@ -87,6 +101,20 @@ function destination( search, writeAccess ) {
 
 // MAIN //
 
+/**
+* The main application component.
+*
+* @param {Object} props - component properties
+* @param {boolean} props.isLoggedIn - whether or not the user is logged in
+* @param {Object} props.user - user object
+* @param {Object} props.settings - application settings
+* @param {Function} props.fetchCredentials - function to fetch credentials
+* @param {Function} props.getCustomTranslations - function to get custom translations
+* @param {Function} props.getPublicSettings - function to get public settings
+* @param {Function} props.getEnrollableCohorts - function to get enrollable cohorts
+* @param {Function} props.dispatch - redux dispatch function
+* @returns {ReactElement} component
+*/
 const App =({ isLoggedIn, dispatch, getCustomTranslations, getPublicSettings, fetchCredentials, getEnrollableCohorts, user, settings }) => {
 	const oldIsLoggedIn = usePrevious( isLoggedIn );
 	const writeAccess = user.writeAccess;
