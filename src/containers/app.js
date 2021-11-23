@@ -21,7 +21,7 @@ import React, { lazy, Suspense, useEffect, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import logger from 'debug';
 import { connect } from 'react-redux';
-import { Route, Routes, useNavigate } from 'react-router-dom';
+import { Route, Routes, useNavigate, useLocation } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import capitalize from '@stdlib/string/capitalize';
 import axios from 'axios';
@@ -65,12 +65,16 @@ const debug = logger( 'isle-dashboard' );
 
 // FUNCTIONS //
 
-function generateTitle( ) {
-	console.log( window.location.hash );
-	const title = capitalize( window.location.hash.replace( /^\//, '' ) );
-	console.log( title );
-	return `${title} | ISLE Dashboard`;
-}
+const Title = () => {
+	const { pathname } = useLocation();
+	let title = capitalize( pathname.replace( /^[\s\S]*\//, '' ) );
+	title = `${title} | ISLE Dashboard`;
+	return (
+		<Helmet>
+			<title>{title}</title>
+		</Helmet>
+	);
+};
 
 
 // MAIN //
@@ -214,9 +218,7 @@ const App =({ isLoggedIn, dispatch, getCustomTranslations, getPublicSettings, fe
 	}
 	return (
 		<div className="App">
-			<Helmet>
-				<title>{generateTitle()}</title>
-			</Helmet>
+			<Title />
 			{AuthenticationBarrier}
 			<Routes>
 				<Route path="/" element={<Suspense fallback={<Spinner />}>
