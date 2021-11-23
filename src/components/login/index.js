@@ -21,6 +21,8 @@ import React, { useRef, useState, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import logger from 'debug';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import Col from 'react-bootstrap/Col';
@@ -33,7 +35,13 @@ import Popover from 'react-bootstrap/Popover';
 import Overlay from 'react-bootstrap/Overlay';
 import { Link } from 'react-router-dom';
 import useMountEffect from 'hooks/use-mount-effect';
+import server from 'constants/server';
 import 'css/login.css';
+
+
+// VARIABLES //
+
+const debug = logger( 'isle-dashboard:login' );
 
 
 // MAIN //
@@ -58,6 +66,7 @@ const Login = ({ user, restoreLogin, fetchCredentials, getEnrollableCohorts, han
 		target: null,
 		message: ''
 	});
+	const [ hasSSO, setHasSSO ] = useState( false );
 	const passwordInput = useRef( null );
 	const emailInput = useRef( null );
 	const { t } = useTranslation( [ 'login', 'common' ] );
@@ -66,6 +75,18 @@ const Login = ({ user, restoreLogin, fetchCredentials, getEnrollableCohorts, han
 		if ( user && user.loggedIn ) {
 			restoreLogin( user );
 			getEnrollableCohorts( user );
+		} else {
+			const res = axios.get( server + '/saml-xmw/login-type' );
+			res.then( response => {
+				if ( response.data === 'SSO' ) {
+					navigate( server + '/saml-xmw/login-choices' );
+				}
+				else if ( response.data === 'Both' ) {
+					setHasSSO( true );
+				}
+			}).catch( err => {
+				debug( 'Encountered an error: ', err );
+			});
 		}
 	});
 
@@ -121,6 +142,50 @@ const Login = ({ user, restoreLogin, fetchCredentials, getEnrollableCohorts, han
 			}
 		}
 	};
+	const form = <Form className="d-grid gap-3" >
+		<FormGroup controlId="form-email">
+			<Row>
+				<Col sm={3}>
+					<FormLabel>{t('common:email')}</FormLabel>
+				</Col>
+				<Col sm={9}>
+					<FormControl
+						name="email"
+						type="email"
+						autoComplete="isle-email"
+						placeholder={t('common:email')}
+						onChange={handleEmailChange}
+						ref={emailInput}
+					/>
+				</Col>
+			</Row>
+		</FormGroup>
+		<FormGroup controlId="form-password">
+			<Row>
+				<Col sm={3}>
+					<FormLabel>{t('common:password')}</FormLabel>
+				</Col>
+				<Col sm={9}>
+					<FormControl
+						name="password"
+						type="password"
+						autoComplete="isle-password"
+						placeholder={t('common:password')}
+						onChange={handlePasswordChange}
+						ref={passwordInput}
+					/>
+				</Col>
+			</Row>
+		</FormGroup>
+		<FormGroup>
+			<Button
+				className="centered"
+				variant="primary"
+				onClick={handleSubmit}
+				type="submit"
+			>{t('common:login')}</Button>
+		</FormGroup>
+	</Form>;
 	return (
 		<Fragment>
 			<div className="login">
@@ -132,52 +197,13 @@ const Login = ({ user, restoreLogin, fetchCredentials, getEnrollableCohorts, han
 						</Card.Title>
 					</Card.Header>
 					<Card.Body>
-						<Form className="d-grid gap-3" >
-							<FormGroup controlId="form-email">
-								<Row>
-									<Col sm={3}>
-										<FormLabel>{t('common:email')}</FormLabel>
-									</Col>
-									<Col sm={9}>
-										<FormControl
-											name="email"
-											type="email"
-											autoComplete="isle-email"
-											placeholder={t('common:email')}
-											onChange={handleEmailChange}
-											ref={emailInput}
-										/>
-									</Col>
-								</Row>
-							</FormGroup>
-							<FormGroup controlId="form-password">
-								<Row>
-									<Col sm={3}>
-										<FormLabel>{t('common:password')}</FormLabel>
-									</Col>
-									<Col sm={9}>
-										<FormControl
-											name="password"
-											type="password"
-											autoComplete="isle-password"
-											placeholder={t('common:password')}
-											onChange={handlePasswordChange}
-											ref={passwordInput}
-										/>
-									</Col>
-								</Row>
-							</FormGroup>
-							<FormGroup>
-								<Button
-									className="centered"
-									variant="primary"
-									onClick={handleSubmit}
-									type="submit"
-								>{t('common:login')}</Button>
-							</FormGroup>
-						</Form>
+						{form}
 					</Card.Body>
 					<Card.Footer style={{ background: 'rgba(255,255,255,0.6)', textAlign: 'right' }}>
+						{hasSSO ? <Fragment>
+							<Link to="/saml-xmw/login-choice">SSO</Link>
+							<span> | </span>
+						</Fragment> : null }
 						<Link to="/forgot-password">{t('common:forgot-password')}</Link>
 						{settings.allowUserRegistrations ?
 							<Fragment>
