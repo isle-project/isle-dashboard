@@ -95,7 +95,7 @@ function destination( search, writeAccess ) {
 	if ( !url ) {
 		url = writeAccess ? '/lessons' : '/profile';
 	}
-	return url;
+	return server + url;
 }
 
 
@@ -165,15 +165,15 @@ const App =({ isLoggedIn, dispatch, getCustomTranslations, getPublicSettings, fe
 		if ( isLoggingIn ) {
 			if ( pathname === '/login-tfa' ) {
 				const path = destination( search, writeAccess );
-				navigate( path );
+				window.location = path;
 			}
 			else if ( pathname && pathname !== '/' && pathname !== '/login' ) {
 				debug( 'User has logged in, redirecting to: '+pathname );
-				navigate( pathname );
+				navigate( pathname, { replace: true } );
 			} else {
 				const path = destination( search, writeAccess );
 				debug( 'User has logged in, redirecting to default page: '+pathname );
-				navigate( path );
+				window.location = path;
 			}
 		}
 		else if ( isLoggingOut ) {
@@ -184,7 +184,7 @@ const App =({ isLoggedIn, dispatch, getCustomTranslations, getPublicSettings, fe
 			( pathname === '/' || pathname === '/login' || pathname === '/login-tfa' )
 		) {
 			const path = destination( search, writeAccess );
-			navigate( path );
+			window.location = path;
 		}
 	}, [ isLoggedIn, pathname, search, navigate, oldIsLoggedIn, writeAccess ] );
 	let AuthenticationBarrier = null;
