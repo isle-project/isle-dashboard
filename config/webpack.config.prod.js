@@ -372,6 +372,7 @@ module.exports = {
 				// public/ and not a SPA route
 				new RegExp('/[^/]+\\.[^/]+$'),
 			],
+			maximumFileSizeToCacheInBytes: 10485760
 		})
 	],
 	// Turn off performance processing because we utilize
