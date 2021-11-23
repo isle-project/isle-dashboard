@@ -207,8 +207,7 @@ module.exports = {
 						test: [/\.bmp$/, /\.gif$/, /\.jpe?g$/, /\.png$/],
 						type: 'asset'
 					},
-					// Process application JS with Babel.
-					// The preset includes JSX, Flow, and some ESnext features.
+					// Process application JS with esbuild.
 					{
 						test: /\.(js|jsx|cjs)$/,
 						include: [
@@ -216,50 +215,12 @@ module.exports = {
 							/@isle-project/
 						],
 						use: {
-							loader: require.resolve('babel-loader'),
+							loader: 'esbuild-loader',
 							options: {
-								plugins: [
-									[
-										require.resolve('babel-plugin-named-asset-import'),
-										{
-											loaderMap: {
-												svg: {
-													ReactComponent: '@svgr/webpack?-prettier,-svgo![path]',
-												},
-											},
-										},
-									],
-								],
-								// This is a feature of `babel-loader` for webpack (not Babel itself).
-								// It enables caching results in ./node_modules/.cache/babel-loader/
-								// directory for faster rebuilds.
-								cacheDirectory: true,
-								// Don't waste time on Gzipping the cache
-								cacheCompression: false,
-							},
-						}
-					},
-					// Process any JS outside of the app with Babel.
-					// Unlike the application JS, we only compile the standard ES features.
-					{
-						test: /\.(js|cjs)$/,
-						exclude: /@babel(?:\/|\\{1,2})runtime/,
-						use: {
-							loader: require.resolve('babel-loader'),
-							options: {
-								babelrc: false,
-								configFile: false,
-								compact: false,
-								presets: [],
-								cacheDirectory: true,
-								// Don't waste time on Gzipping the cache
-								cacheCompression: false,
-								// If an error happens in a package, it's possible to be
-								// because it was compiled. Thus, we don't want the browser
-								// debugger to show the original code. Instead, the code
-								// being evaluated would be much more helpful.
-								sourceMaps: false,
-							},
+								loader: 'jsx',
+								target: 'es2015',
+								legalComments: 'none'
+							}
 						}
 					},
 					// "postcss" loader applies autoprefixer to our CSS.
