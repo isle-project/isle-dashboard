@@ -47,7 +47,8 @@ const NamespaceData = ({
 		adjustProgress, getCourseTickets, getNamespaceActions, openTicket, closeTicket,
 		updatePriority, getOwnerFiles
 }) => {
-	const [ activePage, setActivePage ] = useState( window.location.pathname );
+	let pathname = window.location.pathname;
+	const [ activePage, setActivePage ] = useState( pathname.substring( pathname.lastIndexOf( '/' ) + 1 ) );
 	const { t } = useTranslation( [ 'namespace_data', 'common' ] );
 	const navigate = useNavigate();
 	useEffect( () => {
