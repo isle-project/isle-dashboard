@@ -67,7 +67,7 @@ const debug = logger( 'isle-dashboard' );
 
 const Title = () => {
 	const { pathname } = useLocation();
-	let title = capitalize( pathname.replace( /^[\s\S]*\//, '' ) );
+	let title = capitalize( pathname.replace( /^[\s\S]*\//, '' ) ) || 'Login';
 	title = `${title} | ISLE Dashboard`;
 	return (
 		<Helmet>
