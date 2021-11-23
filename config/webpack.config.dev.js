@@ -159,14 +159,12 @@ module.exports = {
 		// `web` extension prefixes have been added for better support
 		// for React Native Web.
 		extensions: ['.web.js', '.js', '.json', '.web.jsx', '.jsx'],
+		mainFields: [ 'webpack', 'browser', 'web', 'browserify', [ 'jam', 'main' ], 'main' ],
 		alias: {
 			// Support React Native Web
 			// https://www.smashingmagazine.com/2016/08/a-glimpse-into-the-future-with-react-native-for-web/
 			'react-native': 'react-native-web',
-			'csv-stringify': require.resolve( 'csv-stringify/lib/browser/index.js' ),
-			'@restart/ui/Overlay': '@restart/ui/cjs/Overlay.js',
-			'@restart/ui/DropdownMenu': '@restart/ui/cjs/DropdownMenu.js',
-			'@restart/ui/Dropdown': '@restart/ui/cjs/Dropdown.js'
+			'csv-stringify': require.resolve( 'csv-stringify/lib/browser/index.js' )
 		},
 		plugins: [
 			// Adds support for installing with Plug'n'Play, leading to faster installs and adding
@@ -197,16 +195,6 @@ module.exports = {
 	module: {
 		strictExportPresence: true,
 		rules: [
-			{
-				// `mjs` support is still in its infancy in the ecosystem, so we don't
-				// support it.
-				// Modules who define their `browser` or `module` key as `mjs` force
-				// the use of this extension, so we need to tell webpack to fall back
-				// to auto mode (ES Module interop, allows ESM to import CommonJS).
-				test: /\.mjs$/,
-				include: /node_modules/,
-				type: 'javascript/auto',
-			},
 			{
 				// "oneOf" will traverse all following loaders until one will
 				// match the requirements. When no loader matches it will fall
