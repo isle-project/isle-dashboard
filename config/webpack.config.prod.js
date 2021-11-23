@@ -147,8 +147,8 @@ module.exports = {
 			new ESBuildMinifyPlugin({
 				target: 'es2015',
 				implementation: esbuild,
-				minify: true,
-				minifyIdentifiers: true,
+				minify: false,
+				minifyIdentifiers: false,
 				minifyWhitespace: true,
 				minifySyntax: true,
 				legalComments: 'none'
