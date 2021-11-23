@@ -43,7 +43,7 @@ i18n.use( Backend )
 			],
 			backendOptions: [
 				{
-					loadPath: './locales/{{lng}}/{{ns}}.json'
+					loadPath: server+'/dashboard/locales/{{lng}}/{{ns}}.json'
 				},
 				{
 					loadPath: server+'/locales/{{lng}}/{{ns}}.json'
