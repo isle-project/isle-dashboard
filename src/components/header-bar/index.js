@@ -424,7 +424,7 @@ const HeaderBar = ({ logout, namespace, user, search, onEnrolledNamespace, onNam
 		setSearchPhrase( '' );
 	};
 	const goToCourseDataPage = () => {
-		navigate( `/namespace-data/${namespace.title}` );
+		navigate( `/namespace-data/${namespace.title}/announcements` );
 		setLocation( t('course-data') );
 	};
 	const setProfileLocation = () => {
