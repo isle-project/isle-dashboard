@@ -55,9 +55,10 @@ function mapDispatchToProps( dispatch ) {
 		},
 		onNamespace: ({ title, description, announcements, enableTicketing, owners, _id }) => {
 			dispatch( changedNamespace({ title, description, announcements, enableTicketing, owners, _id }) );
-			getCohorts( dispatch, { namespaceID: _id });
-			const namespaceName = title;
-			getLessons( dispatch, namespaceName );
+			if ( _id ) {
+				getCohorts( dispatch, { namespaceID: _id });
+			}
+			getLessons( dispatch, title );
 		}
 	};
 }
