@@ -265,23 +265,32 @@ const CourseDropdownButton = ({ setLessonOrder, setLessonOrderDirection, search,
 	const owner = isOwner( user, namespace );
 	return (
 		<ButtonGroup style={{ float: 'left', marginBottom: '4px' }} >
-			<DropdownButton variant="secondary" onSelect={( newValue ) => {
-				setLessonOrder( newValue );
-			}} id="dropdown" title={
-				<OverlayTrigger
-					placement="left"
-					overlay={<Tooltip id="sort-default-explanation" >
-						{owner ? t('sort-default-owner-explanation') : t('sort-default-student-explanation')}
-					</Tooltip>}
-				>
-					<small>
-						<span className="title-limited-length">
-							{title}
-						</span>
-					</small>
-				</OverlayTrigger>
-			} >
-				<Dropdown.Item eventKey="sequentially">
+			<DropdownButton
+				variant="secondary"
+				id="dropdown-search-type"
+				title={
+					<OverlayTrigger
+						placement="left"
+						overlay={<Tooltip id="sort-default-explanation" >
+							{owner ? t('sort-default-owner-explanation') : t('sort-default-student-explanation')}
+						</Tooltip>}
+					>
+						<small>
+							<span className="title-limited-length">
+								{title}
+							</span>
+						</small>
+					</OverlayTrigger>
+				}
+				onClick={( event ) => {
+					event.preventDefault();
+					event.stopPropagation();
+				}}
+				onSelect={( newValue ) => {
+					setLessonOrder( newValue );
+				}}
+			>
+				<Dropdown.Item eventKey="sequentially" >
 					<small>{t('common:sort-default')}</small>
 				</Dropdown.Item>
 				<Dropdown.Item eventKey="alphabetically">
@@ -340,7 +349,6 @@ const HeaderBar = ({ logout, namespace, user, search, onEnrolledNamespace, onNam
 	const [ location, setLocation ] = useState( t('dashboard') );
 	const debouncedChange = useRef( null );
 
-
 	useEffect( () => {
 		const handleVisibilityChange = () => {
 			debug(`Your page is ${document.visibilityState}`);
@@ -397,7 +405,7 @@ const HeaderBar = ({ logout, namespace, user, search, onEnrolledNamespace, onNam
 	} else {
 		searchBar = <SearchBar
 			onChange={( event ) => {
-				if ( !debouncedChange ) {
+				if ( !debouncedChange.current ) {
 					debouncedChange.current = debounce( ( value ) => {
 						setSearchPhrase( value );
 					}, 750 );
