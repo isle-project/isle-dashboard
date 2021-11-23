@@ -201,7 +201,7 @@ const Login = ({ user, restoreLogin, fetchCredentials, getEnrollableCohorts, han
 					</Card.Body>
 					<Card.Footer style={{ background: 'rgba(255,255,255,0.6)', textAlign: 'right' }}>
 						{hasSSO ? <Fragment>
-							<a href={server+'/saml-xmw/login-choice'}>SSO</a>
+							<a href={server+'/saml-xmw/login-choice'} >SSO</a>
 							<span> | </span>
 						</Fragment> : null }
 						<Link to="/forgot-password">{t('common:forgot-password')}</Link>

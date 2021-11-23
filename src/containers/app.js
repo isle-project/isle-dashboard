@@ -76,6 +76,14 @@ const Title = () => {
 	);
 };
 
+function destination( search, writeAccess ) {
+	let url = new URLSearchParams( search ).get( 'url' );
+	if ( !url ) {
+		url = writeAccess ? '/lessons' : '/profile';
+	}
+	return url;
+}
+
 
 // MAIN //
 
@@ -83,12 +91,13 @@ const App =({ isLoggedIn, dispatch, getCustomTranslations, getPublicSettings, fe
 	const oldIsLoggedIn = usePrevious( isLoggedIn );
 	const writeAccess = user.writeAccess;
 	const navigate = useNavigate();
+	const { pathname, search } = useLocation();
 	useMountEffect( async () => {
 		getCustomTranslations();
 		getPublicSettings();
 		if (
 			!isLoggedIn &&
-			!RE_PUBLIC_PAGES.test( window.location.pathname )
+			!RE_PUBLIC_PAGES.test( pathname )
 		) {
 			let isle = localStorage.getItem( USER_STORAGE_ID );
 			if ( isle ) {
@@ -125,17 +134,16 @@ const App =({ isLoggedIn, dispatch, getCustomTranslations, getPublicSettings, fe
 	useEffect( () => {
 		const isLoggingOut = oldIsLoggedIn && !isLoggedIn;
 		const isLoggingIn = !oldIsLoggedIn && isLoggedIn;
-		const pathname = window.location.pathname;
 		if ( isLoggingIn ) {
 			if ( pathname === '/login-tfa' ) {
-				const path = writeAccess ? '/lessons' : '/profile';
+				const path = destination( search, writeAccess );
 				navigate( path );
 			}
 			else if ( pathname && pathname !== '/' && pathname !== '/login' ) {
 				debug( 'User has logged in, redirecting to: '+pathname );
 				navigate( pathname );
 			} else {
-				const path = writeAccess ? '/lessons' : '/profile';
+				const path = destination( search, writeAccess );
 				debug( 'User has logged in, redirecting to default page: '+pathname );
 				navigate( path );
 			}
@@ -147,15 +155,15 @@ const App =({ isLoggedIn, dispatch, getCustomTranslations, getPublicSettings, fe
 			isLoggedIn && pathname &&
 			( pathname === '/' || pathname === '/login' || pathname === '/login-tfa' )
 		) {
-			const path = writeAccess ? '/lessons' : '/profile';
+			const path = destination( search, writeAccess );
 			navigate( path );
 		}
-	}, [ isLoggedIn, navigate, oldIsLoggedIn, writeAccess ] );
+	}, [ isLoggedIn, pathname, search, navigate, oldIsLoggedIn, writeAccess ] );
 	let AuthenticationBarrier = null;
 	if ( isLoggedIn ) {
 		AuthenticationBarrier =
 			<Fragment>
-				{!RE_PUBLIC_PAGES.test( window.location.pathname ) ? <Suspense fallback={<Spinner />}>
+				{!RE_PUBLIC_PAGES.test( pathname ) ? <Suspense fallback={<Spinner />}>
 					<AsyncHeaderBar />
 				</Suspense> : null}
 				<Routes>

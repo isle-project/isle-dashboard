@@ -110,6 +110,9 @@ export const sanitizeRequestInjector = dispatch => {
  * @returns {(Object|null)} user object or null
  */
 export const fetchCredentials = async ( dispatch, obj ) => {
+	if ( !obj.id || !obj.token ) {
+		return null;
+	}
 	debug( 'Fetch user credentials...' );
 	localStorage.setItem( 'ISLE_USER_'+server, JSON.stringify( obj ) );
 	try {
