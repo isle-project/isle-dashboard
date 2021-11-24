@@ -83,19 +83,25 @@ const Title = () => {
 };
 
 /**
-* Generates a destination URL based off the query string or a sensible default.
+* Generates a destination URL based off the query string or a sensible default and navigates to it.
 *
 * @private
 * @param {string} search - query string
 * @param {boolean} writeAccess - whether or not the user has write access
-* @returns {string} destination URL
+* @param {Function} navigate - function that navigates to a provided URL
+* @returns {void}
 */
-function destination( search, writeAccess ) {
+function goToDestination( search, writeAccess, navigate ) {
 	let url = new URLSearchParams( search ).get( 'url' );
 	if ( !url ) {
-		url = writeAccess ? '/lessons' : '/profile';
+		url = writeAccess ? '/dashboard/lessons' : '/dashboard/profile';
 	}
-	return url;
+	if ( url.indexOf( 'dashboard' ) !== -1 ) {
+		url = url.replace( /\/dashboard/, '' );
+		navigate( url );
+	} else {
+		window.location = server + url;
+	}
 }
 
 
@@ -164,16 +170,14 @@ const App =({ isLoggedIn, dispatch, getCustomTranslations, getPublicSettings, fe
 		const isLoggingIn = !oldIsLoggedIn && isLoggedIn;
 		if ( isLoggingIn ) {
 			if ( pathname === '/login-tfa' ) {
-				const path = destination( search, writeAccess );
-				navigate( path );
+				goToDestination( search, writeAccess, navigate );
 			}
 			else if ( pathname && pathname !== '/' && pathname !== '/login' ) {
 				debug( 'User has logged in, redirecting to: '+pathname );
 				navigate( pathname );
 			} else {
-				const path = destination( search, writeAccess );
-				debug( 'User has logged in, redirecting to page: '+path );
-				window.location = server + path;
+				debug( 'User has logged in, redirecting...' );
+				goToDestination( search, writeAccess, navigate );
 			}
 		}
 		else if ( isLoggingOut ) {
@@ -183,8 +187,7 @@ const App =({ isLoggedIn, dispatch, getCustomTranslations, getPublicSettings, fe
 			isLoggedIn && pathname &&
 			( pathname === '/' || pathname === '/login' || pathname === '/login-tfa' )
 		) {
-			const path = destination( search, writeAccess );
-			window.location = server + path;
+			goToDestination( search, writeAccess, navigate );
 		}
 	}, [ isLoggedIn, pathname, search, navigate, oldIsLoggedIn, writeAccess ] );
 	let AuthenticationBarrier = null;
@@ -220,6 +223,7 @@ const App =({ isLoggedIn, dispatch, getCustomTranslations, getPublicSettings, fe
 						</Suspense>}
 					/>
 					<Route
+						index
 						path="/lessons"
 						element={<Suspense fallback={<Spinner />}>
 							<AsyncLessonsPage />
@@ -257,7 +261,7 @@ const App =({ isLoggedIn, dispatch, getCustomTranslations, getPublicSettings, fe
 			<Title />
 			{AuthenticationBarrier}
 			<Routes>
-				<Route path="/" element={<Suspense fallback={<Spinner />}>
+				<Route index path="/" element={<Suspense fallback={<Spinner />}>
 					<AsyncLogin />
 				</Suspense>} />
 				<Route path="/login" element={<Suspense fallback={<Spinner />}>
