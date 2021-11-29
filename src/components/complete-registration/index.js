@@ -256,7 +256,7 @@ const CompleteRegistration = ({ settings }) => {
 						</Card.Title>
 					</Card.Header>
 					<Card.Body>
-						<Form>
+						<Form className="d-grid gap-3" >
 							{renderedName}
 							{renderedPassword}
 							<FormGroup>
