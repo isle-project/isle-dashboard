@@ -98,8 +98,8 @@ const NewPassword = () => {
 	const handleSubmit = async ( event ) => {
 		event.preventDefault();
 		if ( validatePasswords() ) {
-			const hash = window.location.hash.substring( 15 );
-			const qs = queryString.parse( hash );
+			const search = window.location.search || window.location.hash.substring( 15 );
+			const qs = queryString.parse( search );
 			const token = qs[ 'token' ];
 			try {
 				const res = await axios.post( server+'/update_user_password', {

@@ -41,8 +41,8 @@ const ConfirmEmail = ({ confirmEmail, settings }) => {
 	const [ message, setMessage ] = useState( '' );
 
 	useEffect( () => {
-		const hash = window.location.hash.substring( 16 );
-		const qs = queryString.parse( hash );
+		const search = window.location.search || window.location.hash.substring( 16 );
+		const qs = queryString.parse( search );
 		const token = qs[ 'token' ];
 		confirmEmail( token ).then( ( newMessage ) => {
 			setMessage( newMessage );

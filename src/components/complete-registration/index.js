@@ -130,8 +130,8 @@ const CompleteRegistration = ({ settings }) => {
 		event.preventDefault();
 		if ( validatePasswords() && validateName() ) {
 			try {
-				const hash = window.location.hash.substring( 24 );
-				const qs = queryString.parse( hash );
+				const search = window.location.search || window.location.hash.substring( 24 );
+				const qs = queryString.parse( search );
 				const token = qs[ 'token' ];
 				const res = await axios.post( server+'/complete_registration', {
 					id: token,
