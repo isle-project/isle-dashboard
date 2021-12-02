@@ -41,6 +41,8 @@
 	"dutch": "Holandés",
 	"editable-on-profile": "Editable en el perfil",
 	"editable-on-signup": "Editable al registrarse",
+	"email-to-institution-map": "Asignación de dominios de correo electrónico a instituciones",
+	"email-to-institution-map-description": "Mapa personalizado de dominios de correo electrónico a instituciones. Por ejemplo, si quiere permitir que los usuarios se registren con direcciones de correo electrónico de @ejemplo.com, puede añadir una entrada como ésta: ejemplo.com: Ejemplo de empresa",
 	"english": "Inglés",
 	"enter-field-description": "Introducir descripción de campo",
 	"enter-field-name": "Introducir nombre de campo",

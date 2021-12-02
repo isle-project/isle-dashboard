@@ -41,6 +41,8 @@
 	"dutch": "Olandų kalba",
 	"editable-on-profile": "Redaguojamas profilyje",
 	"editable-on-signup": "Redaguojamas registracijos metu",
+	"email-to-institution-map": "El. pašto domenų priskyrimas institucijoms",
+	"email-to-institution-map-description": "Pasirinktinis el. pašto domenų žemėlapis su institucijomis. Pavyzdžiui, jei norite leisti naudotojams registruotis el. pašto adresais iš @example.com, galite pridėti tokį įrašą: example.com: Pavyzdys: Example Company",
 	"english": "Anglų kalba",
 	"enter-field-description": "Įveskite lauko aprašymą",
 	"enter-field-name": "Įveskite lauko pavadinimą",

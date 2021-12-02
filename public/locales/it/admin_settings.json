@@ -41,6 +41,8 @@
 	"dutch": "Olandese",
 	"editable-on-profile": "Modificabile sul profilo",
 	"editable-on-signup": "Modificabile su Signup",
+	"email-to-institution-map": "Mappatura dei domini di posta elettronica alle istituzioni",
+	"email-to-institution-map-description": "Mappa personalizzata dei domini email alle istituzioni. Per esempio, se vuoi permettere agli utenti di iscriversi con indirizzi email da @example.com, puoi aggiungere una voce come questa: example.com: Esempio di azienda",
 	"english": "Inglese",
 	"enter-field-description": "Inserire la descrizione del campo",
 	"enter-field-name": "Inserire il nome del campo",

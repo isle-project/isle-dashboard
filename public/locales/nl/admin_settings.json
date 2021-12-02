@@ -41,6 +41,8 @@
 	"dutch": "Nederlands",
 	"editable-on-profile": "Bewerkbaar op Profiel",
 	"editable-on-signup": "Bewerkbaar bij Aanmelden",
+	"email-to-institution-map": "Mapping van e-maildomeinen aan instellingen",
+	"email-to-institution-map-description": "Aangepaste kaart van e-mail domeinen naar instellingen. Als u bijvoorbeeld wilt toestaan dat gebruikers zich aanmelden met e-mailadressen van @example.com, kunt u een vermelding als deze toevoegen: example.com: Voorbeeld Bedrijf",
 	"english": "Engels",
 	"enter-field-description": "Veldomschrijving invoeren",
 	"enter-field-name": "Vul de naam van het veld in",

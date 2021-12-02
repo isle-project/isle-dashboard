@@ -41,6 +41,8 @@
 	"dutch": "Holandský",
 	"editable-on-profile": "Možnost úprav na profilu",
 	"editable-on-signup": "Možnost úpravy při registraci",
+	"email-to-institution-map": "Mapování e-mailových domén na instituce",
+	"email-to-institution-map-description": "Vlastní mapa e-mailových domén k institucím. Pokud například chcete uživatelům povolit registraci s e-mailovou adresou @example.com, můžete přidat položku takto: example.com: Příklad: Example Company",
 	"english": "Angličtina",
 	"enter-field-description": "Zadejte popis pole",
 	"enter-field-name": "Zadejte název pole",

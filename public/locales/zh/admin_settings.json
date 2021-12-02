@@ -41,6 +41,8 @@
 	"dutch": "荷兰语",
 	"editable-on-profile": "可在资料上编辑",
 	"editable-on-signup": "可在注册时编辑",
+	"email-to-institution-map": "电子邮件域名与机构的映射",
+	"email-to-institution-map-description": "自定义映射电子邮件域到机构。例如，如果你想让用户用来自@example.com的电子邮件地址进行注册，你可以添加这样一个条目：example.com。例子公司",
 	"english": "英语",
 	"enter-field-description": "输入字段说明",
 	"enter-field-name": "输入字段名",

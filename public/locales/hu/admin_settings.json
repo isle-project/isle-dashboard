@@ -41,6 +41,8 @@
 	"dutch": "Holland",
 	"editable-on-profile": "Szerkeszthető a profilon",
 	"editable-on-signup": "Szerkeszthető a feliratkozáskor",
+	"email-to-institution-map": "Az e-mail domainek intézményekhez való hozzárendelése",
+	"email-to-institution-map-description": "Az e-mail tartományok egyéni feltérképezése az intézményekhez. Ha például engedélyezni szeretné, hogy a felhasználók a @example.com e-mail címekkel regisztrálhassanak, akkor egy ilyen bejegyzést adhat hozzá: example.com: Példa vállalat",
 	"english": "Angol",
 	"enter-field-description": "A mező leírásának megadása",
 	"enter-field-name": "A mező nevének megadása",

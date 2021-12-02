@@ -41,6 +41,8 @@
 	"dutch": "オランダ語",
 	"editable-on-profile": "プロファイル上で編集可能",
 	"editable-on-signup": "サインアップで編集可能",
+	"email-to-institution-map": "Eメールのドメインと機関のマッピング",
+	"email-to-institution-map-description": "Eメールのドメインと機関のカスタムマップ。例えば、ユーザーが@example.comのメールアドレスでサインアップできるようにするには、example.comのようなエントリを追加します。例の会社",
 	"english": "英語",
 	"enter-field-description": "フィールドの説明を入力します。",
 	"enter-field-name": "フィールド名を入力",

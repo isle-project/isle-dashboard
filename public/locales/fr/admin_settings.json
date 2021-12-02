@@ -41,6 +41,8 @@
 	"dutch": "Néerlandais",
 	"editable-on-profile": "Éditable sur profil",
 	"editable-on-signup": "Éditable sur inscription",
+	"email-to-institution-map": "Mise en correspondance des domaines de messagerie avec les institutions",
+	"email-to-institution-map-description": "Correspondance personnalisée entre les domaines de messagerie et les institutions. Par exemple, si vous souhaitez autoriser les utilisateurs à s'inscrire avec des adresses électroniques provenant de @example.com, vous pouvez ajouter une entrée comme celle-ci : exemple.com : Entreprise exemple",
 	"english": "Anglais",
 	"enter-field-description": "Entrez la description du champ",
 	"enter-field-name": "Entrez le nom du champ",

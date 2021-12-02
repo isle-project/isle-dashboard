@@ -41,6 +41,8 @@
 	"dutch": "Hollandi",
 	"editable-on-profile": "Profiilis redigeeritav",
 	"editable-on-signup": "Muudetav registreerimisel",
+	"email-to-institution-map": "E-posti domeenide kaardistamine institutsioonidele",
+	"email-to-institution-map-description": "E-posti domeenide kohandatud kaardistamine asutustele. Näiteks kui soovite lubada kasutajatel registreeruda e-posti aadressidega @example.com, saate lisada sellise kande: example.com: Example Company",
 	"english": "Inglise keeles",
 	"enter-field-description": "Sisestage välja kirjeldus",
 	"enter-field-name": "Sisestage välja nimi",

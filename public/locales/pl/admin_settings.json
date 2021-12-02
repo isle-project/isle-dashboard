@@ -41,6 +41,8 @@
 	"dutch": "Niderlandzki",
 	"editable-on-profile": "Możliwość edycji na profilu",
 	"editable-on-signup": "Edycja na Zapisie",
+	"email-to-institution-map": "Mapowanie domen poczty elektronicznej do instytucji",
+	"email-to-institution-map-description": "Niestandardowa mapa domen email do instytucji. Na przykład, jeśli chcesz zezwolić użytkownikom na rejestrację z adresami e-mail z @example.com, możesz dodać wpis taki jak ten: example.com: Przykładowa firma",
 	"english": "English",
 	"enter-field-description": "Wprowadź opis pola",
 	"enter-field-name": "Wprowadź nazwę pola",

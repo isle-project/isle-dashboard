@@ -41,6 +41,8 @@
 	"dutch": "Niederländisch",
 	"editable-on-profile": "Editierbar im Profil",
 	"editable-on-signup": "Editierbar bei Registrierung",
+	"email-to-institution-map": "Zuordnung von E-Mail-Domänen zu Institutionen",
+	"email-to-institution-map-description": "Benutzerdefinierte Zuordnung von E-Mail-Domänen zu Institutionen. Wenn Sie beispielsweise Nutzern erlauben möchten, sich mit E-Mail-Adressen von @example.com anzumelden, können Sie einen Eintrag wie diesen hinzufügen: example.com: Beispiel Firma",
 	"english": "Englisch",
 	"enter-field-description": "Feldbeschreibung eingeben",
 	"enter-field-name": "Feldnamen eingeben",
