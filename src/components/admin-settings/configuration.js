@@ -32,6 +32,7 @@ import deepEqual from '@stdlib/assert/deep-equal';
 import TextSelect from 'components/text-select';
 import { LANGUAGES, languageLabel } from 'constants/languages';
 import i18next from 'helpers/i18n';
+import KeyValueMapInput from './key_value_map_input.js';
 
 
 // FUNCTIONS //
@@ -467,6 +468,23 @@ class ConfigurationPage extends Component {
 					<Col sm={4} >
 						<Form.Text muted >
 							{t('reserved-user-names-description')}
+						</Form.Text>
+					</Col>
+				</Form.Group>
+				<Form.Group as={Row} controlId="emailInstitutionMap" >
+					<Form.Label column sm={4} >
+						{t('email-to-institution-map')}
+					</Form.Label>
+					<Col sm={6} >
+						<KeyValueMapInput
+							name="emailInstitutionMap"
+							defaultValue={admin.settings.emailInstitutionMap}
+							updateSettings={updateSettings}
+						/>
+					</Col>
+					<Col sm={2} >
+						<Form.Text muted >
+							{t('email-to-institution-map-description')}
 						</Form.Text>
 					</Col>
 				</Form.Group>
