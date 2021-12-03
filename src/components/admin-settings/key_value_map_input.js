@@ -49,8 +49,11 @@ const KeyValueMapInput = ({ name, defaultValue, updateSettings }) => {
 			...values,
 			[ name ]: value
 		} );
+	}, [ values ] );
+
+	const finalize = useCallback( () => {
 		updateSettings( name, values );
-	}, [ values, updateSettings ] );
+	}, [ name, values, updateSettings ] );
 
 	const handleKeyChange = useCallback( ( event ) => {
 		const { value } = event.target;
@@ -93,16 +96,20 @@ const KeyValueMapInput = ({ name, defaultValue, updateSettings }) => {
 						<FormControl
 							type="text"
 							name={key}
-							value={key}
+							key={`${key}-{i}`}
+							defaultValue={key}
 							onChange={handleChange}
+							onBlur={finalize}
 						/>
 					</Col>
 					<Col sm={4} >
 						<FormControl
 							type="text"
 							name={key}
-							value={values[ key ]}
+							key={`${key}-{i}`}
+							defaultValue={values[ key ]}
 							onChange={handleChange}
+							onBlur={finalize}
 						/>
 					</Col>
 					<Col sm={2} >
