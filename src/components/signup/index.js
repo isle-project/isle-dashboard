@@ -46,10 +46,6 @@ const createTooltip = ( str ) => {
 	return <Tooltip id="tooltip">{str}</Tooltip>;
 };
 
-const extractUserData = ({ name, email, password, customFields }) => {
-	return { name, email, password, customFields };
-};
-
 const validateEmail = ( email ) => {
 	return isEmail( email );
 };
@@ -113,7 +109,9 @@ const Signup = ({ createUser, getCustomFields, user, settings }) => {
 			validatePasswords( password, passwordRepeat )
 		) {
 			try {
-				const res = await createUser( extractUserData( this.state ) );
+				const res = await createUser({
+					name, email, password, customFields
+				});
 				setModal({
 					message: res.data.message,
 					successful: true,
