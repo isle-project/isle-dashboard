@@ -206,10 +206,13 @@ export const getIsleFileInjector = ( dispatch ) => {
 export const getLessons = async ( dispatch, namespaceName ) => {
 	if ( namespaceName ) {
 		try {
+			console.log( 'Retrieve lessons for namespace: ', namespaceName );
 			const res = await axios.get( server+'/get_lessons?'+qs.stringify({
 				namespaceName
 			}) );
 			let lessons = res.data.lessons;
+
+			console.log( 'Retrieved %s lessons.', lessons.length );
 			lessons = lessons.map(( lesson, index ) => {
 				lesson.colorIndex = index % 20;
 				lesson.url = server+'/'+namespaceName+'/'+lesson.title;
