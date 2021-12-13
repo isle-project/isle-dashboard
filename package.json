@@ -108,7 +108,7 @@
     "react-redux": "^7.2.6",
     "react-resizable": "^3.0.4",
     "react-router": "6.0.2",
-    "react-router-dom": "6.0.2",
+    "react-router-dom": "6.1.1",
     "react-select": "5.2.1",
     "react-string-avatar": "^1.2.2",
     "react-table": "6.11.5",
