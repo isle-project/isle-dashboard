@@ -167,7 +167,7 @@
     "stylelint": "^14.1.0",
     "stylelint-config-standard": "^24.0.0",
     "webpack": "5.65.0",
-    "webpack-dev-server": "4.6.0",
+    "webpack-dev-server": "4.7.1",
     "workbox-webpack-plugin": "6.4.2"
   },
   "browserslist": [
