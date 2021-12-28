@@ -123,6 +123,7 @@
   "devDependencies": {
     "@babel/core": "^7.16.5",
     "@babel/eslint-parser": "^7.16.5",
+    "@babel/eslint-plugin": "^7.16.5",
     "@babel/plugin-transform-async-to-generator": "^7.16.5",
     "@babel/plugin-transform-modules-commonjs": "^7.16.5",
     "@babel/preset-env": "^7.16.5",
@@ -145,6 +146,7 @@
     "esbuild-loader": "^2.18.0",
     "eslint": "^8.5.0",
     "eslint-import-resolver-webpack": "^0.13.2",
+    "eslint-plugin-i18next": "^5.1.2",
     "eslint-plugin-import": "^2.25.3",
     "eslint-plugin-jest": "^25.3.0",
     "eslint-plugin-jsx-a11y": "^6.5.1",

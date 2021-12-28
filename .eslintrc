@@ -1,5 +1,12 @@
 {
   "parser": "@babel/eslint-parser",
+  "parserOptions": {
+    "ecmaVersion": 6,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
   "env": {
     "es6": true,
     "browser": true,
@@ -318,10 +325,12 @@
     "plugin:jsx-a11y/recommended"
   ],
   "plugins": [
+    "@babel",
+    "jest",
+    "jsx-a11y",
     "react",
     "react-hooks",
-    "jest",
-    "jsx-a11y"
+    "i18next"
   ],
   "settings": {
     "react": {
