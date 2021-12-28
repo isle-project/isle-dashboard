@@ -321,13 +321,10 @@
     "react-hooks/rules-of-hooks": 2,
     "react-hooks/exhaustive-deps": 1
   },
-  "extends": [
-    "plugin:jsx-a11y/recommended"
-  ],
+  "extends": [],
   "plugins": [
     "@babel",
     "jest",
-    "jsx-a11y",
     "react",
     "react-hooks",
     "i18next"
