@@ -117,6 +117,7 @@
     "source-map-explorer": "^2.5.2",
     "stream-browserify": "^3.0.0",
     "svg-react-loader": "^0.4.6",
+    "url": "^0.11.0",
     "webpack-manifest-plugin": "4.0.2",
     "worker-loader": "3.0.8"
   },

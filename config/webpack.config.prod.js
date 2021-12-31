@@ -215,7 +215,8 @@ module.exports = {
 			path: require.resolve( 'path-browserify' ),
 			stream: require.resolve( 'stream-browserify' ),
 			querystring: require.resolve( 'querystring-es3' ),
-			buffer: require.resolve( 'buffer' )
+			buffer: require.resolve( 'buffer' ),
+			url: require.resolve( 'url' )
 		},
 	},
 	resolveLoader: {
