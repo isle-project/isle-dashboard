@@ -41,6 +41,8 @@
 	"dutch": "Holandský",
 	"editable-on-profile": "Upraviteľné v profile",
 	"editable-on-signup": "Upraviteľné pri registrácii",
+	"email-to-institution-map": "Mapovanie e-mailových domén na inštitúcie",
+	"email-to-institution-map-description": "Vlastné mapovanie e-mailových domén na inštitúcie. Ak napríklad chcete používateľom povoliť registráciu s e-mailovými adresami z adresy @example.com, môžete pridať takúto položku: example.com: Example Company:: Example Company",
 	"english": "Angličtina",
 	"enter-field-description": "Zadajte popis poľa",
 	"enter-field-name": "Zadajte názov poľa",

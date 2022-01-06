@@ -41,6 +41,8 @@
 	"dutch": "Olandeză",
 	"editable-on-profile": "Editabil pe profil",
 	"editable-on-signup": "Editabil la înscriere",
+	"email-to-institution-map": "Cartografierea domeniilor de e-mail la instituții",
+	"email-to-institution-map-description": "Harta personalizată a domeniilor de e-mail către instituții. De exemplu, dacă doriți să permiteți utilizatorilor să se înregistreze cu adrese de e-mail de la @example.com, puteți adăuga o intrare de genul acesta: example.com: Exemplu de companie",
 	"english": "Engleză",
 	"enter-field-description": "Introduceți descrierea câmpului",
 	"enter-field-name": "Introduceți numele câmpului",

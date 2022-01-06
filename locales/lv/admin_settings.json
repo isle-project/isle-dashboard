@@ -41,6 +41,8 @@
 	"dutch": "Holandiešu",
 	"editable-on-profile": "Rediģējams profilā",
 	"editable-on-signup": "Rediģējams reģistrējoties",
+	"email-to-institution-map": "E-pasta domēnu kartēšana iestādēm",
+	"email-to-institution-map-description": "Pielāgota e-pasta domēnu karte iestādēm. Piemēram, ja vēlaties atļaut lietotājiem reģistrēties ar e-pasta adresēm no @example.com, varat pievienot šādu ierakstu: example.com: Piemērs: Example Company",
 	"english": "Angļu valodā",
 	"enter-field-description": "Ievadiet lauka aprakstu",
 	"enter-field-name": "Ievadiet lauka nosaukumu",

@@ -41,6 +41,8 @@
 	"dutch": "Nederländska",
 	"editable-on-profile": "Kan redigeras i profilen",
 	"editable-on-signup": "Kan redigeras vid registrering",
+	"email-to-institution-map": "Mappning av e-postdomäner till institutioner",
+	"email-to-institution-map-description": "Anpassad kartläggning av e-postdomäner till institutioner. Om du till exempel vill tillåta användare att registrera sig med e-postadresser från @example.com kan du lägga till en post som denna: example.com: Exempel på företag",
 	"english": "Engelska",
 	"enter-field-description": "Ange fältbeskrivning",
 	"enter-field-name": "Ange fältnamn",

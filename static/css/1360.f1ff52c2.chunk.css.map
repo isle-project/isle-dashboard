@@ -1,1 +1,0 @@
-{"version":3,"file":"static/css/1360.f1ff52c2.chunk.css","mappings":"AAAA,kBACC,WACD,CAEA,yBACC,iCACD","sources":["../1360.f1ff52c2.chunk.css"],"sourcesContent":[".text-select-copy {\n\tcursor: copy;\n}\n\n.text-select-copy:active {\n\tbox-shadow: 0 0 8px rgba(0, 0, 0, 0.3);\n}\n\n"],"names":[],"sourceRoot":""}

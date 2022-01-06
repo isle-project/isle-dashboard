@@ -41,6 +41,8 @@
 	"dutch": "Hollandsk",
 	"editable-on-profile": "Kan redigeres på profilen",
 	"editable-on-signup": "Kan redigeres ved tilmelding",
+	"email-to-institution-map": "Kortlægning af e-mail-domæner til institutioner",
+	"email-to-institution-map-description": "Brugerdefineret kort over e-mail-domæner til institutioner. Hvis du f.eks. ønsker at tillade brugere at tilmelde sig med e-mailadresser fra @example.com, kan du tilføje en post som denne: example.com: Eksempel virksomhed",
 	"english": "Engelsk",
 	"enter-field-description": "Indtast feltbeskrivelse",
 	"enter-field-name": "Indtast feltnavn",

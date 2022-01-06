@@ -1,2 +1,0 @@
-"use strict";(self.webpackChunkisle_dashboard=self.webpackChunkisle_dashboard||[]).push([[3394],{88513:function(e,a,s){s.r(a);var r=s(38603),d=s(2342);a.default=()=>r.createElement(d.Z,{header:"Terms of Service",body:""})}}]);
-//# sourceMappingURL=3394.068e3f11.chunk.js.map

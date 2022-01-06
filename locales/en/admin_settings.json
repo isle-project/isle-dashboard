@@ -29,6 +29,8 @@
 	"dutch": "Dutch",
 	"editable-on-profile": "Editable on Profile",
 	"editable-on-signup": "Editable on Signup",
+	"email-to-institution-map": "Mapping of email domains to institutions",
+	"email-to-institution-map-description": "Custom map of email domains to institutions. For example, if you want to allow users to sign up with email addresses from @example.com, you can add an entry like this: example.com: Example Company",
 	"english": "English",
 	"enter-field-description": "Enter field description",
 	"enter-field-name": "Enter field name",

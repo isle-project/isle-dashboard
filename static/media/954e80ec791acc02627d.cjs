@@ -1,0 +1,3 @@
+var fetchApi;if(typeof fetch=="function"&&(typeof global!="undefined"&&global.fetch?fetchApi=global.fetch:typeof window!="undefined"&&window.fetch&&(fetchApi=window.fetch)),typeof require!="undefined"&&(typeof window=="undefined"||typeof window.document=="undefined")){var f=fetchApi||require("cross-fetch");f.default&&(f=f.default),exports.default=f,module.exports=exports.default}
+
+//# sourceMappingURL=954e80ec791acc02627d.cjs.map

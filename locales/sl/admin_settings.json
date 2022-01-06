@@ -41,6 +41,8 @@
 	"dutch": "Nizozemska",
 	"editable-on-profile": "Urejanje v profilu",
 	"editable-on-signup": "Urejanje ob prijavi",
+	"email-to-institution-map": "Ujemanje e-poštnih domen z institucijami",
+	"email-to-institution-map-description": "Prilagojeni zemljevid e-poštnih domen do institucij. Če želite na primer uporabnikom dovoliti, da se prijavijo z e-poštnimi naslovi iz @example.com, lahko dodate vnos, kot je ta: example.com: Primer: Primer podjetja",
 	"english": "Angleščina",
 	"enter-field-description": "Vnesite opis polja",
 	"enter-field-name": "Vnesite ime polja",

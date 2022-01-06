@@ -41,6 +41,8 @@
 	"dutch": "Hollantilainen",
 	"editable-on-profile": "Muokattavissa profiilissa",
 	"editable-on-signup": "Muokattavissa rekisteröitymisen yhteydessä",
+	"email-to-institution-map": "Sähköpostin verkkotunnusten yhdistäminen laitoksiin",
+	"email-to-institution-map-description": "Mukautettu sähköpostialueiden kartoitus laitoksille. Jos haluat esimerkiksi sallia käyttäjien rekisteröitymisen sähköpostiosoitteilla @example.com, voit lisätä tällaisen merkinnän: example.com: Esimerkkiyritys",
 	"english": "Englanti",
 	"enter-field-description": "Kirjoita kentän kuvaus",
 	"enter-field-name": "Kirjoita kentän nimi",

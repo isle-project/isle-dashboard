@@ -1,2 +1,0 @@
-"use strict";(self.webpackChunkisle_dashboard=self.webpackChunkisle_dashboard||[]).push([[2310],{93009:function(e,a,s){s.r(a);var r=s(38603),c=s(2342);a.default=()=>r.createElement(c.Z,{header:"Privacy Policy",body:""})}}]);
-//# sourceMappingURL=2310.aa0a46a5.chunk.js.map
