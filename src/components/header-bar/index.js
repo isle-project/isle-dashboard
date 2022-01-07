@@ -242,8 +242,8 @@ const CoursesButton = ({ user, namespace, goBackToLesson, onEnroll, ownedClickFa
 const CourseDropdownButton = ({ setLessonOrder, setLessonOrderDirection, search, user, namespace, t }) => {
 	const pth = window.location.pathname;
 	if (
-		( !namespace.title && pth === '/lessons' ) ||
-		( pth !== `/lessons/${namespace.title}` && pth !== '/lessons' && pth !== '/gallery' )
+		( !namespace.title && pth === '/dashboard/lessons' ) ||
+		( pth !== `/dashboard/lessons/${namespace.title}` && pth !== '/dashboard/lessons' && pth !== '/dashboard/gallery' )
 	) {
 		return null;
 	}
@@ -398,8 +398,8 @@ const HeaderBar = ({ logout, namespace, user, search, onEnrolledNamespace, onNam
 	const pth = window.location.pathname;
 	let searchBar;
 	if (
-		( !namespace.title && pth === '/lessons' ) ||
-		( pth !== `/lessons/${namespace.title}` && pth !== '/lessons' && pth!== '/gallery' )
+		( !namespace.title && pth === '/dashboard/lessons' ) ||
+		( pth !== `/dashboard/lessons/${namespace.title}` && pth !== '/dashboard/lessons' && pth!== '/dashboard/gallery' )
 	) {
 		searchBar = null;
 	} else {
