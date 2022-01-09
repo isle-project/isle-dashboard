@@ -200,7 +200,7 @@ class EditModal extends Component {
 					enableTFA={this.props.enableTFA}
 					getTfaQRCode={this.props.getTfaQRCode}
 				/>
-			</Col>
+			</Col>;
 		} else {
 			passwordCol = null;
 		}
