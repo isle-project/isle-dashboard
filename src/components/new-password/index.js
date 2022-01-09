@@ -158,7 +158,7 @@ const NewPassword = () => {
 						</Card.Title>
 					</Card.Header>
 					<Card.Body>
-						<Form>
+						<Form className="d-grid gap-3" >
 							<OverlayTrigger
 								placement="right"
 								overlay={<Tooltip id="tooltip">Please enter a new password with at least six characters</Tooltip>}
