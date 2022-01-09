@@ -152,6 +152,58 @@ class EditModal extends Component {
 		const t = this.props.t;
 		const userCustomFields = this.state.customFields;
 		const availableCustomFields = user.availableCustomFields || [];
+		let passwordCol;
+		if ( !user.loginWithoutPassword ) {
+			passwordCol = <Col sm={6} className="d-grid gap-3" >
+				<OverlayTrigger placement="right" overlay={createTooltip( t('enter-password') )}>
+					<FormGroup
+						controlId="form-password"
+					>
+						<FormLabel>{t('common:password')}</FormLabel>
+						<FormControl
+							name="password"
+							type="password"
+							value={this.state.password}
+							autoComplete="none"
+							placeholder={t('common:choose-new-password')}
+							onChange={this.handleInputChange}
+							maxLength={30}
+							minLength={6}
+							isInvalid={enteredPasswords && !validPasswords}
+						/>
+						<Form.Control.Feedback type="invalid">
+							Please enter a new password with at least six characters.
+						</Form.Control.Feedback>
+					</FormGroup>
+				</OverlayTrigger>
+				<FormGroup
+					controlId="form-repeat-password"
+				>
+					<FormControl
+						name="passwordRepeat"
+						type="password"
+						value={this.state.passwordRepeat}
+						autoComplete="none"
+						placeholder={t('repeat-new-password')}
+						onChange={this.handleInputChange}
+						maxLength={30}
+						minLength={6}
+						isInvalid={enteredPasswords && !validPasswords}
+					/>
+					<Form.Control.Feedback type="invalid">
+						{t('invalid-password')}
+					</Form.Control.Feedback>
+				</FormGroup>
+				<TwoFactorAuthentication
+					user={this.props.user} t={this.props.t}
+					disableTFA={this.props.disableTFA}
+					enableTFA={this.props.enableTFA}
+					getTfaQRCode={this.props.getTfaQRCode}
+				/>
+			</Col>
+		} else {
+			passwordCol = null;
+		}
 		return (
 			<Fragment>
 				<Modal show={this.props.show} onHide={this.props.onHide} dialogClassName="edit-modal" >
@@ -304,53 +356,7 @@ class EditModal extends Component {
 								);
 							})}
 						</Col>
-						<Col sm={6} className="d-grid gap-3" >
-							<OverlayTrigger placement="right" overlay={createTooltip( t('enter-password') )}>
-								<FormGroup
-									controlId="form-password"
-								>
-									<FormLabel>{t('common:password')}</FormLabel>
-									<FormControl
-										name="password"
-										type="password"
-										value={this.state.password}
-										autoComplete="none"
-										placeholder={t('common:choose-new-password')}
-										onChange={this.handleInputChange}
-										maxLength={30}
-										minLength={6}
-										isInvalid={enteredPasswords && !validPasswords}
-									/>
-									<Form.Control.Feedback type="invalid">
-										Please enter a new password with at least six characters.
-									</Form.Control.Feedback>
-								</FormGroup>
-							</OverlayTrigger>
-							<FormGroup
-								controlId="form-repeat-password"
-							>
-								<FormControl
-									name="passwordRepeat"
-									type="password"
-									value={this.state.passwordRepeat}
-									autoComplete="none"
-									placeholder={t('repeat-new-password')}
-									onChange={this.handleInputChange}
-									maxLength={30}
-									minLength={6}
-									isInvalid={enteredPasswords && !validPasswords}
-								/>
-								<Form.Control.Feedback type="invalid">
-									{t('invalid-password')}
-								</Form.Control.Feedback>
-							</FormGroup>
-							<TwoFactorAuthentication
-								user={this.props.user} t={this.props.t}
-								disableTFA={this.props.disableTFA}
-								enableTFA={this.props.enableTFA}
-								getTfaQRCode={this.props.getTfaQRCode}
-							/>
-						</Col>
+						{passwordCol}
 					</Form>
 					<Row style={{ paddingTop: 10 }} className="d-grid" >
 						<Button disabled={!this.state.changed || !validName || ( !validPasswords && enteredPasswords )} onClick={this.handleUpdate}>
