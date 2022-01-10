@@ -161,7 +161,7 @@
     "jest": "^27.4.5",
     "jest-cli": "^27.4.5",
     "json-loader": "0.5.7",
-    "mini-css-extract-plugin": "2.4.5",
+    "mini-css-extract-plugin": "2.4.6",
     "pnp-webpack-plugin": "^1.7.0",
     "postcss-loader": "6.2.1",
     "postcss-safe-parser": "^6.0.0",
