@@ -43,20 +43,20 @@ const AdminSettingsSaml = ({ admin, updateSettings }) => {
 				</FormGroup>
 				<FormGroup as={Row} >
 					<Form.Label column sm={3} >
-						{t('emails-corresponding-to-saml')}
+						{t('saml-email-domains')}
 					</Form.Label>
 					<Col sm={4} >
 						<TextSelectField
 							name="samlEmailDomains"
 							key={admin.settings.samlEmailDomains}
-							placeholder={t('saml-email-domains')}
+							placeholder={t('saml-email-domains-placeholder')}
 							defaultValue={admin.settings.samlEmailDomains}
 							updateSettings={updateSettings}
 						/>
 					</Col>
 					<Col sm={5} >
 						<Form.Text muted >
-							{t('emails-corresponding-to-saml-description')}
+							{t('saml-email-domains-description')}
 						</Form.Text>
 					</Col>
 				</FormGroup>
