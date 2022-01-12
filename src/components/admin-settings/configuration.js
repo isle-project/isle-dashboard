@@ -27,12 +27,13 @@ import Form from 'react-bootstrap/Form';
 import Nav from 'react-bootstrap/Nav';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import SelectInput, { components } from 'react-select';
-import deepEqual from '@stdlib/assert/deep-equal';
-import TextSelect from 'components/text-select';
 import { LANGUAGES, languageLabel } from 'constants/languages';
 import i18next from 'helpers/i18n';
 import KeyValueMapInput from './key_value_map_input.js';
+import Saml from 'ev/components/admin-settings/saml';
+import SelectInputField from './select_input_field.js';
+import MultiSelectInputField from './multi_select_input_field.js';
+import TextSelectField from './text_select_field.js';
 
 
 // FUNCTIONS //
@@ -74,44 +75,6 @@ const InputField = ({ name, defaultValue, type, updateSettings, t }) => {
 	);
 };
 
-const SelectInputField = ({ name, children, defaultValue, updateSettings }) => {
-	const [ value, setValue ] = useState( defaultValue );
-	const handleChange = useCallback( ( event ) => {
-		setValue( event.target.value );
-	}, [] );
-	const handleReset = useCallback( () => {
-		setValue( defaultValue );
-	}, [ defaultValue ] );
-	const handleConfirm = useCallback( () => {
-		updateSettings( name, value );
-	}, [ updateSettings, name, value ] );
-	return (
-		<Form.Group style={{ marginBottom: 0 }} >
-			<Form.Control
-				value={value} as="select" onChange={handleChange}
-				style={{ width: 'calc(100% - 78px)', float: 'left' }}
-			>
-				{children}
-			</Form.Control>
-			{ value !== defaultValue ?
-				<Fragment>
-					<Button
-						onClick={handleConfirm}
-						variant="success" size="sm" style={{ marginRight: 6, marginLeft: 8 }}
-					>
-						<i className="fas fa-check" />
-					</Button>
-					<Button
-						onClick={handleReset}
-						variant="warning" size="sm" style={{ width: 32 }}
-					>
-						<i className="fas fa-times" />
-					</Button>
-				</Fragment> : null
-			}
-		</Form.Group>
-	);
-};
 
 const CheckboxInput = ({ name, defaultValue, label, updateSettings }) => {
 	const [ value, setValue ] = useState( defaultValue );
@@ -131,116 +94,6 @@ const CheckboxInput = ({ name, defaultValue, label, updateSettings }) => {
 				style={{ width: 'calc(100% - 78px)', float: 'left' }}
 			/>
 			{ value !== defaultValue ?
-				<Fragment>
-					<Button
-						onClick={handleConfirm}
-						variant="success" size="sm" style={{ marginRight: 6, marginLeft: 8 }}
-					>
-						<i className="fas fa-check" />
-					</Button>
-					<Button
-						onClick={handleReset}
-						variant="warning" size="sm" style={{ width: 32 }}
-					>
-						<i className="fas fa-times" />
-					</Button>
-				</Fragment> : null
-			}
-		</Form.Group>
-	);
-};
-
-const TextSelectField = ({ name, placeholder, defaultValue, updateSettings }) => {
-	const [ value, setValue ] = useState( defaultValue );
-	const [ modified, setModified ] = useState( false );
-	const handleChange = useCallback( ( newValue ) => {
-		setModified( true );
-		setValue( newValue );
-	}, [] );
-	const handleConfirm = useCallback( () => {
-		const domains = value ? value.map( x => x.label ) : [];
-		updateSettings( name, domains );
-	}, [ updateSettings, name, value ] );
-	const handleReset = useCallback( () => {
-		setValue( defaultValue );
-		setModified( false );
-	}, [ defaultValue ] );
-	return (
-		<Fragment>
-			<TextSelect
-				placeholder={placeholder}
-				defaultValue={value}
-				onChange={handleChange}
-				styles={{
-					control: () => ({
-						width: 'calc(100% - 78px)'
-					})
-				}}
-			/>
-			{ modified ?
-				<Fragment>
-					<Button
-						onClick={handleConfirm}
-						variant="success" size="sm" style={{ marginRight: 6, marginLeft: 8 }}
-					>
-						<i className="fas fa-check" />
-					</Button>
-					<Button
-						onClick={handleReset}
-						variant="warning" size="sm" style={{ width: 32 }}
-					>
-						<i className="fas fa-times" />
-					</Button>
-				</Fragment> : null
-			}
-		</Fragment>
-	);
-};
-
-const Option = props => {
-	return ( <components.Option key={props.data.label} {...props} >
-		<span style={{
-			color: props.isSelected ? 'white' : 'black'
-		}}>{i18next.t( 'admin_settings:'+props.data.label )}</span>
-	</components.Option> );
-};
-
-const MultiValue = props => {
-	return ( <components.MultiValue key={props.data.label} {...props} >
-		<span>{i18next.t( 'admin_settings:'+props.data.label )}</span>
-	</components.MultiValue> );
-};
-
-const MultiSelectInputField = ({ name, options, placeholder, defaultValue, updateSettings }) => {
-	const [ value, setValue ] = useState( defaultValue );
-	const handleReset = useCallback( () => {
-		setValue( defaultValue );
-	}, [ defaultValue ] );
-	const handleConfirm = useCallback( () => {
-		const languageCodes = value.map( x => x.value );
-		updateSettings( name, languageCodes );
-	}, [ updateSettings, name, value ] );
-	return (
-		<Form.Group style={{ marginBottom: 0 }} >
-			<SelectInput
-				value={value}
-				name={name}
-				options={options}
-				placeholder={placeholder}
-				updateSettings={updateSettings}
-				onChange={setValue}
-				isMulti
-				isClearable={false}
-				components={{ Option, MultiValue }}
-				styles={{
-					container: ( provided, state ) => ({
-						...provided,
-						width: '82%',
-						float: 'left'
-					})
-				}}
-			/>
-			{ !deepEqual( value, defaultValue ) ?
 				<Fragment>
 					<Button
 						onClick={handleConfirm}
@@ -558,7 +411,7 @@ class ConfigurationPage extends Component {
 	}
 
 	render() {
-		const { admin, user, t } = this.props;
+		const { admin, updateSettings, user, t } = this.props;
 		console.log( user.email );
 		let content;
 		if ( admin.settings ) {
@@ -572,6 +425,8 @@ class ConfigurationPage extends Component {
 				case 'rate-limits':
 					content = this.renderRateLimits();
 				break;
+				case 'saml':
+					content = <Saml admin={admin} updateSettings={updateSettings} />;
 			}
 		}
 		return (
@@ -591,6 +446,9 @@ class ConfigurationPage extends Component {
 							</Nav.Link>
 							<Nav.Link eventKey="rate-limits" >
 								{t('rate-limits')}
+							</Nav.Link>
+							<Nav.Link eventKey="saml" >
+								SSO / SAML
 							</Nav.Link>
 						</Nav>
 					</Col>
