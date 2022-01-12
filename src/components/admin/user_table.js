@@ -240,6 +240,58 @@ class UserPage extends Component {
 				maxWidth: 200,
 				filterMethod: textFilter
 			}),
+			{
+				Header: t('common:actions'),
+				Cell: ( row ) => {
+					if ( row.row.email === this.props.user.email ) {
+						return null;
+					}
+					return ( <div>
+						<OverlayTrigger placement="bottom" overlay={<Tooltip id="edit_user_data">{t('edit-user-data')}</Tooltip>}>
+							<Button
+								variant="outline-secondary"
+								aria-label={t('edit-user-data')}
+								onClick={this.askToEditUserFactory( row.row._original )}
+							>
+								<div className="fa fa-edit" />
+							</Button>
+						</OverlayTrigger>
+						<OverlayTrigger placement="bottom" overlay={<Tooltip id="sanitize_user">{t('sanitize-user')}</Tooltip>}>
+							<Button
+								variant="outline-secondary"
+								style={{ marginLeft: 8 }}
+								onClick={this.sanitizeFactory( row.row._original )}
+								aria-label={t('sanitize-user')}
+							>
+								<div className="fas fa-band-aid" />
+							</Button>
+						</OverlayTrigger>
+						<OverlayTrigger placement="bottom" overlay={<Tooltip id="impersonate_user">{t('impersonate-user')}</Tooltip>}>
+							<Button
+								variant="outline-secondary"
+								style={{ marginLeft: 8 }}
+								onClick={this.askToImpersonateSelectedUserFactory( row.row._original )}
+								aria-label={t('impersonate-user')}
+							>
+								<div className="fa fa-theater-masks" />
+							</Button>
+						</OverlayTrigger>
+						<OverlayTrigger placement="bottom" overlay={<Tooltip id="delete_user">{t('delete-user')}</Tooltip>}>
+							<Button
+								variant="outline-secondary"
+								style={{ marginLeft: 8 }}
+								onClick={this.askToDeleteSelectedUserFactory( row.row._original )}
+								aria-label={t('delete-user')}
+							>
+								<div className="fa fa-trash-alt" />
+							</Button>
+						</OverlayTrigger>
+					</div> );
+				},
+				resizable: false,
+				filterable: false,
+				sortable: false
+			},
 			createBooleanColumn({
 				Header: t( 'instructor' ),
 				accessor: 'writeAccess',
@@ -369,59 +421,7 @@ class UserPage extends Component {
 					accessor: 'customFields.'+x.name,
 					labels: x.options
 				});
-			}),
-			{
-				Header: t('common:actions'),
-				Cell: ( row ) => {
-					if ( row.row.email === this.props.user.email ) {
-						return null;
-					}
-					return ( <div>
-						<OverlayTrigger placement="bottom" overlay={<Tooltip id="edit_user_data">{t('edit-user-data')}</Tooltip>}>
-							<Button
-								variant="outline-secondary"
-								aria-label={t('edit-user-data')}
-								onClick={this.askToEditUserFactory( row.row._original )}
-							>
-								<div className="fa fa-edit" />
-							</Button>
-						</OverlayTrigger>
-						<OverlayTrigger placement="bottom" overlay={<Tooltip id="sanitize_user">{t('sanitize-user')}</Tooltip>}>
-							<Button
-								variant="outline-secondary"
-								style={{ marginLeft: 8 }}
-								onClick={this.sanitizeFactory( row.row._original )}
-								aria-label={t('sanitize-user')}
-							>
-								<div className="fas fa-band-aid" />
-							</Button>
-						</OverlayTrigger>
-						<OverlayTrigger placement="bottom" overlay={<Tooltip id="impersonate_user">{t('impersonate-user')}</Tooltip>}>
-							<Button
-								variant="outline-secondary"
-								style={{ marginLeft: 8 }}
-								onClick={this.askToImpersonateSelectedUserFactory( row.row._original )}
-								aria-label={t('impersonate-user')}
-							>
-								<div className="fa fa-theater-masks" />
-							</Button>
-						</OverlayTrigger>
-						<OverlayTrigger placement="bottom" overlay={<Tooltip id="delete_user">{t('delete-user')}</Tooltip>}>
-							<Button
-								variant="outline-secondary"
-								style={{ marginLeft: 8 }}
-								onClick={this.askToDeleteSelectedUserFactory( row.row._original )}
-								aria-label={t('delete-user')}
-							>
-								<div className="fa fa-trash-alt" />
-							</Button>
-						</OverlayTrigger>
-					</div> );
-				},
-				resizable: false,
-				filterable: false,
-				sortable: false
-			}
+			})
 		];
 	};
 
