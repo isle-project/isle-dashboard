@@ -47,10 +47,10 @@ const AdminSettingsSaml = ({ admin, updateSettings }) => {
 					</Form.Label>
 					<Col sm={4} >
 						<TextSelectField
-							name="samlEmails"
-							key={admin.settings.samlEmails}
+							name="samlEmailDomains"
+							key={admin.settings.samlEmailDomains}
 							placeholder={t('saml-email-domains')}
-							defaultValue={admin.settings.samlEmails}
+							defaultValue={admin.settings.samlEmailDomains}
 							updateSettings={updateSettings}
 						/>
 					</Col>
