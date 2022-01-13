@@ -22,7 +22,7 @@ import React from 'react';
 
 // MAIN //
 
-function createCategoricalColumn({ Header, Cell, accessor, labels, maxWidth = 150 }) {
+function createCategoricalColumn({ Header, Cell, accessor, labels, maxWidth = 150, width }) {
 	let style;
 	return {
 		Header,
@@ -61,7 +61,8 @@ function createCategoricalColumn({ Header, Cell, accessor, labels, maxWidth = 15
 				</select>
 			);
 		},
-		maxWidth: maxWidth
+		maxWidth: maxWidth,
+		width: width
 	};
 }
 

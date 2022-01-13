@@ -218,7 +218,7 @@ class TicketPage extends Component {
 				Header: t('common:priority'),
 				accessor: 'priority',
 				labels: [ 'Low', 'Middle', 'High' ],
-				maxWidth: 200,
+				width: 150,
 				Cell: ( row ) => {
 					if ( !row.value ) {
 						return null;

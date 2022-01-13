@@ -290,7 +290,8 @@ class UserPage extends Component {
 				},
 				resizable: false,
 				filterable: false,
-				sortable: false
+				sortable: false,
+				width: 220
 			},
 			createBooleanColumn({
 				Header: t( 'instructor' ),

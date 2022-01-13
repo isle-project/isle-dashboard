@@ -230,7 +230,7 @@ class Signup extends Component {
 					<Modal.Title as="h3">{t('admin:create-new-user')}</Modal.Title>
 				</Modal.Header>
 				<Modal.Body>
-					<Form>
+					<Form className="d-grid gap-2" >
 						{this.renderEmail()}
 						{this.renderName()}
 						{this.renderPasswordFields()}
