@@ -97,6 +97,8 @@
 	"saml-exempt-patterns": "Wzory zwolnione",
 	"saml-exempt-patterns-description": "Lista wzorców regex adresów URL, które są zwolnione z bariery uwierzytelniania SAML, tzn. są publicznie dostępne",
 	"saml-exempt-patterns-placeholder": "Wprowadź wzór(y), które mają być zwolnione z uwierzytelniania SAML...",
+	"saml-show-choices": "Pokaż opcje logowania",
+	"saml-show-choices-description": "Jeśli opcja ta jest włączona, użytkownicy będą otrzymywać listę opcji logowania, nawet jeśli dostępna jest tylko jedna opcja uwierzytelniania SSO.",
 	"saml-status-description": "Czy włączyć SAML dla uwierzytelniania. Jeśli włączone, użytkownicy będą mogli uwierzytelniać się za pomocą poświadczeń instytucjonalnych; jeśli wyłączone, użytkownicy będą mogli uwierzytelniać się za pomocą nazwy użytkownika i hasła. Ustawienie pasywne pozwala na zarejestrowanie dostawcy usługi ISLE SAML 2.0 z dostawcą tożsamości, po czym usługa SAML powinna zostać w pełni włączona.",
 	"search-context": "Wyszukaj Kontekst",
 	"search-permissions": "Uprawnienia do wyszukiwania...",

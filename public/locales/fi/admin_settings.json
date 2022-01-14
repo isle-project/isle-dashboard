@@ -97,6 +97,8 @@
 	"saml-exempt-patterns": "Vapautetut kuviot",
 	"saml-exempt-patterns-description": "Luettelo URL-regex-malleista, jotka on vapautettu SAML-todennusesteestä, eli jotka ovat julkisesti saatavilla.",
 	"saml-exempt-patterns-placeholder": "Syötä kuvio(t), jotka on vapautettu SAML-todennuksesta...",
+	"saml-show-choices": "Näytä kirjautumisvaihtoehdot",
+	"saml-show-choices-description": "Jos tämä on käytössä, käyttäjille näytetään luettelo kirjautumisvaihtoehdoista, vaikka käytettävissä olisi vain yksi SSO-todennusvaihtoehto.",
 	"saml-status-description": "Otetaanko SAML käyttöön todennusta varten. Jos se on käytössä, käyttäjät voivat tunnistautua institutionaalisilla tunnistetiedoillaan; jos se on pois käytöstä, käyttäjät voivat tunnistautua käyttäjätunnuksellaan ja salasanallaan. Passiivinen asetus mahdollistaa ISLE SAML 2.0 -palvelun tarjoajan rekisteröinnin identiteetin tarjoajan kanssa, minkä jälkeen SAML-palvelu olisi otettava kokonaan käyttöön.",
 	"search-context": "Hakuyhteys",
 	"search-permissions": "Hakuoikeudet...",

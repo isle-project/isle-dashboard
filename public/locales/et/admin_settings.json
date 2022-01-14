@@ -97,6 +97,8 @@
 	"saml-exempt-patterns": "Vabastatud mustrid",
 	"saml-exempt-patterns-description": "Loetelu URL regex mustritest, mis on vabastatud SAML autentimise barjäärist, s.t avalikult kättesaadavad.",
 	"saml-exempt-patterns-placeholder": "Sisestage muster(id), mis on vabastatud SAML-autentimisest...",
+	"saml-show-choices": "Näita sisselogimise valikuid",
+	"saml-show-choices-description": "Kui see on lubatud, esitatakse kasutajatele nimekiri sisselogimisvõimalustest isegi siis, kui saadaval on ainult üks SSO autentimisvõimalus.",
 	"saml-status-description": "Kas lubada SAML-i autentimist. Kui see on lubatud, saavad kasutajad autentida oma institutsionaalsete volituste abil; kui see on keelatud, saavad kasutajad autentida oma kasutajanime ja parooliga. Passiivne seade võimaldab ISLE SAML 2.0 teenusepakkuja registreerimist identiteedi pakkujaga, mille järel tuleks SAMLi teenus täielikult lubada.",
 	"search-context": "Otsingu kontekst",
 	"search-permissions": "Otsinguõigused...",

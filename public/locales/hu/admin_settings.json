@@ -97,6 +97,8 @@
 	"saml-exempt-patterns": "Mentett minták",
 	"saml-exempt-patterns-description": "A SAML-hitelesítési korlát alól mentesülő, azaz nyilvánosan elérhető URL-regexminták listája.",
 	"saml-exempt-patterns-placeholder": "Adja meg a SAML-hitelesítés alól felmentendő minta(ka)t...",
+	"saml-show-choices": "Bejelentkezési lehetőségek megjelenítése",
+	"saml-show-choices-description": "Ha engedélyezve van, a felhasználóknak akkor is megjelenik a bejelentkezési lehetőségek listája, ha csak egy SSO-hitelesítési lehetőség áll rendelkezésre.",
 	"saml-status-description": "A SAML engedélyezése a hitelesítéshez. Ha engedélyezve van, a felhasználók az intézményi hitelesítő adataikkal tudnak hitelesíteni; ha letiltva, akkor a felhasználók a felhasználónevükkel és jelszavukkal tudnak hitelesíteni. A passzív beállítás lehetővé teszi az ISLE SAML 2.0 szolgáltatójának regisztrálását egy személyazonossági szolgáltatónál, ezt követően a SAML szolgáltatást teljes mértékben engedélyezni kell.",
 	"search-context": "Keresési kontextus",
 	"search-permissions": "Keresés engedélyek...",

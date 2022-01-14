@@ -65,6 +65,19 @@ const AdminSettingsSaml = ({ admin, updateSettings }) => {
 						</Col>
 					</FormGroup>
 					<Form.Group as={Row} >
+						<Form.Label column sm={4} >
+							{t('saml-show-choices')}
+						</Form.Label>
+						<Col sm={8} >
+							<CheckboxInputField
+								name="samlShowLoginChoices"
+								label={t('saml-show-choices-description')}
+								defaultValue={admin.settings.samlShowLoginChoices}
+								updateSettings={updateSettings}
+							/>
+						</Col>
+					</Form.Group>
+					<Form.Group as={Row} >
 						<Form.Label column sm={2} >
 							{t('saml-choice-header')}
 						</Form.Label>

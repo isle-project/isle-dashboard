@@ -95,6 +95,8 @@
 	"saml-email-domains-placeholder": "List of email domains...",
 	"saml-email-domains": "Email domains correspond to institutions authenticating via SSO",
 	"saml-email-domains-description": "A list of email domains that correspond to institutions authenticating via SSO. Users using these email addresses for authentication will authenticate via their institutional credentials and not be prompted to set up a password.",
+	"saml-show-choices": "Show login choices",
+	"saml-show-choices-description": "If enabled, users will be presented with a list of login options even when there is only one SSO authentication option available.",
 	"saml-status-description": "Whether to enable SAML for authentication. If enabled, users will be able to authenticate with their institutional credentials; if disabled, users will be able to authenticate with their username and password. The passive setting allows the ISLE SAML 2.0 service provider to be registered with an identity provider, after which the SAML service should be enabled fully.",
 	"search-context": "Search Context",
 	"search-permissions": "Search permissions...",

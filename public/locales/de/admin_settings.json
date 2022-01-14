@@ -97,6 +97,8 @@
 	"saml-exempt-patterns": "Freigegebene Patterns",
 	"saml-exempt-patterns-description": "Eine Liste von URL-Regex-Mustern, die von der SAML-Authentifizierungsbarriere ausgenommen sind, d. h. öffentlich zugänglich sind",
 	"saml-exempt-patterns-placeholder": "Geben Sie das/die Muster ein, die von der SAML-Authentifizierung ausgenommen werden sollen...",
+	"saml-show-choices": "Auswahlmöglichkeiten für die Anmeldung anzeigen",
+	"saml-show-choices-description": "Wenn diese Option aktiviert ist, wird den Benutzern eine Liste mit Anmeldeoptionen angezeigt, auch wenn nur eine SSO-Authentifizierungsoption verfügbar ist.",
 	"saml-status-description": "Ob SAML für die Authentifizierung aktiviert werden soll. Wenn diese Option aktiviert ist, können sich die Benutzer mit ihren institutionellen Anmeldedaten authentifizieren; wenn sie deaktiviert ist, können sich die Benutzer mit ihrem Benutzernamen und ihrem Passwort authentifizieren. Mit der passiven Einstellung kann der ISLE SAML 2.0-Dienstanbieter bei einem Identitätsanbieter registriert werden, woraufhin der SAML-Dienst vollständig aktiviert werden sollte.",
 	"search-context": "Suchkontext",
 	"search-permissions": "Suchberechtigungen...",
