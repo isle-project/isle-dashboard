@@ -34,47 +34,10 @@ import Saml from 'ev/components/admin-settings/saml';
 import SelectInputField from './select_input_field.js';
 import MultiSelectInputField from './multi_select_input_field.js';
 import TextSelectField from './text_select_field.js';
+import InputField from './input_field.js';
 
 
 // FUNCTIONS //
-
-const InputField = ({ name, defaultValue, type, updateSettings, t }) => {
-	const [ value, setValue ] = useState( defaultValue );
-	const handleChange = useCallback( ( event ) => {
-		const target = event.target;
-		setValue( target.type === 'number' ? Number( target.value ) : target.value );
-	}, [] );
-	const handleReset = useCallback( () => {
-		setValue( defaultValue );
-	}, [ defaultValue ] );
-	const handleConfirm = useCallback( () => {
-		updateSettings( name, value );
-	}, [ updateSettings, name, value ] );
-	return (
-		<Form.Group style={{ marginBottom: 0 }} >
-			<Form.Control type={type} value={value} style={{ width: 'calc(100% - 78px)', float: 'left' }} onChange={handleChange} />
-			{ value !== defaultValue ?
-				<Fragment>
-					<Button
-						aria-label={t('common:confirm')}
-						onClick={handleConfirm}
-						variant="success" size="sm" style={{ marginRight: 6, marginLeft: 8 }}
-					>
-						<i className="fas fa-check" />
-					</Button>
-					<Button
-						aria-label={t('common:reset')}
-						onClick={handleReset}
-						variant="warning" size="sm" style={{ width: 32 }}
-					>
-						<i className="fas fa-times" />
-					</Button>
-				</Fragment> : null
-			}
-		</Form.Group>
-	);
-};
-
 
 const CheckboxInput = ({ name, defaultValue, label, updateSettings }) => {
 	const [ value, setValue ] = useState( defaultValue );
