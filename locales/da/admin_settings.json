@@ -96,6 +96,7 @@
 	"saml-email-domains-placeholder": "Liste over e-mail-domæner...",
 	"saml-exempt-patterns": "Frie mønstre",
 	"saml-exempt-patterns-description": "En liste over URL-regex-mønstre, der er undtaget fra SAML-godkendelsesbarrieren, dvs. offentligt tilgængelige",
+	"saml-exempt-patterns-placeholder": "Indtast mønster(e), der skal undtages fra SAML-godkendelse...",
 	"saml-status-description": "Angiv, om SAML skal aktiveres til autentificering. Hvis den er aktiveret, kan brugerne autentificere sig med deres institutionelle legitimationsoplysninger; hvis den er deaktiveret, kan brugerne autentificere sig med deres brugernavn og adgangskode. Den passive indstilling gør det muligt at registrere ISLE SAML 2.0-tjenesteudbyderen hos en identitetsudbyder, hvorefter SAML-tjenesten skal aktiveres fuldt ud.",
 	"search-context": "Søg kontekst",
 	"search-permissions": "Søgningstilladelser...",

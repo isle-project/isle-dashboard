@@ -96,6 +96,7 @@
 	"saml-email-domains-placeholder": "Liste des domaines d'email...",
 	"saml-exempt-patterns": "Motifs d'exemption",
 	"saml-exempt-patterns-description": "Une liste de motifs regex d'URL qui sont exemptés de la barrière d'authentification SAML, c'est-à-dire accessibles au public.",
+	"saml-exempt-patterns-placeholder": "Entrez le(s) motif(s) à exempter de l'authentification SAML...",
 	"saml-status-description": "Si vous souhaitez activer SAML pour l'authentification. S'il est activé, les utilisateurs pourront s'authentifier avec leurs informations d'identification institutionnelles ; s'il est désactivé, les utilisateurs pourront s'authentifier avec leur nom d'utilisateur et leur mot de passe. Le paramètre passif permet au fournisseur de service SAML 2.0 de l'ISLE d'être enregistré auprès d'un fournisseur d'identité, après quoi le service SAML doit être activé complètement.",
 	"search-context": "Contexte de la recherche",
 	"search-permissions": "Permissions de recherche...",

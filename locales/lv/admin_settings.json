@@ -96,6 +96,7 @@
 	"saml-email-domains-placeholder": "E-pasta domēnu saraksts...",
 	"saml-exempt-patterns": "Atbrīvotie modeļi",
 	"saml-exempt-patterns-description": "To URL regeksas modeļu saraksts, kas ir atbrīvoti no SAML autentifikācijas barjeras, t. i., ir publiski pieejami.",
+	"saml-exempt-patterns-placeholder": "Ievadiet modeli(-us), kas atbrīvojami no SAML autentifikācijas...",
 	"saml-status-description": "Vai iespējot SAML autentifikāciju. Ja šī opcija ir iespējota, lietotāji varēs autentificēties, izmantojot savas iestādes akreditācijas datus; ja šī opcija ir izslēgta, lietotāji varēs autentificēties, izmantojot savu lietotājvārdu un paroli. Pasīvais iestatījums ļauj ISLE SAML 2.0 pakalpojuma sniedzējam reģistrēties identitātes nodrošinātājā, pēc tam SAML pakalpojums jāaktivizē pilnībā.",
 	"search-context": "Meklēšanas konteksts",
 	"search-permissions": "Meklēšanas atļaujas...",

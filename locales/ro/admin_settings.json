@@ -96,6 +96,7 @@
 	"saml-email-domains-placeholder": "Lista domeniilor de e-mail...",
 	"saml-exempt-patterns": "Modele scutite",
 	"saml-exempt-patterns-description": "O listă de modele regex URL care sunt exceptate de la bariera de autentificare SAML, adică accesibile publicului",
+	"saml-exempt-patterns-placeholder": "Introduceți modelul (modelele) care urmează să fie exceptate de la autentificarea SAML...",
 	"saml-status-description": "Dacă se activează SAML pentru autentificare. Dacă este activată, utilizatorii se vor putea autentifica cu acreditările lor instituționale; dacă este dezactivată, utilizatorii se vor putea autentifica cu numele de utilizator și parola lor. Setarea pasivă permite furnizorului de servicii ISLE SAML 2.0 să fie înregistrat cu un furnizor de identitate, după care serviciul SAML trebuie activat complet.",
 	"search-context": "Context de căutare",
 	"search-permissions": "Permisiuni de căutare...",

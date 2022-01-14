@@ -96,6 +96,7 @@
 	"saml-email-domains-placeholder": "Zoznam e-mailových domén...",
 	"saml-exempt-patterns": "Vzory oslobodené od dane",
 	"saml-exempt-patterns-description": "Zoznam regexových vzorov URL, ktoré sú vyňaté z overovacej bariéry SAML, t. j. verejne prístupné",
+	"saml-exempt-patterns-placeholder": "Zadajte vzor(y), ktoré majú byť vyňaté z overovania SAML...",
 	"saml-status-description": "Či sa má povoliť SAML na overovanie. Ak je povolené, používatelia sa budú môcť overovať pomocou svojich inštitucionálnych poverení; ak je vypnuté, používatelia sa budú môcť overovať pomocou svojho používateľského mena a hesla. Pasívne nastavenie umožňuje registráciu poskytovateľa služby ISLE SAML 2.0 u poskytovateľa identity, po ktorej by mala byť služba SAML plne povolená.",
 	"search-context": "Kontext vyhľadávania",
 	"search-permissions": "Povolenia na vyhľadávanie...",

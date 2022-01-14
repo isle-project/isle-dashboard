@@ -96,6 +96,7 @@
 	"saml-email-domains-placeholder": "Elenco di domini di posta elettronica...",
 	"saml-exempt-patterns": "Modelli esenti",
 	"saml-exempt-patterns-description": "Una lista di modelli regex di URL che sono esenti dalla barriera di autenticazione SAML, cioè accessibili pubblicamente",
+	"saml-exempt-patterns-placeholder": "Inserisci il/i modello/i da esentare dall'autenticazione SAML...",
 	"saml-status-description": "Se abilitare SAML per l'autenticazione. Se abilitato, gli utenti potranno autenticarsi con le loro credenziali istituzionali; se disabilitato, gli utenti potranno autenticarsi con il loro nome utente e password. L'impostazione passiva permette al fornitore di servizi ISLE SAML 2.0 di essere registrato con un fornitore di identità, dopo di che il servizio SAML dovrebbe essere abilitato completamente.",
 	"search-context": "Contesto di ricerca",
 	"search-permissions": "Permessi di ricerca...",

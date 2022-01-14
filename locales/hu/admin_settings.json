@@ -96,6 +96,7 @@
 	"saml-email-domains-placeholder": "E-mail tartományok listája...",
 	"saml-exempt-patterns": "Mentett minták",
 	"saml-exempt-patterns-description": "A SAML-hitelesítési korlát alól mentesülő, azaz nyilvánosan elérhető URL-regexminták listája.",
+	"saml-exempt-patterns-placeholder": "Adja meg a SAML-hitelesítés alól felmentendő minta(ka)t...",
 	"saml-status-description": "A SAML engedélyezése a hitelesítéshez. Ha engedélyezve van, a felhasználók az intézményi hitelesítő adataikkal tudnak hitelesíteni; ha letiltva, akkor a felhasználók a felhasználónevükkel és jelszavukkal tudnak hitelesíteni. A passzív beállítás lehetővé teszi az ISLE SAML 2.0 szolgáltatójának regisztrálását egy személyazonossági szolgáltatónál, ezt követően a SAML szolgáltatást teljes mértékben engedélyezni kell.",
 	"search-context": "Keresési kontextus",
 	"search-permissions": "Keresés engedélyek...",
