@@ -17,11 +17,10 @@
 
 // MODULES //
 
-import React, { Component, Fragment, useCallback, useState } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withTranslation } from 'react-i18next';
 import Container from 'react-bootstrap/Container';
-import Button from 'react-bootstrap/Button';
 import FormGroup from 'react-bootstrap/FormGroup';
 import Form from 'react-bootstrap/Form';
 import Nav from 'react-bootstrap/Nav';
@@ -35,46 +34,7 @@ import SelectInputField from './select_input_field.js';
 import MultiSelectInputField from './multi_select_input_field.js';
 import TextSelectField from './text_select_field.js';
 import InputField from './input_field.js';
-
-
-// FUNCTIONS //
-
-const CheckboxInput = ({ name, defaultValue, label, updateSettings }) => {
-	const [ value, setValue ] = useState( defaultValue );
-	const handleChange = useCallback( ( event ) => {
-		setValue( event.target.checked );
-	}, [] );
-	const handleReset = useCallback( () => {
-		setValue( defaultValue );
-	}, [ defaultValue ] );
-	const handleConfirm = useCallback( () => {
-		updateSettings( name, value );
-	}, [ updateSettings, name, value ] );
-	return (
-		<Form.Group style={{ marginBottom: 0 }} >
-			<Form.Check
-				type="checkbox" label={label} checked={value} onChange={handleChange}
-				style={{ width: 'calc(100% - 78px)', float: 'left' }}
-			/>
-			{ value !== defaultValue ?
-				<Fragment>
-					<Button
-						onClick={handleConfirm}
-						variant="success" size="sm" style={{ marginRight: 6, marginLeft: 8 }}
-					>
-						<i className="fas fa-check" />
-					</Button>
-					<Button
-						onClick={handleReset}
-						variant="warning" size="sm" style={{ width: 32 }}
-					>
-						<i className="fas fa-times" />
-					</Button>
-				</Fragment> : null
-			}
-		</Form.Group>
-	);
-};
+import CheckboxInputField from './checkbox_input_field.js';
 
 
 // MAIN //
@@ -222,7 +182,7 @@ class ConfigurationPage extends Component {
 						{t('allow-new-registrations')}
 					</Form.Label>
 					<Col sm={8} >
-						<CheckboxInput
+						<CheckboxInputField
 							name="allowUserRegistrations"
 							label={t('allow-new-registrations-description')}
 							defaultValue={admin.settings.allowUserRegistrations}

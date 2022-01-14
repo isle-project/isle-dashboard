@@ -12,6 +12,7 @@ import LicenseBarrier from 'ev/containers/visible-barrier';
 import SelectInputField from 'components/admin-settings/select_input_field.js';
 import TextSelectField from 'components/admin-settings/text_select_field.js';
 import TextArea from 'components/admin-settings/text_area.js';
+import CheckboxInputField from 'components/admin-settings/checkbox_input_field.js';
 
 
 // MAIN //
@@ -99,6 +100,19 @@ const AdminSettingsSaml = ({ admin, updateSettings }) => {
 							<Form.Text muted >
 								{t('saml-extra-styles-description')}
 							</Form.Text>
+						</Col>
+					</Form.Group>
+					<Form.Group as={Row} >
+						<Form.Label column sm={4} >
+							{t('saml-authentication-barrier')}
+						</Form.Label>
+						<Col sm={8} >
+							<CheckboxInputField
+								name="samlDisableAuthenticationBarrier"
+								label={t('saml-authentication-barrier-description')}
+								defaultValue={admin.settings.samlDisableAuthenticationBarrier}
+								updateSettings={updateSettings}
+							/>
 						</Col>
 					</Form.Group>
 					<FormGroup as={Row} >
