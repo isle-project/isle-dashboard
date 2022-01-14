@@ -86,7 +86,7 @@
 	"romanian": "Román",
 	"russian": "Orosz",
 	"saml-authentication-barrier": "Hitelesítési korlát kikapcsolása",
-	"saml-authentication-barrier-description": "Ha engedélyezve van, a felhasználóknak a SAML segítségével kell hitelesíteniük magukat, mielőtt bármilyen erőforrást elérnének ezen az ISLE-példányon.",
+	"saml-authentication-barrier-description": "Ha letiltja, a felhasználóknak nem kell SAML-hitelesítést végezniük, mielőtt hozzáférnének az adott ISLE-példány erőforrásaihoz.",
 	"saml-choice-extra-styles": "Bejelentkezés választás oldal CSS stílusok",
 	"saml-choice-extra-styles-description": "További CSS stílusok, amelyeket a bejelentkezési oldalra kell beilleszteni; ez egy CSS részlet kell, hogy legyen.",
 	"saml-choice-header": "Bejelentkezési oldal HTML fejléc",

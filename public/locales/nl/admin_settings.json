@@ -86,7 +86,7 @@
 	"romanian": "Roemeens",
 	"russian": "Russisch",
 	"saml-authentication-barrier": "Authenticatiebarrière uitschakelen",
-	"saml-authentication-barrier-description": "Als deze optie is ingeschakeld, moeten gebruikers zich met SAML authenticeren voordat ze toegang krijgen tot een bron op deze ISLE instance.",
+	"saml-authentication-barrier-description": "Indien uitgeschakeld, hoeven gebruikers zich niet te authenticeren met SAML voordat ze toegang krijgen tot bronnen op deze ISLE instance.",
 	"saml-choice-extra-styles": "Login keuze pagina CSS stijlen",
 	"saml-choice-extra-styles-description": "Extra CSS stijlen die moeten worden geïnjecteerd op de login keuze pagina; het moet een CSS knipsel zijn",
 	"saml-choice-header": "HTML-koptekst van de aanmeldingskeuzepagina",

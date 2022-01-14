@@ -86,7 +86,7 @@
 	"romanian": "Rumunský",
 	"russian": "Ruský",
 	"saml-authentication-barrier": "Zakázanie bariéry overovania",
-	"saml-authentication-barrier-description": "Ak je táto možnosť povolená, od používateľov sa bude vyžadovať overenie pomocou SAML pred prístupom k akémukoľvek prostriedku v tejto inštancii ISLE.",
+	"saml-authentication-barrier-description": "Ak je vypnuté, od používateľov sa nebude vyžadovať overenie pomocou SAML pred prístupom k prostriedkom v tejto inštancii ISLE.",
 	"saml-choice-extra-styles": "Štýly CSS pre výber prihlasovacej stránky",
 	"saml-choice-extra-styles-description": "Ďalšie štýly CSS, ktoré sa majú vložiť na stránku s výberom prihlásenia; mal by to byť úryvok CSS",
 	"saml-choice-header": "Hlavička HTML stránky s výberom prihlásenia",

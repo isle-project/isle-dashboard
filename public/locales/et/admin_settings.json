@@ -86,7 +86,7 @@
 	"romanian": "Rumeenia",
 	"russian": "Vene",
 	"saml-authentication-barrier": "Autentimisbarjääri väljalülitamine",
-	"saml-authentication-barrier-description": "Kui see on lubatud, peavad kasutajad enne mis tahes ressursile juurdepääsu võimaldamist selles ISLE instantsis SAMLi abil autentimist tegema.",
+	"saml-authentication-barrier-description": "Kui see on välja lülitatud, ei nõuta kasutajatelt SAMLi abil autentimist enne selle ISLE instantsi ressurssidele juurdepääsu.",
 	"saml-choice-extra-styles": "Sisselogimise valiku lehekülje CSS stiilid",
 	"saml-choice-extra-styles-description": "Täiendavad CSS-stiilid, mis lisatakse sisselogimisvaliku lehele; see peaks olema CSS-ühendustükk",
 	"saml-choice-header": "Sisselogimise valiku lehekülje HTML-pealkiri",

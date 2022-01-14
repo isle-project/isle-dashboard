@@ -86,7 +86,7 @@
 	"romanian": "Romanian",
 	"russian": "Venäläinen",
 	"saml-authentication-barrier": "Poista todennuseste käytöstä",
-	"saml-authentication-barrier-description": "Jos tämä on käytössä, käyttäjien on todennettava itsensä SAML:lla ennen kuin he voivat käyttää mitä tahansa tämän ISLE-instanssin resurssia.",
+	"saml-authentication-barrier-description": "Jos tämä asetus on poistettu käytöstä, käyttäjiä ei vaadita SAML-todentamiseen ennen tämän ISLE-instanssin resurssien käyttämistä.",
 	"saml-choice-extra-styles": "Sisäänkirjautumissivun CSS-tyylit",
 	"saml-choice-extra-styles-description": "Lisää CSS-tyylejä, jotka lisätään kirjautumisvalintasivulle; sen pitäisi olla CSS-pätkä.",
 	"saml-choice-header": "Sisäänkirjautumissivun HTML-otsikko",

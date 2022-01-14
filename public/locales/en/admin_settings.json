@@ -84,7 +84,7 @@
 	"title": "Title",
 	"title-description": "This is the title that appears in the browser",
 	"saml-authentication-barrier": "Disable authentication barrier",
-	"saml-authentication-barrier-description": "If enabled, users will be required to authenticate with SAML before accessing any resource on this ISLE instance.",
+	"saml-authentication-barrier-description": "If disabled, users will not be required to authenticate with SAML before accessing resources on this ISLE instance.",
 	"saml-choice-header": "Login choice page HTML header",
 	"saml-choice-header-description": "This is the header that appears on the login choice page; it should be an HTML snippet",
 	"saml-choice-extra-styles": "Login choice page CSS styles",

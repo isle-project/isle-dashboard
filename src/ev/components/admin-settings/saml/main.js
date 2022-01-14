@@ -85,7 +85,7 @@ const AdminSettingsSaml = ({ admin, updateSettings }) => {
 					</Form.Group>
 					<Form.Group as={Row} >
 						<Form.Label column sm={2} >
-							{t('saml-extra-styles')}
+							{t('saml-choice-extra-styles')}
 						</Form.Label>
 						<Col sm={5} >
 							<TextArea
@@ -98,7 +98,7 @@ const AdminSettingsSaml = ({ admin, updateSettings }) => {
 						</Col>
 						<Col sm={5} >
 							<Form.Text muted >
-								{t('saml-extra-styles-description')}
+								{t('saml-choice-extra-styles-description')}
 							</Form.Text>
 						</Col>
 					</Form.Group>
@@ -124,7 +124,7 @@ const AdminSettingsSaml = ({ admin, updateSettings }) => {
 								name="samlExemptPatterns"
 								key={admin.settings.samlExemptPatterns}
 								placeholder={t('saml-exempt-patterns-placeholder')}
-								defaultValue={admin.settings.samlEmailDomains}
+								defaultValue={admin.settings.samlExemptPatterns}
 								updateSettings={updateSettings}
 							/>
 						</Col>

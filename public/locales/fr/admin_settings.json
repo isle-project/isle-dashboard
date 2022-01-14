@@ -86,7 +86,7 @@
 	"romanian": "Roumain",
 	"russian": "Russe",
 	"saml-authentication-barrier": "Désactiver la barrière d'authentification",
-	"saml-authentication-barrier-description": "Si cette option est activée, les utilisateurs devront s'authentifier avec SAML avant d'accéder à toute ressource sur cette instance ISLE.",
+	"saml-authentication-barrier-description": "S'il est désactivé, les utilisateurs ne seront pas tenus de s'authentifier avec SAML avant d'accéder aux ressources de cette instance ISLE.",
 	"saml-choice-extra-styles": "Styles CSS de la page de choix de connexion",
 	"saml-choice-extra-styles-description": "Styles CSS supplémentaires à injecter sur la page de choix de connexion ; il doit s'agir d'un extrait CSS.",
 	"saml-choice-header": "En-tête HTML de la page de choix de connexion",

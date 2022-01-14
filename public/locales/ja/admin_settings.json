@@ -86,7 +86,7 @@
 	"romanian": "ルーマニア語",
 	"russian": "ロシア語",
 	"saml-authentication-barrier": "認証バリアを無効にする",
-	"saml-authentication-barrier-description": "有効にすると、ユーザーはこのISLEインスタンス上のリソースにアクセスする前に、SAMLによる認証が必要になります。",
+	"saml-authentication-barrier-description": "無効にすると、ユーザーはこのISLEインスタンスのリソースにアクセスする前にSAMLによる認証を要求されません。",
 	"saml-choice-extra-styles": "ログイン選択ページのCSSスタイル",
 	"saml-choice-extra-styles-description": "ログイン選択ページに挿入する追加のCSSスタイル；CSSスニペットであること",
 	"saml-choice-header": "ログイン選択ページのHTMLヘッダー",

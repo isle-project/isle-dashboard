@@ -86,7 +86,7 @@
 	"romanian": "Romunski",
 	"russian": "Ruski",
 	"saml-authentication-barrier": "Onemogočite oviro za preverjanje pristnosti",
-	"saml-authentication-barrier-description": "Če je ta možnost omogočena, bodo morali uporabniki pred dostopom do katerega koli vira v tej instanci ISLE opraviti avtentikacijo s SAML.",
+	"saml-authentication-barrier-description": "Če je ta možnost onemogočena, uporabnikom pred dostopom do virov v tem primeru ISLE ni treba opraviti avtentikacije s SAML.",
 	"saml-choice-extra-styles": "Stili CSS za izbiro strani za prijavo",
 	"saml-choice-extra-styles-description": "Dodatni slogi CSS, ki se vnesejo na stran za izbiro prijave; to mora biti delček CSS.",
 	"saml-choice-header": "Izbira strani HTML za prijavo",
