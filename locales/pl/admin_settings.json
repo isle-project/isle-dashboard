@@ -86,7 +86,7 @@
 	"romanian": "Rumuński",
 	"russian": "Rosyjski",
 	"saml-authentication-barrier": "Wyłączenie bariery uwierzytelniania",
-	"saml-authentication-barrier-description": "Jeśli opcja ta jest włączona, użytkownicy będą musieli uwierzytelniać się za pomocą SAML przed uzyskaniem dostępu do jakiegokolwiek zasobu na tej instancji ISLE.",
+	"saml-authentication-barrier-description": "Jeśli wyłączona, użytkownicy nie będą musieli uwierzytelniać się za pomocą SAML przed uzyskaniem dostępu do zasobów na tej instancji ISLE.",
 	"saml-choice-extra-styles": "Style CSS strony wyboru logowania",
 	"saml-choice-extra-styles-description": "Dodatkowe style CSS do wstrzyknięcia na stronie wyboru logowania; powinien to być wycinek CSS",
 	"saml-choice-header": "Nagłówek HTML strony wyboru logowania",

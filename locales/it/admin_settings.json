@@ -86,7 +86,7 @@
 	"romanian": "Rumeno",
 	"russian": "Russo",
 	"saml-authentication-barrier": "Disattivare la barriera di autenticazione",
-	"saml-authentication-barrier-description": "Se abilitato, agli utenti sarà richiesto di autenticarsi con SAML prima di accedere a qualsiasi risorsa su questa istanza ISLE.",
+	"saml-authentication-barrier-description": "Se disabilitato, agli utenti non sarà richiesto di autenticarsi con SAML prima di accedere alle risorse su questa istanza ISLE.",
 	"saml-choice-extra-styles": "Stili CSS della pagina di scelta del login",
 	"saml-choice-extra-styles-description": "Stili CSS aggiuntivi da iniettare nella pagina di scelta del login; dovrebbe essere uno snippet CSS",
 	"saml-choice-header": "Intestazione HTML della pagina di scelta del login",

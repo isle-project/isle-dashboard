@@ -86,7 +86,7 @@
 	"romanian": "Rumänska",
 	"russian": "Ryska",
 	"saml-authentication-barrier": "Inaktivera autentiseringsbarriären",
-	"saml-authentication-barrier-description": "Om den är aktiverad måste användarna autentisera sig med SAML innan de får tillgång till någon resurs på den här ISLE-instansen.",
+	"saml-authentication-barrier-description": "Om den är inaktiverad behöver användarna inte autentisera sig med SAML innan de får tillgång till resurser på den här ISLE-instansen.",
 	"saml-choice-extra-styles": "CSS-stilar för sidan för val av inloggning",
 	"saml-choice-extra-styles-description": "Ytterligare CSS-stilar som ska läggas in på sidan för val av inloggning; det ska vara en CSS-utklipp.",
 	"saml-choice-header": "HTML-huvudet för sidan för val av inloggning",

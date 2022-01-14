@@ -86,7 +86,7 @@
 	"romanian": "Rumunijos",
 	"russian": "Rusų kalba",
 	"saml-authentication-barrier": "Išjungti autentifikavimo barjerą",
-	"saml-authentication-barrier-description": "Jei ši funkcija įjungta, prieš prisijungiant prie bet kokio ISLE egzemplioriaus ištekliaus iš naudotojų bus reikalaujama autentifikuotis naudojant SAML.",
+	"saml-authentication-barrier-description": "Jei išjungta, iš naudotojų nereikalaujama autentifikuotis naudojant SAML, kad jie galėtų naudotis šios ISLE instancijos ištekliais.",
 	"saml-choice-extra-styles": "Prisijungimo pasirinkimo puslapio CSS stiliai",
 	"saml-choice-extra-styles-description": "Papildomi CSS stiliai, kuriuos reikia įterpti į prisijungimo pasirinkimo puslapį; tai turėtų būti CSS fragmentas.",
 	"saml-choice-header": "Prisijungimo pasirinkimo puslapio HTML antraštė",

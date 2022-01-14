@@ -86,7 +86,7 @@
 	"romanian": "Rumänisch",
 	"russian": "Russisch",
 	"saml-authentication-barrier": "Authentifizierungssperre deaktivieren",
-	"saml-authentication-barrier-description": "Wenn diese Option aktiviert ist, müssen sich Benutzer mit SAML authentifizieren, bevor sie auf eine Ressource auf dieser ISLE-Instanz zugreifen können.",
+	"saml-authentication-barrier-description": "Wenn diese Option deaktiviert ist, müssen sich Benutzer nicht mit SAML authentifizieren, bevor sie auf Ressourcen dieser ISLE-Instanz zugreifen können.",
 	"saml-choice-extra-styles": "CSS-Stile für die Anmeldeseite",
 	"saml-choice-extra-styles-description": "Zusätzliche CSS-Stile, die auf der Anmeldeseite eingefügt werden sollen; es sollte sich um ein CSS-Snippet handeln",
 	"saml-choice-header": "HTML-Kopfzeile der Anmeldeseite",

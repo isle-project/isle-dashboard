@@ -86,7 +86,7 @@
 	"romanian": "罗马尼亚语",
 	"russian": "俄罗斯",
 	"saml-authentication-barrier": "禁用认证屏障",
-	"saml-authentication-barrier-description": "如果启用，用户在访问这个ISLE实例上的任何资源之前，将被要求用SAML进行认证。",
+	"saml-authentication-barrier-description": "如果禁用，用户在访问该ISLE实例上的资源之前将不需要用SAML进行认证。",
 	"saml-choice-extra-styles": "登录选择页面的CSS样式",
 	"saml-choice-extra-styles-description": "额外的CSS样式将被注入到登录选择页面；它应该是一个CSS片段",
 	"saml-choice-header": "登录选择页面的HTML标题",

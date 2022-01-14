@@ -86,7 +86,7 @@
 	"romanian": "Rumænsk",
 	"russian": "Russisk",
 	"saml-authentication-barrier": "Deaktivere godkendelsesbarriere",
-	"saml-authentication-barrier-description": "Hvis den er aktiveret, skal brugerne godkendes med SAML, før de kan få adgang til en ressource på denne ISLE-instans.",
+	"saml-authentication-barrier-description": "Hvis den er deaktiveret, skal brugerne ikke godkendes med SAML, før de får adgang til ressourcerne på denne ISLE-instans.",
 	"saml-choice-extra-styles": "CSS-stilarter for siden med valg af login",
 	"saml-choice-extra-styles-description": "Yderligere CSS-stilarter, der skal indsættes på siden for valg af login; det skal være en CSS-snippet",
 	"saml-choice-header": "HTML-overskrift på siden med valg af login",

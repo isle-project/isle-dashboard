@@ -86,7 +86,7 @@
 	"romanian": "Rumāņu",
 	"russian": "Krievu",
 	"saml-authentication-barrier": "Autentifikācijas barjeras atspējošana",
-	"saml-authentication-barrier-description": "Ja šī opcija ir iespējota, lietotājiem pirms piekļuves jebkuram resursam šajā ISLE instancē būs jāveic autentifikācija, izmantojot SAML.",
+	"saml-authentication-barrier-description": "Ja šī opcija ir atspējota, lietotājiem pirms piekļuves resursiem šajā ISLE instancē netiks pieprasīta autentifikācija, izmantojot SAML.",
 	"saml-choice-extra-styles": "Pieteikšanās izvēles lapas CSS stili",
 	"saml-choice-extra-styles-description": "Papildu CSS stili, kas jāievada pieteikšanās izvēles lapā; tam jābūt CSS fragmentam.",
 	"saml-choice-header": "Pieteikšanās izvēles lapas HTML galvene",
