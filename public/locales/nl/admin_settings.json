@@ -96,6 +96,7 @@
 	"saml-email-domains-placeholder": "Lijst van e-mail domeinen...",
 	"saml-exempt-patterns": "Vrijgestelde patronen",
 	"saml-exempt-patterns-description": "Een lijst van URL regex patronen die zijn vrijgesteld van de SAML authenticatie barrière, d.w.z. publiekelijk toegankelijk",
+	"saml-exempt-patterns-placeholder": "Voer patroon(en) in die vrijgesteld moeten worden van SAML-authenticatie...",
 	"saml-status-description": "Of SAML moet worden ingeschakeld voor authenticatie. Als deze optie is ingeschakeld, kunnen gebruikers zich authenticeren met hun instellingsreferenties; als deze optie is uitgeschakeld, kunnen gebruikers zich authenticeren met hun gebruikersnaam en wachtwoord. De passieve instelling zorgt ervoor dat de ISLE SAML 2.0 service provider geregistreerd wordt bij een identity provider, waarna de SAML service volledig moet worden ingeschakeld.",
 	"search-context": "Zoek Context",
 	"search-permissions": "Zoek permissies...",

@@ -90,6 +90,7 @@
 	"saml-choice-extra-styles": "Login choice page CSS styles",
 	"saml-choice-extra-styles-description": "Additional CSS styles to be injected on the login choice page; it should be a CSS snippet",
 	"saml-exempt-patterns": "Exempt Patterns",
+	"saml-exempt-patterns-placeholder": "Enter pattern(s) to be exempt from SAML authentication...",
 	"saml-exempt-patterns-description": "A list of URL regex patterns that are exempt from the SAML authentication barrier, i.e. publicly accessible",
 	"saml-email-domains-placeholder": "List of email domains...",
 	"saml-email-domains": "Email domains correspond to institutions authenticating via SSO",
