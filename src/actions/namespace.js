@@ -147,7 +147,7 @@ export const createNamespace = async ( dispatch, { title, description, owners, p
 		const namespace = res.data.namespace;
 		props.onNamespace( namespace );
 		dispatch( appendCreatedNamespace( namespace ) );
-		props.history.replace( '/lessons' );
+		window.location.replace( '/dashboard/lessons' );
 		addNotification( dispatch, {
 			message: res.data.message,
 			level: res.data.successful ? 'success' : 'error'
@@ -174,15 +174,12 @@ export const createNamespaceInjector = dispatch => {
  *
  * @param {Function} dispatch - dispatch function
  * @param {string} id - the id of the namespace to be deleted
- * @param {Object} history - browser history object
  * @returns {void}
  */
-export const deleteCurrentNamespace = async ( dispatch, id, history ) => {
+export const deleteCurrentNamespace = async ( dispatch, id ) => {
 	try {
 		const res = await axios.post( server+'/delete_namespace', { id });
-		if ( history ) {
-			history.replace( '/lessons' );
-		}
+		window.location.replace( '/dashboard/lessons' );
 		dispatch( deletedCurrentNamespace( id ) );
 		addNotification( dispatch, {
 			message: res.data.message,
@@ -200,8 +197,8 @@ export const deleteCurrentNamespace = async ( dispatch, id, history ) => {
  * @returns {Function} function to make the POST request to delete a namespace
  */
 export const deleteCurrentNamespaceInjector = ( dispatch ) => {
-	return async ( id, history ) => {
-		await deleteCurrentNamespace( dispatch, id, history );
+	return async ( id ) => {
+		await deleteCurrentNamespace( dispatch, id );
 	};
 };
 
