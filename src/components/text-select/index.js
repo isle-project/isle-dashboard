@@ -26,6 +26,7 @@ import { components } from 'react-select';
 import Tooltip from 'react-bootstrap/Tooltip';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import isObjectArray from '@stdlib/assert/is-object-array';
+import isEmptyString from '@stdlib/assert/is-empty-string';
 import contains from '@stdlib/assert/contains';
 import isNull from '@stdlib/assert/is-null';
 import trim from '@stdlib/string/trim';
@@ -109,7 +110,9 @@ class TextSelect extends Component {
 			return null;
 		}
 		if ( contains( inputValue, ',' ) ) {
-			inputValue = inputValue.split( ',' ).map( x => trim( x ) );
+			inputValue = inputValue.split( ',' )
+				.map( x => trim( x ) )
+				.filter( x => !isEmptyString( x ) );
 		} else {
 			inputValue = [ trim( inputValue ) ];
 		}
