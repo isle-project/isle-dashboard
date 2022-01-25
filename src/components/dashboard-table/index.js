@@ -18,7 +18,7 @@
 
 // MODULES //
 
-import React, { Fragment, useCallback } from 'react';
+import React, { Fragment, forwardRef, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import ReactTable from 'react-table';
 import Button from 'react-bootstrap/Button';
@@ -42,7 +42,7 @@ import './table.css';
  * @param {Function} props.t - i18n translation function
  * @returns {ReactElement} component
  */
-const DashboardTable = ( props ) => {
+const DashboardTable = forwardRef( ( props, ref ) => {
 	const { id, t } = props;
 	const getProps = useCallback( () => {
 		return {
@@ -65,6 +65,7 @@ const DashboardTable = ( props ) => {
 				ofText={t('common:of')}
 				rowsText={t('common:rows')}
 				getProps={getProps}
+				ref={ref}
 			/>
 			{props.onButtonClick ? <ButtonGroup vertical style={{ float: 'right', marginRight: -9 }} >
 				<OverlayTrigger placement="left" overlay={<Tooltip id="explorer-tooltip">{t('common:data-explorer')}</Tooltip>}>
@@ -75,7 +76,7 @@ const DashboardTable = ( props ) => {
 			</ButtonGroup> : null}
 		</Fragment>
 	);
-};
+});
 
 
 // PROPERTIES //

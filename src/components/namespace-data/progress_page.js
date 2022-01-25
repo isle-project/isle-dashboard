@@ -324,7 +324,7 @@ class ProgressPage extends Component {
 	};
 
 	assembleData() {
-		const displayedMembers = this.dashboardTable.table.getResolvedState().sortedData;
+		const displayedMembers = this.dashboardTable.getResolvedState().sortedData;
 		const len = displayedMembers.length;
 		const out = new Array( len );
 		const lessons = this.props.lessons;

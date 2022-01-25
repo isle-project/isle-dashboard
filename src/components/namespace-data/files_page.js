@@ -307,7 +307,7 @@ class FilesPage extends Component {
 	};
 
 	saveJSON = () => {
-		const currentFiles = this.dashboardTable.table.getResolvedState().sortedData;
+		const currentFiles = this.dashboardTable.getResolvedState().sortedData;
 		let data = prepareExportData( currentFiles );
 		const blob = new Blob([ JSON.stringify( data ) ], {
 			type: 'application/json'
@@ -317,7 +317,7 @@ class FilesPage extends Component {
 	};
 
 	saveCSV = () => {
-		const currentFiles = this.dashboardTable.table.getResolvedState().sortedData;
+		const currentFiles = this.dashboardTable.getResolvedState().sortedData;
 		let data = prepareExportData( currentFiles );
 		stringify( data, {
 			header: true
