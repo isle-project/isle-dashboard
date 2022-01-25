@@ -97,6 +97,8 @@
 	"saml-exempt-patterns": "Modele scutite",
 	"saml-exempt-patterns-description": "O listă de modele regex URL care sunt exceptate de la bariera de autentificare SAML, adică accesibile publicului",
 	"saml-exempt-patterns-placeholder": "Introduceți modelul (modelele) care urmează să fie exceptate de la autentificarea SAML...",
+	"saml-show-choices": "Afișați opțiunile de conectare",
+	"saml-show-choices-description": "Dacă este activată, utilizatorilor li se va prezenta o listă de opțiuni de conectare chiar și atunci când este disponibilă o singură opțiune de autentificare SSO.",
 	"saml-status-description": "Dacă se activează SAML pentru autentificare. Dacă este activată, utilizatorii se vor putea autentifica cu acreditările lor instituționale; dacă este dezactivată, utilizatorii se vor putea autentifica cu numele de utilizator și parola lor. Setarea pasivă permite furnizorului de servicii ISLE SAML 2.0 să fie înregistrat cu un furnizor de identitate, după care serviciul SAML trebuie activat complet.",
 	"search-context": "Context de căutare",
 	"search-permissions": "Permisiuni de căutare...",

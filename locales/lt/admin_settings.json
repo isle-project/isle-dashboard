@@ -97,6 +97,8 @@
 	"saml-exempt-patterns": "Nuo mokesčių atleisti modeliai",
 	"saml-exempt-patterns-description": "URL regex šablonų, kuriems netaikomas SAML autentifikavimo barjeras, t. y. kurie yra viešai prieinami, sąrašas",
 	"saml-exempt-patterns-placeholder": "Įveskite modelį (-ius), kuriam (-iems) neturi būti taikomas SAML autentiškumo patvirtinimas...",
+	"saml-show-choices": "Rodyti prisijungimo parinktis",
+	"saml-show-choices-description": "Jei ši funkcija įjungta, naudotojams bus pateikiamas prisijungimo parinkčių sąrašas, net jei yra tik viena SSO autentifikavimo parinktis.",
 	"saml-status-description": "Ar įjungti SAML autentifikavimą. Jei įjungta, naudotojai galės autentifikuotis naudodami savo institucinius įgaliojimus; jei išjungta, naudotojai galės autentifikuotis naudodami savo vartotojo vardą ir slaptažodį. Pasyvus nustatymas leidžia ISLE SAML 2.0 paslaugos teikėjui užsiregistruoti tapatybės nustatymo teikėjui, po to SAML paslauga turėtų būti visiškai įjungta.",
 	"search-context": "Paieškos kontekstas",
 	"search-permissions": "Paieškos leidimai...",

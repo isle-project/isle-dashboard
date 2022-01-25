@@ -97,6 +97,8 @@
 	"saml-exempt-patterns": "対象外のパターン",
 	"saml-exempt-patterns-description": "SAML認証バリアーが適用されないURLの正規表現パターンのリストです。",
 	"saml-exempt-patterns-placeholder": "SAML認証を免除するパターンを入力してください...",
+	"saml-show-choices": "ログインの選択肢を表示する",
+	"saml-show-choices-description": "有効にすると、利用可能なSSO認証オプションが1つしかない場合でも、ユーザーにログインオプションのリストが表示されます。",
 	"saml-status-description": "認証にSAMLを有効にするかどうか。有効にした場合、ユーザーは組織の認証情報で認証できるようになり、無効にした場合、 ユーザーはユーザー名とパスワードで認証できるようになる。受動的な設定では、ISLE SAML 2.0サービス・プロバイダーをIDプロバイダーに登録することができ、その後、SAMLサービスを完全に有効にする必要がある。",
 	"search-context": "検索条件",
 	"search-permissions": "検索権限を...",

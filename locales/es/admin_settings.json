@@ -97,6 +97,8 @@
 	"saml-exempt-patterns": "Patrones exentos",
 	"saml-exempt-patterns-description": "Una lista de patrones regex de URL que están exentos de la barrera de autenticación SAML, es decir, de acceso público",
 	"saml-exempt-patterns-placeholder": "Introducir patrón(es) para estar exento(s) de la autenticación SAML...",
+	"saml-show-choices": "Mostrar opciones de inicio de sesión",
+	"saml-show-choices-description": "Si se activa, los usuarios recibirán una lista de opciones de inicio de sesión incluso cuando sólo haya una opción de autenticación SSO disponible.",
 	"saml-status-description": "Si se habilita SAML para la autenticación. Si se activa, los usuarios podrán autenticarse con sus credenciales institucionales; si se desactiva, los usuarios podrán autenticarse con su nombre de usuario y contraseña. La configuración pasiva permite que el proveedor de servicios SAML 2.0 de ISLE se registre con un proveedor de identidades, tras lo cual el servicio SAML debe habilitarse por completo.",
 	"search-context": "Contexto de la búsqueda",
 	"search-permissions": "Permisos de búsqueda...",

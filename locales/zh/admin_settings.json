@@ -97,6 +97,8 @@
 	"saml-exempt-patterns": "豁免模式",
 	"saml-exempt-patterns-description": "一个免于SAML认证障碍的URL重码模式的列表，即可公开访问的URL。",
 	"saml-exempt-patterns-placeholder": "输入要免除SAML认证的模式...",
+	"saml-show-choices": "显示登录选择",
+	"saml-show-choices-description": "如果启用，即使只有一个SSO认证选项可用，用户也会看到一个登录选项的列表。",
 	"saml-status-description": "是否启用SAML进行认证。如果启用，用户将能够用他们的机构凭证进行认证；如果禁用，用户将能够用他们的用户名和密码进行认证。被动设置允许ISLE SAML 2.0服务提供者与身份提供者注册，之后应完全启用SAML服务。",
 	"search-context": "搜索上下文",
 	"search-permissions": "搜索权限...",

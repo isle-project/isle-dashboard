@@ -97,6 +97,8 @@
 	"saml-exempt-patterns": "Izvzeti vzorci",
 	"saml-exempt-patterns-description": "Seznam vzorcev URL regex, ki so izvzeti iz ovire avtentikacije SAML, tj. javno dostopni.",
 	"saml-exempt-patterns-placeholder": "Vnesite vzorec(-e), ki naj bodo izvzeti iz avtentikacije SAML...",
+	"saml-show-choices": "Prikaži možnosti prijave",
+	"saml-show-choices-description": "Če je ta možnost omogočena, se uporabnikom prikaže seznam možnosti prijave, tudi če je na voljo samo ena možnost preverjanja pristnosti SSO.",
 	"saml-status-description": "Ali želite omogočiti SAML za preverjanje pristnosti. Če je ta možnost omogočena, se bodo uporabniki lahko avtentificirali s svojimi institucionalnimi poverilnicami; če je onemogočena, se bodo uporabniki lahko avtentificirali s svojim uporabniškim imenom in geslom. Pasivna nastavitev omogoča registracijo ponudnika storitev ISLE SAML 2.0 pri ponudniku identitete, nato pa je treba storitev SAML v celoti omogočiti.",
 	"search-context": "Kontekst iskanja",
 	"search-permissions": "Dovoljenja za iskanje...",
