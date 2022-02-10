@@ -647,6 +647,14 @@ export const resendConfirmEmailInjector = ( dispatch ) => {
  *
  * @param {Function} dispatch - dispatch function
  * @param {Object} form - form object with new user data
+ * @param {string} [form.password] - user password
+ * @param {boolean} [form.writeAccess] - boolean indicating whether the user should have instructor access
+ * @param {boolean} [form.administrator] - boolean indicating whether the user should be an administrator
+ * @param {boolean} [form.twoFactorAuth] - boolean indicating whether the user should have two factor authentication enabled
+ * @param {boolean} [form.loginWithoutPassword] - boolean indicating whether the user should be able to login without a password
+ * @param {string} [form.name] - user name
+ * @param {string} [form.organization] - user organization
+ * @param {Object} [form.customFields] - user custom fields
  */
 export const adminUpdateUser = async ( dispatch, form ) => {
 	try {

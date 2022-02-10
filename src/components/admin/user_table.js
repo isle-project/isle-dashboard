@@ -321,6 +321,13 @@ class UserPage extends Component {
 				falseLabel: t('common:not-enabled'),
 				maxWidth: 100
 			}),
+			createBooleanColumn({
+				Header: t( 'login-type' ),
+				accessor: 'loginWithoutPassword',
+				trueLabel: t('login-without-password'),
+				falseLabel: t('login-with-password'),
+				maxWidth: 100
+			}),
 			createNumericColumn({
 				Header: t('common:chat-messages'),
 				accessor: 'chatMessages',

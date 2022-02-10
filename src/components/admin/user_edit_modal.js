@@ -81,6 +81,9 @@ class EditModal extends Component {
 		let change = false;
 		if ( password ) {
 			form.password = password;
+			if ( this.props.user.loginWithoutPassword ) {
+				form.loginWithoutPassword = false;
+			}
 			change = true;
 		}
 		if ( !isEmptyObject( this.state.customFields ) ) {
