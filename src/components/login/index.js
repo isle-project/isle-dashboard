@@ -79,9 +79,11 @@ const Login = ({ user, restoreLogin, fetchCredentials, getEnrollableCohorts, han
 			const res = axios.get( server + '/saml-xmw/login-type' );
 			res.then( response => {
 				if ( response.data === 'SSO' ) {
+					console.log( 'Redirect to SSO login choices as regular login is disabled...' );
 					navigate( server + '/saml-xmw/login-choices' );
 				}
 				else if ( response.data === 'Both' ) {
+					console.log( 'Show SSO button as instance supports both SSO and regular login...' );
 					setHasSSO( true );
 				}
 			}).catch( err => {
