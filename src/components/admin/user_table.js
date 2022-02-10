@@ -322,9 +322,9 @@ class UserPage extends Component {
 				maxWidth: 100
 			}),
 			createBooleanColumn({
-				Header: t( 'login-type' ),
+				Header: t( 'sso-only' ),
 				accessor: 'loginWithoutPassword',
-				trueLabel: t('login-without-password'),
+				trueLabel: t('login-via-sso'),
 				falseLabel: t('login-with-password'),
 				maxWidth: 100
 			}),
