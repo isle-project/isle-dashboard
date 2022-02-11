@@ -1,5 +1,5 @@
 {
-  "main.js": "/dashboard/static/js/main.d9312bdb.js",
+  "main.js": "/dashboard/static/js/main.f8f85835.js",
   "main.css": "/dashboard/static/css/main.5086e966.css",
   "runtime~main.js": "/dashboard/static/js/runtime~main.0aa2fc06.js",
   "static/js/1437.c314df73.chunk.js": "/dashboard/static/js/1437.c314df73.chunk.js",
@@ -686,7 +686,7 @@
   "locales/sl/forgot_password.json": "/dashboard/locales/sl/forgot_password.json",
   "locales/sv/forgot_password.json": "/dashboard/locales/sv/forgot_password.json",
   "locales/zh/forgot_password.json": "/dashboard/locales/zh/forgot_password.json",
-  "main.d9312bdb.js.map": "/dashboard/static/js/main.d9312bdb.js.map",
+  "main.f8f85835.js.map": "/dashboard/static/js/main.f8f85835.js.map",
   "main.5086e966.css.map": "/dashboard/static/css/main.5086e966.css.map",
   "runtime~main.0aa2fc06.js.map": "/dashboard/static/js/runtime~main.0aa2fc06.js.map",
   "1437.c314df73.chunk.js.map": "/dashboard/static/js/1437.c314df73.chunk.js.map",
