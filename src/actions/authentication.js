@@ -119,6 +119,7 @@ export const fetchCredentials = async ( dispatch, obj ) => {
 		const res = await axios.post( server+'/credentials_dashboard', {
 			id: obj.id
 		});
+		debug( 'Fetched user credentials...' );
 		let user = res.data;
 		if ( user.picture ) {
 			user.picture = server + '/avatar/' + user.picture;
@@ -134,6 +135,7 @@ export const fetchCredentials = async ( dispatch, obj ) => {
 		}
 		return sanitizedUser;
 	} catch ( err ) {
+		debug( 'Failed to fetch user credentials...' );
 		addErrorNotification( dispatch, err );
 		return null;
 	}

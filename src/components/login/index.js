@@ -72,18 +72,19 @@ const Login = ({ user, restoreLogin, fetchCredentials, getEnrollableCohorts, han
 	const { t } = useTranslation( [ 'login', 'common' ] );
 	const navigate = useNavigate();
 	useMountEffect( () => {
-		if ( user && user.loggedIn ) {
+		if ( user && user.loggedIn && !window.location.search ) {
+			debug( 'User is already logged in, restore login and get enrollable cohorts...' );
 			restoreLogin( user );
 			getEnrollableCohorts( user );
 		} else {
 			const res = axios.get( server + '/saml-xmw/login-type' );
 			res.then( response => {
 				if ( response.data === 'SSO' ) {
-					console.log( 'Redirect to SSO login choices as regular login is disabled...' );
+					debug( 'Redirect to SSO login choices as regular login is disabled...' );
 					navigate( server + '/saml-xmw/login-choices' );
 				}
 				else if ( response.data === 'Both' ) {
-					console.log( 'Show SSO button as instance supports both SSO and regular login...' );
+					debug( 'Show SSO button as instance supports both SSO and regular login...' );
 					setHasSSO( true );
 				}
 			}).catch( err => {

@@ -98,8 +98,10 @@ function goToDestination( search, writeAccess, navigate ) {
 	}
 	if ( url.indexOf( 'dashboard' ) !== -1 ) {
 		url = url.replace( /\/dashboard/, '' );
+		debug( 'Redirecting to dashboard page: %s', url );
 		navigate( url );
 	} else {
+		debug( 'Destination is not a dashboard URL: %s', url );
 		window.location = server + url;
 	}
 }
@@ -177,7 +179,13 @@ const App =({ isLoggedIn, dispatch, getCustomTranslations, getPublicSettings, fe
 				navigate( pathname );
 			} else {
 				debug( 'User has logged in, redirecting...' );
-				goToDestination( search, writeAccess, navigate );
+				axios.post( server+'/ensure_session' )
+					.then( ( res ) => {
+						goToDestination( search, writeAccess, navigate );
+					} )
+					.catch( ( err ) => {
+						debug( 'Encountered an error while ensuring session: '+err.message );
+					});
 			}
 		}
 		else if ( isLoggingOut ) {
@@ -187,7 +195,14 @@ const App =({ isLoggedIn, dispatch, getCustomTranslations, getPublicSettings, fe
 			isLoggedIn && pathname &&
 			( pathname === '/' || pathname === '/login' || pathname === '/login-tfa' )
 		) {
-			goToDestination( search, writeAccess, navigate );
+			debug( 'User is logged in, check for redirect...' );
+			axios.post( server+'/ensure_session' )
+				.then( ( res ) => {
+					goToDestination( search, writeAccess, navigate );
+				} )
+				.catch( ( err ) => {
+					debug( 'Encountered an error while ensuring session: '+err.message );
+				});
 		}
 	}, [ isLoggedIn, pathname, search, navigate, oldIsLoggedIn, writeAccess ] );
 	let AuthenticationBarrier = null;
