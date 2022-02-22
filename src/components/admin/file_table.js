@@ -25,7 +25,6 @@ import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
 import copyToClipboard from 'clipboard-copy';
 import roundn from '@stdlib/math/base/special/roundn';
-import trim from '@stdlib/string/trim';
 import DashboardTable from 'components/dashboard-table';
 import ConfirmModal from 'components/confirm-modal';
 import server from 'constants/server';
@@ -176,27 +175,14 @@ class FilePage extends Component {
 			createTextColumn({
 				Header: t('namespace_data:first-name'),
 				id: 'first_name',
-				accessor: d => {
-					const parts = trim( d.user.name ).split( ' ' );
-					if ( parts.length > 1 ) {
-						parts.pop();
-						return parts.join( ' ' );
-					}
-					return parts[ 0 ];
-				},
+				accessor: 'firstName'
 				maxWidth: 75,
 				style: { color: 'darkslategrey' }
 			}),
 			createTextColumn({
 				Header: t('namespace_data:last-name'),
 				id: 'last_name',
-				accessor: d => {
-					const parts = trim( d.user.name ).split( ' ' );
-					if ( parts.length > 1 ) {
-						return parts[ parts.length - 1 ];
-					}
-					return '';
-				},
+				accessor: 'lastName',
 				maxWidth: 75,
 				style: { color: 'darkslategrey' }
 			}),

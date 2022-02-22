@@ -35,7 +35,6 @@ import isArray from '@stdlib/assert/is-array';
 import isUndefinedOrNull from '@stdlib/assert/is-undefined-or-null';
 import contains from '@stdlib/assert/contains';
 import lowercase from '@stdlib/string/lowercase';
-import trim from '@stdlib/string/trim';
 import DashboardTable from 'components/dashboard-table';
 import DashboardDataExplorer from 'ev/components/data-explorer';
 import obsToVar from '@isle-project/utils/obs-to-var';
@@ -145,17 +144,6 @@ class ProgressPage extends Component {
 				}
 			}
 			members = members.concat( this.props.cohorts[ i ].members );
-		}
-		for ( let i = 0; i < members.length; i++ ) {
-			const d = members[ i ];
-			const parts = trim( d.name ).split( ' ' );
-			if ( parts.length > 1 ) {
-				d.lastName = parts.pop();
-				d.firstName = parts.join( ' ' );
-			} else {
-				d.firstName = parts[ 0 ];
-				d.lastName = '';
-			}
 		}
 		this.setState({ // eslint-disable-line react/no-did-mount-set-state
 			displayedMembers: members
