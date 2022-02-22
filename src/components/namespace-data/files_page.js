@@ -35,7 +35,6 @@ import ceil from '@stdlib/math/base/special/ceil';
 import pick from '@stdlib/utils/pick';
 import contains from '@stdlib/assert/contains';
 import lowercase from '@stdlib/string/lowercase';
-import trim from '@stdlib/string/trim';
 import DashboardDataExplorer from 'ev/components/data-explorer';
 import obsToVar from '@isle-project/utils/obs-to-var';
 import DashboardTable from 'components/dashboard-table';
@@ -210,14 +209,7 @@ class FilesPage extends Component {
 			createTextColumn({
 				Header: t('first-name'),
 				id: 'first_name',
-				accessor: d => {
-					const parts = trim( d.name ).split( ' ' );
-					if ( parts.length > 1 ) {
-						parts.pop();
-						return parts.join( ' ' );
-					}
-					return parts[ 0 ];
-				},
+				accessor: 'firstName',
 				maxWidth: 75,
 				filterMethod: ( filter, row ) => {
 					return contains( lowercase( row[ filter.id ] ), lowercase( filter.value ) );
@@ -226,13 +218,7 @@ class FilesPage extends Component {
 			createTextColumn({
 				Header: t('last-name'),
 				id: 'last_name',
-				accessor: d => {
-					const parts = trim( d.name ).split( ' ' );
-					if ( parts.length > 1 ) {
-						return parts[ parts.length - 1 ];
-					}
-					return '';
-				},
+				accessor: 'lastName',
 				maxWidth: 75,
 				filterMethod: ( filter, row ) => {
 					return contains( lowercase( row[ filter.id ] ), lowercase( filter.value ) );
