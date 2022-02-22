@@ -175,14 +175,14 @@ class FilePage extends Component {
 			createTextColumn({
 				Header: t('namespace_data:first-name'),
 				id: 'first_name',
-				accessor: 'firstName',
+				accessor: 'user.firstName',
 				maxWidth: 75,
 				style: { color: 'darkslategrey' }
 			}),
 			createTextColumn({
 				Header: t('namespace_data:last-name'),
 				id: 'last_name',
-				accessor: 'lastName',
+				accessor: 'user.lastName',
 				maxWidth: 75,
 				style: { color: 'darkslategrey' }
 			}),

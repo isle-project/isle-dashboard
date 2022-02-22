@@ -209,7 +209,7 @@ class FilesPage extends Component {
 			createTextColumn({
 				Header: t('first-name'),
 				id: 'first_name',
-				accessor: 'firstName',
+				accessor: 'user.firstName',
 				maxWidth: 75,
 				filterMethod: ( filter, row ) => {
 					return contains( lowercase( row[ filter.id ] ), lowercase( filter.value ) );
@@ -218,7 +218,7 @@ class FilesPage extends Component {
 			createTextColumn({
 				Header: t('last-name'),
 				id: 'last_name',
-				accessor: 'lastName',
+				accessor: 'user.lastName',
 				maxWidth: 75,
 				filterMethod: ( filter, row ) => {
 					return contains( lowercase( row[ filter.id ] ), lowercase( filter.value ) );
@@ -226,7 +226,7 @@ class FilesPage extends Component {
 			}),
 			createTextColumn({
 				Header: t('common:email'),
-				accessor: 'email',
+				accessor: 'user.email',
 				maxWidth: 160,
 				filterMethod: ( filter, row ) => {
 					return contains( lowercase( row[ filter.id ] ), lowercase( filter.value ) );
@@ -360,6 +360,7 @@ class FilesPage extends Component {
 				/>
 			);
 		}
+		console.log( this.props.files );
 		return ( <div className="namespace-data-page">
 			<div className="namespace-data-buttons">
 				<ButtonGroup className="files-export-button-group" >

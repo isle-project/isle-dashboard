@@ -221,8 +221,20 @@ class UserPage extends Component {
 				style: { color: 'darkslategrey' }
 			},
 			createTextColumn({
-				Header: t('common:name'),
-				accessor: 'name',
+				Header: t('common:first-name'),
+				accessor: 'firstName',
+				maxWidth: 200,
+				style: { marginTop: '8px', color: 'darkslategrey' }
+			}),
+			createTextColumn({
+				Header: t('common:last-name'),
+				accessor: 'lastName',
+				maxWidth: 200,
+				style: { marginTop: '8px', color: 'darkslategrey' }
+			}),
+			createTextColumn({
+				Header: t('common:preferred-name'),
+				accessor: 'preferredName',
 				maxWidth: 200,
 				style: { marginTop: '8px', color: 'darkslategrey' }
 			}),
