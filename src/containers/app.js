@@ -61,6 +61,8 @@ const AsyncEnrollPage = lazy(() => import( 'containers/visible-enroll-page' ));
 const USER_STORAGE_ID = 'ISLE_USER_'+server;
 const RE_PUBLIC_PAGES = /(?:new-password|complete-registration|confirm-email|signup|login|login-tfa|terms|privacy)/;
 const debug = logger( 'isle-dashboard' );
+const RE_LEADING_PART = /^[\s\S]*\//;
+const RE_HYPHEN = /-([a-z])/;
 
 
 // FUNCTIONS //
@@ -73,13 +75,33 @@ const debug = logger( 'isle-dashboard' );
 */
 const Title = () => {
 	const { pathname } = useLocation();
-	let title = capitalize( pathname.replace( /^[\s\S]*\//, '' ) ) || 'Login';
+	let title;
+	if ( pathname ) {
+		title = pathname.replace( RE_LEADING_PART, '' );
+		title = title.replace( RE_HYPHEN, replacer );
+		title = capitalize( title );
+	}
+	else {
+		title = 'Login';
+	}
 	title = `${title} | ISLE Dashboard`;
 	return (
 		<Helmet>
 			<title>{title}</title>
 		</Helmet>
 	);
+
+	/**
+	* Replaces a hyphen followed by a lowercase letter with a space and an uppercase letter.
+	*
+	* @private
+	* @param {string} match - match string
+	* @param {string} p1 - first capture group
+	* @returns {string} replacement string
+	*/
+	function replacer( match, p1 ) {
+		return ' ' + p1.toUpperCase();
+	}
 };
 
 /**
