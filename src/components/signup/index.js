@@ -51,7 +51,7 @@ const validateEmail = ( email ) => {
 };
 
 const validateName = ( name ) => {
-	return name.length > 3;
+	return name.length > 2;
 };
 
 const validatePasswords = ( password, passwordRepeat ) => {
@@ -84,7 +84,9 @@ const debug = logger( 'isle-dashboard:signup' );
  */
 const Signup = ({ createUser, getCustomFields, user, settings }) => {
 	const { t } = useTranslation( [ 'signup', 'common' ] );
-	const [ name, setName ] = useState( '' );
+	const [ lastName, setLastName ] = useState( '' );
+	const [ firstName, setFirstName ] = useState( '' );
+	const [ preferredName, setPreferredName ] = useState( '' );
 	const [ email, setEmail ] = useState( '' );
 	const [ password, setPassword ] = useState( '' );
 	const [ passwordRepeat, setPasswordRepeat ] = useState( '' );
@@ -105,12 +107,14 @@ const Signup = ({ createUser, getCustomFields, user, settings }) => {
 		event.preventDefault();
 		if (
 			validateEmail( email ) &&
-			validateName( name ) &&
+			validateName( firstName ) &&
+			validateName( lastName ) &&
+			( !preferredName || validateName( preferredName ) ) &&
 			validatePasswords( password, passwordRepeat )
 		) {
 			try {
 				const res = await createUser({
-					name, email, password, customFields
+					firstName, lastName, preferredName, email, password, customFields
 				});
 				setModal({
 					message: res.data.message,
@@ -193,26 +197,76 @@ const Signup = ({ createUser, getCustomFields, user, settings }) => {
 									</Row>
 								</FormGroup>
 							</OverlayTrigger>
-							<OverlayTrigger placement="right" overlay={createTooltip( t('name-tooltip') )}>
+							<OverlayTrigger placement="right" overlay={createTooltip( t('first-name-tooltip') )}>
 								<FormGroup
-									controlId="form-name"
+									controlId="form-first-name"
 								>
 									<Row>
 										<Col sm={3}>
-											<FormLabel>{t('common:name')}</FormLabel>
+											<FormLabel>{t('common:first-name')}</FormLabel>
 										</Col>
 										<Col sm={9}>
 											<FormControl
 												name="name"
 												type="text"
-												placeholder={t('common:enter-name')}
+												placeholder={t('common:enter-first-name')}
 												onChange={( event ) => {
-													setName( event.target.value );
+													setFirstName( event.target.value );
 												}}
-												isInvalid={name && !validateName( name )}
+												isInvalid={firstName && !validateName( firstName )}
 											/>
 											<Form.Control.Feedback type="invalid">
-												{t('invalid-name')}
+												{t('invalid-first-name')}
+											</Form.Control.Feedback>
+										</Col>
+									</Row>
+								</FormGroup>
+							</OverlayTrigger>
+							<OverlayTrigger placement="right" overlay={createTooltip( t('preferred-name-tooltip') )}>
+								<FormGroup
+									controlId="form-preferred-name"
+								>
+									<Row>
+										<Col sm={3}>
+											<FormLabel>{t('common:preferred-name')}</FormLabel>
+										</Col>
+										<Col sm={9}>
+											<FormControl
+												name="name"
+												type="text"
+												placeholder={t('common:enter-preferred-name')}
+												onChange={( event ) => {
+													setPreferredName( event.target.value );
+												}}
+												isInvalid={preferredName && !validateName( preferredName )}
+											/>
+											<Form.Control.Feedback type="invalid">
+												{t('invalid-preferred-name')}
+											</Form.Control.Feedback>
+										</Col>
+									</Row>
+								</FormGroup>
+							</OverlayTrigger>
+							<OverlayTrigger placement="right" overlay={createTooltip( t('last-name-tooltip') )}>
+								<FormGroup
+									controlId="form-name"
+								>
+									<Row>
+										<Col sm={3}>
+											<FormLabel>{t('common:last-name')}</FormLabel>
+										</Col>
+										<Col sm={9}>
+											<FormControl
+												name="name"
+												type="text"
+												placeholder={t('common:enter-last-name')}
+												onChange={( event ) => {
+													setLastName( event.target.value );
+												}}
+												isInvalid={lastName && !validateName( lastName )}
+											/>
+											<Form.Control.Feedback type="invalid">
+												{t('invalid-last-name')}
 											</Form.Control.Feedback>
 										</Col>
 									</Row>

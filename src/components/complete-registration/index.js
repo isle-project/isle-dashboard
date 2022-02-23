@@ -46,6 +46,10 @@ const createTooltip = ( str ) => {
 	return <Tooltip id="tooltip">{str}</Tooltip>;
 };
 
+const validateName = ( name ) => {
+	return name && name.length > 2;
+};
+
 
 // VARIABLES //
 
@@ -91,7 +95,9 @@ MsgModal.propTypes = {
  * @returns {ReactElement} component
  */
 const CompleteRegistration = ({ settings }) => {
-	const [ name, setName ] = useState( '' );
+	const [ firstName, setFirstName ] = useState( '' );
+	const [ lastName, setLastName ] = useState( '' );
+	const [ preferredName, setPreferredName ] = useState( '' );
 	const [ password, setPassword ] = useState( '' );
 	const [ passwordRepeat, setPasswordRepeat ] = useState( '' );
 	const [ modal, setModal ] = useState({
@@ -104,10 +110,6 @@ const CompleteRegistration = ({ settings }) => {
 	});
 	const { t } = useTranslation([ 'common', 'signup' ]);
 	const navigate = useNavigate();
-
-	const validateName = () => {
-		return name && name.length > 3;
-	};
 	const validatePasswords = () => {
 		if ( password.length < 6 || passwordRepeat.length === 0 ) {
 			return false;
@@ -117,9 +119,6 @@ const CompleteRegistration = ({ settings }) => {
 		}
 		return true;
 	};
-	const handleNameChange = ( event ) => {
-		setName( event.target.value );
-	};
 	const handlePasswordChange = ( event ) => {
 		setPassword( event.target.value );
 	};
@@ -128,15 +127,17 @@ const CompleteRegistration = ({ settings }) => {
 	};
 	const handleSubmit = async ( event ) => {
 		event.preventDefault();
-		if ( validatePasswords() && validateName() ) {
+		if ( validatePasswords() && validateName( firstName ) && validateName( lastName ) ) {
 			try {
 				const search = window.location.search || window.location.hash.substring( 24 );
 				const qs = queryString.parse( search );
 				const token = qs[ 'token' ];
 				const res = await axios.post( server+'/complete_registration', {
 					id: token,
-					newName: name,
-					newPassword: password
+					firstName: firstName,
+					lastName: lastName,
+					preferredName: preferredName,
+					password: password
 				});
 				setModal({
 					show: true,
@@ -172,29 +173,6 @@ const CompleteRegistration = ({ settings }) => {
 	const handleClose = () => {
 		navigate( '/' );
 	};
-	const renderedName = <OverlayTrigger placement="right" overlay={createTooltip( t('signup:name-tooltip') )}>
-		<FormGroup
-			controlId="form-name"
-		>
-			<Row>
-				<Col sm={3}>
-					<FormLabel>{t('common:name')}</FormLabel>
-				</Col>
-				<Col sm={9}>
-					<FormControl
-						name="name"
-						type="text"
-						placeholder={t('enter-name')}
-						onChange={handleNameChange}
-						isInvalid={name && !validateName()}
-					/>
-					<Form.Control.Feedback type="invalid">
-						{t('signup:invalid-name')}
-					</Form.Control.Feedback>
-				</Col>
-			</Row>
-		</FormGroup>
-	</OverlayTrigger>;
 	const enteredPasswords = password || passwordRepeat;
 	const validPasswords = validatePasswords();
 	const renderedPassword = <Fragment>
@@ -257,7 +235,81 @@ const CompleteRegistration = ({ settings }) => {
 					</Card.Header>
 					<Card.Body>
 						<Form className="d-grid gap-3" >
-							{renderedName}
+						<OverlayTrigger placement="right" overlay={createTooltip( t('first-name-tooltip') )}>
+								<FormGroup
+									controlId="form-first-name"
+								>
+									<Row>
+										<Col sm={3}>
+											<FormLabel>{t('common:first-name')}</FormLabel>
+										</Col>
+										<Col sm={9}>
+											<FormControl
+												name="name"
+												type="text"
+												placeholder={t('common:enter-first-name')}
+												onChange={( event ) => {
+													setFirstName( event.target.value );
+												}}
+												isInvalid={firstName && !validateName( firstName )}
+											/>
+											<Form.Control.Feedback type="invalid">
+												{t('invalid-first-name')}
+											</Form.Control.Feedback>
+										</Col>
+									</Row>
+								</FormGroup>
+							</OverlayTrigger>
+							<OverlayTrigger placement="right" overlay={createTooltip( t('preferred-name-tooltip') )}>
+								<FormGroup
+									controlId="form-preferred-name"
+								>
+									<Row>
+										<Col sm={3}>
+											<FormLabel>{t('common:preferred-name')}</FormLabel>
+										</Col>
+										<Col sm={9}>
+											<FormControl
+												name="name"
+												type="text"
+												placeholder={t('common:enter-preferred-name')}
+												onChange={( event ) => {
+													setPreferredName( event.target.value );
+												}}
+												isInvalid={preferredName && !validateName( preferredName )}
+											/>
+											<Form.Control.Feedback type="invalid">
+												{t('invalid-preferred-name')}
+											</Form.Control.Feedback>
+										</Col>
+									</Row>
+								</FormGroup>
+							</OverlayTrigger>
+							<OverlayTrigger placement="right" overlay={createTooltip( t('last-name-tooltip') )}>
+								<FormGroup
+									controlId="form-name"
+								>
+									<Row>
+										<Col sm={3}>
+											<FormLabel>{t('common:last-name')}</FormLabel>
+										</Col>
+										<Col sm={9}>
+											<FormControl
+												name="name"
+												type="text"
+												placeholder={t('common:enter-last-name')}
+												onChange={( event ) => {
+													setLastName( event.target.value );
+												}}
+												isInvalid={lastName && !validateName( lastName )}
+											/>
+											<Form.Control.Feedback type="invalid">
+												{t('invalid-last-name')}
+											</Form.Control.Feedback>
+										</Col>
+									</Row>
+								</FormGroup>
+							</OverlayTrigger>
 							{renderedPassword}
 							<FormGroup>
 								<Button
@@ -265,7 +317,7 @@ const CompleteRegistration = ({ settings }) => {
 									type="submit"
 									onClick={handleSubmit}
 									className="centered"
-									disabled={!validateName() || !validPasswords}
+									disabled={!validateName( firstName ) || !validateName( lastName ) || !validPasswords}
 								>Confirm</Button>
 							</FormGroup>
 						</Form>
