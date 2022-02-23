@@ -57,8 +57,11 @@ class EditModal extends Component {
 
 		this.state = {
 			email: props.user.email,
-			name: props.user.name,
+			firstName: props.user.firstName,
+			lastName: props.user.lastName,
+			preferredName: props.user.preferredName,
 			organization: props.user.organization,
+			pronouns: props.user.pronouns,
 			password: '',
 			passwordRepeat: '',
 			changed: false,
@@ -68,9 +71,12 @@ class EditModal extends Component {
 	}
 
 	handleUpdate = () => {
-		const { name, password, passwordRepeat, organization, customFields } = this.state;
+		const { firstName, lastName, preferredName, pronouns, password, passwordRepeat, organization, customFields } = this.state;
 		const form = {
-			name,
+			firstName,
+			lastName,
+			preferredName,
+			pronouns,
 			organization
 		};
 		let change = false;
@@ -81,7 +87,10 @@ class EditModal extends Component {
 			}
 		}
 		if (
-			name !== this.props.user.name ||
+			firstName !== this.props.user.firstName ||
+			lastName !== this.props.user.lastName ||
+			preferredName !== this.props.user.preferredName ||
+			pronouns !== this.props.user.pronouns ||
 			organization !== this.props.user.organization
 		) {
 			change = true;
@@ -253,20 +262,73 @@ class EditModal extends Component {
 									disabled
 								/>
 							</FormGroup>
-							<OverlayTrigger placement="right" overlay={createTooltip( t('update-name') )}>
+							<OverlayTrigger placement="right" overlay={createTooltip( t('update-first-name') )}>
 								<FormGroup
-									controlId="form-name"
+									controlId="form-first-name"
 								>
-									<FormLabel>{t('common:name')}</FormLabel>
+									<FormLabel>{t('common:first-name')}</FormLabel>
 									<FormControl
-										name="name"
+										name="firstName"
 										type="text"
-										value={this.state.name}
+										value={this.state.firstName}
 										onChange={this.handleInputChange}
 										isInvalid={!validName}
 									/>
 									<Form.Control.Feedback type="invalid">
-										{t('invalid-name')}
+										{t('invalid-first-name')}
+									</Form.Control.Feedback>
+								</FormGroup>
+							</OverlayTrigger>
+							<Row>
+								<Col md={6} >
+									<OverlayTrigger placement="right" overlay={createTooltip( t('update-preferred-name') )}>
+										<FormGroup
+											controlId="form-preferred-name"
+										>
+											<FormLabel>{t('common:preferred-name')}</FormLabel>
+											<FormControl
+												name="preferredName"
+												type="text"
+												value={this.state.preferredName}
+												onChange={this.handleInputChange}
+												isInvalid={!validName}
+											/>
+											<Form.Control.Feedback type="invalid">
+												{t('invalid-preferred-name')}
+											</Form.Control.Feedback>
+										</FormGroup>
+									</OverlayTrigger>
+								</Col>
+								<Col md={6} >
+									<OverlayTrigger placement="right" overlay={createTooltip( t('update-pronouns') )}>
+										<FormGroup
+											controlId="form-pronouns"
+										>
+											<FormLabel>{t('common:pronouns')}</FormLabel>
+											<FormControl
+												name="pronouns"
+												type="text"
+												value={this.state.pronouns}
+												onChange={this.handleInputChange}
+											/>
+										</FormGroup>
+									</OverlayTrigger>
+								</Col>
+							</Row>
+							<OverlayTrigger placement="right" overlay={createTooltip( t('update-last-name') )}>
+								<FormGroup
+									controlId="form-last-name"
+								>
+									<FormLabel>{t('common:last-name')}</FormLabel>
+									<FormControl
+										name="lastName"
+										type="text"
+										value={this.state.lastName}
+										onChange={this.handleInputChange}
+										isInvalid={!validName}
+									/>
+									<Form.Control.Feedback type="invalid">
+										{t('invalid-last-name')}
 									</Form.Control.Feedback>
 								</FormGroup>
 							</OverlayTrigger>
