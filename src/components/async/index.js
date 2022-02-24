@@ -23,6 +23,12 @@ import Spinner from 'components/spinner';
 
 // MAIN //
 
+/**
+ * Adds a spinner to a component for asynchronous loading.
+ *
+ * @param {Component} importComponent - component to be wrapped
+ * @returns {AsyncComponent} wrapped component
+ */
 function asyncComponent( importComponent ) {
 	class AsyncComponent extends Component {
 		constructor( props ) {

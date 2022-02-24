@@ -53,11 +53,25 @@ const customStyles = {
 
 // FUNCTIONS //
 
+/**
+ * Returns a select option object.
+ *
+ * @private
+ * @param {string} label - option label
+ * @returns {Object} option object
+ */
 const createOption = ( label ) => ({
 	label,
 	value: label
 });
 
+/**
+ * Maps elements of an array to option objects.
+ *
+ * @private
+ * @param {Array} arr - array of elements
+ * @returns {Array} array of option objects
+ */
 const toOptions = ( arr ) => {
 	if ( isNull( arr ) ) {
 		return null;

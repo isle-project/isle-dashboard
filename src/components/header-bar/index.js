@@ -17,7 +17,7 @@
 
 // MODULES //
 
-import React, { useEffect, useState, useRef, Fragment } from 'react';
+import React, { useEffect, useState, useRef, Fragment, Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import logger from 'debug';
@@ -47,6 +47,15 @@ import './header_bar.css';
 // VARIABLES //
 
 const debug = logger( 'isle:header-bar' );
+
+/**
+ * Renders a list of namespace links.
+ *
+ * @private
+ * @param {Array} namespaces - array of namespaces
+ * @param {Function} clickFactory - factory returning callback to invoke when a namespace is clicked
+ * @returns {Component} list of namespace links
+ */
 const namespaceListGroup = ( namespaces, clickFactory ) => (
 	<ListGroup>
 		{namespaces.map( ( x, id ) => (
@@ -62,6 +71,16 @@ const namespaceListGroup = ( namespaces, clickFactory ) => (
 	</ListGroup>
 );
 
+/**
+ * Renders a button for navigating to the lesson gallery.
+ *
+ * @private
+ * @param {Object} opts - component options
+ * @param {boolean} opts.writeAccess - whether the user has ability to create courses
+ * @param {Function} opts.onNavigate - callback to invoke when the button is clicked to navigate to the lesson gallery
+ * @param {Function} opts.t - i18n translation function
+ * @returns {Component} button component
+ */
 const GalleryButton = ({ onNavigate, writeAccess, t }) => {
 	if ( !writeAccess ) {
 		return null;
@@ -96,6 +115,15 @@ const HelpLink = ({ writeAccess, t }) => {
 	</div> );
 };
 
+/**
+ * A component which displays a button for creating a new course in the header bar.
+ *
+ * @private
+ * @property {boolean} opts.writeAccess - whether the user has ability to create courses
+ * @property {Function} opts.onNavigate - callback to invoke when the button is clicked to navigate to the new course page
+ * @property {Function} opts.t - i18n translation function
+ * @returns {Component} button component
+ */
 const CreateButton = ({ onNavigate, writeAccess, t }) => {
 	if ( !writeAccess ) {
 		return null;
@@ -115,6 +143,17 @@ const CreateButton = ({ onNavigate, writeAccess, t }) => {
 	);
 };
 
+/**
+ * A component which displays a button for navigating to the edit course page.
+ *
+ * @private
+ * @property {Object} opts - component options
+ * @property {Object} opts.namespace - namespace object
+ * @property {Object} opts.user - user object
+ * @property {Function} opts.onNavigate - callback to invoke when the button is clicked to navigate to the edit course page
+ * @property {Function} opts.t - i18n translation function
+ * @returns {Component} button component
+ */
 const EditButton = ({ onNavigate, namespace, user, t }) => {
 	let owners = namespace.owners;
 	if ( isObjectArray( owners ) ) {
@@ -136,6 +175,17 @@ const EditButton = ({ onNavigate, namespace, user, t }) => {
 	);
 };
 
+/**
+ * A component which displays a button for navigating to the course data page.
+ *
+ * @private
+ * @property {Object} opts - component options
+ * @property {Object} opts.namespace - namespace object
+ * @property {Object} opts.user - user object
+ * @property {Function} opts.onNavigate - callback to invoke when the button is clicked to navigate to the course data page
+ * @property {Function} opts.t - i18n translation function
+ * @returns {Component} button component
+ */
 const DataButton = ({ onNavigate, namespace, user, t }) => {
 	if ( !namespace.title ) {
 		return null;
@@ -158,6 +208,19 @@ const DataButton = ({ onNavigate, namespace, user, t }) => {
 	);
 };
 
+/**
+ * Renders a button for navigating to the course lessons or changing from one course to another.
+ *
+ * @private
+ * @property {Object} opts - component options
+ * @property {Object} opts.namespace - namespace object
+ * @property {Object} opts.user - user object
+ * @property {Function} opts.goBackToLesson - callback to invoke when the button is clicked to navigate to the course lessons page
+ * @property {Function} opts.onEnroll - callback to invoke when the button is clicked to the page for enrolling in a course
+ * @property {Function} opts.ownedClickFactory - factory to create a callback to invoke when the button is clicked to navigate to the course lessons page of a course owned by the user
+ * @property {Function} opts.enrolledClickFactory - factory to create a callback to invoke when the button is clicked to navigate to the course lessons page of an course the user is enrolled in
+ * @property {Function} opts.t - i18n translation function
+ */
 const CoursesButton = ({ user, namespace, goBackToLesson, onEnroll, ownedClickFactory, enrolledClickFactory, t }) => {
 	const [ showNamespacesOverlay, setShowNamespacesOverlay ] = useState( false );
 	const overlayTarget = useRef( null );
@@ -239,6 +302,19 @@ const CoursesButton = ({ user, namespace, goBackToLesson, onEnroll, ownedClickFa
 	);
 };
 
+/**
+ * Renders a dropdown button for changing the lesson order and direction.
+ *
+ * @private
+ * @property {Object} opts - component options
+ * @property {Function} opts.setLessonOrder - callback to invoke when the order is changed
+ * @property {Function} opts.setLessonDirection - callback to invoke when the direction is changed
+ * @property {Object} opts.search - search object
+ * @property {Object} opts.user - user object
+ * @property {Object} opts.namespace - namespace object
+ * @property {Function} opts.t - i18n translation function
+ * @returns {Component} dropdown button component
+ */
 const CourseDropdownButton = ({ setLessonOrder, setLessonOrderDirection, search, user, namespace, t }) => {
 	const pth = window.location.pathname;
 	if (
@@ -320,6 +396,17 @@ const CourseDropdownButton = ({ setLessonOrder, setLessonOrderDirection, search,
 	);
 };
 
+/**
+ * Renders button to navigate to the admin page.
+ *
+ * @private
+ * @param {Object} props - component properties
+ * @param {Object} props.namespace - namespace object
+ * @param {Object} props.user - user object
+ * @param {Function} props.onNavigate - function to navigate to the admin page
+ * @param {Function} props.t - translation function
+ * @returns {Component} button to navigate to the admin page
+ */
 const AdminButton = ({ onNavigate, namespace, user, t }) => {
 	if ( !user.administrator ) {
 		return null;
@@ -343,6 +430,21 @@ const AdminButton = ({ onNavigate, namespace, user, t }) => {
 
 // MAIN //
 
+/**
+ * Renders the header bar.
+ *
+ * @param {Object} props - component properties
+ * @param {Object} props.namespace - namespace object
+ * @param {Object} props.user - user object
+ * @param {Function} props.logout - function to logout
+ * @param {Object} props.search - search object containing search `type`, `direction`, and `phrase`
+ * @param {Function} props.onEnrolledNamespace - enrolled namespace callback
+ * @param {Function} props.onNamespace - namespace callback
+ * @param {Function} props.setSearchPhrase - function to set search phrase
+ * @param {Function} props.setLessonOrder - function to set the order of how the lessons are displayed in the grid: sequentially (default), alphabetically, created_at, updated_at
+ * @param {Function} props.setLessonOrderDirection - function to set the order direction of how the lessons are displayed in the grid (ascending or descending)
+ * @param {Function} props.userUpdateCheck - function to check if user's locally stored data has to be updated
+ */
 const HeaderBar = ({ logout, namespace, user, search, onEnrolledNamespace, onNamespace, setSearchPhrase, setLessonOrder, setLessonOrderDirection, userUpdateCheck }) => {
 	const { t } = useTranslation( [ 'header_bar', 'common' ] );
 	const navigate = useNavigate();
