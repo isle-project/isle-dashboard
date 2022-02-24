@@ -36,14 +36,48 @@ describe( '<CompleteRegistration />', function test() {
 		expect( screen.getByRole( 'heading' ) ).toHaveTextContent( 'Complete Registration' );
 	});
 
-	it( 'should update name field on change', () => {
+	it( 'should update last name field on change', () => {
 		const { queryByPlaceholderText } = render(
 			<BrowserRouter>
 				<CompleteRegistration settings={{}} />
 			</BrowserRouter>
 		);
-		const nameInput = queryByPlaceholderText( 'enter-name' );
-		const expected = 'ISLE User';
+		const nameInput = queryByPlaceholderText( 'common:enter-last-name' );
+		const expected = 'Doe';
+		const event = {
+			target: {
+				value: expected
+			}
+		};
+		fireEvent.change( nameInput, event );
+		expect( nameInput.value ).toBe( expected );
+	});
+
+	it( 'should update first name field on change', () => {
+		const { queryByPlaceholderText } = render(
+			<BrowserRouter>
+				<CompleteRegistration settings={{}} />
+			</BrowserRouter>
+		);
+		const nameInput = queryByPlaceholderText( 'common:enter-first-name' );
+		const expected = 'John';
+		const event = {
+			target: {
+				value: expected
+			}
+		};
+		fireEvent.change( nameInput, event );
+		expect( nameInput.value ).toBe( expected );
+	});
+
+	it( 'should update preferred name field on change', () => {
+		const { queryByPlaceholderText } = render(
+			<BrowserRouter>
+				<CompleteRegistration settings={{}} />
+			</BrowserRouter>
+		);
+		const nameInput = queryByPlaceholderText( 'common:enter-preferred-name' );
+		const expected = 'John';
 		const event = {
 			target: {
 				value: expected

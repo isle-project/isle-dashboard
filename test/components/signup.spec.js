@@ -54,21 +54,55 @@ describe( '<Signup />', function test() {
 		expect( emailInput.value ).toBe( expected );
 	});
 
-	it( 'should update name field on change', () => {
+	it( 'should update last name field on change', () => {
 		const { queryByPlaceholderText } = render(
 			<BrowserRouter>
 				<Signup createUser={noop} getCustomFields={noop} settings={{}} />
 			</BrowserRouter>
 		);
-		const nameInput = queryByPlaceholderText( 'common:enter-name' );
-		const expected = 'ISLE User';
+		const lastNameInput = queryByPlaceholderText( 'common:enter-last-name' );
+		const expected = 'Doe';
 		const event = {
 			target: {
 				value: expected
 			}
 		};
-		fireEvent.change( nameInput, event );
-		expect( nameInput.value ).toBe( expected );
+		fireEvent.change( lastNameInput, event );
+		expect( lastNameInput.value ).toBe( expected );
+	});
+
+	it( 'should update first name field on change', () => {
+		const { queryByPlaceholderText } = render(
+			<BrowserRouter>
+				<Signup createUser={noop} getCustomFields={noop} settings={{}} />
+			</BrowserRouter>
+		);
+		const firstNameInput = queryByPlaceholderText( 'common:enter-first-name' );
+		const expected = 'Jane';
+		const event = {
+			target: {
+				value: expected
+			}
+		};
+		fireEvent.change( firstNameInput, event );
+		expect( firstNameInput.value ).toBe( expected );
+	});
+
+	it( 'should update preferred name field on change', () => {
+		const { queryByPlaceholderText } = render(
+			<BrowserRouter>
+				<Signup createUser={noop} getCustomFields={noop} settings={{}} />
+			</BrowserRouter>
+		);
+		const preferredNameInput = queryByPlaceholderText( 'common:enter-preferred-name' );
+		const expected = 'Jane';
+		const event = {
+			target: {
+				value: expected
+			}
+		};
+		fireEvent.change( preferredNameInput, event );
+		expect( preferredNameInput.value ).toBe( expected );
 	});
 
 	it( 'should update password field on change', () => {
