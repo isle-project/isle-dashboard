@@ -48,6 +48,10 @@ export function loggedIn( user ) {
 			email: user.email,
 			verifiedEmail: user.verifiedEmail,
 			name: user.name,
+			firstName: user.firstName,
+			lastName: user.lastName,
+			preferredName: user.preferredName,
+			pronouns: user.pronouns,
 			enrolledNamespaces: user.enrolledNamespaces,
 			ownedNamespaces: user.ownedNamespaces,
 			organization: user.organization,
@@ -527,8 +531,13 @@ export const restoreLoginInjector = ( dispatch ) => {
  *
  * @param {Function} dispatch - dispatch function
  */
-export const logout = ( dispatch ) => {
+export const logout = async ( dispatch ) => {
 	debug( 'Logging out the current user...' );
+	try {
+		await axios.get( server+'/saml-xmw/logout' );
+	} catch ( err ) {
+		debug( err.message );
+	}
 	localStorage.removeItem( 'ISLE_USER_'+server );
 	dispatch( loggedOut() );
 };
