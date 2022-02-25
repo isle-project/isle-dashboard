@@ -51,7 +51,7 @@ const validateEmail = ( email ) => {
 };
 
 const validateName = ( name ) => {
-	return name.length > 2;
+	return name.length >= 2;
 };
 
 const validatePasswords = ( password, passwordRepeat ) => {

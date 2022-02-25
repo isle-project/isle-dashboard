@@ -47,7 +47,7 @@ const createTooltip = ( str ) => {
 };
 
 const validateName = ( name ) => {
-	return name && name.length > 2;
+	return name && name.length >= 2;
 };
 
 
