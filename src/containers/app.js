@@ -81,10 +81,11 @@ const Title = () => {
 		title = title.replace( RE_HYPHEN, replacer );
 		title = capitalize( title );
 	}
-	else {
-		title = 'Login';
+	if ( title ) {
+		title = `${title} | ISLE Dashboard`;
+	} else {
+		title = 'ISLE Dashboard';
 	}
-	title = `${title} | ISLE Dashboard`;
 	return (
 		<Helmet>
 			<title>{title}</title>
@@ -191,6 +192,9 @@ const App =({ isLoggedIn, dispatch, getCustomTranslations, getPublicSettings, fe
 					id: user.id
 				}) );
 			}
+		}
+		if ( pathname === '/' ) {
+			navigate( '/login' );
 		}
 	});
 	useEffect( () => {
@@ -306,9 +310,7 @@ const App =({ isLoggedIn, dispatch, getCustomTranslations, getPublicSettings, fe
 			<Title />
 			{AuthenticationBarrier}
 			<Routes>
-				<Route index path="/" element={<Suspense fallback={<Spinner />}>
-					<AsyncLogin />
-				</Suspense>} />
+				<Route index path="/" element={<Spinner />} />
 				<Route path="/login" element={<Suspense fallback={<Spinner />}>
 					<AsyncLogin />
 				</Suspense>} />
