@@ -26,7 +26,7 @@ import InfoBox from 'components/info-box';
 
 const Privacy = () => {
 	const { t } = useTranslation( 'legal' );
-	return <InfoBox header={t('privacy-policy')} body={t('privacy-policy-text')} />;
+	return <InfoBox header={t('privacy-policy')} body={t('privacy-policy-body')} />;
 };
 
 

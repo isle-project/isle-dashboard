@@ -26,7 +26,7 @@ import InfoBox from 'components/info-box';
 
 const Terms = () => {
 	const { t } = useTranslation( 'legal' );
-	return <InfoBox header={t('terms-of-service')} body={t('terms-of-service-text')} />;
+	return <InfoBox header={t('terms-of-service')} body={t('terms-of-service-body')} />;
 };
 
 
