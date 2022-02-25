@@ -36,6 +36,7 @@ const NAMESPACES = [
 	'gallery',
 	'header_bar',
 	'lesson',
+	'legal',
 	'lessons_page',
 	'login',
 	'namespace_data',
