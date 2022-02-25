@@ -148,17 +148,12 @@ export function updateUserPicture( picture ) {
  * Returns an action signaling that the user's name or organization has been updated.
  *
  * @param {Object} user - user object
- * @param {string} user.name - user name
- * @param {string} user.organization - user organization
  * @returns {Object} action
  */
-export const updatedUser = ({ name, organization }) => {
+export const updatedUser = ( user ) => {
 	return {
 		type: USER_UPDATED,
-		payload: {
-			name,
-			organization
-		}
+		payload: user
 	};
 };
 
@@ -400,18 +395,11 @@ export const forgotPasswordInjector = ( dispatch ) => {
  *
  * @param {Function} dispatch - dispatch function
  * @param {Object} form - form data
- * @param {string} form.name - user name
- * @param {string} form.organization- user organization
- * @param {Object} form.customFields - user custom fields
  */
 export const updateUser = async ( dispatch, form ) => {
 	try {
 		const res = await axios.post( server+'/update_user', form );
-		dispatch( updatedUser({
-			name: form.name,
-			organization: form.organization,
-			customFields: form.customFields
-		}) );
+		dispatch( updatedUser( form ) );
 		addNotification( dispatch, {
 			message: res.data.message,
 			level: 'success'
@@ -428,8 +416,8 @@ export const updateUser = async ( dispatch, form ) => {
  * @returns {Function} function to make a POST request to the server to change a user's data
  */
 export const updateUserInjector = ( dispatch ) => {
-	return async ({ name, organization, password, customFields }) => {
-		await updateUser( dispatch, { name, organization, password, customFields });
+	return async ( form ) => {
+		await updateUser( dispatch, form );
 	};
 };
 

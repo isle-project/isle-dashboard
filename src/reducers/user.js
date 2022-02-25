@@ -118,6 +118,10 @@ export default function user( state = initialState, action ) {
 	case types.USER_UPDATED: {
 		return Object.assign({}, state, {
 			name: action.payload.name,
+			firstName: action.payload.firstName,
+			lastName: action.payload.lastName,
+			preferredName: action.payload.preferredName,
+			pronouns: action.payload.pronouns,
 			organization: action.payload.organization,
 			customFields: action.payload.customFields
 		});
