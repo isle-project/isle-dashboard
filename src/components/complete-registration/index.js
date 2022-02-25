@@ -254,7 +254,7 @@ const CompleteRegistration = ({ settings }) => {
 												isInvalid={firstName && !validateName( firstName )}
 											/>
 											<Form.Control.Feedback type="invalid">
-												{t('invalid-first-name')}
+												{t('invalid-name')}
 											</Form.Control.Feedback>
 										</Col>
 									</Row>
@@ -279,7 +279,7 @@ const CompleteRegistration = ({ settings }) => {
 												isInvalid={preferredName && !validateName( preferredName )}
 											/>
 											<Form.Control.Feedback type="invalid">
-												{t('invalid-preferred-name')}
+												{t('invalid-name')}
 											</Form.Control.Feedback>
 										</Col>
 									</Row>
@@ -304,7 +304,7 @@ const CompleteRegistration = ({ settings }) => {
 												isInvalid={lastName && !validateName( lastName )}
 											/>
 											<Form.Control.Feedback type="invalid">
-												{t('invalid-last-name')}
+												{t('invalid-name')}
 											</Form.Control.Feedback>
 										</Col>
 									</Row>
