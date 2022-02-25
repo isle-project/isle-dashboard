@@ -43,6 +43,13 @@ const createTooltip = ( str ) => {
 	return <Tooltip id="tooltip">{str}</Tooltip>;
 };
 
+const validateName = ( name ) => {
+	if ( name && name.length > 2 ) {
+		return true;
+	}
+	return false;
+};
+
 
 // VARIABLES //
 
@@ -116,14 +123,6 @@ class EditModal extends Component {
 		});
 	};
 
-	getNameValidationState = () => {
-		const { name } = this.state;
-		if ( name && name.length > 3 ) {
-			return true;
-		}
-		return false;
-	};
-
 	getPasswordValidationState = () => {
 		const { password, passwordRepeat } = this.state;
 		if ( password.length < 6 || passwordRepeat.length === 0 ) {
@@ -155,7 +154,9 @@ class EditModal extends Component {
 
 	render() {
 		const validPasswords = this.getPasswordValidationState();
-		const validName = this.getNameValidationState();
+		const validFirstName = validateName( this.state.firstName );
+		const validLastName = validateName( this.state.lastName );
+		const validPreferredName = validateName( this.state.preferredName );
 		const enteredPasswords = this.state.password || this.state.passwordRepeat;
 		const user = this.props.user;
 		const t = this.props.t;
@@ -272,7 +273,7 @@ class EditModal extends Component {
 										type="text"
 										value={this.state.firstName}
 										onChange={this.handleInputChange}
-										isInvalid={!validName}
+										isInvalid={!validFirstName}
 									/>
 									<Form.Control.Feedback type="invalid">
 										{t('invalid-first-name')}
@@ -291,7 +292,7 @@ class EditModal extends Component {
 												type="text"
 												value={this.state.preferredName}
 												onChange={this.handleInputChange}
-												isInvalid={!validName}
+												isInvalid={!validPreferredName}
 											/>
 											<Form.Control.Feedback type="invalid">
 												{t('invalid-preferred-name')}
@@ -325,7 +326,7 @@ class EditModal extends Component {
 										type="text"
 										value={this.state.lastName}
 										onChange={this.handleInputChange}
-										isInvalid={!validName}
+										isInvalid={!validLastName}
 									/>
 									<Form.Control.Feedback type="invalid">
 										{t('invalid-last-name')}
@@ -421,7 +422,10 @@ class EditModal extends Component {
 						{passwordCol}
 					</Form>
 					<Row style={{ paddingTop: 10 }} className="d-grid" >
-						<Button disabled={!this.state.changed || !validName || ( !validPasswords && enteredPasswords )} onClick={this.handleUpdate}>
+						<Button
+							disabled={!this.state.changed || !validFirstName || !validLastName || !validPreferredName || ( !validPasswords && enteredPasswords )}
+							onClick={this.handleUpdate}
+						>
 							{t('common:update')}
 						</Button>
 					</Row>
