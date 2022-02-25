@@ -35,7 +35,10 @@
 	"time-spent": "Pavadītais laiks",
 	"two-factor-authentication-is-disabled": "Divu faktoru autentifikācija vēl nav iespējota.",
 	"two-factor-authentication-is-enabled": "Pašlaik ir iespējota divu faktoru autentifikācija.",
-	"update-name": "Atjaunināt nosaukumu",
+	"update-first-name": "Atjaunināt vārdu",
+	"update-last-name": "Atjaunināt uzvārdu",
 	"update-organization": "Atjauniniet savu organizāciju",
+	"update-preferred-name": "Atjaunināt vēlamo vārdu",
+	"update-pronouns": "Atjaunināt vietniekvārdus (piemēram, viņa/viņš, viņš/viņš ).",
 	"zoom": "Palielināt"
 }

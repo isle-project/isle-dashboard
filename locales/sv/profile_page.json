@@ -35,7 +35,10 @@
 	"time-spent": "Tidsåtgång",
 	"two-factor-authentication-is-disabled": "Tvåfaktorsautentisering är inte aktiverad ännu.",
 	"two-factor-authentication-is-enabled": "Tvåfaktorsautentisering är för närvarande aktiverad.",
-	"update-name": "Uppdatera namn",
+	"update-first-name": "Uppdatera förnamn",
+	"update-last-name": "Uppdatera efternamn",
 	"update-organization": "Uppdatera din organisation",
+	"update-preferred-name": "Uppdatera önskat förnamn",
+	"update-pronouns": "Uppdatera pronomen (t.ex. hon/han, han/hon).",
 	"zoom": "Zoom"
 }

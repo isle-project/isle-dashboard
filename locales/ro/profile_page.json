@@ -35,7 +35,10 @@
 	"time-spent": "Timp petrecut",
 	"two-factor-authentication-is-disabled": "Autentificarea cu doi factori nu este încă activată.",
 	"two-factor-authentication-is-enabled": "Autentificarea cu doi factori este activată în prezent.",
-	"update-name": "Actualizare Nume",
+	"update-first-name": "Actualizarea primului nume",
+	"update-last-name": "Actualizarea numelui de familie",
 	"update-organization": "Actualizați organizația dvs.",
+	"update-preferred-name": "Actualizarea prenumelui preferat",
+	"update-pronouns": "Actualizarea pronumelor (de exemplu, ea/el, el/el )",
 	"zoom": "Zoom"
 }

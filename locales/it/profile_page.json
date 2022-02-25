@@ -35,7 +35,10 @@
 	"time-spent": "Tempo trascorso",
 	"two-factor-authentication-is-disabled": "L'autenticazione a due fattori non è ancora abilitata.",
 	"two-factor-authentication-is-enabled": "L'autenticazione a due fattori è attualmente abilitata.",
-	"update-name": "Aggiorna il nome",
+	"update-first-name": "Aggiorna il nome",
+	"update-last-name": "Aggiorna il cognome",
 	"update-organization": "Aggiorna la tua organizzazione",
+	"update-preferred-name": "Aggiorna il nome preferito",
+	"update-pronouns": "Aggiornare i pronomi (ad esempio, lei/lui, lui/lei)",
 	"zoom": "Zoom"
 }

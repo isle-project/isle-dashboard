@@ -35,7 +35,10 @@
 	"time-spent": "Porabljeni čas",
 	"two-factor-authentication-is-disabled": "Dvofaktorsko preverjanje pristnosti še ni omogočeno.",
 	"two-factor-authentication-is-enabled": "Trenutno je omogočeno dvostopenjsko preverjanje pristnosti.",
-	"update-name": "Posodobitev imena",
+	"update-first-name": "Posodobitev imena",
+	"update-last-name": "Posodobitev priimka",
 	"update-organization": "Posodobite svojo organizacijo",
+	"update-preferred-name": "Posodobitev prednostnega imena",
+	"update-pronouns": "Posodobitev zaimkov (npr. ona/oni, on/on )",
 	"zoom": "Povečanje"
 }

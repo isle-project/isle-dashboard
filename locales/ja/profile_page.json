@@ -35,7 +35,10 @@
 	"time-spent": "滞在時間",
 	"two-factor-authentication-is-disabled": "二要素認証はまだ有効になっていません。",
 	"two-factor-authentication-is-enabled": "現在、二要素認証が有効になっています。",
-	"update-name": "更新名",
+	"update-first-name": "ファーストネームの更新",
+	"update-last-name": "ラストネームの更新",
 	"update-organization": "組織を更新する",
+	"update-preferred-name": "優先姓の更新",
+	"update-pronouns": "代名詞の更新（例：she/her, he/him )",
 	"zoom": "ズーム"
 }

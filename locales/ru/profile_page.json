@@ -35,7 +35,10 @@
 	"time-spent": "Время, потраченное",
 	"two-factor-authentication-is-disabled": "Двухфакторная аутентификация еще не включена.",
 	"two-factor-authentication-is-enabled": "В настоящее время включена двухфакторная аутентификация.",
-	"update-name": "Обновление Имя",
+	"update-first-name": "Обновить имя и фамилию",
+	"update-last-name": "Обновление фамилии",
 	"update-organization": "Обновите вашу организацию",
+	"update-preferred-name": "Обновление предпочтительного имени",
+	"update-pronouns": "Обновление местоимений (например, она/он, он/она)",
 	"zoom": "Увеличить"
 }

@@ -35,7 +35,10 @@
 	"time-spent": "Verbrachte Zeit",
 	"two-factor-authentication-is-disabled": "Die Zwei-Faktor-Authentifizierung ist noch nicht aktiviert.",
 	"two-factor-authentication-is-enabled": "Die Zwei-Faktor-Authentifizierung ist derzeit aktiviert.",
-	"update-name": "Namen anpassen",
+	"update-first-name": "Vornamen aktualisieren",
+	"update-last-name": "Nachname aktualisieren",
 	"update-organization": "Neue Organisation eingeben",
+	"update-preferred-name": "Bevorzugten Vornamen aktualisieren",
+	"update-pronouns": "Pronomen aktualisieren (z. B. sie/er, er/ihr)",
 	"zoom": "Zoom"
 }

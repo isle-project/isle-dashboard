@@ -35,7 +35,10 @@
 	"time-spent": "Czas spędzony",
 	"two-factor-authentication-is-disabled": "Dwuczynnikowe uwierzytelnianie nie jest jeszcze włączone.",
 	"two-factor-authentication-is-enabled": "Dwuczynnikowe uwierzytelnianie jest obecnie włączone.",
-	"update-name": "Aktualizacja nazwy",
+	"update-first-name": "Aktualizacja imienia",
+	"update-last-name": "Aktualizacja nazwiska",
 	"update-organization": "Aktualizuj swoją organizację",
+	"update-preferred-name": "Aktualizacja preferowanego imienia",
+	"update-pronouns": "Aktualizacja zaimków (np. ona/on, on/ona )",
 	"zoom": "Zoom"
 }

@@ -35,7 +35,10 @@
 	"time-spent": "花费时间",
 	"two-factor-authentication-is-disabled": "双因素认证尚未启用。",
 	"two-factor-authentication-is-enabled": "目前已启用双因素认证。",
-	"update-name": "更新名称",
+	"update-first-name": "更新名字",
+	"update-last-name": "更新姓氏",
 	"update-organization": "更新您的组织",
+	"update-preferred-name": "更新首选名字",
+	"update-pronouns": "更新代词（例如，她/她，他/他）。",
 	"zoom": "缩放"
 }

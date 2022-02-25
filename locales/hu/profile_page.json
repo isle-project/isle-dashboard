@@ -35,7 +35,10 @@
 	"time-spent": "Elköltött idő",
 	"two-factor-authentication-is-disabled": "A kétfaktoros hitelesítés még nincs engedélyezve.",
 	"two-factor-authentication-is-enabled": "A kétfaktoros hitelesítés jelenleg engedélyezve van.",
-	"update-name": "Frissítés neve",
+	"update-first-name": "Keresztnév frissítése",
+	"update-last-name": "Vezetéknév frissítése",
 	"update-organization": "Szervezetének frissítése",
+	"update-preferred-name": "Kedvelt keresztnév frissítése",
+	"update-pronouns": "A névmások frissítése (pl. nő/nő, ő/ő )",
 	"zoom": "Nagyítás"
 }

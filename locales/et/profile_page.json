@@ -35,7 +35,10 @@
 	"time-spent": "Kulutatud aeg",
 	"two-factor-authentication-is-disabled": "Kahefaktoriline autentimine ei ole veel lubatud.",
 	"two-factor-authentication-is-enabled": "Kahefaktoriline autentimine on praegu lubatud.",
-	"update-name": "Värskendamine Nimi",
+	"update-first-name": "Värskenda eesnimi",
+	"update-last-name": "Uuenda perekonnanime",
 	"update-organization": "Värskenda oma organisatsiooni",
+	"update-preferred-name": "Uuenda eelistatud eesnimi",
+	"update-pronouns": "Pronoomenite ajakohastamine (nt tema/naine, ta/e).",
 	"zoom": "Zoom"
 }

@@ -35,7 +35,10 @@
 	"time-spent": "Käytetty aika",
 	"two-factor-authentication-is-disabled": "Kaksitekijätodennus ei ole vielä käytössä.",
 	"two-factor-authentication-is-enabled": "Kaksitekijätodennus on tällä hetkellä käytössä.",
-	"update-name": "Päivitys Nimi",
+	"update-first-name": "Päivitä etunimi",
+	"update-last-name": "Päivitä sukunimi",
 	"update-organization": "Päivitä organisaatiosi",
+	"update-preferred-name": "Päivitä haluamasi etunimi",
+	"update-pronouns": "Pronominien päivittäminen (esim. nainen/he, hän/hän ).",
 	"zoom": "Zoomaus"
 }
