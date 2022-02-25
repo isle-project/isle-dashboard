@@ -44,9 +44,13 @@ const createTooltip = ( str ) => {
 };
 
 const validateName = ( name ) => {
-	if ( name && name.length >= 2 ) {
+	if ( !name ) {
 		return true;
 	}
+	if ( name.length >= 2 ) {
+		return true;
+	}
+	// Case: name is too short.
 	return false;
 };
 
@@ -80,12 +84,20 @@ class EditModal extends Component {
 	handleUpdate = () => {
 		const { firstName, lastName, preferredName, pronouns, password, passwordRepeat, organization, customFields } = this.state;
 		const form = {
-			firstName,
-			lastName,
-			preferredName,
-			pronouns,
 			organization
 		};
+		if ( firstName ) {
+			form.firstName = firstName;
+		}
+		if ( lastName ) {
+			form.lastName = lastName;
+		}
+		if ( preferredName ) {
+			form.preferredName = preferredName;
+		}
+		if ( pronouns ) {
+			form.pronouns = pronouns;
+		}
 		let change = false;
 		if ( password ) {
 			if ( passwordRepeat === password ) {
