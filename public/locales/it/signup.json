@@ -14,6 +14,7 @@
 	"login": "Accedi",
 	"password": "Password",
 	"password-tooltip": "Si prega di inserire una password a scelta di almeno sei caratteri",
+	"preferred-name": "Nome preferito",
 	"preferred-name-tooltip": "Si prega di inserire un nome preferito (se applicabile)",
 	"signup-not-valid": "Si prega di assicurarsi che tutti i valori inseriti siano validi prima dell'invio.",
 	"tos-disclaimer": "Cliccando sul pulsante \"Iscriviti\" accetti i nostri <1>termi di servizio</1>. Per saperne di più su come i vostri dati vengono trattati nella nostra <3>politica sulla privacy</3>."

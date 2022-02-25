@@ -14,6 +14,7 @@
 	"login": "Iniciar sesión",
 	"password": "Contraseña",
 	"password-tooltip": "Ingrese una contraseña de su elección con al menos seis caracteres",
+	"preferred-name": "Nombre preferido",
 	"preferred-name-tooltip": "Por favor, introduzca un nombre de pila preferido (si procede)",
 	"signup-not-valid": "Asegúrese de que todos los valores de entrada sean válidos antes de enviar.",
 	"tos-disclaimer": "Al hacer clic en el botón de registro, aceptas nuestros <1>Términos de servicio</1>. Para obtener más información sobre cómo se procesan sus datos, consulte nuestra <3>política de privacidad</3>."

@@ -14,6 +14,7 @@
 	"login": "Piesakieties",
 	"password": "Parole",
 	"password-tooltip": "Lūdzu, ievadiet paroli pēc savas izvēles, kurā ir vismaz sešas rakstzīmes.",
+	"preferred-name": "Vēlamais nosaukums",
 	"preferred-name-tooltip": "Lūdzu, ievadiet vēlamo vārdu (ja nepieciešams)",
 	"signup-not-valid": "Pirms nosūtīšanas pārliecinieties, vai visas ievadītās vērtības ir derīgas.",
 	"tos-disclaimer": "Noklikšķinot uz pogas \"Reģistrēties\", jūs piekrītat mūsu <1>pakalpojumu sniegšanas noteikumiem</1>. Uzziniet vairāk par to, kā tiek apstrādāti jūsu dati, mūsu <3>konfidencialitātes politikā</3>."

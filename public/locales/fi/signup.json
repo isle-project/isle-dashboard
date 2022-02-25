@@ -14,6 +14,7 @@
 	"login": "Kirjaudu sisään",
 	"password": "Salasana",
 	"password-tooltip": "Kirjoita valitsemasi salasana, jossa on vähintään kuusi merkkiä.",
+	"preferred-name": "Suositeltava nimi",
 	"preferred-name-tooltip": "Kirjoita haluamasi etunimi (jos mahdollista).",
 	"signup-not-valid": "Varmista ennen lähettämistä, että kaikki syöttöarvot ovat voimassa.",
 	"tos-disclaimer": "Klikkaamalla \"Rekisteröidy\" -painiketta hyväksyt <1>palvelumme käyttö</1>ehdot. Lue lisää tietojesi käsittelystä <3>tietosuojaselosteestamme</3>."

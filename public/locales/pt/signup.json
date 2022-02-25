@@ -14,6 +14,7 @@
 	"login": "Log in",
 	"password": "Senha",
 	"password-tooltip": "Favor inserir uma senha de sua escolha com pelo menos seis caracteres",
+	"preferred-name": "Nome preferido",
 	"preferred-name-tooltip": "Favor digitar o nome próprio de sua preferência (se aplicável)",
 	"signup-not-valid": "Por favor, certifique-se de que todos os valores de entrada sejam válidos antes de enviar.",
 	"tos-disclaimer": "Ao clicar no botão \"Sign Up\", você concorda com nossos <1>terms de serviço</1>. Saiba mais sobre como seus dados são processados em nossa <3>política de privacidade</3>."

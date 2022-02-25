@@ -14,6 +14,7 @@
 	"login": "Zaloguj się",
 	"password": "Hasło",
 	"password-tooltip": "Proszę wprowadzić wybrane przez siebie hasło składające się z co najmniej sześciu znaków",
+	"preferred-name": "Nazwa preferowana",
 	"preferred-name-tooltip": "Proszę wpisać preferowane imię (jeśli dotyczy)",
 	"signup-not-valid": "Proszę upewnić się, że wszystkie wprowadzone wartości są ważne przed wysłaniem.",
 	"tos-disclaimer": "Klikając na przycisk \"Zapisz się\" wyrażasz zgodę na nasze <1>termeny usług</1>. Dowiedz się więcej o tym, jak Twoje dane są przetwarzane w naszej <3> polityce prywatności</3>."

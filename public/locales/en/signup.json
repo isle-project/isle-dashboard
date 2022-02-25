@@ -13,6 +13,7 @@
 	"first-name-tooltip": "Please enter your first name",
 	"last-name-tooltip": "Please enter your last name",
 	"preferred-name-tooltip": "Please enter a preferred first name (if applicable)",
+	"preferred-name": "Preferred Name",
 	"password-tooltip": "Please enter a password of your choosing with at least six characters",
 	"password": "Password",
 	"signup-not-valid": "Please make sure that all input values are valid before submitting.",

@@ -51,7 +51,7 @@
 	"enter-first-name": "Introduzca el nombre",
 	"enter-last-name": "Introduzca el apellido",
 	"enter-name": "Introduzca el nombre",
-	"enter-preferred-name": "Introduzca el nombre de pila preferido",
+	"enter-preferred-name": "Introduzca el nombre de pila preferido (opcional)",
 	"events": "Eventos",
 	"file-upload-title": "Subida de archivos",
 	"filename": "Nombre de archivo",

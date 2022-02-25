@@ -14,6 +14,7 @@
 	"login": "Logga in",
 	"password": "Lösenord",
 	"password-tooltip": "Ange ett lösenord med minst sex tecken som du själv väljer.",
+	"preferred-name": "Företrädefullt namn",
 	"preferred-name-tooltip": "Ange ett önskat förnamn (om tillämpligt)",
 	"signup-not-valid": "Kontrollera att alla inmatade värden är giltiga innan du skickar in dem.",
 	"tos-disclaimer": "Genom att klicka på knappen \"Registrera dig\" godkänner du våra <1>användarvillkor</1>. Läs mer om hur dina uppgifter behandlas i vår <3>sekretesspolicy</3>."

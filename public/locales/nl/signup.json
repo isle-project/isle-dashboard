@@ -14,6 +14,7 @@
 	"login": "Aanmelden",
 	"password": "Wachtwoord",
 	"password-tooltip": "Voer een wachtwoord naar keuze in met ten minste zes karakters",
+	"preferred-name": "Gewenste naam",
 	"preferred-name-tooltip": "Gelieve een voorkeur voornaam in te voeren (indien van toepassing)",
 	"signup-not-valid": "Zorg ervoor dat alle invoerwaarden geldig zijn voordat u ze indient.",
 	"tos-disclaimer": "Door op de knop \"Aanmelden\" te klikken gaat u akkoord met onze <1>termen van service</1>. Lees meer over hoe uw gegevens worden verwerkt in ons <3>privacybeleid</3>."
