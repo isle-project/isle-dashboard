@@ -17,7 +17,7 @@
 
 // MODULES //
 
-import React, { useEffect, useState, useRef, Fragment, Component } from 'react';
+import React, { useEffect, useState, useRef, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import logger from 'debug';
