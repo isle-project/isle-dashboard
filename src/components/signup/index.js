@@ -228,7 +228,7 @@ const Signup = ({ createUser, getCustomFields, user, settings }) => {
 								>
 									<Row>
 										<Col sm={3}>
-											<FormLabel>{t('common:preferred-name')}</FormLabel>
+											<FormLabel>{t('preferred-name')}</FormLabel>
 										</Col>
 										<Col sm={9}>
 											<FormControl
