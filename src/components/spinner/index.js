@@ -28,8 +28,8 @@ import React from 'react';
 
 // MAIN //
 
-const Spinner = () => {
-	return ( <div className="sk-cube-grid">
+const Spinner = ({ className }) => {
+	return ( <div className={`sk-cube-grid ${className}`} >
 		<div className="sk-cube sk-cube1"></div>
 		<div className="sk-cube sk-cube2"></div>
 		<div className="sk-cube sk-cube3"></div>
