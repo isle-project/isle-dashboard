@@ -534,7 +534,7 @@ export const restoreLoginInjector = ( dispatch ) => {
 export const logout = async ( dispatch ) => {
 	debug( 'Logging out the current user...' );
 	try {
-		await axios.get( server+'/saml-xmw/logout' );
+		await axios.post( server+'/invalidate_session' );
 	} catch ( err ) {
 		debug( err.message );
 	}
