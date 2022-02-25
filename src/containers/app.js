@@ -173,7 +173,11 @@ const App =({ isLoggedIn, dispatch, getCustomTranslations, getPublicSettings, fe
 						getEnrollableCohorts( user );
 					}
 				} catch ( err ) {
-					navigate( '/login' );
+					if ( settings.saml === 'enabled' ) {
+						window.location = server+'/saml-xmw/login-choice';
+					} else {
+						navigate( '/login' );
+					}
 				}
 			}
 		}
@@ -211,7 +215,11 @@ const App =({ isLoggedIn, dispatch, getCustomTranslations, getPublicSettings, fe
 			}
 		}
 		else if ( isLoggingOut ) {
-			navigate( '/login' );
+			if ( settings.saml === 'enabled' ) {
+				window.location = server+'/saml-xmw/login-choice';
+			} else {
+				navigate( '/login' );
+			}
 		}
 		else if (
 			isLoggedIn && pathname &&
@@ -226,7 +234,7 @@ const App =({ isLoggedIn, dispatch, getCustomTranslations, getPublicSettings, fe
 					debug( 'Encountered an error while ensuring session: '+err.message );
 				});
 		}
-	}, [ isLoggedIn, pathname, search, navigate, oldIsLoggedIn, writeAccess ] );
+	}, [ isLoggedIn, pathname, search, navigate, oldIsLoggedIn, writeAccess, settings ] );
 	let AuthenticationBarrier = null;
 	if ( isLoggedIn ) {
 		AuthenticationBarrier =
