@@ -66,7 +66,6 @@ const Login = ({ user, restoreLogin, fetchCredentials, getEnrollableCohorts, han
 		target: null,
 		message: ''
 	});
-	const [ hasSSO, setHasSSO ] = useState( false );
 	const passwordInput = useRef( null );
 	const emailInput = useRef( null );
 	const { t } = useTranslation( [ 'login', 'common' ] );
@@ -82,10 +81,6 @@ const Login = ({ user, restoreLogin, fetchCredentials, getEnrollableCohorts, han
 				if ( response.data === 'SSO' ) {
 					debug( 'Redirect to SSO login choices as regular login is disabled...' );
 					navigate( server + '/saml-xmw/login-choices' );
-				}
-				else if ( response.data === 'Both' ) {
-					debug( 'Show SSO button as instance supports both SSO and regular login...' );
-					setHasSSO( true );
 				}
 			}).catch( err => {
 				debug( 'Encountered an error: ', err );
@@ -203,7 +198,7 @@ const Login = ({ user, restoreLogin, fetchCredentials, getEnrollableCohorts, han
 						{form}
 					</Card.Body>
 					<Card.Footer style={{ background: 'rgba(255,255,255,0.6)', textAlign: 'right' }}>
-						{hasSSO ? <Fragment>
+						{settings.saml === 'enabled' ? <Fragment>
 							<a href={server+'/saml-xmw/login-choice'} >SSO</a>
 							<span> | </span>
 						</Fragment> : null }
