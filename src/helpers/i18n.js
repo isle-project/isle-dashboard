@@ -35,6 +35,7 @@ i18n.use( Backend )
 		debug: false,
 		lng: localStorage.getItem( 'i18nextLng' ) || 'en',
 		fallbackLng: 'en',
+		returnEmptyString: false,
 		backend: {
 			backends: [
 				HttpApi,
