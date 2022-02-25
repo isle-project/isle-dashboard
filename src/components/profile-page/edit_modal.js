@@ -43,6 +43,10 @@ const createTooltip = ( str ) => {
 	return <Tooltip id="tooltip">{str}</Tooltip>;
 };
 
+const validateRequiredName = ( name ) => {
+	return name && name.length >= 2;
+};
+
 const validateName = ( name ) => {
 	if ( !name ) {
 		return true;
@@ -84,19 +88,15 @@ class EditModal extends Component {
 	handleUpdate = () => {
 		const { firstName, lastName, preferredName, pronouns, password, passwordRepeat, organization, customFields } = this.state;
 		const form = {
-			organization
+			organization,
+			preferredName,
+			pronouns
 		};
 		if ( firstName ) {
 			form.firstName = firstName;
 		}
 		if ( lastName ) {
 			form.lastName = lastName;
-		}
-		if ( preferredName ) {
-			form.preferredName = preferredName;
-		}
-		if ( pronouns ) {
-			form.pronouns = pronouns;
 		}
 		let change = false;
 		if ( password ) {
@@ -166,8 +166,8 @@ class EditModal extends Component {
 
 	render() {
 		const validPasswords = this.getPasswordValidationState();
-		const validFirstName = validateName( this.state.firstName );
-		const validLastName = validateName( this.state.lastName );
+		const validFirstName = validateRequiredName( this.state.firstName );
+		const validLastName = validateRequiredName( this.state.lastName );
 		const validPreferredName = validateName( this.state.preferredName );
 		const enteredPasswords = this.state.password || this.state.passwordRepeat;
 		const user = this.props.user;
