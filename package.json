@@ -27,6 +27,7 @@
     "analyze": "source-map-explorer build/static/js/main.*",
     "build": "node --max_old_space_size=16384 scripts/build.js",
     "deploy": "gh-pages -d build -b build",
+    "deploy-next": "gh-pages -d build-next -b build-next",
     "clean": "rm -rf ./node_modules",
     "coverage": "jest && codecov",
     "lint": "eslint src test && stylelint \"src/**/*.css\"",
