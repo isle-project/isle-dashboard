@@ -14,6 +14,7 @@
 	"login": "Anmelden",
 	"password": "Passwort",
 	"password-tooltip": "Bitte gib ein Passwort Deiner Wahl ein (mindestens sechs Buchstaben).",
+	"preferred-name": "Bevorzugter Name",
 	"preferred-name-tooltip": "Bitte geben Sie einen bevorzugten Vornamen ein (falls zutreffend)",
 	"signup-not-valid": "Bitte stelle sicher dass alle Eingabefelder korrekt ausgefüllt sind.",
 	"tos-disclaimer": "Durch Klicken auf die Schaltfläche \"Registrieren\" erklärst Du Dich mit unseren <1>Nutzungsbedingungen</1> einverstanden. Mehr darüber, wie Deine Daten verarbeitet werden, erfährst Du in unserer <3>Datenschutzerklärung</3>."

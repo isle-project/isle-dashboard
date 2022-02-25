@@ -14,6 +14,7 @@
 	"login": "登录",
 	"password": "密码",
 	"password-tooltip": "请输入一个至少六个字符的密码。",
+	"preferred-name": "首选名称",
 	"preferred-name-tooltip": "请输入一个首选的名字（如果适用）。",
 	"signup-not-valid": "在提交之前，请确保所有的输入值都是有效的。",
 	"tos-disclaimer": "通过点击 \"注册 \"按钮，您同意我们的<1>服务条款</1>。在我们的<3>隐私政策中了解更多关于如何处理您的数据</3>。"

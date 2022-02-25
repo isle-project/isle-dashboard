@@ -14,6 +14,7 @@
 	"login": "Logi sisse",
 	"password": "Parool",
 	"password-tooltip": "Palun sisestage enda valitud parool, mis koosneb vähemalt kuuest tähemärgist.",
+	"preferred-name": "Eelistatud nimi",
 	"preferred-name-tooltip": "Palun sisestage eelistatud eesnimi (kui see on kohaldatav).",
 	"signup-not-valid": "Palun veenduge enne saatmist, et kõik sisestatud väärtused on kehtivad.",
 	"tos-disclaimer": "Vajutades nupule \"Registreeru\" nõustute meie <1>teenusetingimustega</1>. Lisateavet selle kohta, kuidas teie andmeid töödeldakse, leiate meie <3>privaatsuspoliitikast</3>."

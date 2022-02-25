@@ -14,6 +14,7 @@
 	"login": "Prijavite se",
 	"password": "Geslo",
 	"password-tooltip": "Vnesite geslo po lastni izbiri, ki vsebuje vsaj šest znakov.",
+	"preferred-name": "Prednostno ime",
 	"preferred-name-tooltip": "Vnesite želeno ime (če je primerno)",
 	"signup-not-valid": "Pred oddajo se prepričajte, da so vse vhodne vrednosti veljavne.",
 	"tos-disclaimer": "S klikom na gumb \"Prijavite se\" se strinjate z našimi <1>pogoji storitve</1>. Več o tem, kako obdelujemo vaše podatke, si preberite v našem <3>pravilniku o zasebnosti</3>."

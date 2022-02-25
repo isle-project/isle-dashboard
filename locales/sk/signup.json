@@ -14,6 +14,7 @@
 	"login": "Prihlásiť sa",
 	"password": "Heslo",
 	"password-tooltip": "Zadajte heslo podľa vlastného výberu, ktoré obsahuje aspoň šesť znakov.",
+	"preferred-name": "Uprednostňované meno",
 	"preferred-name-tooltip": "Zadajte preferované krstné meno (ak je to vhodné)",
 	"signup-not-valid": "Pred odoslaním sa uistite, že sú všetky vstupné hodnoty platné.",
 	"tos-disclaimer": "Kliknutím na tlačidlo \"Zaregistrovať sa\" vyjadrujete súhlas s našimi <1>podmienkami poskytovania služieb</1>. Viac informácií o spracovaní vašich údajov nájdete v našich <3>zásadách ochrany osobných údajov</3>."

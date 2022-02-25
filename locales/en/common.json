@@ -52,7 +52,7 @@
 	"enter-name": "Enter Name",
 	"enter-last-name": "Enter last name",
 	"enter-first-name": "Enter first name",
-	"enter-preferred-name": "Enter preferred first name",
+	"enter-preferred-name": "Enter preferred first name (optional)",
 	"not-enabled": "Not Enabled",
 	"enroll": "Enroll",
 	"enter-email": "Enter Email",

@@ -14,6 +14,7 @@
 	"login": "Prisijungti",
 	"password": "Slaptažodis",
 	"password-tooltip": "Įveskite pasirinktą slaptažodį, kurį sudaro ne mažiau kaip šeši simboliai.",
+	"preferred-name": "Pageidaujamas vardas",
 	"preferred-name-tooltip": "Įveskite pageidaujamą vardą (jei taikoma)",
 	"signup-not-valid": "Prieš pateikdami įsitikinkite, kad visos įvesties reikšmės yra galiojančios.",
 	"tos-disclaimer": "Paspaudę mygtuką \"Registruotis\" sutinkate su mūsų <1>paslaugų teikimo sąlygomis</1>. Daugiau informacijos apie tai, kaip tvarkomi jūsų duomenys, rasite mūsų <3>privatumo politikoje</3>."
