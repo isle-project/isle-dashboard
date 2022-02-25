@@ -152,36 +152,9 @@ const App =({ isLoggedIn, dispatch, getCustomTranslations, getPublicSettings, fe
 	const navigate = useNavigate();
 	const { pathname, search } = useLocation();
 	useMountEffect( async () => {
+		debug( 'Mounting application...' );
 		getCustomTranslations();
 		getPublicSettings();
-		if (
-			!isLoggedIn &&
-			!RE_PUBLIC_PAGES.test( pathname )
-		) {
-			let isle = localStorage.getItem( USER_STORAGE_ID );
-			if ( isle ) {
-				isle = JSON.parse( isle );
-				const user = await fetchCredentials( isle );
-				if ( user ) {
-					getEnrollableCohorts( user );
-				}
-			} else {
-				try {
-					const res = await axios.get( server+'/saml-xmw/session' );
-					dispatch( receivedToken( res.data ) );
-					const user = await fetchCredentials( res.data );
-					if ( user ) {
-						getEnrollableCohorts( user );
-					}
-				} catch ( err ) {
-					if ( settings.saml === 'enabled' ) {
-						window.location = server+'/saml-xmw/login-choice';
-					} else {
-						navigate( '/login' );
-					}
-				}
-			}
-		}
 		if ( isLoggedIn ) {
 			debug( 'User is logged in, check local storage...' );
 			const isle = localStorage.getItem( USER_STORAGE_ID );
@@ -193,7 +166,37 @@ const App =({ isLoggedIn, dispatch, getCustomTranslations, getPublicSettings, fe
 				}) );
 			}
 		}
-		if ( pathname === '/' ) {
+		else if ( !RE_PUBLIC_PAGES.test( pathname ) ) {
+			let isle = localStorage.getItem( USER_STORAGE_ID );
+			if ( isle ) {
+				debug( 'User is not logged in, but local storage item found -> read from local storage...' );
+				isle = JSON.parse( isle );
+				const user = await fetchCredentials( isle );
+				if ( user ) {
+					getEnrollableCohorts( user );
+				}
+			} else {
+				try {
+					const res = await axios.get( server+'/saml-xmw/session' );
+					if ( !res.data ) {
+						throw new Error( 'No data returned from server' );
+					}
+					dispatch( receivedToken( res.data ) );
+					const user = await fetchCredentials( res.data );
+					if ( user ) {
+						getEnrollableCohorts( user );
+					}
+				} catch ( err ) {
+					if ( settings.saml === 'enabled' ) {
+						debug( 'No SAML session found, redirecting to SAML login choice page...' );
+						window.location = server+'/saml-xmw/login-choice';
+					} else {
+						debug( 'No SAML session found, redirecting to credentials login page...' );
+						navigate( '/login' );
+					}
+				}
+			}
+		} else if ( pathname === '/' ) {
 			navigate( '/login' );
 		}
 	});
