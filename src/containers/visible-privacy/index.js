@@ -18,13 +18,15 @@
 // MODULES //
 
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import InfoBox from 'components/info-box';
 
 
 // MAIN //
 
 const Privacy = () => {
-	return <InfoBox header="Privacy Policy" body="" />;
+	const { t } = useTranslation( 'legal' );
+	return <InfoBox header={t('privacy-policy')} body={t('privacy-policy-text')} />;
 };
 
 

@@ -18,13 +18,15 @@
 // MODULES //
 
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import InfoBox from 'components/info-box';
 
 
 // MAIN //
 
 const Terms = () => {
-	return <InfoBox header="Terms of Service" body="" />;
+	const { t } = useTranslation( 'legal' );
+	return <InfoBox header={t('terms-of-service')} body={t('terms-of-service-text')} />;
 };
 
 
