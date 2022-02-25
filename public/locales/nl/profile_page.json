@@ -35,7 +35,10 @@
 	"time-spent": "Bestede tijd",
 	"two-factor-authentication-is-disabled": "Twee-factor-authenticatie is nog niet ingeschakeld.",
 	"two-factor-authentication-is-enabled": "Twee-factor-authenticatie is momenteel ingeschakeld.",
-	"update-name": "Update Naam",
+	"update-first-name": "Voornaam bijwerken",
+	"update-last-name": "Achternaam bijwerken",
 	"update-organization": "Update uw organisatie",
+	"update-preferred-name": "Voorkeur voornaam bijwerken",
+	"update-pronouns": "Werk voornaamwoorden bij (bv. zij/hij, hij/hij )",
 	"zoom": "Zoomen"
 }

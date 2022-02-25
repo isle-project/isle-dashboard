@@ -35,7 +35,10 @@
 	"time-spent": "Brugt tid",
 	"two-factor-authentication-is-disabled": "To-faktor-autentifikation er ikke aktiveret endnu.",
 	"two-factor-authentication-is-enabled": "To-faktor-godkendelse er i øjeblikket aktiveret.",
-	"update-name": "Opdatering Navn",
+	"update-first-name": "Opdatere fornavn",
+	"update-last-name": "Opdatere efternavn",
 	"update-organization": "Opdater din organisation",
+	"update-preferred-name": "Opdateret foretrukket fornavn",
+	"update-pronouns": "Opdater pronominer (f.eks. hun/han, han/hun)",
 	"zoom": "Zoom"
 }

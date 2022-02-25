@@ -7,8 +7,8 @@
 	"edit-profile": "Edit Profile",
 	"enter-password": "Please enter a password of your choosing with at least six characters",
 	"get-instructor-access": "Get Instructor Access",
-	"invalid-name": "Name needs to be at least four characters long.",
 	"invalid-password": "Passwords do not match.",
+	"invalid-name": "Name must be at least two characters long.",
 	"left": "Left",
 	"messages": "Messages",
 	"my-tickets": "My Tickets",
@@ -35,7 +35,10 @@
 	"time-spent": "Time Spent",
 	"two-factor-authentication-is-enabled": "Two-factor authentication is currently enabled.",
 	"two-factor-authentication-is-disabled": "Two-factor authentication is not enabled yet.",
-	"update-name": "Update Name",
+	"update-first-name": "Update first name",
+	"update-last-name": "Update last name",
+	"update-preferred-name": "Update preferred first name",
+	"update-pronouns": "Update pronouns (e.g., she/her, he/him )",
 	"update-organization": "Update your organization",
 	"zoom": "Zoom"
 }

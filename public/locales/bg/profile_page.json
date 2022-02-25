@@ -35,7 +35,10 @@
 	"time-spent": "Изразходвано време",
 	"two-factor-authentication-is-disabled": "Двуфакторното удостоверяване все още не е активирано.",
 	"two-factor-authentication-is-enabled": "В момента е разрешено двуфакторно удостоверяване.",
-	"update-name": "Актуализиране на името",
+	"update-first-name": "Актуализиране на първото име",
+	"update-last-name": "Актуализиране на фамилното име",
 	"update-organization": "Актуализирайте организацията си",
+	"update-preferred-name": "Актуализиране на предпочитаното първо име",
+	"update-pronouns": "Актуализиране на местоименията (напр. тя/той, той/той )",
 	"zoom": "Zoom"
 }

@@ -207,7 +207,7 @@ class FilesPage extends Component {
 				}
 			}),
 			createTextColumn({
-				Header: t('first-name'),
+				Header: t('common:first-name'),
 				id: 'first_name',
 				accessor: 'user.firstName',
 				maxWidth: 75,
@@ -216,7 +216,7 @@ class FilesPage extends Component {
 				}
 			}),
 			createTextColumn({
-				Header: t('last-name'),
+				Header: t('common:last-name'),
 				id: 'last_name',
 				accessor: 'user.lastName',
 				maxWidth: 75,

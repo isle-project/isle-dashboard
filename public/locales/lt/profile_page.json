@@ -35,7 +35,10 @@
 	"time-spent": "Sugaištas laikas",
 	"two-factor-authentication-is-disabled": "Dviejų veiksnių autentifikavimas dar neįjungtas.",
 	"two-factor-authentication-is-enabled": "Šiuo metu įjungtas dviejų veiksnių autentifikavimas.",
-	"update-name": "Atnaujinti pavadinimą",
+	"update-first-name": "Atnaujinti vardą",
+	"update-last-name": "Atnaujinti pavardę",
 	"update-organization": "Atnaujinkite savo organizaciją",
+	"update-preferred-name": "Atnaujinti pageidaujamą vardą",
+	"update-pronouns": "Atnaujinti įvardžius (pvz., ji/jis, jis/jis )",
 	"zoom": "Padidinti"
 }

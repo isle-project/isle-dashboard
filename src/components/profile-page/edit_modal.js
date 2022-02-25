@@ -44,7 +44,7 @@ const createTooltip = ( str ) => {
 };
 
 const validateName = ( name ) => {
-	if ( name && name.length > 2 ) {
+	if ( name && name.length >= 2 ) {
 		return true;
 	}
 	return false;
@@ -276,7 +276,7 @@ class EditModal extends Component {
 										isInvalid={!validFirstName}
 									/>
 									<Form.Control.Feedback type="invalid">
-										{t('invalid-first-name')}
+										{t('invalid-name')}
 									</Form.Control.Feedback>
 								</FormGroup>
 							</OverlayTrigger>
@@ -295,7 +295,7 @@ class EditModal extends Component {
 												isInvalid={!validPreferredName}
 											/>
 											<Form.Control.Feedback type="invalid">
-												{t('invalid-preferred-name')}
+												{t('invalid-name')}
 											</Form.Control.Feedback>
 										</FormGroup>
 									</OverlayTrigger>
@@ -329,7 +329,7 @@ class EditModal extends Component {
 										isInvalid={!validLastName}
 									/>
 									<Form.Control.Feedback type="invalid">
-										{t('invalid-last-name')}
+										{t('invalid-name')}
 									</Form.Control.Feedback>
 								</FormGroup>
 							</OverlayTrigger>

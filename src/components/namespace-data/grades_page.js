@@ -165,7 +165,7 @@ class GradesPage extends Component {
 				style: { color: 'darkslategrey' }
 			},
 			createTextColumn({
-				Header: t('first-name'),
+				Header: t('common:first-name'),
 				id: 'first_name',
 				accessor: 'firstName',
 				maxWidth: 75,
@@ -174,7 +174,7 @@ class GradesPage extends Component {
 				}
 			}),
 			createTextColumn({
-				Header: t('last-name'),
+				Header: t('common:last-name'),
 				id: 'last_name',
 				accessor: 'lastName',
 				maxWidth: 75,

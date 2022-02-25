@@ -35,7 +35,10 @@
 	"time-spent": "Strávený čas",
 	"two-factor-authentication-is-disabled": "Dvoufaktorové ověřování zatím není povoleno.",
 	"two-factor-authentication-is-enabled": "V současné době je povoleno dvoufaktorové ověřování.",
-	"update-name": "Aktualizace názvu",
+	"update-first-name": "Aktualizace křestního jména",
+	"update-last-name": "Aktualizace příjmení",
 	"update-organization": "Aktualizujte svou organizaci",
+	"update-preferred-name": "Aktualizace preferovaného křestního jména",
+	"update-pronouns": "Aktualizace zájmen (např. ona/on, on/on )",
 	"zoom": "Zoom"
 }
