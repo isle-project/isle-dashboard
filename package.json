@@ -156,7 +156,7 @@
     "eslint-plugin-react": "^7.28.0",
     "eslint-plugin-react-hooks": "^4.3.0",
     "extract-text-webpack-plugin": "^3.0.2",
-    "fs-extra": "10.0.0",
+    "fs-extra": "10.0.1",
     "gh-pages": "^3.2.3",
     "html-webpack-plugin": "^5.5.0",
     "jest": "^27.5.1",
