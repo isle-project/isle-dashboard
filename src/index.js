@@ -19,7 +19,7 @@
 
 import 'react-dates/initialize';
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import localforage from 'localforage';
 import { Provider } from 'react-redux';
 import { persistStore, persistReducer } from 'redux-persist';
@@ -48,10 +48,13 @@ const persistedReducer = persistReducer( persistConfig, rootReducer );
 export const store = createStore( persistedReducer );
 const persistor = persistStore( store );
 
+const container = document.getElementById( 'root' );
+const root = createRoot( container );
+
 
 // MAIN //
 
-ReactDOM.render(
+root.render(
 	<Provider store={store} >
 		<PersistGate loading={null} persistor={persistor}>
 			<HelmetProvider>
@@ -60,8 +63,7 @@ ReactDOM.render(
 				</BrowserRouter>
 			</HelmetProvider>
 		</PersistGate>
-	</Provider>,
-	document.getElementById( 'root' )
+	</Provider>
 );
 
 serviceWorker.register();
