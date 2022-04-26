@@ -30,6 +30,7 @@ const initialState = {
 	lessons: [],
 	lessonsMap: {},
 	namespaces: [],
+	programs: [],
 	roles: [],
 	rooms: [],
 	tickets: [],
@@ -123,6 +124,17 @@ export default function admin( state = initialState, action ) {
 			namespaces
 		});
 	}
+	case types.GET_ALL_PROGRAMS: {
+		let programs = action.payload.programs;
+		programs = programs.map( x => {
+			x.createdAt = new Date( x.createdAt );
+			x.updatedAt = new Date( x.updatedAt );
+			return x;
+		});
+		return Object.assign({}, state, {
+			programs
+		});
+	}
 	case types.GET_EVENTS: {
 		let events = action.payload.events;
 		events = events.map( x => {
@@ -153,6 +165,12 @@ export default function admin( state = initialState, action ) {
 		const users = state.users.filter( x => x._id !== action.payload.id );
 		return Object.assign({}, state, {
 			users
+		});
+	}
+	case types.DELETED_PROGRAM: {
+		const programs = state.programs.filter( x => x._id !== action.payload.id );
+		return Object.assign({}, state, {
+			programs
 		});
 	}
 	case types.TRIGGERED_EVENT: {

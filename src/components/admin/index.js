@@ -31,6 +31,7 @@ const EventTable = asyncComponent( () => import( './event_table.js' ) );
 const LessonTable = asyncComponent( () => import( './lesson_table.js' ) );
 const FileTable = asyncComponent( () => import( './file_table.js' ) );
 const NamespaceTable = asyncComponent( () => import( './namespace_table.js' ) );
+const ProgramTable = asyncComponent( () => import( './program_table.js' ) );
 const TicketTable = asyncComponent( () => import( './ticket_table.js' ) );
 const UserTable = asyncComponent( () => import( './user_table.js' ) );
 const Rooms = asyncComponent( () => import( './rooms.js' ) );
@@ -79,6 +80,9 @@ const AdminPage = ( props ) => {
 			</Nav.Item>
 			<Nav.Item>
 				<Nav.Link eventKey="/admin/cohorts" title="Cohorts" >{t('common:cohorts')}</Nav.Link>
+			</Nav.Item>
+			<Nav.Item>
+				<Nav.Link eventKey="/admin/programs" title="Programs" >{t('common:programs')}</Nav.Link>
 			</Nav.Item>
 			<Nav.Item>
 				<Nav.Link eventKey="/admin/files" title="Files" >{t('common:files')}</Nav.Link>
@@ -139,6 +143,11 @@ const AdminPage = ( props ) => {
 						admin={props.admin}
 						getAllLessons={props.getAllLessons}
 						deleteLesson={props.deleteLesson} />}
+					/>
+					<Route path="programs" element={<ProgramTable
+						admin={props.admin}
+						getAllPrograms={props.getAllPrograms}
+						deleteProgram={props.deleteProgram} />}
 					/>
 					<Route path="cohorts" element={<CohortTable
 						admin={props.admin}
@@ -201,12 +210,14 @@ AdminPage.propTypes = {
 	deleteEvent: PropTypes.func.isRequired,
 	deleteFile: PropTypes.func.isRequired,
 	deleteLesson: PropTypes.func.isRequired,
+	deleteProgram: PropTypes.func.isRequired,
 	deleteTicket: PropTypes.func.isRequired,
 	deleteUser: PropTypes.func.isRequired,
 	getAllCohorts: PropTypes.func.isRequired,
 	getAllFiles: PropTypes.func.isRequired,
 	getAllLessons: PropTypes.func.isRequired,
 	getAllNamespaces: PropTypes.func.isRequired,
+	getAllPrograms: PropTypes.func.isRequired,
 	getAllTickets: PropTypes.func.isRequired,
 	getCustomFields: PropTypes.func.isRequired,
 	getEvents: PropTypes.func.isRequired,

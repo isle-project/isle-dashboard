@@ -24,6 +24,7 @@ import { createUser, getUsersInjector, deleteUserInjector, impersonateUserInject
 import { getEventsInjector, deleteEventInjector, triggerEventInjector } from 'actions/event.js';
 import { getAllNamespacesInjector, deleteCurrentNamespaceInjector } from 'actions/namespace.js';
 import { getAllCohortsInjector, deleteCohortInjector } from 'actions/cohort.js';
+import { getAllProgramsInjector, deleteProgramInjector } from 'actions/program.js';
 import { getAllLessonsInjector, deleteLessonInjector, getRoomsInjector } from 'actions/lesson.js';
 import { sanitizeRequestInjector } from 'actions/authentication.js';
 import { addNotificationInjector } from 'actions/notification.js';
@@ -51,6 +52,7 @@ function mapDispatchToProps( dispatch ) {
 		getAllFiles: getAllFilesInjector( dispatch ),
 		getAllLessons: getAllLessonsInjector( dispatch ),
 		getAllNamespaces: getAllNamespacesInjector( dispatch ),
+		getAllPrograms: getAllProgramsInjector( dispatch ),
 		getCustomFields: getCustomFieldsInjector( dispatch ),
 		getEvents: getEventsInjector( dispatch ),
 		getRequestStatistics: getRequestStatisticsInjector( dispatch ),
@@ -62,6 +64,7 @@ function mapDispatchToProps( dispatch ) {
 		deleteCurrentNamespace: deleteCurrentNamespaceInjector( dispatch ),
 		deleteEvent: deleteEventInjector( dispatch ),
 		deleteLesson: deleteLessonInjector( dispatch ),
+		deleteProgram: deleteProgramInjector( dispatch ),
 		deleteTicket: deleteTicketInjector( dispatch ),
 		deleteUser: deleteUserInjector( dispatch ),
 		impersonateUser: impersonateUserInjector( dispatch ),
