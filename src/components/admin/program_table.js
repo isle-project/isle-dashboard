@@ -228,6 +228,7 @@ class ProgramPage extends Component {
 					data={this.props.admin.programs}
 					columns={this.state.columns}
 					onButtonClick={this.toggleExplorer}
+					disabled={!this.props.admin.programs || this.props.admin.programs.length === 0}
 					t={t}
 				/>
 				<OverlayTrigger placement="left" overlay={<Tooltip>{t('create-new-program')}</Tooltip>} >

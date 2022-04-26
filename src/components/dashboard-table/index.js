@@ -39,6 +39,7 @@ import './table.css';
  * @param {Array} props.columns - array of column objects
  * @param {Function} props.onButtonClick - callback to invoke upon clicking the data explorer button
  * @param {string} props.className - CSS class name
+ * @param {boolean} props.disabled - boolean indicating whether the component is disabled
  * @param {Function} props.t - i18n translation function
  * @returns {ReactElement} component
  */
@@ -69,7 +70,7 @@ const DashboardTable = forwardRef( ( props, ref ) => {
 			/>
 			{props.onButtonClick ? <ButtonGroup vertical style={{ float: 'right', marginRight: -9 }} >
 				<OverlayTrigger placement="left" overlay={<Tooltip id="explorer-tooltip">{t('common:data-explorer')}</Tooltip>}>
-					<Button aria-label={t('common:data-explorer')} variant="primary" style={{ marginBottom: 8 }} onClick={props.onButtonClick} >
+					<Button aria-label={t('common:data-explorer')} variant="primary" style={{ marginBottom: 8 }} onClick={props.onButtonClick} disabled={props.disabled} >
 						<i className="fas fa-chart-bar" ></i>
 					</Button>
 				</OverlayTrigger>
@@ -88,12 +89,14 @@ DashboardTable.propTypes = {
 		PropTypes.object,
 		PropTypes.array
 	]).isRequired,
+	disabled: PropTypes.bool,
 	onButtonClick: PropTypes.func.isRequired,
 	t: PropTypes.func
 };
 
 DashboardTable.defaultProps = {
 	className: '',
+	disabled: false,
 	t() {}
 };
 
