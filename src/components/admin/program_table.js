@@ -47,7 +47,8 @@ class ProgramPage extends Component {
 	constructor( props ) {
 		super( props );
 		this.state = {
-			selectedCourse: null,
+			selectedProgram: null,
+			showProgramCreation: false,
 			showDeleteModal: false,
 			columns: this.createColumns(),
 			showExplorer: false
@@ -68,7 +69,7 @@ class ProgramPage extends Component {
 
 	createColumns = () => {
 		const { t } = this.props;
-		const programs = this.props.admin.programs;
+		const programs = this.props.admin.programs || [];
 		let maxOwners = 0;
 		let minTime = PINF;
 		let maxTime = 0;
@@ -172,7 +173,7 @@ class ProgramPage extends Component {
 		this.setState({
 			showDeleteModal: false
 		}, async () => {
-			await this.props.deleteCurrentProgram( this.state.selectedProgram._id );
+			await this.props.deleteProgram( this.state.selectedProgram._id );
 			this.props.getAllPrograms();
 		});
 	};
@@ -189,10 +190,16 @@ class ProgramPage extends Component {
 		});
 	};
 
+	toggleProgramCreation = () => {
+		this.setState({
+			showProgramCreation: !this.state.showProgramCreation
+		});
+	};
+
 	render() {
 		const { t } = this.props;
 		if ( this.state.showExplorer ) {
-			const programs = this.props.admin.programs;
+			const programs = this.props.admin.programs || [];
 			let data = [];
 			for ( let i = 0; i < programs.length; i++ ) {
 				const program = programs[ i ];
@@ -223,6 +230,11 @@ class ProgramPage extends Component {
 					onButtonClick={this.toggleExplorer}
 					t={t}
 				/>
+				<OverlayTrigger placement="left" overlay={<Tooltip>{t('create-new-program')}</Tooltip>} >
+					<Button aria-label={t('create-new-program')} style={{ marginRight: -9, float: 'right' }} onClick={this.toggleProgramCreation} >
+						<i className="fas fa-plus"></i>
+					</Button>
+				</OverlayTrigger>
 				{ this.state.showDeleteModal ? <ConfirmModal
 					title={t('program:delete-program')}
 					message={<span>
@@ -233,6 +245,9 @@ class ProgramPage extends Component {
 					show={this.state.showDeleteModal}
 					onConfirm={this.deleteSelectedProgram}
 				/> : null }
+					{ this.state.showUserCreation ?
+						<div></div> : null
+				}
 			</Fragment>
 		);
 	}
@@ -243,7 +258,7 @@ class ProgramPage extends Component {
 
 ProgramPage.propTypes = {
 	admin: PropTypes.object.isRequired,
-	deleteCurrentProgram: PropTypes.func.isRequired,
+	deleteProgram: PropTypes.func.isRequired,
 	getAllPrograms: PropTypes.func.isRequired,
 	t: PropTypes.func.isRequired
 };
