@@ -20,6 +20,8 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { withTranslation } from 'react-i18next';
+import Tabs from 'react-bootstrap/Tabs';
+import Tab from 'react-bootstrap/Tab';
 import Alert from 'react-bootstrap/Alert';
 import Badge from 'react-bootstrap/Badge';
 import Button from 'react-bootstrap/Button';
@@ -46,6 +48,7 @@ import checkURLPath from 'utils/check_url_path.js';
 import EditCohortModal from './edit_cohort_modal.js';
 import CreateCohortModal from './create_cohort_modal.js';
 import ImportCourseModal from './import_course_modal.js';
+import CompletionsPage  from './completions.js';
 import SERVER from 'constants/server';
 import 'react-dates/lib/css/_datepicker.css';
 import './edit_namespace.css';
@@ -248,130 +251,121 @@ class EditNamespace extends Component {
 		return (
 			<Container className="edit-namespace-container" >
 				<Row>
-					<Col sm={4} >
+					<Col sm={9} >
 						<Card>
-							<Card.Header>
-								<Card.Title as="h3">
-									{t('edit-course')}
-								</Card.Title>
-							</Card.Header>
-							<Card.Body>
-								<Form style={{ padding: '20px' }} className="d-grid gap-3" >
-									<OverlayTrigger placement="right" overlay={<Tooltip id="ownerTooltip">{t('owner-tooltip')}</Tooltip>}>
-										<FormGroup >
-											<FormLabel htmlFor="owners-text-select" >{t('common:owners')}</FormLabel>
-											<TextSelect
-												id="owners-text-select"
-												placeholder={t('enter-emails')}
-												onChange={this.handleOwnerChange}
-												defaultValue={this.state.owners}
-												isInvalid={!validateOwners( this.state.owners )}
-											/>
-											<FormControl.Feedback type="invalid">
-												{t('invalid-owners')}
-											</FormControl.Feedback>
-										</FormGroup>
-									</OverlayTrigger>
-									<OverlayTrigger placement="right" overlay={<Tooltip id="courseTooltip">{t('accessible-at')}<code>{SERVER+'/<course>/<lesson>'}</code></Tooltip>}>
-										<FormGroup controlId="form-course" >
-											<FormLabel>{t('course-identifier')}</FormLabel>
-											<FormControl
-												name="title"
-												type="text"
-												value={this.state.title}
-												onChange={this.handleInputChange}
-												isInvalid={!validTitle}
-											/>
-											<FormControl.Feedback type="invalid">
-												{ invalidTitleChars ?
-													'Course identifier contains invalid character(s): '+invalidTitleChars[ 0 ] :
-													'Course identifier must be at least three characters long and should not contain any spaces.'
-												}
-											</FormControl.Feedback>
-										</FormGroup>
-									</OverlayTrigger>
-									<OverlayTrigger placement="right" overlay={<Tooltip id="titleTooltip">{t('title-tooltip')}</Tooltip>}>
-										<FormGroup controlId="form-description" >
-											<FormLabel>{t('title-description')}</FormLabel>
-											<FormControl
-												name="description"
-												type="text"
-												value={this.state.description}
-												onChange={this.handleInputChange}
-												isInvalid={!validDescription}
-											>
-											</FormControl>
-											<FormControl.Feedback type="invalid">
-												{t('invalid-description')}
-											</FormControl.Feedback>
-										</FormGroup>
-									</OverlayTrigger>
-									<Form.Check
-										aria-label={t('enable-ticketing')}
-										type="checkbox"
-										label={t('enable-ticketing')}
-										defaultChecked={this.state.enableTicketing}
-										onChange={( event) => {
+							<Tabs defaultActiveKey="manage-cohorts" >
+								<Tab eventKey="manage-cohorts" title={<h3>{t('manage-cohorts')}</h3>} style={{ padding: 12 }} >
+									{this.renderCohortList()}
+									<Button
+										size="small"
+										variant="success"
+										style={{
+											marginTop: 10, background: '#3c763d'
+										}}
+										onClick={() => {
 											this.setState({
-												enableTicketing: event.target.checked
+												showCreateCohortModal: true
 											});
 										}}
+									>
+										{t('create-cohort')}
+									</Button>
+								</Tab>
+								<Tab eventKey="completions" title={<h3>{t('completions')}</h3>} >
+									<CompletionsPage
+										namespace={this.props.namespace}
+										cohorts={this.props.cohorts}
 									/>
-								</Form>
-								<Button
-									type="submit"
-									disabled={!validOwners || !validTitle || !validDescription}
-									onClick={this.handleUpdate}
-								>{t('common:update')}</Button>
-							</Card.Body>
-							{this.renderModals()}
-						</Card>
-					</Col>
-					<Col sm={5} >
-						<Card>
-							<Card.Header>
-								<Card.Title as="h3">
-									{t('manage-cohorts')}
-								</Card.Title>
-							</Card.Header>
-							<Card.Body>
-								{this.renderCohortList()}
-								<Button
-									size="small"
-									variant="success"
-									style={{
-										float: 'right', marginTop: 14, background: '#3c763d'
-									}}
-									onClick={() => {
-										this.setState({
-											showCreateCohortModal: true
-										});
-									}}
-								>
-									{t('create-cohort')}
-								</Button>
-							</Card.Body>
+								</Tab>
+								<Tab eventKey="edit-course" title={<h3>{t('edit-course')}</h3>} style={{ padding: 12 }} >
+									<Form style={{ padding: '20px' }} className="d-grid gap-3" >
+										<OverlayTrigger placement="right" overlay={<Tooltip id="ownerTooltip">{t('owner-tooltip')}</Tooltip>}>
+											<FormGroup >
+												<FormLabel htmlFor="owners-text-select" >{t('common:owners')}</FormLabel>
+												<TextSelect
+													id="owners-text-select"
+													placeholder={t('enter-emails')}
+													onChange={this.handleOwnerChange}
+													defaultValue={this.state.owners}
+													isInvalid={!validateOwners( this.state.owners )}
+												/>
+												<FormControl.Feedback type="invalid">
+													{t('invalid-owners')}
+												</FormControl.Feedback>
+											</FormGroup>
+										</OverlayTrigger>
+										<OverlayTrigger placement="right" overlay={<Tooltip id="courseTooltip">{t('accessible-at')}<code>{SERVER+'/<course>/<lesson>'}</code></Tooltip>}>
+											<FormGroup controlId="form-course" >
+												<FormLabel>{t('course-identifier')}</FormLabel>
+												<FormControl
+													name="title"
+													type="text"
+													value={this.state.title}
+													onChange={this.handleInputChange}
+													isInvalid={!validTitle}
+												/>
+												<FormControl.Feedback type="invalid">
+													{ invalidTitleChars ?
+														'Course identifier contains invalid character(s): '+invalidTitleChars[ 0 ] :
+														'Course identifier must be at least three characters long and should not contain any spaces.'
+													}
+												</FormControl.Feedback>
+											</FormGroup>
+										</OverlayTrigger>
+										<OverlayTrigger placement="right" overlay={<Tooltip id="titleTooltip">{t('title-tooltip')}</Tooltip>}>
+											<FormGroup controlId="form-description" >
+												<FormLabel>{t('title-description')}</FormLabel>
+												<FormControl
+													name="description"
+													type="text"
+													value={this.state.description}
+													onChange={this.handleInputChange}
+													isInvalid={!validDescription}
+												>
+												</FormControl>
+												<FormControl.Feedback type="invalid">
+													{t('invalid-description')}
+												</FormControl.Feedback>
+											</FormGroup>
+										</OverlayTrigger>
+										<Form.Check
+											aria-label={t('enable-ticketing')}
+											type="checkbox"
+											label={t('enable-ticketing')}
+											defaultChecked={this.state.enableTicketing}
+											onChange={( event) => {
+												this.setState({
+													enableTicketing: event.target.checked
+												});
+											}}
+										/>
+									</Form>
+									<Button
+										type="submit"
+										disabled={!validOwners || !validTitle || !validDescription}
+										onClick={this.handleUpdate}
+									>{t('common:update')}</Button>
+									{this.renderModals()}
+								</Tab>
+								<Tab eventKey="permissions" title={<h3>{t('permissions')}</h3>} disabled >
+								</Tab>
+							</Tabs>
 						</Card>
 					</Col>
 					<Col sm={3} >
 						<Card>
-							<Card.Header>
-								<Card.Title as="h3">
-									{t('common:actions')}
-								</Card.Title>
-							</Card.Header>
 							<Card.Body>
 								<ButtonGroup vertical>
+									<Button onClick={() => {
+										this.setState({
+											showImportModal: true
+										});
+									}} variant="outline-danger" >{t('import-existing-course')}</Button>
 									<Button onClick={() => {
 										this.setState({
 											showDeleteModal: true
 										});
 									}} variant="outline-danger">{t('delete-namespace')}</Button>
-									<Button onClick={() => {
-										this.setState({
-											showImportModal: true
-										});
-									}} variant="outline-secondary">{t('import-existing-course')}</Button>
 								</ButtonGroup>
 							</Card.Body>
 						</Card>
