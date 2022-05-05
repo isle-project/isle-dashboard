@@ -17,13 +17,15 @@
 
 // MODULES //
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+import axios from 'axios';
 import { useTranslation } from 'react-i18next';
 import ListGroup from 'react-bootstrap/ListGroup';
 import Button from 'react-bootstrap/Button';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
+import server from 'constants/server';
 import ComputeModal from './compute_modal.js';
 import CreateMetricModal from './create_metric_modal.js';
 
@@ -65,7 +67,23 @@ function CompletionsPage( props ) {
 	const { t } = useTranslation( 'namespace' );
 	const [ selectedMetric, setSelectedMetric ] = useState( null );
 	const [ showComputeModal, setShowComputeModal ] = useState( false );
+	const [ tags, setTags ] = useState( null );
 	const metrics = props.namespace.metric || COMPLETION_METRICS;
+	useEffect( () => {
+		axios.post( `${server}/completion_tags` )
+			.then( response => {
+				setTags( response.data );
+			})
+			.catch( err => {
+				console.log( 'Error fetching completion tags:', err );
+				setTags([
+					'quiz',
+					'homework',
+					'exam',
+					'_default_tag'
+				]);
+			});
+	}, [] );
 	return (
 		<div style={{ margin: 12 }} >
 			<ListGroup>
@@ -107,12 +125,15 @@ function CompletionsPage( props ) {
 					{t('common:create-metric')}
 				</Button>
 			</OverlayTrigger>
-			<ComputeModal
+			{selectedMetric ? <ComputeModal
+				key={`compute-modal-${selectedMetric.name}`}
 				metric={selectedMetric}
 				show={showComputeModal}
 				onHide={() => setShowComputeModal( false )}
 				cohorts={props.cohorts}
-			/>
+				tags={tags}
+				namespace={props.namespace}
+			/> : null}
 		</div>
 	);
 }
