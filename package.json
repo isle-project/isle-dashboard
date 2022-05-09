@@ -136,7 +136,7 @@
     "@babel/preset-react": "^7.16.7",
     "@babel/runtime": "^7.17.8",
     "@testing-library/jest-dom": "^5.16.4",
-    "@testing-library/react": "^13.1.1",
+    "@testing-library/react": "^13.2.0",
     "ajv": "^8.11.0",
     "autoprefixer": "10.4.7",
     "babel-plugin-css-modules-transform": "^1.6.2",
