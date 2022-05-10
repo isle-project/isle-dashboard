@@ -22,9 +22,13 @@ import PropTypes from 'prop-types';
 import axios from 'axios';
 import { useTranslation } from 'react-i18next';
 import DateTimeRangePicker from '@wojtekmaj/react-datetimerange-picker';
+import HelpIcon  from 'components/help-icon';
+import Container from 'react-bootstrap/Container';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 import SelectInput from 'react-select';
 import usePrevious from 'hooks/use-previous';
 import server from 'constants/server';
@@ -86,16 +90,18 @@ function TagWeightInput({ value, onChange }) {
 	for ( let i = 0; i < tags.length; i++ ) {
 		const tag = tags[ i ];
 		const weight = value[ tag ];
-		inputs[ i ] = ( <Form.Group key={`tag-${i}`} >
-			<Form.Label>{tag}</Form.Label>
-			<Form.Control
-				type="number"
-				value={weight}
-				onChange={handleChange}
-				placeholder={1}
-				data-tag={tag}
-				min={0}
-			/>
+		inputs[ i ] = ( <Form.Group className="mb-1" as={Row} key={`tag-${i}`} >
+			<Form.Label column sm={3} >{tag}</Form.Label>
+			<Col sm={9} >
+				<Form.Control
+					type="number"
+					value={weight}
+					onChange={handleChange}
+					placeholder={1}
+					data-tag={tag}
+					min={0}
+				/>
+			</Col>
 		</Form.Group> );
 	}
 	return inputs;
@@ -243,14 +249,73 @@ function ComputeModal({ cohorts, metric, namespace, show, tags, onHide }) {
 				<Modal.Title as="h3">{t('calculate-scores')}</Modal.Title>
 			</Modal.Header>
 			<Modal.Body>
-				<SelectInput value={formValues.policyOptions.multiples} options={MULTIPLES_POLICIES} onChange={handleMultiplesPolicyChange} />
-				<DateTimeRangePicker onChange={onTimeChange} value={formValues.policyOptions.timeFilter} />
-				<SelectInput
-					value={formValues.users} isMulti options={selectOptions} onChange={handleUserSelectChange}
-					hideSelectedOptions={true}
-					styles={userSelectStyles}
-				/>
-				<TagWeightInput value={formValues.policyOptions.tagWeights} onChange={handleTagWeightsChange} />
+				<Container>
+					<Form.Group className="mb-2" as={Row} controlId="multiplesPolicy" >
+						<Form.Label column sm={3} >
+							{t('multiples-policy')}
+						</Form.Label>
+						<Col sm={8} >
+							<SelectInput value={formValues.policyOptions.multiples} options={MULTIPLES_POLICIES} onChange={handleMultiplesPolicyChange} />
+						</Col>
+						<Col sm={1} >
+							<HelpIcon>
+								<p>
+									{t('multiples-policy-description')}
+								</p>
+							</HelpIcon>
+						</Col>
+					</Form.Group>
+					<Form.Group className="mb-2" as={Row} controlId="timeFilter" >
+						<Form.Label column sm={3} >
+							{t('time-filter')}
+						</Form.Label>
+						<Col sm={8} >
+							<DateTimeRangePicker onChange={onTimeChange} value={formValues.policyOptions.timeFilter} />
+						</Col>
+						<Col sm={1} >
+							<HelpIcon>
+								<p>
+									{t('time-filter-description')}
+								</p>
+							</HelpIcon>
+						</Col>
+					</Form.Group>
+					<Form.Group className="mb-2" as={Row} controlId="users" >
+						<Form.Label column sm={3} >
+							{t('users')}
+						</Form.Label>
+						<Col sm={8} >
+							<SelectInput
+								value={formValues.users} isMulti
+								options={selectOptions} onChange={handleUserSelectChange}
+								hideSelectedOptions={true}
+								styles={userSelectStyles}
+							/>
+						</Col>
+						<Col sm={1} >
+							<HelpIcon>
+								<p>
+									{t('users-description')}
+								</p>
+							</HelpIcon>
+						</Col>
+					</Form.Group>
+					<Form.Group className="mb-2" as={Row} controlId="users" >
+						<Form.Label column sm={3} >
+							{t('tag-weights')}
+						</Form.Label>
+						<Col sm={8} >
+							<TagWeightInput value={formValues.policyOptions.tagWeights} onChange={handleTagWeightsChange} />
+						</Col>
+						<Col sm={1} >
+							<HelpIcon>
+								<p>
+									{t('tag-weights-description')}
+								</p>
+							</HelpIcon>
+						</Col>
+					</Form.Group>
+				</Container>
 			</Modal.Body>
 			<Modal.Footer>
 				<Button onClick={onHide}>

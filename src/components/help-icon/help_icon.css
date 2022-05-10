@@ -1,0 +1,26 @@
+/* Active tab link in help overlays */
+.help-text .nav-tabs .nav-item.nav-link.active {
+	background-color: #fffddd;
+	border-bottom-color: #fffddd;
+	font-weight: 600;
+}
+
+.help-text > div {
+	font-size: small;
+}
+
+.help-title {
+	font-size: medium;
+	font-weight: bold;
+}
+
+.help-text > .tooltip-inner {
+	max-width: 100%;
+}
+
+.popover {
+	max-width: 35%;
+	background-color: #fffddd;
+	color: #20201c;
+	box-shadow: 6px 4px 6px #605f53;
+}
