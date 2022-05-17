@@ -32,6 +32,8 @@ import CreateMetricModal from './create_metric_modal.js';
 
 // VARIABLES //
 
+// TODO: generalize for usage in programs, namespaces, lessons
+
 const COMPLETION_METRICS = [
 	{
 		name: 'Overall Completion',
@@ -47,7 +49,7 @@ const COMPLETION_METRICS = [
 		rule: [ 'dropNLowest', 3 ],
 		ref: 'completed'
 	}
-];
+]; // TODO: read completion metrics from the server
 
 // TODO: Need specification for the parameters and their types (use the `attr-types` library)
 const COMPLETION_RULES = [
@@ -69,7 +71,7 @@ const COMPLETION_RULES = [
 		}],
 		defaults: [ 3 ]
 	}
-];
+]; // TODO: read completion rules from the server
 
 
 // MAIN //
@@ -91,6 +93,7 @@ function CompletionsPage( props ) {
 	const [ showComputeModal, setShowComputeModal ] = useState( false );
 	const [ showCreateModal, setShowCreateModal ] = useState( false );
 	const [ tags, setTags ] = useState( null );
+	const [ refs, setRefs ] = useState( null );
 	const metrics = props.namespace.metric || COMPLETION_METRICS;
 	useEffect( () => {
 		axios.post( `${server}/completion_tags` )
@@ -106,7 +109,17 @@ function CompletionsPage( props ) {
 					'_default_tag'
 				]);
 			});
-	}, [] );
+		axios.post( `${server}/completion_refs`, {
+			target: 'lesson',
+			entities: props.namespace.lessons
+		})
+			.then( response => {
+				setRefs( response.data );
+			})
+			.catch( err => {
+				console.log( 'Error fetching completion refs:', err );
+			});
+	}, [ props.namespace ] );
 	return (
 		<div style={{ margin: 12 }} >
 			<ListGroup>
@@ -115,6 +128,7 @@ function CompletionsPage( props ) {
 						setSelectedMetric( metric );
 						setShowComputeModal( true );
 					};
+					// TODO: edit metric functionality & delete metric functionality
 					return (
 						<ListGroup.Item key={idx} className="d-flex w-100 justify-content-start" >
 							<label className="me-2" >{metric.name}</label>
@@ -166,6 +180,7 @@ function CompletionsPage( props ) {
 				allRules={COMPLETION_RULES}
 				level="namespace"
 				entity={props.namespace}
+				refs={refs}
 			/> : null}
 		</div>
 	);

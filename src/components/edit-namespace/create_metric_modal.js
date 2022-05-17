@@ -27,6 +27,7 @@ import Row from 'react-bootstrap/Row';
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
 import SelectInput from 'react-select';
+import CreatableSelect from 'react-select/creatable';
 import server from 'constants/server';
 
 
@@ -51,13 +52,14 @@ const COVERAGE_OPTIONS = [
 
 // MAIN //
 
-function CreateMetricModal({ level, entity, show, onHide, onCreate, allRules }) {
+function CreateMetricModal({ level, entity, show, onHide, onCreate, allRules, refs }) {
 	const { t } = useTranslation();
 	const [ name, setName ] = useState( '' );
 	const [ rule, setRule ] = useState( null );
 	const [ ruleParameters, setRuleParameters ] = useState( [] );
 	const [ coverage, setCoverage ] = useState( COVERAGE_OPTIONS[ 0 ] );
 	const [ coverageEntities, setCoverageEntities ] = useState( [] );
+	const [ selectedRef, setSelectedRef ] = useState( null );
 	const subEntities = useRef( [] );
 
 	useEffect( () => {
@@ -81,13 +83,14 @@ function CreateMetricModal({ level, entity, show, onHide, onCreate, allRules }) 
 
 	const handleCreate = () => {
 		console.log( 'Creating metric...' );
+		console.log( selectedRef );
 		axios.post( `${server}/create_metric`, {
 			name,
 			rule: [ rule.name ].concat( ruleParameters ),
 			coverage: [ coverage.value ].concat( coverageEntities ),
 			level,
 			id: entity._id,
-			ref: 'completed'
+			ref: selectedRef
 		})
 			.then( res => {
 				console.log( 'Metric created.' );
@@ -180,6 +183,16 @@ function CreateMetricModal({ level, entity, show, onHide, onCreate, allRules }) 
 								</Form.Group>
 							);
 						}) : null}
+						<Form.Group className="mb-2" as={Row} >
+							<Form.Label>{t('common:ref')}</Form.Label>
+							<CreatableSelect
+								isClearable
+								options={refs.map( ( ref ) => ({ value: ref, label: ref }) )}
+								onChange={( option ) => {
+									setSelectedRef( option ? option.value : null );
+								}}
+							/>
+					</Form.Group>
 				</Container>
 			</Modal.Body>
 			<Modal.Footer>
