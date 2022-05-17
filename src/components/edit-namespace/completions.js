@@ -49,6 +49,28 @@ const COMPLETION_METRICS = [
 	}
 ];
 
+// TODO: Need specification for the parameters and their types (use the `attr-types` library)
+const COMPLETION_RULES = [
+	{
+		name: 'avg',
+		parameters: [],
+		defaults: []
+	},
+	{
+		name: 'dropLowest',
+		parameters: [],
+		defaults: []
+	},
+	{
+		name: 'dropNLowest',
+		parameters: [ {
+			name: 'n',
+			type: 'number'
+		}],
+		defaults: [ 3 ]
+	}
+];
+
 
 // MAIN //
 
@@ -67,6 +89,7 @@ function CompletionsPage( props ) {
 	const { t } = useTranslation( 'namespace' );
 	const [ selectedMetric, setSelectedMetric ] = useState( null );
 	const [ showComputeModal, setShowComputeModal ] = useState( false );
+	const [ showCreateModal, setShowCreateModal ] = useState( false );
 	const [ tags, setTags ] = useState( null );
 	const metrics = props.namespace.metric || COMPLETION_METRICS;
 	useEffect( () => {
@@ -121,8 +144,10 @@ function CompletionsPage( props ) {
 				})}
 			</ListGroup>
 			<OverlayTrigger placement="right" overlay={<Tooltip id="tooltip-create-metric" >{t( 'create-metric-tooltip' )}</Tooltip>} >
-				<Button variant="primary" style={{ marginTop: 12 }}>
-					{t('common:create-metric')}
+				<Button variant="primary" style={{ marginTop: 12 }} onClick={() => {
+					setShowCreateModal( true );
+				}} >
+					{t('common:create-completion-metric')}
 				</Button>
 			</OverlayTrigger>
 			{selectedMetric ? <ComputeModal
@@ -133,6 +158,14 @@ function CompletionsPage( props ) {
 				cohorts={props.cohorts}
 				tags={tags}
 				namespace={props.namespace}
+			/> : null}
+			{showCreateModal ? <CreateMetricModal
+				key="create-modal"
+				show={showCreateModal}
+				onHide={() => setShowCreateModal( false )}
+				allRules={COMPLETION_RULES}
+				level="namespace"
+				entity={props.namespace}
 			/> : null}
 		</div>
 	);

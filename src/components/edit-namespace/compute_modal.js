@@ -22,7 +22,7 @@ import PropTypes from 'prop-types';
 import axios from 'axios';
 import { useTranslation } from 'react-i18next';
 import DateTimeRangePicker from '@wojtekmaj/react-datetimerange-picker';
-import HelpIcon  from 'components/help-icon';
+import HelpIcon from 'components/help-icon';
 import Container from 'react-bootstrap/Container';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
