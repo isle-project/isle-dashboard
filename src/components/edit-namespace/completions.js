@@ -28,6 +28,7 @@ import Tooltip from 'react-bootstrap/Tooltip';
 import server from 'constants/server';
 import ComputeModal from './compute_modal.js';
 import CreateMetricModal from './create_metric_modal.js';
+import { levelFieldMapping, levelPredecessorMapping } from './level_fields.js';
 
 
 // VARIABLES //
@@ -88,13 +89,13 @@ const COMPLETION_RULES = [
 * -   Computing the scores will save the generated results within the individual user objects (associated with the data when they were last computed)
 */
 function CompletionsPage( props ) {
-	const { t } = useTranslation( 'namespace' );
+	const { t } = useTranslation( 'completions' );
 	const [ selectedMetric, setSelectedMetric ] = useState( null );
 	const [ showComputeModal, setShowComputeModal ] = useState( false );
 	const [ showCreateModal, setShowCreateModal ] = useState( false );
 	const [ tags, setTags ] = useState( null );
 	const [ refs, setRefs ] = useState( null );
-	const metrics = props.namespace.metric || COMPLETION_METRICS;
+	const metrics = props.entity.metric || COMPLETION_METRICS;
 	useEffect( () => {
 		axios.post( `${server}/completion_tags` )
 			.then( response => {
@@ -110,8 +111,8 @@ function CompletionsPage( props ) {
 				]);
 			});
 		axios.post( `${server}/completion_refs`, {
-			target: 'lesson',
-			entities: props.namespace.lessons
+			target: levelPredecessorMapping[ props.level ],
+			entities: props.entity[ levelFieldMapping[ props.level ] ]
 		})
 			.then( response => {
 				setRefs( response.data );
@@ -119,7 +120,7 @@ function CompletionsPage( props ) {
 			.catch( err => {
 				console.log( 'Error fetching completion refs:', err );
 			});
-	}, [ props.namespace ] );
+	}, [ props.entity, props.level ] );
 	return (
 		<div style={{ margin: 12 }} >
 			<ListGroup>
@@ -171,15 +172,16 @@ function CompletionsPage( props ) {
 				onHide={() => setShowComputeModal( false )}
 				cohorts={props.cohorts}
 				tags={tags}
-				namespace={props.namespace}
+				entity={props.entity}
+				level={props.level}
 			/> : null}
 			{showCreateModal ? <CreateMetricModal
 				key="create-modal"
 				show={showCreateModal}
 				onHide={() => setShowCreateModal( false )}
 				allRules={COMPLETION_RULES}
-				level="namespace"
-				entity={props.namespace}
+				level={props.level}
+				entity={props.entity}
 				refs={refs}
 			/> : null}
 		</div>
@@ -191,7 +193,8 @@ function CompletionsPage( props ) {
 
 CompletionsPage.propTypes = {
 	cohorts: PropTypes.array.isRequired,
-	namespace: PropTypes.object.isRequired
+	entity: PropTypes.object.isRequired,
+	level: PropTypes.string.isRequired
 };
 
 

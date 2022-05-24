@@ -107,7 +107,7 @@ function TagWeightInput({ value, onChange }) {
 	return inputs;
 }
 
-function ComputeModal({ cohorts, metric, namespace, show, tags, onHide }) {
+function ComputeModal({ cohorts, metric, entity, level, show, tags, onHide }) {
 	console.log( cohorts );
 	const { t } = useTranslation();
 
@@ -119,7 +119,7 @@ function ComputeModal({ cohorts, metric, namespace, show, tags, onHide }) {
 			multiples: MULTIPLES_POLICIES[ 0 ]
 		}
 	});
-	const FORM_STORAGE_KEY = 'ISLE?level=namespace&id='+namespace.id+'&metric='+metric.name;
+	const FORM_STORAGE_KEY = `ISLE?level=${level}&id=${entity._id}&metric=${metric.name}`;
 	useEffect( () => {
 		let oldFormValues = localStorage.getItem( FORM_STORAGE_KEY );
 		if ( oldFormValues ) {
@@ -158,7 +158,7 @@ function ComputeModal({ cohorts, metric, namespace, show, tags, onHide }) {
 		}
 		localStorage.setItem( FORM_STORAGE_KEY, JSON.stringify( formValues ) );
 		const body = {
-			id: namespace._id,
+			id: entity._id,
 			users: formValues.users.map( x => x.value ),
 			metric: metric,
 			policyOptions: {
@@ -169,16 +169,16 @@ function ComputeModal({ cohorts, metric, namespace, show, tags, onHide }) {
 		axios.post( server+'/calculate_completions', body ).then( response => {
 			console.log( response );
 		});
-	}, [ metric, namespace, formValues, FORM_STORAGE_KEY ] );
+	}, [ metric, entity, formValues, FORM_STORAGE_KEY ] );
 	const users = cohorts.reduce( ( userList, cohort ) => {
 		const members = cohort.members.map( member => memberSelection(member) );
 		return userList.concat( members );
 	}, [] );
 	const selectOptions = [
 		{ value: { category: 'all', members: users }, label: t( 'All users' ) },
-		...cohorts.map( cohort => {
+		...( cohorts.length > 1 ? cohorts.map( cohort => {
 			return { value: { category: 'cohort', id: cohort._id, members: cohort.members }, label: 'Cohort ' + cohort.title };
-		})
+		}) : [] )
 	].concat( users );
 
 	const userSelectStyles = {
@@ -334,8 +334,9 @@ function ComputeModal({ cohorts, metric, namespace, show, tags, onHide }) {
 
 ComputeModal.propTypes = {
 	cohorts: PropTypes.array.isRequired,
+	entity: PropTypes.object.isRequired,
+	level: PropTypes.string.isRequired,
 	metric: PropTypes.object.isRequired,
-	namespace: PropTypes.object.isRequired,
 	onHide: PropTypes.func.isRequired,
 	show: PropTypes.bool.isRequired,
 	tags: PropTypes.array

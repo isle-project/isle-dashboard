@@ -29,6 +29,7 @@ import Form from 'react-bootstrap/Form';
 import SelectInput from 'react-select';
 import CreatableSelect from 'react-select/creatable';
 import server from 'constants/server';
+import { levelFieldMapping } from './level_field_mapping.js';
 
 
 // VARIABLES //
@@ -38,16 +39,6 @@ const COVERAGE_OPTIONS = [
 	{ value: 'include', label: 'Include' },
 	{ value: 'exclude', label: 'Exclude' }
 ];
-
-/**
-* Mapping from a given node level to the corresponding field in the schema that contains the children.
-*/
- const levelFieldMapping = {
-	program: 'namespaces',
-	namespace: 'lessons',
-	lesson: null,
-	component: null
-};
 
 
 // MAIN //
