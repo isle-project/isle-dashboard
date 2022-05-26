@@ -17,7 +17,7 @@
 
 // MODULES //
 
-import React, { useEffect, useState } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
 import { useTranslation } from 'react-i18next';
@@ -121,6 +121,10 @@ function CompletionsPage( props ) {
 				console.log( 'Error fetching completion refs:', err );
 			});
 	}, [ props.entity, props.level ] );
+
+	const transposeMetrics = ( index, up ) => {
+		props.transposeMetric( index, up ); // TODO: keep internal ordering state of metrics for display?
+	};
 	return (
 		<div style={{ margin: 12 }} >
 			<ListGroup>
@@ -130,6 +134,7 @@ function CompletionsPage( props ) {
 						setShowComputeModal( true );
 					};
 					// TODO: edit metric functionality & delete metric functionality
+
 					return (
 						<ListGroup.Item key={idx} className="d-flex w-100 justify-content-start" >
 							<label className="me-2" >{metric.name}</label>
@@ -145,14 +150,30 @@ function CompletionsPage( props ) {
 							>{metric.description}</span>
 							<span className="ms-auto" >
 								<OverlayTrigger placement="top" overlay={<Tooltip id={`tooltip-compute-${idx}`} >{t( 'compute-metric-tooltip' )}</Tooltip>} >
-									<Button variant="secondary" size="sm" className="mx-1" onClick={handleCompute} >{t('common:compute')}</Button>
+									<Button variant="secondary" size="sm" className="mx-2" onClick={handleCompute} >{t('common:compute')}</Button>
 								</OverlayTrigger>
 								<OverlayTrigger placement="top" overlay={<Tooltip id={`tooltip-edit-${idx}`} >{t( 'edit-metric-tooltip' )}</Tooltip>} >
-									<Button variant="secondary" size="sm" className="mx-1" onClick={function() {}} >{t('common:edit')}</Button>
+									<Button variant="secondary" size="sm" className="mx-2" onClick={function() {}} >{t('common:edit')}</Button>
 								</OverlayTrigger>
 								<OverlayTrigger placement="top" overlay={<Tooltip id={`tooltip-delete-${idx}`} >{t( 'delete-metric-tooltip' )}</Tooltip>} >
-									<Button variant="danger" size="sm" className="mx-1" onClick={function() {}} >{t('common:delete')}</Button>
+									<Button variant="danger" size="sm" className="mx-2" onClick={function() {}} >{t('common:delete')}</Button>
 								</OverlayTrigger>
+								<Button
+									aria-label={t('move-metric-down')}
+									size="sm" variant="secondary"
+									className="mx-1" disabled={idx === metrics.length - 1}
+									onClick={transposeMetrics( idx, false )}
+								>
+									<i className="fas fa-chevron-down" />
+								</Button>
+								<Button
+									aria-label={t('move-metric-up')}
+									size="sm" variant="secondary"
+									disabled={idx === 0}
+									onClick={transposeMetrics( idx, true )}
+								>
+									<i className="fas fa-chevron-up" />
+								</Button>
 							</span>
 						</ListGroup.Item>
 					);
@@ -194,7 +215,8 @@ function CompletionsPage( props ) {
 CompletionsPage.propTypes = {
 	cohorts: PropTypes.array.isRequired,
 	entity: PropTypes.object.isRequired,
-	level: PropTypes.string.isRequired
+	level: PropTypes.string.isRequired,
+	transposeMetric: PropTypes.func.isRequired
 };
 
 
