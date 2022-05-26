@@ -28,6 +28,7 @@ import FilesPage from './files_page.js';
 import AnnouncementsPage from './announcements_page.js';
 import ProgressPage from './progress_page.js';
 import CohortsPage from './cohorts_page.js';
+import CompletionsPage from './completions_page.js';
 import GradesPage from './grades_page.js';
 import ActionsPage from './actions_page.js';
 import TicketsPage from './tickets_page.js';
@@ -110,6 +111,9 @@ const NamespaceData = ({
 						<Nav.Link eventKey="progress" title="Progress" >{t('common:progress')}</Nav.Link>
 					</Nav.Item>
 					<Nav.Item>
+						<Nav.Link eventKey="completions" title="Completions" >{t('completions')}</Nav.Link>
+					</Nav.Item>
+					<Nav.Item>
 						<Nav.Link eventKey="grades" title="Grades" >{t('grades')}</Nav.Link>
 					</Nav.Item>
 					<Nav.Item>
@@ -139,6 +143,9 @@ const NamespaceData = ({
 					<Route path="progress" element={<ProgressPage adjustProgress={adjustProgress} addNotification={addNotification}
 						namespace={namespace} cohorts={namespace.cohorts}
 						lessons={namespace.lessons} user={user} />}
+					/>
+					<Route path="completions" element={<CompletionsPage addNotification={addNotification} namespace={namespace}
+						cohorts={namespace.cohorts} lessons={namespace.lessons} user={user} />}
 					/>
 					<Route path="grades" element={<GradesPage addNotification={addNotification} namespace={namespace}
 						cohorts={namespace.cohorts} lessons={namespace.lessons} user={user} />}
