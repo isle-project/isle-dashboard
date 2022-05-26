@@ -29,7 +29,7 @@ import Form from 'react-bootstrap/Form';
 import SelectInput from 'react-select';
 import CreatableSelect from 'react-select/creatable';
 import server from 'constants/server';
-import { levelFieldMapping } from './level_field_mapping.js';
+import { levelFieldMapping } from './level_fields.js';
 
 
 // VARIABLES //
