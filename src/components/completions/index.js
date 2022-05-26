@@ -17,18 +17,21 @@
 
 // MODULES //
 
-import React, { Fragment, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
 import { useTranslation } from 'react-i18next';
+import debounce from 'lodash.debounce';
 import ListGroup from 'react-bootstrap/ListGroup';
 import Button from 'react-bootstrap/Button';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
+import incrspace from '@stdlib/array/incrspace';
 import server from 'constants/server';
 import ComputeModal from './compute_modal.js';
 import CreateMetricModal from './create_metric_modal.js';
 import { levelFieldMapping, levelPredecessorMapping } from './level_fields.js';
+import './completions.css';
 
 
 // VARIABLES //
@@ -39,6 +42,13 @@ const COMPLETION_METRICS = [
 	{
 		name: 'Overall Completion',
 		description: 'The overall completion of the course',
+		coverage: [ 'all' ],
+		rule: [ 'avg' ],
+		ref: 'completed'
+	},
+	{
+		name: 'Lab Completion',
+		description: 'The lab completion of the course',
 		coverage: [ 'all' ],
 		rule: [ 'avg' ],
 		ref: 'completed'
@@ -96,6 +106,8 @@ function CompletionsPage( props ) {
 	const [ tags, setTags ] = useState( null );
 	const [ refs, setRefs ] = useState( null );
 	const metrics = props.entity.metric || COMPLETION_METRICS;
+	console.log( incrspace( 0, metrics.length, 1 ) );
+	const [ order, setOrder ] = useState( incrspace( 0, metrics.length, 1 ) );
 	useEffect( () => {
 		axios.post( `${server}/completion_tags` )
 			.then( response => {
@@ -122,13 +134,32 @@ function CompletionsPage( props ) {
 			});
 	}, [ props.entity, props.level ] );
 
-	const transposeMetrics = ( index, up ) => {
-		props.transposeMetric( index, up ); // TODO: keep internal ordering state of metrics for display?
+	const transposeMetrics = ( index, next ) => {
+		return debounce( () => {
+			const newOrder = [ ...order ];
+			const i = newOrder[ index ];
+			if ( next ) {
+				newOrder[ index ] = newOrder[ index + 1 ];
+				newOrder[ index + 1 ] = i;
+			} else {
+				newOrder[ index ] = newOrder[ index - 1 ];
+				newOrder[ index - 1 ] = i;
+			}
+			setOrder( newOrder );
+			axios.post( `${server}/metric_order`, { id: props.entity._id, level: props.level, index: index, next: next })
+				.then( response => {
+					console.log( response );
+				})
+				.catch( err => {
+					console.log( 'Error updating metric order:', err );
+				});
+		}, 200 );
 	};
 	return (
 		<div style={{ margin: 12 }} >
 			<ListGroup>
-				{metrics.map( ( metric, idx ) => {
+				{order.map( ( metricIndex, idx ) => {
+					const metric = metrics[ metricIndex ];
 					const handleCompute = () => {
 						setSelectedMetric( metric );
 						setShowComputeModal( true );
@@ -136,7 +167,7 @@ function CompletionsPage( props ) {
 					// TODO: edit metric functionality & delete metric functionality
 
 					return (
-						<ListGroup.Item key={idx} className="d-flex w-100 justify-content-start" >
+						<ListGroup.Item key={`${metricIndex}-${idx}`} className="d-flex w-100 justify-content-start metric-list-item" >
 							<label className="me-2" >{metric.name}</label>
 							<span
 								style={{
@@ -162,7 +193,7 @@ function CompletionsPage( props ) {
 									aria-label={t('move-metric-down')}
 									size="sm" variant="secondary"
 									className="mx-1" disabled={idx === metrics.length - 1}
-									onClick={transposeMetrics( idx, false )}
+									onClick={transposeMetrics( idx, true )}
 								>
 									<i className="fas fa-chevron-down" />
 								</Button>
@@ -170,7 +201,7 @@ function CompletionsPage( props ) {
 									aria-label={t('move-metric-up')}
 									size="sm" variant="secondary"
 									disabled={idx === 0}
-									onClick={transposeMetrics( idx, true )}
+									onClick={transposeMetrics( idx, false )}
 								>
 									<i className="fas fa-chevron-up" />
 								</Button>
