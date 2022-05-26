@@ -273,7 +273,8 @@ class EditNamespace extends Component {
 								</Tab>
 								<Tab eventKey="completions" title={<h3>{t('completions')}</h3>} >
 									<CompletionsPage
-										namespace={this.props.namespace}
+										entity={this.props.namespace}
+										level="namespace"
 										cohorts={this.props.cohorts}
 									/>
 								</Tab>
