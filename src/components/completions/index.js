@@ -28,8 +28,9 @@ import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
 import incrspace from '@stdlib/array/incrspace';
 import server from 'constants/server';
+import ConfirmModal from 'components/confirm-modal';
 import ComputeModal from './compute_modal.js';
-import CreateMetricModal from './create_metric_modal.js';
+import EditMetricModal from './edit_metric_modal.js';
 import { levelFieldMapping, levelPredecessorMapping } from './level_fields.js';
 import './completions.css';
 
@@ -56,33 +57,39 @@ const COMPLETION_METRICS = [
 	{
 		name: 'Quiz completion',
 		description: '',
-		coverage: [ 'include', '123', '456' ],
-		rule: [ 'dropNLowest', 3 ],
+		coverage: [ 'include', '6075e18e82443304c3a46348', '6075e20682443304c3a46350' ],
+		rule: [ 'dropNLowest', 5 ],
 		ref: 'completed'
 	}
 ]; // TODO: read completion metrics from the server
 
 // TODO: Need specification for the parameters and their types (use the `attr-types` library)
-const COMPLETION_RULES = [
-	{
+const COMPLETION_RULES = {
+	avg: {
 		name: 'avg',
+		label: 'Average',
+		description: 'Average value of the completions',
 		parameters: [],
 		defaults: []
 	},
-	{
+	dropLowest: {
 		name: 'dropLowest',
+		label: 'Drop Lowest',
+		description: 'Average value after dropping the lowest value of the completions',
 		parameters: [],
 		defaults: []
 	},
-	{
+	dropNLowest: {
 		name: 'dropNLowest',
+		label: 'Drop N Lowest',
+		description: 'Average value after dropping the lowest N values of the completions',
 		parameters: [ {
-			name: 'n',
+			name: 'N',
 			type: 'number'
 		}],
 		defaults: [ 3 ]
 	}
-]; // TODO: read completion rules from the server
+}; // TODO: read completion rules from the server
 
 
 // MAIN //
@@ -102,7 +109,9 @@ function CompletionsPage( props ) {
 	const { t } = useTranslation( 'completions' );
 	const [ selectedMetric, setSelectedMetric ] = useState( null );
 	const [ showComputeModal, setShowComputeModal ] = useState( false );
+	const [ showDeleteModal, setShowDeleteModal ] = useState( false );
 	const [ showCreateModal, setShowCreateModal ] = useState( false );
+	const [ showEditModal, setShowEditModal ] = useState( false );
 	const [ tags, setTags ] = useState( null );
 	const [ refs, setRefs ] = useState( null );
 	const metrics = props.entity.metric || COMPLETION_METRICS;
@@ -134,6 +143,20 @@ function CompletionsPage( props ) {
 			});
 	}, [ props.entity, props.level ] );
 
+	const handleDeleteMetric = () => {
+		axios.post( `${server}/delete_metric`, {
+			id: props.entity._id,
+			level: props.level,
+			name: selectedMetric.name
+		})
+			.then( response => {
+				setSelectedMetric( null );
+				setShowDeleteModal( false );
+			})
+			.catch( err => {
+				console.log( 'Error deleting metric:', err );
+			});
+	};
 	const transposeMetrics = ( index, next ) => {
 		return debounce( () => {
 			const newOrder = [ ...order ];
@@ -184,10 +207,16 @@ function CompletionsPage( props ) {
 									<Button variant="secondary" size="sm" className="mx-2" onClick={handleCompute} >{t('common:compute')}</Button>
 								</OverlayTrigger>
 								<OverlayTrigger placement="top" overlay={<Tooltip id={`tooltip-edit-${idx}`} >{t( 'edit-metric-tooltip' )}</Tooltip>} >
-									<Button variant="secondary" size="sm" className="mx-2" onClick={function() {}} >{t('common:edit')}</Button>
+									<Button variant="secondary" size="sm" className="mx-2" onClick={() => {
+										setSelectedMetric( metric );
+										setShowEditModal( true );
+									}} >{t('common:edit')}</Button>
 								</OverlayTrigger>
 								<OverlayTrigger placement="top" overlay={<Tooltip id={`tooltip-delete-${idx}`} >{t( 'delete-metric-tooltip' )}</Tooltip>} >
-									<Button variant="danger" size="sm" className="mx-2" onClick={function() {}} >{t('common:delete')}</Button>
+									<Button variant="danger" size="sm" className="mx-2" onClick={() => {
+										setSelectedMetric( metric );
+										setShowDeleteModal( true );
+									}} >{t('common:delete')}</Button>
 								</OverlayTrigger>
 								<Button
 									aria-label={t('move-metric-down')}
@@ -227,7 +256,7 @@ function CompletionsPage( props ) {
 				entity={props.entity}
 				level={props.level}
 			/> : null}
-			{showCreateModal ? <CreateMetricModal
+			{showCreateModal ? <EditMetricModal
 				key="create-modal"
 				show={showCreateModal}
 				onHide={() => setShowCreateModal( false )}
@@ -235,7 +264,30 @@ function CompletionsPage( props ) {
 				level={props.level}
 				entity={props.entity}
 				refs={refs}
+				createNew={true}
+				onConfirm={( metric ) => {
+
+				}}
 			/> : null}
+			{showDeleteModal ? <ConfirmModal
+				title={t('delete-metric')}
+				message={t('namespace:delete-metric-confirm')}
+				close={() => setShowDeleteModal( false )}
+				show={showDeleteModal}
+				onConfirm={handleDeleteMetric}
+			/> : null }
+			{showEditModal ? <EditMetricModal
+				key={`edit-modal-${selectedMetric.name}`}
+				show={showEditModal}
+				onHide={() => setShowEditModal( false )}
+				allRules={COMPLETION_RULES}
+				level={props.level}
+				entity={props.entity}
+				refs={refs}
+				createNew={false}
+				metric={selectedMetric}
+			/> : null}
+
 		</div>
 	);
 }

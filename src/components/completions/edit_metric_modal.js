@@ -28,27 +28,28 @@ import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
 import SelectInput from 'react-select';
 import CreatableSelect from 'react-select/creatable';
+import objectValues from '@stdlib/utils/values';
 import server from 'constants/server';
 import { levelFieldMapping } from './level_fields.js';
 
 
 // VARIABLES //
 
-const COVERAGE_OPTIONS = [
-	{ value: 'all', label: 'All' },
-	{ value: 'include', label: 'Include' },
-	{ value: 'exclude', label: 'Exclude' }
-];
+const COVERAGE_OPTIONS = {
+	all: { value: 'all', label: 'All' },
+	include: { value: 'include', label: 'Include' },
+	exclude: { value: 'exclude', label: 'Exclude' }
+};
 
 
 // MAIN //
 
-function CreateMetricModal({ level, entity, show, onHide, onCreate, allRules, refs }) {
+function EditMetricModal({ level, entity, show, onHide, onCreate, allRules, refs, createNew, metric }) {
 	const { t } = useTranslation();
-	const [ name, setName ] = useState( '' );
-	const [ rule, setRule ] = useState( null );
-	const [ ruleParameters, setRuleParameters ] = useState( [] );
-	const [ coverage, setCoverage ] = useState( COVERAGE_OPTIONS[ 0 ] );
+	const [ name, setName ] = useState( metric?.name || '' );
+	const [ rule, setRule ] = useState( metric?.rule ? allRules[ metric.rule[ 0 ] ] : null );
+	const [ ruleParameters, setRuleParameters ] = useState( metric?.rule ? metric.rule.slice( 1 ) : [] );
+	const [ coverage, setCoverage ] = useState( COVERAGE_OPTIONS[ metric?.coverage?.[ 0 ] || 'all' ] );
 	const [ coverageEntities, setCoverageEntities ] = useState( [] );
 	const [ selectedRef, setSelectedRef ] = useState( null );
 	const subEntities = useRef( [] );
@@ -60,17 +61,22 @@ function CreateMetricModal({ level, entity, show, onHide, onCreate, allRules, re
 		} else if ( levelFieldMapping[ level ] ) {
 			const entities = entity[ levelFieldMapping[ level ] ];
 			console.log( entities );
+
 			subEntities.current = entities.map( x => {
 				return {
 					label: x.title,
 					value: x._id
 				};
 			});
+			if ( metric && metric.coverage ) {
+				const ids = new Set( metric.coverage.slice( 1 ) );
+				setCoverageEntities( subEntities.current.filter( x => ids.has( x.value ) ) );
+			}
 		}
 		else {
 			subEntities.current = [];
 		}
-	}, [ level, entity ] );
+	}, [ level, entity, metric ] );
 
 	const handleCreate = () => {
 		console.log( 'Creating metric...' );
@@ -78,7 +84,7 @@ function CreateMetricModal({ level, entity, show, onHide, onCreate, allRules, re
 		axios.post( `${server}/create_metric`, {
 			name,
 			rule: [ rule.name ].concat( ruleParameters ),
-			coverage: [ coverage.value ].concat( coverageEntities ),
+			coverage: [ coverage.value ].concat( coverageEntities.map( x => x.value ) ),
 			level,
 			id: entity._id,
 			ref: selectedRef
@@ -94,18 +100,18 @@ function CreateMetricModal({ level, entity, show, onHide, onCreate, allRules, re
 	};
 	const handleEntityChange = ( value ) => {
 		console.log( value );
-		setCoverageEntities( value.map( x => x.value ) );
+		setCoverageEntities( value );
 	};
 	console.log( 'Sub-entities:' );
 	console.log( subEntities.current );
 	return (
 		<Modal size="lg" show={show} onHide={onHide}>
 			<Modal.Header closeButton >
-				<Modal.Title as="h3">{t('create-completion-metric')}</Modal.Title>
+				<Modal.Title as="h3">{createNew ? t('create-completion-metric') : t('edit-completion-metric')}</Modal.Title>
 			</Modal.Header>
 			<Modal.Body>
 				<p>
-					{t('create-completion-metric-description')}
+					{createNew ? t('create-completion-metric-description') : t('edit-completion-metric-description')}
 				</p>
 				<Container>
 					<Form.Group className="mb-2" as={Row} >
@@ -115,12 +121,13 @@ function CreateMetricModal({ level, entity, show, onHide, onCreate, allRules, re
 							type="text"
 							placeholder={t('metric-name-placeholder')}
 							onChange={( event ) => setName( event.target.value )}
+							value={name}
 						/>
 					</Form.Group>
 					<Form.Group className="mb-2" as={Row} >
 						<Form.Label>{t('common:coverage')}</Form.Label>
 						<SelectInput
-							options={COVERAGE_OPTIONS}
+							options={objectValues( COVERAGE_OPTIONS )}
 							onChange={( option ) => {
 								setCoverage( option );
 								if ( option.value === 'all' ) {
@@ -134,18 +141,20 @@ function CreateMetricModal({ level, entity, show, onHide, onCreate, allRules, re
 								isMulti
 								options={subEntities.current}
 								onChange={handleEntityChange}
+								value={coverageEntities}
 							/> : null
 						}
 					</Form.Group>
 					<Form.Group className="mb-2" as={Row} >
 						<Form.Label>{t('common:rule')}</Form.Label>
 						<SelectInput
-							options={allRules.map( ( rule ) => ({ value: rule, label: rule.name }) )}
+							options={objectValues( allRules ).map( ( rule ) => ({ value: rule, label: rule.label }) )}
 							onChange={( option ) => {
 								const newRule = option.value;
 								setRule( newRule );
 								setRuleParameters( newRule.defaults );
 							}}
+							value={rule ? { value: rule, label: rule.label } : null}
 						/>
 					</Form.Group>
 					{rule && rule.parameters.length > 0 ?
@@ -169,7 +178,7 @@ function CreateMetricModal({ level, entity, show, onHide, onCreate, allRules, re
 											}
 											setRuleParameters( newParams );
 										}}
-										defaultValue={rule.defaults[ idx ]}
+										defaultValue={ruleParameters[ idx ] !== void 0 ? ruleParameters[ idx ] : rule.defaults[ idx ]}
 									/>
 								</Form.Group>
 							);
@@ -191,7 +200,7 @@ function CreateMetricModal({ level, entity, show, onHide, onCreate, allRules, re
 					{t('common:cancel')}
 				</Button>
 				<Button variant="success" onClick={handleCreate} disabled={!rule || !name} >
-					{t('common:create')}
+					{createNew ? t('common:create') : t('common:save')}
 				</Button>
 			</Modal.Footer>
 		</Modal>
@@ -201,4 +210,4 @@ function CreateMetricModal({ level, entity, show, onHide, onCreate, allRules, re
 
 // EXPORTS //
 
-export default CreateMetricModal;
+export default EditMetricModal;
