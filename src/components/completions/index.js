@@ -37,32 +37,6 @@ import './completions.css';
 
 // VARIABLES //
 
-// TODO: generalize for usage in programs, namespaces, lessons
-
-const COMPLETION_METRICS = [
-	{
-		name: 'Overall Completion',
-		description: 'The overall completion of the course',
-		coverage: [ 'all' ],
-		rule: [ 'avg' ],
-		ref: 'completed'
-	},
-	{
-		name: 'Lab Completion',
-		description: 'The lab completion of the course',
-		coverage: [ 'all' ],
-		rule: [ 'avg' ],
-		ref: 'completed'
-	},
-	{
-		name: 'Quiz completion',
-		description: '',
-		coverage: [ 'include', '6075e18e82443304c3a46348', '6075e20682443304c3a46350' ],
-		rule: [ 'dropNLowest', 5 ],
-		ref: 'completed'
-	}
-]; // TODO: read completion metrics from the server
-
 // TODO: Need specification for the parameters and their types (use the `attr-types` library)
 const COMPLETION_RULES = {
 	avg: {
@@ -114,7 +88,7 @@ function CompletionsPage( props ) {
 	const [ showEditModal, setShowEditModal ] = useState( false );
 	const [ tags, setTags ] = useState( null );
 	const [ refs, setRefs ] = useState( null );
-	const metrics = props.entity.metric || COMPLETION_METRICS;
+	const metrics = props.entity.completions;
 	console.log( incrspace( 0, metrics.length, 1 ) );
 	const [ order, setOrder ] = useState( incrspace( 0, metrics.length, 1 ) );
 	useEffect( () => {
@@ -144,7 +118,15 @@ function CompletionsPage( props ) {
 	}, [ props.entity, props.level ] );
 
 	const handleDeleteMetric = () => {
-		axios.post( `${server}/delete_metric`, {
+		const idx = metrics.findIndex( metric => metric.name === selectedMetric.name );
+		const newOrder = order.filter( v => v !== idx ).map( x => {
+			if ( x > idx ) {
+				return x - 1;
+			}
+			return x;
+		});
+		setOrder( newOrder );
+		props.deleteMetric({
 			id: props.entity._id,
 			level: props.level,
 			name: selectedMetric.name
@@ -178,11 +160,16 @@ function CompletionsPage( props ) {
 				});
 		}, 200 );
 	};
+	console.log( 'ORDER: ', order );
+	console.log( 'METRICS: ', metrics );
 	return (
 		<div style={{ margin: 12 }} >
 			<ListGroup>
 				{order.map( ( metricIndex, idx ) => {
 					const metric = metrics[ metricIndex ];
+					if ( !metric ) {
+						return null;
+					}
 					const handleCompute = () => {
 						setSelectedMetric( metric );
 						setShowComputeModal( true );
@@ -265,8 +252,11 @@ function CompletionsPage( props ) {
 				entity={props.entity}
 				refs={refs}
 				createNew={true}
-				onConfirm={( metric ) => {
-
+				onConfirm={( body ) => {
+					props.createMetric( body );
+					const newOrder = order.slice();
+					newOrder.push( order.length );
+					setOrder( newOrder );
 				}}
 			/> : null}
 			{showDeleteModal ? <ConfirmModal
@@ -286,6 +276,7 @@ function CompletionsPage( props ) {
 				refs={refs}
 				createNew={false}
 				metric={selectedMetric}
+				onConfirm={props.updateMetric}
 			/> : null}
 
 		</div>
@@ -299,7 +290,10 @@ CompletionsPage.propTypes = {
 	cohorts: PropTypes.array.isRequired,
 	entity: PropTypes.object.isRequired,
 	level: PropTypes.string.isRequired,
-	transposeMetric: PropTypes.func.isRequired
+	createMetric: PropTypes.func.isRequired,
+	deleteMetric: PropTypes.func.isRequired,
+	updateMetric: PropTypes.func.isRequired,
+	transposeMetric: PropTypes.func.isRequired,
 };
 
 

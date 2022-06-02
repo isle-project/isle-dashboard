@@ -367,6 +367,114 @@ export default function user( state = initialState, action ) {
 			templateLessons: action.payload.templateLessons
 		});
 	}
+	case types.UPDATED_METRIC: {
+		console.log( 'UPDATED_METRIC', action.payload );
+		const enrolledNamespaces = state.enrolledNamespaces.slice();
+		const ownedNamespaces = state.ownedNamespaces.slice();
+		for ( let i = 0; i < state.enrolledNamespaces.length; i++ ) {
+			const ns = state.enrolledNamespaces[ i ];
+			if ( ns._id !== action.payload.id ) {
+				continue;
+			}
+			const completions = ns.completions.slice();
+			const metric = action.payload.metric;
+			for ( let j = 0; j < completions.length; j++ ) {
+				if ( completions[ j ].name === metric.name ) {
+					completions[ j ] = metric;
+					break;
+				}
+			}
+			enrolledNamespaces[ i ].completions = completions;
+			break;
+		}
+		for ( let i = 0; i < state.ownedNamespaces.length; i++ ) {
+			const ns = state.ownedNamespaces[ i ];
+			if ( ns._id !== action.payload.id ) {
+				continue;
+			}
+			const completions = ns.completions.slice();
+			const metric = action.payload.metric;
+			for ( let j = 0; j < completions.length; j++ ) {
+				if ( completions[ j ].name === metric.name ) {
+					completions[ j ] = metric;
+					break;
+				}
+			}
+			ownedNamespaces[ i ].completions = completions;
+			break;
+		}
+		return Object.assign({}, state, {
+			enrolledNamespaces: enrolledNamespaces,
+			ownedNamespaces: ownedNamespaces
+		});
+	}
+	case types.CREATED_METRIC: {
+		const enrolledNamespaces = state.enrolledNamespaces.slice();
+		const ownedNamespaces = state.ownedNamespaces.slice();
+		for ( let i = 0; i < state.enrolledNamespaces.length; i++ ) {
+			const ns = state.enrolledNamespaces[ i ];
+			if ( ns._id !== action.payload.id ) {
+				continue;
+			}
+			const completions = ns.completions.slice();
+			completions.push( action.payload.metric );
+			enrolledNamespaces[ i ].completions = completions;
+			break;
+		}
+		for ( let i = 0; i < state.ownedNamespaces.length; i++ ) {
+			const ns = state.ownedNamespaces[ i ];
+			if ( ns._id !== action.payload.id ) {
+				continue;
+			}
+			const completions = ns.completions.slice();
+			completions.push( action.payload.metric );
+			ownedNamespaces[ i ].completions = completions;
+			break;
+		}
+		return Object.assign({}, state, {
+			enrolledNamespaces: enrolledNamespaces,
+			ownedNamespaces: ownedNamespaces
+		});
+	}
+	case types.DELETED_METRIC: {
+		console.log( 'DELETED_METRIC', action.payload );
+		const enrolledNamespaces = state.enrolledNamespaces.slice();
+		const ownedNamespaces = state.ownedNamespaces.slice();
+		for ( let i = 0; i < state.enrolledNamespaces.length; i++ ) {
+			const ns = state.enrolledNamespaces[ i ];
+			if ( ns._id !== action.payload.id ) {
+				continue;
+			}
+			const newCompletions = [];
+			for ( let i = 0; i < ns.completions.length; i++ ) {
+				if ( ns.completions[ i ].name !== action.payload.name ) {
+					newCompletions.push( ns.completions[ i ] );
+				}
+			}
+			enrolledNamespaces[ i ].completions = newCompletions;
+			console.log( 'newCompletions', newCompletions );
+			break;
+		}
+		for ( let i = 0; i < state.ownedNamespaces.length; i++ ) {
+			const ns = state.ownedNamespaces[ i ];
+			if ( ns._id !== action.payload.id ) {
+				continue;
+			}
+			const newCompletions = [];
+			for ( let i = 0; i < ns.completions.length; i++ ) {
+				if ( ns.completions[ i ].name !== action.payload.name ) {
+					newCompletions.push( ns.completions[ i ] );
+				}
+			}
+			ownedNamespaces[ i ].completions = newCompletions;
+			console.log( 'newCompletions', newCompletions );
+			break;
+		}
+		return Object.assign({}, state, {
+			enrolledNamespaces: enrolledNamespaces,
+			ownedNamespaces: ownedNamespaces
+		});
+	}
 	default:
 		return state;
 	}

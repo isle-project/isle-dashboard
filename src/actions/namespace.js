@@ -55,9 +55,10 @@ export function appendCreatedNamespace( namespace ) {
  * @param {string} namespace.description - namespace description
  * @param {boolean} namespace.enableTicketing - controls if ticketing is enabled for the namespace
  * @param {string} namespace._id - id of the namespace
+ * @param {Array} namespace.completions - array of completion metric objects associated with the namespace
  * @returns {Object} the action object
  */
-export function changedNamespace({ title, owners, announcements = [], cohorts = [], description, enableTicketing, _id }) {
+export function changedNamespace({ title, owners, announcements = [], cohorts = [], description, enableTicketing, _id, completions }) {
 	return {
 		type: CHANGED_NAMESPACE,
 		payload: {
@@ -67,6 +68,7 @@ export function changedNamespace({ title, owners, announcements = [], cohorts = 
 			description,
 			enableTicketing,
 			owners,
+			completions,
 			_id
 		}
 	};

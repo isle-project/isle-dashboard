@@ -41,7 +41,8 @@ const initialState = {
 	cohorts: [],
 	files: [],
 	ownerFiles: [],
-	tickets: []
+	tickets: [],
+	completions: []
 };
 
 
@@ -57,7 +58,8 @@ export default function namespace( state = initialState, action ) {
 			announcements: action.payload.announcements,
 			enableTicketing: action.payload.enableTicketing,
 			owners: action.payload.owners,
-			cohorts: action.payload.cohorts
+			cohorts: action.payload.cohorts,
+			completions: action.payload.completions
 		});
 	}
 	case types.DELETED_CURRENT_NAMESPACE: {
@@ -223,6 +225,51 @@ export default function namespace( state = initialState, action ) {
 	}
 	case types.LOGGED_OUT: {
 		return initialState;
+	}
+	case types.UPDATED_METRIC: {
+		console.log( 'UPDATED_METRIC IN CURRENT NS', action.payload );
+		if ( action.payload.level !== 'namespace' || action.payload.id !== state._id ) {
+			return state;
+		}
+		console.log( 'Need to update...' );
+		const completions = state.completions.slice();
+		const metric = action.payload.metric;
+		for ( let i = 0; i < completions.length; i++ ) {
+			if ( completions[ i ].name === metric.name ) {
+				completions[ i ] = metric;
+				break;
+			}
+		}
+		return Object.assign({}, state, {
+			completions
+		});
+	}
+	case types.CREATED_METRIC: {
+		if ( action.payload.level !== 'namespace' || action.payload.id !== state._id ) {
+			return state;
+		}
+		const completions = state.completions.slice();
+		completions.push( action.payload.metric );
+		return Object.assign({}, state, {
+			completions
+		});
+	}
+	case types.DELETED_METRIC: {
+		console.log( 'DELETED_METRIC IN CURRENT NS', action.payload );
+		if ( action.payload.level !== 'namespace' || action.payload.id !== state._id ) {
+			return state;
+		}
+		console.log( 'Need to update...' );
+		const newCompletions = [];
+		for ( let i = 0; i < state.completions.length; i++ ) {
+			if ( state.completions[ i ].name !== action.payload.name ) {
+				newCompletions.push( state.completions[ i ] );
+			}
+		}
+		console.log( 'newCompletions', newCompletions );
+		return Object.assign({}, state, {
+			completions: newCompletions
+		});
 	}
 	default:
 		return state;

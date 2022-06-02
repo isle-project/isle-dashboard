@@ -19,7 +19,6 @@
 
 import React, { useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
-import axios from 'axios';
 import { useTranslation } from 'react-i18next';
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
@@ -29,7 +28,6 @@ import Form from 'react-bootstrap/Form';
 import SelectInput from 'react-select';
 import CreatableSelect from 'react-select/creatable';
 import objectValues from '@stdlib/utils/values';
-import server from 'constants/server';
 import { levelFieldMapping } from './level_fields.js';
 
 
@@ -44,7 +42,7 @@ const COVERAGE_OPTIONS = {
 
 // MAIN //
 
-function EditMetricModal({ level, entity, show, onHide, onCreate, allRules, refs, createNew, metric }) {
+function EditMetricModal({ level, entity, show, onHide, allRules, refs, createNew, metric, onConfirm }) {
 	const { t } = useTranslation();
 	const [ name, setName ] = useState( metric?.name || '' );
 	const [ rule, setRule ] = useState( metric?.rule ? allRules[ metric.rule[ 0 ] ] : null );
@@ -78,25 +76,16 @@ function EditMetricModal({ level, entity, show, onHide, onCreate, allRules, refs
 		}
 	}, [ level, entity, metric ] );
 
-	const handleCreate = () => {
-		console.log( 'Creating metric...' );
-		console.log( selectedRef );
-		axios.post( `${server}/create_metric`, {
+	const handleConfirm = () => {
+		onConfirm({
 			name,
 			rule: [ rule.name ].concat( ruleParameters ),
 			coverage: [ coverage.value ].concat( coverageEntities.map( x => x.value ) ),
 			level,
 			id: entity._id,
 			ref: selectedRef
-		})
-			.then( res => {
-				console.log( 'Metric created.' );
-				onCreate();
-				onHide();
-			})
-			.catch( err => {
-				console.log( 'Error creating metric:', err );
-			});
+		});
+		onHide();
 	};
 	const handleEntityChange = ( value ) => {
 		console.log( value );
@@ -199,7 +188,7 @@ function EditMetricModal({ level, entity, show, onHide, onCreate, allRules, refs
 				<Button onClick={onHide}>
 					{t('common:cancel')}
 				</Button>
-				<Button variant="success" onClick={handleCreate} disabled={!rule || !name} >
+				<Button variant="success" onClick={handleConfirm} disabled={!rule || !name} >
 					{createNew ? t('common:create') : t('common:save')}
 				</Button>
 			</Modal.Footer>

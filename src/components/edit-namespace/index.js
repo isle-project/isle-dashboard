@@ -44,7 +44,7 @@ import TextSelect from 'components/text-select';
 import MsgModal from 'components/message-modal';
 import ConfirmModal from 'components/confirm-modal';
 import { validateOwners, validateDescription, validateTitle } from 'components/create-namespace';
-import CompletionsPage from 'components/completions';
+import CompletionsPage from 'containers/visible-completions';
 import checkURLPath from 'utils/check_url_path.js';
 import EditCohortModal from './edit_cohort_modal.js';
 import CreateCohortModal from './create_cohort_modal.js';

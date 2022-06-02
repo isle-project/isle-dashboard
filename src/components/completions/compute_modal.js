@@ -166,7 +166,7 @@ function ComputeModal({ cohorts, metric, entity, level, show, tags, onHide }) {
 				multiples: formValues.policyOptions.multiples.value
 			}
 		};
-		axios.post( server+'/calculate_completions', body ).then( response => {
+		axios.post( server+'/compute_completions', body ).then( response => {
 			console.log( response );
 		});
 	}, [ metric, entity, formValues, FORM_STORAGE_KEY ] );
