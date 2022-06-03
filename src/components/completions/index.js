@@ -288,12 +288,11 @@ function CompletionsPage( props ) {
 
 CompletionsPage.propTypes = {
 	cohorts: PropTypes.array.isRequired,
-	entity: PropTypes.object.isRequired,
-	level: PropTypes.string.isRequired,
 	createMetric: PropTypes.func.isRequired,
 	deleteMetric: PropTypes.func.isRequired,
-	updateMetric: PropTypes.func.isRequired,
-	transposeMetric: PropTypes.func.isRequired,
+	entity: PropTypes.object.isRequired,
+	level: PropTypes.string.isRequired,
+	updateMetric: PropTypes.func.isRequired
 };
 
 
