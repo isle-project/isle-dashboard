@@ -324,8 +324,7 @@ CompletionsPage.propTypes = {
 	addNotification: PropTypes.func.isRequired,
 	cohorts: PropTypes.array.isRequired,
 	lessons: PropTypes.array.isRequired,
-	namespace: PropTypes.object.isRequired,
-	user: PropTypes.object.isRequired
+	namespace: PropTypes.object.isRequired
 };
 
 CompletionsPage.defaultProps = {

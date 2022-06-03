@@ -197,6 +197,25 @@ function EditMetricModal({ level, entity, show, onHide, allRules, refs, createNe
 }
 
 
+// PROPERTIES //
+
+EditMetricModal.propTypes = {
+	allRules: PropTypes.object.isRequired,
+	createNew: PropTypes.bool.isRequired,
+	entity: PropTypes.object.isRequired,
+	level: PropTypes.oneOf([ 'program', 'namespace', 'lesson', 'component' ]).isRequired,
+	metric: PropTypes.object,
+	onConfirm: PropTypes.func.isRequired,
+	onHide: PropTypes.func.isRequired,
+	refs: PropTypes.array.isRequired,
+	show: PropTypes.bool.isRequired
+};
+
+EditMetricModal.defaultProps = {
+	metric: null
+};
+
+
 // EXPORTS //
 
 export default EditMetricModal;
