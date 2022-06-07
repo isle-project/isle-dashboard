@@ -56,14 +56,11 @@ const MULTIPLES_POLICIES = [
 function createTagWeights( tags, existingWeights={} ) {
 	if ( !tags ) {
 		return {
-			'DEFAULT': 1
+			'_default_tag': 1
 		};
 	}
 	const weights = {};
 	tags.forEach( tag => {
-		if ( tag === '_default_tag' ) {
-			tag = 'DEFAULT';
-		}
 		weights[ tag ] = existingWeights?.[ tag ] ?? 1;
 	});
 	return weights;
@@ -76,7 +73,7 @@ const memberSelection =( member ) => {
 	return { value: member.id, label: `${member.firstName} ${member.lastName} (${member.email})` };
 };
 
-function TagWeightInput({ value, onChange }) {
+function TagWeightInput({ value, t, onChange }) {
 	const tags = Object.keys( value );
 	const handleChange = useCallback( ( event ) => {
 		const weight = Number( event.target.value );
@@ -91,7 +88,7 @@ function TagWeightInput({ value, onChange }) {
 		const tag = tags[ i ];
 		const weight = value[ tag ];
 		inputs[ i ] = ( <Form.Group className="mb-1" as={Row} key={`tag-${i}`} >
-			<Form.Label column sm={3} >{tag}</Form.Label>
+			<Form.Label column sm={3} >{tag === '_default_tag' ? t( 'default' ) : tag}</Form.Label>
 			<Col sm={9} >
 				<Form.Control
 					type="number"
@@ -305,7 +302,7 @@ function ComputeModal({ cohorts, metric, entity, level, show, tags, onHide }) {
 							{t('tag-weights')}
 						</Form.Label>
 						<Col sm={8} >
-							<TagWeightInput value={formValues.policyOptions.tagWeights} onChange={handleTagWeightsChange} />
+							<TagWeightInput value={formValues.policyOptions.tagWeights} onChange={handleTagWeightsChange} t={t} />
 						</Col>
 						<Col sm={1} >
 							<HelpIcon>
@@ -321,7 +318,7 @@ function ComputeModal({ cohorts, metric, entity, level, show, tags, onHide }) {
 				<Button onClick={onHide}>
 					{t('common:cancel')}
 				</Button>
-				<Button variant="success" onClick={onCalculate} >
+				<Button variant="success" onClick={onCalculate} disabled={formValues.users.length === 0}>
 					{t('common:calculate')}
 				</Button>
 			</Modal.Footer>
