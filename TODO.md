@@ -17,3 +17,4 @@ TODO
   -   Creation and management of lesson completion metrics (copying, reuse, automatic instantiation of metrics)
   -   Completion table in the dashboard with the latest user data and recompute button
   -   Generalize coverage to support patterns and types
+  -   Add 'metric_order' endpoint
