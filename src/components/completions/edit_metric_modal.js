@@ -49,7 +49,7 @@ function EditMetricModal({ level, entity, show, onHide, allRules, refs, createNe
 	const [ ruleParameters, setRuleParameters ] = useState( metric?.rule ? metric.rule.slice( 1 ) : [] );
 	const [ coverage, setCoverage ] = useState( COVERAGE_OPTIONS[ metric?.coverage?.[ 0 ] || 'all' ] );
 	const [ coverageEntities, setCoverageEntities ] = useState( [] );
-	const [ selectedRef, setSelectedRef ] = useState( null );
+	const [ selectedRef, setSelectedRef ] = useState( metric?.ref || null );
 	const subEntities = useRef( [] );
 
 	useEffect( () => {
@@ -180,6 +180,7 @@ function EditMetricModal({ level, entity, show, onHide, allRules, refs, createNe
 								onChange={( option ) => {
 									setSelectedRef( option ? option.value : null );
 								}}
+								defaultValue={selectedRef ? { value: selectedRef, label: selectedRef } : null}
 							/>
 					</Form.Group>
 				</Container>
