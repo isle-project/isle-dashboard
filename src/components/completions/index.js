@@ -105,16 +105,27 @@ function CompletionsPage( props ) {
 					'_default_tag'
 				]);
 			});
-		axios.post( `${server}/completion_refs`, {
-			target: levelPredecessorMapping[ props.level ],
-			entities: props.entity[ levelFieldMapping[ props.level ] ]
-		})
-			.then( response => {
-				setRefs( response.data );
+		if ( props.level === 'lesson' ) {
+			axios.post( `${server}/completion_refs`, {
+				target: levelPredecessorMapping[ props.level ],
+				entities: props.entity[ levelFieldMapping[ props.level ] ]
 			})
-			.catch( err => {
-				console.log( 'Error fetching completion refs:', err );
+				.then( response => {
+					setRefs( response.data );
+				})
+				.catch( err => {
+					console.log( 'Error fetching completion refs:', err );
+				});
+		} else {
+			const subentities = props.entity[ levelFieldMapping[ props.level ] ];
+			const completions = new Set();
+			subentities.forEach( subentity => {
+				subentity.completions.forEach( completion => {
+					completions.add( completion.name );
+				});
 			});
+			setRefs( Array.from( completions ).sort() );
+		}
 	}, [ props.entity, props.level ] );
 
 	const handleDeleteMetric = () => {
