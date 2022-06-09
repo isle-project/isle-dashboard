@@ -15,6 +15,10 @@ TODO
 
 7. Completions:
   -   Creation and management of lesson completion metrics (copying, reuse, automatic instantiation of metrics)
+      -   Analysis of existing lesson completion metrics based on the name in modal
+      -   Render lesson form elements based on the analysis results
+      -   Save and cancel button functionality 
+      -   Look at sorting / preferred lesson 
   -   Completion table in the dashboard with the latest user data and recompute button
   -   Generalize coverage to support patterns and types
   -   Add 'metric_order' endpoint
