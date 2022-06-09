@@ -18,26 +18,26 @@ export const levelFieldMapping = {
 * @returns {string} predecessor level
 */
 export function predecessor( level ) {
-    switch ( level ) {
-            case 'lesson':
-                    return 'component';
-            case 'namespace':
-                    return 'lesson';
-            case 'program':
-                    return 'namespace';
-            case 'global':
-                    return 'program';
-            case 'component':
-            default:
-                    return null;
-    }
+	switch ( level ) {
+	case 'lesson':
+		return 'component';
+	case 'namespace':
+		return 'lesson';
+	case 'program':
+		return 'namespace';
+	case 'global':
+		return 'program';
+	case 'component':
+	default:
+		return null;
+	}
 }
 
 /**
 * Returns the next lower level in the hierarchy.
 */
 export const levelPredecessorMapping = {
-    global: 'program',
+	global: 'program',
 	program: 'namespace',
 	namespace: 'lesson',
 	lesson: 'component',

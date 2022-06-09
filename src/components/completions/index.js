@@ -31,6 +31,7 @@ import server from 'constants/server';
 import ConfirmModal from 'components/confirm-modal';
 import ComputeModal from './compute_modal.js';
 import EditMetricModal from './edit_metric_modal.js';
+import SharedEditLessonMetricsModal from './shared_edit_lesson_metrics_modal.js';
 import { levelFieldMapping, levelPredecessorMapping } from './level_fields.js';
 import './completions.css';
 
@@ -86,6 +87,7 @@ function CompletionsPage( props ) {
 	const [ showDeleteModal, setShowDeleteModal ] = useState( false );
 	const [ showCreateModal, setShowCreateModal ] = useState( false );
 	const [ showEditModal, setShowEditModal ] = useState( false );
+	const [ showLessonMetricsModal, setShowLessonMetricsModal ] = useState( false );
 	const [ tags, setTags ] = useState( null );
 	const [ refs, setRefs ] = useState( null );
 	const metrics = props.entity.completions;
@@ -106,16 +108,7 @@ function CompletionsPage( props ) {
 				]);
 			});
 		if ( props.level === 'lesson' ) {
-			axios.post( `${server}/completion_refs`, {
-				target: levelPredecessorMapping[ props.level ],
-				entities: props.entity[ levelFieldMapping[ props.level ] ]
-			})
-				.then( response => {
-					setRefs( response.data );
-				})
-				.catch( err => {
-					console.log( 'Error fetching completion refs:', err );
-				});
+			setRefs( props.lessonRefs );
 		} else {
 			const subentities = props.entity[ levelFieldMapping[ props.level ] ];
 			const completions = new Set();
@@ -126,7 +119,7 @@ function CompletionsPage( props ) {
 			});
 			setRefs( Array.from( completions ).sort() );
 		}
-	}, [ props.entity, props.level ] );
+	}, [ props.entity, props.level, props.lessonRefs ] );
 
 	const handleDeleteMetric = () => {
 		const idx = metrics.findIndex( metric => metric.name === selectedMetric.name );
@@ -237,11 +230,18 @@ function CompletionsPage( props ) {
 					);
 				})}
 			</ListGroup>
-			<OverlayTrigger placement="right" overlay={<Tooltip id="tooltip-create-metric" >{t( 'create-metric-tooltip' )}</Tooltip>} >
+			<OverlayTrigger placement="bottom" overlay={<Tooltip id="tooltip-create-metric" >{t( 'create-metric-tooltip' )}</Tooltip>} >
 				<Button variant="primary" style={{ marginTop: 12 }} onClick={() => {
 					setShowCreateModal( true );
 				}} >
-					{t('common:create-completion-metric')}
+					{t('create-completion-metric')}
+				</Button>
+			</OverlayTrigger>
+			<OverlayTrigger placement="bottom" overlay={<Tooltip id="tooltip-create-metric" >{t( 'create-lesson-metrics-tooltip' )}</Tooltip>} >
+				<Button variant="primary" style={{ marginTop: 12, marginLeft: 6 }} onClick={() => {
+					setShowLessonMetricsModal( true );
+				}} >
+					{t('create-lesson-metrics')}
 				</Button>
 			</OverlayTrigger>
 			{selectedMetric ? <ComputeModal
@@ -289,7 +289,14 @@ function CompletionsPage( props ) {
 				metric={selectedMetric}
 				onConfirm={props.updateMetric}
 			/> : null}
-
+			{showLessonMetricsModal ? <SharedEditLessonMetricsModal
+				key="lesson-metrics-modal"
+				show={showLessonMetricsModal}
+				onHide={() => setShowLessonMetricsModal( false )}
+				lessons={props.entity.lessons}
+				allRules={COMPLETION_RULES}
+				lessonRefs={props.lessonRefs}
+			/> : null}
 		</div>
 	);
 }
@@ -302,6 +309,7 @@ CompletionsPage.propTypes = {
 	createMetric: PropTypes.func.isRequired,
 	deleteMetric: PropTypes.func.isRequired,
 	entity: PropTypes.object.isRequired,
+	lessonRefs: PropTypes.array.isRequired,
 	level: PropTypes.string.isRequired,
 	updateMetric: PropTypes.func.isRequired
 };

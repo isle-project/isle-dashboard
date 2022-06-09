@@ -19,6 +19,7 @@
 
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
+import axios from 'axios';
 import { withTranslation } from 'react-i18next';
 import Tabs from 'react-bootstrap/Tabs';
 import Tab from 'react-bootstrap/Tab';
@@ -74,8 +75,24 @@ class EditNamespace extends Component {
 			showImportModal: false,
 			showCreateCohortModal: false,
 			showEditCohortModal: false,
-			selectedCohort: null
+			selectedCohort: null,
+			lessonRefs: []
 		};
+	}
+
+	componentDidMount() {
+		axios.post( `${SERVER}/completion_refs`, {
+			target: 'lesson',
+			entities: this.props.namespace.lessons.map( x => x._id )
+		})
+			.then( response => {
+				this.setState({
+					lessonRefs: response.data
+				});
+			})
+			.catch( err => {
+				console.log( 'Error fetching completion refs:', err );
+			});
 	}
 
 	handleInputChange = ( event ) => {
@@ -276,6 +293,7 @@ class EditNamespace extends Component {
 										entity={this.props.namespace}
 										level="namespace"
 										cohorts={this.props.cohorts}
+										lessonRefs={this.state.lessonRefs}
 									/>
 								</Tab>
 								<Tab eventKey="edit-course" title={<h3>{t('edit-course')}</h3>} style={{ padding: 12 }} >

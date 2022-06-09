@@ -21,11 +21,10 @@ import React, { useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import Button from 'react-bootstrap/Button';
-import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
-import SelectInput from 'react-select';
+import SelectInput, { components } from 'react-select';
 import CreatableSelect from 'react-select/creatable';
 import objectValues from '@stdlib/utils/values';
 import { levelFieldMapping } from './level_fields.js';
@@ -63,12 +62,12 @@ function EditMetricModal({ level, entity, show, onHide, allRules, refs, createNe
 			subEntities.current = entities.map( x => {
 				return {
 					label: x.title,
-					value: x._id
+					value: x
 				};
 			});
 			if ( metric && metric.coverage ) {
 				const ids = new Set( metric.coverage.slice( 1 ) );
-				setCoverageEntities( subEntities.current.filter( x => ids.has( x.value ) ) );
+				setCoverageEntities( subEntities.current.filter( x => ids.has( x.value._id ) ) );
 			}
 		}
 		else {
@@ -80,7 +79,7 @@ function EditMetricModal({ level, entity, show, onHide, allRules, refs, createNe
 		onConfirm({
 			name,
 			rule: [ rule.name ].concat( ruleParameters ),
-			coverage: [ coverage.value ].concat( coverageEntities.map( x => x.value ) ),
+			coverage: [ coverage.value ].concat( coverageEntities.map( x => x.value._id ) ),
 			level,
 			id: entity._id,
 			ref: selectedRef
@@ -93,6 +92,20 @@ function EditMetricModal({ level, entity, show, onHide, allRules, refs, createNe
 	};
 	console.log( 'Sub-entities:' );
 	console.log( subEntities.current );
+
+	const labelStyler = ( styles, { data }) => {
+		if ( !selectedRef || data.value.completions.some( x => x.name === selectedRef ) ) {
+			return styles;
+		}
+		return {
+			...styles,
+			opacity: 0.65
+		};
+	};
+	const subentitySelectorStyles = {
+		option: labelStyler,
+		multiValueLabel: labelStyler
+	};
 	return (
 		<Modal size="lg" show={show} onHide={onHide}>
 			<Modal.Header closeButton >
@@ -102,88 +115,96 @@ function EditMetricModal({ level, entity, show, onHide, allRules, refs, createNe
 				<p>
 					{createNew ? t('create-completion-metric-description') : t('edit-completion-metric-description')}
 				</p>
-				<Container>
-					<Form.Group className="mb-2" as={Row} >
-						<Form.Label>{t('common:name')}</Form.Label>
-						<Form.Control
-							name="metric-name"
-							type="text"
-							placeholder={t('metric-name-placeholder')}
-							onChange={( event ) => setName( event.target.value )}
-							value={name}
-						/>
-					</Form.Group>
-					<Form.Group className="mb-2" as={Row} >
-						<Form.Label>{t('common:coverage')}</Form.Label>
+				<Form.Group className="mb-2" >
+					<Form.Label>{t('common:name')}</Form.Label>
+					<Form.Control
+						name="metric-name"
+						type="text"
+						placeholder={t('metric-name-placeholder')}
+						onChange={( event ) => setName( event.target.value )}
+						value={name}
+					/>
+				</Form.Group>
+				<Form.Group className="mb-2" >
+					<Form.Label>{t('common:rule')}</Form.Label>
+					<SelectInput
+						options={objectValues( allRules ).map( ( rule ) => ({ value: rule, label: rule.label }) )}
+						onChange={( option ) => {
+							const newRule = option.value;
+							setRule( newRule );
+							setRuleParameters( newRule.defaults );
+						}}
+						value={rule ? { value: rule, label: rule.label } : null}
+					/>
+				</Form.Group>
+				{rule && rule.parameters.length > 0 ?
+					rule.parameters.map( ( parameter, idx ) => {
+						return (
+							<Form.Group key={`param-${idx}`} className="mb-2" >
+								<Form.Label>{parameter.name}</Form.Label>
+								<Form.Control
+									name={parameter.name}
+									type={parameter.type}
+									placeholder={t('enter-parameter-value')}
+									onChange={( event ) => {
+										const newParams = ruleParameters.slice();
+										switch ( parameter.type ) {
+											case 'number':
+												newParams[ idx ] = parseFloat( event.target.value );
+												break;
+											case 'string':
+												newParams[ idx ] = event.target.value;
+												break;
+										}
+										setRuleParameters( newParams );
+									}}
+									defaultValue={ruleParameters[ idx ] !== void 0 ? ruleParameters[ idx ] : rule.defaults[ idx ]}
+								/>
+							</Form.Group>
+						);
+					}) : null}
+				<Form.Group className="mb-2" >
+					<Form.Label>{t('common:ref')}</Form.Label>
+					<CreatableSelect
+						isClearable
+						options={refs.map( ( ref ) => ({ value: ref, label: ref }) )}
+						onChange={( option ) => {
+							setSelectedRef( option ? option.value : null );
+						}}
+						defaultValue={selectedRef ? { value: selectedRef, label: selectedRef } : null}
+					/>
+				</Form.Group>
+				<Form.Group className="mb-2" as={Row} >
+					<Form.Label>{t('common:coverage')}</Form.Label>
+					<SelectInput
+						options={objectValues( COVERAGE_OPTIONS )}
+						onChange={( option ) => {
+							setCoverage( option );
+							if ( option.value === 'all' ) {
+								setCoverageEntities( [] );
+							}
+						}}
+						value={coverage}
+					/>
+					{( coverage.value === 'include' || coverage.value === 'exclude' ) ?
 						<SelectInput
-							options={objectValues( COVERAGE_OPTIONS )}
-							onChange={( option ) => {
-								setCoverage( option );
-								if ( option.value === 'all' ) {
-									setCoverageEntities( [] );
+							isMulti
+							options={subEntities.current}
+							onChange={handleEntityChange}
+							value={coverageEntities}
+							styles={subentitySelectorStyles}
+							placeholder="Select lessons..."
+							components={{
+								Placeholder: ({ children, isFocused, ...rest }) => {
+									console.log( rest );
+									return ( <components.Placeholder {...rest}>
+										{children} {isFocused ? '(opaque lessons have no metric for the selected ref)' : ''}
+									</components.Placeholder> );
 								}
 							}}
-							value={coverage}
-						/>
-						{( coverage.value === 'include' || coverage.value === 'exclude' ) ?
-							<SelectInput
-								isMulti
-								options={subEntities.current}
-								onChange={handleEntityChange}
-								value={coverageEntities}
-							/> : null
-						}
-					</Form.Group>
-					<Form.Group className="mb-2" as={Row} >
-						<Form.Label>{t('common:rule')}</Form.Label>
-						<SelectInput
-							options={objectValues( allRules ).map( ( rule ) => ({ value: rule, label: rule.label }) )}
-							onChange={( option ) => {
-								const newRule = option.value;
-								setRule( newRule );
-								setRuleParameters( newRule.defaults );
-							}}
-							value={rule ? { value: rule, label: rule.label } : null}
-						/>
-					</Form.Group>
-					{rule && rule.parameters.length > 0 ?
-						rule.parameters.map( ( parameter, idx ) => {
-							return (
-								<Form.Group key={`param-${idx}`} className="mb-2" as={Row} >
-									<Form.Label>{parameter.name}</Form.Label>
-									<Form.Control
-										name={parameter.name}
-										type={parameter.type}
-										placeholder={t('enter-parameter-value')}
-										onChange={( event ) => {
-											const newParams = ruleParameters.slice();
-											switch ( parameter.type ) {
-												case 'number':
-													newParams[ idx ] = parseFloat( event.target.value );
-													break;
-												case 'string':
-													newParams[ idx ] = event.target.value;
-													break;
-											}
-											setRuleParameters( newParams );
-										}}
-										defaultValue={ruleParameters[ idx ] !== void 0 ? ruleParameters[ idx ] : rule.defaults[ idx ]}
-									/>
-								</Form.Group>
-							);
-						}) : null}
-						<Form.Group className="mb-2" as={Row} >
-							<Form.Label>{t('common:ref')}</Form.Label>
-							<CreatableSelect
-								isClearable
-								options={refs.map( ( ref ) => ({ value: ref, label: ref }) )}
-								onChange={( option ) => {
-									setSelectedRef( option ? option.value : null );
-								}}
-								defaultValue={selectedRef ? { value: selectedRef, label: selectedRef } : null}
-							/>
-					</Form.Group>
-				</Container>
+						/> : null
+					}
+				</Form.Group>
 			</Modal.Body>
 			<Modal.Footer>
 				<Button onClick={onHide}>
