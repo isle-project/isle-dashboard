@@ -32,7 +32,7 @@ import ConfirmModal from 'components/confirm-modal';
 import ComputeModal from './compute_modal.js';
 import EditMetricModal from './edit_metric_modal.js';
 import SharedEditLessonMetricsModal from './shared_edit_lesson_metrics_modal.js';
-import { levelFieldMapping, levelPredecessorMapping } from './level_fields.js';
+import { levelFieldMapping } from './level_fields.js';
 import './completions.css';
 
 
