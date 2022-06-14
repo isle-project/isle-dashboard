@@ -136,6 +136,11 @@ label {
 	width: 30%;
 }
 
+.modal-80h {
+	max-height: none !important;
+	height: 80vh;
+}
+
 #popover-data .arrow {
 	display: none;
 }
