@@ -17,7 +17,7 @@
 
 // MODULES //
 
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import Button from 'react-bootstrap/Button';
@@ -29,6 +29,7 @@ import InputGroup from 'react-bootstrap/InputGroup';
 import SelectInput from 'react-select';
 import CreatableSelect from 'react-select/creatable';
 import objectValues from '@stdlib/utils/values';
+import hash from 'object-hash';
 
 
 // VARIABLES //
@@ -36,7 +37,7 @@ import objectValues from '@stdlib/utils/values';
 const SELECT_STYLES = {
 	menuPortal: ( base ) => ({
 		...base,
-		zIndex: 9999,
+		zIndex: 9999
 	})
 };
 
@@ -78,39 +79,89 @@ function analyzeLessonMetrics( name, lessons ) {
 		activeLessons: {},
 		hasSharedRule: true,
 		hasSharedRef: true,
-		rule: [ null ],
+		rule: null,
 		ref: null
 	};
+}
+
+function availableLessonMetrics( lessons ) {
+	const allMetrics = lessons.reduce( ( acc, lesson ) => {
+		lesson.completions.forEach( metric => {
+			acc.add( metric.name );
+		});
+		return acc;
+	}, new Set() );
+	return Array.from( allMetrics ).sort().map( metric => ({ value: metric, label: metric }) );
 }
 
 
 // MAIN //
 
 function SharedEditLessonMetricsModal({ name, preferredLesson, lessons, lessonRefs, allRules, show, onHide, onConfirm }) {
-	const [ chosenName, setChosenName ] = useState( null );
-	const [ displayedName, setDisplayedName ] = useState( name );
+	const [ chosenName, setChosenName ] = useState( name );
 	const [ hasSharedRule, setHasSharedRule ] = useState( false );
 	const [ sharedRule, setSharedRule ] = useState( null );
 	const [ sharedRuleParameters, setSharedRuleParameters ] = useState( [] );
 	const [ hasSharedRef, setHasSharedRef ] = useState( false );
 	const [ sharedRef, setSharedRef ] = useState( null );
 	const [ activeLessons, setActiveLessons ] = useState( {} );
+	const [ currentHash, setCurrentHash ] = useState( null );
 
-	useEffect( () => {
-		const analysis = analyzeLessonMetrics( chosenName, lessons );
-		console.log( 'ANALYSIS' );
-		console.log( analysis );
+	const availableMetrics = useRef( null );
+	const analyzedHash = useRef( null );
+	const analysisRef = useRef( null );
+
+	const incorporateAnalysis = useCallback( ( analysis ) => {
 		setHasSharedRule( analysis.hasSharedRule );
-		if ( analysis.hasSharedRule && analysis.rule[ 0 ] ) {
-			setSharedRule( allRules[ analysis.rule[ 0 ] ] );
-			setSharedRuleParameters( analysis.rule.slice( 1 ) );
+		let newSharedRule = null;
+		let newSharedRuleParameters = [];
+		if ( analysis.hasSharedRule && analysis.rule && analysis.rule[ 0 ] ) {
+			newSharedRule = allRules[ analysis.rule[ 0 ] ];
+			newSharedRuleParameters = analysis.rule.slice( 1 );
+			setSharedRule( newSharedRule );
+			setSharedRuleParameters( newSharedRuleParameters );
 		}
 		setHasSharedRef( analysis.hasSharedRef );
 		if ( analysis.hasSharedRef ) {
 			setSharedRef( analysis.ref );
 		}
+		const obj = {
+			sharedRule: newSharedRule,
+			sharedRuleParameters: newSharedRuleParameters,
+			sharedRef: analysis.hasSharedRef ? analysis.ref : null,
+			activeLessons: analysis.activeLessons
+		};
+		console.log( 'Analyzed HASHED OBJ: ');
+		console.log( obj );
+		analyzedHash.current = hash( obj );
+		console.log( 'Analyzed HASHED: ' + analyzedHash.current );
+		setCurrentHash( analyzedHash.current );
 		setActiveLessons( analysis.activeLessons );
-	}, [ allRules, lessons, chosenName ] );
+	}, [ allRules ] );
+
+	useEffect( () => {
+		availableMetrics.current = availableLessonMetrics( lessons );
+	}, [ lessons ] );
+	useEffect( () => {
+		console.log( 'EFFECT...' );
+		console.log( chosenName );
+		const analysis = analyzeLessonMetrics( chosenName, lessons );
+		console.log( 'ANALYSIS' );
+		console.log( analysis );
+		analysisRef.current = analysis;
+		incorporateAnalysis( analysis );
+	}, [ allRules, incorporateAnalysis, lessons, chosenName ] );
+	useEffect( () => {
+		const obj = {
+			sharedRule: hasSharedRule ? sharedRule : null,
+			sharedRuleParameters: hasSharedRule ? sharedRuleParameters : [],
+			sharedRef: hasSharedRef ? sharedRef : null,
+			activeLessons
+		};
+		console.log( 'CURRENT HASHED OBJ: ');
+		console.log( obj );
+		setCurrentHash( hash( obj ) );
+	}, [ sharedRule, sharedRef, sharedRuleParameters, activeLessons, hasSharedRef, hasSharedRule ] );
 
 	function lessonActivator() {
 		return {
@@ -310,9 +361,12 @@ function SharedEditLessonMetricsModal({ name, preferredLesson, lessons, lessonRe
 			</>
 		);
 	});
+	console.log( currentHash );
+	console.log( analyzedHash.current );
+	const hasUnsavedChanges = currentHash !== analyzedHash.current;
 	return (
 		<Modal size="lg" show={show} onHide={onHide} dialogClassName="modal-75w modal-80h" >
-			<Modal.Header closeButton >
+			<Modal.Header closeButton={!hasUnsavedChanges} >
 				<Modal.Title as="h3">{t('lesson-metrics')}</Modal.Title>
 			</Modal.Header>
 			<Modal.Body>
@@ -320,25 +374,24 @@ function SharedEditLessonMetricsModal({ name, preferredLesson, lessons, lessonRe
 					{t('lesson-metrics-description')}
 				</p>
 				<InputGroup className="mb-2" >
-					<InputGroup.Text>{t('common:name')}</InputGroup.Text>
-					<Form.Control
+					<InputGroup.Text>{t('metric-name')}</InputGroup.Text>
+					<CreatableSelect
 						name="metric-name"
-						type="text"
 						placeholder={t('metric-name-placeholder')}
-						onChange={( event ) => setDisplayedName( event.target.value )}
-						value={displayedName}
-						disabled={!!chosenName}
+						onChange={( value ) => {
+							if ( value ) {
+								setChosenName( value.value );
+							} else {
+								setChosenName( null );
+								setSharedRule( null );
+								setSharedRef( null );
+							}
+						}}
+						value={chosenName ? { value: chosenName, label: chosenName } : null}
+						isClearable
+						isDisabled={name || ( currentHash && currentHash !== analyzedHash.current )}
+						options={availableMetrics.current}
 					/>
-					<Button variant="secondary" onClick={() => {
-						if ( !chosenName ) {
-							setChosenName( displayedName );
-						} else {
-							setChosenName( null );
-							setDisplayedName( '' );
-						}
-					}}>
-						{!chosenName ? t('use') : t('clear')}
-					</Button>
 				</InputGroup >
 				{chosenName ? <>
 					{sharedInputs}
@@ -367,8 +420,19 @@ function SharedEditLessonMetricsModal({ name, preferredLesson, lessons, lessonRe
 				</> : null}
 			</Modal.Body>
 			{chosenName && <Modal.Footer>
-				<Button onClick={onHide}>
-					{t('common:cancel')}
+				<Button onClick={onHide} disabled={hasUnsavedChanges} >
+					{t('common:dismiss')}
+				</Button>
+				<Button
+					variant={hasUnsavedChanges ? 'warning' : 'secondary'}
+					disabled={!hasUnsavedChanges}
+					onClick={() => {
+						if ( analysisRef.current ) {
+							incorporateAnalysis( analysisRef.current );
+						}
+					}}
+				>
+					{t('discard-unsaved-changes')}
 				</Button>
 				<Button variant="success" onClick={onConfirm} >
 					{t('common:save')}

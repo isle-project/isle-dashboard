@@ -244,11 +244,11 @@ function CompletionsPage( props ) {
 					{t('create-completion-metric')}
 				</Button>
 			</OverlayTrigger>
-			<OverlayTrigger placement="bottom" overlay={<Tooltip id="tooltip-create-metric" >{t( 'create-lesson-metrics-tooltip' )}</Tooltip>} >
+			<OverlayTrigger placement="bottom" overlay={<Tooltip id="tooltip-create-metric" >{t( 'lesson-metrics-tooltip' )}</Tooltip>} >
 				<Button variant="primary" style={{ marginTop: 12, marginLeft: 6 }} onClick={() => {
 					setShowLessonMetricsModal( true );
 				}} >
-					{t('create-lesson-metrics')}
+					{t('lesson-metrics')}
 				</Button>
 			</OverlayTrigger>
 			{selectedMetric ? <ComputeModal
