@@ -17,7 +17,7 @@
 
 // MODULES //
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import Button from 'react-bootstrap/Button';
@@ -31,6 +31,16 @@ import CreatableSelect from 'react-select/creatable';
 import objectValues from '@stdlib/utils/values';
 
 
+// VARIABLES //
+
+const SELECT_STYLES = {
+	menuPortal: ( base ) => ({
+		...base,
+		zIndex: 9999,
+	})
+};
+
+
 // FUNCTIONS //
 
 function convertRuleParameter( value, parameter ) {
@@ -40,6 +50,37 @@ function convertRuleParameter( value, parameter ) {
 		case 'string':
 			return value;
 	}
+}
+
+function analyzeLessonMetrics( name, lessons ) {
+	const lessonInfo = lessons.reduce( (acc, lesson) => {
+		const namedMetric = lesson.completions.find( metric => metric.name === name );
+		if ( namedMetric ) {
+			acc.active[lesson._id] = namedMetric;
+			acc.rules.add( JSON.stringify(namedMetric.rule) );
+			acc.rule = namedMetric.rule;
+			acc.refs.add( namedMetric.ref );
+			acc.ref = namedMetric.ref;
+		}
+		return acc;
+	}, { rules: new Set(), refs: new Set(), active: {}, rule: null, ref: null }, lessons);
+
+	if ( lessonInfo.rules.size > 0 ) {
+		return {
+			hasSharedRule: lessonInfo.rules.size === 1,
+			hasSharedRef: lessonInfo.refs.size === 1,
+			activeLessons: lessonInfo.active,
+			rule: lessonInfo.rule,
+			ref: lessonInfo.ref
+		};
+	}
+	return {
+		activeLessons: {},
+		hasSharedRule: true,
+		hasSharedRef: true,
+		rule: [ null ],
+		ref: null
+	};
 }
 
 
@@ -54,6 +95,22 @@ function SharedEditLessonMetricsModal({ name, preferredLesson, lessons, lessonRe
 	const [ hasSharedRef, setHasSharedRef ] = useState( false );
 	const [ sharedRef, setSharedRef ] = useState( null );
 	const [ activeLessons, setActiveLessons ] = useState( {} );
+
+	useEffect( () => {
+		const analysis = analyzeLessonMetrics( chosenName, lessons );
+		console.log( 'ANALYSIS' );
+		console.log( analysis );
+		setHasSharedRule( analysis.hasSharedRule );
+		if ( analysis.hasSharedRule && analysis.rule[ 0 ] ) {
+			setSharedRule( allRules[ analysis.rule[ 0 ] ] );
+			setSharedRuleParameters( analysis.rule.slice( 1 ) );
+		}
+		setHasSharedRef( analysis.hasSharedRef );
+		if ( analysis.hasSharedRef ) {
+			setSharedRef( analysis.ref );
+		}
+		setActiveLessons( analysis.activeLessons );
+	}, [ allRules, lessons, chosenName ] );
 
 	function lessonActivator() {
 		return {
@@ -76,7 +133,7 @@ function SharedEditLessonMetricsModal({ name, preferredLesson, lessons, lessonRe
 					onChange={( event ) => {
 						setHasSharedRule( event.target.checked );
 					}}
-					value={hasSharedRule}
+					checked={hasSharedRule}
 				/>
 			</Col>
 			<Form.Label column sm={2} >{t('common:rule')}</Form.Label>
@@ -124,7 +181,7 @@ function SharedEditLessonMetricsModal({ name, preferredLesson, lessons, lessonRe
 					onChange={( event ) => {
 						setHasSharedRef( event.target.checked );
 					}}
-					value={hasSharedRef}
+					checked={hasSharedRef}
 				/>
 			</Col>
 			<Form.Label column sm={2} >{t('common:ref')}</Form.Label>
@@ -136,7 +193,7 @@ function SharedEditLessonMetricsModal({ name, preferredLesson, lessons, lessonRe
 					onChange={( option ) => {
 						setSharedRef( option ? option.value : null );
 					}}
-					defaultValue={sharedRef ? { value: sharedRef, label: sharedRef } : null}
+					value={sharedRef ? { value: sharedRef, label: sharedRef } : null}
 				/>
 			</Col>
 		</Form.Group>
@@ -199,6 +256,9 @@ function SharedEditLessonMetricsModal({ name, preferredLesson, lessons, lessonRe
 									setActiveLessons( newActive );
 								}}
 								value={defaultRule}
+								menuPortalTarget={document.body}
+								menuPlacement="auto"
+								styles={SELECT_STYLES}
 							/>
 						</Col>
 					</Form.Group>
@@ -240,6 +300,9 @@ function SharedEditLessonMetricsModal({ name, preferredLesson, lessons, lessonRe
 									setActiveLessons( newActive );
 								}}
 								value={defaultRef}
+								menuPortalTarget={document.body}
+								menuPlacement="auto"
+								styles={SELECT_STYLES}
 							/>
 						</Col>
 					</Form.Group>

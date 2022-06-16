@@ -47,6 +47,13 @@ const COMPLETION_RULES = {
 		parameters: [],
 		defaults: []
 	},
+	average: {
+		name: 'average',
+		label: 'Average',
+		description: 'Average value of the completions',
+		parameters: [],
+		defaults: []
+	},
 	dropLowest: {
 		name: 'dropLowest',
 		label: 'Drop Lowest',
