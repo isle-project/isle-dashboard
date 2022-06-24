@@ -28,15 +28,7 @@ import SelectInput, { components } from 'react-select';
 import CreatableSelect from 'react-select/creatable';
 import objectValues from '@stdlib/utils/values';
 import { levelFieldMapping } from './level_fields.js';
-
-
-// VARIABLES //
-
-const COVERAGE_OPTIONS = {
-	all: { value: 'all', label: 'All' },
-	include: { value: 'include', label: 'Include' },
-	exclude: { value: 'exclude', label: 'Exclude' }
-};
+import COVERAGE_OPTIONS from './coverage_options.json';
 
 
 // MAIN //

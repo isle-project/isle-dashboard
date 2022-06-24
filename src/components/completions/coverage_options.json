@@ -1,0 +1,5 @@
+{
+	"all": { "value": "all", "label": "All" },
+	"include": { "value": "include", "label": "Include" },
+	"exclude": { "value": "exclude", "label": "Exclude" }
+}

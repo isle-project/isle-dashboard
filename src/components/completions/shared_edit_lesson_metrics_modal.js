@@ -29,11 +29,13 @@ import InputGroup from 'react-bootstrap/InputGroup';
 import SelectInput from 'react-select';
 import CreatableSelect from 'react-select/creatable';
 import objectValues from '@stdlib/utils/values';
+import COVERAGE_OPTIONS from './coverage_options.json';
 import hash from 'object-hash';
 
 
 // VARIABLES //
 
+const COVERAGE_OPTIONS_ARRAY = objectValues( COVERAGE_OPTIONS );
 const SELECT_STYLES = {
 	menuPortal: ( base ) => ({
 		...base,
@@ -51,6 +53,13 @@ function convertRuleParameter( value, parameter ) {
 		case 'string':
 			return value;
 	}
+}
+
+function selectOption( value ) {
+	return {
+		label: value,
+		value: value
+	};
 }
 
 function analyzeLessonMetrics( name, lessons ) {
@@ -264,10 +273,7 @@ function SharedEditLessonMetricsModal({ name, preferredLesson, lessons, lessonRe
 				defaultRule = { value: sharedRule, label: sharedRule.label };
 				defaultRuleParameters = sharedRuleParameters;
 			} else if ( activeLessons[ x._id ].rule ) {
-				console.log( 'ACTIVE RULE' );
-				console.log( activeLessons[ x._id ].rule );
 				const activeRule = allRules[ activeLessons[ x._id ].rule[ 0 ] ];
-				console.log( activeRule );
 				defaultRule = { value: activeRule, label: activeRule.label };
 				defaultRuleParameters = activeLessons[ x._id ].rule.slice( 1 );
 			} else {
@@ -275,6 +281,10 @@ function SharedEditLessonMetricsModal({ name, preferredLesson, lessons, lessonRe
 				defaultRuleParameters = [];
 			}
 		}
+		const activeLesson = activeLessons[ x._id ];
+		const coverage = activeLesson?.coverage || [ 'all' ];
+		const coverageQualifier = coverage[ 0 ];
+		const coverageEntities = coverage.slice( 1 ).map( selectOption );
 		return (
 			<>
 				<Form.Check
@@ -355,6 +365,34 @@ function SharedEditLessonMetricsModal({ name, preferredLesson, lessons, lessonRe
 								menuPlacement="auto"
 								styles={SELECT_STYLES}
 							/>
+						</Col>
+					</Form.Group>
+					<Form.Group className="mb-2" as={Row} >
+						<Col sm={2} />
+						<Form.Label column sm={4} >{t('common:coverage')}</Form.Label>
+						<Col sm={6} >
+							<SelectInput
+								options={COVERAGE_OPTIONS_ARRAY}
+								onChange={( option ) => {
+									const newActive = { ...activeLessons };
+									newActive[ x._id ].coverage[ 0 ] = option.value;
+									setActiveLessons( newActive );
+								}}
+								value={COVERAGE_OPTIONS[ coverageQualifier ]}
+							/>
+							{( coverageQualifier === 'include' || coverageQualifier === 'exclude' ) ?
+								<CreatableSelect
+									isMulti
+									options={[]}
+									onChange={( option ) => {
+										const newActive = { ...activeLessons };
+										newActive[ x._id ].coverage = [ coverageQualifier, ...option.map( ( x ) => x.value ) ];
+										setActiveLessons( newActive );
+									}}
+									value={coverageEntities}
+									placeholder="Select component identifiers..."
+								/> : null
+							}
 						</Col>
 					</Form.Group>
 				</>}
