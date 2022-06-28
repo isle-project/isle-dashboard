@@ -40,13 +40,6 @@ import './completions.css';
 
 // TODO: Need specification for the parameters and their types (use the `attr-types` library)
 const COMPLETION_RULES = {
-	avg: {
-		name: 'avg',
-		label: 'Average',
-		description: 'Average value of the completions',
-		parameters: [],
-		defaults: []
-	},
 	average: {
 		name: 'average',
 		label: 'Average',
@@ -318,6 +311,7 @@ function CompletionsPage( props ) {
 				allRules={COMPLETION_RULES}
 				lessonRefs={props.lessonRefs}
 				lessonComponents={lessonComponents}
+				namespace={props.entity}
 			/> : null}
 		</div>
 	);
