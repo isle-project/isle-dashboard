@@ -106,7 +106,7 @@ function availableLessonMetrics( lessons ) {
 
 // MAIN //
 
-function SharedEditLessonMetricsModal({ name, preferredLesson, lessons, lessonRefs, lessonComponents, allRules, show, onHide, onConfirm }) {
+function SharedEditLessonMetricsModal({ name, preferredLesson, lessons, lessonRefs, lessonComponents, namespace, allRules, show, onHide, onConfirm }) {
 	const [ chosenName, setChosenName ] = useState( name );
 	const [ hasSharedRule, setHasSharedRule ] = useState( false );
 	const [ sharedRule, setSharedRule ] = useState( null );
@@ -172,12 +172,29 @@ function SharedEditLessonMetricsModal({ name, preferredLesson, lessons, lessonRe
 		setCurrentHash( hash( obj ) );
 	}, [ sharedRule, sharedRef, sharedRuleParameters, activeLessons, hasSharedRef, hasSharedRule ] );
 
+	const handleSave = useCallback( () => {
+		console.log( 'SAVE' );
+		const lessonMetrics = { ...activeLessons };
+		namespace.lessons.forEach( lesson => {
+			if ( !lessonMetrics[ lesson._id ] ) {
+				lessonMetrics[ lesson._id ] = null;
+			}
+		});
+		const body = {
+			namespaceID: namespace._id,
+			name: chosenName,
+			lessonMetrics
+		};
+		console.log( JSON.stringify( body, null, 2 ) );
+	}, [ activeLessons, chosenName, namespace ] );
+
 	function lessonActivator() {
 		return {
 			name: chosenName,
 			rule: hasSharedRule ? [ sharedRule.name, ...sharedRuleParameters ] : null,
 			ref: hasSharedRef ? sharedRef : null,
-			coverage: [ 'all' ]
+			coverage: [ 'all' ],
+			level: 'lesson'
 		};
 	}
 	const { t } = useTranslation();
@@ -383,7 +400,7 @@ function SharedEditLessonMetricsModal({ name, preferredLesson, lessons, lessonRe
 							{( coverageQualifier === 'include' || coverageQualifier === 'exclude' ) ?
 								<CreatableSelect
 									isMulti
-									options={lessonComponents[ x._id ].map( ( y ) => {
+									options={( lessonComponents[ x._id ] || [] ).map( ( y ) => {
 										const label = y.componentType ? `${y.component} (type ${y.componentType})` : y.component;
 										return { value: y.component, label };
 									})}
@@ -408,7 +425,7 @@ function SharedEditLessonMetricsModal({ name, preferredLesson, lessons, lessonRe
 	return (
 		<Modal size="lg" show={show} onHide={onHide} dialogClassName="modal-75w modal-80h" >
 			<Modal.Header closeButton={!hasUnsavedChanges} >
-				<Modal.Title as="h3">{t('lesson-metrics')}</Modal.Title>
+				<Modal.Title as="h3">{`${t('lesson-metrics-for')} ${namespace.title}`}</Modal.Title>
 			</Modal.Header>
 			<Modal.Body>
 				<p>
@@ -475,7 +492,7 @@ function SharedEditLessonMetricsModal({ name, preferredLesson, lessons, lessonRe
 				>
 					{t('discard-unsaved-changes')}
 				</Button>
-				<Button variant="success" onClick={onConfirm} >
+				<Button variant="success" onClick={handleSave} >
 					{t('common:save')}
 				</Button>
 			</Modal.Footer>}
@@ -492,6 +509,7 @@ SharedEditLessonMetricsModal.propTypes = {
 	lessonRefs: PropTypes.arrayOf( PropTypes.string ).isRequired,
 	lessons: PropTypes.array.isRequired,
 	name: PropTypes.string,
+	namespace: PropTypes.object.isRequired,
 	onConfirm: PropTypes.func.isRequired,
 	onHide: PropTypes.func.isRequired,
 	preferredLesson: PropTypes.object,
