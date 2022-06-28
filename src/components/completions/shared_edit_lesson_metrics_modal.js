@@ -106,7 +106,7 @@ function availableLessonMetrics( lessons ) {
 
 // MAIN //
 
-function SharedEditLessonMetricsModal({ name, preferredLesson, lessons, lessonRefs, allRules, show, onHide, onConfirm }) {
+function SharedEditLessonMetricsModal({ name, preferredLesson, lessons, lessonRefs, lessonComponents, allRules, show, onHide, onConfirm }) {
 	const [ chosenName, setChosenName ] = useState( name );
 	const [ hasSharedRule, setHasSharedRule ] = useState( false );
 	const [ sharedRule, setSharedRule ] = useState( null );
@@ -383,7 +383,10 @@ function SharedEditLessonMetricsModal({ name, preferredLesson, lessons, lessonRe
 							{( coverageQualifier === 'include' || coverageQualifier === 'exclude' ) ?
 								<CreatableSelect
 									isMulti
-									options={[]}
+									options={lessonComponents[ x._id ].map( ( y ) => {
+										const label = y.componentType ? `${y.component} (type ${y.componentType})` : y.component;
+										return { value: y.component, label };
+									})}
 									onChange={( option ) => {
 										const newActive = { ...activeLessons };
 										newActive[ x._id ].coverage = [ coverageQualifier, ...option.map( ( x ) => x.value ) ];
@@ -485,6 +488,7 @@ function SharedEditLessonMetricsModal({ name, preferredLesson, lessons, lessonRe
 
 SharedEditLessonMetricsModal.propTypes = {
 	allRules: PropTypes.array.isRequired,
+	lessonComponents: PropTypes.object,
 	lessonRefs: PropTypes.arrayOf( PropTypes.string ).isRequired,
 	lessons: PropTypes.array.isRequired,
 	name: PropTypes.string,
@@ -496,6 +500,7 @@ SharedEditLessonMetricsModal.propTypes = {
 
 SharedEditLessonMetricsModal.defaultProps = {
 	name: null,
+	lessonComponents: {},
 	preferredLesson: null
 };
 

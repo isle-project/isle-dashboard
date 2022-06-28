@@ -97,6 +97,7 @@ function CompletionsPage( props ) {
 	const [ showLessonMetricsModal, setShowLessonMetricsModal ] = useState( false );
 	const [ tags, setTags ] = useState( null );
 	const [ refs, setRefs ] = useState( null );
+	const [ lessonComponents, setLessonComponents ] = useState( {} );
 	const metrics = props.entity.completions;
 	console.log( incrspace( 0, metrics.length, 1 ) );
 	const [ order, setOrder ] = useState( incrspace( 0, metrics.length, 1 ) );
@@ -113,6 +114,19 @@ function CompletionsPage( props ) {
 					'exam',
 					'_default_tag'
 				]);
+			});
+		const lessonIds = props.entity.lessons.map( lesson => lesson._id );
+		console.log( 'LESSON IDS');
+		console.log( lessonIds );
+		axios.post( `${server}/completion_components`, {
+			lessons: lessonIds
+		})
+			.then( response => {
+				console.log( 'RECEIVED COMPONENT DATA' );
+				setLessonComponents( response.data );
+			})
+			.catch( err => {
+				console.log( 'Error fetching completion components:', err );
 			});
 		if ( props.level === 'lesson' ) {
 			setRefs( props.lessonRefs );
@@ -303,6 +317,7 @@ function CompletionsPage( props ) {
 				lessons={props.entity.lessons}
 				allRules={COMPLETION_RULES}
 				lessonRefs={props.lessonRefs}
+				lessonComponents={lessonComponents}
 			/> : null}
 		</div>
 	);
