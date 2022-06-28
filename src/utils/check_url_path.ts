@@ -15,28 +15,24 @@
 * along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-// MODULES //
+// VARIABLES //
 
-import { useEffect, useRef } from 'react';
+const REGEXP_CHARS = /[‘“!#$%&+^<=>{}()[\]`]/;
 
 
 // MAIN //
 
 /**
- * Hook to use a previous value.
- *
- * @param {*} value - value for which to return the previous value
- * @returns {*} previous value
- */
-function usePrevious( value ) {
-	const ref = useRef();
-	useEffect( () => {
-		ref.current = value;
-	}, [ value ] );
-	return ref.current;
+* Validates a string as a URL path.
+*
+* @param {string} str - value to validate
+* @returns {(RegExpMatchArray|null)} match array or null
+*/
+function checkURLPath( str: string ): RegExpMatchArray | null {
+	return str.match( REGEXP_CHARS );
 }
 
 
 // EXPORTS //
 
-export default usePrevious;
+export default checkURLPath;

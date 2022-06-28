@@ -15,24 +15,22 @@
 * along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-// VARIABLES //
+// MODULES //
 
-const REGEXP_CHARS = /[‘“!#$%&+^<=>{}()[\]`]/;
+import { useEffect, EffectCallback } from 'react';
 
 
 // MAIN //
 
 /**
-* Validates a string as a URL path.
-*
-* @param {string} str - value to validate
-* @returns {boolean} boolean indicating if a string is a URL path
-*/
-function checkURLPath( str ) {
-	return str.match( REGEXP_CHARS );
-}
+ * A custom React hook that calls `useEffect` with a callback that is invoked once when the component is mounted.
+ *
+ * @param {Function} callback - callback to invoke once the component has mounted
+ * @returns {void}
+ */
+const useMountEffect = ( callback: EffectCallback ): void => useEffect( callback, [] ); // eslint-disable-line react-hooks/exhaustive-deps
 
 
 // EXPORTS //
 
-export default checkURLPath;
+export default useMountEffect;

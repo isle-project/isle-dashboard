@@ -46,7 +46,7 @@ import MsgModal from 'components/message-modal';
 import ConfirmModal from 'components/confirm-modal';
 import { validateOwners, validateDescription, validateTitle } from 'components/create-namespace';
 import CompletionsPage from 'containers/visible-completions';
-import checkURLPath from 'utils/check_url_path.js';
+import checkURLPath from 'utils/check_url_path.ts';
 import EditCohortModal from './edit_cohort_modal.js';
 import CreateCohortModal from './create_cohort_modal.js';
 import ImportCourseModal from './import_course_modal.js';

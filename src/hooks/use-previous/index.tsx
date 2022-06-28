@@ -17,20 +17,26 @@
 
 // MODULES //
 
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 
 
 // MAIN //
 
 /**
- * A custom React hook that calls `useEffect` with a callback that is invoked once when the component is mounted.
+ * Hook to use a previous value.
  *
- * @param {Function} callback - callback to invoke once the component has mounted
- * @returns {void}
+ * @param {*} value - value for which to return the previous value
+ * @returns {*} previous value
  */
-const useMountEffect = ( callback ) => useEffect( callback, [] ); // eslint-disable-line react-hooks/exhaustive-deps
+function usePrevious( value: any ): any {
+	const ref = useRef();
+	useEffect( () => {
+		ref.current = value;
+	}, [ value ] );
+	return ref.current;
+}
 
 
 // EXPORTS //
 
-export default useMountEffect;
+export default usePrevious;

@@ -34,7 +34,7 @@ import trim from '@stdlib/string/trim';
 import contains from '@stdlib/assert/contains';
 import TextSelect from 'components/text-select';
 import SERVER from 'constants/server';
-import checkURLPath from '../../utils/check_url_path';
+import checkURLPath from '../../utils/check_url_path.ts';
 import './create_namespace.css';
 
 

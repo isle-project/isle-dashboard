@@ -27,7 +27,7 @@ import capitalize from '@stdlib/string/capitalize';
 import axios from 'axios';
 import Spinner from 'components/spinner';
 import usePrevious from 'hooks/use-previous';
-import useMountEffect from 'hooks/use-mount-effect/index.js';
+import useMountEffect from 'hooks/use-mount-effect';
 import server from 'constants/server';
 import { fetchCredentialsInjector } from 'actions/authentication.js';
 import { getEnrollableCohortsInjector } from 'actions/cohort.js';
