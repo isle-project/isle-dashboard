@@ -21,97 +21,79 @@ import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import { fireEvent, render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
-import noop from '@stdlib/utils/noop';
-import Signup from './../../src/components/signup';
+import CompleteRegistration from '../../src/components/complete-registration';
 
 
 // TESTS //
 
-describe( '<Signup />', function test() {
+describe( '<CompleteRegistration />', function test() {
 	it( 'should render without throwing an error', () => {
 		render(
 			<BrowserRouter>
-				<Signup createUser={noop} getCustomFields={noop} settings={{}} />
+				<CompleteRegistration settings={{}} />
 			</BrowserRouter>
 		);
-		expect( screen.getByRole( 'heading' ) ).toHaveTextContent( 'Dashboard' );
-	});
-
-	it( 'should update email field on change', () => {
-		const { queryByPlaceholderText } = render(
-			<BrowserRouter>
-				<Signup createUser={noop} getCustomFields={noop} settings={{}} />
-			</BrowserRouter>
-		);
-		const emailInput = queryByPlaceholderText( 'common:enter-email' );
-		const expected = 'isle@stat.cmu.edu';
-		const event = {
-			target: {
-				value: expected
-			}
-		};
-		fireEvent.change( emailInput, event );
-		expect( emailInput.value ).toBe( expected );
+		expect( screen.getByRole( 'heading' ) ).toHaveTextContent( 'Complete Registration' );
 	});
 
 	it( 'should update last name field on change', () => {
 		const { queryByPlaceholderText } = render(
 			<BrowserRouter>
-				<Signup createUser={noop} getCustomFields={noop} settings={{}} />
+				<CompleteRegistration settings={{}} />
 			</BrowserRouter>
 		);
-		const lastNameInput = queryByPlaceholderText( 'common:enter-last-name' );
+		const nameInput = queryByPlaceholderText( 'common:enter-last-name' ) as HTMLInputElement;
 		const expected = 'Doe';
 		const event = {
 			target: {
 				value: expected
 			}
 		};
-		fireEvent.change( lastNameInput, event );
-		expect( lastNameInput.value ).toBe( expected );
+		fireEvent.change( nameInput, event );
+		expect( nameInput.value ).toBe( expected );
 	});
 
 	it( 'should update first name field on change', () => {
 		const { queryByPlaceholderText } = render(
 			<BrowserRouter>
-				<Signup createUser={noop} getCustomFields={noop} settings={{}} />
+				<CompleteRegistration settings={{}} />
 			</BrowserRouter>
 		);
-		const firstNameInput = queryByPlaceholderText( 'common:enter-first-name' );
-		const expected = 'Jane';
+		const nameInput = queryByPlaceholderText( 'common:enter-first-name' ) as HTMLInputElement;
+		const expected = 'John';
 		const event = {
 			target: {
 				value: expected
 			}
 		};
-		fireEvent.change( firstNameInput, event );
-		expect( firstNameInput.value ).toBe( expected );
+		fireEvent.change( nameInput, event );
+		expect( nameInput.value ).toBe( expected );
 	});
 
 	it( 'should update preferred name field on change', () => {
 		const { queryByPlaceholderText } = render(
 			<BrowserRouter>
-				<Signup createUser={noop} getCustomFields={noop} settings={{}} />
+				<CompleteRegistration settings={{}} />
 			</BrowserRouter>
 		);
-		const preferredNameInput = queryByPlaceholderText( 'common:enter-preferred-name' );
-		const expected = 'Jane';
+		const nameInput = queryByPlaceholderText( 'common:enter-preferred-name' ) as HTMLInputElement;
+		const expected = 'John';
 		const event = {
 			target: {
 				value: expected
 			}
 		};
-		fireEvent.change( preferredNameInput, event );
-		expect( preferredNameInput.value ).toBe( expected );
+		fireEvent.change( nameInput, event );
+		expect( nameInput.value ).toBe( expected );
 	});
 
 	it( 'should update password field on change', () => {
 		const { queryByPlaceholderText } = render(
 			<BrowserRouter>
-				<Signup createUser={noop} getCustomFields={noop} settings={{}} />
+				<CompleteRegistration settings={{}} />
 			</BrowserRouter>
 		);
-		const passwordInput = queryByPlaceholderText( 'choose-password' );
+		const passwordInput = queryByPlaceholderText( 'common:choose-new-password' ) as HTMLInputElement;
 		const expected = 'birthday';
 		const event = {
 			target: {
@@ -125,10 +107,10 @@ describe( '<Signup />', function test() {
 	it( 'should update password confirmation field on change', () => {
 		const { queryByPlaceholderText } = render(
 			<BrowserRouter>
-				<Signup createUser={noop} getCustomFields={noop} settings={{}} />
+				<CompleteRegistration settings={{}} />
 			</BrowserRouter>
 		);
-		const passwordInput = queryByPlaceholderText( 'confirm-password' );
+		const passwordInput = queryByPlaceholderText( 'signup:confirm-password' ) as HTMLInputElement;
 		const expected = 'birthday';
 		const event = {
 			target: {

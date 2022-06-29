@@ -22,28 +22,28 @@ import { BrowserRouter } from 'react-router-dom';
 import { fireEvent, render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 import noop from '@stdlib/utils/noop';
-import Login from './../../src/components/login';
+import ForgotPassword from '../../src/components/forgot-password';
 
 
 // TESTS //
 
-describe( '<Login />', function test() {
+describe( '<ForgotPassword />', function test() {
 	it( 'should render without throwing an error', () => {
 		render(
 			<BrowserRouter>
-				<Login handleLogin={noop} fetchCredentials={noop} getEnrollableCohorts={noop} restoreLogin={noop} settings={{ siteTitle: 'Dashboard' }} user={{}} />
+				<ForgotPassword forgotPassword={noop} settings={{}} />
 			</BrowserRouter>
 		);
-		expect( screen.getByRole( 'heading' ) ).toHaveTextContent( 'Dashboard' );
+		expect( screen.getByRole( 'heading' ) ).toHaveTextContent( 'common:forgot-password' );
 	});
 
 	it( 'should update email field on change', () => {
 		const { queryByPlaceholderText } = render(
 			<BrowserRouter>
-				<Login handleLogin={noop} fetchCredentials={noop} getEnrollableCohorts={noop} restoreLogin={noop} settings={{}} user={{}} />
+				<ForgotPassword forgotPassword={noop} settings={{}} />
 			</BrowserRouter>
 		);
-		const emailInput = queryByPlaceholderText( 'common:email' );
+		const emailInput = queryByPlaceholderText( 'common:enter-email' ) as HTMLInputElement;
 		const expected = 'isle@stat.cmu.edu';
 		const event = {
 			target: {
@@ -52,22 +52,5 @@ describe( '<Login />', function test() {
 		};
 		fireEvent.change( emailInput, event );
 		expect( emailInput.value ).toBe( expected );
-	});
-
-	it( 'should update password field on change', () => {
-		const { queryByPlaceholderText } = render(
-			<BrowserRouter>
-				<Login handleLogin={noop} fetchCredentials={noop} getEnrollableCohorts={noop} restoreLogin={noop} settings={{}} user={{}} />
-			</BrowserRouter>
-		);
-		const passwordInput = queryByPlaceholderText( 'common:password' );
-		const expected = 'birthday';
-		const event = {
-			target: {
-				value: expected
-			}
-		};
-		fireEvent.change( passwordInput, event );
-		expect( passwordInput.value ).toBe( expected );
 	});
 });

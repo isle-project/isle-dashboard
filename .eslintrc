@@ -1,5 +1,5 @@
 {
-  "parser": "@babel/eslint-parser",
+  "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "ecmaVersion": 6,
     "sourceType": "module",
@@ -325,7 +325,7 @@
     "plugin:jsx-a11y/recommended"
   ],
   "plugins": [
-    "@babel",
+    "@typescript-eslint",
     "jest",
     "jsx-a11y",
     "react",
