@@ -17,40 +17,16 @@
 
 // MODULES //
 
+import { AnyAction } from 'redux';
 import * as types from 'constants/action_types.js';
-
-
-// VARIABLES //
-
-const initialState = {
-	message: '',
-	level: '',
-	position: 'tl',
-	children: null,
-	time: null,
-	autoDismiss: 5
-};
 
 
 // EXPORTS //
 
-export default function namespace( state = initialState, action ) {
+export default function badges( state = null, action: AnyAction ) {
 	switch ( action.type ) {
-	case types.ADD_NOTIFICATION: {
-		return Object.assign({}, initialState, {
-			...action.payload,
-			time: new Date()
-		});
-	}
-	case types.ADD_ERROR_NOTIFICATION: {
-		return {
-			title: 'Error encountered',
-			message: action.payload,
-			level: 'error',
-			position: 'tl',
-			autoDismiss: 5,
-			time: new Date()
-		};
+	case types.RETRIEVED_BADGES: {
+		return action.payload.badges;
 	}
 	default:
 		return state;

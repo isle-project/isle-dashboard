@@ -17,38 +17,42 @@
 
 // MODULES //
 
+import { AnyAction } from 'redux';
 import * as types from 'constants/action_types.js';
-import isArray from '@stdlib/assert/is-array';
-import isRegExpString from '@stdlib/assert/is-regexp-string';
-import reFromString from '@stdlib/utils/regexp-from-string';
-import contains from '@stdlib/assert/contains';
+import server from 'constants/server';
 
 
-// FUNCTIONS //
+// VARIABLES //
 
-function titleCompare( a, b ) {
-	return ( '' + a.title ).localeCompare( b.title );
+interface GalleryState {
+	lessons: Array<any> | null;
 }
+
+const initialState: GalleryState = {
+	lessons: null
+};
 
 
 // EXPORTS //
 
-export default function cohorts( state = null, action ) {
+export default function namespace( state = initialState, action: AnyAction ) {
 	switch ( action.type ) {
-	case types.RETRIEVED_ENROLLABLE_COHORTS: {
-		let cohorts = action.payload.cohorts;
-		if ( !isArray( cohorts ) ) {
-			return cohorts;
-		}
-		cohorts = cohorts.filter( elem => {
-			let emailFilter = elem.emailFilter || '';
-			if ( isRegExpString( emailFilter ) ) {
-				emailFilter = reFromString( emailFilter );
-				return emailFilter.test( action.payload.user.email );
+	case types.RETRIEVED_PUBLIC_LESSONS: {
+		let lessons = action.payload.lessons;
+		lessons = lessons.map( ( lesson, index ) => {
+			lesson.colorIndex = index % 20;
+			lesson.url = server+'/'+lesson.namespace+'/'+lesson.title;
+			if ( !lesson.createdAt ) {
+				lesson.createdAt = new Date( 0 ).toLocaleString();
 			}
-			return contains( action.payload.user.email, emailFilter || '' );
+			if ( !lesson.updatedAt ) {
+				lesson.updatedAt = lesson.createdAt;
+			}
+			return lesson;
 		});
-		return cohorts.sort( titleCompare );
+		return Object.assign({}, state, {
+			lessons
+		});
 	}
 	default:
 		return state;

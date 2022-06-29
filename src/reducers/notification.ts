@@ -17,23 +17,52 @@
 
 // MODULES //
 
+import { AnyAction } from 'redux';
 import * as types from 'constants/action_types.js';
 
 
 // VARIABLES //
 
-const initialState = {};
+interface NotificationState {
+	title?: string | null;
+	message: string;
+	level: string;
+	position?: string;
+	children?: any;
+	time?: Date | null;
+	autoDismiss?: number;
+}
+
+const initialState: NotificationState = {
+	title: null,
+	message: '',
+	level: '',
+	position: 'tl',
+	children: null,
+	time: null,
+	autoDismiss: 5
+};
 
 
 // EXPORTS //
 
-export default function settings( state = initialState, action ) {
+export default function namespace( state: NotificationState = initialState, action: AnyAction ): NotificationState {
 	switch ( action.type ) {
-	case types.GET_SETTINGS_PUBLIC: {
-		return Object.assign({}, state, action.payload );
+	case types.ADD_NOTIFICATION: {
+		return Object.assign({}, initialState, {
+			...action.payload,
+			time: new Date()
+		});
 	}
-	case types.UPDATED_SETTINGS: {
-		return Object.assign({}, state, action.payload.settings );
+	case types.ADD_ERROR_NOTIFICATION: {
+		return {
+			title: 'Error encountered',
+			message: action.payload,
+			level: 'error',
+			position: 'tl',
+			autoDismiss: 5,
+			time: new Date()
+		};
 	}
 	default:
 		return state;

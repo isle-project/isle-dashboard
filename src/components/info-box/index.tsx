@@ -17,7 +17,7 @@
 
 // MODULES //
 
-import React from 'react';
+import React, { ReactElement } from 'react';
 import PropTypes from 'prop-types';
 import Card from 'react-bootstrap/Card';
 import './info_box.css';
@@ -33,7 +33,7 @@ import './info_box.css';
 * @param {boolean} props.body - body text
 * @returns {ReactElement} component
 */
-const InfoBox = ({ header, body }) => {
+const InfoBox = ({ header, body }: { header: string, body: boolean }): ReactElement => {
 	return (
 		<div className="info-box" >
 			<Card>

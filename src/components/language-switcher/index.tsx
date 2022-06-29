@@ -17,7 +17,7 @@
 
 // MODULES //
 
-import React, { useState, Fragment } from 'react';
+import React, { useState, Fragment, ReactElement } from 'react';
 import PropTypes from 'prop-types';
 import i18next from 'i18next';
 import { useTranslation } from 'react-i18next';
@@ -30,18 +30,23 @@ import { LANGUAGE_CODES, languageDescription } from 'constants/languages';
 import './language_switcher.css';
 
 
+// TYPES //
+
+type HideCallback = () => void;
+
+
 // FUNCTIONS //
 
 /**
 * Modal for selecting a language.
 *
 * @param {Object} props - component props
-* @param {Object} props.languages - object containing language codes
+* @param {Array} props.languages - array containing language codes
 * @param {Function} props.t - translation function
 * @param {Function} props.onHide - callback to hide the modal
 * @returns {ReactElement} modal
 */
-const SelectModal = ({ t, languages, onHide }) => {
+const SelectModal = ({ t, languages, onHide }: { t: Function, languages: Array<string>, onHide: HideCallback }): ReactElement => {
 	const availableLanguages = languages || LANGUAGE_CODES;
 	const changeLanguageFactory = ( lng ) => {
 		return async () => {
@@ -75,10 +80,10 @@ const SelectModal = ({ t, languages, onHide }) => {
 * Renders a language switcher button in the bottom-right corner of the screen.
 *
 * @param {Object} props - component props
-* @param {Object} props.languages - object containing language codes
+* @param {Array} props.languages - array containing language codes
 * @returns {ReactElement} component
 */
-const LanguageSwitcher = ({ languages }) => {
+const LanguageSwitcher = ({ languages }: { languages: Array<string> }): ReactElement => {
 	const { t } = useTranslation( 'common' );
 	const [ showSelectModal, setShowSelectModal ] = useState( false );
 	const toggleSelectModal = () => {

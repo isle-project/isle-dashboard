@@ -17,7 +17,7 @@
 
 // MODULES //
 
-import React from 'react';
+import React, { ReactElement } from 'react';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
@@ -35,7 +35,7 @@ import './footer_bar.css';
 * @property {Object} props.settings - ISLE instance settings
 * @returns {ReactElement} component
 */
-const FooterBar = ({ settings }) => {
+const FooterBar = ({ settings }): ReactElement => {
 	const { t } = useTranslation( [ 'footer_bar', 'common' ] );
 	return ( <div className="footer-bar" >
 		<div className="isle-logo" >

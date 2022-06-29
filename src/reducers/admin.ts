@@ -17,13 +17,34 @@
 
 // MODULES //
 
+import { AnyAction } from 'redux';
 import objectKeys from '@stdlib/utils/keys';
 import * as types from 'constants/action_types.js';
 
 
 // VARIABLES //
 
-const initialState = {
+interface AdminState {
+	cohorts: Array<any>;
+	events: Array<any>;
+	files: Array<any>;
+	lessons: Array<any>;
+	lessonsMap: any;
+	namespaces: Array<any>;
+	programs: Array<any>;
+	roles: Array<any>;
+	rooms: Array<any>;
+	tickets: Array<any>;
+	users: Array<any>;
+	statistics: any;
+	requestStatistics: Array<any>;
+	historicalStatistics: Array<any>;
+	backups: Array<any>;
+	license: any;
+	settings: any;
+}
+
+const initialState: AdminState = {
 	cohorts: [],
 	events: [],
 	files: [],
@@ -46,7 +67,7 @@ const initialState = {
 
 // EXPORTS //
 
-export default function admin( state = initialState, action ) {
+export default function admin( state = initialState, action: AnyAction ) {
 	switch ( action.type ) {
 	case types.GET_USERS: {
 		let users = action.payload.users;

@@ -17,13 +17,20 @@
 
 // MODULES //
 
+import { AnyAction } from 'redux';
 import lowercase from '@stdlib/string/lowercase';
 import * as types from 'constants/action_types.js';
 
 
 // VARIABLES //
 
-const initialState = {
+interface SearchState {
+	phrase: string | null;
+	type: string;
+	direction: string;
+}
+
+const initialState: SearchState = {
 	phrase: null,
 	type: 'sequentially',
 	direction: 'ascending'
@@ -32,7 +39,7 @@ const initialState = {
 
 // EXPORTS //
 
-export default function search( state = initialState, action ) {
+export default function search( state: SearchState = initialState, action: AnyAction ): SearchState {
 	switch ( action.type ) {
 	case types.SEARCH_PHRASE_SET: {
 		return Object.assign({}, state, {

@@ -17,37 +17,24 @@
 
 // MODULES //
 
+import { AnyAction } from 'redux';
 import * as types from 'constants/action_types.js';
-import server from 'constants/server';
 
 
 // VARIABLES //
 
-const initialState = {
-	lessons: null
-};
+const initialState = {};
 
 
 // EXPORTS //
 
-export default function namespace( state = initialState, action ) {
+export default function settings( state = initialState, action: AnyAction ) {
 	switch ( action.type ) {
-	case types.RETRIEVED_PUBLIC_LESSONS: {
-		let lessons = action.payload.lessons;
-		lessons = lessons.map( (lesson, index) => {
-			lesson.colorIndex = index % 20;
-			lesson.url = server+'/'+lesson.namespace+'/'+lesson.title;
-			if ( !lesson.createdAt ) {
-				lesson.createdAt = new Date( 0 ).toLocaleString();
-			}
-			if ( !lesson.updatedAt ) {
-				lesson.updatedAt = lesson.createdAt;
-			}
-			return lesson;
-		});
-		return Object.assign({}, state, {
-			lessons
-		});
+	case types.GET_SETTINGS_PUBLIC: {
+		return Object.assign({}, state, action.payload );
+	}
+	case types.UPDATED_SETTINGS: {
+		return Object.assign({}, state, action.payload.settings );
 	}
 	default:
 		return state;

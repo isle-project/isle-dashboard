@@ -30,7 +30,22 @@ function titleCompare( a, b ) {
 
 // VARIABLES //
 
-const initialState = {
+interface NamespaceState {
+	_id: string | null;
+	title: string;
+	description: string;
+	owners: string;
+	enableTicketing: boolean;
+	announcements: any[];
+	lessons: any[];
+	cohorts: any[];
+	files: any[];
+	ownerFiles: any[];
+	tickets: any[];
+	completions: any[];
+}
+
+const initialState: NamespaceState = {
 	_id: null,
 	title: '',
 	description: '',
@@ -48,7 +63,7 @@ const initialState = {
 
 // EXPORTS //
 
-export default function namespace( state = initialState, action ) {
+export default function namespace( state: NamespaceState = initialState, action ): NamespaceState {
 	switch ( action.type ) {
 	case types.CHANGED_NAMESPACE: {
 		return Object.assign({}, state, {
@@ -133,7 +148,7 @@ export default function namespace( state = initialState, action ) {
 			}
 			return file;
 		});
-		const newState = {};
+		const newState: any = {};
 		if ( action.payload.owner ) {
 			newState.ownerFiles = files;
 		} else {
@@ -260,7 +275,7 @@ export default function namespace( state = initialState, action ) {
 			return state;
 		}
 		console.log( 'Need to update...' );
-		const newCompletions = [];
+		const newCompletions: any[] = [];
 		for ( let i = 0; i < state.completions.length; i++ ) {
 			if ( state.completions[ i ].name !== action.payload.name ) {
 				newCompletions.push( state.completions[ i ] );

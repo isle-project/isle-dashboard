@@ -39,6 +39,18 @@ import server from 'constants/server';
 import 'css/login.css';
 
 
+// TYPES //
+
+type LoginProps = {
+	user: any,
+	restoreLogin: Function,
+	fetchCredentials: Function,
+	getEnrollableCohorts: Function,
+	handleLogin: Function,
+	settings: any;
+}
+
+
 // VARIABLES //
 
 const debug = logger( 'isle-dashboard:login' );
@@ -58,7 +70,7 @@ const debug = logger( 'isle-dashboard:login' );
  * @param {Object} props.settings - ISLE instance settings
  * @returns {ReactElement} component
  */
-const Login = ({ user, restoreLogin, fetchCredentials, getEnrollableCohorts, handleLogin, settings }) => {
+const Login = ({ user, restoreLogin, fetchCredentials, getEnrollableCohorts, handleLogin, settings }: LoginProps ) => {
 	const [ email, setEmail ] = useState( '' );
 	const [ password, setPassword ] = useState( '' );
 	const [ overlay, setOverlay ] = useState({
@@ -134,7 +146,9 @@ const Login = ({ user, restoreLogin, fetchCredentials, getEnrollableCohorts, han
 				});
 				setTimeout( () => {
 					setOverlay({
-						show: false
+						show: false,
+						target: overlay.target,
+						message: overlay.message
 					});
 				}, 4000 );
 			}

@@ -17,6 +17,7 @@
 
 // MODULES //
 
+import { AnyAction } from 'redux';
 import * as types from 'constants/action_types.js';
 
 
@@ -27,7 +28,7 @@ const initialState = {};
 
 // EXPORTS //
 
-export default function translations( state = initialState, action ) {
+export default function translations( state = initialState, action: AnyAction ) {
 	switch ( action.type ) {
 		case types.GET_CUSTOM_TRANSLATIONS: {
 			return Object.assign( {}, state, action.payload );

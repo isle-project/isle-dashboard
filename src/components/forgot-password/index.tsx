@@ -17,7 +17,7 @@
 
 // MODULES //
 
-import React, { useState, useCallback, Fragment } from 'react';
+import React, { useState, useCallback, Fragment, ReactElement } from 'react';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import Button from 'react-bootstrap/Button';
@@ -41,7 +41,7 @@ import 'css/login.css';
 * @property {Object} props.settings - ISLE instance settings
 * @returns {ReactElement} forgot password form
 */
-const ForgotPassword = ({ forgotPassword, settings }) => {
+const ForgotPassword = ({ forgotPassword, settings }: { forgotPassword: Function, settings: any }): ReactElement => {
 	const [ email, setEmail ] = useState( '' );
 	const { t } = useTranslation( [ 'forgot_password', 'common' ] );
 	const handleClick = useCallback( ( event ) => {
@@ -59,7 +59,7 @@ const ForgotPassword = ({ forgotPassword, settings }) => {
 				</Card.Header>
 				<Card.Body>
 					<Form className="d-grid gap-3" >
-						<FormGroup inline controlId="form-email">
+						<FormGroup controlId="form-email">
 							<FormLabel>{t('common:email-address')}</FormLabel>
 							<FormControl
 								type="email"
