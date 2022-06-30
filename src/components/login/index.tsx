@@ -17,8 +17,8 @@
 
 // MODULES //
 
-import React, { useRef, useState, Fragment } from 'react';
-import PropTypes from 'prop-types';
+import React, { useRef, useState, Fragment, ReactElement } from 'react';
+import PropTypes, { InferProps } from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
@@ -39,21 +39,17 @@ import server from 'constants/server';
 import 'css/login.css';
 
 
-// TYPES //
-
-type LoginProps = {
-	user: any,
-	restoreLogin: Function,
-	fetchCredentials: Function,
-	getEnrollableCohorts: Function,
-	handleLogin: Function,
-	settings: any;
-}
-
-
 // VARIABLES //
 
 const debug = logger( 'isle-dashboard:login' );
+const LoginPropTypes = {
+	fetchCredentials: PropTypes.func.isRequired,
+	getEnrollableCohorts: PropTypes.func.isRequired,
+	handleLogin: PropTypes.func.isRequired,
+	restoreLogin: PropTypes.func.isRequired,
+	settings: PropTypes.objectOf( PropTypes.any ),
+	user: PropTypes.objectOf( PropTypes.any ).isRequired
+};
 
 
 // MAIN //
@@ -61,16 +57,16 @@ const debug = logger( 'isle-dashboard:login' );
 /**
  * Login screen component.
  *
- * @param {Object} props - component properties
- * @param {Object} props.user - user object
- * @param {Function} props.restoreLogin - callback to restore login
- * @param {Function} props.fetchCredentials - callback to fetch user information
- * @param {Function} props.getEnrollableCohorts - callback to get enrollable cohorts of a user from the server
- * @param {Function} props.handleLogin - function to handle login
- * @param {Object} props.settings - ISLE instance settings
- * @returns {ReactElement} component
+ * @param props - component properties
+ * @param props.user - user object
+ * @param props.restoreLogin - callback to restore login
+ * @param props.fetchCredentials - callback to fetch user information
+ * @param props.getEnrollableCohorts - callback to get enrollable cohorts of a user from the server
+ * @param props.handleLogin - function to handle login
+ * @param props.settings - ISLE instance settings
+ * @returns component
  */
-const Login = ({ user, restoreLogin, fetchCredentials, getEnrollableCohorts, handleLogin, settings }: LoginProps ) => {
+const Login = ({ user, restoreLogin, fetchCredentials, getEnrollableCohorts, handleLogin, settings }: InferProps<typeof LoginPropTypes>): ReactElement => {
 	const [ email, setEmail ] = useState( '' );
 	const [ password, setPassword ] = useState( '' );
 	const [ overlay, setOverlay ] = useState({
@@ -249,14 +245,7 @@ const Login = ({ user, restoreLogin, fetchCredentials, getEnrollableCohorts, han
 
 // PROPERTIES //
 
-Login.propTypes = {
-	fetchCredentials: PropTypes.func.isRequired,
-	getEnrollableCohorts: PropTypes.func.isRequired,
-	handleLogin: PropTypes.func.isRequired,
-	restoreLogin: PropTypes.func.isRequired,
-	settings: PropTypes.object,
-	user: PropTypes.object.isRequired
-};
+Login.propTypes = LoginPropTypes;
 
 Login.defaultProps = {
 	settings: {}

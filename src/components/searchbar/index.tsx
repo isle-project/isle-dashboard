@@ -18,6 +18,7 @@
 // MODULES //
 
 import React from 'react';
+import PropTypes, { InferProps } from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import FormGroup from 'react-bootstrap/FormGroup';
 import FormControl from 'react-bootstrap/FormControl';
@@ -25,19 +26,39 @@ import InputGroup from 'react-bootstrap/InputGroup';
 import Button from 'react-bootstrap/Button';
 
 
+// VARIABLES //
+
+const SearchBarPropTypes = {
+	onChange: PropTypes.func.isRequired,
+	placeholder: PropTypes.string.isRequired,
+	style: PropTypes.object.isRequired,
+	value: PropTypes.string.isRequired
+};
+
+
 // MAIN //
 
-const SearchBar = ( props ) => {
+/**
+* A search bar component.
+*
+* @param props - component properties
+* @param props.onChange - callback to invoke upon changing the search bar value
+* @param props.placeholder - placeholder text
+* @param props.style - CSS styles
+* @param props.value - search bar value
+* @returns search bar component
+*/
+const SearchBar = ({ placeholder, value, style, onChange }: InferProps<typeof SearchBarPropTypes>) => {
 	const { t } = useTranslation( [ 'header_bar', 'common' ] );
 	return (
-		<FormGroup style={{ width: '14vw', minWidth: '120px', float: 'left', marginBottom: '4px', marginRight: '5px', ...props.style }}>
+		<FormGroup style={{ width: '14vw', minWidth: '120px', float: 'left', marginBottom: '4px', marginRight: '5px', ...style }}>
 			<InputGroup>
 				<FormControl
 					className="header-bar-search"
 					type="text"
-					placeholder={props.placeholder}
-					value={props.value}
-					onChange={props.onChange}
+					placeholder={placeholder}
+					value={value}
+					onChange={onChange}
 					aria-label={t('search-field')}
 					style={{ height: '38px' }}
 				/>
@@ -48,6 +69,11 @@ const SearchBar = ( props ) => {
 		</FormGroup>
 	);
 };
+
+
+// PROPERTIES //
+
+SearchBar.propTypes = SearchBarPropTypes;
 
 
 // EXPORTS //
