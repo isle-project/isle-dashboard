@@ -86,6 +86,7 @@
     "@stdlib/stats": "^0.0.13",
     "@stdlib/string": "^0.0.13",
     "@stdlib/utils": "^0.0.12",
+    "@types/prop-types": "^15.7.5",
     "@types/react": "^18.0.14",
     "@types/react-dom": "^18.0.5",
     "@types/react-router-dom": "^5.3.3",
