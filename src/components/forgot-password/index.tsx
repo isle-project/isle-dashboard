@@ -18,7 +18,7 @@
 // MODULES //
 
 import React, { useState, useCallback, Fragment, ReactElement } from 'react';
-import PropTypes from 'prop-types';
+import PropTypes, { InferProps } from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
@@ -31,17 +31,25 @@ import isEmail from '@stdlib/assert/is-email-address';
 import 'css/login.css';
 
 
+// VARIABLES //
+
+const ForgotPasswordPropTypes = {
+	forgotPassword: PropTypes.func.isRequired,
+	settings: PropTypes.objectOf(PropTypes.any)
+};
+
+
 // MAIN //
 
 /**
 * A component for rendering the forgot password form.
 *
-* @property {Object} props - component properties
-* @property {Function} props.forgotPassword - callback to invoke when the user submits the form
-* @property {Object} props.settings - ISLE instance settings
-* @returns {ReactElement} forgot password form
+* @property props - component properties
+* @property props.forgotPassword - callback to invoke when the user submits the form
+* @property props.settings - ISLE instance settings
+* @returns forgot password form
 */
-const ForgotPassword = ({ forgotPassword, settings }: { forgotPassword: Function, settings: any }): ReactElement => {
+const ForgotPassword = ({ forgotPassword, settings }: InferProps<typeof ForgotPasswordPropTypes>): ReactElement => {
 	const [ email, setEmail ] = useState( '' );
 	const { t } = useTranslation( [ 'forgot_password', 'common' ] );
 	const handleClick = useCallback( ( event ) => {
@@ -97,10 +105,7 @@ const ForgotPassword = ({ forgotPassword, settings }: { forgotPassword: Function
 
 // PROPERTIES //
 
-ForgotPassword.propTypes = {
-	forgotPassword: PropTypes.func.isRequired,
-	settings: PropTypes.object
-};
+ForgotPassword.propTypes = ForgotPasswordPropTypes;
 
 ForgotPassword.defaultProps = {
 	settings: {}

@@ -18,7 +18,7 @@
 // MODULES //
 
 import React, { ReactElement } from 'react';
-import PropTypes from 'prop-types';
+import PropTypes, { InferProps } from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import LanguageSwitcher from 'components/language-switcher';
@@ -26,16 +26,23 @@ import pkgJson from './../../../package.json';
 import './footer_bar.css';
 
 
+// VARIABLES //
+
+const FooterBarPropTypes = {
+	settings: PropTypes.objectOf(PropTypes.any).isRequired
+};
+
+
 // MAIN //
 
 /**
 * A footer bar component rendering the ISLE logo, copyright notice, dashboard version number, and links to the terms and privacy policy.
 *
-* @property {Object} props - component properties
-* @property {Object} props.settings - ISLE instance settings
-* @returns {ReactElement} component
+* @property props - component properties
+* @property props.settings - ISLE instance settings
+* @returns component
 */
-const FooterBar = ({ settings }): ReactElement => {
+const FooterBar = ({ settings }: InferProps<typeof FooterBarPropTypes>): ReactElement => {
 	const { t } = useTranslation( [ 'footer_bar', 'common' ] );
 	return ( <div className="footer-bar" >
 		<div className="isle-logo" >
@@ -64,9 +71,7 @@ const FooterBar = ({ settings }): ReactElement => {
 
 // PROPERTIES //
 
-FooterBar.propTypes = {
-	settings: PropTypes.object.isRequired
-};
+FooterBar.propTypes = FooterBarPropTypes;
 
 
 // EXPORTS //

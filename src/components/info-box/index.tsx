@@ -18,9 +18,17 @@
 // MODULES //
 
 import React, { ReactElement } from 'react';
-import PropTypes from 'prop-types';
+import PropTypes, { InferProps } from 'prop-types';
 import Card from 'react-bootstrap/Card';
 import './info_box.css';
+
+
+// VARIABLES //
+
+const InfoBoxPropTypes = {
+	body: PropTypes.string.isRequired,
+	header: PropTypes.string.isRequired
+};
 
 
 // MAIN //
@@ -28,12 +36,12 @@ import './info_box.css';
 /**
 * Renders an info box.
 *
-* @param {Object} props - component properties
-* @param {string} props.header - header text
-* @param {boolean} props.body - body text
-* @returns {ReactElement} component
+* @param props - component properties
+* @param props.header - header text
+* @param props.body - body text
+* @returns component
 */
-const InfoBox = ({ header, body }: { header: string, body: boolean }): ReactElement => {
+const InfoBox = ({ header, body }: InferProps<typeof InfoBoxPropTypes>): ReactElement => {
 	return (
 		<div className="info-box" >
 			<Card>
@@ -52,10 +60,7 @@ const InfoBox = ({ header, body }: { header: string, body: boolean }): ReactElem
 
 // PROPERTIES //
 
-InfoBox.propTypes = {
-	body: PropTypes.string.isRequired,
-	header: PropTypes.string.isRequired
-};
+InfoBox.propTypes = InfoBoxPropTypes;
 
 
 // EXPORTS //
