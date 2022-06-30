@@ -17,11 +17,23 @@
 
 // MODULES //
 
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { ReactElement } from 'react';
+import PropTypes, { InferProps } from 'prop-types';
 import { withTranslation } from 'react-i18next';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
+
+
+// VARIABLES //
+
+const ConfirmModalTypes ={
+	close: PropTypes.func,
+	message: PropTypes.node,
+	onConfirm: PropTypes.func,
+	show: PropTypes.bool,
+	t: PropTypes.func.isRequired,
+	title: PropTypes.string
+};
 
 
 // MAIN //
@@ -35,22 +47,23 @@ import Modal from 'react-bootstrap/Modal';
  * @param {boolean} props.show - boolean indicating whether the modal is visible
  * @param {Function} props.close - callback to invoke upon hiding the modal
  * @param {Function} props.onConfirm - callback to invoke upon confirming the modal
+ * @param {Function} props.t - i18next translation function
  * @returns {ReactElement} modal component
  */
-const ConfirmModal = ( props ) => (
-	<Modal show={props.show} onHide={props.close} >
+const ConfirmModal = ({ title, message, show, close, onConfirm, t }: InferProps<typeof ConfirmModalTypes>): ReactElement => (
+	<Modal show={show} onHide={close} >
 		<Modal.Header>
-			<Modal.Title as="h3">{props.title}</Modal.Title>
+			<Modal.Title as="h3">{title}</Modal.Title>
 		</Modal.Header>
 		<Modal.Body>
-			{props.message}
+			{message}
 		</Modal.Body>
 		<Modal.Footer>
-			<Button onClick={props.close}>
-				{props.t('cancel')}
+			<Button onClick={close}>
+				{t('cancel')}
 			</Button>
-			<Button variant="danger" onClick={props.onConfirm}>
-				{props.t('confirm')}
+			<Button variant="danger" onClick={onConfirm}>
+				{t('confirm')}
 			</Button>
 		</Modal.Footer>
 	</Modal>
@@ -59,13 +72,7 @@ const ConfirmModal = ( props ) => (
 
 // PROPERTIES //
 
-ConfirmModal.propTypes = {
-	close: PropTypes.func,
-	message: PropTypes.node,
-	onConfirm: PropTypes.func,
-	show: PropTypes.bool,
-	title: PropTypes.string
-};
+ConfirmModal.propTypes = ConfirmModalTypes;
 
 ConfirmModal.defaultProps = {
 	close() {},

@@ -17,6 +17,7 @@
 
 // MODULES //
 
+import { AnyAction } from 'redux';
 import groupBy from '@stdlib/utils/group-by';
 import copy from '@stdlib/utils/copy';
 import * as types from 'constants/action_types.js';
@@ -24,7 +25,40 @@ import * as types from 'constants/action_types.js';
 
 // VARIABLES //
 
-const initialState = {
+interface UserState {
+	loggedIn: boolean;
+	email: string;
+	verifiedEmail: boolean;
+	name: string;
+	firstName: string;
+	lastName: string;
+	preferredName: string;
+	pronouns: string;
+	organization: string;
+	writeAccess: boolean;
+	administrator: boolean;
+	enrolledNamespaces: Array<any>;
+	ownedNamespaces: Array<any>;
+	lessonData: any;
+	picture: string | null;
+	createdAt: any | null;
+	updatedAt: any | null;
+	score: number | null;
+	spentTime: number | null;
+	files: any;
+	badges: any;
+	id: string | null;
+	token: string | null;
+	tickets: Array<any>;
+	licensed: boolean;
+	customFields: any;
+	availableCustomFields: Array<any>;
+	twoFactorAuth: boolean;
+	requestTFA: any;
+	templateLessons: Array<any>;
+}
+
+const initialState: UserState = {
 	loggedIn: false,
 	email: '',
 	verifiedEmail: false,
@@ -60,7 +94,7 @@ const initialState = {
 
 // FUNCTIONS //
 
-function getNamespace( namespaces, name ) {
+function getNamespace( namespaces: Array<any>, name: string ): any {
 	for ( let i= 0; i < namespaces.length; i++ ) {
 		if ( namespaces[i].title === name ) {
 			return namespaces[i];
@@ -72,7 +106,7 @@ function getNamespace( namespaces, name ) {
 
 // EXPORTS //
 
-export default function user( state = initialState, action ) {
+export default function user( state: UserState = initialState, action: AnyAction ): UserState {
 	switch ( action.type ) {
 	case types.RECEIVED_TOKEN: {
 		return Object.assign({}, state, {
@@ -139,7 +173,7 @@ export default function user( state = initialState, action ) {
 		});
 	}
 	case types.DELETED_CURRENT_NAMESPACE: {
-		const arr = [];
+		const arr: Array<any> = [];
 		for ( let i = 0; i < state.ownedNamespaces.length; i++ ) {
 			const item = state.ownedNamespaces[ i ];
 			if ( item._id !== action.payload.id ) {
@@ -267,7 +301,7 @@ export default function user( state = initialState, action ) {
 			...action.payload,
 			messages: [],
 			user: {
-				picture: state.picture.substring( state.picture.lastIndexOf( '/' )+1 ),
+				picture: state.picture && state.picture.substring( state.picture.lastIndexOf( '/' )+1 ),
 				name: state.name,
 				email: state.email
 			}
@@ -324,7 +358,7 @@ export default function user( state = initialState, action ) {
 		});
 	}
 	case types.DELETED_CUSTOM_FIELD: {
-		const fields = [];
+		const fields: Array<any> = [];
 		for ( let i = 0; i < state.availableCustomFields.length; i++ ) {
 			const item = state.availableCustomFields[ i ];
 			if ( item._id !== action.payload.id ) {
@@ -445,7 +479,7 @@ export default function user( state = initialState, action ) {
 			if ( ns._id !== action.payload.id ) {
 				continue;
 			}
-			const newCompletions = [];
+			const newCompletions: Array<any> = [];
 			for ( let i = 0; i < ns.completions.length; i++ ) {
 				if ( ns.completions[ i ].name !== action.payload.name ) {
 					newCompletions.push( ns.completions[ i ] );
@@ -460,7 +494,7 @@ export default function user( state = initialState, action ) {
 			if ( ns._id !== action.payload.id ) {
 				continue;
 			}
-			const newCompletions = [];
+			const newCompletions: Array<any> = [];
 			for ( let i = 0; i < ns.completions.length; i++ ) {
 				if ( ns.completions[ i ].name !== action.payload.name ) {
 					newCompletions.push( ns.completions[ i ] );

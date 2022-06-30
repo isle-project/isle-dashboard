@@ -2,7 +2,7 @@
     "compilerOptions": {
         "outDir": "./dist/",        // path to output directory
         "sourceMap": true,          // allow sourcemap support
-        "strictNullChecks": true,   // enable strict null checks as a best practice
+        "strictNullChecks": false,   // enable strict null checks as a best practice
         "module": "es6",            // specify module code generation
         "moduleResolution": "node", // specify module resolution strategy
         "jsx": "react",             // use typescript to transpile jsx to js

@@ -23,12 +23,15 @@
 
 // MODULES //
 
-import React from 'react';
+import React, { ReactNode } from 'react';
 
 
 // MAIN //
 
-const Spinner = ({ className }) => {
+/**
+* Component that renders a spinner.
+*/
+const Spinner = ({ className }: { className: string }): ReactNode => {
 	return ( <div className={`sk-cube-grid ${className}`} >
 		<div className="sk-cube sk-cube1"></div>
 		<div className="sk-cube sk-cube2"></div>
