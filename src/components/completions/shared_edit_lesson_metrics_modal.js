@@ -106,7 +106,7 @@ function availableLessonMetrics( lessons ) {
 
 // MAIN //
 
-function SharedEditLessonMetricsModal({ name, preferredLesson, lessons, lessonRefs, lessonComponents, namespace, allRules, show, onHide, onConfirm }) {
+function SharedEditLessonMetricsModal({ name, preferredLesson, lessons, lessonRefs, lessonComponents, namespace, allRules, show, onHide, onSave }) {
 	const [ chosenName, setChosenName ] = useState( name );
 	const [ hasSharedRule, setHasSharedRule ] = useState( false );
 	const [ sharedRule, setSharedRule ] = useState( null );
@@ -185,7 +185,7 @@ function SharedEditLessonMetricsModal({ name, preferredLesson, lessons, lessonRe
 			name: chosenName,
 			lessonMetrics
 		};
-		console.log( JSON.stringify( body, null, 2 ) );
+		onSave( body );
 	}, [ activeLessons, chosenName, namespace ] );
 
 	function lessonActivator() {
@@ -510,8 +510,8 @@ SharedEditLessonMetricsModal.propTypes = {
 	lessons: PropTypes.array.isRequired,
 	name: PropTypes.string,
 	namespace: PropTypes.object.isRequired,
-	onConfirm: PropTypes.func.isRequired,
 	onHide: PropTypes.func.isRequired,
+	onSave: PropTypes.func.isRequired,
 	preferredLesson: PropTypes.object,
 	show: PropTypes.bool.isRequired
 };

@@ -312,6 +312,16 @@ function CompletionsPage( props ) {
 				lessonRefs={props.lessonRefs}
 				lessonComponents={lessonComponents}
 				namespace={props.entity}
+				onSave={( body ) => {
+					axios.post( `${server}/save_lesson_metrics`, body )
+						.then( ( res ) => {
+							console.log( 'Response: ', res );
+							props.updateLessonMetrics({ lessons: res.data.lessons });
+						})
+						.catch( ( err ) => {
+							console.error( err );
+						});
+				}}
 			/> : null}
 		</div>
 	);
@@ -327,7 +337,12 @@ CompletionsPage.propTypes = {
 	entity: PropTypes.object.isRequired,
 	lessonRefs: PropTypes.array.isRequired,
 	level: PropTypes.string.isRequired,
+	updateLessonMetrics: PropTypes.func,
 	updateMetric: PropTypes.func.isRequired
+};
+
+CompletionsPage.defaultProps = {
+	updateLessonMetrics: () => {}
 };
 
 
