@@ -92,8 +92,6 @@
     "@types/react-router-dom": "^5.3.3",
     "@wojtekmaj/react-datetimerange-picker": "^3.5.0",
     "axios": "^0.27.2",
-    "babel-plugin-add-module-exports": "^1.0.4",
-    "babel-plugin-module-resolver": "^4.1.0",
     "buffer": "^6.0.3",
     "clipboard-copy": "^4.0.1",
     "cross-env": "^7.0.3",
@@ -155,7 +153,6 @@
     "@typescript-eslint/parser": "^5.30.0",
     "ajv": "^8.11.0",
     "autoprefixer": "10.4.7",
-    "babel-plugin-css-modules-transform": "^1.6.2",
     "bfj": "^7.0.2",
     "case-sensitive-paths-webpack-plugin": "2.4.0",
     "chalk": "4.1.2",
@@ -207,5 +204,11 @@
   ],
   "optionalDependencies": {
     "fsevents": "^2.3.2"
+  },
+  "resolutions": {
+    "@types/eslint": "8.4.3"
+  },
+  "overrides": {
+    "@types/eslint": "8.4.3"
   }
 }
