@@ -15,7 +15,6 @@ TODO
 
 7. Completions:
   -   Creation and management of lesson completion metrics (copying, reuse, automatic instantiation of metrics)
-      -   Test Save button functionality and endpoint
       -   Look at sorting / preferred lesson
       -   Add boolean state for whether lessons are selected or not (and avoid resetting the activeLessons object) 
   -   Completion table in the dashboard with the latest user data and recompute button
