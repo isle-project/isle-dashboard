@@ -280,7 +280,16 @@ function SharedEditLessonMetricsModal({ name, preferredLesson, lessons, lessonRe
 			</Col>
 		</Form.Group>
 	</>;
-	const lessonInputs = lessons.map( x => {
+	const sortedLessons = Array.from( lessons ).sort( preferredLesson ? ( a, b ) => {
+		if ( a.title === preferredLesson.title ) {
+			return -1;
+		}
+		if ( b.title === preferredLesson.title ) {
+			return 1;
+		}
+		return a.title.localeCompare( b.title );
+	} : ( a, b ) => a.title.localeCompare( b.title ) );
+	const lessonInputs = sortedLessons.map( x => {
 		const lessonIsActive = activeLessons[ x._id ] !== void 0;
 		let defaultRuleParameters;
 		let defaultRule;
