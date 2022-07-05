@@ -316,6 +316,7 @@ function CompletionsPage( props ) {
 					axios.post( `${server}/save_lesson_metrics`, body )
 						.then( ( res ) => {
 							console.log( 'Response: ', res );
+							setShowLessonMetricsModal( false );
 							props.updateLessonMetrics({ lessons: res.data.lessons });
 						})
 						.catch( ( err ) => {
