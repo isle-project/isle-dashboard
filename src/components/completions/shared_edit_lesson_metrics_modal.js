@@ -173,11 +173,16 @@ function SharedEditLessonMetricsModal({ name, preferredLesson, lessons, lessonRe
 	}, [ sharedRule, sharedRef, sharedRuleParameters, activeLessons, hasSharedRef, hasSharedRule ] );
 
 	const handleSave = useCallback( () => {
-		console.log( 'SAVE' );
 		const lessonMetrics = { ...activeLessons };
 		namespace.lessons.forEach( lesson => {
 			if ( !lessonMetrics[ lesson._id ] ) {
 				lessonMetrics[ lesson._id ] = null;
+			} else {
+				lessonMetrics[ lesson._id ] = {
+					...lessonMetrics[ lesson._id ],
+					...( hasSharedRef ? { ref: sharedRef } : {} ),
+					...( hasSharedRule ? { rule: [ sharedRule.name, ...sharedRuleParameters ] } : {} )
+				};
 			}
 		});
 		const body = {
@@ -186,7 +191,7 @@ function SharedEditLessonMetricsModal({ name, preferredLesson, lessons, lessonRe
 			lessonMetrics
 		};
 		onSave( body );
-	}, [ activeLessons, chosenName, namespace ] );
+	}, [ activeLessons, chosenName, namespace, hasSharedRef, sharedRef, hasSharedRule, sharedRule, sharedRuleParameters, onSave ] );
 
 	function lessonActivator() {
 		return {
