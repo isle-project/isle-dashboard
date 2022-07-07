@@ -91,8 +91,7 @@ function CompletionsPage( props ) {
 	const [ tags, setTags ] = useState( null );
 	const [ refs, setRefs ] = useState( null );
 	const [ lessonComponents, setLessonComponents ] = useState( {} );
-	const metrics = props.entity.completions;
-	console.log( incrspace( 0, metrics.length, 1 ) );
+	const metrics = props.entity.completions || [];
 	const [ order, setOrder ] = useState( incrspace( 0, metrics.length, 1 ) );
 	useEffect( () => {
 		axios.post( `${server}/completion_tags` )
@@ -109,13 +108,10 @@ function CompletionsPage( props ) {
 				]);
 			});
 		const lessonIds = props.entity.lessons.map( lesson => lesson._id );
-		console.log( 'LESSON IDS');
-		console.log( lessonIds );
 		axios.post( `${server}/completion_components`, {
 			lessons: lessonIds
 		})
 			.then( response => {
-				console.log( 'RECEIVED COMPONENT DATA' );
 				setLessonComponents( response.data );
 			})
 			.catch( err => {
@@ -178,8 +174,6 @@ function CompletionsPage( props ) {
 				});
 		}, 200 );
 	};
-	console.log( 'ORDER: ', order );
-	console.log( 'METRICS: ', metrics );
 	return (
 		<div style={{ margin: 12 }} >
 			<ListGroup>
