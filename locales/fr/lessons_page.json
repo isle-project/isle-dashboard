@@ -1,0 +1,9 @@
+{
+	"create-from-template": "Créer à partir d'un modèle",
+	"create-new-one": " ou en créer un nouveau sous",
+	"no-course-description": "Ouvrez un cours existant en le sélectionnant dans le menu déroulant ci-dessus à l'adresse",
+	"no-lessons": "Le cours sélectionné ne contient pas de leçons.",
+	"no-lessons-found": "Aucune leçon trouvée",
+	"no-templates-created-yet": "Aucun modèle n'a encore été créé.",
+	"upload-from-editor": "Vous pouvez télécharger les leçons de l'éditeur ISLE."
+}

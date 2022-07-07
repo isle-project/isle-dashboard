@@ -1,0 +1,22 @@
+{
+	"admin-panel": "Administrator Panel",
+	"admin": "Admin",
+	"course-data": "Course Data",
+	"create-course": "Create a new course",
+	"edit-course": "Edit course",
+	"enroll": "Enroll",
+	"enrolled-courses": "Enrolled Courses",
+	"gallery": "Gallery",
+	"goto-course-lessons": "Go to course lessons",
+	"help": "Help",
+	"open-admin": "Open admin panel",
+	"open-gallery": "Open gallery",
+	"open-your-courses": "Open Your Courses",
+	"owned-courses": "Owned Courses",
+	"search-placeholder": "Filter lessons by searching",
+	"select-course": "Select course",
+	"search-field": "Search field",
+	"search-field-icon": "Search icon",
+	"sort-default-student-explanation": "Default ordering of lessons as specified by the course instructors",
+	"sort-default-owner-explanation": "Select a lesson and use left/right arrow keys to move it to the designated location in the default sorting."
+}

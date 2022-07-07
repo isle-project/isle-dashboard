@@ -1,0 +1,9 @@
+{
+	"import": "Import",
+	"import-lesson": "Import lekcie ",
+	"import-lesson-description": "Vyberte kurz, do ktorého sa má lekcia skopírovať.",
+	"lesson-name": "Názov lekcie",
+	"no-lessons-description": "V galérii zatiaľ neboli sprístupnené žiadne lekcie, ktoré by spĺňali vaše kritériá vyhľadávania.",
+	"no-lessons-title": "Žiadne nájdené lekcie",
+	"select-course": "Vyberte si kurz"
+}

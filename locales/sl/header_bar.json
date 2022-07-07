@@ -1,0 +1,22 @@
+{
+	"admin": "Admin",
+	"admin-panel": "Plošča skrbnika",
+	"course-data": "Podatki o tečaju",
+	"create-course": "Ustvarjanje novega tečaja",
+	"edit-course": "Urejanje tečaja",
+	"enroll": "Vpis na",
+	"enrolled-courses": "Vpisani tečaji",
+	"gallery": "Galerija",
+	"goto-course-lessons": "Pojdite na lekcije tečaja",
+	"help": "Pomoč",
+	"open-admin": "Odprite upraviteljsko ploščo",
+	"open-gallery": "Odprta galerija",
+	"open-your-courses": "Odprite svoje tečaje",
+	"owned-courses": "Lastni tečaji",
+	"search-field": "Polje za iskanje",
+	"search-field-icon": "Ikona za iskanje",
+	"search-placeholder": "Filtriranje lekcij z iskanjem",
+	"select-course": "Izberite tečaj",
+	"sort-default-owner-explanation": "Izberite lekcijo in jo s puščičnimi tipkami levo/desno premaknite na določeno mesto v privzetem razvrščanju.",
+	"sort-default-student-explanation": "Privzeto razvrščanje lekcij, kot ga določijo inštruktorji tečaja."
+}

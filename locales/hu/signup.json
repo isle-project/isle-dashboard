@@ -1,0 +1,21 @@
+{
+	"choose-password": "Jelszó kiválasztása",
+	"close": "Zárja be a",
+	"confirm-password": "Jelszó megerősítése",
+	"create-user": "Felhasználó létrehozása",
+	"email-tooltip": "Kérjük, adjon meg egy érvényes e-mail címet.",
+	"first-name-tooltip": "Kérjük, adja meg a keresztnevét",
+	"go-to-login-page": "Menjen a bejelentkezési oldalra",
+	"invalid-email": "Nem érvényes e-mail cím.",
+	"invalid-name": "A névnek legalább két karaktert kell tartalmaznia.",
+	"invalid-password": "A jelszónak legalább hat karakterből kell állnia.",
+	"invalid-password-match": "A jelszavak nem egyeznek.",
+	"last-name-tooltip": "Kérjük, adja meg a vezetéknevét",
+	"login": "Bejelentkezés",
+	"password": "Jelszó",
+	"password-tooltip": "Kérjük, adjon meg egy szabadon választott, legalább hat karakterből álló jelszót.",
+	"preferred-name": "Kiemelt név",
+	"preferred-name-tooltip": "Kérjük, adja meg a kívánt keresztnevet (ha van ilyen)",
+	"signup-not-valid": "Kérjük, a beküldés előtt győződjön meg arról, hogy minden beírt érték érvényes.",
+	"tos-disclaimer": "A \"Regisztráció\" gombra kattintva Ön elfogadja <1>szolgáltatási feltételeinket</1>. <3>Adatvédelmi szabályzatunkban</3> többet megtudhat arról, hogyan kezeljük az adatait."
+}

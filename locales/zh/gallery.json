@@ -1,0 +1,9 @@
+{
+	"import": "进口",
+	"import-lesson": "导入课程",
+	"import-lesson-description": "请选择要复制课程的课程。",
+	"lesson-name": "课程名称",
+	"no-lessons-description": "目前还没有课程提供给画廊，也没有满足您搜索条件的课程。",
+	"no-lessons-title": "没有找到教训",
+	"select-course": "选择课程"
+}

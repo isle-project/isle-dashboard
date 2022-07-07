@@ -1,0 +1,9 @@
+{
+	"import": "Import",
+	"import-lesson": "Import lecke ",
+	"import-lesson-description": "Kérjük, válassza ki azt a kurzust, amelybe a leckét másolni szeretné.",
+	"lesson-name": "Lecke neve",
+	"no-lessons-description": "A galéria számára még nem tettek elérhetővé leckéket, vagy nem felelnek meg a keresési feltételeknek.",
+	"no-lessons-title": "Nem találtak leckéket",
+	"select-course": "Válassza ki a tanfolyamot"
+}

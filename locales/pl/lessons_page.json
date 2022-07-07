@@ -1,0 +1,9 @@
+{
+	"create-from-template": "Utwórz z szablonu",
+	"create-new-one": " lub stworzyć nowy pod",
+	"no-course-description": "Otwórz istniejący kurs, wybierając go z rozwijanego menu powyżej na stronie",
+	"no-lessons": "Wybrany kurs nie zawiera żadnych lekcji.",
+	"no-lessons-found": "Nie znaleziono żadnych lekcji",
+	"no-templates-created-yet": "Nie zostały jeszcze utworzone żadne szablony.",
+	"upload-from-editor": "Lekcje można przesyłać z edytora ISLE."
+}

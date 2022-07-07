@@ -1,0 +1,9 @@
+{
+	"create-from-template": "Create from Template",
+	"create-new-one": " or create a new one under ",
+	"no-course-description": "Open an existing course by selecting one from the dropdown menu above at ",
+	"no-lessons-found": "No Lessons Found",
+	"no-lessons": "The selected course does not contain any lessons.",
+	"no-templates-created-yet": "No templates have been created yet.",
+	"upload-from-editor": "You can upload lessons from the ISLE editor."
+}

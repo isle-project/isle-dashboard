@@ -1,0 +1,22 @@
+{
+	"admin": "Admin",
+	"admin-panel": "Painel do Administrador",
+	"course-data": "Dados do curso",
+	"create-course": "Criar um novo curso",
+	"edit-course": "Editar curso",
+	"enroll": "Inscrição",
+	"enrolled-courses": "Cursos Inscritos",
+	"gallery": "Galeria",
+	"goto-course-lessons": "Ir para as aulas do curso",
+	"help": "Ajuda",
+	"open-admin": "Painel de administração aberto",
+	"open-gallery": "Galeria aberta",
+	"open-your-courses": "Abra seus cursos",
+	"owned-courses": "Cursos próprios",
+	"search-field": "Campo de busca",
+	"search-field-icon": "Ícone de busca",
+	"search-placeholder": "Filtrar lições através de buscas",
+	"select-course": "Selecione o curso",
+	"sort-default-owner-explanation": "Selecione uma lição e use as teclas de seta esquerda/direita para movê-la para o local designado na ordenação padrão.",
+	"sort-default-student-explanation": "Ordenação padrão das aulas, conforme especificado pelos instrutores do curso"
+}

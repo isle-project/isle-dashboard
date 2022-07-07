@@ -1,0 +1,22 @@
+{
+	"admin": "Administratorius",
+	"admin-panel": "Administratoriaus skydelis",
+	"course-data": "Kurso duomenys",
+	"create-course": "Sukurti naują kursą",
+	"edit-course": "Redaguoti kursą",
+	"enroll": "Registruotis",
+	"enrolled-courses": "Įrašyti kursai",
+	"gallery": "Galerija",
+	"goto-course-lessons": "Pereiti į kurso pamokas",
+	"help": "Pagalba",
+	"open-admin": "Atidarykite administratoriaus skydelį",
+	"open-gallery": "Atvira galerija",
+	"open-your-courses": "Atidarykite savo kursus",
+	"owned-courses": "Turimi kursai",
+	"search-field": "Paieškos laukas",
+	"search-field-icon": "Paieškos piktograma",
+	"search-placeholder": "Filtruoti pamokas pagal paiešką",
+	"select-course": "Pasirinkite kursą",
+	"sort-default-owner-explanation": "Pasirinkite pamoką ir rodyklių klavišais į kairę / į dešinę perkelkite ją į numatytame rūšiavime nurodytą vietą.",
+	"sort-default-student-explanation": "Numatytasis pamokų eiliškumas, kurį nurodo kurso instruktoriai."
+}

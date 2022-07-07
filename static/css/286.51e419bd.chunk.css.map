@@ -1,0 +1,1 @@
+{"version":3,"file":"static/css/286.51e419bd.chunk.css","mappings":"AAAA,kBACC,WACD,CAEA,yBACC,iCACD","sources":["components/text-select/text_select.css"],"sourcesContent":[".text-select-copy {\r\n\tcursor: copy;\r\n}\r\n\r\n.text-select-copy:active {\r\n\tbox-shadow: 0 0 8px rgba(0, 0, 0, 0.3);\r\n}\r\n"],"names":[],"sourceRoot":""}

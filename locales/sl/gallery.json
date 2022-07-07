@@ -1,0 +1,9 @@
+{
+	"import": "Uvoz",
+	"import-lesson": "Učna ura uvoza ",
+	"import-lesson-description": "Izberite tečaj, v katerega naj se učna ura kopira.",
+	"lesson-name": "Ime lekcije",
+	"no-lessons-description": "V galeriji še ni na voljo nobena učna ura, ki bi ustrezala vašim iskalnim kriterijem.",
+	"no-lessons-title": "Ni najdenih lekcij",
+	"select-course": "Izberite tečaj"
+}

@@ -1,0 +1,9 @@
+{
+	"import": "輸入",
+	"import-lesson": "インポートレッスン",
+	"import-lesson-description": "レッスンをコピーするコースを選択してください。",
+	"lesson-name": "レッスン名",
+	"no-lessons-description": "まだギャラリーで利用できるようになったレッスンはありませんし、検索条件を満たしていません。",
+	"no-lessons-title": "レッスンは見つかりませんでした。",
+	"select-course": "コース選択"
+}

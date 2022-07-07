@@ -1,0 +1,22 @@
+{
+	"admin": "Admin",
+	"admin-panel": "Rendszergazda panel",
+	"course-data": "Pálya adatok",
+	"create-course": "Új tanfolyam létrehozása",
+	"edit-course": "Tanfolyam szerkesztése",
+	"enroll": "Beiratkozás",
+	"enrolled-courses": "Beiratkozott kurzusok",
+	"gallery": "Galéria",
+	"goto-course-lessons": "Menjen a tanfolyam leckéihez",
+	"help": "Segítség",
+	"open-admin": "Admin panel megnyitása",
+	"open-gallery": "Galéria megnyitása",
+	"open-your-courses": "Nyissa meg a kurzusait",
+	"owned-courses": "Saját tulajdonú pályák",
+	"search-field": "Keresés mező",
+	"search-field-icon": "Keresés ikon",
+	"search-placeholder": "Tanórák szűrése keresés alapján",
+	"select-course": "Válasszon kurzust",
+	"sort-default-owner-explanation": "Válasszon ki egy leckét, és a balra/jobbra nyílbillentyűkkel mozgassa azt a kijelölt helyre az alapértelmezett rendezésben.",
+	"sort-default-student-explanation": "A leckék alapértelmezett sorrendje a kurzus oktatói által meghatározottak szerint."
+}

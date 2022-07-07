@@ -1,0 +1,21 @@
+{
+	"choose-password": "Izberite geslo",
+	"close": "Zapri",
+	"confirm-password": "Potrditev gesla",
+	"create-user": "Ustvarjanje uporabnika",
+	"email-tooltip": "Vnesite veljaven e-poštni naslov.",
+	"first-name-tooltip": "Vnesite svoje ime",
+	"go-to-login-page": "Pojdite na prijavno stran",
+	"invalid-email": "Ni veljaven e-poštni naslov.",
+	"invalid-name": "Ime mora vsebovati vsaj dva znaka.",
+	"invalid-password": "Vaše geslo mora vsebovati vsaj šest znakov.",
+	"invalid-password-match": "Gesla se ne ujemajo.",
+	"last-name-tooltip": "Vnesite svoj priimek",
+	"login": "Prijavite se",
+	"password": "Geslo",
+	"password-tooltip": "Vnesite geslo po lastni izbiri, ki vsebuje vsaj šest znakov.",
+	"preferred-name": "Prednostno ime",
+	"preferred-name-tooltip": "Vnesite želeno ime (če je primerno)",
+	"signup-not-valid": "Pred oddajo se prepričajte, da so vse vhodne vrednosti veljavne.",
+	"tos-disclaimer": "S klikom na gumb \"Prijavite se\" se strinjate z našimi <1>pogoji storitve</1>. Več o tem, kako obdelujemo vaše podatke, si preberite v našem <3>pravilniku o zasebnosti</3>."
+}

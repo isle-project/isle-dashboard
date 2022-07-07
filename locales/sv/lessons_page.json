@@ -1,0 +1,9 @@
+{
+	"create-from-template": "Skapa från en mall",
+	"create-new-one": " eller skapa en ny under ",
+	"no-course-description": "Öppna en befintlig kurs genom att välja en från rullgardinsmenyn ovan på ",
+	"no-lessons": "Den valda kursen innehåller inga lektioner.",
+	"no-lessons-found": "Inga lektioner hittades",
+	"no-templates-created-yet": "Inga mallar har skapats ännu.",
+	"upload-from-editor": "Du kan ladda upp lektioner från ISLE-redigeraren."
+}

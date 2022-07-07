@@ -1,0 +1,9 @@
+{
+	"create-from-template": "Loo mallist",
+	"create-new-one": " või luua uus aadressil ",
+	"no-course-description": "Avage olemasolev kursus, valides selle ülaltoodud rippmenüüst aadressil ",
+	"no-lessons": "Valitud kursus ei sisalda ühtegi õppetundi.",
+	"no-lessons-found": "Õppetunde ei ole leitud",
+	"no-templates-created-yet": "Malle pole veel loodud.",
+	"upload-from-editor": "Õppetunde saab üles laadida ISLE redaktorist."
+}

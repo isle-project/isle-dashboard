@@ -1,0 +1,4 @@
+"use strict";const{basename,resolve}=require("path"),{execSync}=require("child_process"),glob=require("glob"),readJSON=require("@stdlib/fs/read-json"),objectKeys=require("@stdlib/utils/keys"),TOPLEVEL_DIR=resolve(__dirname,"..","..","..");glob("public/locales/en/*.json",{cwd:TOPLEVEL_DIR},function(err,files){const translations=new Set;for(let i=0;i<files.length;i++){const file=resolve(TOPLEVEL_DIR,files[i]),table=readJSON.sync(file);objectKeys(table).forEach(key=>{translations.add(key),translations.add(basename(files[i],".json")+":"+key)})}const identifiers=execSync(`grep -hroP "(props.| |	|{)t\\( ?'\\K[^']*(?=' ?\\))" src/* `,{cwd:TOPLEVEL_DIR}).toString().split(`
+`);new Set(identifiers).forEach(value=>{value&&!translations.has(value)&&console.log("Missing translation: "+value)})});
+
+//# sourceMappingURL=find_missing_translations.js.map

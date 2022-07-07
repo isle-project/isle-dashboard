@@ -1,0 +1,21 @@
+{
+	"choose-password": "Vali parool",
+	"close": "Sulge",
+	"confirm-password": "Parooli kinnitamine",
+	"create-user": "Kasutaja loomine",
+	"email-tooltip": "Palun sisestage kehtiv e-posti aadress.",
+	"first-name-tooltip": "Palun sisestage oma eesnimi",
+	"go-to-login-page": "Mine sisselogimise lehele",
+	"invalid-email": "Ei ole kehtiv e-posti aadress.",
+	"invalid-name": "Nimi peab sisaldama vähemalt kahte märki.",
+	"invalid-password": "Teie parool peab sisaldama vähemalt kuus märki.",
+	"invalid-password-match": "Paroolid ei vasta.",
+	"last-name-tooltip": "Palun sisestage oma perekonnanimi",
+	"login": "Logi sisse",
+	"password": "Parool",
+	"password-tooltip": "Palun sisestage enda valitud parool, mis koosneb vähemalt kuuest tähemärgist.",
+	"preferred-name": "Eelistatud nimi",
+	"preferred-name-tooltip": "Palun sisestage eelistatud eesnimi (kui see on kohaldatav).",
+	"signup-not-valid": "Palun veenduge enne saatmist, et kõik sisestatud väärtused on kehtivad.",
+	"tos-disclaimer": "Vajutades nupule \"Registreeru\" nõustute meie <1>teenusetingimustega</1>. Lisateavet selle kohta, kuidas teie andmeid töödeldakse, leiate meie <3>privaatsuspoliitikast</3>."
+}

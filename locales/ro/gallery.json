@@ -1,0 +1,9 @@
+{
+	"import": "Import",
+	"import-lesson": "Lecția de import ",
+	"import-lesson-description": "Vă rugăm să selectați cursul în care trebuie copiată lecția.",
+	"lesson-name": "Numele lecției",
+	"no-lessons-description": "Nici o lecție nu a fost încă pusă la dispoziția galeriei sau nu satisface criteriile de căutare.",
+	"no-lessons-title": "Nu s-au găsit lecții",
+	"select-course": "Selectați cursul"
+}

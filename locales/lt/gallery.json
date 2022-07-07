@@ -1,0 +1,9 @@
+{
+	"import": "Importas",
+	"import-lesson": "Importo pamoka ",
+	"import-lesson-description": "Pasirinkite kursą, į kurį turėtų būti nukopijuota pamoka.",
+	"lesson-name": "Pamokos pavadinimas",
+	"no-lessons-description": "Kol kas galerijoje nėra pamokų, kurios atitiktų jūsų paieškos kriterijus.",
+	"no-lessons-title": "Pamokų nerasta",
+	"select-course": "Pasirinkite kursą"
+}

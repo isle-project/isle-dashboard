@@ -1,0 +1,22 @@
+{
+	"admin": "Admin",
+	"admin-panel": "Panel administracyjny",
+	"course-data": "Dane dotyczące kursu",
+	"create-course": "Stwórz nowy kurs",
+	"edit-course": "Kurs redakcyjny",
+	"enroll": "Zarejestruj się",
+	"enrolled-courses": "Zapisane kursy",
+	"gallery": "Galeria",
+	"goto-course-lessons": "Idź na lekcje kursu",
+	"help": "Pomoc",
+	"open-admin": "Otwórz panel administracyjny",
+	"open-gallery": "Galeria otwarta",
+	"open-your-courses": "Otwórz swoje kursy",
+	"owned-courses": "Własne kursy",
+	"search-field": "Pole wyszukiwania",
+	"search-field-icon": "Ikona wyszukiwania",
+	"search-placeholder": "Lekcje filtrowania poprzez wyszukiwanie",
+	"select-course": "Wybierz kurs",
+	"sort-default-owner-explanation": "Wybierz lekcję i użyj klawiszy strzałek w lewo/prawo, aby przenieść ją do wyznaczonego miejsca w domyślnym sortowaniu.",
+	"sort-default-student-explanation": "Domyślna kolejność lekcji określona przez prowadzących kurs"
+}

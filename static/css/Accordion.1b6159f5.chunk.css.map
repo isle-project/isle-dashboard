@@ -1,0 +1,1 @@
+{"version":3,"file":"static/css/Accordion.1b6159f5.chunk.css","mappings":"AAAA,oDAIC,qBAAuB,CADvB,aAAc,CADd,gBAGD","sources":["../node_modules/@isle-project/components/accordion/accordion.css"],"sourcesContent":[".Lesson > .accordion,\n.Lesson > .line-wrapper > .accordion {\n\tmax-width: 1200px;\n\tmargin: 0 auto;\n\tbackground-color: white;\n}\n"],"names":[],"sourceRoot":""}

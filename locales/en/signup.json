@@ -1,0 +1,21 @@
+{
+	"choose-password": "Choose Password",
+	"close": "Close",
+	"confirm-password": "Confirm Password",
+	"create-user": "User Creation",
+	"email-tooltip": "Please enter a valid email address.",
+	"go-to-login-page": "Go to login page",
+	"invalid-email": "Not a valid email address.",
+	"invalid-name": "Name must contain at least two characters.",
+	"invalid-password-match": "Passwords do not match.",
+	"invalid-password": "Your password has to contain at least six characters.",
+	"login": "Log in",
+	"first-name-tooltip": "Please enter your first name",
+	"last-name-tooltip": "Please enter your last name",
+	"preferred-name-tooltip": "Please enter a preferred first name (if applicable)",
+	"preferred-name": "Preferred Name",
+	"password-tooltip": "Please enter a password of your choosing with at least six characters",
+	"password": "Password",
+	"signup-not-valid": "Please make sure that all input values are valid before submitting.",
+	"tos-disclaimer": "Through clicking the \"Sign Up\" button you agree to our <1>terms of service</1>. Learn more about how your data is processed in our <3>privacy policy</3>."
+}
