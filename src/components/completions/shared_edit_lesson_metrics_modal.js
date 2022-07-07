@@ -114,6 +114,7 @@ function SharedEditLessonMetricsModal({ name, preferredLesson, lessons, lessonRe
 	const [ hasSharedRef, setHasSharedRef ] = useState( false );
 	const [ sharedRef, setSharedRef ] = useState( null );
 	const [ activeLessons, setActiveLessons ] = useState( {} );
+	const [ selectedLessons, setSelectedLessons ] = useState( {} );
 	const [ currentHash, setCurrentHash ] = useState( null );
 
 	const availableMetrics = useRef( null );
@@ -124,7 +125,8 @@ function SharedEditLessonMetricsModal({ name, preferredLesson, lessons, lessonRe
 		setHasSharedRule( analysis.hasSharedRule );
 		let newSharedRule = null;
 		let newSharedRuleParameters = [];
-		if ( analysis.hasSharedRule && analysis.rule && analysis.rule[ 0 ] ) {
+		const isSharedRuleSet = analysis.hasSharedRule && analysis.rule && analysis.rule[ 0 ];
+		if ( isSharedRuleSet ) {
 			newSharedRule = allRules[ analysis.rule[ 0 ] ];
 			newSharedRuleParameters = analysis.rule.slice( 1 );
 			setSharedRule( newSharedRule );
@@ -134,19 +136,35 @@ function SharedEditLessonMetricsModal({ name, preferredLesson, lessons, lessonRe
 		if ( analysis.hasSharedRef ) {
 			setSharedRef( analysis.ref );
 		}
-		const obj = {
+		const lessonSpec = {
 			sharedRule: newSharedRule,
 			sharedRuleParameters: newSharedRuleParameters,
 			sharedRef: analysis.hasSharedRef ? analysis.ref : null,
 			activeLessons: analysis.activeLessons
 		};
-		console.log( 'Analyzed HASHED OBJ: ');
-		console.log( obj );
-		analyzedHash.current = hash( obj );
-		console.log( 'Analyzed HASHED: ' + analyzedHash.current );
+		const newSelectedLessons = {};
+		for ( let i = 0; i < lessons.length; i++ ) {
+			const lesson = lessons[ i ];
+			const lessonId = lesson._id;
+			const lessonMetric = lessonSpec.activeLessons[ lessonId ];
+			if ( lessonMetric ) {
+				newSelectedLessons[ lessonId ] = true;
+			} else {
+				newSelectedLessons[ lessonId ] = false;
+				lessonSpec.activeLessons[ lessonId ] = {
+					name: chosenName,
+					rule: isSharedRuleSet ? [ lessonSpec.sharedRule.name, ...lessonSpec.sharedRuleParameters ] : null,
+					ref: analysis.hasSharedRef ? lessonSpec.sharedRef : null,
+					coverage: [ 'all' ],
+					level: 'lesson'
+				};
+			}
+		}
+		analyzedHash.current = hash( lessonSpec );
 		setCurrentHash( analyzedHash.current );
-		setActiveLessons( analysis.activeLessons );
-	}, [ allRules ] );
+		setActiveLessons( lessonSpec.activeLessons );
+		setSelectedLessons( newSelectedLessons );
+	}, [ allRules, chosenName, lessons ] );
 
 	useEffect( () => {
 		availableMetrics.current = availableLessonMetrics( lessons );
@@ -161,21 +179,19 @@ function SharedEditLessonMetricsModal({ name, preferredLesson, lessons, lessonRe
 		incorporateAnalysis( analysis );
 	}, [ allRules, incorporateAnalysis, lessons, chosenName ] );
 	useEffect( () => {
-		const obj = {
+		const lessonSpec = {
 			sharedRule: hasSharedRule ? sharedRule : null,
 			sharedRuleParameters: hasSharedRule ? sharedRuleParameters : [],
 			sharedRef: hasSharedRef ? sharedRef : null,
 			activeLessons
 		};
-		console.log( 'CURRENT HASHED OBJ: ');
-		console.log( obj );
-		setCurrentHash( hash( obj ) );
+		setCurrentHash( hash( lessonSpec ) );
 	}, [ sharedRule, sharedRef, sharedRuleParameters, activeLessons, hasSharedRef, hasSharedRule ] );
 
 	const handleSave = useCallback( () => {
 		const lessonMetrics = { ...activeLessons };
 		namespace.lessons.forEach( lesson => {
-			if ( !lessonMetrics[ lesson._id ] ) {
+			if ( !selectedLessons[ lesson._id ] ) {
 				lessonMetrics[ lesson._id ] = null;
 			} else {
 				lessonMetrics[ lesson._id ] = {
@@ -191,17 +207,7 @@ function SharedEditLessonMetricsModal({ name, preferredLesson, lessons, lessonRe
 			lessonMetrics
 		};
 		onSave( body );
-	}, [ activeLessons, chosenName, namespace, hasSharedRef, sharedRef, hasSharedRule, sharedRule, sharedRuleParameters, onSave ] );
-
-	function lessonActivator() {
-		return {
-			name: chosenName,
-			rule: hasSharedRule ? [ sharedRule.name, ...sharedRuleParameters ] : null,
-			ref: hasSharedRef ? sharedRef : null,
-			coverage: [ 'all' ],
-			level: 'lesson'
-		};
-	}
+	}, [ activeLessons, chosenName, namespace, hasSharedRef, sharedRef, hasSharedRule, selectedLessons, sharedRule, sharedRuleParameters, onSave ] );
 	const { t } = useTranslation();
 	const lessonRefOptions = lessonRefs.map( ( ref ) => ({ value: ref, label: ref }) );
 	const allRulesOptions = objectValues( allRules ).map( ( rule ) => ({ value: rule, label: rule.label }) );
@@ -290,7 +296,7 @@ function SharedEditLessonMetricsModal({ name, preferredLesson, lessons, lessonRe
 		return a.title.localeCompare( b.title );
 	} : ( a, b ) => a.title.localeCompare( b.title ) );
 	const lessonInputs = sortedLessons.map( x => {
-		const lessonIsActive = activeLessons[ x._id ] !== void 0;
+		const lessonIsActive = selectedLessons[ x._id ];
 		let defaultRuleParameters;
 		let defaultRule;
 		let defaultRef;
@@ -324,13 +330,9 @@ function SharedEditLessonMetricsModal({ name, preferredLesson, lessons, lessonRe
 					label={x.title}
 					key={x._id}
 					onChange={( event ) => {
-						const newActive = { ...activeLessons };
-						if ( event.target.checked ) {
-							newActive[ x._id ] = lessonActivator();
-						} else {
-							delete newActive[ x._id ];
-						}
-						setActiveLessons( newActive );
+						const newSelected = { ...selectedLessons };
+						newSelected[ x._id ] = event.target.checked;
+						setSelectedLessons( newSelected );
 					}}
 					checked={lessonIsActive}
 				/>
@@ -472,18 +474,11 @@ function SharedEditLessonMetricsModal({ name, preferredLesson, lessons, lessonRe
 						id="all-lessons-switch"
 						label={<h3>All Lessons</h3>}
 						onChange={( event ) => {
-							let newActive;
-							if ( event.target.checked ) {
-								newActive = { ...activeLessons };
-								lessons.forEach( ( lesson ) => {
-									if ( !newActive[ lesson._id ] ) {
-										newActive[ lesson._id ] = lessonActivator();
-									}
-								});
-							} else {
-								newActive = {};
-							}
-							setActiveLessons( newActive );
+							const newSelectedLessons = {};
+							lessons.forEach( ( lesson ) => {
+								newSelectedLessons[ lesson._id ] = event.target.checked;
+							});
+							setSelectedLessons( newSelectedLessons );
 						}}
 					/>
 					<div style={{ maxHeight: '75vh', minHeight: '50vh', border: 'solid 1px darkgray', overflowY: 'auto', padding: 4, overflowX: 'hidden' }} >
