@@ -501,7 +501,7 @@ function SharedEditLessonMetricsModal({ name, preferredLesson, lessons, lessonRe
 				>
 					{t('discard-unsaved-changes')}
 				</Button>
-				<Button variant="success" onClick={handleSave} >
+				<Button variant="success" onClick={handleSave} disabled={!hasUnsavedChanges || !sharedRef || !sharedRule} >
 					{t('common:save')}
 				</Button>
 			</Modal.Footer>}
