@@ -14,8 +14,7 @@ TODO
 6.  Directory structure or keyword tagging for lessons? Make it easier to navigate a larger course
 
 7. Completions:
-  -   Creation and management of lesson completion metrics (copying, reuse, automatic instantiation of metrics)
-      -   Add boolean state for whether lessons are selected or not (and avoid resetting the activeLessons object) 
+  -   Validation on the drop lowest params when empty causes NaN's 
   -   Completion table in the dashboard with the latest user data and recompute button
   -   Generalize coverage to support patterns and types
   -   Add 'metric_order' endpoint
