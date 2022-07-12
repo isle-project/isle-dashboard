@@ -21,3 +21,5 @@ TODO
   -   Completion table in the dashboard with the latest user data and recompute button
   -   Generalize coverage to support patterns and types
   -   Add 'metric_order' endpoint
+  -   Add new rules and component refs to handle likely use case (progress, clicked link, watched video, ...)
+  -   Adjust ACTION logging to update completions table
