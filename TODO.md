@@ -14,7 +14,10 @@ TODO
 6.  Directory structure or keyword tagging for lessons? Make it easier to navigate a larger course
 
 7. Completions:
-  -   Validation on the drop lowest params when empty causes NaN's 
+  -   Validation on the drop lowest params when empty causes NaN's
+  -   Do not save if no lessons are changed (e.g., creating new but no lessons selected)
+  -   Odd coupling when adding selectedLessons to hash
+  -   If all checked individually, All Lessons should be checked
   -   Completion table in the dashboard with the latest user data and recompute button
   -   Generalize coverage to support patterns and types
   -   Add 'metric_order' endpoint
