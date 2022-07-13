@@ -58,6 +58,39 @@ function filterMethodCategories( filter, row ) {
 	return String( row[ id ] ) === filter.value;
 }
 
+/**
+ * Extracts metrics from cohort members for the chosen scope and returns a list of metrics.
+ *
+ * @param {Array} cohorts - array of cohorts
+ * @param {Object} scope - scope of the completions (with 'value' key having value either `course-wide` or a lesson identifier)
+ * @param {Object} namespace - namespace object
+ * @returns {Array} array of objects with label (name of the metric) and value (key in user object)
+ */
+function extractMetricSet( cohorts, scope, namespace ) {
+	const metricSet = new Set();
+	const metricLabels = {};
+	const keyCriterion = scope.value === 'course-wide' ? `namespace-${namespace._id}-` : `lesson-${scope.value}-`;
+	for ( let i = 0; i < cohorts.length; i++ ) {
+		for ( let j = 0; j < cohorts[ i ].members.length; j++ ) {
+			console.log( 'Cohorts: ', cohorts[ i ] );
+			const userCompletions = Object.keys( cohorts[ i ].members[ j ].completions || {} );
+			for ( let k = 0; k < userCompletions.length; ++k ) {
+				const key = userCompletions[k];
+				if ( key.startsWith(keyCriterion) ) {
+					metricSet.add( key );
+					metricLabels[ key ] = cohorts[ i ].members[ j ].completions[ key ].metricName;
+				}
+			}
+		}
+	}
+	const uniqueMetrics = [];
+	metricSet.forEach( key => {
+		uniqueMetrics.push( { value: key, label: metricLabels[ key ] } );
+	});
+	uniqueMetrics.sort( (a, b) => a.label.localeCompare( b.label ) );
+	return uniqueMetrics;
+}
+
 
 // MAIN //
 
@@ -65,10 +98,13 @@ class CompletionsPage extends Component {
 	constructor( props ) {
 		super( props );
 
+		const scope = { value: 'course-wide', label: props.t('common:course-wide') };
+		this.metrics = extractMetricSet( props.cohorts, scope, props.namespace );
 		this.columns = this.createColumns( props.lessons, props.cohorts );
 		this.state = {
 			displayedMembers: [],
-			showExplorer: false
+			showExplorer: false,
+			scope: scope
 		};
 	}
 
@@ -76,13 +112,15 @@ class CompletionsPage extends Component {
 		this.createDisplayedMembers();
 	}
 
-	componentDidUpdate( prevProps ) {
+	componentDidUpdate( prevProps, prevState ) {
 		if (
 			this.props.cohorts !== prevProps.cohorts ||
-			this.props.lessons !== prevProps.lessons
+			this.props.lessons !== prevProps.lessons ||
+			this.state.scope !== prevState.scope
 		) {
-			this.createDisplayedMembers();
+			this.metrics = extractMetricSet( this.props.cohorts, this.state.scope, this.props.namespace );
 			this.columns = this.createColumns( this.props.lessons, this.props.cohorts );
+			this.createDisplayedMembers();
 		}
 	}
 
@@ -183,6 +221,12 @@ class CompletionsPage extends Component {
 				}
 			}
 		];
+		for ( let i = 0; i < this.metrics.length; i++ ) {
+			COLUMNS.push({
+				Header: this.metrics[ i ].label,
+				accessor: 'completions.'+this.metrics[ i ].value+'.score'
+			});
+		}
 		return COLUMNS;
 	}
 
@@ -208,7 +252,7 @@ class CompletionsPage extends Component {
 		const blob = new Blob([ JSON.stringify( data ) ], {
 			type: 'application/json'
 		});
-		const name = `grades_${this.props.namespace.title}.json`;
+		const name = `completions_${this.props.namespace.title}.json`;
 		saveAs( blob, name );
 	};
 
@@ -228,7 +272,7 @@ class CompletionsPage extends Component {
 			const blob = new Blob([ output ], {
 				type: 'text/plain'
 			});
-			const name = `grades_${this.props.namespace.title}.csv`;
+			const name = `completions_${this.props.namespace.title}.csv`;
 			saveAs( blob, name );
 		});
 	};
@@ -236,6 +280,12 @@ class CompletionsPage extends Component {
 	toggleExplorer = () => {
 		this.setState({
 			showExplorer: !this.state.showExplorer
+		});
+	};
+
+	handleScopeChange = ( value ) => {
+		this.setState({
+			scope: value
 		});
 	};
 
@@ -261,6 +311,7 @@ class CompletionsPage extends Component {
 					<Select
 						defaultValue={options[ 0 ]}
 						options={options}
+						onChange={this.handleScopeChange}
 					/>
 				</Col>
 			</Form.Group>
