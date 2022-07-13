@@ -116,6 +116,7 @@ function SharedEditLessonMetricsModal({ name, preferredLesson, lessons, lessonRe
 	const [ activeLessons, setActiveLessons ] = useState( {} );
 	const [ selectedLessons, setSelectedLessons ] = useState( {} );
 	const [ currentHash, setCurrentHash ] = useState( null );
+	const [ isNewMetric, setIsNewMetric ] = useState( false );
 
 	const availableMetrics = useRef( null );
 	const analyzedHash = useRef( null );
@@ -148,6 +149,7 @@ function SharedEditLessonMetricsModal({ name, preferredLesson, lessons, lessonRe
 			const lessonId = lesson._id;
 			const lessonMetric = lessonSpec.activeLessons[ lessonId ];
 			if ( lessonMetric ) {
+				// TODO: this breaks things when discarding unsaved changes right now
 				newSelectedLessons[ lessonId ] = true;
 			} else {
 				newSelectedLessons[ lessonId ] = false;
@@ -160,6 +162,7 @@ function SharedEditLessonMetricsModal({ name, preferredLesson, lessons, lessonRe
 				};
 			}
 		}
+		lessonSpec.selectedLessons = newSelectedLessons;
 		analyzedHash.current = hash( lessonSpec );
 		setCurrentHash( analyzedHash.current );
 		setActiveLessons( lessonSpec.activeLessons );
@@ -183,10 +186,11 @@ function SharedEditLessonMetricsModal({ name, preferredLesson, lessons, lessonRe
 			sharedRule: hasSharedRule ? sharedRule : null,
 			sharedRuleParameters: hasSharedRule ? sharedRuleParameters : [],
 			sharedRef: hasSharedRef ? sharedRef : null,
-			activeLessons
+			activeLessons,
+			selectedLessons
 		};
 		setCurrentHash( hash( lessonSpec ) );
-	}, [ sharedRule, sharedRef, sharedRuleParameters, activeLessons, hasSharedRef, hasSharedRule ] );
+	}, [ sharedRule, sharedRef, sharedRuleParameters, activeLessons, selectedLessons, hasSharedRef, hasSharedRule ] );
 
 	const handleSave = useCallback( () => {
 		const lessonMetrics = { ...activeLessons };
@@ -437,6 +441,7 @@ function SharedEditLessonMetricsModal({ name, preferredLesson, lessons, lessonRe
 	});
 	console.log( currentHash );
 	console.log( analyzedHash.current );
+	console.log( 'isNewMetric', isNewMetric );
 	const hasUnsavedChanges = currentHash !== analyzedHash.current;
 	return (
 		<Modal size="lg" show={show} onHide={onHide} dialogClassName="modal-75w modal-80h" >
@@ -460,6 +465,11 @@ function SharedEditLessonMetricsModal({ name, preferredLesson, lessons, lessonRe
 								setSharedRule( null );
 								setSharedRef( null );
 							}
+						}}
+						onCreateOption={( inputValue ) => {
+							console.log( 'Creating new lesson metric: ', inputValue );
+							setChosenName( inputValue );
+							setIsNewMetric( true );
 						}}
 						value={chosenName ? { value: chosenName, label: chosenName } : null}
 						isClearable
@@ -501,7 +511,7 @@ function SharedEditLessonMetricsModal({ name, preferredLesson, lessons, lessonRe
 				>
 					{t('discard-unsaved-changes')}
 				</Button>
-				<Button variant="success" onClick={handleSave} disabled={!hasUnsavedChanges || !sharedRef || !sharedRule} >
+				<Button variant="success" onClick={handleSave} disabled={!hasUnsavedChanges || !sharedRef || !sharedRule || ( isNewMetric && Object.values( selectedLessons ).every( x => !x ))} >
 					{t('common:save')}
 				</Button>
 			</Modal.Footer>}
