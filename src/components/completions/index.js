@@ -94,7 +94,11 @@ function CompletionsPage( props ) {
 	const metrics = props.entity.completions || [];
 	const [ order, setOrder ] = useState( incrspace( 0, metrics.length, 1 ) );
 	useEffect( () => {
-		axios.post( `${server}/completion_tags` )
+		// ATTN: this is a hack to get the tags and refs to be populated before the first render
+		const lessonIds = props.entity.lessons.map( lesson => lesson._id );
+		axios.post( `${server}/completion_tags`, {
+			lessons: lessonIds
+		})
 			.then( response => {
 				setTags( response.data );
 			})
@@ -107,7 +111,6 @@ function CompletionsPage( props ) {
 					'_default_tag'
 				]);
 			});
-		const lessonIds = props.entity.lessons.map( lesson => lesson._id );
 		axios.post( `${server}/completion_components`, {
 			lessons: lessonIds
 		})
@@ -261,6 +264,7 @@ function CompletionsPage( props ) {
 				tags={tags}
 				entity={props.entity}
 				level={props.level}
+				onCompute={() => setShowComputeModal( false )}
 			/> : null}
 			{showCreateModal ? <EditMetricModal
 				key="create-modal"

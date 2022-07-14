@@ -19,9 +19,11 @@
 
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
+import axios from 'axios';
 import stringify from 'csv-stringify';
 import { withTranslation } from 'react-i18next';
 import Select from 'react-select';
+import InputRange from 'react-input-range';
 import Button from 'react-bootstrap/Button';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
@@ -32,7 +34,10 @@ import Tooltip from 'react-bootstrap/Tooltip';
 import isArray from '@stdlib/assert/is-array';
 import contains from '@stdlib/assert/contains';
 import lowercase from '@stdlib/string/lowercase';
+import roundn from '@stdlib/math/base/special/roundn';
+import lpad from '@stdlib/string/left-pad';
 import DashboardTable from 'components/dashboard-table';
+import ComputeModal from 'components/completions/compute_modal.js';
 import DashboardDataExplorer from 'ev/components/data-explorer';
 import obsToVar from '@isle-project/utils/obs-to-var';
 import server from 'constants/server';
@@ -91,6 +96,13 @@ function extractMetricSet( cohorts, scope, namespace ) {
 	return uniqueMetrics;
 }
 
+function metricObject( scope, name, namespace, lessons ) {
+	if ( scope.value === 'course-wide' ) {
+		return namespace.completions.find( c => c.name === name );
+	}
+	return lessons[ scope.value ].completions.find( c => c.name === name );
+}
+
 
 // MAIN //
 
@@ -104,12 +116,33 @@ class CompletionsPage extends Component {
 		this.state = {
 			displayedMembers: [],
 			showExplorer: false,
-			scope: scope
+			scope: scope,
+			showComputeModal: false,
+			tags: [],
+			computeMetric: null
 		};
 	}
 
 	componentDidMount() {
 		this.createDisplayedMembers();
+		const lessonIds = this.props.namespace.lessons.map( lesson => lesson._id );
+		axios.post( `${server}/completion_tags`, {
+			lessons: lessonIds
+		})
+			.then( response => {
+				this.setState({ tags: response.data });
+			})
+			.catch( err => {
+				console.log( 'Error fetching completion tags:', err );
+				this.setState({
+					tags: [
+						'quiz',
+						'homework',
+						'exam',
+						'_default_tag'
+					]
+				});
+			});
 	}
 
 	componentDidUpdate( prevProps, prevState ) {
@@ -224,7 +257,45 @@ class CompletionsPage extends Component {
 		for ( let i = 0; i < this.metrics.length; i++ ) {
 			COLUMNS.push({
 				Header: this.metrics[ i ].label,
-				accessor: 'completions.'+this.metrics[ i ].value+'.score'
+				accessor: 'completions.'+this.metrics[ i ].value+'.score',
+				Cell: row => {
+					return <span style={{ whiteSpace: 'pre' }}>{( lpad( String( roundn( row.value, -1 ).toFixed( 1 ) ), 5, '  ' ) )}</span>;
+				},
+				Filter: ({ filter, onChange }) => {
+					const defaultVal = {
+						max: 100,
+						min: 0
+					};
+					return (
+						<div className="completions-column" style={{
+							paddingLeft: '4px',
+							paddingRight: '4px',
+							paddingTop: '8px'
+						}}>
+							<InputRange
+								ariaControls="dashboard-table"
+								allowSameValues
+								maxValue={100}
+								minValue={0}
+								value={filter ? filter.value : defaultVal}
+								onChange={( newValue ) => {
+									onChange( newValue );
+								}}
+							/>
+							<Button style={{ marginLeft: 20 }} onClick={() => {
+								this.setState({
+									computeMetric: metricObject( this.state.scope, this.metrics[ i ].label, this.props.namespace, this.props.lessons ),
+									showComputeModal: true
+								});
+							}} >
+								recompute
+							</Button>
+						</div>
+					);
+				},
+				filterMethod: ( filter, row ) => {
+					return row[ filter.id ] >= filter.value.min && row[ filter.id ] <= filter.value.max;
+				}
 			});
 		}
 		return COLUMNS;
@@ -363,6 +434,18 @@ class CompletionsPage extends Component {
 						onButtonClick={this.toggleExplorer}
 					/>
 				</div>
+				{this.state.showComputeModal && <ComputeModal
+					metric={this.state.computeMetric}
+					show={this.state.showComputeModal}
+					onHide={() => this.setState({ showComputeModal: false })}
+					cohorts={this.props.cohorts}
+					tags={this.state.tags}
+					entity={this.props.namespace}
+					level="namespace"
+					onCompute={() => {
+						this.setState({ showComputeModal: false });
+					}}
+				/>}
 			</Fragment>
 		);
 	}

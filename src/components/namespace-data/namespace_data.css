@@ -53,3 +53,8 @@
 	height: calc(100vh - 125px);
 	overflow-x: hidden;
 }
+
+.completions-column > .input-range {
+	display: inline-block;
+	width: 65%;
+}

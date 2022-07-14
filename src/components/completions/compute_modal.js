@@ -104,8 +104,8 @@ function TagWeightInput({ value, t, onChange }) {
 	return inputs;
 }
 
-function ComputeModal({ cohorts, metric, entity, level, show, tags, onHide }) {
-	console.log( cohorts );
+function ComputeModal({ cohorts, metric, entity, level, show, tags, onHide, onCompute }) {
+	console.log( 'Metric:', metric );
 	const { t } = useTranslation();
 
 	const [ formValues, setFormValues ] = useState({
@@ -149,7 +149,7 @@ function ComputeModal({ cohorts, metric, entity, level, show, tags, onHide }) {
 		newFormValues.policyOptions.tagWeights = tagWeights;
 		setFormValues( newFormValues );
 	}, [ formValues ] );
-	const onCalculate = useCallback( () => {
+	const handleCompute = useCallback( () => {
 		if ( formValues.policyOptions.timeFilter ) {
 			formValues.policyOptions.timeFilter = formValues.policyOptions.timeFilter.map( x => x.getTime() );
 		}
@@ -164,9 +164,9 @@ function ComputeModal({ cohorts, metric, entity, level, show, tags, onHide }) {
 			}
 		};
 		axios.post( server+'/compute_completions', body ).then( response => {
-			console.log( response );
+			onCompute( response.data );
 		});
-	}, [ metric, entity, formValues, FORM_STORAGE_KEY ] );
+	}, [ metric, entity, formValues, FORM_STORAGE_KEY, onCompute ] );
 	const users = cohorts.reduce( ( userList, cohort ) => {
 		const members = cohort.members.map( member => memberSelection(member) );
 		return userList.concat( members );
@@ -243,7 +243,7 @@ function ComputeModal({ cohorts, metric, entity, level, show, tags, onHide }) {
 	return (
 		<Modal size="lg" show={show} onHide={onHide}>
 			<Modal.Header closeButton>
-				<Modal.Title as="h3">{t('calculate-scores')}</Modal.Title>
+				<Modal.Title as="h3">{`${t('calculate-scores-for')} ${metric.name}`} </Modal.Title>
 			</Modal.Header>
 			<Modal.Body>
 				<Container>
@@ -318,7 +318,7 @@ function ComputeModal({ cohorts, metric, entity, level, show, tags, onHide }) {
 				<Button onClick={onHide}>
 					{t('common:cancel')}
 				</Button>
-				<Button variant="success" onClick={onCalculate} disabled={formValues.users.length === 0}>
+				<Button variant="success" onClick={handleCompute} disabled={formValues.users.length === 0}>
 					{t('common:calculate')}
 				</Button>
 			</Modal.Footer>
@@ -334,6 +334,7 @@ ComputeModal.propTypes = {
 	entity: PropTypes.object.isRequired,
 	level: PropTypes.string.isRequired,
 	metric: PropTypes.object.isRequired,
+	onCompute: PropTypes.func.isRequired,
 	onHide: PropTypes.func.isRequired,
 	show: PropTypes.bool.isRequired,
 	tags: PropTypes.array
