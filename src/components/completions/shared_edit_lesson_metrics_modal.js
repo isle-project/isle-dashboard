@@ -74,7 +74,6 @@ function analyzeLessonMetrics( name, lessons ) {
 		}
 		return acc;
 	}, { rules: new Set(), refs: new Set(), active: {}, rule: null, ref: null }, lessons);
-
 	if ( lessonInfo.rules.size > 0 ) {
 		return {
 			hasSharedRule: lessonInfo.rules.size === 1,
@@ -141,7 +140,7 @@ function SharedEditLessonMetricsModal({ name, preferredLesson, lessons, lessonRe
 			sharedRule: newSharedRule,
 			sharedRuleParameters: newSharedRuleParameters,
 			sharedRef: analysis.hasSharedRef ? analysis.ref : null,
-			activeLessons: analysis.activeLessons
+			activeLessons: { ...analysis.activeLessons }
 		};
 		const newSelectedLessons = {};
 		for ( let i = 0; i < lessons.length; i++ ) {
@@ -149,7 +148,6 @@ function SharedEditLessonMetricsModal({ name, preferredLesson, lessons, lessonRe
 			const lessonId = lesson._id;
 			const lessonMetric = lessonSpec.activeLessons[ lessonId ];
 			if ( lessonMetric ) {
-				// TODO: this breaks things when discarding unsaved changes right now
 				newSelectedLessons[ lessonId ] = true;
 			} else {
 				newSelectedLessons[ lessonId ] = false;
@@ -173,11 +171,7 @@ function SharedEditLessonMetricsModal({ name, preferredLesson, lessons, lessonRe
 		availableMetrics.current = availableLessonMetrics( lessons );
 	}, [ lessons ] );
 	useEffect( () => {
-		console.log( 'EFFECT...' );
-		console.log( chosenName );
 		const analysis = analyzeLessonMetrics( chosenName, lessons );
-		console.log( 'ANALYSIS' );
-		console.log( analysis );
 		analysisRef.current = analysis;
 		incorporateAnalysis( analysis );
 	}, [ allRules, incorporateAnalysis, lessons, chosenName ] );
@@ -439,9 +433,6 @@ function SharedEditLessonMetricsModal({ name, preferredLesson, lessons, lessonRe
 			</>
 		);
 	});
-	console.log( currentHash );
-	console.log( analyzedHash.current );
-	console.log( 'isNewMetric', isNewMetric );
 	const hasUnsavedChanges = currentHash !== analyzedHash.current;
 	return (
 		<Modal size="lg" show={show} onHide={onHide} dialogClassName="modal-75w modal-80h" >
@@ -490,6 +481,7 @@ function SharedEditLessonMetricsModal({ name, preferredLesson, lessons, lessonRe
 							});
 							setSelectedLessons( newSelectedLessons );
 						}}
+						checked={Object.values( selectedLessons ).every( ( x ) => x )}
 					/>
 					<div style={{ maxHeight: '75vh', minHeight: '50vh', border: 'solid 1px darkgray', overflowY: 'auto', padding: 4, overflowX: 'hidden' }} >
 						{lessonInputs}
