@@ -20,3 +20,8 @@ TODO
   -   Add 'metric_order' endpoint
   -   Add new rules and component refs to handle likely use case (progress, clicked link, watched video, ...)
   -   Adjust ACTION logging to update completions table
+  -   If a component is not available for any users, we ignore it; but if none are available in a metric,
+      we should display blanks in the table rather than keeping the old values.
+  -   Auto updating on recompute
+  -   Lessons version of modal (with drop down)
+  -   Visualization of the relationships (ideas here)
