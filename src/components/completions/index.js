@@ -33,38 +33,8 @@ import ComputeModal from './compute_modal.js';
 import EditMetricModal from './edit_metric_modal.js';
 import SharedEditLessonMetricsModal from './shared_edit_lesson_metrics_modal.js';
 import { levelFieldMapping } from './level_fields.js';
+import COMPLETION_RULES from './completion_rules.json'; // TODO: Need specification for the parameters and their types (use the `attr-types` library)
 import './completions.css';
-
-
-// VARIABLES //
-
-// TODO: Need specification for the parameters and their types (use the `attr-types` library)
-const COMPLETION_RULES = {
-	average: {
-		name: 'average',
-		label: 'Average',
-		description: 'Average value of the completions',
-		parameters: [],
-		defaults: []
-	},
-	dropLowest: {
-		name: 'dropLowest',
-		label: 'Drop Lowest',
-		description: 'Average value after dropping the lowest value of the completions',
-		parameters: [],
-		defaults: []
-	},
-	dropNLowest: {
-		name: 'dropNLowest',
-		label: 'Drop N Lowest',
-		description: 'Average value after dropping the lowest N values of the completions',
-		parameters: [ {
-			name: 'N',
-			type: 'number'
-		}],
-		defaults: [ 3 ]
-	}
-}; // TODO: read completion rules from the server
 
 
 // MAIN //
@@ -246,13 +216,6 @@ function CompletionsPage( props ) {
 					setShowCreateModal( true );
 				}} >
 					{t('create-completion-metric')}
-				</Button>
-			</OverlayTrigger>
-			<OverlayTrigger placement="bottom" overlay={<Tooltip id="tooltip-create-metric" >{t( 'lesson-metrics-tooltip' )}</Tooltip>} >
-				<Button variant="primary" style={{ marginTop: 12, marginLeft: 6 }} onClick={() => {
-					setShowLessonMetricsModal( true );
-				}} >
-					{t('lesson-metrics')}
 				</Button>
 			</OverlayTrigger>
 			{selectedMetric ? <ComputeModal

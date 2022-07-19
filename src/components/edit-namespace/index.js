@@ -46,6 +46,7 @@ import MsgModal from 'components/message-modal';
 import ConfirmModal from 'components/confirm-modal';
 import { validateOwners, validateDescription, validateTitle } from 'components/create-namespace';
 import CompletionsPage from 'containers/visible-completions';
+import EditLessonMetrics from 'components/completions/edit_lesson_metrics.js';
 import checkURLPath from 'utils/check_url_path.js';
 import EditCohortModal from './edit_cohort_modal.js';
 import CreateCohortModal from './create_cohort_modal.js';
@@ -289,12 +290,24 @@ class EditNamespace extends Component {
 									</Button>
 								</Tab>
 								<Tab eventKey="completions" title={<h3>{t('completions')}</h3>} >
-									<CompletionsPage
-										entity={this.props.namespace}
-										level="namespace"
-										cohorts={this.props.cohorts}
-										lessonRefs={this.state.lessonRefs}
-									/>
+									<Tabs variant="pills" defaultActiveKey="namespace-completion-metrics" >
+										<Tab eventKey="namespace-completion-metrics" title={t('course-wide')} >
+											<CompletionsPage
+												entity={this.props.namespace}
+												level="namespace"
+												cohorts={this.props.cohorts}
+												lessonRefs={this.state.lessonRefs}
+											/>
+										</Tab>
+										<Tab eventKey="lesson-completion-metrics" title={t('lessons')} >
+											<EditLessonMetrics
+												lessonRefs={this.state.lessonRefs}
+												lessons={this.props.namespace.lessons}
+												namespace={this.props.namespace}
+												onSave={() => {}}
+											/>
+										</Tab>
+									</Tabs>
 								</Tab>
 								<Tab eventKey="edit-course" title={<h3>{t('edit-course')}</h3>} style={{ padding: 12 }} >
 									<Form style={{ padding: '20px' }} className="d-grid gap-3" >
