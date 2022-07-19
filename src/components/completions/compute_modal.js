@@ -104,7 +104,7 @@ function TagWeightInput({ value, t, onChange }) {
 	return inputs;
 }
 
-function ComputeModal({ cohorts, metric, entity, level, show, tags, onHide, onCompute }) {
+function ComputeModal({ cohorts, metric, entity, level, show, tags, onHide, computeCompletions, onCompute }) {
 	console.log( 'Metric:', metric );
 	const { t } = useTranslation();
 
@@ -121,6 +121,9 @@ function ComputeModal({ cohorts, metric, entity, level, show, tags, onHide, onCo
 		let oldFormValues = localStorage.getItem( FORM_STORAGE_KEY );
 		if ( oldFormValues ) {
 			oldFormValues = JSON.parse( oldFormValues );
+			if ( oldFormValues.policyOptions?.timeFilter ) {
+				oldFormValues.policyOptions.timeFilter = oldFormValues.policyOptions.timeFilter.map( x => new Date( x ) );
+			}
 			setFormValues( oldFormValues );
 		}
 	}, [ FORM_STORAGE_KEY ] );
@@ -136,7 +139,11 @@ function ComputeModal({ cohorts, metric, entity, level, show, tags, onHide, onCo
 	}, [ tags, oldTags, formValues ] );
 	const onTimeChange = useCallback( ( dates ) => {
 		const newFormValues = { ...formValues };
-		newFormValues.policyOptions.timeFilter = dates;
+		if ( dates ) {
+			newFormValues.policyOptions.timeFilter = dates;
+		} else {
+			delete newFormValues.policyOptions.timeFilter;
+		}
 		setFormValues( newFormValues );
 	}, [ formValues ] );
 	const handleMultiplesPolicyChange = useCallback( ( multiples ) => {
@@ -150,23 +157,22 @@ function ComputeModal({ cohorts, metric, entity, level, show, tags, onHide, onCo
 		setFormValues( newFormValues );
 	}, [ formValues ] );
 	const handleCompute = useCallback( () => {
+		const policyOptions = {
+			...formValues.policyOptions,
+			multiples: formValues.policyOptions.multiples.value
+		};
 		if ( formValues.policyOptions.timeFilter ) {
-			formValues.policyOptions.timeFilter = formValues.policyOptions.timeFilter.map( x => x.getTime() );
+			policyOptions.timeFilter = formValues.policyOptions.timeFilter.map( x => x.getTime() );
 		}
 		localStorage.setItem( FORM_STORAGE_KEY, JSON.stringify( formValues ) );
 		const body = {
 			id: entity._id,
 			users: formValues.users.map( x => x.value ),
 			metric: metric,
-			policyOptions: {
-				...formValues.policyOptions,
-				multiples: formValues.policyOptions.multiples.value
-			}
+			policyOptions
 		};
-		axios.post( server+'/compute_completions', body ).then( response => {
-			onCompute( response.data );
-		});
-	}, [ metric, entity, formValues, FORM_STORAGE_KEY, onCompute ] );
+		computeCompletions( body ).then( onCompute );
+	}, [ metric, entity, formValues, FORM_STORAGE_KEY, computeCompletions, onCompute ] );
 	const users = cohorts.reduce( ( userList, cohort ) => {
 		const members = cohort.members.map( member => memberSelection(member) );
 		return userList.concat( members );
@@ -331,6 +337,7 @@ function ComputeModal({ cohorts, metric, entity, level, show, tags, onHide, onCo
 
 ComputeModal.propTypes = {
 	cohorts: PropTypes.array.isRequired,
+	computeCompletions: PropTypes.func.isRequired,
 	entity: PropTypes.object.isRequired,
 	level: PropTypes.string.isRequired,
 	metric: PropTypes.object.isRequired,

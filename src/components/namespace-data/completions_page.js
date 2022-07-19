@@ -445,6 +445,7 @@ class CompletionsPage extends Component {
 					onCompute={() => {
 						this.setState({ showComputeModal: false });
 					}}
+					computeCompletions={this.props.computeCompletions}
 				/>}
 			</Fragment>
 		);
@@ -457,6 +458,7 @@ class CompletionsPage extends Component {
 CompletionsPage.propTypes = {
 	addNotification: PropTypes.func.isRequired,
 	cohorts: PropTypes.array.isRequired,
+	computeCompletions: PropTypes.func.isRequired,
 	lessons: PropTypes.array.isRequired,
 	namespace: PropTypes.object.isRequired
 };

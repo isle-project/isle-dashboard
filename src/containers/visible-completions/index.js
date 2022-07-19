@@ -20,7 +20,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import Completions from 'components/completions';
-import { createMetricInjector, deleteMetricInjector, updateMetricInjector } from 'actions/completions';
+import { computeCompletionsInjector, createMetricInjector, deleteMetricInjector, updateMetricInjector } from 'actions/completions';
 import { addNotificationInjector } from 'actions/notification';
 
 
@@ -39,7 +39,8 @@ function mapDispatchToProps( dispatch ) {
 		addNotification: addNotificationInjector( dispatch ),
 		createMetric: createMetricInjector( dispatch ),
 		deleteMetric: deleteMetricInjector( dispatch ),
-		updateMetric: updateMetricInjector( dispatch )
+		updateMetric: updateMetricInjector( dispatch ),
+		computeCompletions: computeCompletionsInjector( dispatch )
 	};
 }
 

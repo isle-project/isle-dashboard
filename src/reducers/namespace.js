@@ -271,6 +271,30 @@ export default function namespace( state = initialState, action ) {
 			completions: newCompletions
 		});
 	}
+	case types.COMPUTED_COMPLETIONS: {
+		const { completions, entityId, lastUpdated, metric } = action.payload;
+		const newCohorts = state.cohorts.slice();
+		for ( let i = 0; i < newCohorts.length; i++ ) {
+			for ( let j = 0; j < newCohorts[ i ].members.length; j++ ) {
+				const user = newCohorts[ i ].members[ j ];
+				if ( completions[ user._id ] !== void 0 ) {
+					user.completions = {
+						...user.completions,
+						[`${metric.level}-${action.payload.entityId}-${metric.name}`]: {
+							entityId,
+							level: metric.level,
+							metricName: metric.name,
+							score: completions[ user._id ],
+							lastUpdated
+						}
+					};
+				}
+			}
+		}
+		return Object.assign({}, state, {
+			cohorts: newCohorts
+		});
+	}
 	default:
 		return state;
 	}

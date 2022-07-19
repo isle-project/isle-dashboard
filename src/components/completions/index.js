@@ -227,6 +227,7 @@ function CompletionsPage( props ) {
 				tags={tags}
 				entity={props.entity}
 				level={props.level}
+				computeCompletions={props.computeCompletions}
 				onCompute={() => setShowComputeModal( false )}
 			/> : null}
 			{showCreateModal ? <EditMetricModal
@@ -294,6 +295,7 @@ function CompletionsPage( props ) {
 
 CompletionsPage.propTypes = {
 	cohorts: PropTypes.array.isRequired,
+	computeCompletions: PropTypes.func.isRequired,
 	createMetric: PropTypes.func.isRequired,
 	deleteMetric: PropTypes.func.isRequired,
 	entity: PropTypes.object.isRequired,

@@ -110,14 +110,15 @@ export const getCompletionLessonRefsInjector = dispatch => {
  */
 export const computeCompletions = async ( dispatch, { metric, id, users, policyOptions } ) => {
 	try {
-		await axios.post( `${server}/compute_completions`, {
+		const res = await axios.post( `${server}/compute_completions`, {
 			metric,
 			id,
 			users,
 			policyOptions
 		});
 		dispatch({
-			type: COMPUTED_COMPLETIONS
+			type: COMPUTED_COMPLETIONS,
+			payload: res.data
 		});
 	}
 	catch ( err ) {
@@ -133,7 +134,8 @@ export const computeCompletions = async ( dispatch, { metric, id, users, policyO
  */
 export const computeCompletionsInjector = dispatch => {
 	return async ({ metric, id, users, policyOptions }) => {
-		await computeCompletions( dispatch, { metric, id, users, policyOptions });
+		const res = await computeCompletions( dispatch, { metric, id, users, policyOptions });
+		return res;
 	};
 };
 
