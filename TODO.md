@@ -26,6 +26,8 @@ TODO
   -   [X] <HIGH> Auto updating on recompute
       1. [X] return completion scores for each user from `compute_completions` endpoint (and associated data incl. metric, entityId) 
       2. [X] PGB will update reducers
-  -   [ ] <HIGH> Lessons version of modal (with drop down)
+  -   [ ] <HIGH> Lessons version of modal (with drop down)  [ALMOST DONE]
   -   [ ] <MED> Visualization of the relationships (ideas here)
   -   [ ] <MED> More salient namespace title on completions screen (among others)
+  -   [ ] <LOW> More conveniently accessing tags associated with levels higher than lesson
+  -   [ ] <HIGH> Add data for demo
