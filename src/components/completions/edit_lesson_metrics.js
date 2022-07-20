@@ -107,7 +107,7 @@ function availableLessonMetrics( lessons ) {
 
 // MAIN //
 
-function EditLessonMetrics({ name, preferredLesson, lessons, lessonRefs, lessonComponents, namespace, saveLessonMetrics, onSave }) {
+function EditLessonMetrics({ name, preferredLesson, lessons, lessonRefs, componentsByLesson, computeCompletions, namespace, saveLessonMetrics, tags, onSave }) {
 	const [ chosenName, setChosenName ] = useState( name );
 	const [ hasSharedRule, setHasSharedRule ] = useState( false );
 	const [ sharedRule, setSharedRule ] = useState( null );
@@ -284,7 +284,7 @@ function EditLessonMetrics({ name, preferredLesson, lessons, lessonRefs, lessonC
 					checked={hasSharedRef}
 				/>
 			</Col>
-			<Form.Label column sm={2} >{t('common:ref')}</Form.Label>
+			<Form.Label column sm={2} >{t('common:component-metric')}</Form.Label>
 			<Col sm={6} >
 				<CreatableSelect
 					isClearable
@@ -394,7 +394,7 @@ function EditLessonMetrics({ name, preferredLesson, lessons, lessonRefs, lessonC
 					})}
 					<Form.Group className="mb-2" as={Row} >
 						<Col sm={2} />
-						<Form.Label column sm={4} >{t('common:ref')}</Form.Label>
+						<Form.Label column sm={4} >{t('common:component-metric')}</Form.Label>
 						<Col sm={6} >
 							<CreatableSelect
 								isClearable
@@ -428,7 +428,7 @@ function EditLessonMetrics({ name, preferredLesson, lessons, lessonRefs, lessonC
 							{( coverageQualifier === 'include' || coverageQualifier === 'exclude' ) ?
 								<CreatableSelect
 									isMulti
-									options={( lessonComponents[ x._id ] || [] ).map( ( y ) => {
+									options={( componentsByLesson[ x._id ] || [] ).map( ( y ) => {
 										const label = y.componentType ? `${y.component} (type ${y.componentType})` : y.component;
 										return { value: y.component, label };
 									})}
@@ -533,15 +533,14 @@ function EditLessonMetrics({ name, preferredLesson, lessons, lessonRefs, lessonC
 			</Card>
 			{showComputeModal && <ComputeModal
 				metric={namespace.lessons.reduce( ( acc, lesson ) => {
-					if ( !selectedLessons[ lesson._id ] ) {
-						lessonMetrics[ lesson._id ] = null;
-					} else {
-						lessonMetrics[ lesson._id ] = {
-							...lessonMetrics[ lesson._id ],
+					if ( selectedLessons[ lesson._id ] ) {
+						acc.push({
+							...activeLessons[ lesson._id ],
 							...( hasSharedRef ? { ref: sharedRef } : {} ),
 							...( hasSharedRule ? { rule: [ sharedRule.name, ...sharedRuleParameters ] } : {} )
-						};
+						});
 					}
+					return acc;
 				}, [] )}
 				show={showComputeModal}
 				onHide={() => setShowComputeModal( false )}
@@ -550,6 +549,7 @@ function EditLessonMetrics({ name, preferredLesson, lessons, lessonRefs, lessonC
 				entity={lessons.filter( ( x ) => selectedLessons[ x._id ] )}
 				level="lesson"
 				onCompute={() => setShowComputeModal( false )}
+				computeCompletions={computeCompletions}
 			/>}
 		</Fragment>
 	);
@@ -559,20 +559,23 @@ function EditLessonMetrics({ name, preferredLesson, lessons, lessonRefs, lessonC
 // PROPERTIES //
 
 EditLessonMetrics.propTypes = {
-	lessonComponents: PropTypes.object,
+	componentsByLesson: PropTypes.object,
+	computeCompletions: PropTypes.func.isRequired,
 	lessonRefs: PropTypes.arrayOf( PropTypes.string ).isRequired,
 	lessons: PropTypes.array.isRequired,
 	name: PropTypes.string,
 	namespace: PropTypes.object.isRequired,
-	saveLessonMetrics: PropTypes.func.isRequired,
 	onSave: PropTypes.func.isRequired,
-	preferredLesson: PropTypes.object
+	preferredLesson: PropTypes.object,
+	saveLessonMetrics: PropTypes.func.isRequired,
+	tags: PropTypes.arrayOf( PropTypes.string )
 };
 
 EditLessonMetrics.defaultProps = {
 	name: null,
-	lessonComponents: {},
-	preferredLesson: null
+	componentsByLesson: {},
+	preferredLesson: null,
+	tags: []
 };
 
 

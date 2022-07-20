@@ -228,6 +228,7 @@ export const getLessons = async ( dispatch, namespaceName ) => {
 				return lesson;
 			});
 			dispatch( retrievedLessons({ lessons, namespaceName }) );
+			return lessons;
 		} catch ( err ) {
 			addErrorNotification( dispatch, err );
 		}

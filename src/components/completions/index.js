@@ -58,38 +58,11 @@ function CompletionsPage( props ) {
 	const [ showCreateModal, setShowCreateModal ] = useState( false );
 	const [ showEditModal, setShowEditModal ] = useState( false );
 	const [ showLessonMetricsModal, setShowLessonMetricsModal ] = useState( false );
-	const [ tags, setTags ] = useState( null );
 	const [ refs, setRefs ] = useState( null );
-	const [ lessonComponents, setLessonComponents ] = useState( {} );
 	const metrics = props.entity.completions || [];
 	const [ order, setOrder ] = useState( incrspace( 0, metrics.length, 1 ) );
 	useEffect( () => {
 		// ATTN: this is a hack to get the tags and refs to be populated before the first render
-		const lessonIds = props.entity.lessons.map( lesson => lesson._id );
-		axios.post( `${server}/completion_tags`, {
-			lessons: lessonIds
-		})
-			.then( response => {
-				setTags( response.data );
-			})
-			.catch( err => {
-				console.log( 'Error fetching completion tags:', err );
-				setTags([
-					'quiz',
-					'homework',
-					'exam',
-					'_default_tag'
-				]);
-			});
-		axios.post( `${server}/completion_components`, {
-			lessons: lessonIds
-		})
-			.then( response => {
-				setLessonComponents( response.data );
-			})
-			.catch( err => {
-				console.log( 'Error fetching completion components:', err );
-			});
 		if ( props.level === 'lesson' ) {
 			setRefs( props.lessonRefs );
 		} else {
@@ -224,7 +197,7 @@ function CompletionsPage( props ) {
 				show={showComputeModal}
 				onHide={() => setShowComputeModal( false )}
 				cohorts={props.cohorts}
-				tags={tags}
+				tags={props.entity.tags}
 				entity={props.entity}
 				level={props.level}
 				computeCompletions={props.computeCompletions}
@@ -272,7 +245,7 @@ function CompletionsPage( props ) {
 				lessons={props.entity.lessons}
 				allRules={COMPLETION_RULES}
 				lessonRefs={props.lessonRefs}
-				lessonComponents={lessonComponents}
+				lessonComponents={props.entity.componentsByLesson}
 				namespace={props.entity}
 				onSave={( body ) => {
 					axios.post( `${server}/save_lesson_metrics`, body )

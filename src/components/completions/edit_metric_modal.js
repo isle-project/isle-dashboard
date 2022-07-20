@@ -156,7 +156,7 @@ function EditMetricModal({ level, entity, show, onHide, allRules, refs, createNe
 						);
 					}) : null}
 				<Form.Group className="mb-2" >
-					<Form.Label>{t('common:ref')}</Form.Label>
+					<Form.Label>{t('common:lesson-metric')}</Form.Label>
 					<CreatableSelect
 						isClearable
 						options={refs.map( ( ref ) => ({ value: ref, label: ref }) )}

@@ -19,10 +19,17 @@
 
 import axios from 'axios';
 import server from 'constants/server';
-import { addErrorNotification } from 'actions/notification';
+import { addNotification, addErrorNotification } from 'actions/notification';
 import { COMPUTED_COMPLETIONS, CREATED_METRIC, DELETED_METRIC,
-	GET_COMPLETION_LESSON_REFS, GET_COMPLETION_TAGS, SAVED_LESSON_METRICS,
-	UPDATED_METRIC } from 'constants/action_types.js';
+	GET_COMPLETION_LESSON_REFS, GET_COMPLETION_COMPONENTS, GET_COMPLETION_TAGS,
+	SAVED_LESSON_METRICS, UPDATED_METRIC } from 'constants/action_types.js';
+
+
+// VARIABLES //
+
+const DEFAULT_TAGS = [
+	'_default_tag'
+];
 
 
 // MAIN //
@@ -47,7 +54,12 @@ export const getCompletionTags = async ( dispatch, lessonIDs ) => {
 			}
 		});
 	} catch ( err ) {
-		return addErrorNotification( dispatch, err );
+		dispatch({
+			type: GET_COMPLETION_TAGS,
+			payload: {
+				completionTags: DEFAULT_TAGS
+			}
+		});
 	}
 };
 
@@ -61,6 +73,32 @@ export const getCompletionTagsInjector = dispatch => {
 	return async ( lessonIDs ) => {
 		await getCompletionTags( dispatch, lessonIDs );
 	};
+};
+
+export const getCompletionComponents = async ( dispatch, lessonIds ) => {
+	try {
+		const res = await axios.post( `${server}/completion_components`, {
+			lessons: lessonIds
+		});
+		dispatch({
+			type: GET_COMPLETION_COMPONENTS,
+			payload: {
+				componentsByLesson: res.data
+			}
+		});
+	} catch ( err ) {
+		console.error( 'Error getting completion components: ', err );
+		const componentsByLesson = {};
+		lessonIds.forEach( lessonID => {
+			componentsByLesson[ lessonID ] = [];
+		});
+		dispatch({
+			type: GET_COMPLETION_COMPONENTS,
+			payload: {
+				componentsByLesson
+			}
+		});
+	}
 };
 
 /**
@@ -109,17 +147,21 @@ export const getCompletionLessonRefsInjector = dispatch => {
  *
  * @param {Function} dispatch - dispatch function
  */
-export const computeCompletions = async ( dispatch, { metric, id, users, policyOptions } ) => {
+export const computeCompletions = async ( dispatch, { metric, ids, users, policyOptions } ) => {
 	try {
 		const res = await axios.post( `${server}/compute_completions`, {
 			metric,
-			id,
+			ids,
 			users,
 			policyOptions
 		});
 		dispatch({
 			type: COMPUTED_COMPLETIONS,
 			payload: res.data
+		});
+		addNotification( dispatch, {
+			message: res.data.message,
+			level: 'success'
 		});
 	}
 	catch ( err ) {
@@ -134,8 +176,8 @@ export const computeCompletions = async ( dispatch, { metric, id, users, policyO
  * @returns {Function} function to compute completion values
  */
 export const computeCompletionsInjector = dispatch => {
-	return async ({ metric, id, users, policyOptions }) => {
-		const res = await computeCompletions( dispatch, { metric, id, users, policyOptions });
+	return async ({ metric, ids, users, policyOptions }) => {
+		const res = await computeCompletions( dispatch, { metric, ids, users, policyOptions });
 		return res;
 	};
 };

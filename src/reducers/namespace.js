@@ -18,6 +18,7 @@
 // MODULES //
 
 import hasOwnProp from '@stdlib/assert/has-own-property';
+import copy from '@stdlib/utils/copy';
 import * as types from 'constants/action_types.js';
 
 
@@ -41,8 +42,10 @@ const initialState = {
 	cohorts: [],
 	files: [],
 	ownerFiles: [],
+	tags: [ '_default_tag' ],
 	tickets: [],
-	completions: []
+	completions: [],
+	componentsByLesson: {}
 };
 
 
@@ -272,22 +275,26 @@ export default function namespace( state = initialState, action ) {
 		});
 	}
 	case types.COMPUTED_COMPLETIONS: {
-		const { completions, entityId, lastUpdated, metric } = action.payload;
-		const newCohorts = state.cohorts.slice();
+		const { completions, entityIds, lastUpdated, metrics } = action.payload;
+		const newCohorts = copy( state.cohorts );
 		for ( let i = 0; i < newCohorts.length; i++ ) {
 			for ( let j = 0; j < newCohorts[ i ].members.length; j++ ) {
 				const user = newCohorts[ i ].members[ j ];
-				if ( completions[ user._id ] !== void 0 ) {
-					user.completions = {
-						...user.completions,
-						[`${metric.level}-${action.payload.entityId}-${metric.name}`]: {
-							entityId,
-							level: metric.level,
-							metricName: metric.name,
-							score: completions[ user._id ],
-							lastUpdated
-						}
-					};
+				for ( let k = 0; k < entityIds.length; k++ ) {
+					const id = entityIds[ k ];
+					const metric = metrics[ k ];
+					if ( completions[ k ][ user._id ] !== void 0 ) {
+						user.completions = {
+							...user.completions,
+							[`${metric.level}-${id}-${metric.name}`]: {
+								entityId: id,
+								level: metric.level,
+								metricName: metric.name,
+								score: completions[ k ][ user._id ],
+								lastUpdated
+							}
+						};
+					}
 				}
 			}
 		}
@@ -310,6 +317,20 @@ export default function namespace( state = initialState, action ) {
 		});
 		return Object.assign({}, state, {
 			lessons: newLessons
+		});
+	}
+	case types.GET_COMPLETION_TAGS: {
+		const { completionTags } = action.payload;
+		console.log( 'Received completion tags', completionTags );
+		return Object.assign({}, state, {
+			tags: completionTags
+		});
+	}
+	case types.GET_COMPLETION_COMPONENTS: {
+		const { componentsByLesson } = action.payload;
+		console.log( 'Received completion components', componentsByLesson );
+		return Object.assign({}, state, {
+			componentsByLesson
 		});
 	}
 	default:
