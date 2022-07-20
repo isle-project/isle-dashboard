@@ -295,6 +295,23 @@ export default function namespace( state = initialState, action ) {
 			cohorts: newCohorts
 		});
 	}
+	case types.SAVED_LESSON_METRICS: {
+		const { lessons } = action.payload;
+		const updatedLessons = [...lessons.changed, ...lessons.created, ...lessons.deleted ];
+		const idsToLessons = {};
+		updatedLessons.forEach( lesson => {
+			idsToLessons[ lesson._id ] = lesson;
+		});
+		const newLessons = state.lessons.map( lesson => {
+			if ( idsToLessons[ lesson._id ] !== void 0 ) {
+				return idsToLessons[ lesson._id ];
+			}
+			return lesson;
+		});
+		return Object.assign({}, state, {
+			lessons: newLessons
+		});
+	}
 	default:
 		return state;
 	}

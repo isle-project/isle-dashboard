@@ -21,7 +21,8 @@ import axios from 'axios';
 import server from 'constants/server';
 import { addErrorNotification } from 'actions/notification';
 import { COMPUTED_COMPLETIONS, CREATED_METRIC, DELETED_METRIC,
-	GET_COMPLETION_LESSON_REFS, GET_COMPLETION_TAGS, UPDATED_METRIC } from 'constants/action_types.js';
+	GET_COMPLETION_LESSON_REFS, GET_COMPLETION_TAGS, SAVED_LESSON_METRICS,
+	UPDATED_METRIC } from 'constants/action_types.js';
 
 
 // MAIN //
@@ -272,6 +273,27 @@ export const deleteMetric = async ( dispatch, { name, level, id }) => {
 export const deleteMetricInjector = dispatch => {
 	return async ({ name, level, id }) => {
 		const res = await deleteMetric( dispatch, { name, level, id });
+		return res;
+	};
+};
+
+export const saveLessonMetrics = async ( dispatch, body ) => {
+	try {
+		const res = await axios.post( `${server}/save_lesson_metrics`, body );
+		console.log( 'SAVE LESSON METRICS', res.data );
+		dispatch({
+			type: SAVED_LESSON_METRICS,
+			payload: res.data
+		});
+		return res;
+	} catch ( err ) {
+		return addErrorNotification( dispatch, err );
+	}
+};
+
+export const saveLessonMetricsInjector = dispatch => {
+	return async ( body ) => {
+		const res = await saveLessonMetrics( dispatch, body );
 		return res;
 	};
 };

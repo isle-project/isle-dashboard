@@ -305,6 +305,7 @@ class EditNamespace extends Component {
 												lessons={this.props.namespace.lessons}
 												namespace={this.props.namespace}
 												onSave={() => {}}
+												saveLessonMetrics={this.props.saveLessonMetrics}
 											/>
 										</Tab>
 									</Tabs>
@@ -420,6 +421,7 @@ EditNamespace.propTypes = {
 	deleteCurrentNamespace: PropTypes.func.isRequired,
 	history: PropTypes.object.isRequired,
 	namespace: PropTypes.object.isRequired,
+	saveLessonMetrics: PropTypes.func.isRequired,
 	t: PropTypes.func.isRequired,
 	updateCohort: PropTypes.func.isRequired,
 	updateCurrentNamespace: PropTypes.func.isRequired,

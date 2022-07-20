@@ -107,7 +107,7 @@ function availableLessonMetrics( lessons ) {
 
 // MAIN //
 
-function EditLessonMetrics({ name, preferredLesson, lessons, lessonRefs, lessonComponents, namespace, onSave }) {
+function EditLessonMetrics({ name, preferredLesson, lessons, lessonRefs, lessonComponents, namespace, saveLessonMetrics, onSave }) {
 	const [ chosenName, setChosenName ] = useState( name );
 	const [ hasSharedRule, setHasSharedRule ] = useState( false );
 	const [ sharedRule, setSharedRule ] = useState( null );
@@ -119,6 +119,7 @@ function EditLessonMetrics({ name, preferredLesson, lessons, lessonRefs, lessonC
 	const [ currentHash, setCurrentHash ] = useState( null );
 	const [ isNewMetric, setIsNewMetric ] = useState( false );
 	const [ showComputeModal, setShowComputeModal ] = useState( false );
+	const [ hasSaved, setHasSaved ] = useState( false );
 
 	const availableMetrics = useRef( null );
 	const analyzedHash = useRef( null );
@@ -178,7 +179,7 @@ function EditLessonMetrics({ name, preferredLesson, lessons, lessonRefs, lessonC
 		analysisRef.current = analysis;
 		incorporateAnalysis( analysis );
 	}, [ incorporateAnalysis, lessons, chosenName ] );
-	useEffect( () => {
+	const resetHash = useCallback( () => {
 		const lessonSpec = {
 			sharedRule: hasSharedRule ? sharedRule : null,
 			sharedRuleParameters: hasSharedRule ? sharedRuleParameters : [],
@@ -187,7 +188,8 @@ function EditLessonMetrics({ name, preferredLesson, lessons, lessonRefs, lessonC
 			selectedLessons
 		};
 		setCurrentHash( hash( lessonSpec ) );
-	}, [ sharedRule, sharedRef, sharedRuleParameters, activeLessons, selectedLessons, hasSharedRef, hasSharedRule ] );
+	}, [ hasSharedRule, sharedRule, sharedRuleParameters, hasSharedRef, sharedRef, activeLessons, selectedLessons ] );
+	useEffect( resetHash, [ resetHash ] );
 
 	const handleSave = useCallback( () => {
 		const lessonMetrics = { ...activeLessons };
@@ -208,7 +210,16 @@ function EditLessonMetrics({ name, preferredLesson, lessons, lessonRefs, lessonC
 			lessonMetrics
 		};
 		onSave( body );
-	}, [ activeLessons, chosenName, namespace, hasSharedRef, sharedRef, hasSharedRule, selectedLessons, sharedRule, sharedRuleParameters, onSave ] );
+		saveLessonMetrics( body )
+			.then( res => {
+				console.log( 'Saved lesson metrics:', res.data );
+				setHasSaved( true );
+				resetHash();
+			})
+			.catch( err => {
+
+			});
+	}, [ activeLessons, chosenName, namespace, hasSharedRef, sharedRef, hasSharedRule, resetHash, selectedLessons, sharedRule, sharedRuleParameters, saveLessonMetrics, onSave ] );
 	const { t } = useTranslation();
 	const lessonRefOptions = lessonRefs.map( ( ref ) => ({ value: ref, label: ref }) );
 	const allRulesOptions = objectValues( allRules ).map( ( rule ) => ({ value: rule, label: rule.label }) );
@@ -450,10 +461,12 @@ function EditLessonMetrics({ name, preferredLesson, lessons, lessonRefs, lessonC
 		>
 			{t('discard-unsaved-changes')}
 		</Button>
-		<Button variant="success" onClick={handleSave} disabled={!hasUnsavedChanges || !sharedRef || !sharedRule || ( isNewMetric && Object.values( selectedLessons ).every( x => !x ))} >
+		<Button variant="success" onClick={handleSave} className="me-2"
+			disabled={!hasUnsavedChanges || !sharedRef || !sharedRule || ( isNewMetric && Object.values( selectedLessons ).every( x => !x ))}
+		>
 			{t('common:save')}
 		</Button>
-		<Button variant="info" disabled={!hasUnsavedChanges} onClick={() => {
+		<Button variant="info" disabled={hasUnsavedChanges || ( isNewMetric && !hasSaved)} onClick={() => {
 			setShowComputeModal( true );
 		}} >
 			{t('compute')}
@@ -467,7 +480,7 @@ function EditLessonMetrics({ name, preferredLesson, lessons, lessonRefs, lessonC
 						{t('lesson-metrics-description')}
 					</p>
 					<div className="d-flex w-100 mb-2" >
-						<InputGroup className="mb-2" >
+						<span><InputGroup className="mb-2" >
 							<InputGroup.Text>{t('metric-name')}</InputGroup.Text>
 							<CreatableSelect
 								name="metric-name"
@@ -491,7 +504,7 @@ function EditLessonMetrics({ name, preferredLesson, lessons, lessonRefs, lessonC
 								isDisabled={name || ( currentHash && currentHash !== analyzedHash.current )}
 								options={availableMetrics.current}
 							/>
-						</InputGroup >
+						</InputGroup ></span>
 						{saveBar}
 					</div>
 					{chosenName ? <>
@@ -551,6 +564,7 @@ EditLessonMetrics.propTypes = {
 	lessons: PropTypes.array.isRequired,
 	name: PropTypes.string,
 	namespace: PropTypes.object.isRequired,
+	saveLessonMetrics: PropTypes.func.isRequired,
 	onSave: PropTypes.func.isRequired,
 	preferredLesson: PropTypes.object
 };
