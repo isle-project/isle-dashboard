@@ -19,7 +19,6 @@
 
 import React, { useCallback, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import axios from 'axios';
 import { useTranslation } from 'react-i18next';
 import DateTimeRangePicker from '@wojtekmaj/react-datetimerange-picker';
 import HelpIcon from 'components/help-icon';
@@ -30,8 +29,8 @@ import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import SelectInput from 'react-select';
+import isArray from '@stdlib/assert/is-array';
 import usePrevious from 'hooks/use-previous';
-import server from 'constants/server';
 
 
 // VARIABLES //
@@ -105,8 +104,9 @@ function TagWeightInput({ value, t, onChange }) {
 }
 
 function ComputeModal({ cohorts, metric, entity, level, show, tags, onHide, computeCompletions, onCompute }) {
-	console.log( 'Metric:', metric );
+	console.log( 'Array of metrics with the same name:', metric );
 	const { t } = useTranslation();
+	const metricName = isArray( metric ) ? metric[ 0 ].name : metric.name;
 
 	const [ formValues, setFormValues ] = useState({
 		users: [],
@@ -116,7 +116,7 @@ function ComputeModal({ cohorts, metric, entity, level, show, tags, onHide, comp
 			multiples: MULTIPLES_POLICIES[ 0 ]
 		}
 	});
-	const FORM_STORAGE_KEY = `ISLE?level=${level}&id=${entity._id}&metric=${metric.name}`;
+	const FORM_STORAGE_KEY = `ISLE?level=${level}&metric=${metricName}`;
 	useEffect( () => {
 		let oldFormValues = localStorage.getItem( FORM_STORAGE_KEY );
 		if ( oldFormValues ) {
@@ -166,7 +166,7 @@ function ComputeModal({ cohorts, metric, entity, level, show, tags, onHide, comp
 		}
 		localStorage.setItem( FORM_STORAGE_KEY, JSON.stringify( formValues ) );
 		const body = {
-			id: entity._id,
+			ids: isArray( entity ) ? entity.map( x => x._id ) : [ entity._id ],
 			users: formValues.users.map( x => x.value ),
 			metric: metric,
 			policyOptions
@@ -249,7 +249,7 @@ function ComputeModal({ cohorts, metric, entity, level, show, tags, onHide, comp
 	return (
 		<Modal size="lg" show={show} onHide={onHide}>
 			<Modal.Header closeButton>
-				<Modal.Title as="h3">{`${t('calculate-scores-for')} ${metric.name}`} </Modal.Title>
+				<Modal.Title as="h3">{`${t('calculate-scores-for')} ${metricName}`} </Modal.Title>
 			</Modal.Header>
 			<Modal.Body>
 				<Container>
@@ -338,9 +338,15 @@ function ComputeModal({ cohorts, metric, entity, level, show, tags, onHide, comp
 ComputeModal.propTypes = {
 	cohorts: PropTypes.array.isRequired,
 	computeCompletions: PropTypes.func.isRequired,
-	entity: PropTypes.object.isRequired,
+	entity: PropTypes.oneOfType([
+		PropTypes.arrayOf( PropTypes.object ),
+		PropTypes.object
+	]).isRequired,
 	level: PropTypes.string.isRequired,
-	metric: PropTypes.object.isRequired,
+	metric: PropTypes.oneOfType([
+		PropTypes.arrayOf( PropTypes.object ),
+		PropTypes.object
+	]).isRequired,
 	onCompute: PropTypes.func.isRequired,
 	onHide: PropTypes.func.isRequired,
 	show: PropTypes.bool.isRequired,

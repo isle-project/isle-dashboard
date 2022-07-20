@@ -306,6 +306,9 @@ class EditNamespace extends Component {
 												namespace={this.props.namespace}
 												onSave={() => {}}
 												saveLessonMetrics={this.props.saveLessonMetrics}
+												componentsByLesson={this.props.namespace.componentsByLesson}
+												computeCompletions={this.props.computeCompletions}
+												tags={this.props.namespace.tags}
 											/>
 										</Tab>
 									</Tabs>
@@ -415,6 +418,7 @@ class EditNamespace extends Component {
 EditNamespace.propTypes = {
 	addNotification: PropTypes.func.isRequired,
 	cohorts: PropTypes.array,
+	computeCompletions: PropTypes.func.isRequired,
 	copyNamespaceLessons: PropTypes.func.isRequired,
 	createCohort: PropTypes.func.isRequired,
 	deleteCohort: PropTypes.func.isRequired,

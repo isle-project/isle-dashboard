@@ -24,7 +24,7 @@ import { createCohortInjector, deleteCohortInjector, updateCohortInjector } from
 import { deleteCurrentNamespaceInjector, updateCurrentNamespaceInjector } from 'actions/namespace';
 import { addNotificationInjector } from 'actions/notification';
 import { copyNamespaceLessonsInjector } from 'actions/lesson';
-import { saveLessonMetricsInjector } from 'actions/completions';
+import { saveLessonMetricsInjector, computeCompletionsInjector } from 'actions/completions';
 
 
 // FUNCTIONS //
@@ -46,6 +46,7 @@ function mapDispatchToProps( dispatch ) {
 		deleteCurrentNamespace: deleteCurrentNamespaceInjector( dispatch ),
 		updateCurrentNamespace: updateCurrentNamespaceInjector( dispatch ),
 		copyNamespaceLessons: copyNamespaceLessonsInjector( dispatch ),
+		computeCompletions: computeCompletionsInjector( dispatch ),
 		saveLessonMetrics: saveLessonMetricsInjector( dispatch )
 	};
 }
