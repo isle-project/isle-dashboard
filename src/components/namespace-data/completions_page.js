@@ -100,7 +100,11 @@ function metricObject( scope, name, namespace, lessons ) {
 	if ( scope.value === 'course-wide' ) {
 		return namespace.completions.find( c => c.name === name );
 	}
-	return lessons[ scope.value ].completions.find( c => c.name === name );
+	const lesson = lessons.find( x => x._id === scope.value );
+	if ( !lesson ) {
+		return null;
+	}
+	return lesson.completions.find( c => c.name === name );
 }
 
 
@@ -257,9 +261,14 @@ class CompletionsPage extends Component {
 		for ( let i = 0; i < this.metrics.length; i++ ) {
 			COLUMNS.push({
 				Header: this.metrics[ i ].label,
-				accessor: 'completions.'+this.metrics[ i ].value+'.score',
+				accessor: 'completions.'+this.metrics[ i ].value,
 				Cell: row => {
-					return <span style={{ whiteSpace: 'pre' }}>{( lpad( String( roundn( row.value, -1 ).toFixed( 1 ) ), 5, '  ' ) )}</span>;
+					// TODO: Format time string depending on how far in the past it is.
+					return ( <OverlayTrigger placement="right" overlay={<Tooltip id="tooltip">{`${t('last-updated')}: ${row.value.lastUpdated}`}</Tooltip>} >
+						<span style={{ whiteSpace: 'pre' }}>
+							{( lpad( String( roundn( row.value.score, -1 ).toFixed( 1 ) ), 5, '  ' ) )}
+						</span>
+					</OverlayTrigger> );
 				},
 				Filter: ({ filter, onChange }) => {
 					const defaultVal = {
@@ -282,19 +291,21 @@ class CompletionsPage extends Component {
 									onChange( newValue );
 								}}
 							/>
-							<Button style={{ marginLeft: 20 }} onClick={() => {
-								this.setState({
-									computeMetric: metricObject( this.state.scope, this.metrics[ i ].label, this.props.namespace, this.props.lessons ),
-									showComputeModal: true
-								});
-							}} >
-								recompute
-							</Button>
+							<OverlayTrigger placement="right" overlay={<Tooltip id="tooltip">{t('recompute-score')}</Tooltip>} >
+								<Button size="sm" style={{ marginLeft: 20 }} onClick={() => {
+									this.setState({
+										computeMetric: metricObject( this.state.scope, this.metrics[ i ].label, this.props.namespace, this.props.lessons ),
+										showComputeModal: true
+									});
+								}} >
+									<i className="fas fa-solid fa-calculator"></i>
+								</Button>
+							</OverlayTrigger>
 						</div>
 					);
 				},
 				filterMethod: ( filter, row ) => {
-					return row[ filter.id ] >= filter.value.min && row[ filter.id ] <= filter.value.max;
+					return row[ filter.id ].score >= filter.value.min && row[ filter.id ].score <= filter.value.max;
 				}
 			});
 		}
