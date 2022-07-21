@@ -188,7 +188,7 @@ function CompletionsPage( props ) {
 				<Button variant="primary" style={{ marginTop: 12 }} onClick={() => {
 					setShowCreateModal( true );
 				}} >
-					{t('create-completion-metric')}
+					{t('create-metric')}
 				</Button>
 			</OverlayTrigger>
 			{selectedMetric ? <ComputeModal
@@ -221,7 +221,7 @@ function CompletionsPage( props ) {
 			/> : null}
 			{showDeleteModal ? <ConfirmModal
 				title={t('delete-metric')}
-				message={t('namespace:delete-metric-confirm')}
+				message={t('delete-metric-confirm')}
 				close={() => setShowDeleteModal( false )}
 				show={showDeleteModal}
 				onConfirm={handleDeleteMetric}
