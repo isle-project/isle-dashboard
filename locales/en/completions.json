@@ -1,0 +1,9 @@
+{
+	"create-metric": "Create metric",
+	"create-metric-tooltip": "Click to create a new metric",
+	"delete-metric": "Delete metric",
+	"delete-metric-confirm": "Are you sure you want to delete this metric?",
+	"edit-metric-tooltip": "Click to edit metric",
+	"compute-metric-tooltip": "Click to compute metric scores for a set of students",
+	"delete-metric-tooltip": "Click to delete metric"
+}
