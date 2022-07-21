@@ -125,6 +125,7 @@ class CompletionsPage extends Component {
 			tags: [],
 			computeMetric: null
 		};
+		this.beginningOfDay = new Date( new Date().setHours( 0, 0, 0, 0 ) );
 	}
 
 	componentDidMount() {
@@ -263,8 +264,20 @@ class CompletionsPage extends Component {
 				Header: this.metrics[ i ].label,
 				accessor: 'completions.'+this.metrics[ i ].value,
 				Cell: row => {
-					// TODO: Format time string depending on how far in the past it is.
-					return ( <OverlayTrigger placement="right" overlay={<Tooltip id="tooltip">{`${t('last-updated')}: ${row.value.lastUpdated}`}</Tooltip>} >
+					// Check whether `lastUpdated` is on the same day as `now`
+					const lastUpdated = row.value.lastUpdated;
+					let displayDate = '';
+					if ( lastUpdated instanceof Date ) {
+						if ( lastUpdated >= this.beginningOfDay ) {
+							displayDate = lastUpdated.toLocaleTimeString();
+						}
+						else {
+							displayDate = lastUpdated.toLocaleDateString();
+						}
+					} else {
+						displayDate = lastUpdated;
+					}
+					return ( <OverlayTrigger placement="right" overlay={<Tooltip id="tooltip">{`${t('last-updated')} ${displayDate}`}</Tooltip>} >
 						<span style={{ whiteSpace: 'pre' }}>
 							{( lpad( String( roundn( row.value.score, -1 ).toFixed( 1 ) ), 5, '  ' ) )}
 						</span>

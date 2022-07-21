@@ -19,6 +19,7 @@
 
 import hasOwnProp from '@stdlib/assert/has-own-property';
 import copy from '@stdlib/utils/copy';
+import mapValues from '@stdlib/utils/map-values';
 import * as types from 'constants/action_types.js';
 
 
@@ -95,8 +96,21 @@ export default function namespace( state = initialState, action ) {
 		return state;
 	}
 	case types.RETRIEVED_COHORTS: {
+		const newCohorts = action.payload.cohorts;
+		const lastUpdatedAsDate = ( completion ) => {
+			const date = new Date( completion.lastUpdated );
+			completion.lastUpdated = date;
+			return completion;
+		};
+		for ( let i = 0; i < newCohorts.length; i++ ) {
+			const cohort = newCohorts[ i ];
+			for ( let j = 0; j < cohort.members.length; j++ ) {
+				const member = cohort.members[ j ];
+				member.completions = mapValues( member.completions || {}, lastUpdatedAsDate );
+			}
+		}
 		return Object.assign({}, state, {
-			cohorts: action.payload.cohorts.sort( titleCompare )
+			cohorts: newCohorts.sort( titleCompare )
 		});
 	}
 	case types.DELETED_LESSON: {
@@ -291,7 +305,7 @@ export default function namespace( state = initialState, action ) {
 								level: metric.level,
 								metricName: metric.name,
 								score: completions[ k ][ user._id ],
-								lastUpdated
+								lastUpdated: new Date( lastUpdated )
 							}
 						};
 					}
