@@ -26,8 +26,56 @@ TODO
   -   [X] <HIGH> Auto updating on recompute
       1. [X] return completion scores for each user from `compute_completions` endpoint (and associated data incl. metric, entityId) 
       2. [X] PGB will update reducers
-  -   [ ] <HIGH> Lessons version of modal (with drop down)  [ALMOST DONE]
+  -   [X] <HIGH> Lessons version of modal (with drop down)
+  -   [ ] <MED> Format dates in table and unify when receiving or computing
   -   [ ] <MED> Visualization of the relationships (ideas here)
   -   [ ] <MED> More salient namespace title on completions screen (among others)
   -   [ ] <LOW> More conveniently accessing tags associated with levels higher than lesson
   -   [ ] <HIGH> Add data for demo
+
+Some potential changes:
+
+  1. Language Changes (not tied to specific term)
+     + completion -> assessment
+     + ref -> submetric
+     + use 'score' when referring to the numeric value
+     + use 'instance' when referring to the [score, time, provenance] aggregate
+
+  2. Provenance tracking in completions code
+     Maintain a provenance tree as third item [score, time, provenance].
+     Object has the form {level, entity, data} where level is a level string,
+     entity is the id of the entity (e.g., component, lesson, ...) these data
+     are from, and data is an array of child provenances.
+     At the component (leaf) level, we have an array of instances.
+
+     Include a missing singleton for each level to mark missing values.
+     These are included in the provenances. If all are missing below,
+     we just have the corresponding misssing value.
+     (At component level, it will be an instanace; else one of these objects.)
+
+  3. Add 'advanced' options for metric
+     + Shared with Student? - boolean
+     + Time Restriction - an optional time interval that intersects with any specified on computation
+     + Missing Policy - whether to replace missing values with zero or ignore them  (could generalize but start with boolean)
+     + Auto-Compute
+
+  4. Definition of a 'term' course-wide (e.g., semester start and end)
+     and 'academic year'.
+     
+     If so, could offer possible defaults for time restrictions; also calendar year.
+
+  5. Include tag weighting in intermediate calculations?
+     Is this desirable? How would we do it?  (Move weights back into metric...not great, quite complex)
+
+  6. Lazy evaluation option in computation (use already computed results)
+
+  7. Visualizer 
+     Provenance data can be displayed for each user in table or tree form
+
+  8. Systematize sharing structure in UI
+     Have sharedMetric and sharedMetricComponents as state and track it all from there,
+     allowing everything to be shared, but hiding unshared quantities
+
+  9. Associated information from component into completions table; connection with grade.
+     componentData; rules
+
