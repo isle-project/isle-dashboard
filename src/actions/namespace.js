@@ -20,6 +20,7 @@
 import axios from 'axios';
 import qs from 'querystring';
 import i18next from 'i18next';
+import { isPrimitive as isString } from '@stdlib/assert/is-string';
 import saveAs from 'utils/file_saver.js';
 import server from 'constants/server';
 import { addNotification, addErrorNotification } from 'actions/notification';
@@ -137,12 +138,19 @@ export function updatedOwnedNamespace({ title, owners, description, enableTicket
  * @param {Object} namespace - the new namespace
  * @param {string} namespace.title - namespace title
  * @param {Array} namespace.description - namespace description
+ * @param {string} namespace.tag - a completion category associated with the namespace
  * @param {Array} namespace.owners - ids of owners
  * @param {Object} namespace.props - properties of the invoking component
  */
-export const createNamespace = async ( dispatch, { title, description, owners, props }) => {
+export const createNamespace = async ( dispatch, { title, description, tag, owners, props }) => {
 	try {
-		const res = await axios.post( server+'/create_namespace', { title, description, owners });
+		const body = {
+			title,
+			description,
+			owners,
+			...(isString( tag ) && tag !== '_default_tag' && { tag })
+		};
+		const res = await axios.post( server+'/create_namespace', body );
 		if ( !res.data.successful ) {
 			return addErrorNotification( dispatch, new Error( res.data.message ));
 		}
@@ -166,8 +174,8 @@ export const createNamespace = async ( dispatch, { title, description, owners, p
  * @returns {Function} function to make the POST request to create a new namespace
  */
 export const createNamespaceInjector = dispatch => {
-	return async ({ title, description, owners, props }) => {
-		await createNamespace( dispatch, { title, description, owners, props } );
+	return async ({ title, description, tag, owners, props }) => {
+		await createNamespace( dispatch, { title, description, tag, owners, props } );
 	};
 };
 

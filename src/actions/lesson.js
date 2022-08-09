@@ -21,6 +21,7 @@ import axios from 'axios';
 import qs from 'querystring';
 import server from 'constants/server';
 import { isPrimitive as isBoolean } from '@stdlib/assert/is-boolean';
+import { isPrimitive as isString } from '@stdlib/assert/is-string';
 import { addNotification, addErrorNotification } from 'actions/notification';
 import { DELETED_LESSON, GET_ALL_LESSONS, GET_TEMPLATE_LESSONS, GET_ROOMS, UPDATED_LESSON, RETRIEVED_LESSONS, RETRIEVED_PUBLIC_LESSONS } from 'constants/action_types.js';
 
@@ -532,9 +533,10 @@ export const deactivateLessonInjector = ( dispatch ) => {
  * @param {string} options.lockUntil - date on which the lesson should be made available to users
  * @param {boolean} options.template - controls whether the lesson shall be a template or not
  * @param {boolean} options.hideFromDashboard - controls whether the lesson shall be hidden from the dashboard (but may still be active and accessible)
+ * @param {string} options.tag - tag associated with the lesson
  * @returns {boolean} true if the lesson was updated, false otherwise
  */
-export const updateLesson = async ( dispatch, { lessonName, namespaceName, newTitle, newDescription, lockAfter, lockUntil, template, hideFromDashboard }) => {
+export const updateLesson = async ( dispatch, { lessonName, namespaceName, newTitle, newDescription, lockAfter, lockUntil, tag, template, hideFromDashboard }) => {
 	if ( namespaceName && lessonName ) {
 		try {
 			const query = {
@@ -548,6 +550,9 @@ export const updateLesson = async ( dispatch, { lessonName, namespaceName, newTi
 			};
 			if ( isBoolean( template ) ) {
 				query.template = template;
+			}
+			if ( isString( tag ) && tag !== '_default_tag' ) {
+				query.tag = tag;
 			}
 			const res = await axios.post( server+'/update_lesson', query );
 			dispatch( deletedLesson( lessonName ) );
@@ -572,8 +577,8 @@ export const updateLesson = async ( dispatch, { lessonName, namespaceName, newTi
  * @returns {Function} function to make a POST request to update a lesson
  */
 export const updateLessonInjector = ( dispatch ) => {
-	return async ({ lessonName, namespaceName, newTitle, newDescription, lockAfter, lockUntil, hideFromDashboard, template }) => {
-		const bool = await updateLesson( dispatch, { lessonName, namespaceName, newTitle, newDescription, lockAfter, lockUntil, hideFromDashboard, template });
+	return async ({ lessonName, namespaceName, newTitle, newDescription, lockAfter, lockUntil, hideFromDashboard, tag, template }) => {
+		const bool = await updateLesson( dispatch, { lessonName, namespaceName, newTitle, newDescription, lockAfter, lockUntil, hideFromDashboard, tag, template });
 		return bool;
 	};
 };

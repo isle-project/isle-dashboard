@@ -198,12 +198,15 @@ export const computeCompletionsInjector = dispatch => {
  *     sublevel (e.g., lessons when level is 'namespace').
  * @param {string} ref - the name of the metric to use at the next lower level for computing
  *     the completions that are used at this level.
+ * @param {Object<string,number>} tagWeights - a map from completion tag names to weights
+ * @param {boolean} autoCompute - whether to automatically compute the completions for this metric
+ * @param {boolean} visibleToStudent - whether to make the score visible to the student with whom it is associated
  * @returns {void}
  */
- export const createMetric = async ( dispatch, { name, rule, coverage, level, id, ref }) => {
+ export const createMetric = async ( dispatch, { name, rule, coverage, level, id, ref, tagWeights, autoCompute, visibleToStudent }) => {
 	try {
 		const res = await axios.post( `${server}/create_metric`, {
-			name, rule, coverage, level, id, ref
+			name, rule, coverage, level, id, ref, tagWeights, autoCompute, visibleToStudent
 		});
 		console.log( res.data );
 		dispatch({
@@ -235,18 +238,19 @@ export const createMetricInjector = dispatch => {
  * Makes a POST request to the server to update a completion metric.
  *
  * @param {Function} dispatch - dispatch function
- * @param {string} name - the metric name
- * @param {string} level - the level of the hierarchy for which we are computing completions,
+ * @param {string} body.name - the metric name
+ * @param {string} body.level - the level of the hierarchy for which we are computing completions,
  *     one of: 'program', 'namespace', 'lesson', 'component'.
- * @param {ObjectId} id - the id of the entity at the given level for which we are computing
+ * @param {ObjectId} body.id - the id of the entity at the given level for which we are computing
  *     the completions.
- * @param {Array} rule - a vector of the form ['rule-name', ...params], specifying
+ * @param {Array} body.rule - a vector of the form ['rule-name', ...params], specifying
  *     the aggregation rule used by the completion
- * @param {Array} coverage - an array of the form ['all'], ['include', ...ids], or
+ * @param {Array} body.coverage - an array of the form ['all'], ['include', ...ids], or
  *     ['exclude', ...ids], where ids are the ObjectId's for the  entities at the next
  *     sublevel (e.g., lessons when level is 'namespace').
- * @param {string} ref - the name of the metric to use at the next lower level for computing
+ * @param {string} body.ref - the name of the metric to use at the next lower level for computing
  *     the completions that are used at this level.
+ * @param {Object<string,number>} body.tagWeights - a map from completion tag names to weights
  * @returns {void}
  */
 export const updateMetric = async ( dispatch, body ) => {
