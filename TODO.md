@@ -32,6 +32,20 @@ TODO
   -   [ ] <MED> More salient namespace title on completions screen (among others)
   -   [ ] <LOW> More conveniently accessing tags associated with levels higher than lesson
   -   [ ] <HIGH> Add data for demo
+  -   [ ] completions.js changes
+          1. [DONE] change array instances to objects { level, entity, score, time, [tag], provenance },
+             where provenance is just children renamed and where tag is not included if it's the
+             DEFAULT_TAG; when defined tag is a string for a pure node or a tag weights object
+             when an aggregated node
+          2. [DONE] Missingness determined by score and handle missing values in reduced and weighted
+          3. [DONE] remove tagWeights from policyOptions (easing handling of tagWeights in the code)
+          4. [DONE] No missing when no data as in empty [] returns below, but missing when real missing
+          5. [DONE] Let rules return missing when all data is missing
+          6. [DONE] Eliminate labels for rule.json spec, use values as labels
+          7. [DONE] Add default and description to each parameter for rule.json spec
+          8. [DONE] Remove score and time from cohorts/user object (but keep metricName) since they're already in instance
+          9. [ ] Double check that changes are consistent and check missing handling for desired behavior.
+          A. [ ] Consider returned shape from getBranchData; probably fine as is, but check
 
 Some potential changes:
 

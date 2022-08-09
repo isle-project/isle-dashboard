@@ -266,6 +266,12 @@ class CompletionsPage extends Component {
 				Cell: row => {
 					// Check whether `lastUpdated` is on the same day as `now`
 					const lastUpdated = row.value.lastUpdated;
+                                        const score = row.value.instance.score;
+                                        const missing = ' ';  // Value displayed for a missing score
+                                        // ATTN:TODO - add click on score to show dismissible provenance table,
+                                        // ATTN:TODO   should show level, entity title, score, time recorded, and tag
+                                        // ATTN:TODO   in hierarchical display that reveals the structure
+                                        // ATTN:TODO   and lets one show/hide whole levels and filter on tags or more
 					let displayDate = '';
 					if ( lastUpdated instanceof Date ) {
 						if ( lastUpdated >= this.beginningOfDay ) {
@@ -279,7 +285,7 @@ class CompletionsPage extends Component {
 					}
 					return ( <OverlayTrigger placement="right" overlay={<Tooltip id="tooltip">{`${t('last-updated')} ${displayDate}`}</Tooltip>} >
 						<span style={{ whiteSpace: 'pre' }}>
-							{( lpad( String( roundn( row.value.score, -1 ).toFixed( 1 ) ), 5, '  ' ) )}
+							{lpad( score < 0 ? missing : String(roundn( score, -1 ).toFixed( 1 )), 5, '  ' )}
 						</span>
 					</OverlayTrigger> );
 				},
@@ -318,7 +324,7 @@ class CompletionsPage extends Component {
 					);
 				},
 				filterMethod: ( filter, row ) => {
-					return row[ filter.id ].score >= filter.value.min && row[ filter.id ].score <= filter.value.max;
+					return row[ filter.id ].instance.score >= filter.value.min && row[ filter.id ].instance.score <= filter.value.max;
 				}
 			});
 		}

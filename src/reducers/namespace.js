@@ -301,10 +301,8 @@ export default function namespace( state = initialState, action ) {
 						user.completions = {
 							...user.completions,
 							[`${metric.level}-${id}-${metric.name}`]: {
-								entityId: id,
-								level: metric.level,
 								metricName: metric.name,
-								score: completions[ k ][ user._id ],
+								instance: completions[ k ][ user._id ],
 								lastUpdated: new Date( lastUpdated )
 							}
 						};
