@@ -17,23 +17,80 @@
 
 // MODULES //
 
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import Button from 'react-bootstrap/Button';
 import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
 import SelectInput, { components } from 'react-select';
 import CreatableSelect from 'react-select/creatable';
+import isPositiveNumber from '@stdlib/assert/is-positive-number';
 import objectValues from '@stdlib/utils/values';
 import { levelFieldMapping } from './level_fields.js';
 import COVERAGE_OPTIONS from './coverage_options.json';
 
 
+// FUNCTIONS //
+
+/**
+ * Returns an object mapping tags to weights of one.
+ *
+ * @param {Array<string>} tags - list of tags
+ * @param {Object} [existingWeights] - existing weights
+ * @returns {Object} map of tag to weight
+ */
+ function createTagWeights( tags, existingWeights ) {
+	if ( !tags ) {
+		return {
+			'_default_tag': 1
+		};
+	}
+	const defaultWeight = (existingWeights && objectValues(existingWeights).some(isPositiveNumber)) ? 0 : 1;
+	const weights = {};
+	tags.forEach( tag => {
+		weights[ tag ] = existingWeights?.[ tag ] ?? defaultWeight;
+	});
+	return weights;
+}
+
+function TagWeightInput({ value, t, onChange }) {
+	const tags = Object.keys( value );
+	const handleChange = useCallback( ( event ) => {
+		const weight = Number( event.target.value );
+		const tag = event.target.getAttribute( 'data-tag' );
+		const newWeights = { ...value };
+		newWeights[ tag ] = weight;
+		onChange( newWeights );
+	}, [ value, onChange ] );
+
+	const inputs = new Array( tags.length );
+	for ( let i = 0; i < tags.length; i++ ) {
+		const tag = tags[ i ];
+		const weight = value[ tag ];
+		inputs[ i ] = ( <Form.Group className="mb-1" as={Row} key={`tag-${i}`} >
+			<Form.Label column sm={3} >{tag === '_default_tag' ? t( 'default' ) : tag}</Form.Label>
+			<Col sm={9} >
+				<Form.Control
+					type="number"
+					value={weight}
+					onChange={handleChange}
+					placeholder={1}
+					data-tag={tag}
+					min={0}
+				/>
+			</Col>
+		</Form.Group> );
+	}
+	return inputs;
+}
+
+
 // MAIN //
 
-function EditMetricModal({ level, entity, show, onHide, allRules, refs, createNew, metric, onConfirm }) {
+function EditMetricModal({ level, entity, show, onHide, allRules, refs, createNew, metric, tags, onConfirm }) {
 	const { t } = useTranslation();
 	const [ name, setName ] = useState( metric?.name || '' );
 	const [ rule, setRule ] = useState( metric?.rule ? allRules[ metric.rule[ 0 ] ] : null );
@@ -41,6 +98,9 @@ function EditMetricModal({ level, entity, show, onHide, allRules, refs, createNe
 	const [ coverage, setCoverage ] = useState( COVERAGE_OPTIONS[ metric?.coverage?.[ 0 ] || 'all' ] );
 	const [ coverageEntities, setCoverageEntities ] = useState( [] );
 	const [ selectedRef, setSelectedRef ] = useState( metric?.ref || null );
+	const [ tagWeights, setTagWeights ] = useState( createTagWeights( tags, metric?.tagWeights ) );
+	const [ autoCompute, setAutoCompute ] = useState( metric?.autoCompute ?? false );
+	const [ visibleToStudent, setVisibleToStudent ] = useState( metric?.visibleToStudent ?? false );
 	const subEntities = useRef( [] );
 
 	useEffect( () => {
@@ -74,7 +134,10 @@ function EditMetricModal({ level, entity, show, onHide, allRules, refs, createNe
 			coverage: [ coverage.value ].concat( coverageEntities.map( x => x.value._id ) ),
 			level,
 			id: entity._id,
-			ref: selectedRef
+			ref: selectedRef,
+			tagWeights,
+			autoCompute,
+			visibleToStudent
 		});
 		onHide();
 	};
@@ -197,6 +260,32 @@ function EditMetricModal({ level, entity, show, onHide, allRules, refs, createNe
 						/> : null
 					}
 				</Form.Group>
+				<Form.Group className="mb-2" as={Row} controlId="users" >
+					<Form.Label column sm={3} >
+						{t('tag-weights')}
+					</Form.Label>
+					<Col sm={9} >
+						<TagWeightInput value={tagWeights} onChange={setTagWeights} t={t} />
+					</Col>
+				</Form.Group>
+				<Form.Check
+					aria-label={t('auto-compute')}
+					type="checkbox"
+					label={t('auto-compute')}
+					defaultChecked={autoCompute}
+					onChange={( event) => {
+						setAutoCompute( event.target.checked );
+					}}
+				/>
+				<Form.Check
+					aria-label={t('visible-to-student')}
+					type="checkbox"
+					label={t('visible-to-student')}
+					defaultChecked={visibleToStudent}
+					onChange={( event) => {
+						setVisibleToStudent( event.target.checked );
+					}}
+				/>
 			</Modal.Body>
 			<Modal.Footer>
 				<Button onClick={onHide}>
@@ -222,11 +311,13 @@ EditMetricModal.propTypes = {
 	onConfirm: PropTypes.func.isRequired,
 	onHide: PropTypes.func.isRequired,
 	refs: PropTypes.array.isRequired,
-	show: PropTypes.bool.isRequired
+	show: PropTypes.bool.isRequired,
+	tags: PropTypes.array
 };
 
 EditMetricModal.defaultProps = {
-	metric: null
+	metric: null,
+	tags: null
 };
 
 

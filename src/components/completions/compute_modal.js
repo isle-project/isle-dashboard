@@ -30,7 +30,6 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import SelectInput from 'react-select';
 import isArray from '@stdlib/assert/is-array';
-import usePrevious from 'hooks/use-previous';
 
 
 // VARIABLES //
@@ -43,67 +42,13 @@ const MULTIPLES_POLICIES = [
 ];
 
 
-// FUNCTIONS //
-
-/**
- * Returns an object mapping tags to weights of one.
- *
- * @param {Array<string>} tags - list of tags
- * @param {Object} [existingWeights={}] - existing weights
- * @returns {Object} map of tag to weight
- */
-function createTagWeights( tags, existingWeights={} ) {
-	if ( !tags ) {
-		return {
-			'_default_tag': 1
-		};
-	}
-	const weights = {};
-	tags.forEach( tag => {
-		weights[ tag ] = existingWeights?.[ tag ] ?? 1;
-	});
-	return weights;
-}
-
-
 // MAIN //
 
 const memberSelection =( member ) => {
 	return { value: member.id, label: `${member.firstName} ${member.lastName} (${member.email})` };
 };
 
-function TagWeightInput({ value, t, onChange }) {
-	const tags = Object.keys( value );
-	const handleChange = useCallback( ( event ) => {
-		const weight = Number( event.target.value );
-		const tag = event.target.getAttribute( 'data-tag' );
-		const newWeights = { ...value };
-		newWeights[ tag ] = weight;
-		onChange( newWeights );
-	}, [ value, onChange ] );
-
-	const inputs = new Array( tags.length );
-	for ( let i = 0; i < tags.length; i++ ) {
-		const tag = tags[ i ];
-		const weight = value[ tag ];
-		inputs[ i ] = ( <Form.Group className="mb-1" as={Row} key={`tag-${i}`} >
-			<Form.Label column sm={3} >{tag === '_default_tag' ? t( 'default' ) : tag}</Form.Label>
-			<Col sm={9} >
-				<Form.Control
-					type="number"
-					value={weight}
-					onChange={handleChange}
-					placeholder={1}
-					data-tag={tag}
-					min={0}
-				/>
-			</Col>
-		</Form.Group> );
-	}
-	return inputs;
-}
-
-function ComputeModal({ cohorts, metric, entity, level, show, tags, onHide, computeCompletions, onCompute }) {
+function ComputeModal({ cohorts, metric, entity, level, show, onHide, computeCompletions, onCompute }) {
 	console.log( 'Array of metrics with the same name:', metric );
 	const { t } = useTranslation();
 	const metricName = isArray( metric ) ? metric[ 0 ].name : metric.name;
@@ -112,7 +57,6 @@ function ComputeModal({ cohorts, metric, entity, level, show, tags, onHide, comp
 		users: [],
 		activeCohorts: {},
 		policyOptions: {
-			tagWeights: createTagWeights( tags, {} ),
 			multiples: MULTIPLES_POLICIES[ 0 ]
 		}
 	});
@@ -127,16 +71,6 @@ function ComputeModal({ cohorts, metric, entity, level, show, tags, onHide, comp
 			setFormValues( oldFormValues );
 		}
 	}, [ FORM_STORAGE_KEY ] );
-	const oldTags = usePrevious( tags || [] );
-	useEffect( () => {
-		if ( tags && oldTags && tags.length !== oldTags.length ) {
-			const newFormValues = {
-				...formValues
-			};
-			newFormValues.policyOptions.tagWeights = createTagWeights( tags, formValues.policyOptions.tagWeights );
-			setFormValues( newFormValues );
-		}
-	}, [ tags, oldTags, formValues ] );
 	const onTimeChange = useCallback( ( dates ) => {
 		const newFormValues = { ...formValues };
 		if ( dates ) {
@@ -149,11 +83,6 @@ function ComputeModal({ cohorts, metric, entity, level, show, tags, onHide, comp
 	const handleMultiplesPolicyChange = useCallback( ( multiples ) => {
 		const newFormValues = { ...formValues };
 		newFormValues.policyOptions.multiples = multiples;
-		setFormValues( newFormValues );
-	}, [ formValues ] );
-	const handleTagWeightsChange = useCallback( ( tagWeights ) => {
-		const newFormValues = { ...formValues };
-		newFormValues.policyOptions.tagWeights = tagWeights;
 		setFormValues( newFormValues );
 	}, [ formValues ] );
 	const handleCompute = useCallback( () => {
@@ -303,21 +232,6 @@ function ComputeModal({ cohorts, metric, entity, level, show, tags, onHide, comp
 							</HelpIcon>
 						</Col>
 					</Form.Group>
-					<Form.Group className="mb-2" as={Row} controlId="users" >
-						<Form.Label column sm={3} >
-							{t('tag-weights')}
-						</Form.Label>
-						<Col sm={8} >
-							<TagWeightInput value={formValues.policyOptions.tagWeights} onChange={handleTagWeightsChange} t={t} />
-						</Col>
-						<Col sm={1} >
-							<HelpIcon>
-								<p>
-									{t('tag-weights-description')}
-								</p>
-							</HelpIcon>
-						</Col>
-					</Form.Group>
 				</Container>
 			</Modal.Body>
 			<Modal.Footer>
@@ -350,12 +264,9 @@ ComputeModal.propTypes = {
 	onCompute: PropTypes.func.isRequired,
 	onHide: PropTypes.func.isRequired,
 	show: PropTypes.bool.isRequired,
-	tags: PropTypes.array
 };
 
-ComputeModal.defaultProps = {
-	tags: null
-};
+ComputeModal.defaultProps = {};
 
 
 // EXPORTS //

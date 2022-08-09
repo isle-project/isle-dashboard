@@ -197,7 +197,7 @@ function CompletionsPage( props ) {
 				show={showComputeModal}
 				onHide={() => setShowComputeModal( false )}
 				cohorts={props.cohorts}
-				tags={props.entity.tags}
+
 				entity={props.entity}
 				level={props.level}
 				computeCompletions={props.computeCompletions}
@@ -211,6 +211,7 @@ function CompletionsPage( props ) {
 				level={props.level}
 				entity={props.entity}
 				refs={refs}
+				tags={props.entity.tags}
 				createNew={true}
 				onConfirm={( body ) => {
 					props.createMetric( body );
@@ -234,6 +235,7 @@ function CompletionsPage( props ) {
 				level={props.level}
 				entity={props.entity}
 				refs={refs}
+				tags={props.entity.tags}
 				createNew={false}
 				metric={selectedMetric}
 				onConfirm={props.updateMetric}
@@ -244,6 +246,7 @@ function CompletionsPage( props ) {
 				onHide={() => setShowLessonMetricsModal( false )}
 				lessons={props.entity.lessons}
 				allRules={COMPLETION_RULES}
+				tags={props.entity.tags}
 				lessonRefs={props.lessonRefs}
 				lessonComponents={props.entity.componentsByLesson}
 				namespace={props.entity}
