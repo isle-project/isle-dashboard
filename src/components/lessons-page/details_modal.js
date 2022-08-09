@@ -77,7 +77,8 @@ class DetailsModal extends Component {
 			unlockLesson,
 			lockUntil,
 			lockLesson,
-			lockAfter
+			lockAfter,
+			tag: props.tag
 		};
 	}
 
@@ -91,6 +92,9 @@ class DetailsModal extends Component {
 		}
 		if ( prevProps.template !== this.props.template ) {
 			newState.template = this.props.template;
+		}
+		if ( prevProps.tag !== this.props.tag ) {
+			newState.tag = this.props.tag;
 		}
 		if ( prevProps.lockUntil !== this.props.lockUntil ) {
 			if ( this.props.lockUntil ) {
@@ -190,6 +194,9 @@ class DetailsModal extends Component {
 		if ( this.state.changedTemplate ) {
 			details.template = this.state.template;
 		}
+		if ( this.state.tag ) {
+			details.tag = this.state.tag;
+		}
 		this.props.update( details );
 	};
 
@@ -268,6 +275,15 @@ class DetailsModal extends Component {
 								onChange={this.handleTemplateChange}
 							/>
 						</FormGroup> : null}
+						<FormGroup>
+							<FormLabel>{t('common:tag')}</FormLabel>
+							<FormControl
+								name="tag"
+								type="tag"
+								onChange={this.handleInputChange}
+								defaultValue={this.state.tag}
+							/>
+						</FormGroup>
 					</Modal.Body>
 					<Modal.Footer>
 						<Button onClick={this.props.close}>{t('common:cancel')}</Button>
@@ -293,6 +309,7 @@ DetailsModal.propTypes = {
 	lockAfter: PropTypes.instanceOf( Date ),
 	lockUntil: PropTypes.instanceOf( Date ),
 	show: PropTypes.bool.isRequired,
+	tag: PropTypes.string,
 	template: PropTypes.bool,
 	title: PropTypes.string.isRequired,
 	update: PropTypes.func.isRequired,
@@ -303,6 +320,7 @@ DetailsModal.defaultProps = {
 	hideFromDashboard: false,
 	lockAfter: null,
 	lockUntil: null,
+	tag: null,
 	template: null
 };
 

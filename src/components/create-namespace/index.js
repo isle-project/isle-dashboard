@@ -106,6 +106,7 @@ const CreateNamespace = ( props ) => {
 	const [ title, setTitle ] = useState( '' );
 	const [ description, setDescription ] = useState( '' );
 	const [ owners, setOwners ] = useState( [ props.user.email ] );
+	const [ tag, setTag ] = useState( null );
 	const { t } = useTranslation( [ 'namespace', 'common' ] );
 
 	const handleSubmit = () => {
@@ -113,6 +114,7 @@ const CreateNamespace = ( props ) => {
 			title,
 			description,
 			owners,
+			tag,
 			props
 		});
 	};
@@ -130,6 +132,10 @@ const CreateNamespace = ( props ) => {
 	const handleDescriptionChange = ( event ) => {
 		const value = event.target.value;
 		setDescription( value );
+	};
+	const handleTagChange = ( event ) => {
+		const value = event.target.value;
+		setTag( value );
 	};
 	const validTitle = validateTitle( title );
 	const invalidTitleChars = checkURLPath( title );
@@ -191,6 +197,21 @@ const CreateNamespace = ( props ) => {
 							/>
 							<FormControl.Feedback type="invalid">
 								{t('invalid-description')}
+							</FormControl.Feedback>
+						</FormGroup>
+					</OverlayTrigger>
+					<OverlayTrigger placement="right" overlay={<Tooltip id="tagTooltip">{t('tag-tooltip')}</Tooltip>}>
+						<FormGroup controlId="form-tag" >
+							<FormLabel>{t('tag-description')}</FormLabel>
+							<FormControl
+								name="description"
+								type="text"
+								placeholder={t('tag-placeholder')}
+								onChange={handleTagChange}
+								isInvalid={description && !validDescription}
+							/>
+							<FormControl.Feedback type="invalid">
+								{t('invalid-tag')}
 							</FormControl.Feedback>
 						</FormGroup>
 					</OverlayTrigger>

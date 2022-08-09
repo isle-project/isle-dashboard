@@ -107,12 +107,13 @@ class Lesson extends Component {
 		this.closeDeleteModal();
 	};
 
-	update = async ({ newTitle, newDescription, lockAfter, lockUntil, hideFromDashboard, template }) => {
+	update = async ({ newTitle, newDescription, lockAfter, lockUntil, hideFromDashboard, tag, template }) => {
 		const bool = await this.props.updateLesson({
 			lessonName: this.props.title,
 			namespaceName: this.props.namespace,
 			newTitle,
 			newDescription,
+			tag,
 			template,
 			lockAfter: lockAfter ? lockAfter.getTime() : null,
 			lockUntil: lockUntil ? lockUntil.getTime() : null,

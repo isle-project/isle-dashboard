@@ -61,7 +61,7 @@ import './edit_namespace.css';
 class EditNamespace extends Component {
 	constructor( props ) {
 		super( props );
-		let { title, description, owners, enableTicketing } = this.props.namespace;
+		let { title, description, owners, enableTicketing, tag } = this.props.namespace;
 		if ( isArray( owners ) ) {
 			owners = owners.map( ( owner ) => {
 				return owner.email;
@@ -77,6 +77,7 @@ class EditNamespace extends Component {
 			showCreateCohortModal: false,
 			showEditCohortModal: false,
 			selectedCohort: null,
+			tag,
 			lessonRefs: []
 		};
 	}
@@ -110,6 +111,7 @@ class EditNamespace extends Component {
 			_id: this.props.namespace._id,
 			description: this.state.description,
 			title: this.state.title,
+			tag: this.state.tag,
 			enableTicketing: this.state.enableTicketing,
 			owners: this.state.owners
 		});
@@ -375,6 +377,18 @@ class EditNamespace extends Component {
 												});
 											}}
 										/>
+										<OverlayTrigger placement="right" overlay={<Tooltip id="tagTooltip">{t('tag-tooltip')}</Tooltip>}>
+											<FormGroup controlId="form-tag" >
+												<FormLabel>{t('tag-description')}</FormLabel>
+												<FormControl
+													name="tag"
+													type="text"
+													value={this.state.tag}
+													onChange={this.handleInputChange}
+												>
+												</FormControl>
+											</FormGroup>
+										</OverlayTrigger>
 									</Form>
 									<Button
 										type="submit"
