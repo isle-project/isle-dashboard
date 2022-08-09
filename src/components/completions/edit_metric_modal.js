@@ -43,13 +43,16 @@ import COVERAGE_OPTIONS from './coverage_options.json';
  * @returns {Object} map of tag to weight
  */
  function createTagWeights( tags, existingWeights ) {
-	if ( !tags ) {
+	if ( !tags && !existingWeights ) {
 		return {
 			'_default_tag': 1
 		};
 	}
-	const defaultWeight = (existingWeights && objectValues(existingWeights).some(isPositiveNumber)) ? 0 : 1;
-	const weights = {};
+	if ( !tags ) {
+		return existingWeights;
+	}
+	const defaultWeight = ( existingWeights && objectValues( existingWeights ).some( isPositiveNumber ) ) ? 0 : 1;
+	const weights = { ...existingWeights };
 	tags.forEach( tag => {
 		weights[ tag ] = existingWeights?.[ tag ] ?? defaultWeight;
 	});
@@ -90,7 +93,7 @@ function TagWeightInput({ value, t, onChange }) {
 
 // MAIN //
 
-function EditMetricModal({ level, entity, show, onHide, allRules, refs, createNew, metric, tags, onConfirm }) {
+function EditMetricModal({ level, entity, show, onHide, allRules, refs, createNew, metric, onConfirm }) {
 	const { t } = useTranslation();
 	const [ name, setName ] = useState( metric?.name || '' );
 	const [ rule, setRule ] = useState( metric?.rule ? allRules[ metric.rule[ 0 ] ] : null );
@@ -98,10 +101,13 @@ function EditMetricModal({ level, entity, show, onHide, allRules, refs, createNe
 	const [ coverage, setCoverage ] = useState( COVERAGE_OPTIONS[ metric?.coverage?.[ 0 ] || 'all' ] );
 	const [ coverageEntities, setCoverageEntities ] = useState( [] );
 	const [ selectedRef, setSelectedRef ] = useState( metric?.ref || null );
-	const [ tagWeights, setTagWeights ] = useState( createTagWeights( tags, metric?.tagWeights ) );
+	const [ tagWeights, setTagWeights ] = useState( createTagWeights( null, metric?.tagWeights ) );
 	const [ autoCompute, setAutoCompute ] = useState( metric?.autoCompute ?? false );
 	const [ visibleToStudent, setVisibleToStudent ] = useState( metric?.visibleToStudent ?? false );
 	const subEntities = useRef( [] );
+
+	console.log( 'LESSON TAGS: ' );
+	console.log( entity.lessonTags );
 
 	useEffect( () => {
 		if ( level === 'lesson' ) {
@@ -306,18 +312,16 @@ EditMetricModal.propTypes = {
 	allRules: PropTypes.object.isRequired,
 	createNew: PropTypes.bool.isRequired,
 	entity: PropTypes.object.isRequired,
-	level: PropTypes.oneOf([ 'program', 'namespace', 'lesson', 'component' ]).isRequired,
+	level: PropTypes.oneOf([ 'program', 'namespace' ]).isRequired,
 	metric: PropTypes.object,
 	onConfirm: PropTypes.func.isRequired,
 	onHide: PropTypes.func.isRequired,
 	refs: PropTypes.array.isRequired,
-	show: PropTypes.bool.isRequired,
-	tags: PropTypes.array
+	show: PropTypes.bool.isRequired
 };
 
 EditMetricModal.defaultProps = {
-	metric: null,
-	tags: null
+	metric: null
 };
 
 

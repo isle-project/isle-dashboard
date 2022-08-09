@@ -18,7 +18,11 @@
 // MODULES //
 
 import hasOwnProp from '@stdlib/assert/has-own-property';
+import isString from '@stdlib/assert/is-string';
+import isWhitespace from '@stdlib/assert/is-whitespace';
 import copy from '@stdlib/utils/copy';
+import isObject from '@stdlib/assert/is-object';
+import objectKeys from '@stdlib/utils/keys';
 import mapValues from '@stdlib/utils/map-values';
 import * as types from 'constants/action_types.js';
 
@@ -43,7 +47,8 @@ const initialState = {
 	cohorts: [],
 	files: [],
 	ownerFiles: [],
-	tags: [ '_default_tag' ],
+	lessonTags: [ '_default_tag' ],
+	componentTags: [ '_default_tag' ],
 	tickets: [],
 	completions: [],
 	componentsByLesson: {}
@@ -55,6 +60,16 @@ const initialState = {
 export default function namespace( state = initialState, action ) {
 	switch ( action.type ) {
 	case types.CHANGED_NAMESPACE: {
+		const tags = new Set();
+		const completions = action.payload.completions;
+		for ( let i = 0; i < completions.length; i++ ) {
+			const { tagWeights } = completions[ i ];
+			for ( const tag in tagWeights ) {
+				if ( hasOwnProp( tagWeights, tag ) ) {
+					tags.add( tag );
+				}
+			}
+		}
 		return Object.assign({}, state, {
 			_id: action.payload._id,
 			title: action.payload.title,
@@ -63,7 +78,8 @@ export default function namespace( state = initialState, action ) {
 			enableTicketing: action.payload.enableTicketing,
 			owners: action.payload.owners,
 			cohorts: action.payload.cohorts,
-			completions: action.payload.completions
+			completions: completions,
+			lessonTags: Array.from( tags )
 		});
 	}
 	case types.DELETED_CURRENT_NAMESPACE: {
@@ -89,8 +105,16 @@ export default function namespace( state = initialState, action ) {
 	}
 	case types.RETRIEVED_LESSONS: {
 		if ( action.payload.namespaceName === state.title ) {
+			const lessons = action.payload.lessons;
+			const tags = new Set( state.lessonTags );
+			lessons.forEach( lesson => {
+				if ( isString( lesson.tag ) && !isWhitespace( lesson.tag ) && lesson.tag !== '_default_tag' ) {
+					tags.add( lesson.tag );
+				}
+			});
 			return Object.assign({}, state, {
-				lessons: action.payload.lessons
+				lessons,
+				lessonTags: Array.from( tags )
 			});
 		}
 		return state;
@@ -133,8 +157,15 @@ export default function namespace( state = initialState, action ) {
 				break;
 			}
 		}
+		const lessonTags = state.lessonTags.slice();
+		if ( props.tag && !isWhitespace( props.tag ) && props.tag !== '_default_tag' ) {
+			if ( !state.lessonTags.includes( props.tag ) ) {
+				lessonTags.push( props.tag );
+			}
+		}
 		return Object.assign({}, state, {
-			lessons
+			lessons,
+			lessonTags
 		});
 	}
 	case types.RECEIVED_NAMESPACE_FILES: {
@@ -257,8 +288,20 @@ export default function namespace( state = initialState, action ) {
 				break;
 			}
 		}
+		let newLessonTags;
+		if ( isObject( metric.tagWeights ) ) {
+			newLessonTags = new Set( state.lessonTags );
+			const tags = objectKeys( metric.tagWeights );
+			for ( let i = 0; i < tags.length; i++ ) {
+				if ( newLessonTags.has( tags[ i ] ) ) {
+					newLessonTags.add( tags[ i ] );
+				}
+			}
+			newLessonTags = Array.from( newLessonTags );
+		}
 		return Object.assign({}, state, {
-			completions
+			completions,
+			...(newLessonTags && { lessonTags: newLessonTags })
 		});
 	}
 	case types.CREATED_METRIC: {
@@ -266,9 +309,22 @@ export default function namespace( state = initialState, action ) {
 			return state;
 		}
 		const completions = state.completions.slice();
-		completions.push( action.payload.metric );
+		const metric = action.payload.metric;
+		let newLessonTags;
+		if ( isObject( metric.tagWeights ) ) {
+			newLessonTags = new Set( state.lessonTags );
+			const tags = objectKeys( metric.tagWeights );
+			for ( let i = 0; i < tags.length; i++ ) {
+				if ( newLessonTags.has( tags[ i ] ) ) {
+					newLessonTags.add( tags[ i ] );
+				}
+			}
+			newLessonTags = Array.from( newLessonTags );
+		}
+		completions.push( metric );
 		return Object.assign({}, state, {
-			completions
+			completions,
+			...(newLessonTags && { lessonTags: newLessonTags })
 		});
 	}
 	case types.DELETED_METRIC: {
@@ -335,7 +391,7 @@ export default function namespace( state = initialState, action ) {
 		const { completionTags } = action.payload;
 		console.log( 'Received completion tags', completionTags );
 		return Object.assign({}, state, {
-			tags: completionTags
+			componentTags: completionTags
 		});
 	}
 	case types.GET_COMPLETION_COMPONENTS: {

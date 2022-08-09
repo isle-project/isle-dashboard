@@ -211,7 +211,6 @@ function CompletionsPage( props ) {
 				level={props.level}
 				entity={props.entity}
 				refs={refs}
-				tags={props.entity.tags}
 				createNew={true}
 				onConfirm={( body ) => {
 					props.createMetric( body );
@@ -235,7 +234,6 @@ function CompletionsPage( props ) {
 				level={props.level}
 				entity={props.entity}
 				refs={refs}
-				tags={props.entity.tags}
 				createNew={false}
 				metric={selectedMetric}
 				onConfirm={props.updateMetric}
