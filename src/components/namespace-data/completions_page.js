@@ -266,12 +266,12 @@ class CompletionsPage extends Component {
 				Cell: row => {
 					// Check whether `lastUpdated` is on the same day as `now`
 					const lastUpdated = row.value.lastUpdated;
-                                        const score = row.value.instance.score;
-                                        const missing = ' ';  // Value displayed for a missing score
-                                        // ATTN:TODO - add click on score to show dismissible provenance table,
-                                        // ATTN:TODO   should show level, entity title, score, time recorded, and tag
-                                        // ATTN:TODO   in hierarchical display that reveals the structure
-                                        // ATTN:TODO   and lets one show/hide whole levels and filter on tags or more
+					const score = row.value.instance?.score ?? -999;
+					const missing = ' ';  // Value displayed for a missing score
+					// ATTN:TODO - add click on score to show dismissible provenance table,
+					// ATTN:TODO   should show level, entity title, score, time recorded, and tag
+					// ATTN:TODO   in hierarchical display that reveals the structure
+					// ATTN:TODO   and lets one show/hide whole levels and filter on tags or more
 					let displayDate = '';
 					if ( lastUpdated instanceof Date ) {
 						if ( lastUpdated >= this.beginningOfDay ) {
