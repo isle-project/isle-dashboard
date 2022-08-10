@@ -14,10 +14,7 @@ TODO
 6.  Directory structure or keyword tagging for lessons? Make it easier to navigate a larger course
 
 7. Completions:
-  -   [ ] <HIGH> Tag Weights Editor
-  -   [ ] <HIGH> Integrate Tag Weights Editor into both metric modals
-  -   [ ] <HIGH> Bug in Edit Lesson Metric Modal that requires two saves for changes
-  -   [ ] <HIGH> Bug in Completions Page/Namespace data when you navigate to lesson metric, crashes
+  -   [ ] <HIGH> Lesson computed scores display is not updating
   -   [ ] <MED> Show provenances when clicking on scores
   -   [ ] <MED> Incorporate new metric json spec in rule parameter form,
                 including tooltips with description, validation, and select for enum type.
@@ -26,32 +23,6 @@ TODO
   -   [ ] <LOW> Generalize coverage to support patterns and types
   -   [ ] <LOW> Add 'metric_order' endpoint
   -   [ ] <LOW> More salient namespace title on completions screen (among others)
-  -   [X] <MED> Renormalize tag weights at computation time
-  -   [X] <MED> Add new rules and component refs to handle likely use case (progress, clicked link, watched video, ...)
-  -   [X] <HIGH> Adjust ACTION logging to update completions table
-  -   [X] <LOW> If a component is not available for any users, we ignore it; but if none are available in a metric,
-      we should display blanks in the table rather than keeping the old values.
-      1. [X] CG will look at this and propose solutions
-      2. [X] Update completions to handle missing
-  -   [X] <HIGH> Auto updating on recompute
-      1. [X] return completion scores for each user from `compute_completions` endpoint (and associated data incl. metric, entityId) 
-      2. [X] PGB will update reducers
-  -   [X] <HIGH> Lessons version of modal (with drop down)
-  -   [X] <LOW> More conveniently accessing tags associated with levels higher than lesson
-  -   [X] completions.js changes
-          1. [DONE] change array instances to objects { level, entity, score, time, [tag], provenance },
-             where provenance is just children renamed and where tag is not included if it's the
-             DEFAULT_TAG; when defined tag is a string for a pure node or a tag weights object
-             when an aggregated node
-          2. [DONE] Missingness determined by score and handle missing values in reduced and weighted
-          3. [DONE] remove tagWeights from policyOptions (easing handling of tagWeights in the code)
-          4. [DONE] No missing when no data as in empty [] returns below, but missing when real missing
-          5. [DONE] Let rules return missing when all data is missing
-          6. [DONE] Eliminate labels for rule.json spec, use values as labels
-          7. [DONE] Add default and description to each parameter for rule.json spec
-          8. [DONE] Remove score and time from cohorts/user object (but keep metricName) since they're already in instance
-          9. [DONE] Double check that changes are consistent and check missing handling for desired behavior.
-          A. [DONE] Consider returned shape from getBranchData; probably fine as is, but check
 
 Some potential changes:
 
