@@ -127,8 +127,14 @@ function TagWeightsEditor({ tagWeights, visibleTags, onUpdate }) {
 
 TagWeightsEditor.propTypes = {
 	onUpdate: PropTypes.func.isRequired,
-	tagWeights: PropTypes.object.isRequired,
+	tagWeights: PropTypes.object,
 	visibleTags: PropTypes.array.isRequired
+};
+
+TagWeightsEditor.defaultProps = {
+	tagWeights: {
+		'_default_tag': 1
+	}
 };
 
 

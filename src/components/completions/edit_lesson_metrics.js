@@ -33,6 +33,7 @@ import COVERAGE_OPTIONS from './coverage_options.json';
 import hash from 'object-hash';
 import ComputeModal from './compute_modal.js';
 import allRules from './completion_rules.json';
+import TagWeightsEditor from './tag_weights_editor';
 
 
 // VARIABLES //
@@ -154,13 +155,19 @@ function EditLessonMetrics({ name, preferredLesson, lessons, lessonRefs, compone
 			if ( lessonMetric ) {
 				newSelectedLessons[ lessonId ] = true;
 			} else {
+				// Case: lesson does not have the metric (yet)
 				newSelectedLessons[ lessonId ] = false;
 				lessonSpec.activeLessons[ lessonId ] = {
 					name: chosenName,
 					rule: isSharedRuleSet ? [ lessonSpec.sharedRule.name, ...lessonSpec.sharedRuleParameters ] : null,
 					ref: analysis.hasSharedRef ? lessonSpec.sharedRef : null,
 					coverage: [ 'all' ],
-					level: 'lesson'
+					level: 'lesson',
+					autoCompute: false,
+					visibleToStudents: false,
+					tagWeights: {
+						'_default_tag': 1
+					}
 				};
 			}
 		}
@@ -175,6 +182,7 @@ function EditLessonMetrics({ name, preferredLesson, lessons, lessonRefs, compone
 		availableMetrics.current = availableLessonMetrics( lessons );
 	}, [ lessons ] );
 	useEffect( () => {
+		console.log( 'Analyze lesson metrics and incorporate analysis...' );
 		const analysis = analyzeLessonMetrics( chosenName, lessons );
 		analysisRef.current = analysis;
 		incorporateAnalysis( analysis );
@@ -195,6 +203,7 @@ function EditLessonMetrics({ name, preferredLesson, lessons, lessonRefs, compone
 		const lessonMetrics = { ...activeLessons };
 		namespace.lessons.forEach( lesson => {
 			if ( !selectedLessons[ lesson._id ] ) {
+				// Case: mark for deletion on server
 				lessonMetrics[ lesson._id ] = null;
 			} else {
 				lessonMetrics[ lesson._id ] = {
@@ -214,6 +223,12 @@ function EditLessonMetrics({ name, preferredLesson, lessons, lessonRefs, compone
 			.then( res => {
 				console.log( 'Saved lesson metrics:', res.data );
 				setHasSaved( true );
+				if ( objectValues( selectedLessons ).every( x => x === false ) ) {
+					setChosenName( null );
+					setCurrentHash( null );
+					setSharedRef( null );
+					setSharedRule( null );
+				}
 				resetHash();
 			})
 			.catch( err => {
@@ -335,7 +350,7 @@ function EditLessonMetrics({ name, preferredLesson, lessons, lessonRefs, compone
 		const coverageQualifier = coverage[ 0 ];
 		const coverageEntities = coverage.slice( 1 ).map( selectOption );
 		return (
-			<>
+			<div key={`${x._id}-inputs`} >
 				<Form.Check
 					type="switch"
 					id="custom-switch"
@@ -443,8 +458,53 @@ function EditLessonMetrics({ name, preferredLesson, lessons, lessonRefs, compone
 							}
 						</Col>
 					</Form.Group>
+					<Form.Group className="mb-2" as={Row} >
+						<Col sm={2} />
+						<Form.Label column sm={4} >{t('tag-weights')}</Form.Label>
+						<Col sm={6} >
+							<TagWeightsEditor
+								key={`${x._id}-tag-weights`}
+								tagWeights={activeLessons[ x._id ].tagWeights || void 0}
+								visibleTags={namespace.componentTags}
+								onUpdate={( tagWeights ) => {
+									const newActive = { ...activeLessons };
+									newActive[ x._id ].tagWeights = tagWeights;
+									setActiveLessons( newActive );
+								}}
+							/>
+						</Col>
+					</Form.Group>
+					<Form.Group className="mb-2" as={Row} >
+						<Col sm={6} />
+						<Col sm={3} >
+							<Form.Check
+								aria-label={t('visible-to-student')}
+								type="checkbox"
+								label={t('visible-to-student')}
+								defaultChecked={activeLessons[ x._id ].visibleToStudent}
+								onChange={( event) => {
+									const newActive = { ...activeLessons };
+									newActive[ x._id ].visibleToStudent = event.target.checked;
+									setActiveLessons( newActive );
+								}}
+							/>
+						</Col>
+						<Col sm={3} >
+							<Form.Check
+								aria-label={t('auto-compute')}
+								type="checkbox"
+								label={t('auto-compute')}
+								defaultChecked={activeLessons[ x._id ].autoCompute}
+								onChange={( event) => {
+									const newActive = { ...activeLessons };
+									newActive[ x._id ].autoCompute = event.target.checked;
+									setActiveLessons( newActive );
+								}}
+							/>
+						</Col>
+					</Form.Group>
 				</>}
-			</>
+			</div>
 		);
 	});
 	const hasUnsavedChanges = currentHash !== analyzedHash.current;
