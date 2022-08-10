@@ -31,7 +31,6 @@ import server from 'constants/server';
 import ConfirmModal from 'components/confirm-modal';
 import ComputeModal from './compute_modal.js';
 import EditMetricModal from './edit_metric_modal.js';
-import SharedEditLessonMetricsModal from './shared_edit_lesson_metrics_modal.js';
 import { levelFieldMapping } from './level_fields.js';
 import COMPLETION_RULES from './completion_rules.json'; // TODO: Need specification for the parameters and their types (use the `attr-types` library)
 import './completions.css';
@@ -57,7 +56,6 @@ function CompletionsPage( props ) {
 	const [ showDeleteModal, setShowDeleteModal ] = useState( false );
 	const [ showCreateModal, setShowCreateModal ] = useState( false );
 	const [ showEditModal, setShowEditModal ] = useState( false );
-	const [ showLessonMetricsModal, setShowLessonMetricsModal ] = useState( false );
 	const [ refs, setRefs ] = useState( null );
 	const metrics = props.entity.completions || [];
 	const [ order, setOrder ] = useState( incrspace( 0, metrics.length, 1 ) );
@@ -238,28 +236,6 @@ function CompletionsPage( props ) {
 				metric={selectedMetric}
 				onConfirm={props.updateMetric}
 			/> : null}
-			{showLessonMetricsModal ? <SharedEditLessonMetricsModal
-				key="lesson-metrics-modal"
-				show={showLessonMetricsModal}
-				onHide={() => setShowLessonMetricsModal( false )}
-				lessons={props.entity.lessons}
-				allRules={COMPLETION_RULES}
-				tags={props.entity.tags}
-				lessonRefs={props.lessonRefs}
-				lessonComponents={props.entity.componentsByLesson}
-				namespace={props.entity}
-				onSave={( body ) => {
-					axios.post( `${server}/save_lesson_metrics`, body )
-						.then( ( res ) => {
-							console.log( 'Response: ', res );
-							setShowLessonMetricsModal( false );
-							props.updateLessonMetrics({ lessons: res.data.lessons });
-						})
-						.catch( ( err ) => {
-							console.error( err );
-						});
-				}}
-			/> : null}
 		</div>
 	);
 }
@@ -275,12 +251,7 @@ CompletionsPage.propTypes = {
 	entity: PropTypes.object.isRequired,
 	lessonRefs: PropTypes.array.isRequired,
 	level: PropTypes.string.isRequired,
-	updateLessonMetrics: PropTypes.func,
 	updateMetric: PropTypes.func.isRequired
-};
-
-CompletionsPage.defaultProps = {
-	updateLessonMetrics: () => {}
 };
 
 
