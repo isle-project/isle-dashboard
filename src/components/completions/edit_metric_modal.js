@@ -17,7 +17,7 @@
 
 // MODULES //
 
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import Button from 'react-bootstrap/Button';
@@ -31,6 +31,7 @@ import isPositiveNumber from '@stdlib/assert/is-positive-number';
 import objectValues from '@stdlib/utils/values';
 import { levelFieldMapping } from './level_fields.js';
 import COVERAGE_OPTIONS from './coverage_options.json';
+import TagWeightsEditor from './tag_weights_editor.js';
 
 
 // FUNCTIONS //
@@ -57,37 +58,6 @@ import COVERAGE_OPTIONS from './coverage_options.json';
 		weights[ tag ] = existingWeights?.[ tag ] ?? defaultWeight;
 	});
 	return weights;
-}
-
-function TagWeightInput({ value, t, onChange }) {
-	const tags = Object.keys( value );
-	const handleChange = useCallback( ( event ) => {
-		const weight = Number( event.target.value );
-		const tag = event.target.getAttribute( 'data-tag' );
-		const newWeights = { ...value };
-		newWeights[ tag ] = weight;
-		onChange( newWeights );
-	}, [ value, onChange ] );
-
-	const inputs = new Array( tags.length );
-	for ( let i = 0; i < tags.length; i++ ) {
-		const tag = tags[ i ];
-		const weight = value[ tag ];
-		inputs[ i ] = ( <Form.Group className="mb-1" as={Row} key={`tag-${i}`} >
-			<Form.Label column sm={3} >{tag === '_default_tag' ? t( 'default' ) : tag}</Form.Label>
-			<Col sm={9} >
-				<Form.Control
-					type="number"
-					value={weight}
-					onChange={handleChange}
-					placeholder={1}
-					data-tag={tag}
-					min={0}
-				/>
-			</Col>
-		</Form.Group> );
-	}
-	return inputs;
 }
 
 
@@ -271,7 +241,7 @@ function EditMetricModal({ level, entity, show, onHide, allRules, refs, createNe
 						{t('tag-weights')}
 					</Form.Label>
 					<Col sm={9} >
-						<TagWeightInput value={tagWeights} onChange={setTagWeights} t={t} />
+						<TagWeightsEditor tagWeights={tagWeights} visibleTags={entity.lessonTags} onUpdate={setTagWeights} />
 					</Col>
 				</Form.Group>
 				<Form.Check
