@@ -265,6 +265,9 @@ class CompletionsPage extends Component {
 				accessor: 'completions.'+this.metrics[ i ].value,
 				Cell: row => {
 					// Check whether `lastUpdated` is on the same day as `now`
+					if ( !row.value ) {
+						return <span></span>;
+					}
 					const lastUpdated = row.value.lastUpdated;
 					const score = row.value.instance?.score ?? -999;
 					const missing = ' ';  // Value displayed for a missing score
