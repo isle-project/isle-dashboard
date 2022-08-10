@@ -19,13 +19,14 @@ TODO
   -   [ ] <HIGH> Bug in Edit Lesson Metric Modal that requires two saves for changes
   -   [ ] <HIGH> Bug in Completions Page/Namespace data when you navigate to lesson metric, crashes
   -   [ ] <MED> Show provenances when clicking on scores
-  -   [ ] <MED> Format dates in table and unify when receiving or computing
-  -   [ ] <MED> Renormalize tag weights at computation time
+  -   [ ] <MED> Incorporate new metric json spec in rule parameter form,
+                including tooltips with description, validation, and select for enum type.
   -   [ ] <MED> Add data for testing and demonstration
-  -   [ ] <LOW> Validation on the dropNLowest params when empty causes NaN's, ensure number
+  -   [ ] <MED> Format dates in table and unify when receiving or computing
   -   [ ] <LOW> Generalize coverage to support patterns and types
   -   [ ] <LOW> Add 'metric_order' endpoint
   -   [ ] <LOW> More salient namespace title on completions screen (among others)
+  -   [X] <MED> Renormalize tag weights at computation time
   -   [X] <MED> Add new rules and component refs to handle likely use case (progress, clicked link, watched video, ...)
   -   [X] <HIGH> Adjust ACTION logging to update completions table
   -   [X] <LOW> If a component is not available for any users, we ignore it; but if none are available in a metric,
