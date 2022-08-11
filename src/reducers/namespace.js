@@ -328,20 +328,26 @@ export default function namespace( state = initialState, action ) {
 		});
 	}
 	case types.DELETED_METRIC: {
-		console.log( 'DELETED_METRIC IN CURRENT NS', action.payload );
 		if ( action.payload.level !== 'namespace' || action.payload.id !== state._id ) {
 			return state;
 		}
-		console.log( 'Need to update...' );
 		const newCompletions = [];
 		for ( let i = 0; i < state.completions.length; i++ ) {
 			if ( state.completions[ i ].name !== action.payload.name ) {
 				newCompletions.push( state.completions[ i ] );
 			}
 		}
-		console.log( 'newCompletions', newCompletions );
+		const metricKey = `${action.payload.level}-${action.payload.id}-${action.payload.name}`;
+		const newCohorts = copy( state.cohorts );
+		for ( let i = 0; i < newCohorts.length; i++ ) {
+			for ( let j = 0; j < newCohorts[ i ].members.length; j++ ) {
+				const user = newCohorts[ i ].members[ j ];
+				delete user.completions[ metricKey ];
+			}
+		}
 		return Object.assign({}, state, {
-			completions: newCompletions
+			completions: newCompletions,
+			cohorts: newCohorts
 		});
 	}
 	case types.COMPUTED_COMPLETIONS: {
@@ -371,8 +377,24 @@ export default function namespace( state = initialState, action ) {
 		});
 	}
 	case types.SAVED_LESSON_METRICS: {
-		const { lessons } = action.payload;
+		const { lessons, metricName } = action.payload;
 		const updatedLessons = [...lessons.changed, ...lessons.created, ...lessons.deleted ];
+
+		let newCohorts = state.cohorts;
+		if ( lessons.deleted.length > 0 ) {
+			newCohorts = copy( state.cohorts );
+			for ( let i = 0; i < newCohorts.length; i++ ) {
+				for ( let j = 0; j < newCohorts[ i ].members.length; j++ ) {
+					const user = newCohorts[ i ].members[ j ];
+					user.completions = {...user.completions };
+					for ( let k = 0; k < lessons.deleted.length; k++ ) {
+						const lesson = lessons.deleted[ k ];
+						const metricKey = `lesson-${lesson._id}-${metricName}`;
+						delete user.completions[ metricKey ];
+					}
+				}
+			}
+		}
 		const idsToLessons = {};
 		updatedLessons.forEach( lesson => {
 			idsToLessons[ lesson._id ] = lesson;
@@ -384,7 +406,8 @@ export default function namespace( state = initialState, action ) {
 			return lesson;
 		});
 		return Object.assign({}, state, {
-			lessons: newLessons
+			lessons: newLessons,
+			cohorts: newCohorts
 		});
 	}
 	case types.GET_COMPLETION_TAGS: {
