@@ -29,6 +29,7 @@ import InputGroup from 'react-bootstrap/InputGroup';
 import SelectInput from 'react-select';
 import CreatableSelect from 'react-select/creatable';
 import objectValues from '@stdlib/utils/values';
+import ConfirmModal from 'components/confirm-modal';
 import COVERAGE_OPTIONS from './coverage_options.json';
 import hash from 'object-hash';
 import ComputeModal from './compute_modal.js';
@@ -120,6 +121,7 @@ function EditLessonMetrics({ name, preferredLesson, lessons, lessonRefs, compone
 	const [ currentHash, setCurrentHash ] = useState( null );
 	const [ isNewMetric, setIsNewMetric ] = useState( false );
 	const [ showComputeModal, setShowComputeModal ] = useState( false );
+	const [ showDeleteModal, setShowDeleteModal ] = useState( false );
 	const [ hasSaved, setHasSaved ] = useState( false );
 
 	const availableMetrics = useRef( null );
@@ -508,6 +510,7 @@ function EditLessonMetrics({ name, preferredLesson, lessons, lessonRefs, compone
 		);
 	});
 	const hasUnsavedChanges = currentHash !== analyzedHash.current;
+	const noLessonsSelected = Object.values( selectedLessons ).every( x => !x );
 	const saveBar = chosenName && <Fragment>
 		<Button
 			variant={hasUnsavedChanges ? 'warning' : 'secondary'}
@@ -521,8 +524,9 @@ function EditLessonMetrics({ name, preferredLesson, lessons, lessonRefs, compone
 		>
 			{t('discard-unsaved-changes')}
 		</Button>
-		<Button variant="success" onClick={handleSave} className="me-2"
-			disabled={!hasUnsavedChanges || !sharedRef || !sharedRule || ( isNewMetric && Object.values( selectedLessons ).every( x => !x ))}
+		<Button variant="success" className="me-2"
+			disabled={!hasUnsavedChanges || !sharedRef || !sharedRule || ( isNewMetric && noLessonsSelected )}
+			onClick={noLessonsSelected ? () => setShowDeleteModal( true ) : handleSave}
 		>
 			{t('common:save')}
 		</Button>
@@ -610,6 +614,18 @@ function EditLessonMetrics({ name, preferredLesson, lessons, lessonRefs, compone
 				level="lesson"
 				onCompute={() => setShowComputeModal( false )}
 				computeCompletions={computeCompletions}
+			/>}
+			{showDeleteModal && <ConfirmModal
+				title={t('delete-lesson-metric')}
+				message={<span>
+					{t('delete-lesson-metric-confirm', { name: chosenName })}
+				</span>}
+				close={() => setShowDeleteModal( false )}
+				show={showDeleteModal}
+				onConfirm={() => {
+					handleSave();
+					setShowDeleteModal( false );
+				}}
 			/>}
 		</Fragment>
 	);

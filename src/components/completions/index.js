@@ -134,7 +134,10 @@ function CompletionsPage( props ) {
 
 					return (
 						<ListGroup.Item key={`${metricIndex}-${idx}`} className="d-flex w-100 justify-content-start metric-list-item" >
-							<label className="me-2" >{metric.name}</label>
+							<label className="me-2" >
+								{metric.name}
+								{refs && !refs.includes( metric.ref ) && <span className="completions-warning ms-2" >{t('uses-not-yet-existing-lesson-metric')}</span>}
+							</label>
 							<span
 								style={{
 									display: 'inline-block',

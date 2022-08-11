@@ -203,6 +203,15 @@ function EditMetricModal({ level, entity, show, onHide, allRules, refs, createNe
 							setSelectedRef( option ? option.value : null );
 						}}
 						defaultValue={selectedRef ? { value: selectedRef, label: selectedRef } : null}
+						components={{
+							SingleValue: ({ children, ...rest }) => {
+								return (
+									<components.SingleValue {...rest} >
+										{children}{refs && !refs.includes( selectedRef ) && <span className="completions-warning" >{` (${t('lesson-metric-does-not-exist-yet')})`}</span>}
+									</components.SingleValue>
+								);
+							}
+						}}
 					/>
 				</Form.Group>
 				<Form.Group className="mb-2" as={Row} >

@@ -113,7 +113,7 @@ function TagWeightsEditor({ tagWeights, visibleTags, onUpdate }) {
 						value={newTag}
 					/>
 				</Col>
-				<Form.Label className="tag-weights-info-label" column sm={5} >{t( 'add-new-weight' )}</Form.Label>
+				<Form.Label className="completions-info" column sm={5} >{t( 'add-new-weight' )}</Form.Label>
 				<Col sm={2} >
 
 				</Col>
