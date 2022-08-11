@@ -163,7 +163,7 @@ function EditMetricModal({ level, entity, show, onHide, allRules, refs, createNe
 						onChange={( option ) => {
 							const newRule = option.value;
 							setRule( newRule );
-							setRuleParameters( newRule.defaults );
+							setRuleParameters( newRule.parameters.map( x => x.default || null ) );
 						}}
 						value={rule ? { value: rule, label: rule.label } : null}
 					/>
@@ -189,7 +189,7 @@ function EditMetricModal({ level, entity, show, onHide, allRules, refs, createNe
 										}
 										setRuleParameters( newParams );
 									}}
-									defaultValue={ruleParameters[ idx ] !== void 0 ? ruleParameters[ idx ] : rule.defaults[ idx ]}
+									defaultValue={ruleParameters[ idx ] !== void 0 ? ruleParameters[ idx ] : parameter.default}
 								/>
 							</Form.Group>
 						);

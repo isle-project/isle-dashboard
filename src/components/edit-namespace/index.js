@@ -311,6 +311,7 @@ class EditNamespace extends Component {
 												componentsByLesson={this.props.namespace.componentsByLesson}
 												computeCompletions={this.props.computeCompletions}
 												tags={this.props.namespace.tags}
+												allRules={this.props.settings.completionRules}
 											/>
 										</Tab>
 									</Tabs>
@@ -440,6 +441,7 @@ EditNamespace.propTypes = {
 	history: PropTypes.object.isRequired,
 	namespace: PropTypes.object.isRequired,
 	saveLessonMetrics: PropTypes.func.isRequired,
+	settings: PropTypes.object.isRequired,
 	t: PropTypes.func.isRequired,
 	updateCohort: PropTypes.func.isRequired,
 	updateCurrentNamespace: PropTypes.func.isRequired,

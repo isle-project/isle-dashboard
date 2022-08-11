@@ -32,7 +32,6 @@ import ConfirmModal from 'components/confirm-modal';
 import ComputeModal from './compute_modal.js';
 import EditMetricModal from './edit_metric_modal.js';
 import { levelFieldMapping } from './level_fields.js';
-import COMPLETION_RULES from './completion_rules.json'; // TODO: Need specification for the parameters and their types (use the `attr-types` library)
 import './completions.css';
 
 
@@ -208,7 +207,7 @@ function CompletionsPage( props ) {
 				key="create-modal"
 				show={showCreateModal}
 				onHide={() => setShowCreateModal( false )}
-				allRules={COMPLETION_RULES}
+				allRules={props.settings.completionRules}
 				level={props.level}
 				entity={props.entity}
 				refs={refs}
@@ -231,7 +230,7 @@ function CompletionsPage( props ) {
 				key={`edit-modal-${selectedMetric.name}`}
 				show={showEditModal}
 				onHide={() => setShowEditModal( false )}
-				allRules={COMPLETION_RULES}
+				allRules={props.settings.completionRules}
 				level={props.level}
 				entity={props.entity}
 				refs={refs}
@@ -254,6 +253,7 @@ CompletionsPage.propTypes = {
 	entity: PropTypes.object.isRequired,
 	lessonRefs: PropTypes.array.isRequired,
 	level: PropTypes.string.isRequired,
+	settings: PropTypes.object.isRequired,
 	updateMetric: PropTypes.func.isRequired
 };
 

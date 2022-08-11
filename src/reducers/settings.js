@@ -35,6 +35,11 @@ export default function settings( state = initialState, action ) {
 	case types.UPDATED_SETTINGS: {
 		return Object.assign({}, state, action.payload.settings );
 	}
+	case types.RETRIEVED_COMPLETION_RULES: {
+		return Object.assign({}, state, {
+			completionRules: action.payload.completionRules
+		});
+	}
 	default:
 		return state;
 	}

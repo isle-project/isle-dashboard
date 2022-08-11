@@ -33,7 +33,8 @@ function mapStateToProps( state ) {
 	return {
 		user: state.user,
 		namespace: state.namespace,
-		cohorts: state.namespace.cohorts
+		cohorts: state.namespace.cohorts,
+		settings: state.settings
 	};
 }
 

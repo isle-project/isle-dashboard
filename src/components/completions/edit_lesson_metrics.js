@@ -25,6 +25,8 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Card from 'react-bootstrap/Card';
 import Form from 'react-bootstrap/Form';
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
+import Tooltip from 'react-bootstrap/Tooltip';
 import InputGroup from 'react-bootstrap/InputGroup';
 import SelectInput from 'react-select';
 import CreatableSelect from 'react-select/creatable';
@@ -33,7 +35,6 @@ import ConfirmModal from 'components/confirm-modal';
 import COVERAGE_OPTIONS from './coverage_options.json';
 import hash from 'object-hash';
 import ComputeModal from './compute_modal.js';
-import allRules from './completion_rules.json';
 import TagWeightsEditor from './tag_weights_editor';
 
 
@@ -109,7 +110,7 @@ function availableLessonMetrics( lessons ) {
 
 // MAIN //
 
-function EditLessonMetrics({ name, preferredLesson, lessons, lessonRefs, componentsByLesson, computeCompletions, namespace, saveLessonMetrics, tags, onSave }) {
+function EditLessonMetrics({ name, preferredLesson, lessons, lessonRefs, componentsByLesson, computeCompletions, namespace, saveLessonMetrics, allRules, tags, onSave }) {
 	const [ chosenName, setChosenName ] = useState( name );
 	const [ hasSharedRule, setHasSharedRule ] = useState( false );
 	const [ sharedRule, setSharedRule ] = useState( null );
@@ -225,6 +226,7 @@ function EditLessonMetrics({ name, preferredLesson, lessons, lessonRefs, compone
 			.then( res => {
 				console.log( 'Saved lesson metrics:', res.data );
 				setHasSaved( true );
+				setIsNewMetric( false );
 				if ( objectValues( selectedLessons ).every( x => x === false ) ) {
 					setChosenName( null );
 					setCurrentHash( null );
@@ -253,7 +255,15 @@ function EditLessonMetrics({ name, preferredLesson, lessons, lessonRefs, compone
 					checked={hasSharedRule}
 				/>
 			</Col>
-			<Form.Label column sm={2} >{t('common:rule')}</Form.Label>
+			<OverlayTrigger
+				placement="left"
+				overlay={<Tooltip id="shared-rule-tooltip">{sharedRule && sharedRule.description}</Tooltip>}
+				disabled={!hasSharedRule}
+			>
+				<Form.Label column sm={2} >
+					{t('common:rule')}
+				</Form.Label>
+			</OverlayTrigger>
 			<Col sm={6} >
 				<SelectInput
 					isDisabled={!hasSharedRule}
@@ -261,7 +271,7 @@ function EditLessonMetrics({ name, preferredLesson, lessons, lessonRefs, compone
 					onChange={( option ) => {
 						const newRule = option.value;
 						setSharedRule( newRule );
-						setSharedRuleParameters( newRule.defaults );
+						setSharedRuleParameters( newRule.parameters.map( x => x.default || null ) );
 					}}
 					value={sharedRule ? { value: sharedRule, label: sharedRule.label } : null}
 				/>
@@ -272,9 +282,14 @@ function EditLessonMetrics({ name, preferredLesson, lessons, lessonRefs, compone
 				return (
 					<Form.Group key={`param-${idx}`} className="mb-2" as={Row} >
 						<Col sm={4} ></Col>
-						<Form.Label column sm={2} >{parameter.name}</Form.Label>
+						<OverlayTrigger placement="left" overlay={<Tooltip id={`param-${idx}-tooltip`}>{parameter.description}</Tooltip>}>
+							<Form.Label column sm={2} >
+								{parameter.name}
+							</Form.Label>
+						</OverlayTrigger>
 						<Col sm={6} >
 							<Form.Control
+								key={`${sharedRule.name}-param-${idx}`}
 								name={parameter.name}
 								type={parameter.type}
 								placeholder={t('enter-parameter-value')}
@@ -283,7 +298,7 @@ function EditLessonMetrics({ name, preferredLesson, lessons, lessonRefs, compone
 									newParams[ idx ] = convertRuleParameter( event.target.value, parameter );
 									setSharedRuleParameters( newParams );
 								}}
-								defaultValue={sharedRuleParameters[ idx ] !== void 0 ? sharedRuleParameters[ idx ] : sharedRule.defaults[ idx ]}
+								defaultValue={sharedRuleParameters[ idx ] !== void 0 ? sharedRuleParameters[ idx ] : parameter.default}
 							/>
 						</Col>
 					</Form.Group>
@@ -368,14 +383,20 @@ function EditLessonMetrics({ name, preferredLesson, lessons, lessonRefs, compone
 				{lessonIsActive && <>
 					<Form.Group className="mb-2" as={Row} >
 						<Col sm={2} />
-						<Form.Label column sm={4} >{t('common:rule')}</Form.Label>
+						<OverlayTrigger placement="left" overlay={<Tooltip id={`${x._id}-rule-tooltip`}>
+							{defaultRule.value.description}
+						</Tooltip>}>
+							<Form.Label column sm={4} >
+								{t('common:rule')}
+							</Form.Label>
+						</OverlayTrigger>
 						<Col sm={6} >
 							<SelectInput
 								options={allRulesOptions}
 								isDisabled={hasSharedRule}
 								onChange={( option ) => {
 									const newActive = { ...activeLessons };
-									newActive[ x._id ].rule = [ option.value.name, ...option.value.defaults ];
+									newActive[ x._id ].rule = [ option.value.name, ...option.value.parameters.map( x => x.default || null ) ];
 									setActiveLessons( newActive );
 								}}
 								value={defaultRule}
@@ -391,9 +412,12 @@ function EditLessonMetrics({ name, preferredLesson, lessons, lessonRefs, compone
 							return (
 								<Form.Group key={`${x._id}-param-${idx}`} className="mb-2" as={Row} >
 									<Col sm={4} ></Col>
-									<Form.Label column sm={2} >{parameter.name}</Form.Label>
+									<OverlayTrigger placement="left" overlay={<Tooltip id={`param-${idx}-tooltip`}>{parameter.description}</Tooltip>}>
+										<Form.Label column sm={2} >{parameter.name}</Form.Label>
+									</OverlayTrigger>
 									<Col sm={6} >
 										<Form.Control
+											key={`${defaultRule.value.name}-param-${idx}`}
 											name={parameter.name}
 											type={parameter.type}
 											placeholder={t('enter-parameter-value')}
@@ -635,6 +659,7 @@ function EditLessonMetrics({ name, preferredLesson, lessons, lessonRefs, compone
 // PROPERTIES //
 
 EditLessonMetrics.propTypes = {
+	allRules: PropTypes.object.isRequired,
 	componentsByLesson: PropTypes.object,
 	computeCompletions: PropTypes.func.isRequired,
 	lessonRefs: PropTypes.arrayOf( PropTypes.string ).isRequired,

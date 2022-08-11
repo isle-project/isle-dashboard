@@ -22,7 +22,7 @@ import server from 'constants/server';
 import { addNotification, addErrorNotification } from 'actions/notification';
 import { COMPUTED_COMPLETIONS, CREATED_METRIC, DELETED_METRIC,
 	GET_COMPLETION_LESSON_REFS, GET_COMPLETION_COMPONENTS, GET_COMPLETION_TAGS,
-	SAVED_LESSON_METRICS, UPDATED_METRIC } from 'constants/action_types.js';
+	SAVED_LESSON_METRICS, UPDATED_METRIC, RETRIEVED_COMPLETION_RULES } from 'constants/action_types.js';
 
 
 // VARIABLES //
@@ -329,7 +329,10 @@ export const saveLessonMetrics = async ( dispatch, body ) => {
 		console.log( 'SAVE LESSON METRICS', res.data );
 		dispatch({
 			type: SAVED_LESSON_METRICS,
-			payload: res.data
+			payload: {
+				...res.data,
+				metricName: body.name
+			}
 		});
 		return res;
 	} catch ( err ) {
@@ -340,6 +343,28 @@ export const saveLessonMetrics = async ( dispatch, body ) => {
 export const saveLessonMetricsInjector = dispatch => {
 	return async ( body ) => {
 		const res = await saveLessonMetrics( dispatch, body );
+		return res;
+	};
+};
+
+export const getCompletionRules = async ( dispatch ) => {
+	try {
+		const res = await axios.get( `${server}/completion_rules` );
+		dispatch({
+			type: RETRIEVED_COMPLETION_RULES,
+			payload: {
+				completionRules: res.data
+			}
+		});
+		return res;
+	} catch ( err ) {
+		return addErrorNotification( dispatch, err );
+	}
+};
+
+export const getCompletionRulesInjector = dispatch => {
+	return async () => {
+		const res = await getCompletionRules( dispatch );
 		return res;
 	};
 };
