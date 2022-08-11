@@ -11,3 +11,15 @@
 .metric-list-item {
 	animation: appear 1.2s;
 }
+
+.completions-warning {
+	font-weight: 400;
+	font-style: italic;
+	color: darkred;
+}
+
+.completions-info {
+	font-weight: 400;
+	font-style: italic;
+	color: darkblue;
+}
