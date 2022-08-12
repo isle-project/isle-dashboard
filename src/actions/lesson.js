@@ -22,6 +22,7 @@ import qs from 'querystring';
 import server from 'constants/server';
 import { isPrimitive as isBoolean } from '@stdlib/assert/is-boolean';
 import { isPrimitive as isString } from '@stdlib/assert/is-string';
+import isNull from '@stdlib/assert/is-null';
 import { addNotification, addErrorNotification } from 'actions/notification';
 import { DELETED_LESSON, GET_ALL_LESSONS, GET_TEMPLATE_LESSONS, GET_ROOMS, UPDATED_LESSON, RETRIEVED_LESSONS, RETRIEVED_PUBLIC_LESSONS } from 'constants/action_types.js';
 
@@ -211,8 +212,10 @@ export const getLessons = async ( dispatch, namespaceName ) => {
 			const res = await axios.get( server+'/get_lessons?'+qs.stringify({
 				namespaceName
 			}) );
+			if ( isNull( res.data ) ) {
+				return [];
+			}
 			let lessons = res.data.lessons;
-
 			console.log( 'Retrieved %s lessons.', lessons.length );
 			lessons = lessons.map(( lesson, index ) => {
 				lesson.colorIndex = index % 20;
