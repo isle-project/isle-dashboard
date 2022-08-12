@@ -21,7 +21,6 @@ import React, { useCallback, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import DateTimeRangePicker from '@wojtekmaj/react-datetimerange-picker';
-import HelpIcon from 'components/help-icon';
 import Container from 'react-bootstrap/Container';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
@@ -30,6 +29,7 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import SelectInput from 'react-select';
 import isArray from '@stdlib/assert/is-array';
+import HelpfulLabel from './helpful_label.js';
 
 
 // VARIABLES //
@@ -49,8 +49,7 @@ const memberSelection =( member ) => {
 };
 
 function ComputeModal({ cohorts, metric, entity, level, show, onHide, computeCompletions, onCompute }) {
-	console.log( 'Array of metrics with the same name:', metric );
-	const { t } = useTranslation();
+	const { t } = useTranslation([ 'completions', 'common' ]);
 	const metricName = isArray( metric ) ? metric[ 0 ].name : metric.name;
 
 	const [ formValues, setFormValues ] = useState({
@@ -178,58 +177,31 @@ function ComputeModal({ cohorts, metric, entity, level, show, onHide, computeCom
 	return (
 		<Modal size="lg" show={show} onHide={onHide}>
 			<Modal.Header closeButton>
-				<Modal.Title as="h3">{`${t('calculate-scores-for')} ${metricName}`} </Modal.Title>
+				<Modal.Title as="h3">{t('calculate-scores-for', { metric: metricName })}</Modal.Title>
 			</Modal.Header>
 			<Modal.Body>
 				<Container>
 					<Form.Group className="mb-2" as={Row} controlId="multiplesPolicy" >
-						<Form.Label column sm={3} >
-							{t('multiples-policy')}
-						</Form.Label>
-						<Col sm={8} >
+						<HelpfulLabel colWidth={3} name={t('multiples-policy')} description={t('multiples-policy-description')} />
+						<Col sm={9} >
 							<SelectInput value={formValues.policyOptions.multiples} options={MULTIPLES_POLICIES} onChange={handleMultiplesPolicyChange} />
-						</Col>
-						<Col sm={1} >
-							<HelpIcon>
-								<p>
-									{t('multiples-policy-description')}
-								</p>
-							</HelpIcon>
 						</Col>
 					</Form.Group>
 					<Form.Group className="mb-2" as={Row} controlId="timeFilter" >
-						<Form.Label column sm={3} >
-							{t('time-filter')}
-						</Form.Label>
-						<Col sm={8} >
+						<HelpfulLabel colWidth={3} name={t('time-filter')} description={t('time-filter-description')} />
+						<Col sm={9} >
 							<DateTimeRangePicker onChange={onTimeChange} value={formValues.policyOptions.timeFilter} />
-						</Col>
-						<Col sm={1} >
-							<HelpIcon>
-								<p>
-									{t('time-filter-description')}
-								</p>
-							</HelpIcon>
 						</Col>
 					</Form.Group>
 					<Form.Group className="mb-2" as={Row} controlId="users" >
-						<Form.Label column sm={3} >
-							{t('users')}
-						</Form.Label>
-						<Col sm={8} >
+						<HelpfulLabel colWidth={3} name={t('common:users')} description={t('users-description')} />
+						<Col sm={9} >
 							<SelectInput
 								value={formValues.users} isMulti
 								options={selectOptions} onChange={handleUserSelectChange}
 								hideSelectedOptions={true}
 								styles={userSelectStyles}
 							/>
-						</Col>
-						<Col sm={1} >
-							<HelpIcon>
-								<p>
-									{t('users-description')}
-								</p>
-							</HelpIcon>
 						</Col>
 					</Form.Group>
 				</Container>

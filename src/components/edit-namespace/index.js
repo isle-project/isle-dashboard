@@ -291,9 +291,9 @@ class EditNamespace extends Component {
 										{t('create-cohort')}
 									</Button>
 								</Tab>
-								<Tab eventKey="completions" title={<h3>{t('completions')}</h3>} >
+								<Tab eventKey="assessments" title={<h3>{t('common:assessments')}</h3>} >
 									<Tabs variant="pills" defaultActiveKey="namespace-completion-metrics" >
-										<Tab eventKey="namespace-completion-metrics" title={t('course-wide')} >
+										<Tab eventKey="namespace-completion-metrics" title={t('common:course-wide')} >
 											<CompletionsPage
 												entity={this.props.namespace}
 												level="namespace"
@@ -398,7 +398,7 @@ class EditNamespace extends Component {
 									>{t('common:update')}</Button>
 									{this.renderModals()}
 								</Tab>
-								<Tab eventKey="permissions" title={<h3>{t('permissions')}</h3>} disabled >
+								<Tab eventKey="permissions" title={<h3>{t('common:permissions')}</h3>} disabled >
 								</Tab>
 							</Tabs>
 						</Card>

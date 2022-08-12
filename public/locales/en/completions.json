@@ -2,6 +2,7 @@
 	"add-new-weight": "Add a new weight",
 	"auto-compute-tooltip": "Click to automatically compute metric scores in real-time",
 	"auto-compute": "Auto Compute",
+	"calculate-scores-for": "Calculate scores for metric {{metric}}",
 	"component-metric": "Metric at Component Level",
 	"compute-metric-tooltip": "Click to compute metric scores for a set of students",
 	"create-assessment-metric": "Create Assessment Metric",

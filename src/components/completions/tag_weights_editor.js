@@ -27,7 +27,6 @@ import Form from 'react-bootstrap/Form';
 import CreatableSelect from 'react-select/creatable';
 import objectKeys from '@stdlib/utils/keys';
 import isEmptyObject from '@stdlib/assert/is-empty-object';
-import './tag_weights_editor.css';
 
 
 // FUNCTIONS //
