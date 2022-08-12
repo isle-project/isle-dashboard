@@ -14,10 +14,13 @@ TODO
 6.  Directory structure or keyword tagging for lessons? Make it easier to navigate a larger course
 
 7. Completions:
-  -   [ ] <MED> Show provenances when clicking on scores
-  -   [ ] <MED> Install translation keys for completion phrases
-  -   [ ] <MED> edit_lesson_metric_modal: Unclicking shared rule after changing rule should leave lower rules at last shared value
+  -   [ ] <HIGH> Show provenances when clicking on scores
+  -   [ ] <HIGH> Install translation keys for completion phrases
+  -   [ ] <HIGH> Logging scores in pre-existing components; DISCUSS semantics of component logging
+  -   [ ] <HIGH> Renaming and new lingo
   -   [ ] <MED> validation of rule parameters
+  -   [ ] <MED> auto-compute
+  -   [ ] <MED> edit_lesson_metric_modal: Unclicking shared rule after changing rule should leave lower rules at last shared value
   -   [ ] <LOW> Generalize coverage to support patterns and types
   -   [ ] <LOW> Add 'metric_order' endpoint
   -   [ ] <LOW> More salient namespace title on completions screen (among others)
