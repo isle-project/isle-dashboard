@@ -64,14 +64,14 @@ function mapDispatchToProps( dispatch ) {
 			dispatch( changedNamespace({ title, description, announcements, enableTicketing, owners, completions, _id }) );
 			if ( _id ) {
 				getCohorts( dispatch, { namespaceID: _id });
+				getLessons( dispatch, title )
+					.then( ( lessons = [] ) => {
+						const ids = lessons.map( x => x._id );
+						getCompletionTags( dispatch, ids );
+						getCompletionComponents( dispatch, ids );
+					})
+					.catch( console.error );
 			}
-			getLessons( dispatch, title )
-				.then( lessons => {
-					const ids = lessons.map( x => x._id );
-					getCompletionTags( dispatch, ids );
-					getCompletionComponents( dispatch, ids );
-				})
-				.catch( console.error );
 		}
 	};
 }
