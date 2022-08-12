@@ -53,7 +53,7 @@ function mapDispatchToProps( dispatch ) {
 			}) );
 			const namespaceName = title;
 			getLessons( dispatch, namespaceName )
-				.then( lessons => {
+				.then( ( lessons = [] ) => {
 					const ids = lessons.map( x => x._id );
 					getCompletionTags( dispatch, ids );
 					getCompletionComponents( dispatch, ids );
