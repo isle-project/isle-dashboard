@@ -313,7 +313,7 @@ class CompletionsPage extends Component {
 									onChange( newValue );
 								}}
 							/>
-							<OverlayTrigger placement="right" overlay={<Tooltip id="tooltip">{t('recompute-score')}</Tooltip>} >
+							<OverlayTrigger placement="right" overlay={<Tooltip id="tooltip">{t('recompute-scores')}</Tooltip>} >
 								<Button size="sm" style={{ marginLeft: 20 }} onClick={() => {
 									this.setState({
 										computeMetric: metricObject( this.state.scope, this.metrics[ i ].label, this.props.namespace, this.props.lessons ),

@@ -189,7 +189,7 @@ function EditMetricModal({ level, entity, show, onHide, allRules, refs, createNe
 						);
 					}) : null}
 				<Form.Group className="mb-2" as={Row} >
-					<HelpfulLabel colWidth={3} name={t('common:lesson-metric')} description={t('lesson-metric-tooltip')} />
+					<HelpfulLabel colWidth={3} name={t('lesson-metric')} description={t('lesson-metric-tooltip')} />
 					<Col sm={9} >
 						<CreatableSelect
 							isClearable
@@ -207,6 +207,7 @@ function EditMetricModal({ level, entity, show, onHide, allRules, refs, createNe
 									);
 								}
 							}}
+							placeholder={t('select-lower-metric-placeholder')}
 						/>
 					</Col>
 				</Form.Group>

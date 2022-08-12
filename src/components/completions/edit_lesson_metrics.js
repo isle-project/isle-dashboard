@@ -295,7 +295,7 @@ function EditLessonMetrics({ name, preferredLesson, lessons, lessonRefs, compone
 					checked={hasSharedRef}
 				/>
 			</Col>
-			<HelpfulLabel colWidth={3} name={t('common:component-metric')} description={t('component-metric-tooltip')} />
+			<HelpfulLabel colWidth={3} name={t('component-metric')} description={t('component-metric-tooltip')} />
 			<Col sm={6} >
 				<CreatableSelect
 					isClearable
@@ -405,7 +405,7 @@ function EditLessonMetrics({ name, preferredLesson, lessons, lessonRefs, compone
 					})}
 					<Form.Group className="mb-2" as={Row} >
 						<Col sm={3} />
-						<HelpfulLabel colWidth={3} name={t('common:component-metric')} description={t('component-metric-tooltip')} />
+						<HelpfulLabel colWidth={3} name={t('component-metric')} description={t('component-metric-tooltip')} />
 						<Col sm={6} >
 							<CreatableSelect
 								isClearable

@@ -201,6 +201,7 @@ function ComputeModal({ cohorts, metric, entity, level, show, onHide, computeCom
 								options={selectOptions} onChange={handleUserSelectChange}
 								hideSelectedOptions={true}
 								styles={userSelectStyles}
+								placeholder={t('common:select-users-placeholder')}
 							/>
 						</Col>
 					</Form.Group>
@@ -211,7 +212,7 @@ function ComputeModal({ cohorts, metric, entity, level, show, onHide, computeCom
 					{t('common:cancel')}
 				</Button>
 				<Button variant="success" onClick={handleCompute} disabled={formValues.users.length === 0}>
-					{t('common:calculate')}
+					{t('common:compute')}
 				</Button>
 			</Modal.Footer>
 		</Modal>

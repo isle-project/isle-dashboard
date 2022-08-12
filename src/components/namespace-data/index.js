@@ -111,7 +111,7 @@ const NamespaceData = ({
 						<Nav.Link eventKey="progress" title="Progress" >{t('common:progress')}</Nav.Link>
 					</Nav.Item>
 					<Nav.Item>
-						<Nav.Link eventKey="completions" title="Completions" >{t('completions')}</Nav.Link>
+						<Nav.Link eventKey="assessments" title="Assessments" >{t('common:assessments')}</Nav.Link>
 					</Nav.Item>
 					<Nav.Item>
 						<Nav.Link eventKey="grades" title="Grades" >{t('grades')}</Nav.Link>
@@ -144,7 +144,7 @@ const NamespaceData = ({
 						namespace={namespace} cohorts={namespace.cohorts}
 						lessons={namespace.lessons} user={user} />}
 					/>
-					<Route path="completions" element={<CompletionsPage addNotification={addNotification} namespace={namespace}
+					<Route path="assessments" element={<CompletionsPage addNotification={addNotification} namespace={namespace}
 						cohorts={namespace.cohorts} lessons={namespace.lessons} user={user} computeCompletions={computeCompletions} />}
 					/>
 					<Route path="grades" element={<GradesPage addNotification={addNotification} namespace={namespace}
