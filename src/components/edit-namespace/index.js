@@ -118,7 +118,7 @@ class EditNamespace extends Component {
 	};
 
 	handleDelete = () => {
-		this.props.deleteCurrentNamespace( this.props.namespace._id, this.props.history );
+		this.props.deleteCurrentNamespace( this.props.namespace._id );
 	};
 
 	close = () => {
@@ -438,7 +438,6 @@ EditNamespace.propTypes = {
 	createCohort: PropTypes.func.isRequired,
 	deleteCohort: PropTypes.func.isRequired,
 	deleteCurrentNamespace: PropTypes.func.isRequired,
-	history: PropTypes.object.isRequired,
 	namespace: PropTypes.object.isRequired,
 	saveLessonMetrics: PropTypes.func.isRequired,
 	settings: PropTypes.object.isRequired,
