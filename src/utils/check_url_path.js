@@ -29,7 +29,7 @@ const REGEXP_CHARS = /[‘“!#$%&+^<=>{}()[\]`]/;
 * @returns {boolean} boolean indicating if a string is a URL path
 */
 function checkURLPath( str ) {
-	return str.match( REGEXP_CHARS );
+	return str && str.match( REGEXP_CHARS );
 }
 
 

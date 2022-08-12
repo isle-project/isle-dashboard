@@ -77,7 +77,7 @@ export function validateOwners( owners ) {
  * @returns {boolean} boolean indicating if the namespace name is valid
  */
 export function validateTitle( title ) {
-	return title.length >= 3 && !contains( title, ' ' ) && !checkURLPath( title );
+	return title && title.length >= 3 && !contains( title, ' ' ) && !checkURLPath( title );
 }
 
 /**
@@ -88,7 +88,7 @@ export function validateTitle( title ) {
  * @returns {boolean} boolean indicating if the namespace description is valid
  */
 export function validateDescription( description ) {
-	return description.length >= 3;
+	return description && description.length >= 3;
 }
 
 
