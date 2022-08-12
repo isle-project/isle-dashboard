@@ -230,7 +230,7 @@ function EditLessonMetrics({ name, preferredLesson, lessons, lessonRefs, compone
 
 			});
 	}, [ activeLessons, chosenName, namespace, hasSharedRef, sharedRef, hasSharedRule, resetHash, selectedLessons, sharedRule, sharedRuleParameters, saveLessonMetrics, onSave ] );
-	const { t } = useTranslation();
+	const { t } = useTranslation( 'completions' );
 	const lessonRefOptions = lessonRefs.map( ( ref ) => ({ value: ref, label: ref }) );
 	const allRulesOptions = objectValues( allRules ).map( ( rule ) => ({ value: rule, label: rule.label }) );
 	const sharedInputs = <>
@@ -527,7 +527,7 @@ function EditLessonMetrics({ name, preferredLesson, lessons, lessonRefs, compone
 		<Button variant="info" disabled={hasUnsavedChanges || ( isNewMetric && !hasSaved)} onClick={() => {
 			setShowComputeModal( true );
 		}} >
-			{t('compute')}
+			{t('common:compute')}
 		</Button>
 	</Fragment>;
 	return (

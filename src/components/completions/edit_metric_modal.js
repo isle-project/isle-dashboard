@@ -66,7 +66,7 @@ import HelpfulLabel from './helpful_label.js';
 // MAIN //
 
 function EditMetricModal({ level, entity, show, onHide, allRules, refs, createNew, metric, onConfirm }) {
-	const { t } = useTranslation();
+	const { t } = useTranslation( 'completions' );
 	const [ name, setName ] = useState( metric?.name || '' );
 	const [ rule, setRule ] = useState( metric?.rule ? allRules[ metric.rule[ 0 ] ] : null );
 	const [ ruleParameters, setRuleParameters ] = useState( metric?.rule ? metric.rule.slice( 1 ) : [] );
@@ -78,17 +78,12 @@ function EditMetricModal({ level, entity, show, onHide, allRules, refs, createNe
 	const [ visibleToStudent, setVisibleToStudent ] = useState( metric?.visibleToStudent ?? false );
 	const subEntities = useRef( [] );
 
-	console.log( 'LESSON TAGS: ' );
-	console.log( entity.lessonTags );
-
 	useEffect( () => {
 		if ( level === 'lesson' ) {
 			// TODO: fetch component IDs of that lesson from completion data table
 			subEntities.current = [];
 		} else if ( levelFieldMapping[ level ] ) {
 			const entities = entity[ levelFieldMapping[ level ] ];
-			console.log( entities );
-
 			subEntities.current = entities.map( x => {
 				return {
 					label: x.title,
@@ -120,12 +115,8 @@ function EditMetricModal({ level, entity, show, onHide, allRules, refs, createNe
 		onHide();
 	};
 	const handleEntityChange = ( value ) => {
-		console.log( value );
 		setCoverageEntities( value );
 	};
-	console.log( 'Sub-entities:' );
-	console.log( subEntities.current );
-
 	const labelStyler = ( styles, { data }) => {
 		if ( !selectedRef || data.value.completions.some( x => x.name === selectedRef ) ) {
 			return styles;
@@ -173,6 +164,7 @@ function EditMetricModal({ level, entity, show, onHide, allRules, refs, createNe
 								setRuleParameters( newRule.parameters.map( x => x.default || null ) );
 							}}
 							value={rule ? { value: rule, label: rule.label } : null}
+							placeholder={t('select-rule')}
 						/>
 					</Col>
 				</Form.Group>
