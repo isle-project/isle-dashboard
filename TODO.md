@@ -14,16 +14,10 @@ TODO
 6.  Directory structure or keyword tagging for lessons? Make it easier to navigate a larger course
 
 7. Completions:
-  -   [X] <HIGH> Lesson computed scores display is not updating
-  -   [X] <MED> Bug: create lesson metric, immediate try to delete, will not allow
-  -   [X] <MED> Incorporate the new rules into the UI choices
   -   [ ] <MED> Show provenances when clicking on scores
-  -   [ ] <MED> Incorporate new metric json spec in rule parameter form,
-                including tooltips with description, validation, and select for enum type.
-  -   [ ] <MED> Format dates in table and unify when receiving or computing
-  -   [X] <MED> Confirmation modal when deleting lesson metrics
-  -   [X] <MED> Add data for testing and demonstration
-  -   [X] <LOW> Add css class(es) for info and warning labels used in completions ui (e.g., when lesson metric does not exist)  Ex: font-weight: 400, font-style: italic, color if warning
+  -   [ ] <MED> Install translation keys for completion phrases
+  -   [ ] <MED> edit_lesson_metric_modal: Unclicking shared rule after changing rule should leave lower rules at last shared value
+  -   [ ] <MED> validation of rule parameters
   -   [ ] <LOW> Generalize coverage to support patterns and types
   -   [ ] <LOW> Add 'metric_order' endpoint
   -   [ ] <LOW> More salient namespace title on completions screen (among others)
