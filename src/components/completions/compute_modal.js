@@ -263,7 +263,7 @@ ComputeModal.propTypes = {
 	]).isRequired,
 	onCompute: PropTypes.func.isRequired,
 	onHide: PropTypes.func.isRequired,
-	show: PropTypes.bool.isRequired,
+	show: PropTypes.bool.isRequired
 };
 
 ComputeModal.defaultProps = {};

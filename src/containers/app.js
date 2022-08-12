@@ -200,7 +200,7 @@ const App =({ isLoggedIn, dispatch, getCompletionRules, getCustomTranslations, g
 						}
 					}
 				}
-			} else if ( pathname === '/' ) {t
+			} else if ( pathname === '/' ) {
 				navigate( '/login' );
 			}
 		}
