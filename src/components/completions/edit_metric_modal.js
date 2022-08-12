@@ -32,6 +32,8 @@ import objectValues from '@stdlib/utils/values';
 import { levelFieldMapping } from './level_fields.js';
 import COVERAGE_OPTIONS from './coverage_options.json';
 import TagWeightsEditor from './tag_weights_editor.js';
+import ParameterInput, { convertRuleParameter } from './parameter_input.js';
+import HelpfulLabel from './helpful_label.js';
 
 
 // FUNCTIONS //
@@ -146,109 +148,111 @@ function EditMetricModal({ level, entity, show, onHide, allRules, refs, createNe
 				<p>
 					{createNew ? t('create-completion-metric-description') : t('edit-completion-metric-description')}
 				</p>
-				<Form.Group className="mb-2" >
-					<Form.Label>{t('common:name')}</Form.Label>
-					<Form.Control
-						name="metric-name"
-						type="text"
-						placeholder={t('metric-name-placeholder')}
-						onChange={( event ) => setName( event.target.value )}
-						value={name}
-					/>
+				<Form.Group className="mb-2" as={Row} >
+					<Col sm={3} >
+						<Form.Label>{t('common:name')}</Form.Label>
+					</Col>
+					<Col sm={9} >
+						<Form.Control
+							name="metric-name"
+							type="text"
+							placeholder={t('metric-name-placeholder')}
+							onChange={( event ) => setName( event.target.value )}
+							value={name}
+						/>
+					</Col>
 				</Form.Group>
-				<Form.Group className="mb-2" >
-					<Form.Label>{t('common:rule')}</Form.Label>
-					<SelectInput
-						options={objectValues( allRules ).map( ( rule ) => ({ value: rule, label: rule.label }) )}
-						onChange={( option ) => {
-							const newRule = option.value;
-							setRule( newRule );
-							setRuleParameters( newRule.parameters.map( x => x.default || null ) );
-						}}
-						value={rule ? { value: rule, label: rule.label } : null}
-					/>
+				<Form.Group className="mb-2" as={Row} >
+					<HelpfulLabel colWidth={3} name={t('common:rule')} description={rule && rule.description} disabled={!rule} />
+					<Col sm={9} >
+						<SelectInput
+							options={objectValues( allRules ).map( ( rule ) => ({ value: rule, label: rule.label }) )}
+							onChange={( option ) => {
+								const newRule = option.value;
+								setRule( newRule );
+								setRuleParameters( newRule.parameters.map( x => x.default || null ) );
+							}}
+							value={rule ? { value: rule, label: rule.label } : null}
+						/>
+					</Col>
 				</Form.Group>
 				{rule && rule.parameters.length > 0 ?
 					rule.parameters.map( ( parameter, idx ) => {
 						return (
-							<Form.Group key={`param-${idx}`} className="mb-2" >
-								<Form.Label>{parameter.name}</Form.Label>
-								<Form.Control
-									name={parameter.name}
-									type={parameter.type}
-									placeholder={t('enter-parameter-value')}
-									onChange={( event ) => {
-										const newParams = ruleParameters.slice();
-										switch ( parameter.type ) {
-											case 'number':
-												newParams[ idx ] = parseFloat( event.target.value );
-												break;
-											case 'string':
-												newParams[ idx ] = event.target.value;
-												break;
-										}
-										setRuleParameters( newParams );
-									}}
-									defaultValue={ruleParameters[ idx ] !== void 0 ? ruleParameters[ idx ] : parameter.default}
-								/>
+							<Form.Group key={`param-${idx}`} className="mb-2" as={Row} >
+								<HelpfulLabel colWidth={3} className="ps-5" name={parameter.name} description={parameter.description} />
+								<Col sm={9}>
+									<ParameterInput
+										parameter={parameter}
+										onChange={( value ) => {
+											const newParams = ruleParameters.slice();
+											newParams[ idx ] = convertRuleParameter( value, parameter );
+											setRuleParameters( newParams );
+										}}
+										value={ruleParameters[ idx ] !== void 0 ? ruleParameters[ idx ] : parameter.default}
+										t={t}
+									/>
+								</Col>
 							</Form.Group>
 						);
 					}) : null}
-				<Form.Group className="mb-2" >
-					<Form.Label>{t('common:lesson-metric')}</Form.Label>
-					<CreatableSelect
-						isClearable
-						options={refs.map( ( ref ) => ({ value: ref, label: ref }) )}
-						onChange={( option ) => {
-							setSelectedRef( option ? option.value : null );
-						}}
-						defaultValue={selectedRef ? { value: selectedRef, label: selectedRef } : null}
-						components={{
-							SingleValue: ({ children, ...rest }) => {
-								return (
-									<components.SingleValue {...rest} >
-										{children}{refs && !refs.includes( selectedRef ) && <span className="completions-warning" >{` (${t('lesson-metric-does-not-exist-yet')})`}</span>}
-									</components.SingleValue>
-								);
-							}
-						}}
-					/>
-				</Form.Group>
 				<Form.Group className="mb-2" as={Row} >
-					<Form.Label>{t('common:coverage')}</Form.Label>
-					<SelectInput
-						options={objectValues( COVERAGE_OPTIONS )}
-						onChange={( option ) => {
-							setCoverage( option );
-							if ( option.value === 'all' ) {
-								setCoverageEntities( [] );
-							}
-						}}
-						value={coverage}
-					/>
-					{( coverage.value === 'include' || coverage.value === 'exclude' ) ?
-						<SelectInput
-							isMulti
-							options={subEntities.current}
-							onChange={handleEntityChange}
-							value={coverageEntities}
-							styles={subentitySelectorStyles}
-							placeholder="Select lessons..."
+					<HelpfulLabel colWidth={3} name={t('common:lesson-metric')} description={t('lesson-metric-tooltip')} />
+					<Col sm={9} >
+						<CreatableSelect
+							isClearable
+							options={refs.map( ( ref ) => ({ value: ref, label: ref }) )}
+							onChange={( option ) => {
+								setSelectedRef( option ? option.value : null );
+							}}
+							defaultValue={selectedRef ? { value: selectedRef, label: selectedRef } : null}
 							components={{
-								Placeholder: ({ children, isFocused, ...rest }) => {
-									console.log( rest );
-									return ( <components.Placeholder {...rest}>
-										{children} {isFocused ? '(opaque lessons have no metric for the selected ref)' : ''}
-									</components.Placeholder> );
+								SingleValue: ({ children, ...rest }) => {
+									return (
+										<components.SingleValue {...rest} >
+											{children}{refs && !refs.includes( selectedRef ) && <span className="completions-warning" >{` (${t('lesson-metric-does-not-exist-yet')})`}</span>}
+										</components.SingleValue>
+									);
 								}
 							}}
-						/> : null
-					}
+						/>
+					</Col>
+				</Form.Group>
+				<Form.Group className="mb-2" as={Row} >
+					<HelpfulLabel colWidth={3} name={t('common:coverage')} description={t('coverage-tooltip')} />
+					<Col sm={9} >
+						<SelectInput
+							options={objectValues( COVERAGE_OPTIONS )}
+							onChange={( option ) => {
+								setCoverage( option );
+								if ( option.value === 'all' ) {
+									setCoverageEntities( [] );
+								}
+							}}
+							value={coverage}
+						/>
+						{( coverage.value === 'include' || coverage.value === 'exclude' ) ?
+							<SelectInput
+								isMulti
+								options={subEntities.current}
+								onChange={handleEntityChange}
+								value={coverageEntities}
+								styles={subentitySelectorStyles}
+								placeholder="Select lessons..."
+								components={{
+									Placeholder: ({ children, isFocused, ...rest }) => {
+										console.log( rest );
+										return ( <components.Placeholder {...rest}>
+											{children} {isFocused ? '(opaque lessons have no metric for the selected ref)' : ''}
+										</components.Placeholder> );
+									}
+								}}
+							/> : null
+						}
+					</Col>
 				</Form.Group>
 				<Form.Group className="mb-2" as={Row} controlId="users" >
-					<Form.Label column sm={3} >
-						{t('tag-weights')}
-					</Form.Label>
+					<HelpfulLabel colWidth={3} name={t('tag-weights')} description={t('tag-weights-tooltip')} />
 					<Col sm={9} >
 						<TagWeightsEditor tagWeights={tagWeights} visibleTags={entity.lessonTags} onUpdate={setTagWeights} />
 					</Col>
@@ -256,7 +260,7 @@ function EditMetricModal({ level, entity, show, onHide, allRules, refs, createNe
 				<Form.Check
 					aria-label={t('auto-compute')}
 					type="checkbox"
-					label={t('auto-compute')}
+					label={<HelpfulLabel name={t('auto-compute')} description={t('auto-compute-tooltip')} placement="right" as="span" />}
 					defaultChecked={autoCompute}
 					onChange={( event) => {
 						setAutoCompute( event.target.checked );
@@ -265,7 +269,7 @@ function EditMetricModal({ level, entity, show, onHide, allRules, refs, createNe
 				<Form.Check
 					aria-label={t('visible-to-student')}
 					type="checkbox"
-					label={t('visible-to-student')}
+					label={<HelpfulLabel name={t('visible-to-student')} description={t('visible-to-student-tooltip')} placement="right" as="span" />}
 					defaultChecked={visibleToStudent}
 					onChange={( event) => {
 						setVisibleToStudent( event.target.checked );

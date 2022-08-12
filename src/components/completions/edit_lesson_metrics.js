@@ -25,8 +25,6 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Card from 'react-bootstrap/Card';
 import Form from 'react-bootstrap/Form';
-import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
-import Tooltip from 'react-bootstrap/Tooltip';
 import InputGroup from 'react-bootstrap/InputGroup';
 import SelectInput from 'react-select';
 import CreatableSelect from 'react-select/creatable';
@@ -36,6 +34,8 @@ import COVERAGE_OPTIONS from './coverage_options.json';
 import hash from 'object-hash';
 import ComputeModal from './compute_modal.js';
 import TagWeightsEditor from './tag_weights_editor';
+import ParameterInput, { convertRuleParameter } from './parameter_input.js';
+import HelpfulLabel from './helpful_label.js';
 
 
 // VARIABLES //
@@ -51,18 +51,9 @@ const SELECT_STYLES = {
 
 // FUNCTIONS //
 
-function convertRuleParameter( value, parameter ) {
-	switch ( parameter.type ) {
-		case 'number':
-			return parseFloat( value );
-		case 'string':
-			return value;
-	}
-}
-
-function selectOption( value ) {
+function selectOption( value, transform ) {
 	return {
-		label: value,
+		label: transform ? transform(value) : value,
 		value: value
 	};
 }
@@ -244,7 +235,7 @@ function EditLessonMetrics({ name, preferredLesson, lessons, lessonRefs, compone
 	const allRulesOptions = objectValues( allRules ).map( ( rule ) => ({ value: rule, label: rule.label }) );
 	const sharedInputs = <>
 		<Form.Group className="mb-2" as={Row} >
-			<Col sm={4} >
+			<Col sm={3} >
 				<Form.Check
 					type="checkbox"
 					id="shared-rule-checkbox"
@@ -255,15 +246,7 @@ function EditLessonMetrics({ name, preferredLesson, lessons, lessonRefs, compone
 					checked={hasSharedRule}
 				/>
 			</Col>
-			<OverlayTrigger
-				placement="left"
-				overlay={<Tooltip id="shared-rule-tooltip">{sharedRule && sharedRule.description}</Tooltip>}
-				disabled={!hasSharedRule}
-			>
-				<Form.Label column sm={2} >
-					{t('common:rule')}
-				</Form.Label>
-			</OverlayTrigger>
+			<HelpfulLabel colWidth={3} name={t('common:rule')} description={sharedRule && sharedRule.description} disabled={!hasSharedRule} />
 			<Col sm={6} >
 				<SelectInput
 					isDisabled={!hasSharedRule}
@@ -281,31 +264,27 @@ function EditLessonMetrics({ name, preferredLesson, lessons, lessonRefs, compone
 			sharedRule.parameters.map( ( parameter, idx ) => {
 				return (
 					<Form.Group key={`param-${idx}`} className="mb-2" as={Row} >
-						<Col sm={4} ></Col>
-						<OverlayTrigger placement="left" overlay={<Tooltip id={`param-${idx}-tooltip`}>{parameter.description}</Tooltip>}>
-							<Form.Label column sm={2} >
-								{parameter.name}
-							</Form.Label>
-						</OverlayTrigger>
+						<Col sm={3} ></Col>
+						<HelpfulLabel className="ps-5" colWidth={3} name={parameter.name} description={parameter.description} />
 						<Col sm={6} >
-							<Form.Control
+							<ParameterInput
 								key={`${sharedRule.name}-param-${idx}`}
-								name={parameter.name}
-								type={parameter.type}
-								placeholder={t('enter-parameter-value')}
-								onChange={( event ) => {
+								parameter={parameter}
+								value={sharedRuleParameters[ idx ] !== void 0 ? sharedRuleParameters[ idx ] : parameter.default}
+								onChange={( value ) => {
+									console.log( 'Changed parameter value:', value );
 									const newParams = sharedRuleParameters.slice();
-									newParams[ idx ] = convertRuleParameter( event.target.value, parameter );
+									newParams[ idx ] = convertRuleParameter( value, parameter );
 									setSharedRuleParameters( newParams );
 								}}
-								defaultValue={sharedRuleParameters[ idx ] !== void 0 ? sharedRuleParameters[ idx ] : parameter.default}
+								t={t}
 							/>
 						</Col>
 					</Form.Group>
 				);
 		})}
 		<Form.Group className="mb-2" as={Row} >
-			<Col sm={4} >
+			<Col sm={3} >
 				<Form.Check
 					type="checkbox"
 					id="shared-ref-checkbox"
@@ -316,7 +295,7 @@ function EditLessonMetrics({ name, preferredLesson, lessons, lessonRefs, compone
 					checked={hasSharedRef}
 				/>
 			</Col>
-			<Form.Label column sm={2} >{t('common:component-metric')}</Form.Label>
+			<HelpfulLabel colWidth={3} name={t('common:component-metric')} description={t('component-metric-tooltip')} />
 			<Col sm={6} >
 				<CreatableSelect
 					isClearable
@@ -382,14 +361,8 @@ function EditLessonMetrics({ name, preferredLesson, lessons, lessonRefs, compone
 				/>
 				{lessonIsActive && <>
 					<Form.Group className="mb-2" as={Row} >
-						<Col sm={2} />
-						<OverlayTrigger placement="left" overlay={<Tooltip id={`${x._id}-rule-tooltip`}>
-							{defaultRule.value.description}
-						</Tooltip>}>
-							<Form.Label column sm={4} >
-								{t('common:rule')}
-							</Form.Label>
-						</OverlayTrigger>
+						<Col sm={3} />
+						<HelpfulLabel colWidth={3} name={t('common:rule')} description={defaultRule.value.description} />
 						<Col sm={6} >
 							<SelectInput
 								options={allRulesOptions}
@@ -411,31 +384,28 @@ function EditLessonMetrics({ name, preferredLesson, lessons, lessonRefs, compone
 							const parameter = allRules[ defaultRule.value.name ].parameters[ idx ];
 							return (
 								<Form.Group key={`${x._id}-param-${idx}`} className="mb-2" as={Row} >
-									<Col sm={4} ></Col>
-									<OverlayTrigger placement="left" overlay={<Tooltip id={`param-${idx}-tooltip`}>{parameter.description}</Tooltip>}>
-										<Form.Label column sm={2} >{parameter.name}</Form.Label>
-									</OverlayTrigger>
+									<Col sm={3} ></Col>
+									<HelpfulLabel className="ps-5" colWidth={3} name={parameter.name} description={parameter.description} />
 									<Col sm={6} >
-										<Form.Control
+										<ParameterInput
 											key={`${defaultRule.value.name}-param-${idx}`}
-											name={parameter.name}
-											type={parameter.type}
-											placeholder={t('enter-parameter-value')}
+											parameter={parameter}
 											disabled={hasSharedRule}
-											onChange={( event ) => {
+											value={defaultRuleParameters[ idx ]}
+											onChange={( value ) => {
 												const newActive = { ...activeLessons };
-												newActive[ x._id ].rule[ idx + 1 ] = convertRuleParameter( event.target.value, parameter );
+												newActive[ x._id ].rule[ idx + 1 ] = convertRuleParameter( value, parameter );
 												setActiveLessons( newActive );
 											}}
-											value={defaultRuleParameters[ idx ]}
+											t={t}
 										/>
 									</Col>
 								</Form.Group>
 							);
 					})}
 					<Form.Group className="mb-2" as={Row} >
-						<Col sm={2} />
-						<Form.Label column sm={4} >{t('common:component-metric')}</Form.Label>
+						<Col sm={3} />
+						<HelpfulLabel colWidth={3} name={t('common:component-metric')} description={t('component-metric-tooltip')} />
 						<Col sm={6} >
 							<CreatableSelect
 								isClearable
@@ -454,8 +424,8 @@ function EditLessonMetrics({ name, preferredLesson, lessons, lessonRefs, compone
 						</Col>
 					</Form.Group>
 					<Form.Group className="mb-2" as={Row} >
-						<Col sm={2} />
-						<Form.Label column sm={4} >{t('common:coverage')}</Form.Label>
+						<Col sm={3} />
+						<HelpfulLabel colWidth={3} name={t('common:coverage')} description={t('coverage-tooltip')} />
 						<Col sm={6} >
 							<SelectInput
 								options={COVERAGE_OPTIONS_ARRAY}
@@ -485,8 +455,8 @@ function EditLessonMetrics({ name, preferredLesson, lessons, lessonRefs, compone
 						</Col>
 					</Form.Group>
 					<Form.Group className="mb-2" as={Row} >
-						<Col sm={2} />
-						<Form.Label column sm={4} >{t('tag-weights')}</Form.Label>
+						<Col sm={3} />
+						<HelpfulLabel colWidth={3} name={t('tag-weights')} description={t('tag-weights-tooltip')} />
 						<Col sm={6} >
 							<TagWeightsEditor
 								key={`${x._id}-tag-weights`}
@@ -506,7 +476,7 @@ function EditLessonMetrics({ name, preferredLesson, lessons, lessonRefs, compone
 							<Form.Check
 								aria-label={t('visible-to-student')}
 								type="checkbox"
-								label={t('visible-to-student')}
+								label={<HelpfulLabel name={t('visible-to-student')} description={t('visible-to-student-tooltip')} placement="top" as="span" />}
 								defaultChecked={activeLessons[ x._id ].visibleToStudent}
 								onChange={( event) => {
 									const newActive = { ...activeLessons };
@@ -519,7 +489,7 @@ function EditLessonMetrics({ name, preferredLesson, lessons, lessonRefs, compone
 							<Form.Check
 								aria-label={t('auto-compute')}
 								type="checkbox"
-								label={t('auto-compute')}
+								label={<HelpfulLabel name={t('auto-compute')} description={t('auto-compute-tooltip')} placement="top" as="span" />}
 								defaultChecked={activeLessons[ x._id ].autoCompute}
 								onChange={( event) => {
 									const newActive = { ...activeLessons };

@@ -23,3 +23,12 @@
 	font-style: italic;
 	color: darkblue;
 }
+
+.info-icon {
+	display: none;
+	color: #005fd3;
+}
+
+.row:hover > .form-label > .info-icon {
+	display: inline;
+}
