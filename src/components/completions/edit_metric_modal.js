@@ -142,11 +142,11 @@ function EditMetricModal({ level, entity, show, onHide, allRules, refs, createNe
 	return (
 		<Modal size="lg" show={show} onHide={onHide}>
 			<Modal.Header closeButton >
-				<Modal.Title as="h3">{createNew ? t('create-completion-metric') : t('edit-completion-metric')}</Modal.Title>
+				<Modal.Title as="h3">{createNew ? t('create-assessment-metric') : t('edit-assessment-metric')}</Modal.Title>
 			</Modal.Header>
 			<Modal.Body>
 				<p>
-					{createNew ? t('create-completion-metric-description') : t('edit-completion-metric-description')}
+					{createNew ? t('create-assessment-metric-description') : t('edit-assessment-metric-description')}
 				</p>
 				<Form.Group className="mb-2" as={Row} >
 					<Col sm={3} >
