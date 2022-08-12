@@ -148,9 +148,9 @@ function CompletionsPage( props ) {
 								}}
 							>{metric.description}</span>
 							<span className="ms-auto" >
-								<OverlayTrigger placement="top" overlay={<Tooltip id={`tooltip-compute-${idx}`} >{t( 'compute-metric-tooltip' )}</Tooltip>} >
+								{!metric.autoCompute && <OverlayTrigger placement="top" overlay={<Tooltip id={`tooltip-compute-${idx}`} >{t( 'compute-metric-tooltip' )}</Tooltip>} >
 									<Button variant="secondary" size="sm" className="mx-2" onClick={handleCompute} >{t('common:compute')}</Button>
-								</OverlayTrigger>
+								</OverlayTrigger>}
 								<OverlayTrigger placement="top" overlay={<Tooltip id={`tooltip-edit-${idx}`} >{t( 'edit-metric-tooltip' )}</Tooltip>} >
 									<Button variant="secondary" size="sm" className="mx-2" onClick={() => {
 										setSelectedMetric( metric );
