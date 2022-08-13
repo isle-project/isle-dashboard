@@ -33,6 +33,8 @@
 	"prevent-label": "Tick to prevent students from enrolling",
 	"prevent-tooltip": "If ticked, the course will not show up in the list of courses students can enroll into themselves",
 	"select-namespace": "Select Course",
+	"tag-tooltip": "An optional tag associated with the course, which may be used for assessments, reporting, and filtering",
+	"tag-placeholder": "Enter tag... (optional)",
 	"title-description": "Title / Description",
 	"title-placeholder": "Enter full course title and/or description",
 	"title-tooltip": "Full course title and/or course description.",

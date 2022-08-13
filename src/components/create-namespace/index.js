@@ -24,6 +24,9 @@ import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import FormLabel from 'react-bootstrap/FormLabel';
 import FormControl from 'react-bootstrap/FormControl';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import Alert from 'react-bootstrap/Alert';
 import FormGroup from 'react-bootstrap/FormGroup';
 import Form from 'react-bootstrap/Form';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
@@ -153,66 +156,74 @@ const CreateNamespace = ( props ) => {
 				</Card.Header>
 				<Form style={{ padding: '20px' }}>
 					<OverlayTrigger placement="right" overlay={<Tooltip id="ownerTooltip">{t('owner-tooltip')}</Tooltip>}>
-						<FormGroup controlId="form-owners" >
-							<FormLabel>{t('common:owners')}</FormLabel>
-							<TextSelect
-								id="owners-text-select"
-								onChange={handleOwnerChange}
-								defaultValue={owners}
-								isInvalid={!validOwners}
-								placeholder={t('enter-emails')}
-							/>
-							<FormControl.Feedback type="invalid">
-								{t('invalid-owners')}
-							</FormControl.Feedback>
+						<FormGroup className="mb-3" controlId="form-owners" as={Row} >
+							<FormLabel column sm={3} >{t('common:owners')}</FormLabel>
+							<Col sm={9} >
+								<TextSelect
+									id="owners-text-select"
+									onChange={handleOwnerChange}
+									defaultValue={owners}
+									isInvalid={!validOwners}
+									placeholder={t('enter-emails')}
+								/>
+								{!validOwners && <Alert variant="danger" >
+									{t('invalid-owners')}
+								</Alert>}
+							</Col>
 						</FormGroup>
 					</OverlayTrigger>
 					<OverlayTrigger placement="right" overlay={<Tooltip id="courseTooltip" >{t('accessible-at')}<code>{SERVER+'/<course>/<lesson>'}</code></Tooltip>}>
-						<FormGroup controlId="form-course" >
-							<FormLabel>{t('common:course')}</FormLabel>
-							<FormControl
-								name="title"
-								type="text"
-								placeholder={t('course-placeholder')}
-								onChange={handleTitleChange}
-								isInvalid={title && !validTitle}
-							/>
-							<FormControl.Feedback type="invalid">
-								{ invalidTitleChars ?
-									'Course identifier contains invalid character(s): '+invalidTitleChars[ 0 ] :
-									'Course identifier must be at least three characters long and should not contain any spaces.'
-								}
-							</FormControl.Feedback>
+						<FormGroup className="mb-3" controlId="form-course" as={Row} >
+							<FormLabel column sm={3} >{t('common:course')}</FormLabel>
+							<Col sm={9} >
+								<FormControl
+									name="title"
+									type="text"
+									placeholder={t('course-placeholder')}
+									onChange={handleTitleChange}
+									isInvalid={title && !validTitle}
+								/>
+								<FormControl.Feedback type="invalid">
+									{ invalidTitleChars ?
+										'Course identifier contains invalid character(s): '+invalidTitleChars[ 0 ] :
+										'Course identifier must be at least three characters long and should not contain any spaces.'
+									}
+								</FormControl.Feedback>
+							</Col>
 						</FormGroup>
 					</OverlayTrigger>
 					<OverlayTrigger placement="right" overlay={<Tooltip id="titleTooltip">{t('title-tooltip')}</Tooltip>}>
-						<FormGroup controlId="form-description" >
-							<FormLabel>{t('title-description')}</FormLabel>
-							<FormControl
-								name="description"
-								type="text"
-								placeholder={t('title-placeholder')}
-								onChange={handleDescriptionChange}
-								isInvalid={description && !validDescription}
-							/>
-							<FormControl.Feedback type="invalid">
-								{t('invalid-description')}
-							</FormControl.Feedback>
+						<FormGroup className="mb-3" controlId="form-description" as={Row} >
+							<FormLabel column sm={3} >{t('title-description')}</FormLabel>
+							<Col sm={9} >
+								<FormControl
+									name="description"
+									type="text"
+									placeholder={t('title-placeholder')}
+									onChange={handleDescriptionChange}
+									isInvalid={description && !validDescription}
+								/>
+								<FormControl.Feedback type="invalid">
+									{t('invalid-description')}
+								</FormControl.Feedback>
+							</Col>
 						</FormGroup>
 					</OverlayTrigger>
 					<OverlayTrigger placement="right" overlay={<Tooltip id="tagTooltip">{t('tag-tooltip')}</Tooltip>}>
-						<FormGroup controlId="form-tag" >
-							<FormLabel>{t('tag-description')}</FormLabel>
-							<FormControl
-								name="description"
-								type="text"
-								placeholder={t('tag-placeholder')}
-								onChange={handleTagChange}
-								isInvalid={description && !validDescription}
-							/>
-							<FormControl.Feedback type="invalid">
-								{t('invalid-tag')}
-							</FormControl.Feedback>
+						<FormGroup className="mb-3" controlId="form-tag" as={Row} >
+							<FormLabel column sm={3} >{t('common:tag')}</FormLabel>
+							<Col sm={9} >
+								<FormControl
+									name="description"
+									type="text"
+									placeholder={t('tag-placeholder')}
+									onChange={handleTagChange}
+									isInvalid={description && !validDescription}
+								/>
+								<FormControl.Feedback type="invalid">
+									{t('invalid-tag')}
+								</FormControl.Feedback>
+							</Col>
 						</FormGroup>
 					</OverlayTrigger>
 				</Form>

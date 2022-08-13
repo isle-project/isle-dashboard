@@ -202,7 +202,7 @@ class EditNamespace extends Component {
 					show={this.state.showDeleteModal}
 					close={this.closeDeleteModal}
 					message={t('delete-course')}
-					title={`${t('delete')}?`}
+					title={`${t('common:delete')}?`}
 					onConfirm={this.handleDelete}
 				/>
 				{ this.state.showCreateCohortModal ? <CreateCohortModal
@@ -293,7 +293,7 @@ class EditNamespace extends Component {
 								</Tab>
 								<Tab eventKey="assessments" title={<h3>{t('common:assessments')}</h3>} >
 									<Tabs variant="pills" defaultActiveKey="namespace-completion-metrics" >
-										<Tab eventKey="namespace-completion-metrics" title={t('common:course-wide')} >
+										<Tab eventKey="namespace-completion-metrics" title={t('common:course')} >
 											<CompletionsPage
 												entity={this.props.namespace}
 												level="namespace"
@@ -301,7 +301,7 @@ class EditNamespace extends Component {
 												lessonRefs={this.state.lessonRefs}
 											/>
 										</Tab>
-										<Tab eventKey="lesson-completion-metrics" title={t('lessons')} >
+										<Tab eventKey="lesson-completion-metrics" title={t('common:lessons')} >
 											<EditLessonMetrics
 												lessonRefs={this.state.lessonRefs}
 												lessons={this.props.namespace.lessons}
@@ -380,7 +380,7 @@ class EditNamespace extends Component {
 										/>
 										<OverlayTrigger placement="right" overlay={<Tooltip id="tagTooltip">{t('tag-tooltip')}</Tooltip>}>
 											<FormGroup controlId="form-tag" >
-												<FormLabel>{t('tag-description')}</FormLabel>
+												<FormLabel>{t('common:tag')}</FormLabel>
 												<FormControl
 													name="tag"
 													type="text"
