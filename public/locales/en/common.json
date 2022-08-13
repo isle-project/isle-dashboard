@@ -75,6 +75,7 @@
 	"last-name": "Last Name",
 	"lesson": "Lesson",
 	"lessons": "Lessons",
+	"license-expired": "The license of this service instance has expired. Please renew your license.",
 	"loading": "Loading...",
 	"lock-after": "Lock after",
 	"lock-until": "Lock until",

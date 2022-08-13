@@ -162,7 +162,7 @@ class LessonTable extends Component {
 							</Popover.Body>
 						</Popover>;
 						return (
-							<OverlayTrigger trigger="click" placement="right" overlay={popover}>
+							<OverlayTrigger trigger="click" placement="left" overlay={popover}>
 								<i className="data-icon fas fa-tablet-alt"></i>
 							</OverlayTrigger>
 						);

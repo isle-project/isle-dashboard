@@ -46,7 +46,7 @@ function createUsersColumn({ Header, accessor, maxWidth = 600 }) {
 							<img className="table-pic" src={`${server}/thumbnail/${owner.picture}`} alt="Profile Pic" />
 						</OverlayTrigger>
 					);
-				} else {
+				} else if ( owner.name ) {
 					const initials = owner.name
 						.split( ' ' )
 						.map( x => x[ 0 ] )

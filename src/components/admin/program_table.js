@@ -246,7 +246,7 @@ class ProgramPage extends Component {
 					show={this.state.showDeleteModal}
 					onConfirm={this.deleteSelectedProgram}
 				/> : null }
-					{ this.state.showUserCreation ?
+					{ this.state.showProgramCreation ?
 						<div></div> : null
 				}
 			</Fragment>
