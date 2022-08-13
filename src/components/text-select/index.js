@@ -27,7 +27,6 @@ import Tooltip from 'react-bootstrap/Tooltip';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import isObjectArray from '@stdlib/assert/is-object-array';
 import isEmptyString from '@stdlib/assert/is-empty-string';
-import contains from '@stdlib/assert/contains';
 import isNull from '@stdlib/assert/is-null';
 import trim from '@stdlib/string/trim';
 import './text_select.css';
@@ -49,6 +48,7 @@ const customStyles = {
 		cursor: 'text'
 	})
 };
+const RE_SPLIT = /[, \t\n]/g;
 
 
 // FUNCTIONS //
@@ -123,8 +123,8 @@ class TextSelect extends Component {
 		if ( !inputValue ) {
 			return null;
 		}
-		if ( contains( inputValue, ',' ) ) {
-			inputValue = inputValue.split( ',' )
+		if ( RE_SPLIT.test( inputValue ) ) {
+			inputValue = inputValue.split( RE_SPLIT )
 				.map( x => trim( x ) )
 				.filter( x => !isEmptyString( x ) );
 		} else {
