@@ -319,75 +319,86 @@ class EditNamespace extends Component {
 								<Tab eventKey="edit-course" title={<h3>{t('edit-course')}</h3>} style={{ padding: 12 }} >
 									<Form style={{ padding: '20px' }} className="d-grid gap-3" >
 										<OverlayTrigger placement="right" overlay={<Tooltip id="ownerTooltip">{t('owner-tooltip')}</Tooltip>}>
-											<FormGroup >
-												<FormLabel htmlFor="owners-text-select" >{t('common:owners')}</FormLabel>
-												<TextSelect
-													id="owners-text-select"
-													placeholder={t('enter-emails')}
-													onChange={this.handleOwnerChange}
-													defaultValue={this.state.owners}
-													isInvalid={!validateOwners( this.state.owners )}
-												/>
-												<FormControl.Feedback type="invalid">
-													{t('invalid-owners')}
-												</FormControl.Feedback>
+											<FormGroup className="mb-3" as={Row} >
+												<FormLabel column sm={3} htmlFor="owners-text-select" >{t('common:owners')}</FormLabel>
+												<Col sm={9} >
+													<TextSelect
+														id="owners-text-select"
+														placeholder={t('enter-emails')}
+														onChange={this.handleOwnerChange}
+														defaultValue={this.state.owners}
+														isInvalid={!validateOwners( this.state.owners )}
+													/>
+													{!validateOwners( this.state.owners ) && <Alert variant="danger" >
+														{t('invalid-owners')}
+													</Alert>}
+												</Col>
 											</FormGroup>
 										</OverlayTrigger>
 										<OverlayTrigger placement="right" overlay={<Tooltip id="courseTooltip">{t('accessible-at')}<code>{SERVER+'/<course>/<lesson>'}</code></Tooltip>}>
-											<FormGroup controlId="form-course" >
-												<FormLabel>{t('course-identifier')}</FormLabel>
-												<FormControl
-													name="title"
-													type="text"
-													value={this.state.title}
-													onChange={this.handleInputChange}
-													isInvalid={!validTitle}
-												/>
-												<FormControl.Feedback type="invalid">
-													{ invalidTitleChars ?
-														'Course identifier contains invalid character(s): '+invalidTitleChars[ 0 ] :
-														'Course identifier must be at least three characters long and should not contain any spaces.'
-													}
-												</FormControl.Feedback>
+											<FormGroup className="mb-3" as={Row} controlId="form-course" >
+												<FormLabel column sm={3} >{t('course-identifier')}</FormLabel>
+												<Col sm={9} >
+													<FormControl
+														name="title"
+														type="text"
+														value={this.state.title}
+														onChange={this.handleInputChange}
+														isInvalid={!validTitle}
+													/>
+													<FormControl.Feedback type="invalid">
+														{ invalidTitleChars ?
+															'Course identifier contains invalid character(s): '+invalidTitleChars[ 0 ] :
+															'Course identifier must be at least three characters long and should not contain any spaces.'
+														}
+													</FormControl.Feedback>
+												</Col>
 											</FormGroup>
 										</OverlayTrigger>
 										<OverlayTrigger placement="right" overlay={<Tooltip id="titleTooltip">{t('title-tooltip')}</Tooltip>}>
-											<FormGroup controlId="form-description" >
-												<FormLabel>{t('title-description')}</FormLabel>
-												<FormControl
-													name="description"
-													type="text"
-													value={this.state.description}
-													onChange={this.handleInputChange}
-													isInvalid={!validDescription}
-												>
-												</FormControl>
-												<FormControl.Feedback type="invalid">
-													{t('invalid-description')}
-												</FormControl.Feedback>
+											<FormGroup className="mb-3" as={Row} controlId="form-description" >
+												<FormLabel column sm={3} >{t('title-description')}</FormLabel>
+												<Col sm={9} >
+													<FormControl
+														name="description"
+														type="text"
+														value={this.state.description}
+														onChange={this.handleInputChange}
+														isInvalid={!validDescription}
+													>
+													</FormControl>
+													<FormControl.Feedback type="invalid">
+														{t('invalid-description')}
+													</FormControl.Feedback>
+												</Col>
 											</FormGroup>
 										</OverlayTrigger>
-										<Form.Check
-											aria-label={t('enable-ticketing')}
-											type="checkbox"
-											label={t('enable-ticketing')}
-											defaultChecked={this.state.enableTicketing}
-											onChange={( event) => {
-												this.setState({
-													enableTicketing: event.target.checked
-												});
-											}}
-										/>
+										<FormGroup className="mb-3" as={Row} controlId="form-ticketing" >
+											<Form.Check
+												aria-label={t('enable-ticketing')}
+												type="checkbox"
+												label={t('enable-ticketing')}
+												defaultChecked={this.state.enableTicketing}
+												onChange={( event) => {
+													this.setState({
+														enableTicketing: event.target.checked
+													});
+												}}
+											/>
+										</FormGroup>
 										<OverlayTrigger placement="right" overlay={<Tooltip id="tagTooltip">{t('tag-tooltip')}</Tooltip>}>
-											<FormGroup controlId="form-tag" >
-												<FormLabel>{t('common:tag')}</FormLabel>
-												<FormControl
-													name="tag"
-													type="text"
-													value={this.state.tag}
-													onChange={this.handleInputChange}
-												>
-												</FormControl>
+											<FormGroup className="mb-3" as={Row} controlId="form-tag" >
+												<FormLabel column sm={3} >{t('common:tag')}</FormLabel>
+												<Col sm={9} >
+													<FormControl
+														name="tag"
+														type="text"
+														value={this.state.tag}
+														onChange={this.handleInputChange}
+														placeholder={t('tag-placeholder')}
+													>
+													</FormControl>
+												</Col>
 											</FormGroup>
 										</OverlayTrigger>
 									</Form>

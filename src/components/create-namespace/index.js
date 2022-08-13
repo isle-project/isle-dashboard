@@ -214,15 +214,11 @@ const CreateNamespace = ( props ) => {
 							<FormLabel column sm={3} >{t('common:tag')}</FormLabel>
 							<Col sm={9} >
 								<FormControl
-									name="description"
+									name="tag"
 									type="text"
 									placeholder={t('tag-placeholder')}
 									onChange={handleTagChange}
-									isInvalid={description && !validDescription}
 								/>
-								<FormControl.Feedback type="invalid">
-									{t('invalid-tag')}
-								</FormControl.Feedback>
 							</Col>
 						</FormGroup>
 					</OverlayTrigger>
