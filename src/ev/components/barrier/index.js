@@ -5,6 +5,25 @@ import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 
 
+// FUNCTIONS //
+
+function Jumbotron({ message }) {
+	return (
+		<div
+			className="jumbotron"
+			style={{
+				width: '100%',
+				height: '73.7%'
+			}}
+		>
+			<h3 style={{ textAlign: 'center', marginTop: '2%' }}>
+				{message}
+			</h3>
+		</div>
+	);
+}
+
+
 // MAIN //
 
 /**
@@ -18,19 +37,12 @@ import { useTranslation } from 'react-i18next';
 const LicenseBarrier = ({ admin, user, children }) => {
 	const { t } = useTranslation( 'common' );
 	if ( !user.licensed && ( !admin.license || !admin.license.valid ) ) {
-		return (
-			<div
-				className="jumbotron"
-				style={{
-					width: '100%',
-					height: '73.7%'
-				}}
-			>
-				<h3 style={{ textAlign: 'center', marginTop: '12%' }}>
-					{t('not-available-in-community-edition')}
-				</h3>
-			</div>
-		);
+		return <Jumbotron message={t('not-available-in-community-edition')} />;
+	}
+	const currentDate = new Date();
+	const endDate = new Date( admin.license.endDate );
+	if ( currentDate > endDate ) {
+		return <Jumbotron message={t('license-expired')} />;
 	}
 	return children;
 };
