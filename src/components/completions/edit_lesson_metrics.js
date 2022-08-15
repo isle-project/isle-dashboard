@@ -26,7 +26,7 @@ import Col from 'react-bootstrap/Col';
 import Card from 'react-bootstrap/Card';
 import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
-import SelectInput from 'react-select';
+import SelectInput, { components } from 'react-select';
 import CreatableSelect from 'react-select/creatable';
 import objectValues from '@stdlib/utils/values';
 import ConfirmModal from 'components/confirm-modal';
@@ -46,6 +46,20 @@ const SELECT_STYLES = {
 		...base,
 		zIndex: 9999
 	})
+};
+const RULE_COMPONENTS = {
+	Option: ( { data, ...props }) => {
+		const isSelected = data.value.name === props.selectProps.value.value.name;
+		return (
+			<components.Option {...props}>
+				<span>{data.value.label}</span>
+				<br />
+				<span
+					className={`${isSelected ? 'text-white' : 'text-muted'}`}
+				>{data.value.description}</span>
+			</components.Option>
+		);
+	}
 };
 
 
@@ -246,7 +260,10 @@ function EditLessonMetrics({ name, preferredLesson, lessons, lessonRefs, compone
 					checked={hasSharedRule}
 				/>
 			</Col>
-			<HelpfulLabel colWidth={3} name={t('common:rule')} description={sharedRule && sharedRule.description} disabled={!hasSharedRule} />
+			<HelpfulLabel colWidth={3} name={t('common:rule')} description={t('rule-tooltip', {
+				upperLevel: t('common:lesson'),
+				level: t('common:component')
+			})} disabled={!hasSharedRule} />
 			<Col sm={6} >
 				<SelectInput
 					isDisabled={!hasSharedRule}
@@ -257,6 +274,7 @@ function EditLessonMetrics({ name, preferredLesson, lessons, lessonRefs, compone
 						setSharedRuleParameters( newRule.parameters.map( x => x.default || null ) );
 					}}
 					value={sharedRule ? { value: sharedRule, label: sharedRule.label } : null}
+					components={RULE_COMPONENTS}
 				/>
 			</Col>
 		</Form.Group>
@@ -362,7 +380,10 @@ function EditLessonMetrics({ name, preferredLesson, lessons, lessonRefs, compone
 				{lessonIsActive && <>
 					<Form.Group className="mb-2" as={Row} >
 						<Col sm={3} />
-						<HelpfulLabel colWidth={3} name={t('common:rule')} description={defaultRule.value.description} />
+						<HelpfulLabel colWidth={3} name={t('common:rule')} description={t('rule-tooltip', {
+							upperLevel: t('common:lesson'),
+							level: t('common:component')
+						})} />
 						<Col sm={6} >
 							<SelectInput
 								options={allRulesOptions}
@@ -376,6 +397,7 @@ function EditLessonMetrics({ name, preferredLesson, lessons, lessonRefs, compone
 								menuPortalTarget={document.body}
 								menuPlacement="auto"
 								styles={SELECT_STYLES}
+								components={RULE_COMPONENTS}
 							/>
 						</Col>
 					</Form.Group>
@@ -451,7 +473,7 @@ function EditLessonMetrics({ name, preferredLesson, lessons, lessonRefs, compone
 										setActiveLessons( newActive );
 									}}
 									value={coverageEntities}
-									placeholder="Select component identifiers..."
+									placeholder={t('select-components-placeholder')}
 								/> : null
 							}
 						</Col>

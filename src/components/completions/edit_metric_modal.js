@@ -154,7 +154,10 @@ function EditMetricModal({ level, entity, show, onHide, allRules, refs, createNe
 					</Col>
 				</Form.Group>
 				<Form.Group className="mb-2" as={Row} >
-					<HelpfulLabel colWidth={3} name={t('common:rule')} description={rule && rule.description} disabled={!rule} />
+					<HelpfulLabel colWidth={3} name={t('common:rule')} description={t('rule-tooltip', {
+						upperLevel: t('course'),
+						level: t('lesson')
+					})} disabled={!rule} />
 					<Col sm={9} >
 						<SelectInput
 							options={objectValues( allRules ).map( ( rule ) => ({ value: rule, label: rule.label }) )}
@@ -165,6 +168,15 @@ function EditMetricModal({ level, entity, show, onHide, allRules, refs, createNe
 							}}
 							value={rule ? { value: rule, label: rule.label } : null}
 							placeholder={t('select-rule')}
+							components={{
+								Option: ( { data, ...props }) => (
+									<components.Option {...props}>
+										<span>{data.value.label}</span>
+										<br />
+										<span className="text-muted">{data.value.description}</span>
+									</components.Option>
+								)
+							}}
 						/>
 					</Col>
 				</Form.Group>
@@ -233,12 +245,13 @@ function EditMetricModal({ level, entity, show, onHide, allRules, refs, createNe
 								onChange={handleEntityChange}
 								value={coverageEntities}
 								styles={subentitySelectorStyles}
-								placeholder="Select lessons..."
+								placeholder={t('select-lessons-placeholder', {
+									action: t( coverage.value )
+								})}
 								components={{
 									Placeholder: ({ children, isFocused, ...rest }) => {
-										console.log( rest );
 										return ( <components.Placeholder {...rest}>
-											{children} {isFocused ? '(opaque lessons have no metric for the selected ref)' : ''}
+											{children} {isFocused ? '('+t('opaque-lessons-explanation')+')' : ''}
 										</components.Placeholder> );
 									}
 								}}
