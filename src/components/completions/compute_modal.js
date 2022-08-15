@@ -182,19 +182,19 @@ function ComputeModal({ cohorts, metric, entity, level, show, onHide, computeCom
 			<Modal.Body>
 				<Container>
 					<Form.Group className="mb-2" as={Row} controlId="multiplesPolicy" >
-						<HelpfulLabel colWidth={3} name={t('multiples-policy')} description={t('multiples-policy-description')} />
+						<HelpfulLabel colWidth={3} name={t('multiples-policy')} description={t('multiples-policy-tooltip')} />
 						<Col sm={9} >
 							<SelectInput value={formValues.policyOptions.multiples} options={MULTIPLES_POLICIES} onChange={handleMultiplesPolicyChange} />
 						</Col>
 					</Form.Group>
 					<Form.Group className="mb-2" as={Row} controlId="timeFilter" >
-						<HelpfulLabel colWidth={3} name={t('time-filter')} description={t('time-filter-description')} />
+						<HelpfulLabel colWidth={3} name={t('time-filter')} description={t('time-filter-tooltip')} />
 						<Col sm={9} >
 							<DateTimeRangePicker onChange={onTimeChange} value={formValues.policyOptions.timeFilter} />
 						</Col>
 					</Form.Group>
 					<Form.Group className="mb-2" as={Row} controlId="users" >
-						<HelpfulLabel colWidth={3} name={t('common:users')} description={t('users-description')} />
+						<HelpfulLabel colWidth={3} name={t('common:users')} description={t('users-tooltip')} />
 						<Col sm={9} >
 							<SelectInput
 								value={formValues.users} isMulti
