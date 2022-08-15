@@ -15,7 +15,15 @@ function HelpfulLabel({ name, description, colWidth, className, placement = 'lef
 	}
 	children.push( <i key="info-icon" className="info-icon ms-2 fas fa-info"></i> );
 	return (
-		<OverlayTrigger placement={placement} overlay={<Tooltip id={`param-${name}-tooltip`}>{description}</Tooltip>} >
+		<OverlayTrigger
+			placement={placement}
+			overlay={<Tooltip
+				className={`render-whitespace ${description && description.length >= 80 ? 'long-tooltip' : ''}`}
+				id={`param-${name}-tooltip`}
+			>
+				{description}
+			</Tooltip>}
+		>
 			{React.createElement( as, { sm: colWidth, className: className, column: true }, children )}
 		</OverlayTrigger>
 	);

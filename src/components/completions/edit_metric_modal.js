@@ -212,7 +212,9 @@ function EditMetricModal({ level, entity, show, onHide, allRules, refs, createNe
 					</Col>
 				</Form.Group>
 				<Form.Group className="mb-2" as={Row} >
-					<HelpfulLabel colWidth={3} name={t('common:coverage')} description={t('coverage-tooltip')} />
+					<HelpfulLabel colWidth={3} name={t('common:coverage')} description={t('coverage-tooltip', {
+						level: t('common:lessons')
+					})} />
 					<Col sm={9} >
 						<SelectInput
 							options={objectValues( COVERAGE_OPTIONS )}

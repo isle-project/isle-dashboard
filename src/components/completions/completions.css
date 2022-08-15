@@ -32,3 +32,11 @@
 .row:hover > .form-label > .info-icon {
 	display: inline;
 }
+
+.render-whitespace {
+	white-space: pre-wrap;
+}
+
+.long-tooltip .tooltip-inner {
+	text-align: left;
+}

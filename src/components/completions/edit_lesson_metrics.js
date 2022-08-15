@@ -425,7 +425,9 @@ function EditLessonMetrics({ name, preferredLesson, lessons, lessonRefs, compone
 					</Form.Group>
 					<Form.Group className="mb-2" as={Row} >
 						<Col sm={3} />
-						<HelpfulLabel colWidth={3} name={t('common:coverage')} description={t('coverage-tooltip')} />
+						<HelpfulLabel colWidth={3} name={t('common:coverage')} description={t('coverage-tooltip', {
+							level: t('components')
+						})} />
 						<Col sm={6} >
 							<SelectInput
 								options={COVERAGE_OPTIONS_ARRAY}
