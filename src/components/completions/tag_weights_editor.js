@@ -70,36 +70,39 @@ function TagWeightsEditor({ tagWeights, visibleTags, onUpdate }) {
 		if ( elem && elem.value && tagWeights[ elem.value ] === void 0 ) {
 			const { value } = elem;
 			const newWeights = { ...tagWeights };
-			newWeights[ value ] = 0;
+			newWeights[ value ] = tagWeights[ '_default_tag' ] ?? 0;
 			setNewTag( null );
 			onUpdate( newWeights );
 		}
 	}, [ tagWeights, onUpdate ] );
 
 	const inputs = new Array( tags.length );
-	const showDelete = !(tags.length === 1 && tags[ 0 ] === '_default_tag' );
-	for ( let i = 0; i < tags.length; i++ ) {
-		const tag = tags[ i ];
-		const weight = tagWeights[ tag ];
-		inputs[ i ] = ( <Form.Group className="mb-1" as={Row} key={`tag-${i}`} >
-			<Form.Label column sm={5} >{tag === '_default_tag' ? t( 'default' ) : tag}</Form.Label>
-			<Col sm={5} >
-				<Form.Control
-					type="number"
-					value={weight}
-					onChange={handleChange}
-					placeholder={1}
-					data-tag={tag}
-					min={0}
-				/>
-			</Col>
-			<Col sm={2} >
-				{showDelete && <Button variant="outline-secondary" onClick={handleTagDeletion} data-tag={tag} size="xm" >
-					<i className="fa fa-times" style={{ pointerEvents: 'none' }} />
-				</Button>}
-			</Col>
-		</Form.Group> );
+	const hideWeights = tags.length === 1 && tags[ 0 ] === '_default_tag';
+	if ( !hideWeights ) {
+		for ( let i = 0; i < tags.length; i++ ) {
+			const tag = tags[ i ];
+			const weight = tagWeights[ tag ];
+			inputs[ i ] = ( <Form.Group className="mb-1" as={Row} key={`tag-${i}`} >
+				<Form.Label column sm={5} >{tag === '_default_tag' ? t( 'other' ) : tag}</Form.Label>
+				<Col sm={5} >
+					<Form.Control
+						type="number"
+						value={weight}
+						onChange={handleChange}
+						data-tag={tag}
+						placeholder={t( 'weight-placeholder' )}
+						min={0}
+					/>
+				</Col>
+				<Col sm={2} >
+					<Button variant="outline-secondary" onClick={handleTagDeletion} data-tag={tag} size="xm" >
+						<i className="fa fa-times" style={{ pointerEvents: 'none' }} />
+					</Button>
+				</Col>
+			</Form.Group> );
+		}
 	}
+	inputs.reverse();
 	return (
 		<Fragment>
 			{inputs}
