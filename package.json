@@ -81,7 +81,7 @@
     "debug": "4.3.4",
     "dotenv-expand": "^8.0.3",
     "i18next": "^21.9.0",
-    "i18next-browser-languagedetector": "^6.1.4",
+    "i18next-browser-languagedetector": "^6.1.5",
     "i18next-chained-backend": "^3.0.2",
     "i18next-http-backend": "^1.4.1",
     "localforage": "^1.10.0",
