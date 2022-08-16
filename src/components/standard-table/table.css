@@ -1,0 +1,47 @@
+.standard-table {
+	max-height: 100%;
+	background: white;
+	margin-bottom: 15px;
+	-webkit-animation: slide-in-right 0.7s;
+	animation: slide-in-right 0.7s;
+	width: 100%;
+	max-width: calc(100% - 42px);
+}
+
+.standard-table thead {
+	background: rgb(245, 245, 255);
+	border-bottom: 1px solid rgba(92, 92, 92, 0.6);
+}
+
+.standard-table thead th {
+	padding: 10px;
+	text-align: left;
+	font-size: 1.1em;
+	font-weight: 600;
+	color: rgb(92, 92, 92);
+	border-right: 1px solid rgba(92, 92, 92, 0.1);
+}
+
+.standard-table tbody {
+	border-top: 1px solid rgba(92, 92, 92, 0.6);
+}
+
+.standard-table tbody tr {
+	border-bottom: 1px solid rgba(92, 92, 92, 0.05);
+}
+
+.standard-table tbody tr:nth-child(even) {
+	background: rgba(245, 245, 255, 0.3);
+}
+
+.standard-table tbody tr:nth-child(odd) {
+	background: rgba(245, 245, 255, 0.05);
+}
+
+.standard-table tbody tr td {
+	padding: 10px;
+	text-align: left;
+	font-size: 1.1em;
+	color: rgb(92, 92, 92);
+	border-right: 1px solid rgba(92, 92, 92, 0.05);
+}
