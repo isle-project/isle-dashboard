@@ -58,3 +58,11 @@
 	display: inline-block;
 	width: 65%;
 }
+
+.namespace-sub-navbar {
+	box-shadow: 0 0 4px darkgray, 0 0 2px darkslategray;
+	padding-left: 6px;
+	padding-right: 6px;
+	margin: 8px;
+	background: rgb(245, 245, 255);
+}

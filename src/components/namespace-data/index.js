@@ -28,10 +28,10 @@ import FilesPage from './files_page.js';
 import AnnouncementsPage from './announcements_page.js';
 import ProgressPage from './progress_page.js';
 import CohortsPage from './cohorts_page.js';
-import CompletionsPage from './completions_page.js';
 import GradesPage from './grades_page.js';
 import ActionsPage from './actions_page.js';
 import TicketsPage from './tickets_page.js';
+import AssessmentPage from './assessment_page.js';
 import './namespace_data.css';
 
 
@@ -144,7 +144,7 @@ const NamespaceData = ({
 						namespace={namespace} cohorts={namespace.cohorts}
 						lessons={namespace.lessons} user={user} />}
 					/>
-					<Route path="assessments" element={<CompletionsPage addNotification={addNotification} namespace={namespace}
+					<Route path="assessments/*" element={<AssessmentPage addNotification={addNotification} namespace={namespace}
 						cohorts={namespace.cohorts} lessons={namespace.lessons} user={user} computeCompletions={computeCompletions} />}
 					/>
 					<Route path="grades" element={<GradesPage addNotification={addNotification} namespace={namespace}
