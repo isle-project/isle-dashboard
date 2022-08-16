@@ -15,14 +15,16 @@ TODO
 
 7. Completions:
   -   [ ] <HIGH> Show provenances when clicking on scores
-  -   [ ] <HIGH> Install translation keys for completion phrases
-  -   [ ] <HIGH> Logging scores in pre-existing components; DISCUSS semantics of component logging
+  -   [ ] <HIGH> Logging scores in pre-existing components
   -   [ ] <HIGH> Renaming and new lingo
+  -   [X] <HIGH> Install translation keys for completion phrases
+  -   [X] <HIGH> Default tag includes everything not explicitly weighted
+  -   [X] <HIGH> Discuss semantics of component logging
   -   [ ] <MED> validation of rule parameters
   -   [ ] <MED> auto-compute
   -   [ ] <MED> edit_lesson_metric_modal: Unclicking shared rule after changing rule should leave lower rules at last shared value
-  -   [ ] <LOW> Generalize coverage to support patterns and types
   -   [ ] <LOW> Add 'metric_order' endpoint
+  -   [ ] <LOW> Generalize coverage to support patterns and types
   -   [ ] <LOW> More salient namespace title on completions screen (among others)
 
 Some potential changes:
