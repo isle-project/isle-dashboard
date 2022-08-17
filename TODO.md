@@ -14,14 +14,13 @@ TODO
 6.  Directory structure or keyword tagging for lessons? Make it easier to navigate a larger course
 
 7. Completions:
-  -   [ ] <HIGH> Show provenances when clicking on scores
+  -   [ ] <HIGH> ProvenanceNavigator component when clicking on scores
+  -   [ ] <HIGH> Auto-compute and add progress
+  -   [ ] <HIGH> New info tables actionable (scores, tags, extensions)
   -   [ ] <HIGH> Logging scores in pre-existing components
   -   [ ] <HIGH> Renaming and new lingo
-  -   [X] <HIGH> Install translation keys for completion phrases
-  -   [X] <HIGH> Default tag includes everything not explicitly weighted
-  -   [X] <HIGH> Discuss semantics of component logging
+  -   [ ] <MED> Enter lots of data for testing through the UI
   -   [ ] <MED> validation of rule parameters
-  -   [ ] <MED> auto-compute
   -   [ ] <MED> edit_lesson_metric_modal: Unclicking shared rule after changing rule should leave lower rules at last shared value
   -   [ ] <LOW> Add 'metric_order' endpoint
   -   [ ] <LOW> Generalize coverage to support patterns and types
