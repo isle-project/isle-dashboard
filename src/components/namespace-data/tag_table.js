@@ -37,15 +37,20 @@ function TagTable({ namespace, lessons }) {
 				return ( <>
 					{row.getCanExpand() ? (
 					<button
+						className="unstyled-text-button"
 						{...{
-							onClick: row.getToggleExpandedHandler(),
-							style: { cursor: 'pointer' }
+							onClick: row.getToggleExpandedHandler()
 						}}
 					>
-						{row.getIsExpanded() ? '-' : '+'}
+						{row.getIsExpanded() ? <i className="fa fa-minus" /> : <i className="fa fa-plus" />}
 					</button> ) : null}
 				</> );
-			}
+			},
+			size: 5,
+			maxSize: 5,
+			minSize: 5,
+			enableResizing: false,
+			className: 'expander-column'
 		},
 		{
 			accessorFn: ( row ) => row.title,

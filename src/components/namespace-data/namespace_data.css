@@ -66,3 +66,11 @@
 	margin: 8px;
 	background: rgb(245, 245, 255);
 }
+
+.unstyled-text-button {
+	border: none;
+	background: none;
+	padding: 0;
+	cursor: pointer;
+	outline: none;
+}
