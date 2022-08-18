@@ -126,7 +126,7 @@ class AssessmentScoresPage extends Component {
 			showComputeModal: false,
 			tags: [],
 			computeMetric: null,
-			showProvenanceModal: false
+			showProvenanceModal: false  // false or an Instance to be shown
 		};
                 this.beginningOfDay = new Date( new Date().setHours( 0, 0, 0, 0 ) );
                 this.entityNames = {[props.namespace._id]: props.namespace.title};

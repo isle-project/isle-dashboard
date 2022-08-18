@@ -158,20 +158,24 @@ const scoreLabel = score => (score === MISSING_SCORE || isUndefinedOrNull( score
  * @param {Function} drilldown - a function moving to an entity at the next level down
  * @param {('program'|'namespace'|'lesson'|'component')} level - the level of the current node
  * @param {Function} names - a fn mapping entity ids to entity titles/names
- * @param {Function} t - a translation function.
+ * @param {Function} [t=identity] - a translation function, mapping strings to strings.
  *
  * @returns {Array<Object>} an array of StandardTable column specifications.
  */
 
-const makeColumns = ( drillDown, level, names, t ) => [
+const makeColumns = ( drillDown, level, names, t = s => s) => [
     {
 	accessorFn: row => names( row.entity ),
 	header: t( level )
     },    
     {
-	accessorFn: row => isLeaf( row )
-            ? scoreLabel( row.score )
-            : <span role="button" onClick={() => drillDown(row.entity)}>{scoreLabel( row.score )}</span>,
+	accessorFn: row => {
+            const label = scoreLabel( row.score );
+            if ( isLeaf( row ) ) {
+                return label;
+            }
+            return <span role="button" onClick={() => drillDown(row.entity)}>{label}</span>;
+        },
 	header: t('score')
     },    
     {
@@ -202,8 +206,8 @@ const ProvenanceNavigator = ( { instance, entityNames, onHide, show = true } ) =
     const { t } = useTranslation( 'common' );
     const [zipper, setZipper] = useState( makeProvenanceZipper( instance  ) );
     const nameOf = id => entityNames?.[ id ] ?? id;
-    const moveDown = id => setZipper( zipperDown( zipper, id ) );
-    const moveUp = () => setZipper( zipperUp( zipper ) );
+    const moveDown = id => setZipper( z => zipperDown( z, id ) );
+    const moveUp = () => setZipper( zipperUp );
 
     return (
         <Modal show={show} onHide={onHide}>
@@ -216,7 +220,7 @@ const ProvenanceNavigator = ( { instance, entityNames, onHide, show = true } ) =
             <h4>{`Score ${zipper.node.score} from ${relativeDate( zipper.node.time )}${tagLabel(' with tag ', zipper.node.tag)}`}</h4>
             <StandardTable
               columns={makeColumns( moveDown, zipper.node.level, nameOf, t )}
-              data={zipper.node.provenance}
+              data={zipper.node.provenance || []}
             />
 	  </Modal.Body>
 	  <Modal.Footer>
