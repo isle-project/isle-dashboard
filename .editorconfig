@@ -8,6 +8,7 @@ insert_final_newline = true
 
 [*.js]
 indent_style = tab
+tab_width = 4
 
 [*.py]
 indent_style = space
