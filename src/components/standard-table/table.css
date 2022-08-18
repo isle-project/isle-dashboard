@@ -5,7 +5,8 @@
 	-webkit-animation: slide-in-right 0.7s;
 	animation: slide-in-right 0.7s;
 	width: 100%;
-	max-width: calc(100% - 42px);
+
+	/* max-width: calc(100% - 42px); */
 }
 
 .standard-table thead {
