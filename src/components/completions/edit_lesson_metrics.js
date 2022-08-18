@@ -49,7 +49,7 @@ const SELECT_STYLES = {
 };
 const RULE_COMPONENTS = {
 	Option: ( { data, ...props }) => {
-		const isSelected = data.value.name === props.selectProps.value.value.name;
+		const isSelected = data.value.name === props.selectProps?.value?.value.name;
 		return (
 			<components.Option {...props}>
 				<span>{data.value.label}</span>
