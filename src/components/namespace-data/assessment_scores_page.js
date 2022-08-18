@@ -280,15 +280,24 @@ class AssessmentScoresPage extends Component {
 					const score = row.value.instance?.score ?? -999;
 					const missing = ' ';  // Value displayed for a missing score
 					let displayDate = '';
+					let lastUpdatedUnix;
 					if ( lastUpdated instanceof Date ) {
-						displayDate = relativeDate( lastUpdated.getTime() );
+						lastUpdatedUnix = lastUpdated.getTime();
+						displayDate = relativeDate( lastUpdatedUnix );
 					} else if ( typeof lastUpdated === 'number' ) {
+						lastUpdatedUnix = lastUpdated;
 						displayDate = relativeDate( lastUpdated );
-					} else {
+					} else if ( typeof lastUpdated === 'string' ) {
 						displayDate = lastUpdated;
+						lastUpdatedUnix = new Date( lastUpdated ).getTime();
+					} else {
+						// Case: lastUpdated is missing
+						displayDate = lastUpdated;
+						lastUpdatedUnix = Date.now();
 					}
 					const onScoreClick = () => this.setState({ provenanceModal: row.value.instance ? {
 						instance: row.value.instance,
+						lastUpdated: lastUpdatedUnix,
 						metric: metricObject( this.state.scope, this.metrics[ i ].label, this.props.namespace, this.props.lessons )
 					} : false } );
 					return ( <OverlayTrigger placement="right" overlay={<Tooltip id="tooltip">{`${t('last-updated')} ${displayDate}`}</Tooltip>} >
@@ -496,6 +505,7 @@ class AssessmentScoresPage extends Component {
 				<ProvenanceNavigator
 					instance={this.state.provenanceModal.instance}
 					metric={this.state.provenanceModal.metric}
+					lastUpdated={this.state.provenanceModal.lastUpdated}
 					entities={this.entities}
 					onHide={() => this.setState( {provenanceModal: false} )}
 					show={!!this.state.provenanceModal}

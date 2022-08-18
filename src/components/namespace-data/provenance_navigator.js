@@ -272,7 +272,7 @@ const makeColumns = (drillDown, level, metric, names, t = s => s) => [
  *
  * @returns {Object} a React component
  */
-const ProvenanceNavigator = ({ instance, metric, entities, onHide, show = true }) => {
+const ProvenanceNavigator = ({ instance, metric, entities, lastUpdated, onHide, show = true }) => {
     const { t } = useTranslation( [ 'namespace_data', 'common' ] );
     const [zipper, setZipper] = useState( makeProvenanceZipper( instance, metric ) );
     const nameOf = id => entities?.[id]?.title ?? id;
@@ -282,23 +282,18 @@ const ProvenanceNavigator = ({ instance, metric, entities, onHide, show = true }
 		if ( entity ) {
 			submetric = entity.completions.find( x => x.name === z.metric.ref );
 		}
-        console.log( 'Entity\n', entity );
-		console.log( 'Z\n', JSON.stringify(z, null, 2) );
-		console.log( 'Submetric\n', submetric );
 		return zipperDown( z, id, submetric );
 	});
     const moveUp = () => setZipper(zipperUp);
 
+	console.log( 'TIMES' );
+	console.log( zipper.metric );
+	console.log( new Date( zipper.metric.updatedAt ).getTime() )
+	console.log( lastUpdated );
+
 	const columns = makeColumns(moveDown, zipper.node.level, zipper.metric, nameOf, t );
 	const data = zipper.node.provenance || [];
     const timeMsg = zipper.node.time ? ` from ${relativeDate(zipper.node.time)}` : '';
-	const tOpts = {
-		metricName: zipper.metric.name,
-		ruleName: zipper.metric.rule[ 0 ],
-		ruleParams: zipper.metric.rule.slice( 1 ).join( ', ' )
-	};
-    console.log( zipper.metric );
-	console.log( 'tOpts\n', tOpts );
     return (
         <Modal size="lg" show={show} onHide={onHide}>
             <Modal.Header closeButton>
@@ -319,7 +314,14 @@ const ProvenanceNavigator = ({ instance, metric, entities, onHide, show = true }
 					</Button>
 				</h4>
 				{zipper.metric && <h5>
-					{t('calculated-with-metric', tOpts )}
+					{t('calculated-with-metric', {
+						metricName: zipper.metric.name,
+						ruleName: zipper.metric.rule[ 0 ],
+						ruleParams: zipper.metric.rule.slice( 1 ).join( ', ' )
+					})}
+				</h5>}
+				{new Date( zipper.metric.lastUpdated ).getTime() > lastUpdated && <h5 className="completions-warning" >
+					{t('metric-has-changed-since-score-was-calculated')}
 				</h5>}
                 <StandardTable
                     columns={columns}
@@ -336,6 +338,7 @@ const ProvenanceNavigator = ({ instance, metric, entities, onHide, show = true }
 ProvenanceNavigator.propTypes = {
     entities: PropTypes.object.isRequired,
     instance: PropTypes.object.isRequired,
+	lastUpdated: PropTypes.number.isRequired,
 	metric: PropTypes.object.isRequired,
     onHide: PropTypes.func.isRequired,
     show: PropTypes.bool
