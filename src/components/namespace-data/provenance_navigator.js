@@ -109,7 +109,7 @@ const zipperDown = ( loc, id ) => {
     if ( len > 0 ) {
         const instance = id != void 0
               ? loc.node.provenance.find( x => x.entity === id )
-	      : loc.node.provenance[ 0 ];
+          : loc.node.provenance[ 0 ];
         if ( !instance ) {
             throw new Error( `zipperDown: Cannot find entity ${id} in provenance tree.` );
         }
@@ -163,29 +163,29 @@ const scoreLabel = score => (score === MISSING_SCORE || isUndefinedOrNull( score
  * @returns {Array<Object>} an array of StandardTable column specifications.
  */
 
-const makeColumns = ( drillDown, level, names, t = s => s) => [
+const makeColumns = (drillDown, level, names, t = s => s) => [
     {
-	accessorFn: row => names( row.entity ),
-	header: t( level )
-    },    
+        accessorFn: row => names(row.entity),
+        header: t(level)
+    },
     {
-	accessorFn: row => {
-            const label = scoreLabel( row.score );
-            if ( isLeaf( row ) ) {
+        accessorFn: row => {
+            const label = scoreLabel(row.score);
+            if (isLeaf(row)) {
                 return label;
             }
             return <span role="button" onClick={() => drillDown(row.entity)}>{label}</span>;
         },
-	header: t('score')
-    },    
+        header: t('score')
+    },
     {
-	accessorFn: row => relativeDate( row.time ),
-	header: t('time-calculated')
-    },    
+        accessorFn: row => relativeDate(row.time),
+        header: t('time-calculated')
+    },
     {
-	accessorKey: 'tag',
-	header: t('tag')
-    },    
+        accessorKey: 'tag',
+        header: t('tag')
+    },
 ];
 
 
@@ -202,31 +202,31 @@ const makeColumns = ( drillDown, level, names, t = s => s) => [
  * @returns {Object} a React component
  */
 
-const ProvenanceNavigator = ( { instance, entityNames, onHide, show = true } ) => {
-    const { t } = useTranslation( 'common' );
-    const [zipper, setZipper] = useState( makeProvenanceZipper( instance  ) );
-    const nameOf = id => entityNames?.[ id ] ?? id;
-    const moveDown = id => setZipper( z => zipperDown( z, id ) );
-    const moveUp = () => setZipper( zipperUp );
+const ProvenanceNavigator = ({ instance, entityNames, onHide, show = true }) => {
+    const { t } = useTranslation('common');
+    const [zipper, setZipper] = useState(makeProvenanceZipper(instance));
+    const nameOf = id => entityNames?.[id] ?? id;
+    const moveDown = id => setZipper(z => zipperDown(z, id));
+    const moveUp = () => setZipper(zipperUp);
 
     return (
         <Modal show={show} onHide={onHide}>
-	  <Modal.Header closeButton>
-	    <Modal.Title as="h3">
-              {`${t('score-provenance-for')} ${t(zipper.node.level)} ${nameOf( zipper.node.entity )}`}
-            </Modal.Title>
-	  </Modal.Header>
-	  <Modal.Body>
-            <h4>{`Score ${zipper.node.score} from ${relativeDate( zipper.node.time )}${tagLabel(' with tag ', zipper.node.tag)}`}</h4>
-            <StandardTable
-              columns={makeColumns( moveDown, zipper.node.level, nameOf, t )}
-              data={zipper.node.provenance || []}
-            />
-	  </Modal.Body>
-	  <Modal.Footer>
-	    <Button variant="secondary" onClick={onHide}>{t('dismiss')}</Button>
-	    <Button onClick={moveUp} disabled={isZipperAtRoot( zipper )}>{t('up')}</Button>
-	  </Modal.Footer>
+            <Modal.Header closeButton>
+                <Modal.Title as="h3">
+                    {`${t('score-provenance-for')} ${t(zipper.node.level)} ${nameOf(zipper.node.entity)}`}
+                </Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+                <h4>{`Score ${zipper.node.score} from ${relativeDate(zipper.node.time)}${tagLabel(' with tag ', zipper.node.tag)}`}</h4>
+                <StandardTable
+                    columns={makeColumns(moveDown, zipper.node.level, nameOf, t)}
+                    data={zipper.node.provenance || []}
+                />
+            </Modal.Body>
+            <Modal.Footer>
+                <Button variant="secondary" onClick={onHide}>{t('dismiss')}</Button>
+                <Button onClick={moveUp} disabled={isZipperAtRoot(zipper)}>{t('up')}</Button>
+            </Modal.Footer>
         </Modal>
     );
 };
