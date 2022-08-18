@@ -43,6 +43,8 @@ import obsToVar from '@isle-project/utils/obs-to-var';
 import server from 'constants/server';
 import saveAs from 'utils/file_saver.js';
 import createTextColumn from 'utils/create_text_column.js';
+import ProvenanceNavigator, { relativeDate } from './provenance_navigator.js';
+
 import './progress_page.css';
 import 'css/input_range.css';
 
@@ -110,7 +112,7 @@ function metricObject( scope, name, namespace, lessons ) {
 
 // MAIN //
 
-class CompletionsPage extends Component {
+class AssessmentScoresPage extends Component {
 	constructor( props ) {
 		super( props );
 
@@ -123,9 +125,15 @@ class CompletionsPage extends Component {
 			scope: scope,
 			showComputeModal: false,
 			tags: [],
-			computeMetric: null
+			computeMetric: null,
+			showProvenanceModal: false
 		};
-		this.beginningOfDay = new Date( new Date().setHours( 0, 0, 0, 0 ) );
+                this.beginningOfDay = new Date( new Date().setHours( 0, 0, 0, 0 ) );
+                this.entityNames = {[props.namespace._id]: props.namespace.title};
+                for( let i = 0; i < props.lessons.length; ++i ) {
+                    const lesson = props.lessons[ i ];
+                    this.entityNames[ lesson._id ] = lesson.title;
+                }
 	}
 
 	componentDidMount() {
@@ -271,23 +279,22 @@ class CompletionsPage extends Component {
 					const lastUpdated = row.value.lastUpdated;
 					const score = row.value.instance?.score ?? -999;
 					const missing = ' ';  // Value displayed for a missing score
-					// ATTN:TODO - add click on score to show dismissible provenance table,
-					// ATTN:TODO   should show level, entity title, score, time recorded, and tag
-					// ATTN:TODO   in hierarchical display that reveals the structure
-					// ATTN:TODO   and lets one show/hide whole levels and filter on tags or more
 					let displayDate = '';
 					if ( lastUpdated instanceof Date ) {
-						if ( lastUpdated >= this.beginningOfDay ) {
-							displayDate = lastUpdated.toLocaleTimeString();
-						}
-						else {
-							displayDate = lastUpdated.toLocaleDateString();
-						}
-					} else {
+                                        	displayDate = relativeDate( lastUpdated.getTime() );
+						// if ( lastUpdated >= this.beginningOfDay ) {
+						//         displayDate = lastUpdated.toLocaleTimeString();
+						// }
+						// else {
+						//         displayDate = lastUpdated.toLocaleDateString();
+						// }
+					} else if ( typeof lastUpdated === 'number' ) {
+                                        	displayDate = relativeDate( lastUpdated );
+                                        } else {
 						displayDate = lastUpdated;
 					}
 					return ( <OverlayTrigger placement="right" overlay={<Tooltip id="tooltip">{`${t('last-updated')} ${displayDate}`}</Tooltip>} >
-						<span style={{ whiteSpace: 'pre' }}>
+						<span style={{ whiteSpace: 'pre' }} role="button" onClick={() => this.setState( {showProvenanceModal: row.value} ) }>
 							{lpad( score < 0 ? missing : String(roundn( score, -1 ).toFixed( 1 )), 5, '  ' )}
 						</span>
 					</OverlayTrigger> );
@@ -467,18 +474,26 @@ class CompletionsPage extends Component {
 						onButtonClick={this.toggleExplorer}
 					/>
 				</div>
-				{this.state.showComputeModal && <ComputeModal
-					metric={this.state.computeMetric}
-					show={this.state.showComputeModal}
-					onHide={() => this.setState({ showComputeModal: false })}
-					cohorts={this.props.cohorts}
-					tags={this.state.tags}
-					entity={this.props.namespace}
-					level="namespace"
-					onCompute={() => {
-						this.setState({ showComputeModal: false });
-					}}
-					computeCompletions={this.props.computeCompletions}
+				{this.state.showComputeModal &&
+                                 <ComputeModal
+				   metric={this.state.computeMetric}
+				   show={this.state.showComputeModal}
+				   onHide={() => this.setState({ showComputeModal: false })}
+				   cohorts={this.props.cohorts}
+				   tags={this.state.tags}
+				   entity={this.props.namespace}
+				   level="namespace"
+				   onCompute={() => {
+				       this.setState({ showComputeModal: false });
+				   }}
+				   computeCompletions={this.props.computeCompletions}
+				/>}
+                          	{this.state.showProvenanceModal &&
+                                 <ProvenanceNavigator
+                                   instance={this.state.showProvenanceModal}
+                                   entityNames={this.entityNames}
+                                   onHide={() => this.setState( {showProvenanceModal: false} )}
+                                   show={!!this.state.showProvenanceModal}
 				/>}
 			</Fragment>
 		);
@@ -488,7 +503,7 @@ class CompletionsPage extends Component {
 
 // PROPERTIES //
 
-CompletionsPage.propTypes = {
+AssessmentScoresPage.propTypes = {
 	addNotification: PropTypes.func.isRequired,
 	cohorts: PropTypes.array.isRequired,
 	computeCompletions: PropTypes.func.isRequired,
@@ -496,10 +511,10 @@ CompletionsPage.propTypes = {
 	namespace: PropTypes.object.isRequired
 };
 
-CompletionsPage.defaultProps = {
+AssessmentScoresPage.defaultProps = {
 };
 
 
 // EXPORTS //
 
-export default withTranslation( [ 'namespace_data', 'common' ] )( CompletionsPage );
+export default withTranslation( [ 'namespace_data', 'common' ] )( AssessmentScoresPage );

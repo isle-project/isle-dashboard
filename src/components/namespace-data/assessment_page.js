@@ -22,7 +22,7 @@ import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, Route, Routes } from 'react-router-dom';
 import Nav from 'react-bootstrap/Nav';
-import CompletionsPage from './completions_page.js';
+import AssessmentScoresPage from './assessment_scores_page.js';
 import TagTable from './tag_table.js';
 import MetricsPage from './metrics_page.js';
 import ExtensionsPage from './extensions_page.js';
@@ -63,13 +63,15 @@ const AssessmentPage = ( props ) => {
 				</Nav>
 			</div>
 			<Routes>
-				<Route path="scores" element={<CompletionsPage
-					addNotification={props.addNotification}
-					namespace={props.namespace}
-					cohorts={props.namespace.cohorts}
-					lessons={props.lessons}
-					user={props.user}
-					computeCompletions={props.computeCompletions} />}
+				<Route path="scores"
+                                       element={<AssessmentScoresPage
+					          addNotification={props.addNotification}
+					          namespace={props.namespace}
+					          cohorts={props.namespace.cohorts}
+					          lessons={props.lessons}
+					          user={props.user}
+					          computeCompletions={props.computeCompletions}
+                                                />}
 				/>
 				<Route path="tags" element={<TagTable lessons={props.lessons} namespace={props.namespace} />}
 				/>
