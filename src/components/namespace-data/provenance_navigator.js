@@ -23,12 +23,17 @@ import { useTranslation }  from 'react-i18next';
 import Button              from 'react-bootstrap/Button';
 import Modal               from 'react-bootstrap/Modal';
 import isUndefinedOrNull   from '@stdlib/assert/is-undefined-or-null';
+import { isPrimitive as isPositiveNumber } from '@stdlib/assert/is-positive-number';
+import roundn              from '@stdlib/math/base/special/roundn';
+import objectValues from '@stdlib/utils/values';
+
 import StandardTable       from 'components/standard-table';
 
 
 // DATA //
 
 const MISSING_SCORE = -999;  // ATTN:TODO load missing value constant for this
+const DEFAULT_TAG = '_default_tag';
 
 
 // HELPERS //
@@ -45,7 +50,9 @@ const relativeDate = unixTime => {
     const udate = new Date( unixTime );
     const deltaHours = (now.getTime() - unixTime) / (60 * 60 * 1000);
 
-    if ( deltaHours < 1 ) {
+    if ( isUndefinedOrNull( unixTime )) {
+        return '';
+    } else if ( deltaHours < 1 ) {
         // Within the hour
         return `${Math.round(deltaHours * 60)} minutes ago`;
     } else if ( deltaHours < 24 ) {
@@ -65,18 +72,23 @@ const relativeDate = unixTime => {
  * Returns a zipper for the provenance tree rooted at a given instance.
  *
  * @param {Object} instance - an instance node in a provenance tree
- * @returns {Object} 
+ * @param {Object} metric - a metric in a provenance tree
+ * @returns {Object}
  */
 
-const makeProvenanceZipper = ( instance ) => {
-    return { node: instance, parentPath: [] };
+const makeProvenanceZipper = ( instance, metric ) => {
+    return {
+		node: instance,
+		metric,
+		parentPath: []
+	};
 };
 
 /**
  * Is the zipper at the root node?
  *
  * @param {Object} loc - a provenance zipper
- * @returns {boolean} 
+ * @returns {boolean}
  */
 
 const isZipperAtRoot = loc => loc.parentPath.length === 0;
@@ -96,25 +108,27 @@ const zipperUp = ( loc ) => {
 };
 
 /**
- * Returns a zipper moved to a given child node 
+ * Returns a zipper moved to a given child node
  *
  * @param {Object} loc - a provenance tree zipper
  * @param {Object} [id] - an entity id of a child to move to;
  *     if missing, the first child is used.
+ * @param {Object} [metric] - a metric object to use for the child node
  * @returns {Object} an updated provenance tree zipper
  */
 
-const zipperDown = ( loc, id ) => {
+const zipperDown = ( loc, id, metric ) => {
     const len = loc.node.provenance ? loc.node.provenance.length : 0;
     if ( len > 0 ) {
-        const instance = id != void 0
-              ? loc.node.provenance.find( x => x.entity === id )
-          : loc.node.provenance[ 0 ];
+        const instance = ( id !== void 0 ) ?
+			loc.node.provenance.find( x => x.entity === id ) :
+			loc.node.provenance[ 0 ];
         if ( !instance ) {
             throw new Error( `zipperDown: Cannot find entity ${id} in provenance tree.` );
         }
         return {
             node: instance,
+			metric,
             parentPath: [loc, ...loc.parentPath]
         };
     }
@@ -128,26 +142,58 @@ const zipperDown = ( loc, id ) => {
  * @returns {boolean} true if instance has no children
  */
 
-const isLeaf = instance => instance.provenance === null || instance.provenance.length === 0;
+const isLeaf = instance => isUndefinedOrNull( instance.provenance ) || instance.provenance.length === 0;
+
+/**
+ * Returns tag weights if they are non-trivial, else null.
+ *
+ * @param {Object} weights - a map of tags to their weights
+ * @returns {Object|null}
+ */
+
+const effectiveTagWeights = weights => {
+    const weightValues = objectValues( weights );
+    const haveWeights = weights && weightValues.some( isPositiveNumber );
+    const defaultOnly = haveWeights && weightValues.length === 1 && weights[ DEFAULT_TAG ];
+
+    if ( !haveWeights || defaultOnly ) {
+        return null;
+    }
+    return weights;
+};
+
+/**
+ * Returns a string displaying a tag's weight, or empty string if no trivial weight exists.
+ *
+ * @param {string} tag - a tag string, possibly DEFAULT_TAG
+ * @param {Object|null} effWeights - if non-trivial custom tag weights, a tag weights object
+ *     else null
+ * @returns {string}
+ */
+const tagWeightLabel = ( tag, effWeights ) => {
+    if ( effWeights ) {
+        return `(${effWeights[ tag || DEFAULT_TAG ] ?? effWeights[ DEFAULT_TAG ] ?? 0})`;
+    }
+    return '';
+};
 
 /**
  * Returns a label for a custom tag, or an empty string.
  *
  * @param {string} prefix - a string to precede the tag name
  * @param {string|undefined|null} tag - a tag string
- * @returns {string} 
+ * @returns {string}
  */
 
-const tagLabel = (prefix, tag) => (tag && tag !== '_default_tag' ? (prefix + tag) : '');
+const tagLabel = (prefix, tag) => (tag && tag !== DEFAULT_TAG ? (prefix + tag) : (prefix + 'default'));
 
 /**
  * Returns a label for a score, with an empty string for missing values.
  *
  * @param {number} score - a score from 0 to 100 or MISSING_SCORE for a missing value
- * @returns {string} 
+ * @returns {string}
  */
-
-const scoreLabel = score => (score === MISSING_SCORE || isUndefinedOrNull( score )) ? '' : String( score );
+const scoreLabel = score => (score === MISSING_SCORE || isUndefinedOrNull( score )) ? '' : roundn( score, -1 ).toFixed( 1 );
 
 
 // COLUMN SPEC //
@@ -155,27 +201,22 @@ const scoreLabel = score => (score === MISSING_SCORE || isUndefinedOrNull( score
 /**
  * Creates a table column structure for one level in a provenance tree.
  *
- * @param {Function} drilldown - a function moving to an entity at the next level down
+ * @param {Function} drillDown - a function moving to an entity at the next level down
  * @param {('program'|'namespace'|'lesson'|'component')} level - the level of the current node
+ * @param {Object} metric - metric object
  * @param {Function} names - a fn mapping entity ids to entity titles/names
  * @param {Function} [t=identity] - a translation function, mapping strings to strings.
  *
  * @returns {Array<Object>} an array of StandardTable column specifications.
  */
 
-const makeColumns = (drillDown, level, names, t = s => s) => [
+const makeColumns = (drillDown, level, metric, names, t = s => s) => [
     {
         accessorFn: row => names(row.entity),
-        header: t(level)
+        header: t('common:'+level)
     },
     {
-        accessorFn: row => {
-            const label = scoreLabel(row.score);
-            if (isLeaf(row)) {
-                return label;
-            }
-            return <span role="button" onClick={() => drillDown(row.entity)}>{label}</span>;
-        },
+        accessorFn: row => scoreLabel(row.score),
         header: t('score')
     },
     {
@@ -184,8 +225,37 @@ const makeColumns = (drillDown, level, names, t = s => s) => [
     },
     {
         accessorKey: 'tag',
-        header: t('tag')
+        header: t('tag-and-weight'),
+		cell: cell => {
+			const tag = cell.getValue();
+			console.log( 'tag', tag );
+			console.log( cell.row.original );
+			console.log( effectiveTagWeights( metric.tagWeights ) );
+			return (
+				<span>
+					{tagLabel( '', tag )}
+					{'  '}
+					{tagWeightLabel( tag, effectiveTagWeights( metric.tagWeights ))}
+				</span>
+			)
+		}
     },
+	{
+		header: t('drill-down'),
+		id: 'drill-down',
+		cell: cell => {
+			const inst = cell.row.original;
+			if ( isLeaf( inst ) ) {
+				return null;
+			}
+			const handleDrillDown = () => drillDown( inst.entity );
+			return (
+				<span tabIndex="-1" role="button" onKeyDown={handleDrillDown} onClick={handleDrillDown}>
+					<i className="fa fa-arrow-down" />
+				</span>
+			);
+		}
+	}
 ];
 
 
@@ -195,38 +265,67 @@ const makeColumns = (drillDown, level, names, t = s => s) => [
  * A modal component for dynamically navigating a provenance tree.
  *
  * @param {Object} instance - an instance acting as root of the provenance tree
- * @param {Object} entityNames - a map from entity id to entity title/name
+ * @param {Object} metric - metric object
+ * @param {Object} entities - a map from entity id to entity title/name
  * @param {Function} onHide - a nullary callback to call when the modal is closed
  * @param {boolean} [show=true] - whether to show the modal.
  *
  * @returns {Object} a React component
  */
-
-const ProvenanceNavigator = ({ instance, entityNames, onHide, show = true }) => {
-    const { t } = useTranslation('common');
-    const [zipper, setZipper] = useState(makeProvenanceZipper(instance));
-    const nameOf = id => entityNames?.[id] ?? id;
-    const moveDown = id => setZipper(z => zipperDown(z, id));
+const ProvenanceNavigator = ({ instance, metric, entities, onHide, show = true }) => {
+    const { t } = useTranslation( [ 'namespace_data', 'common' ] );
+    const [zipper, setZipper] = useState( makeProvenanceZipper( instance, metric ) );
+    const nameOf = id => entities?.[id]?.title ?? id;
+    const moveDown = id => setZipper(z => {
+		const entity = entities[ id ];
+		let submetric = null;
+		if ( entity ) {
+			submetric = entity.completions.find( x => x.name === z.metric.ref );
+		}
+        console.log( 'Entity\n', entity );
+		console.log( 'Z\n', JSON.stringify(z, null, 2) );
+		console.log( 'Submetric\n', submetric );
+		return zipperDown( z, id, submetric );
+	});
     const moveUp = () => setZipper(zipperUp);
 
+	const columns = makeColumns(moveDown, zipper.node.level, zipper.metric, nameOf, t );
+	const data = zipper.node.provenance || [];
+    const timeMsg = zipper.node.time ? ` from ${relativeDate(zipper.node.time)}` : '';
+	const tOpts = {
+		metricName: zipper.metric.name,
+		ruleName: zipper.metric.rule[ 0 ],
+		ruleParams: zipper.metric.rule.slice( 1 ).join( ', ' )
+	};
+    console.log( zipper.metric );
+	console.log( 'tOpts\n', tOpts );
     return (
-        <Modal show={show} onHide={onHide}>
+        <Modal size="lg" show={show} onHide={onHide}>
             <Modal.Header closeButton>
                 <Modal.Title as="h3">
-                    {`${t('score-provenance-for')} ${t(zipper.node.level)} ${nameOf(zipper.node.entity)}`}
+                    {`${t('score-provenance-for')} ${t('common:'+zipper.node.level)} ${nameOf(zipper.node.entity)}`}
                 </Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                <h4>{`Score ${zipper.node.score} from ${relativeDate(zipper.node.time)}${tagLabel(' with tag ', zipper.node.tag)}`}</h4>
+                <h4>
+					{`Score ${scoreLabel(zipper.node.score)}${timeMsg}${tagLabel(' with tag ', zipper.node.tag)}`}
+					<Button
+						onClick={moveUp} style={{ float: 'right' }}
+                        disabled={isZipperAtRoot(zipper)}
+						variant="outline-dark"
+                        className="mb-2"
+					>
+						{t('move-up')}
+					</Button>
+				</h4>
+				{zipper.metric && <h5>
+					{t('calculated-with-metric', tOpts )}
+				</h5>}
                 <StandardTable
-                    columns={makeColumns(moveDown, zipper.node.level, nameOf, t)}
-                    data={zipper.node.provenance || []}
+                    columns={columns}
+                    data={data}
                 />
             </Modal.Body>
-            <Modal.Footer>
-                <Button variant="secondary" onClick={onHide}>{t('dismiss')}</Button>
-                <Button onClick={moveUp} disabled={isZipperAtRoot(zipper)}>{t('up')}</Button>
-            </Modal.Footer>
         </Modal>
     );
 };
@@ -235,10 +334,15 @@ const ProvenanceNavigator = ({ instance, entityNames, onHide, show = true }) => 
 // PROPERTIES //
 
 ProvenanceNavigator.propTypes = {
+    entities: PropTypes.object.isRequired,
     instance: PropTypes.object.isRequired,
-    entityNames: PropTypes.object.isRequired,
+	metric: PropTypes.object.isRequired,
     onHide: PropTypes.func.isRequired,
     show: PropTypes.bool
+};
+
+ProvenanceNavigator.defaultProps = {
+	show: true
 };
 
 

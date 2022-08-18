@@ -44,7 +44,6 @@ import server from 'constants/server';
 import saveAs from 'utils/file_saver.js';
 import createTextColumn from 'utils/create_text_column.js';
 import ProvenanceNavigator, { relativeDate } from './provenance_navigator.js';
-
 import './progress_page.css';
 import 'css/input_range.css';
 
@@ -79,7 +78,6 @@ function extractMetricSet( cohorts, scope, namespace ) {
 	const keyCriterion = scope.value === 'course-wide' ? `namespace-${namespace._id}-` : `lesson-${scope.value}-`;
 	for ( let i = 0; i < cohorts.length; i++ ) {
 		for ( let j = 0; j < cohorts[ i ].members.length; j++ ) {
-			console.log( 'Cohorts: ', cohorts[ i ] );
 			const userCompletions = Object.keys( cohorts[ i ].members[ j ].completions || {} );
 			for ( let k = 0; k < userCompletions.length; ++k ) {
 				const key = userCompletions[k];
@@ -126,14 +124,16 @@ class AssessmentScoresPage extends Component {
 			showComputeModal: false,
 			tags: [],
 			computeMetric: null,
-			showProvenanceModal: false  // false or an Instance to be shown
+			provenanceModal: false  // false or an instance to be shown
 		};
-                this.beginningOfDay = new Date( new Date().setHours( 0, 0, 0, 0 ) );
-                this.entityNames = {[props.namespace._id]: props.namespace.title};
-                for( let i = 0; i < props.lessons.length; ++i ) {
-                    const lesson = props.lessons[ i ];
-                    this.entityNames[ lesson._id ] = lesson.title;
-                }
+		this.beginningOfDay = new Date( new Date().setHours( 0, 0, 0, 0 ) );
+		this.entities = {
+			[props.namespace._id]: props.namespace
+		};
+		for ( let i = 0; i < props.lessons.length; ++i ) {
+			const lesson = props.lessons[ i ];
+			this.entities[ lesson._id ] = lesson;
+		}
 	}
 
 	componentDidMount() {
@@ -281,20 +281,24 @@ class AssessmentScoresPage extends Component {
 					const missing = ' ';  // Value displayed for a missing score
 					let displayDate = '';
 					if ( lastUpdated instanceof Date ) {
-                                        	displayDate = relativeDate( lastUpdated.getTime() );
-						// if ( lastUpdated >= this.beginningOfDay ) {
-						//         displayDate = lastUpdated.toLocaleTimeString();
-						// }
-						// else {
-						//         displayDate = lastUpdated.toLocaleDateString();
-						// }
+						displayDate = relativeDate( lastUpdated.getTime() );
 					} else if ( typeof lastUpdated === 'number' ) {
-                                        	displayDate = relativeDate( lastUpdated );
-                                        } else {
+						displayDate = relativeDate( lastUpdated );
+					} else {
 						displayDate = lastUpdated;
 					}
+					const onScoreClick = () => this.setState({ provenanceModal: row.value.instance ? {
+						instance: row.value.instance,
+						metric: metricObject( this.state.scope, this.metrics[ i ].label, this.props.namespace, this.props.lessons )
+					} : false } );
 					return ( <OverlayTrigger placement="right" overlay={<Tooltip id="tooltip">{`${t('last-updated')} ${displayDate}`}</Tooltip>} >
-						<span style={{ whiteSpace: 'pre' }} role="button" onClick={() => this.setState( {showProvenanceModal: row.value} ) }>
+						<span
+							style={{ whiteSpace: 'pre' }}
+							tabIndex="-1"
+							role="button"
+							onKeyDown={onScoreClick}
+							onClick={onScoreClick}
+						>
 							{lpad( score < 0 ? missing : String(roundn( score, -1 ).toFixed( 1 )), 5, '  ' )}
 						</span>
 					</OverlayTrigger> );
@@ -475,25 +479,26 @@ class AssessmentScoresPage extends Component {
 					/>
 				</div>
 				{this.state.showComputeModal &&
-                                 <ComputeModal
-				   metric={this.state.computeMetric}
-				   show={this.state.showComputeModal}
-				   onHide={() => this.setState({ showComputeModal: false })}
-				   cohorts={this.props.cohorts}
-				   tags={this.state.tags}
-				   entity={this.props.namespace}
-				   level="namespace"
-				   onCompute={() => {
-				       this.setState({ showComputeModal: false });
-				   }}
-				   computeCompletions={this.props.computeCompletions}
+				<ComputeModal
+					metric={this.state.computeMetric}
+					show={this.state.showComputeModal}
+					onHide={() => this.setState({ showComputeModal: false })}
+					cohorts={this.props.cohorts}
+					tags={this.state.tags}
+					entity={this.props.namespace}
+					level="namespace"
+					onCompute={() => {
+						this.setState({ showComputeModal: false });
+					}}
+					computeCompletions={this.props.computeCompletions}
 				/>}
-                          	{this.state.showProvenanceModal &&
-                                 <ProvenanceNavigator
-                                   instance={this.state.showProvenanceModal}
-                                   entityNames={this.entityNames}
-                                   onHide={() => this.setState( {showProvenanceModal: false} )}
-                                   show={!!this.state.showProvenanceModal}
+				{this.state.provenanceModal &&
+				<ProvenanceNavigator
+					instance={this.state.provenanceModal.instance}
+					metric={this.state.provenanceModal.metric}
+					entities={this.entities}
+					onHide={() => this.setState( {provenanceModal: false} )}
+					show={!!this.state.provenanceModal}
 				/>}
 			</Fragment>
 		);
