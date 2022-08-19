@@ -37,75 +37,75 @@ import ExtensionsPage from './extensions_page.js';
  * @returns {ReactElement} setting page
  */
 const AssessmentPage = ( props ) => {
-        const [ activePage, setActivePage ] = useState( window.location.pathname );
-        const { t } = useTranslation( [ 'namespace_data', 'common' ] );
-        const navigate = useNavigate();
-        const handleSelect = ( selectedKey ) => {
-                navigate( selectedKey );
-                setActivePage( selectedKey );
-        };
-        return (
-                <Fragment>
-                  <div className="namespace-sub-navbar" >
-                    <Nav variant="pills" activeKey={activePage} onSelect={handleSelect}>
-                      <Nav.Item>
-                        <Nav.Link eventKey="scores" title="Scores" >{t('scores')}</Nav.Link>
-                      </Nav.Item>
-                      <Nav.Item>
-                        <Nav.Link eventKey="tags" title="Tags" >{t('tags')}</Nav.Link>
-                      </Nav.Item>
-                      <Nav.Item>
-                        <Nav.Link eventKey="metrics" title="Metrics" >{t('metrics')}</Nav.Link>
-                      </Nav.Item>
-                      <Nav.Item>
-                        <Nav.Link eventKey="extensions" title="Extensions" >{t('extensions')}</Nav.Link>
-                      </Nav.Item>
-                    </Nav>
-                  </div>
-                  <Routes>
-                    <Route path="scores"
-                           element={<AssessmentScoresPage
-                                      addNotification={props.addNotification}
-                                      namespace={props.namespace}
-                                      cohorts={props.namespace.cohorts}
-                                      lessons={props.lessons}
-                                      user={props.user}
-                                      computeCompletions={props.computeCompletions}
-                                    />}
-                    />
-                    <Route path="tags"
-                           element={<TagTable
-                                      lessons={props.lessons}
-                                      namespace={props.namespace}
-                                    />}
-                    />
-                    <Route path="metrics"
-                           element={<MetricsPage
-                                      lessons={props.lessons}
-                                      namespace={props.namespace}
-                                    />}
-                    />
-                    <Route path="extensions"
-                           element={<ExtensionsPage
-                                      lessons={props.lessons}
-                                      namespace={props.namespace}
-                                      cohorts={props.namespace.cohorts}
-                                    />}
-                    />
-                  </Routes>
-                </Fragment>
-        );
+	const [ activePage, setActivePage ] = useState( window.location.pathname );
+	const { t } = useTranslation( [ 'namespace_data', 'common' ] );
+	const navigate = useNavigate();
+	const handleSelect = ( selectedKey ) => {
+		navigate( selectedKey );
+		setActivePage( selectedKey );
+	};
+	return (
+		<Fragment>
+			<div className="namespace-sub-navbar" >
+				<Nav variant="pills" activeKey={activePage} onSelect={handleSelect}>
+					<Nav.Item>
+					<Nav.Link eventKey="scores" title="Scores" >{t('scores')}</Nav.Link>
+					</Nav.Item>
+					<Nav.Item>
+					<Nav.Link eventKey="tags" title="Tags" >{t('tags')}</Nav.Link>
+					</Nav.Item>
+					<Nav.Item>
+					<Nav.Link eventKey="metrics" title="Metrics" >{t('metrics')}</Nav.Link>
+					</Nav.Item>
+					<Nav.Item>
+					<Nav.Link eventKey="extensions" title="Extensions" >{t('extensions')}</Nav.Link>
+					</Nav.Item>
+				</Nav>
+			</div>
+			<Routes>
+				<Route path="scores"
+					element={<AssessmentScoresPage
+						addNotification={props.addNotification}
+						namespace={props.namespace}
+						cohorts={props.namespace.cohorts}
+						lessons={props.lessons}
+						user={props.user}
+						computeCompletions={props.computeCompletions}
+					/>}
+				/>
+				<Route path="tags"
+					element={<TagTable
+						lessons={props.lessons}
+						namespace={props.namespace}
+					/>}
+				/>
+				<Route path="metrics"
+					element={<MetricsPage
+						lessons={props.lessons}
+						namespace={props.namespace}
+					/>}
+				/>
+				<Route path="extensions"
+					element={<ExtensionsPage
+						lessons={props.lessons}
+						namespace={props.namespace}
+						cohorts={props.namespace.cohorts}
+					/>}
+				/>
+			</Routes>
+		</Fragment>
+	);
 };
 
 
 // PROPERTIES //
 
 AssessmentPage.propTypes = {
-        addNotification: PropTypes.func.isRequired,
-        computeCompletions: PropTypes.func.isRequired,
-        lessons: PropTypes.array.isRequired,
-        namespace: PropTypes.object.isRequired,
-        user: PropTypes.object.isRequired
+		addNotification: PropTypes.func.isRequired,
+		computeCompletions: PropTypes.func.isRequired,
+		lessons: PropTypes.array.isRequired,
+		namespace: PropTypes.object.isRequired,
+		user: PropTypes.object.isRequired
 };
 
 

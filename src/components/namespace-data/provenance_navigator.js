@@ -18,16 +18,15 @@
 // MODULES //
 
 import React, { useState } from 'react';
-import PropTypes           from 'prop-types';
-import { useTranslation }  from 'react-i18next';
-import Button              from 'react-bootstrap/Button';
-import Modal               from 'react-bootstrap/Modal';
-import isUndefinedOrNull   from '@stdlib/assert/is-undefined-or-null';
+import PropTypes from 'prop-types';
+import { useTranslation } from 'react-i18next';
+import Button from 'react-bootstrap/Button';
+import Modal from 'react-bootstrap/Modal';
+import isUndefinedOrNull from '@stdlib/assert/is-undefined-or-null';
 import { isPrimitive as isPositiveNumber } from '@stdlib/assert/is-positive-number';
-import roundn              from '@stdlib/math/base/special/roundn';
+import roundn from '@stdlib/math/base/special/roundn';
 import objectValues from '@stdlib/utils/values';
-
-import StandardTable       from 'components/standard-table';
+import StandardTable from 'components/standard-table';
 
 
 // DATA //
@@ -44,28 +43,27 @@ const DEFAULT_TAG = '_default_tag';
  * @param {number} unixTime - A date-time in milliseconds since the Unix epoch.
  * @returns {string} a simple representation of the given datetime.
  */
-
 const relativeDate = unixTime => {
-    const now = new Date();
-    const udate = new Date( unixTime );
-    const deltaHours = (now.getTime() - unixTime) / (60 * 60 * 1000);
+	const now = new Date();
+	const udate = new Date( unixTime );
+	const deltaHours = (now.getTime() - unixTime) / (60 * 60 * 1000);
 
-    if ( isUndefinedOrNull( unixTime )) {
-        return '';
-    } else if ( deltaHours < 1 ) {
-        // Within the hour
-        return `${Math.round(deltaHours * 60)} minutes ago`;
-    } else if ( deltaHours < 24 ) {
-        // Within a day
-        return `${Math.round(deltaHours)} hours ago`;
-    } else if ( deltaHours < 7 * 24 ) {
-        // Within a week
-        return udate.toLocaleDateString( void 0, { weekday: 'long' } );
-    } else if ( unixTime > new Date(now.getFullYear(), 0, 0).getTime() ) {
-        // Within the year
-        return udate.toLocaleString( void 0, {month: 'short', day: 'numeric',  hour: 'numeric', minute: 'numeric' } );
-    }
-    return udate.toLocaleString( void 0, {year: 'numeric', month: 'short', day: 'numeric', hour: 'numeric', minute: 'numeric' } );
+	if ( isUndefinedOrNull( unixTime )) {
+		return '';
+	} else if ( deltaHours < 1 ) {
+		// Within the hour
+		return `${Math.round(deltaHours * 60)} minutes ago`;
+	} else if ( deltaHours < 24 ) {
+		// Within a day
+		return `${Math.round(deltaHours)} hours ago`;
+	} else if ( deltaHours < 7 * 24 ) {
+		// Within a week
+		return udate.toLocaleDateString( void 0, { weekday: 'long' } );
+	} else if ( unixTime > new Date(now.getFullYear(), 0, 0).getTime() ) {
+		// Within the year
+		return udate.toLocaleString( void 0, { month: 'short', day: 'numeric', hour: 'numeric', minute: 'numeric' } );
+	}
+	return udate.toLocaleString( void 0, { year: 'numeric', month: 'short', day: 'numeric', hour: 'numeric', minute: 'numeric' } );
 };
 
 /**
@@ -75,9 +73,8 @@ const relativeDate = unixTime => {
  * @param {Object} metric - a metric in a provenance tree
  * @returns {Object}
  */
-
 const makeProvenanceZipper = ( instance, metric ) => {
-    return {
+	return {
 		node: instance,
 		metric,
 		parentPath: []
@@ -90,7 +87,6 @@ const makeProvenanceZipper = ( instance, metric ) => {
  * @param {Object} loc - a provenance zipper
  * @returns {boolean}
  */
-
 const isZipperAtRoot = loc => loc.parentPath.length === 0;
 
 /**
@@ -99,12 +95,11 @@ const isZipperAtRoot = loc => loc.parentPath.length === 0;
  * @param {Object} loc - a provenance tree zipper
  * @returns {Object} an updated provenance tree zipper
  */
-
 const zipperUp = ( loc ) => {
-    if ( loc.parentPath.length > 0 ) {
-        return loc.parentPath[ 0 ];
-    }
-    throw new Error( 'Cannot move up from root in provenance zipper' );
+	if ( loc.parentPath.length > 0 ) {
+		return loc.parentPath[ 0 ];
+	}
+	throw new Error( 'Cannot move up from root in provenance zipper' );
 };
 
 /**
@@ -116,23 +111,22 @@ const zipperUp = ( loc ) => {
  * @param {Object} [metric] - a metric object to use for the child node
  * @returns {Object} an updated provenance tree zipper
  */
-
 const zipperDown = ( loc, id, metric ) => {
-    const len = loc.node.provenance ? loc.node.provenance.length : 0;
-    if ( len > 0 ) {
-        const instance = ( id !== void 0 ) ?
+	const len = loc.node.provenance ? loc.node.provenance.length : 0;
+	if ( len > 0 ) {
+		const instance = ( id !== void 0 ) ?
 			loc.node.provenance.find( x => x.entity === id ) :
 			loc.node.provenance[ 0 ];
-        if ( !instance ) {
-            throw new Error( `zipperDown: Cannot find entity ${id} in provenance tree.` );
-        }
-        return {
-            node: instance,
+		if ( !instance ) {
+			throw new Error( `zipperDown: Cannot find entity ${id} in provenance tree.` );
+		}
+		return {
+			node: instance,
 			metric,
-            parentPath: [loc, ...loc.parentPath]
-        };
-    }
-    throw new Error( 'Cannot move down without children in provenance zipper' );
+			parentPath: [loc, ...loc.parentPath]
+		};
+	}
+	throw new Error( 'Cannot move down without children in provenance zipper' );
 };
 
 /**
@@ -141,7 +135,6 @@ const zipperDown = ( loc, id, metric ) => {
  * @param {Object} instance - an assessment instance
  * @returns {boolean} true if instance has no children
  */
-
 const isLeaf = instance => isUndefinedOrNull( instance.provenance ) || instance.provenance.length === 0;
 
 /**
@@ -150,16 +143,15 @@ const isLeaf = instance => isUndefinedOrNull( instance.provenance ) || instance.
  * @param {Object} weights - a map of tags to their weights
  * @returns {Object|null}
  */
-
 const effectiveTagWeights = weights => {
-    const weightValues = objectValues( weights );
-    const haveWeights = weights && weightValues.some( isPositiveNumber );
-    const defaultOnly = haveWeights && weightValues.length === 1 && weights[ DEFAULT_TAG ];
+	const weightValues = objectValues( weights );
+	const haveWeights = weights && weightValues.some( isPositiveNumber );
+	const defaultOnly = haveWeights && weightValues.length === 1 && weights[ DEFAULT_TAG ];
 
-    if ( !haveWeights || defaultOnly ) {
-        return null;
-    }
-    return weights;
+	if ( !haveWeights || defaultOnly ) {
+		return null;
+	}
+	return weights;
 };
 
 /**
@@ -171,10 +163,10 @@ const effectiveTagWeights = weights => {
  * @returns {string}
  */
 const tagWeightLabel = ( tag, effWeights ) => {
-    if ( effWeights ) {
-        return `(${effWeights[ tag || DEFAULT_TAG ] ?? effWeights[ DEFAULT_TAG ] ?? 0})`;
-    }
-    return '';
+	if ( effWeights ) {
+		return `(${effWeights[ tag || DEFAULT_TAG ] ?? effWeights[ DEFAULT_TAG ] ?? 0})`;
+	}
+	return '';
 };
 
 /**
@@ -184,7 +176,6 @@ const tagWeightLabel = ( tag, effWeights ) => {
  * @param {string|undefined|null} tag - a tag string
  * @returns {string}
  */
-
 const tagLabel = (prefix, tag) => (tag && tag !== DEFAULT_TAG ? (prefix + tag) : (prefix + 'default'));
 
 /**
@@ -209,37 +200,33 @@ const scoreLabel = score => (score === MISSING_SCORE || isUndefinedOrNull( score
  *
  * @returns {Array<Object>} an array of StandardTable column specifications.
  */
-
 const makeColumns = (drillDown, level, metric, names, t = s => s) => [
-    {
-        accessorFn: row => names(row.entity),
-        header: t('common:'+level)
-    },
-    {
-        accessorFn: row => scoreLabel(row.score),
-        header: t('score')
-    },
-    {
-        accessorFn: row => relativeDate(row.time),
-        header: t('time-calculated')
-    },
-    {
-        accessorKey: 'tag',
-        header: t('tag-and-weight'),
+	{
+		accessorFn: row => names(row.entity),
+		header: t('common:'+level)
+	},
+	{
+		accessorFn: row => scoreLabel(row.score),
+		header: t('score')
+	},
+	{
+		accessorFn: row => relativeDate(row.time),
+		header: t('time-calculated')
+	},
+	{
+		accessorKey: 'tag',
+		header: t('tag-and-weight'),
 		cell: cell => {
 			const tag = cell.getValue();
-			console.log( 'tag', tag );
-			console.log( cell.row.original );
-			console.log( effectiveTagWeights( metric.tagWeights ) );
 			return (
 				<span>
 					{tagLabel( '', tag )}
 					{'  '}
 					{tagWeightLabel( tag, effectiveTagWeights( metric.tagWeights ))}
 				</span>
-			)
+			);
 		}
-    },
+	},
 	{
 		header: t('drill-down'),
 		id: 'drill-down',
@@ -273,10 +260,10 @@ const makeColumns = (drillDown, level, metric, names, t = s => s) => [
  * @returns {Object} a React component
  */
 const ProvenanceNavigator = ({ instance, metric, entities, lastUpdated, onHide, show = true }) => {
-    const { t } = useTranslation( [ 'namespace_data', 'common' ] );
-    const [zipper, setZipper] = useState( makeProvenanceZipper( instance, metric ) );
-    const nameOf = id => entities?.[id]?.title ?? id;
-    const moveDown = id => setZipper(z => {
+	const { t } = useTranslation( [ 'namespace_data', 'common' ] );
+	const [zipper, setZipper] = useState( makeProvenanceZipper( instance, metric ) );
+	const nameOf = id => entities?.[id]?.title ?? id;
+	const moveDown = id => setZipper(z => {
 		const entity = entities[ id ];
 		let submetric = null;
 		if ( entity ) {
@@ -284,31 +271,25 @@ const ProvenanceNavigator = ({ instance, metric, entities, lastUpdated, onHide, 
 		}
 		return zipperDown( z, id, submetric );
 	});
-    const moveUp = () => setZipper(zipperUp);
-
-	console.log( 'TIMES' );
-	console.log( zipper.metric );
-	console.log( new Date( zipper.metric.updatedAt ).getTime() )
-	console.log( lastUpdated );
-
+	const moveUp = () => setZipper( zipperUp );
 	const columns = makeColumns(moveDown, zipper.node.level, zipper.metric, nameOf, t );
 	const data = zipper.node.provenance || [];
-    const timeMsg = zipper.node.time ? ` from ${relativeDate(zipper.node.time)}` : '';
-    return (
-        <Modal size="lg" show={show} onHide={onHide}>
-            <Modal.Header closeButton>
-                <Modal.Title as="h3">
-                    {`${t('score-provenance-for')} ${t('common:'+zipper.node.level)} ${nameOf(zipper.node.entity)}`}
-                </Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
-                <h4>
+	const timeMsg = zipper.node.time ? ` from ${relativeDate(zipper.node.time)}` : '';
+	return (
+		<Modal size="lg" show={show} onHide={onHide}>
+			<Modal.Header closeButton>
+				<Modal.Title as="h3">
+					{`${t('score-provenance-for')} ${t('common:'+zipper.node.level)} ${nameOf(zipper.node.entity)}`}
+				</Modal.Title>
+			</Modal.Header>
+			<Modal.Body>
+				<h4>
 					{`Score ${scoreLabel(zipper.node.score)}${timeMsg}${tagLabel(' with tag ', zipper.node.tag)}`}
 					<Button
 						onClick={moveUp} style={{ float: 'right' }}
-                        disabled={isZipperAtRoot(zipper)}
+						disabled={isZipperAtRoot(zipper)}
 						variant="outline-dark"
-                        className="mb-2"
+						className="mb-2"
 					>
 						{t('move-up')}
 					</Button>
@@ -323,25 +304,25 @@ const ProvenanceNavigator = ({ instance, metric, entities, lastUpdated, onHide, 
 				{new Date( zipper.metric.lastUpdated ).getTime() > lastUpdated && <h5 className="completions-warning" >
 					{t('metric-has-changed-since-score-was-calculated')}
 				</h5>}
-                <StandardTable
-                    columns={columns}
-                    data={data}
-                />
-            </Modal.Body>
-        </Modal>
-    );
+				<StandardTable
+					columns={columns}
+					data={data}
+				/>
+			</Modal.Body>
+		</Modal>
+	);
 };
 
 
 // PROPERTIES //
 
 ProvenanceNavigator.propTypes = {
-    entities: PropTypes.object.isRequired,
-    instance: PropTypes.object.isRequired,
+	entities: PropTypes.object.isRequired,
+	instance: PropTypes.object.isRequired,
 	lastUpdated: PropTypes.number.isRequired,
 	metric: PropTypes.object.isRequired,
-    onHide: PropTypes.func.isRequired,
-    show: PropTypes.bool
+	onHide: PropTypes.func.isRequired,
+	show: PropTypes.bool
 };
 
 ProvenanceNavigator.defaultProps = {
