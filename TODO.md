@@ -14,11 +14,12 @@ TODO
 6.  Directory structure or keyword tagging for lessons? Make it easier to navigate a larger course
 
 7. Completions:
-  -   [ ] <HIGH> ProvenanceNavigator component when clicking on scores
   -   [ ] <HIGH> Auto-compute and add progress
   -   [ ] <HIGH> New info tables actionable (scores, tags, extensions)
   -   [ ] <HIGH> Logging scores in pre-existing components
+  -   [ ] <HIGH> Update translation keys
   -   [ ] <HIGH> Renaming and new lingo
+  -   [ ] <HIGH> Weird bug freezing edit lesson metric modal
   -   [ ] <MED> Enter lots of data for testing through the UI
   -   [ ] <MED> validation of rule parameters
   -   [ ] <MED> edit_lesson_metric_modal: Unclicking shared rule after changing rule should leave lower rules at last shared value
