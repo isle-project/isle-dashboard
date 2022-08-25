@@ -13,7 +13,7 @@ TODO
 5.  For dendograms, add hierarchical clustering with *minmax linkage*
 6.  Directory structure or keyword tagging for lessons? Make it easier to navigate a larger course
 
-7. Completions:
+7. Assessments:
   -   [ ] <HIGH> Auto-compute and add progress
   -   [ ] <HIGH> New info tables actionable (scores, tags, extensions)
   -   [ ] <HIGH> Logging scores in pre-existing components
@@ -25,17 +25,15 @@ TODO
   -   [ ] <MED> edit_lesson_metric_modal: Unclicking shared rule after changing rule should leave lower rules at last shared value
   -   [ ] <LOW> Add 'metric_order' endpoint
   -   [ ] <LOW> Generalize coverage to support patterns and types
-  -   [ ] <LOW> More salient namespace title on completions screen (among others)
+  -   [ ] <LOW> More salient namespace title on assessments screen (among others)
 
 Some potential changes:
 
   1. Language Changes (not tied to specific term)
-     + completion -> assessment
-     + ref -> submetric
      + use 'score' when referring to the numeric value
      + use 'instance' when referring to the [score, time, provenance] aggregate
 
-  2. Provenance tracking in completions code
+  2. Provenance tracking in assessments code
      Maintain a provenance tree as third item [score, time, provenance].
      Object has the form {level, entity, data} where level is a level string,
      entity is the id of the entity (e.g., component, lesson, ...) these data
@@ -70,6 +68,6 @@ Some potential changes:
      Have sharedMetric and sharedMetricComponents as state and track it all from there,
      allowing everything to be shared, but hiding unshared quantities
 
-  9. Associated information from component into completions table; connection with grade.
+  9. Associated information from component into assessments table; connection with grade.
      componentData; rules
 
