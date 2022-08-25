@@ -27,7 +27,7 @@ import { addNotificationInjector } from 'actions/notification';
 import { getNamespaceActionsInjector, adjustProgressInjector } from 'actions/namespace';
 import { getCourseTicketsInjector, sendTicketMessageInjector,
 	closeTicketInjector, openTicketInjector, updatePriorityInjector } from 'actions/ticket';
-import { computeCompletionsInjector } from 'actions/completions';
+import { computeAssessmentsInjector } from 'actions/assessments';
 
 
 // FUNCTIONS //
@@ -55,7 +55,7 @@ function mapDispatchToProps( dispatch ) {
 		addAnnouncement: addAnnouncementInjector( dispatch ),
 		sendTicketMessage: sendTicketMessageInjector( dispatch ),
 		closeTicket: closeTicketInjector( dispatch ),
-		computeCompletions: computeCompletionsInjector( dispatch ),
+		computeAssessments: computeAssessmentsInjector( dispatch ),
 		openTicket: openTicketInjector( dispatch ),
 		uploadFile: uploadFileInjector( dispatch ),
 		updatePriority: updatePriorityInjector( dispatch )

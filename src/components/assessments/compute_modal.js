@@ -48,8 +48,8 @@ const memberSelection =( member ) => {
 	return { value: member.id, label: `${member.firstName} ${member.lastName} (${member.email})` };
 };
 
-function ComputeModal({ cohorts, metric, entity, level, show, onHide, computeCompletions, onCompute }) {
-	const { t } = useTranslation([ 'completions', 'common' ]);
+function ComputeModal({ cohorts, metric, entity, level, show, onHide, computeAssessments, onCompute }) {
+	const { t } = useTranslation([ 'assessments', 'common' ]);
 	const metricName = isArray( metric ) ? metric[ 0 ].name : metric.name;
 
 	const [ formValues, setFormValues ] = useState({
@@ -99,8 +99,8 @@ function ComputeModal({ cohorts, metric, entity, level, show, onHide, computeCom
 			metric: metric,
 			policyOptions
 		};
-		computeCompletions( body ).then( onCompute );
-	}, [ metric, entity, formValues, FORM_STORAGE_KEY, computeCompletions, onCompute ] );
+		computeAssessments( body ).then( onCompute );
+	}, [ metric, entity, formValues, FORM_STORAGE_KEY, computeAssessments, onCompute ] );
 	const users = cohorts.reduce( ( userList, cohort ) => {
 		const members = cohort.members.map( member => memberSelection(member) );
 		return userList.concat( members );
@@ -224,7 +224,7 @@ function ComputeModal({ cohorts, metric, entity, level, show, onHide, computeCom
 
 ComputeModal.propTypes = {
 	cohorts: PropTypes.array.isRequired,
-	computeCompletions: PropTypes.func.isRequired,
+	computeAssessments: PropTypes.func.isRequired,
 	entity: PropTypes.oneOfType([
 		PropTypes.arrayOf( PropTypes.object ),
 		PropTypes.object

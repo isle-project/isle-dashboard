@@ -65,14 +65,14 @@ import HelpfulLabel from './helpful_label.js';
 
 // MAIN //
 
-function EditMetricModal({ level, entity, show, onHide, allRules, refs, createNew, metric, onConfirm }) {
-	const { t } = useTranslation( 'completions' );
+function EditMetricModal({ level, entity, show, onHide, allRules, submetrics, createNew, metric, onConfirm }) {
+	const { t } = useTranslation( 'assessments' );
 	const [ name, setName ] = useState( metric?.name || '' );
 	const [ rule, setRule ] = useState( metric?.rule ? allRules[ metric.rule[ 0 ] ] : null );
 	const [ ruleParameters, setRuleParameters ] = useState( metric?.rule ? metric.rule.slice( 1 ) : [] );
 	const [ coverage, setCoverage ] = useState( COVERAGE_OPTIONS[ metric?.coverage?.[ 0 ] || 'all' ] );
 	const [ coverageEntities, setCoverageEntities ] = useState( [] );
-	const [ selectedRef, setSelectedRef ] = useState( metric?.ref || null );
+	const [ selectedSubmetric, setSelectedSubmetric ] = useState( metric?.submetric || null );
 	const [ tagWeights, setTagWeights ] = useState( createTagWeights( null, metric?.tagWeights ) );
 	const [ autoCompute, setAutoCompute ] = useState( metric?.autoCompute ?? false );
 	const [ visibleToStudent, setVisibleToStudent ] = useState( metric?.visibleToStudent ?? false );
@@ -80,7 +80,7 @@ function EditMetricModal({ level, entity, show, onHide, allRules, refs, createNe
 
 	useEffect( () => {
 		if ( level === 'lesson' ) {
-			// TODO: fetch component IDs of that lesson from completion data table
+			// TODO: fetch component IDs of that lesson from assessment data table
 			subEntities.current = [];
 		} else if ( levelFieldMapping[ level ] ) {
 			const entities = entity[ levelFieldMapping[ level ] ];
@@ -107,7 +107,7 @@ function EditMetricModal({ level, entity, show, onHide, allRules, refs, createNe
 			coverage: [ coverage.value ].concat( coverageEntities.map( x => x.value._id ) ),
 			level,
 			id: entity._id,
-			ref: selectedRef,
+			submetric: selectedSubmetric,
 			tagWeights,
 			autoCompute,
 			visibleToStudent
@@ -118,7 +118,7 @@ function EditMetricModal({ level, entity, show, onHide, allRules, refs, createNe
 		setCoverageEntities( value );
 	};
 	const labelStyler = ( styles, { data }) => {
-		if ( !selectedRef || data.value.completions.some( x => x.name === selectedRef ) ) {
+		if ( !selectedSubmetric || data.value.assessments.some( x => x.name === selectedSubmetric ) ) {
 			return styles;
 		}
 		return {
@@ -205,16 +205,16 @@ function EditMetricModal({ level, entity, show, onHide, allRules, refs, createNe
 					<Col sm={9} >
 						<CreatableSelect
 							isClearable
-							options={refs.map( ( ref ) => ({ value: ref, label: ref }) )}
+							options={submetrics.map( ( submetric ) => ({ value: submetric, label: submetric }) )}
 							onChange={( option ) => {
-								setSelectedRef( option ? option.value : null );
+								setSelectedSubmetric( option ? option.value : null );
 							}}
-							defaultValue={selectedRef ? { value: selectedRef, label: selectedRef } : null}
+							defaultValue={selectedSubmetric ? { value: selectedSubmetric, label: selectedSubmetric } : null}
 							components={{
 								SingleValue: ({ children, ...rest }) => {
 									return (
 										<components.SingleValue {...rest} >
-											{children}{refs && !refs.includes( selectedRef ) && <span className="completions-warning" >{` (${t('lesson-metric-does-not-exist-yet')})`}</span>}
+											{children}{submetrics && !submetrics.includes( selectedSubmetric ) && <span className="assessments-warning" >{` (${t('lesson-metric-does-not-exist-yet')})`}</span>}
 										</components.SingleValue>
 									);
 								}
@@ -307,8 +307,8 @@ EditMetricModal.propTypes = {
 	metric: PropTypes.object,
 	onConfirm: PropTypes.func.isRequired,
 	onHide: PropTypes.func.isRequired,
-	refs: PropTypes.array.isRequired,
-	show: PropTypes.bool.isRequired
+	show: PropTypes.bool.isRequired,
+	submetrics: PropTypes.array.isRequired
 };
 
 EditMetricModal.defaultProps = {

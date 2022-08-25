@@ -25,7 +25,7 @@ import { getLessons } from 'actions/lesson';
 import { changedNamespace } from 'actions/namespace';
 import { logoutInjector, userUpdateCheckInjector } from 'actions/user';
 import { setLessonOrderInjector, setSearchPhraseInjector, setLessonOrderDirInjector } from 'actions/search';
-import { getCompletionComponents, getCompletionTags } from 'actions/completions';
+import { getAssessmentComponents, getAssessmentTags } from 'actions/assessments';
 
 
 // EXPORTS //
@@ -55,20 +55,20 @@ function mapDispatchToProps( dispatch ) {
 			getLessons( dispatch, namespaceName )
 				.then( ( lessons = [] ) => {
 					const ids = lessons.map( x => x._id );
-					getCompletionTags( dispatch, ids );
-					getCompletionComponents( dispatch, ids );
+					getAssessmentTags( dispatch, ids );
+					getAssessmentComponents( dispatch, ids );
 				})
 				.catch( console.error );
 		},
-		onNamespace: ({ title, description, announcements, enableTicketing, owners, completions, _id }) => {
-			dispatch( changedNamespace({ title, description, announcements, enableTicketing, owners, completions, _id }) );
+		onNamespace: ({ title, description, announcements, enableTicketing, owners, assessments, _id }) => {
+			dispatch( changedNamespace({ title, description, announcements, enableTicketing, owners, assessments, _id }) );
 			if ( _id ) {
 				getCohorts( dispatch, { namespaceID: _id });
 				getLessons( dispatch, title )
 					.then( ( lessons = [] ) => {
 						const ids = lessons.map( x => x._id );
-						getCompletionTags( dispatch, ids );
-						getCompletionComponents( dispatch, ids );
+						getAssessmentTags( dispatch, ids );
+						getAssessmentComponents( dispatch, ids );
 					})
 					.catch( console.error );
 			}

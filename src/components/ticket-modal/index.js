@@ -65,7 +65,7 @@ class TicketModal extends Component {
 		});
 	};
 
-	toggleCompletion = () => {
+	toggleAssessment = () => {
 		if ( this.props.ticket.done ) {
 			this.props.openTicket( this.props.ticket._id );
 		} else {
@@ -186,7 +186,7 @@ class TicketModal extends Component {
 								{t('submit-response')}
 							</Button>
 							<Button
-								onClick={this.toggleCompletion}
+								onClick={this.toggleAssessment}
 							>
 								{ticket.done ? t('common:open-ticket') : t('common:close-ticket')}
 							</Button>

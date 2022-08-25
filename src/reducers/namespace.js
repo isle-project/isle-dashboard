@@ -50,7 +50,7 @@ const initialState = {
 	lessonTags: [ '_default_tag' ],
 	componentTags: [ '_default_tag' ],
 	tickets: [],
-	completions: [],
+	assessments: [],
 	componentsByLesson: {}
 };
 
@@ -61,9 +61,9 @@ export default function namespace( state = initialState, action ) {
 	switch ( action.type ) {
 	case types.CHANGED_NAMESPACE: {
 		const tags = new Set();
-		const completions = action.payload.completions;
-		for ( let i = 0; i < completions.length; i++ ) {
-			const { tagWeights } = completions[ i ];
+		const assessments = action.payload.assessments;
+		for ( let i = 0; i < assessments.length; i++ ) {
+			const { tagWeights } = assessments[ i ];
 			for ( const tag in tagWeights ) {
 				if ( hasOwnProp( tagWeights, tag ) ) {
 					tags.add( tag );
@@ -78,7 +78,7 @@ export default function namespace( state = initialState, action ) {
 			enableTicketing: action.payload.enableTicketing,
 			owners: action.payload.owners,
 			cohorts: action.payload.cohorts,
-			completions: completions,
+			assessments: assessments,
 			lessonTags: Array.from( tags )
 		});
 	}
@@ -121,16 +121,16 @@ export default function namespace( state = initialState, action ) {
 	}
 	case types.RETRIEVED_COHORTS: {
 		const newCohorts = action.payload.cohorts;
-		const lastUpdatedAsDate = ( completion ) => {
-			const date = new Date( completion.lastUpdated );
-			completion.lastUpdated = date;
-			return completion;
+		const lastUpdatedAsDate = ( assessment ) => {
+			const date = new Date( assessment.lastUpdated );
+			assessment.lastUpdated = date;
+			return assessment;
 		};
 		for ( let i = 0; i < newCohorts.length; i++ ) {
 			const cohort = newCohorts[ i ];
 			for ( let j = 0; j < cohort.members.length; j++ ) {
 				const member = cohort.members[ j ];
-				member.completions = mapValues( member.completions || {}, lastUpdatedAsDate );
+				member.assessments = mapValues( member.assessments || {}, lastUpdatedAsDate );
 			}
 		}
 		return Object.assign({}, state, {
@@ -280,11 +280,11 @@ export default function namespace( state = initialState, action ) {
 			return state;
 		}
 		console.log( 'Need to update...' );
-		const completions = state.completions.slice();
+		const assessments = state.assessments.slice();
 		const metric = action.payload.metric;
-		for ( let i = 0; i < completions.length; i++ ) {
-			if ( completions[ i ].name === metric.name ) {
-				completions[ i ] = metric;
+		for ( let i = 0; i < assessments.length; i++ ) {
+			if ( assessments[ i ].name === metric.name ) {
+				assessments[ i ] = metric;
 				break;
 			}
 		}
@@ -300,7 +300,7 @@ export default function namespace( state = initialState, action ) {
 			newLessonTags = Array.from( newLessonTags );
 		}
 		return Object.assign({}, state, {
-			completions,
+			assessments,
 			...(newLessonTags && { lessonTags: newLessonTags })
 		});
 	}
@@ -308,7 +308,7 @@ export default function namespace( state = initialState, action ) {
 		if ( action.payload.level !== 'namespace' || action.payload.id !== state._id ) {
 			return state;
 		}
-		const completions = state.completions.slice();
+		const assessments = state.assessments.slice();
 		const metric = action.payload.metric;
 		let newLessonTags;
 		if ( isObject( metric.tagWeights ) ) {
@@ -321,9 +321,9 @@ export default function namespace( state = initialState, action ) {
 			}
 			newLessonTags = Array.from( newLessonTags );
 		}
-		completions.push( metric );
+		assessments.push( metric );
 		return Object.assign({}, state, {
-			completions,
+			assessments,
 			...(newLessonTags && { lessonTags: newLessonTags })
 		});
 	}
@@ -331,10 +331,10 @@ export default function namespace( state = initialState, action ) {
 		if ( action.payload.level !== 'namespace' || action.payload.id !== state._id ) {
 			return state;
 		}
-		const newCompletions = [];
-		for ( let i = 0; i < state.completions.length; i++ ) {
-			if ( state.completions[ i ].name !== action.payload.name ) {
-				newCompletions.push( state.completions[ i ] );
+		const newAssessments = [];
+		for ( let i = 0; i < state.assessments.length; i++ ) {
+			if ( state.assessments[ i ].name !== action.payload.name ) {
+				newAssessments.push( state.assessments[ i ] );
 			}
 		}
 		const metricKey = `${action.payload.level}-${action.payload.id}-${action.payload.name}`;
@@ -342,16 +342,16 @@ export default function namespace( state = initialState, action ) {
 		for ( let i = 0; i < newCohorts.length; i++ ) {
 			for ( let j = 0; j < newCohorts[ i ].members.length; j++ ) {
 				const user = newCohorts[ i ].members[ j ];
-				delete user.completions[ metricKey ];
+				delete user.assessments[ metricKey ];
 			}
 		}
 		return Object.assign({}, state, {
-			completions: newCompletions,
+			assessments: newAssessments,
 			cohorts: newCohorts
 		});
 	}
-	case types.COMPUTED_COMPLETIONS: {
-		const { completions, entityIds, lastUpdated, metrics } = action.payload;
+	case types.COMPUTED_ASSESSMENTS: {
+		const { assessments, entityIds, lastUpdated, metrics } = action.payload;
 		const newCohorts = copy( state.cohorts );
 		for ( let i = 0; i < newCohorts.length; i++ ) {
 			for ( let j = 0; j < newCohorts[ i ].members.length; j++ ) {
@@ -359,12 +359,12 @@ export default function namespace( state = initialState, action ) {
 				for ( let k = 0; k < entityIds.length; k++ ) {
 					const id = entityIds[ k ];
 					const metric = metrics[ k ];
-					if ( completions[ k ][ user._id ] !== void 0 ) {
-						user.completions = {
-							...user.completions,
+					if ( assessments[ k ][ user._id ] !== void 0 ) {
+						user.assessments = {
+							...user.assessments,
 							[`${metric.level}-${id}-${metric.name}`]: {
 								metricName: metric.name,
-								instance: completions[ k ][ user._id ],
+								instance: assessments[ k ][ user._id ],
 								lastUpdated: new Date( lastUpdated )
 							}
 						};
@@ -386,11 +386,11 @@ export default function namespace( state = initialState, action ) {
 			for ( let i = 0; i < newCohorts.length; i++ ) {
 				for ( let j = 0; j < newCohorts[ i ].members.length; j++ ) {
 					const user = newCohorts[ i ].members[ j ];
-					user.completions = {...user.completions };
+					user.assessments = {...user.assessments };
 					for ( let k = 0; k < lessons.deleted.length; k++ ) {
 						const lesson = lessons.deleted[ k ];
 						const metricKey = `lesson-${lesson._id}-${metricName}`;
-						delete user.completions[ metricKey ];
+						delete user.assessments[ metricKey ];
 					}
 				}
 			}
@@ -410,16 +410,16 @@ export default function namespace( state = initialState, action ) {
 			cohorts: newCohorts
 		});
 	}
-	case types.GET_COMPLETION_TAGS: {
-		const { completionTags } = action.payload;
-		console.log( 'Received completion tags', completionTags );
+	case types.GET_ASSESSMENT_TAGS: {
+		const { assessmentTags } = action.payload;
+		console.log( 'Received assessment tags', assessmentTags );
 		return Object.assign({}, state, {
-			componentTags: completionTags
+			componentTags: assessmentTags
 		});
 	}
-	case types.GET_COMPLETION_COMPONENTS: {
+	case types.GET_ASSESSMENT_COMPONENTS: {
 		const { componentsByLesson } = action.payload;
-		console.log( 'Received completion components', componentsByLesson );
+		console.log( 'Received assessment components', componentsByLesson );
 		return Object.assign({}, state, {
 			componentsByLesson
 		});

@@ -44,7 +44,7 @@ function createOptions( arr ) {
 // MAIN //
 
 function TagWeightsEditor({ tagWeights, visibleTags, onUpdate }) {
-	const { t } = useTranslation( 'completions' );
+	const { t } = useTranslation( 'assessments' );
 	const tags = objectKeys( tagWeights );
 	const [ newTag, setNewTag ] = useState( null );
 
@@ -115,7 +115,7 @@ function TagWeightsEditor({ tagWeights, visibleTags, onUpdate }) {
 						value={newTag}
 					/>
 				</Col>
-				<Form.Label className="completions-info" column sm={5} >{t( 'add-new-weight' )}</Form.Label>
+				<Form.Label className="assessments-info" column sm={5} >{t( 'add-new-weight' )}</Form.Label>
 				<Col sm={2} >
 
 				</Col>

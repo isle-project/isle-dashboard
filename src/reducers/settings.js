@@ -35,9 +35,9 @@ export default function settings( state = initialState, action ) {
 	case types.UPDATED_SETTINGS: {
 		return Object.assign({}, state, action.payload.settings );
 	}
-	case types.RETRIEVED_COMPLETION_RULES: {
+	case types.RETRIEVED_ASSESSMENT_RULES: {
 		return Object.assign({}, state, {
-			completionRules: action.payload.completionRules
+			assessmentRules: action.payload.assessmentRules
 		});
 	}
 	default:

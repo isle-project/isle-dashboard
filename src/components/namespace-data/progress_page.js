@@ -359,7 +359,7 @@ class ProgressPage extends Component {
 		const blob = new Blob([ JSON.stringify( data ) ], {
 			type: 'application/json'
 		});
-		const name = `completion_${this.props.namespace.title}.json`;
+		const name = `assessment_${this.props.namespace.title}.json`;
 		saveAs( blob, name );
 	};
 
@@ -379,7 +379,7 @@ class ProgressPage extends Component {
 			const blob = new Blob([ output ], {
 				type: 'text/plain'
 			});
-			const name = `completion_${this.props.namespace.title}.csv`;
+			const name = `assessment_${this.props.namespace.title}.csv`;
 			saveAs( blob, name );
 		});
 	};

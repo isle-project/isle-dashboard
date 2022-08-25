@@ -32,47 +32,47 @@ import ConfirmModal from 'components/confirm-modal';
 import ComputeModal from './compute_modal.js';
 import EditMetricModal from './edit_metric_modal.js';
 import { levelFieldMapping } from './level_fields.js';
-import './completions.css';
+import './assessments.css';
 
 
 // MAIN //
 
 /**
-* Completion and assessment reports pane.
+* Assessment and assessment reports pane.
 *
 * ## Notes
 *
-* -   Renders the list of completion metrics for the course
-* -   Configuration displays the list of completion for the course with an edit and delete button as well as a button to create a new completion metric.
-* -   When creating or editing a completion metric, users will have to choose a name, the coverage (multi-select box with "all" lessons or ones to "include" or "exclude"), the rule for combining the information across lessons (selected from a fixed list of options) with associated parameters (e.g., dropN where the lowest N grades are dropped), and a `ref` select field that specifies which metric to use on the lower level (populated by the metrics contained in the selected lessons of the course)
-* -   Each completion metric item has a compute button, which opens a form in a model window containing four fields: A date range select box to define the time range, a multi-select field to choose the set of users for which to compute the grades, a select field for the multiples policy ('last', 'first', 'max', or 'pass-through'), and a tag weight selector
+* -   Renders the list of assessment metrics for the course
+* -   Configuration displays the list of assessment for the course with an edit and delete button as well as a button to create a new assessment metric.
+* -   When creating or editing a assessment metric, users will have to choose a name, the coverage (multi-select box with "all" lessons or ones to "include" or "exclude"), the rule for combining the information across lessons (selected from a fixed list of options) with associated parameters (e.g., dropN where the lowest N grades are dropped), and a `submetric` select field that specifies which metric to use on the lower level (populated by the metrics contained in the selected lessons of the course)
+* -   Each assessment metric item has a compute button, which opens a form in a model window containing four fields: A date range select box to define the time range, a multi-select field to choose the set of users for which to compute the grades, a select field for the multiples policy ('last', 'first', 'max', or 'pass-through'), and a tag weight selector
 * -   Computing the scores will save the generated results within the individual user objects (associated with the data when they were last computed)
 */
-function CompletionsPage( props ) {
-	const { t } = useTranslation( 'completions' );
+function AssessmentsPage( props ) {
+	const { t } = useTranslation( 'assessments' );
 	const [ selectedMetric, setSelectedMetric ] = useState( null );
 	const [ showComputeModal, setShowComputeModal ] = useState( false );
 	const [ showDeleteModal, setShowDeleteModal ] = useState( false );
 	const [ showCreateModal, setShowCreateModal ] = useState( false );
 	const [ showEditModal, setShowEditModal ] = useState( false );
-	const [ refs, setRefs ] = useState( null );
-	const metrics = props.entity.completions || [];
+	const [ submetrics, setSubmetrics ] = useState( null );
+	const metrics = props.entity.assessments || [];
 	const [ order, setOrder ] = useState( incrspace( 0, metrics.length, 1 ) );
 	useEffect( () => {
-		// ATTN: this is a hack to get the tags and refs to be populated before the first render
+		// ATTN: this is a hack to get the tags and submetrics to be populated before the first render
 		if ( props.level === 'lesson' ) {
-			setRefs( props.lessonRefs );
+			setSubmetrics( props.lessonSubmetrics );
 		} else {
 			const subentities = props.entity[ levelFieldMapping[ props.level ] ];
-			const completions = new Set();
+			const assessments = new Set();
 			subentities.forEach( subentity => {
-				subentity.completions.forEach( completion => {
-					completions.add( completion.name );
+				subentity.assessments.forEach( assessment => {
+					assessments.add( assessment.name );
 				});
 			});
-			setRefs( Array.from( completions ).sort() );
+			setSubmetrics( Array.from( assessments ).sort() );
 		}
-	}, [ props.entity, props.level, props.lessonRefs ] );
+	}, [ props.entity, props.level, props.lessonSubmetrics ] );
 
 	const handleDeleteMetric = () => {
 		const idx = metrics.findIndex( metric => metric.name === selectedMetric.name );
@@ -135,7 +135,7 @@ function CompletionsPage( props ) {
 						<ListGroup.Item key={`${metricIndex}-${idx}`} className="d-flex w-100 justify-content-start metric-list-item" >
 							<label className="me-2" >
 								{metric.name}
-								{refs && !refs.includes( metric.ref ) && <span className="completions-warning ms-2" >{t('uses-not-yet-existing-lesson-metric')}</span>}
+								{submetrics && !submetrics.includes( metric.submetric ) && <span className="assessments-warning ms-2" >{t('uses-not-yet-existing-lesson-metric')}</span>}
 							</label>
 							<span
 								style={{
@@ -200,17 +200,17 @@ function CompletionsPage( props ) {
 
 				entity={props.entity}
 				level={props.level}
-				computeCompletions={props.computeCompletions}
+				computeAssessments={props.computeAssessments}
 				onCompute={() => setShowComputeModal( false )}
 			/> : null}
 			{showCreateModal ? <EditMetricModal
 				key="create-modal"
 				show={showCreateModal}
 				onHide={() => setShowCreateModal( false )}
-				allRules={props.settings.completionRules}
+				allRules={props.settings.assessmentRules}
 				level={props.level}
 				entity={props.entity}
-				refs={refs}
+				submetrics={submetrics}
 				createNew={true}
 				onConfirm={( body ) => {
 					props.createMetric( body );
@@ -230,10 +230,10 @@ function CompletionsPage( props ) {
 				key={`edit-modal-${selectedMetric.name}`}
 				show={showEditModal}
 				onHide={() => setShowEditModal( false )}
-				allRules={props.settings.completionRules}
+				allRules={props.settings.assessmentRules}
 				level={props.level}
 				entity={props.entity}
-				refs={refs}
+				submetrics={submetrics}
 				createNew={false}
 				metric={selectedMetric}
 				onConfirm={props.updateMetric}
@@ -245,13 +245,13 @@ function CompletionsPage( props ) {
 
 // PROPERTIES //
 
-CompletionsPage.propTypes = {
+AssessmentsPage.propTypes = {
 	cohorts: PropTypes.array.isRequired,
-	computeCompletions: PropTypes.func.isRequired,
+	computeAssessments: PropTypes.func.isRequired,
 	createMetric: PropTypes.func.isRequired,
 	deleteMetric: PropTypes.func.isRequired,
 	entity: PropTypes.object.isRequired,
-	lessonRefs: PropTypes.array.isRequired,
+	lessonSubmetrics: PropTypes.array.isRequired,
 	level: PropTypes.string.isRequired,
 	settings: PropTypes.object.isRequired,
 	updateMetric: PropTypes.func.isRequired
@@ -260,4 +260,4 @@ CompletionsPage.propTypes = {
 
 // EXPORTS //
 
-export default CompletionsPage;
+export default AssessmentsPage;

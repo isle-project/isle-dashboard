@@ -32,7 +32,7 @@ import server from 'constants/server';
 import { fetchCredentialsInjector } from 'actions/authentication.js';
 import { getEnrollableCohortsInjector } from 'actions/cohort.js';
 import { getPublicSettingsInjector, getCustomTranslationsInjector } from 'actions/settings.js';
-import { getCompletionRulesInjector } from 'actions/completions.js';
+import { getAssessmentRulesInjector } from 'actions/assessments.js';
 import { receivedToken } from 'actions/user.js';
 import NotificationSystem from './notification.js';
 import './app.css';
@@ -142,13 +142,13 @@ function goToDestination( search, writeAccess, navigate ) {
 * @param {Object} props.settings - application settings
 * @param {Function} props.fetchCredentials - function to fetch credentials
 * @param {Function} props.getCustomTranslations - function to get custom translations
-* @param {Function} props.getCompletionRules - function to get metric completion rules
+* @param {Function} props.getAssessmentRules - function to get metric assessment rules
 * @param {Function} props.getPublicSettings - function to get public settings
 * @param {Function} props.getEnrollableCohorts - function to get enrollable cohorts
 * @param {Function} props.dispatch - redux dispatch function
 * @returns {ReactElement} component
 */
-const App =({ isLoggedIn, dispatch, getCompletionRules, getCustomTranslations, getPublicSettings, fetchCredentials, getEnrollableCohorts, user, settings }) => {
+const App =({ isLoggedIn, dispatch, getAssessmentRules, getCustomTranslations, getPublicSettings, fetchCredentials, getEnrollableCohorts, user, settings }) => {
 	const oldIsLoggedIn = usePrevious( isLoggedIn );
 	const writeAccess = user.writeAccess;
 	const navigate = useNavigate();
@@ -158,7 +158,7 @@ const App =({ isLoggedIn, dispatch, getCompletionRules, getCustomTranslations, g
 			debug( 'Mounting application...' );
 			getCustomTranslations();
 			getPublicSettings();
-			getCompletionRules();
+			getAssessmentRules();
 			if ( isLoggedIn ) {
 				debug( 'User is logged in, check local storage...' );
 				const isle = localStorage.getItem( USER_STORAGE_ID );
@@ -360,7 +360,7 @@ const App =({ isLoggedIn, dispatch, getCompletionRules, getCustomTranslations, g
 App.propTypes = {
 	dispatch: PropTypes.func.isRequired,
 	fetchCredentials: PropTypes.func.isRequired,
-	getCompletionRules: PropTypes.func.isRequired,
+	getAssessmentRules: PropTypes.func.isRequired,
 	getCustomTranslations: PropTypes.func.isRequired,
 	getEnrollableCohorts: PropTypes.func.isRequired,
 	getPublicSettings: PropTypes.func.isRequired,
@@ -386,7 +386,7 @@ function mapDispatchToProps( dispatch ) {
 	return {
 		dispatch: dispatch,
 		fetchCredentials: fetchCredentialsInjector( dispatch ),
-		getCompletionRules: getCompletionRulesInjector( dispatch ),
+		getAssessmentRules: getAssessmentRulesInjector( dispatch ),
 		getCustomTranslations: getCustomTranslationsInjector( dispatch ),
 		getPublicSettings: getPublicSettingsInjector( dispatch ),
 		getEnrollableCohorts: getEnrollableCohortsInjector( dispatch )

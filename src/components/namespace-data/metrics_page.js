@@ -68,7 +68,7 @@ function MetricsTable({ namespace, lessons }) {
 			}
 		},
 		{
-			accessorKey: 'ref',
+			accessorKey: 'submetric',
 			header: t('submetric')
 		},
 		{
@@ -108,7 +108,7 @@ function MetricsTable({ namespace, lessons }) {
 		data={lessons}
 		tableOptions={{
 			getSubRows: row => {
-				return row.completions;
+				return row.assessments;
 			},
 			getExpandedRowModel: getExpandedRowModel(),
 			initialState: {

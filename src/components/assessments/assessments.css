@@ -12,13 +12,13 @@
 	animation: appear 1.2s;
 }
 
-.completions-warning {
+.assessments-warning {
 	font-weight: 400;
 	font-style: italic;
 	color: darkred;
 }
 
-.completions-info {
+.assessments-info {
 	font-weight: 400;
 	font-style: italic;
 	color: darkblue;

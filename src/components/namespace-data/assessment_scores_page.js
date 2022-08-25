@@ -37,7 +37,7 @@ import lowercase from '@stdlib/string/lowercase';
 import roundn from '@stdlib/math/base/special/roundn';
 import lpad from '@stdlib/string/left-pad';
 import DashboardTable from 'components/dashboard-table';
-import ComputeModal from 'components/completions/compute_modal.js';
+import ComputeModal from 'components/assessments/compute_modal.js';
 import DashboardDataExplorer from 'ev/components/data-explorer';
 import obsToVar from '@isle-project/utils/obs-to-var';
 import server from 'constants/server';
@@ -68,7 +68,7 @@ function filterMethodCategories( filter, row ) {
  * Extracts metrics from cohort members for the chosen scope and returns a list of metrics.
  *
  * @param {Array} cohorts - array of cohorts
- * @param {Object} scope - scope of the completions (with 'value' key having value either `course-wide` or a lesson identifier)
+ * @param {Object} scope - scope of the assessments (with 'value' key having value either `course-wide` or a lesson identifier)
  * @param {Object} namespace - namespace object
  * @returns {Array} array of objects with label (name of the metric) and value (key in user object)
  */
@@ -78,12 +78,12 @@ function extractMetricSet( cohorts, scope, namespace ) {
 	const keyCriterion = scope.value === 'course-wide' ? `namespace-${namespace._id}-` : `lesson-${scope.value}-`;
 	for ( let i = 0; i < cohorts.length; i++ ) {
 		for ( let j = 0; j < cohorts[ i ].members.length; j++ ) {
-			const userCompletions = Object.keys( cohorts[ i ].members[ j ].completions || {} );
-			for ( let k = 0; k < userCompletions.length; ++k ) {
-				const key = userCompletions[k];
+			const userAssessments = Object.keys( cohorts[ i ].members[ j ].assessments || {} );
+			for ( let k = 0; k < userAssessments.length; ++k ) {
+				const key = userAssessments[k];
 				if ( key.startsWith(keyCriterion) ) {
 					metricSet.add( key );
-					metricLabels[ key ] = cohorts[ i ].members[ j ].completions[ key ].metricName;
+					metricLabels[ key ] = cohorts[ i ].members[ j ].assessments[ key ].metricName;
 				}
 			}
 		}
@@ -98,13 +98,13 @@ function extractMetricSet( cohorts, scope, namespace ) {
 
 function metricObject( scope, name, namespace, lessons ) {
 	if ( scope.value === 'course-wide' ) {
-		return namespace.completions.find( c => c.name === name );
+		return namespace.assessments.find( c => c.name === name );
 	}
 	const lesson = lessons.find( x => x._id === scope.value );
 	if ( !lesson ) {
 		return null;
 	}
-	return lesson.completions.find( c => c.name === name );
+	return lesson.assessments.find( c => c.name === name );
 }
 
 
@@ -139,14 +139,14 @@ class AssessmentScoresPage extends Component {
 	componentDidMount() {
 		this.createDisplayedMembers();
 		const lessonIds = this.props.namespace.lessons.map( lesson => lesson._id );
-		axios.post( `${server}/completion_tags`, {
+		axios.post( `${server}/assessment_tags`, {
 			lessons: lessonIds
 		})
 			.then( response => {
 				this.setState({ tags: response.data });
 			})
 			.catch( err => {
-				console.log( 'Error fetching completion tags:', err );
+				console.log( 'Error fetching assessment tags:', err );
 				this.setState({
 					tags: [
 						'quiz',
@@ -270,7 +270,7 @@ class AssessmentScoresPage extends Component {
 		for ( let i = 0; i < this.metrics.length; i++ ) {
 			COLUMNS.push({
 				Header: this.metrics[ i ].label,
-				accessor: 'completions.'+this.metrics[ i ].value,
+				accessor: 'assessments.'+this.metrics[ i ].value,
 				Cell: row => {
 					// Check whether `lastUpdated` is on the same day as `now`
 					if ( !row.value ) {
@@ -318,7 +318,7 @@ class AssessmentScoresPage extends Component {
 						min: 0
 					};
 					return (
-						<div className="completions-column" style={{
+						<div className="assessments-column" style={{
 							paddingLeft: '4px',
 							paddingRight: '4px',
 							paddingTop: '8px'
@@ -376,7 +376,7 @@ class AssessmentScoresPage extends Component {
 		const blob = new Blob([ JSON.stringify( data ) ], {
 			type: 'application/json'
 		});
-		const name = `completions_${this.props.namespace.title}.json`;
+		const name = `assessments_${this.props.namespace.title}.json`;
 		saveAs( blob, name );
 	};
 
@@ -396,7 +396,7 @@ class AssessmentScoresPage extends Component {
 			const blob = new Blob([ output ], {
 				type: 'text/plain'
 			});
-			const name = `completions_${this.props.namespace.title}.csv`;
+			const name = `assessments_${this.props.namespace.title}.csv`;
 			saveAs( blob, name );
 		});
 	};
@@ -499,7 +499,7 @@ class AssessmentScoresPage extends Component {
 					onCompute={() => {
 						this.setState({ showComputeModal: false });
 					}}
-					computeCompletions={this.props.computeCompletions}
+					computeAssessments={this.props.computeAssessments}
 				/>}
 				{this.state.provenanceModal &&
 				<ProvenanceNavigator
@@ -521,7 +521,7 @@ class AssessmentScoresPage extends Component {
 AssessmentScoresPage.propTypes = {
 	addNotification: PropTypes.func.isRequired,
 	cohorts: PropTypes.array.isRequired,
-	computeCompletions: PropTypes.func.isRequired,
+	computeAssessments: PropTypes.func.isRequired,
 	lessons: PropTypes.array.isRequired,
 	namespace: PropTypes.object.isRequired
 };

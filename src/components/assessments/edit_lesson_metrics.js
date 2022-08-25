@@ -74,37 +74,37 @@ function selectOption( value, transform ) {
 
 function analyzeLessonMetrics( name, lessons ) {
 	const lessonInfo = lessons.reduce( (acc, lesson) => {
-		const namedMetric = lesson.completions.find( metric => metric.name === name );
+		const namedMetric = lesson.assessments.find( metric => metric.name === name );
 		if ( namedMetric ) {
 			acc.active[lesson._id] = namedMetric;
 			acc.rules.add( JSON.stringify(namedMetric.rule) );
 			acc.rule = namedMetric.rule;
-			acc.refs.add( namedMetric.ref );
-			acc.ref = namedMetric.ref;
+			acc.submetrics.add( namedMetric.submetric );
+			acc.submetric = namedMetric.submetric;
 		}
 		return acc;
-	}, { rules: new Set(), refs: new Set(), active: {}, rule: null, ref: null }, lessons);
+	}, { rules: new Set(), submetrics: new Set(), active: {}, rule: null, submetric: null }, lessons);
 	if ( lessonInfo.rules.size > 0 ) {
 		return {
 			hasSharedRule: lessonInfo.rules.size === 1,
-			hasSharedRef: lessonInfo.refs.size === 1,
+			hasSharedSubmetric: lessonInfo.submetrics.size === 1,
 			activeLessons: lessonInfo.active,
 			rule: lessonInfo.rule,
-			ref: lessonInfo.ref
+			submetric: lessonInfo.submetric
 		};
 	}
 	return {
 		activeLessons: {},
 		hasSharedRule: true,
-		hasSharedRef: true,
+		hasSharedSubmetric: true,
 		rule: null,
-		ref: null
+		submetric: null
 	};
 }
 
 function availableLessonMetrics( lessons ) {
 	const allMetrics = lessons.reduce( ( acc, lesson ) => {
-		lesson.completions.forEach( metric => {
+		lesson.assessments.forEach( metric => {
 			acc.add( metric.name );
 		});
 		return acc;
@@ -115,13 +115,13 @@ function availableLessonMetrics( lessons ) {
 
 // MAIN //
 
-function EditLessonMetrics({ name, preferredLesson, lessons, lessonRefs, componentsByLesson, computeCompletions, namespace, saveLessonMetrics, allRules, tags, onSave }) {
+function EditLessonMetrics({ name, preferredLesson, lessons, lessonSubmetrics, componentsByLesson, computeAssessments, namespace, saveLessonMetrics, allRules, tags, onSave }) {
 	const [ chosenName, setChosenName ] = useState( name );
 	const [ hasSharedRule, setHasSharedRule ] = useState( false );
 	const [ sharedRule, setSharedRule ] = useState( null );
 	const [ sharedRuleParameters, setSharedRuleParameters ] = useState( [] );
-	const [ hasSharedRef, setHasSharedRef ] = useState( false );
-	const [ sharedRef, setSharedRef ] = useState( null );
+	const [ hasSharedSubmetric, setHasSharedSubmetric ] = useState( false );
+	const [ sharedSubmetric, setSharedSubmetric ] = useState( null );
 	const [ activeLessons, setActiveLessons ] = useState( {} );
 	const [ selectedLessons, setSelectedLessons ] = useState( {} );
 	const [ currentHash, setCurrentHash ] = useState( null );
@@ -145,14 +145,14 @@ function EditLessonMetrics({ name, preferredLesson, lessons, lessonRefs, compone
 			setSharedRule( newSharedRule );
 			setSharedRuleParameters( newSharedRuleParameters );
 		}
-		setHasSharedRef( analysis.hasSharedRef );
-		if ( analysis.hasSharedRef ) {
-			setSharedRef( analysis.ref );
+		setHasSharedSubmetric( analysis.hasSharedSubmetric );
+		if ( analysis.hasSharedSubmetric ) {
+			setSharedSubmetric( analysis.submetric );
 		}
 		const lessonSpec = {
 			sharedRule: newSharedRule,
 			sharedRuleParameters: newSharedRuleParameters,
-			sharedRef: analysis.hasSharedRef ? analysis.ref : null,
+			sharedSubmetric: analysis.hasSharedSubmetric ? analysis.submetric : null,
 			activeLessons: { ...analysis.activeLessons }
 		};
 		const newSelectedLessons = {};
@@ -168,7 +168,7 @@ function EditLessonMetrics({ name, preferredLesson, lessons, lessonRefs, compone
 				lessonSpec.activeLessons[ lessonId ] = {
 					name: chosenName,
 					rule: isSharedRuleSet ? [ lessonSpec.sharedRule.name, ...lessonSpec.sharedRuleParameters ] : null,
-					ref: analysis.hasSharedRef ? lessonSpec.sharedRef : null,
+					submetric: analysis.hasSharedSubmetric ? lessonSpec.sharedSubmetric : null,
 					coverage: [ 'all' ],
 					level: 'lesson',
 					autoCompute: false,
@@ -199,12 +199,12 @@ function EditLessonMetrics({ name, preferredLesson, lessons, lessonRefs, compone
 		const lessonSpec = {
 			sharedRule: hasSharedRule ? sharedRule : null,
 			sharedRuleParameters: hasSharedRule ? sharedRuleParameters : [],
-			sharedRef: hasSharedRef ? sharedRef : null,
+			sharedSubmetric: hasSharedSubmetric ? sharedSubmetric : null,
 			activeLessons,
 			selectedLessons
 		};
 		setCurrentHash( hash( lessonSpec ) );
-	}, [ hasSharedRule, sharedRule, sharedRuleParameters, hasSharedRef, sharedRef, activeLessons, selectedLessons ] );
+	}, [ hasSharedRule, sharedRule, sharedRuleParameters, hasSharedSubmetric, sharedSubmetric, activeLessons, selectedLessons ] );
 	useEffect( resetHash, [ resetHash ] );
 
 	const handleSave = useCallback( () => {
@@ -216,7 +216,7 @@ function EditLessonMetrics({ name, preferredLesson, lessons, lessonRefs, compone
 			} else {
 				lessonMetrics[ lesson._id ] = {
 					...lessonMetrics[ lesson._id ],
-					...( hasSharedRef ? { ref: sharedRef } : {} ),
+					...( hasSharedSubmetric ? { submetric: sharedSubmetric } : {} ),
 					...( hasSharedRule ? { rule: [ sharedRule.name, ...sharedRuleParameters ] } : {} )
 				};
 			}
@@ -235,7 +235,7 @@ function EditLessonMetrics({ name, preferredLesson, lessons, lessonRefs, compone
 				if ( objectValues( selectedLessons ).every( x => x === false ) ) {
 					setChosenName( null );
 					setCurrentHash( null );
-					setSharedRef( null );
+					setSharedSubmetric( null );
 					setSharedRule( null );
 				}
 				resetHash();
@@ -243,9 +243,9 @@ function EditLessonMetrics({ name, preferredLesson, lessons, lessonRefs, compone
 			.catch( err => {
 
 			});
-	}, [ activeLessons, chosenName, namespace, hasSharedRef, sharedRef, hasSharedRule, resetHash, selectedLessons, sharedRule, sharedRuleParameters, saveLessonMetrics, onSave ] );
-	const { t } = useTranslation( 'completions' );
-	const lessonRefOptions = lessonRefs.map( ( ref ) => ({ value: ref, label: ref }) );
+	}, [ activeLessons, chosenName, namespace, hasSharedSubmetric, sharedSubmetric, hasSharedRule, resetHash, selectedLessons, sharedRule, sharedRuleParameters, saveLessonMetrics, onSave ] );
+	const { t } = useTranslation( 'assessments' );
+	const lessonSubmetricOptions = lessonSubmetrics.map( ( submetric ) => ({ value: submetric, label: submetric }) );
 	const allRulesOptions = objectValues( allRules ).map( ( rule ) => ({ value: rule, label: rule.label }) );
 	const sharedInputs = <>
 		<Form.Group className="mb-2" as={Row} >
@@ -305,24 +305,24 @@ function EditLessonMetrics({ name, preferredLesson, lessons, lessonRefs, compone
 			<Col sm={3} >
 				<Form.Check
 					type="checkbox"
-					id="shared-ref-checkbox"
+					id="shared-submetric-checkbox"
 					label={t('share-across-lessons')}
 					onChange={( event ) => {
-						setHasSharedRef( event.target.checked );
+						setHasSharedSubmetric( event.target.checked );
 					}}
-					checked={hasSharedRef}
+					checked={hasSharedSubmetric}
 				/>
 			</Col>
 			<HelpfulLabel colWidth={3} name={t('component-metric')} description={t('component-metric-tooltip')} />
 			<Col sm={6} >
 				<CreatableSelect
 					isClearable
-					isDisabled={!hasSharedRef}
-					options={lessonRefOptions}
+					isDisabled={!hasSharedSubmetric}
+					options={lessonSubmetricOptions}
 					onChange={( option ) => {
-						setSharedRef( option ? option.value : null );
+						setSharedSubmetric( option ? option.value : null );
 					}}
-					value={sharedRef ? { value: sharedRef, label: sharedRef } : null}
+					value={sharedSubmetric ? { value: sharedSubmetric, label: sharedSubmetric } : null}
 				/>
 			</Col>
 		</Form.Group>
@@ -340,12 +340,12 @@ function EditLessonMetrics({ name, preferredLesson, lessons, lessonRefs, compone
 		const lessonIsActive = selectedLessons[ x._id ];
 		let defaultRuleParameters;
 		let defaultRule;
-		let defaultRef;
+		let defaultSubmetric;
 		if ( lessonIsActive ) {
-			if ( hasSharedRef && sharedRef ) {
-				defaultRef = { value: sharedRef, label: sharedRef };
+			if ( hasSharedSubmetric && sharedSubmetric ) {
+				defaultSubmetric = { value: sharedSubmetric, label: sharedSubmetric };
 			} else {
-				defaultRef = activeLessons[ x._id ].ref ? { value: activeLessons[ x._id ].ref, label: activeLessons[ x._id ].ref } : null;
+				defaultSubmetric = activeLessons[ x._id ].submetric ? { value: activeLessons[ x._id ].submetric, label: activeLessons[ x._id ].submetric } : null;
 			}
 			if ( hasSharedRule && sharedRule ) {
 				defaultRule = { value: sharedRule, label: sharedRule.label };
@@ -431,14 +431,14 @@ function EditLessonMetrics({ name, preferredLesson, lessons, lessonRefs, compone
 						<Col sm={6} >
 							<CreatableSelect
 								isClearable
-								isDisabled={hasSharedRef}
-								options={lessonRefOptions}
+								isDisabled={hasSharedSubmetric}
+								options={lessonSubmetricOptions}
 								onChange={( option ) => {
 									const newActive = { ...activeLessons };
-									newActive[ x._id ].ref = option ? option.value : null;
+									newActive[ x._id ].submetric = option ? option.value : null;
 									setActiveLessons( newActive );
 								}}
-								value={defaultRef}
+								value={defaultSubmetric}
 								menuPortalTarget={document.body}
 								menuPlacement="auto"
 								styles={SELECT_STYLES}
@@ -543,7 +543,7 @@ function EditLessonMetrics({ name, preferredLesson, lessons, lessonRefs, compone
 			{t('discard-unsaved-changes')}
 		</Button>
 		<Button variant="success" className="me-2"
-			disabled={!hasUnsavedChanges || !sharedRef || !sharedRule || ( isNewMetric && noLessonsSelected )}
+			disabled={!hasUnsavedChanges || !sharedSubmetric || !sharedRule || ( isNewMetric && noLessonsSelected )}
 			onClick={noLessonsSelected ? () => setShowDeleteModal( true ) : handleSave}
 		>
 			{t('common:save')}
@@ -573,7 +573,7 @@ function EditLessonMetrics({ name, preferredLesson, lessons, lessonRefs, compone
 									} else {
 										setChosenName( null );
 										setSharedRule( null );
-										setSharedRef( null );
+										setSharedSubmetric( null );
 									}
 								}}
 								onCreateOption={( inputValue ) => {
@@ -618,7 +618,7 @@ function EditLessonMetrics({ name, preferredLesson, lessons, lessonRefs, compone
 					if ( selectedLessons[ lesson._id ] ) {
 						acc.push({
 							...activeLessons[ lesson._id ],
-							...( hasSharedRef ? { ref: sharedRef } : {} ),
+							...( hasSharedSubmetric ? { submetric: sharedSubmetric } : {} ),
 							...( hasSharedRule ? { rule: [ sharedRule.name, ...sharedRuleParameters ] } : {} )
 						});
 					}
@@ -631,7 +631,7 @@ function EditLessonMetrics({ name, preferredLesson, lessons, lessonRefs, compone
 				entity={lessons.filter( ( x ) => selectedLessons[ x._id ] )}
 				level="lesson"
 				onCompute={() => setShowComputeModal( false )}
-				computeCompletions={computeCompletions}
+				computeAssessments={computeAssessments}
 			/>}
 			{showDeleteModal && <ConfirmModal
 				title={t('delete-lesson-metric')}
@@ -655,8 +655,8 @@ function EditLessonMetrics({ name, preferredLesson, lessons, lessonRefs, compone
 EditLessonMetrics.propTypes = {
 	allRules: PropTypes.object.isRequired,
 	componentsByLesson: PropTypes.object,
-	computeCompletions: PropTypes.func.isRequired,
-	lessonRefs: PropTypes.arrayOf( PropTypes.string ).isRequired,
+	computeAssessments: PropTypes.func.isRequired,
+	lessonSubmetrics: PropTypes.arrayOf( PropTypes.string ).isRequired,
 	lessons: PropTypes.array.isRequired,
 	name: PropTypes.string,
 	namespace: PropTypes.object.isRequired,

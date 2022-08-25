@@ -376,15 +376,15 @@ export default function user( state = initialState, action ) {
 			if ( ns._id !== action.payload.id ) {
 				continue;
 			}
-			const completions = ns.completions.slice();
+			const assessments = ns.assessments.slice();
 			const metric = action.payload.metric;
-			for ( let j = 0; j < completions.length; j++ ) {
-				if ( completions[ j ].name === metric.name ) {
-					completions[ j ] = metric;
+			for ( let j = 0; j < assessments.length; j++ ) {
+				if ( assessments[ j ].name === metric.name ) {
+					assessments[ j ] = metric;
 					break;
 				}
 			}
-			enrolledNamespaces[ i ].completions = completions;
+			enrolledNamespaces[ i ].assessments = assessments;
 			break;
 		}
 		for ( let i = 0; i < state.ownedNamespaces.length; i++ ) {
@@ -392,15 +392,15 @@ export default function user( state = initialState, action ) {
 			if ( ns._id !== action.payload.id ) {
 				continue;
 			}
-			const completions = ns.completions.slice();
+			const assessments = ns.assessments.slice();
 			const metric = action.payload.metric;
-			for ( let j = 0; j < completions.length; j++ ) {
-				if ( completions[ j ].name === metric.name ) {
-					completions[ j ] = metric;
+			for ( let j = 0; j < assessments.length; j++ ) {
+				if ( assessments[ j ].name === metric.name ) {
+					assessments[ j ] = metric;
 					break;
 				}
 			}
-			ownedNamespaces[ i ].completions = completions;
+			ownedNamespaces[ i ].assessments = assessments;
 			break;
 		}
 		return Object.assign({}, state, {
@@ -416,9 +416,9 @@ export default function user( state = initialState, action ) {
 			if ( ns._id !== action.payload.id ) {
 				continue;
 			}
-			const completions = ns.completions.slice();
-			completions.push( action.payload.metric );
-			enrolledNamespaces[ i ].completions = completions;
+			const assessments = ns.assessments.slice();
+			assessments.push( action.payload.metric );
+			enrolledNamespaces[ i ].assessments = assessments;
 			break;
 		}
 		for ( let i = 0; i < state.ownedNamespaces.length; i++ ) {
@@ -426,9 +426,9 @@ export default function user( state = initialState, action ) {
 			if ( ns._id !== action.payload.id ) {
 				continue;
 			}
-			const completions = ns.completions.slice();
-			completions.push( action.payload.metric );
-			ownedNamespaces[ i ].completions = completions;
+			const assessments = ns.assessments.slice();
+			assessments.push( action.payload.metric );
+			ownedNamespaces[ i ].assessments = assessments;
 			break;
 		}
 		return Object.assign({}, state, {
@@ -445,14 +445,14 @@ export default function user( state = initialState, action ) {
 			if ( ns._id !== action.payload.id ) {
 				continue;
 			}
-			const newCompletions = [];
-			for ( let i = 0; i < ns.completions.length; i++ ) {
-				if ( ns.completions[ i ].name !== action.payload.name ) {
-					newCompletions.push( ns.completions[ i ] );
+			const newAssessments = [];
+			for ( let i = 0; i < ns.assessments.length; i++ ) {
+				if ( ns.assessments[ i ].name !== action.payload.name ) {
+					newAssessments.push( ns.assessments[ i ] );
 				}
 			}
-			enrolledNamespaces[ i ].completions = newCompletions;
-			console.log( 'newCompletions', newCompletions );
+			enrolledNamespaces[ i ].assessments = newAssessments;
+			console.log( 'newAssessments', newAssessments );
 			break;
 		}
 		for ( let i = 0; i < state.ownedNamespaces.length; i++ ) {
@@ -460,14 +460,14 @@ export default function user( state = initialState, action ) {
 			if ( ns._id !== action.payload.id ) {
 				continue;
 			}
-			const newCompletions = [];
-			for ( let i = 0; i < ns.completions.length; i++ ) {
-				if ( ns.completions[ i ].name !== action.payload.name ) {
-					newCompletions.push( ns.completions[ i ] );
+			const newAssessments = [];
+			for ( let i = 0; i < ns.assessments.length; i++ ) {
+				if ( ns.assessments[ i ].name !== action.payload.name ) {
+					newAssessments.push( ns.assessments[ i ] );
 				}
 			}
-			ownedNamespaces[ i ].completions = newCompletions;
-			console.log( 'newCompletions', newCompletions );
+			ownedNamespaces[ i ].assessments = newAssessments;
+			console.log( 'newAssessments', newAssessments );
 			break;
 		}
 		return Object.assign({}, state, {

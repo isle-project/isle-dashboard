@@ -45,8 +45,8 @@ import TextSelect from 'components/text-select';
 import MsgModal from 'components/message-modal';
 import ConfirmModal from 'components/confirm-modal';
 import { validateOwners, validateDescription, validateTitle } from 'components/create-namespace';
-import CompletionsPage from 'containers/visible-completions';
-import EditLessonMetrics from 'components/completions/edit_lesson_metrics.js';
+import AssessmentsPage from 'containers/visible-assessments';
+import EditLessonMetrics from 'components/assessments/edit_lesson_metrics.js';
 import checkURLPath from 'utils/check_url_path.js';
 import EditCohortModal from './edit_cohort_modal.js';
 import CreateCohortModal from './create_cohort_modal.js';
@@ -78,22 +78,22 @@ class EditNamespace extends Component {
 			showEditCohortModal: false,
 			selectedCohort: null,
 			tag,
-			lessonRefs: []
+			lessonSubmetrics: []
 		};
 	}
 
 	componentDidMount() {
-		axios.post( `${SERVER}/completion_refs`, {
+		axios.post( `${SERVER}/assessment_submetrics`, {
 			target: 'lesson',
 			entities: this.props.namespace.lessons.map( x => x._id )
 		})
 			.then( response => {
 				this.setState({
-					lessonRefs: response.data
+					lessonSubmetrics: response.data
 				});
 			})
 			.catch( err => {
-				console.log( 'Error fetching completion refs:', err );
+				console.log( 'Error fetching assessment submetrics:', err );
 			});
 	}
 
@@ -292,26 +292,26 @@ class EditNamespace extends Component {
 									</Button>
 								</Tab>
 								<Tab eventKey="assessments" title={<h3>{t('common:assessments')}</h3>} >
-									<Tabs variant="pills" defaultActiveKey="namespace-completion-metrics" >
-										<Tab eventKey="namespace-completion-metrics" title={t('common:course')} >
-											<CompletionsPage
+									<Tabs variant="pills" defaultActiveKey="namespace-assessment-metrics" >
+										<Tab eventKey="namespace-assessment-metrics" title={t('common:course')} >
+											<AssessmentsPage
 												entity={this.props.namespace}
 												level="namespace"
 												cohorts={this.props.cohorts}
-												lessonRefs={this.state.lessonRefs}
+												lessonSubmetrics={this.state.lessonSubmetrics}
 											/>
 										</Tab>
-										<Tab eventKey="lesson-completion-metrics" title={t('common:lessons')} >
+										<Tab eventKey="lesson-assessment-metrics" title={t('common:lessons')} >
 											<EditLessonMetrics
-												lessonRefs={this.state.lessonRefs}
+												lessonSubmetrics={this.state.lessonSubmetrics}
 												lessons={this.props.namespace.lessons}
 												namespace={this.props.namespace}
 												onSave={() => {}}
 												saveLessonMetrics={this.props.saveLessonMetrics}
 												componentsByLesson={this.props.namespace.componentsByLesson}
-												computeCompletions={this.props.computeCompletions}
+												computeAssessments={this.props.computeAssessments}
 												tags={this.props.namespace.tags}
-												allRules={this.props.settings.completionRules}
+												allRules={this.props.settings.assessmentRules}
 											/>
 										</Tab>
 									</Tabs>
@@ -444,7 +444,7 @@ class EditNamespace extends Component {
 EditNamespace.propTypes = {
 	addNotification: PropTypes.func.isRequired,
 	cohorts: PropTypes.array,
-	computeCompletions: PropTypes.func.isRequired,
+	computeAssessments: PropTypes.func.isRequired,
 	copyNamespaceLessons: PropTypes.func.isRequired,
 	createCohort: PropTypes.func.isRequired,
 	deleteCohort: PropTypes.func.isRequired,

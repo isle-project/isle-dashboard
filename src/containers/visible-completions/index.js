@@ -19,8 +19,8 @@
 
 import React from 'react';
 import { connect } from 'react-redux';
-import Completions from 'components/completions';
-import { computeCompletionsInjector, createMetricInjector, deleteMetricInjector, updateMetricInjector } from 'actions/completions';
+import Assessments from 'components/assessments';
+import { computeAssessmentsInjector, createMetricInjector, deleteMetricInjector, updateMetricInjector } from 'actions/assessments';
 import { addNotificationInjector } from 'actions/notification';
 
 
@@ -41,16 +41,16 @@ function mapDispatchToProps( dispatch ) {
 		createMetric: createMetricInjector( dispatch ),
 		deleteMetric: deleteMetricInjector( dispatch ),
 		updateMetric: updateMetricInjector( dispatch ),
-		computeCompletions: computeCompletionsInjector( dispatch )
+		computeAssessments: computeAssessmentsInjector( dispatch )
 	};
 }
 
 
 // MAIN //
 
-const VisibleCompletions = connect( mapStateToProps, mapDispatchToProps )( Completions );
+const VisibleAssessments = connect( mapStateToProps, mapDispatchToProps )( Assessments );
 
 
 // EXPORTS //
 
-export default VisibleCompletions;
+export default VisibleAssessments;

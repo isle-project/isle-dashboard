@@ -267,7 +267,7 @@ const ProvenanceNavigator = ({ instance, metric, entities, lastUpdated, onHide, 
 		const entity = entities[ id ];
 		let submetric = null;
 		if ( entity ) {
-			submetric = entity.completions.find( x => x.name === z.metric.ref );
+			submetric = entity.assessments.find( x => x.name === z.metric.submetric );
 		}
 		return zipperDown( z, id, submetric );
 	});
@@ -301,7 +301,7 @@ const ProvenanceNavigator = ({ instance, metric, entities, lastUpdated, onHide, 
 						ruleParams: zipper.metric.rule.slice( 1 ).join( ', ' )
 					})}
 				</h5>}
-				{new Date( zipper.metric.lastUpdated ).getTime() > lastUpdated && <h5 className="completions-warning" >
+				{new Date( zipper.metric.lastUpdated ).getTime() > lastUpdated && <h5 className="assessments-warning" >
 					{t('metric-has-changed-since-score-was-calculated')}
 				</h5>}
 				<StandardTable

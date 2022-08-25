@@ -65,7 +65,7 @@ const validateName = ( name ) => {
 const MsgModal = ( props ) => (
 	<Modal show={props.show} onHide={props.close} >
 		<Modal.Header>
-			<Modal.Title>Registration Completion</Modal.Title>
+			<Modal.Title>Registration Assessment</Modal.Title>
 		</Modal.Header>
 		<Modal.Body>
 			{props.message}

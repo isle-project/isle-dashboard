@@ -56,10 +56,10 @@ export function appendCreatedNamespace( namespace ) {
  * @param {string} namespace.description - namespace description
  * @param {boolean} namespace.enableTicketing - controls if ticketing is enabled for the namespace
  * @param {string} namespace._id - id of the namespace
- * @param {Array} namespace.completions - array of completion metric objects associated with the namespace
+ * @param {Array} namespace.assessments - array of assessment metric objects associated with the namespace
  * @returns {Object} the action object
  */
-export function changedNamespace({ title, owners, announcements = [], cohorts = [], description, enableTicketing, _id, completions }) {
+export function changedNamespace({ title, owners, announcements = [], cohorts = [], description, enableTicketing, _id, assessments }) {
 	return {
 		type: CHANGED_NAMESPACE,
 		payload: {
@@ -69,7 +69,7 @@ export function changedNamespace({ title, owners, announcements = [], cohorts = 
 			description,
 			enableTicketing,
 			owners,
-			completions,
+			assessments,
 			_id
 		}
 	};
@@ -138,7 +138,7 @@ export function updatedOwnedNamespace({ title, owners, description, enableTicket
  * @param {Object} namespace - the new namespace
  * @param {string} namespace.title - namespace title
  * @param {Array} namespace.description - namespace description
- * @param {string} namespace.tag - a completion category associated with the namespace
+ * @param {string} namespace.tag - a assessment category associated with the namespace
  * @param {Array} namespace.owners - ids of owners
  * @param {Object} namespace.props - properties of the invoking component
  */
@@ -155,9 +155,9 @@ export const createNamespace = async ( dispatch, { title, description, tag, owne
 			return addErrorNotification( dispatch, new Error( res.data.message ));
 		}
 		const namespace = res.data.namespace;
-		props.onNamespace( namespace );
+		// props.onNamespace( namespace );
 		dispatch( appendCreatedNamespace( namespace ) );
-		window.location.replace( '/dashboard/lessons' );
+		window.location.replace( '/dashboard/lessons/'+title );
 		addNotification( dispatch, {
 			message: res.data.message,
 			level: res.data.successful ? 'success' : 'error'
@@ -189,7 +189,6 @@ export const createNamespaceInjector = dispatch => {
 export const deleteCurrentNamespace = async ( dispatch, id ) => {
 	try {
 		const res = await axios.post( server+'/delete_namespace', { id });
-		window.location.replace( '/dashboard/lessons' );
 		dispatch( deletedCurrentNamespace( id ) );
 		addNotification( dispatch, {
 			message: res.data.message,

@@ -20,9 +20,9 @@
 import axios from 'axios';
 import server from 'constants/server';
 import { addNotification, addErrorNotification } from 'actions/notification';
-import { COMPUTED_COMPLETIONS, CREATED_METRIC, DELETED_METRIC,
-	GET_COMPLETION_LESSON_REFS, GET_COMPLETION_COMPONENTS, GET_COMPLETION_TAGS,
-	SAVED_LESSON_METRICS, UPDATED_METRIC, RETRIEVED_COMPLETION_RULES } from 'constants/action_types.js';
+import { COMPUTED_ASSESSMENTS, CREATED_METRIC, DELETED_METRIC,
+	GET_ASSESSMENT_LESSON_SUBMETRICS, GET_ASSESSMENT_COMPONENTS, GET_ASSESSMENT_TAGS,
+	SAVED_LESSON_METRICS, UPDATED_METRIC, RETRIEVED_ASSESSMENT_RULES } from 'constants/action_types.js';
 
 
 // VARIABLES //
@@ -35,65 +35,65 @@ const DEFAULT_TAGS = [
 // MAIN //
 
 /**
- * Makes a GET request to the server to retrieve all completion tags.
+ * Makes a GET request to the server to retrieve all assessment tags.
  *
  * @param {Function} dispatch - dispatch function
  * @param {Array<ObjectId>} lessonIDs - ids for lessons whose tags are
  *     to be retrieved.
  * @returns {void}
  */
-export const getCompletionTags = async ( dispatch, lessonIDs ) => {
+export const getAssessmentTags = async ( dispatch, lessonIDs ) => {
 	try {
-		const res = await axios.post( `${server}/completion_tags`, {
+		const res = await axios.post( `${server}/assessment_tags`, {
 			lessons: lessonIDs
 		});
 		dispatch({
-			type: GET_COMPLETION_TAGS,
+			type: GET_ASSESSMENT_TAGS,
 			payload: {
-				completionTags: res.data
+				assessmentTags: res.data
 			}
 		});
 	} catch ( err ) {
 		dispatch({
-			type: GET_COMPLETION_TAGS,
+			type: GET_ASSESSMENT_TAGS,
 			payload: {
-				completionTags: DEFAULT_TAGS
+				assessmentTags: DEFAULT_TAGS
 			}
 		});
 	}
 };
 
 /**
-* Returns a function to retrieve all completion tags for a set of lessons.
+* Returns a function to retrieve all assessment tags for a set of lessons.
 *
 * @param {Function} dispatch - dispatch function
-* @returns {Function} function to retrieve completion tags
+* @returns {Function} function to retrieve assessment tags
 */
-export const getCompletionTagsInjector = dispatch => {
+export const getAssessmentTagsInjector = dispatch => {
 	return async ( lessonIDs ) => {
-		await getCompletionTags( dispatch, lessonIDs );
+		await getAssessmentTags( dispatch, lessonIDs );
 	};
 };
 
-export const getCompletionComponents = async ( dispatch, lessonIds ) => {
+export const getAssessmentComponents = async ( dispatch, lessonIds ) => {
 	try {
-		const res = await axios.post( `${server}/completion_components`, {
+		const res = await axios.post( `${server}/assessment_components`, {
 			lessons: lessonIds
 		});
 		dispatch({
-			type: GET_COMPLETION_COMPONENTS,
+			type: GET_ASSESSMENT_COMPONENTS,
 			payload: {
 				componentsByLesson: res.data
 			}
 		});
 	} catch ( err ) {
-		console.error( 'Error getting completion components: ', err );
+		console.error( 'Error getting assessment components: ', err );
 		const componentsByLesson = {};
 		lessonIds.forEach( lessonID => {
 			componentsByLesson[ lessonID ] = [];
 		});
 		dispatch({
-			type: GET_COMPLETION_COMPONENTS,
+			type: GET_ASSESSMENT_COMPONENTS,
 			payload: {
 				componentsByLesson
 			}
@@ -102,27 +102,27 @@ export const getCompletionComponents = async ( dispatch, lessonIds ) => {
 };
 
 /**
- * Retrieves the names of lower level metrics (refs)
+ * Retrieves the names of lower level metrics (submetrics)
  *
  * @param {Function} dispatch - dispatch function
- * @param {Array<ObjectId>} entities - id of entities whose refs (metrics at next lowest level)
+ * @param {Array<ObjectId>} entities - id of entities whose submetrics (metrics at next lowest level)
  *     we are retrieving. In the typical case, these will be lesson ids.
- * @param {string} target - name of the target field in the Completions table that we
+ * @param {string} target - name of the target field in the Assessments table that we
  *     constrain to be in `entities`.  In the typical case, this will be 'lesson'.
- *     We then search for refs (component metric names) for which lesson id belongs to
+ *     We then search for submetrics (component metric names) for which lesson id belongs to
  *     the given list of entities.
  * @returns {void}
  */
-export const getCompletionLessonRefs = async ( dispatch, { entities, target } ) => {
+export const getAssessmentLessonSubmetrics = async ( dispatch, { entities, target } ) => {
 	try {
-		const res = await axios.post( `${server}/completion_refs`, {
+		const res = await axios.post( `${server}/assessment_submetrics`, {
 			entities,
 			target
 		});
 		dispatch({
-			type: GET_COMPLETION_LESSON_REFS,
+			type: GET_ASSESSMENT_LESSON_SUBMETRICS,
 			payload: {
-				completionRefs: res.data
+				assessmentSubmetrics: res.data
 			}
 		});
 	} catch ( err ) {
@@ -131,32 +131,32 @@ export const getCompletionLessonRefs = async ( dispatch, { entities, target } ) 
 };
 
 /**
- * Returns a function to retrieve the names of lower level metrics (refs).
+ * Returns a function to retrieve the names of lower level metrics (submetrics).
  *
  * @param {Function} dispatch - dispatch function
- * @returns {Function} function to retrieve completion refs
+ * @returns {Function} function to retrieve assessment submetrics
  */
-export const getCompletionLessonRefsInjector = dispatch => {
+export const getAssessmentLessonSubmetricsInjector = dispatch => {
 	return async ({ entities, target }) => {
-		await getCompletionLessonRefs( dispatch, { entities, target });
+		await getAssessmentLessonSubmetrics( dispatch, { entities, target });
 	};
 };
 
 /**
- * Makes a POST request to the server to compute completion values for a particular metric, entity, and a set of users.
+ * Makes a POST request to the server to compute assessment values for a particular metric, entity, and a set of users.
  *
  * @param {Function} dispatch - dispatch function
  */
-export const computeCompletions = async ( dispatch, { metric, ids, users, policyOptions } ) => {
+export const computeAssessments = async ( dispatch, { metric, ids, users, policyOptions } ) => {
 	try {
-		const res = await axios.post( `${server}/compute_completions`, {
+		const res = await axios.post( `${server}/compute_assessments`, {
 			metric,
 			ids,
 			users,
 			policyOptions
 		});
 		dispatch({
-			type: COMPUTED_COMPLETIONS,
+			type: COMPUTED_ASSESSMENTS,
 			payload: res.data
 		});
 		addNotification( dispatch, {
@@ -170,43 +170,43 @@ export const computeCompletions = async ( dispatch, { metric, ids, users, policy
 };
 
 /**
- * Returns a function to compute completion values for a particular metric, entity, and a set of users.
+ * Returns a function to compute assessment values for a particular metric, entity, and a set of users.
  *
  * @param {Function} dispatch - dispatch function
- * @returns {Function} function to compute completion values
+ * @returns {Function} function to compute assessment values
  */
-export const computeCompletionsInjector = dispatch => {
+export const computeAssessmentsInjector = dispatch => {
 	return async ({ metric, ids, users, policyOptions }) => {
-		const res = await computeCompletions( dispatch, { metric, ids, users, policyOptions });
+		const res = await computeAssessments( dispatch, { metric, ids, users, policyOptions });
 		return res;
 	};
 };
 
 /**
- * Makes a POST request to the server to create a new completion metric.
+ * Makes a POST request to the server to create a new assessment metric.
  *
  * @param {Function} dispatch - dispatch function
  * @param {string} name - the metric name
- * @param {string} level - the level of the hierarchy for which we are computing completions,
+ * @param {string} level - the level of the hierarchy for which we are computing assessments,
  *     one of: 'program', 'namespace', 'lesson', 'component'.
  * @param {ObjectId} id - the id of the entity at the given level for which we are computing
- *     the completions.
+ *     the assessments.
  * @param {Array} rule - a vector of the form ['rule-name', ...params], specifying
- *     the aggregation rule used by the completion
+ *     the aggregation rule used by the assessment
  * @param {Array} coverage - an array of the form ['all'], ['include', ...ids], or
  *     ['exclude', ...ids], where ids are the ObjectId's for the  entities at the next
  *     sublevel (e.g., lessons when level is 'namespace').
- * @param {string} ref - the name of the metric to use at the next lower level for computing
- *     the completions that are used at this level.
- * @param {Object<string,number>} tagWeights - a map from completion tag names to weights
- * @param {boolean} autoCompute - whether to automatically compute the completions for this metric
+ * @param {string} submetric - the name of the metric to use at the next lower level for computing
+ *     the assessments that are used at this level.
+ * @param {Object<string,number>} tagWeights - a map from assessment tag names to weights
+ * @param {boolean} autoCompute - whether to automatically compute the assessments for this metric
  * @param {boolean} visibleToStudent - whether to make the score visible to the student with whom it is associated
  * @returns {void}
  */
- export const createMetric = async ( dispatch, { name, rule, coverage, level, id, ref, tagWeights, autoCompute, visibleToStudent }) => {
+ export const createMetric = async ( dispatch, { name, rule, coverage, level, id, submetric, tagWeights, autoCompute, visibleToStudent }) => {
 	try {
 		const res = await axios.post( `${server}/create_metric`, {
-			name, rule, coverage, level, id, ref, tagWeights, autoCompute, visibleToStudent
+			name, rule, coverage, level, id, submetric, tagWeights, autoCompute, visibleToStudent
 		});
 		console.log( res.data );
 		dispatch({
@@ -223,10 +223,10 @@ export const computeCompletionsInjector = dispatch => {
 };
 
 /**
- * Returns a function to make a POST request to the server to create a new completion metric.
+ * Returns a function to make a POST request to the server to create a new assessment metric.
  *
  * @param {Function} dispatch - dispatch function
- * @returns {Function} a function to make a POST request to the server to create a new completion metric
+ * @returns {Function} a function to make a POST request to the server to create a new assessment metric
  */
 export const createMetricInjector = dispatch => {
 	return async ( metric ) => {
@@ -235,22 +235,22 @@ export const createMetricInjector = dispatch => {
 };
 
 /**
- * Makes a POST request to the server to update a completion metric.
+ * Makes a POST request to the server to update a assessment metric.
  *
  * @param {Function} dispatch - dispatch function
  * @param {string} body.name - the metric name
- * @param {string} body.level - the level of the hierarchy for which we are computing completions,
+ * @param {string} body.level - the level of the hierarchy for which we are computing assessments,
  *     one of: 'program', 'namespace', 'lesson', 'component'.
  * @param {ObjectId} body.id - the id of the entity at the given level for which we are computing
- *     the completions.
+ *     the assessments.
  * @param {Array} body.rule - a vector of the form ['rule-name', ...params], specifying
- *     the aggregation rule used by the completion
+ *     the aggregation rule used by the assessment
  * @param {Array} body.coverage - an array of the form ['all'], ['include', ...ids], or
  *     ['exclude', ...ids], where ids are the ObjectId's for the  entities at the next
  *     sublevel (e.g., lessons when level is 'namespace').
- * @param {string} body.ref - the name of the metric to use at the next lower level for computing
- *     the completions that are used at this level.
- * @param {Object<string,number>} body.tagWeights - a map from completion tag names to weights
+ * @param {string} body.submetric - the name of the metric to use at the next lower level for computing
+ *     the assessments that are used at this level.
+ * @param {Object<string,number>} body.tagWeights - a map from assessment tag names to weights
  * @returns {void}
  */
 export const updateMetric = async ( dispatch, body ) => {
@@ -271,10 +271,10 @@ export const updateMetric = async ( dispatch, body ) => {
 };
 
 /**
- * Returns a function to make a POST request to the server to update a completion metric.
+ * Returns a function to make a POST request to the server to update a assessment metric.
  *
  * @param {Function} dispatch - dispatch function
- * @returns {Function} a function to make a POST request to the server to update a completion metric
+ * @returns {Function} a function to make a POST request to the server to update a assessment metric
  */
 export const updateMetricInjector = dispatch => {
 	return async ( metric ) => {
@@ -283,15 +283,15 @@ export const updateMetricInjector = dispatch => {
 };
 
 /**
- * Makes a POST request to the server to delete a completion metric.
+ * Makes a POST request to the server to delete a assessment metric.
  *
  * @param {Function} dispatch - dispatch function
  * @param {Object} body - request body
  * @param {string} body.name - the metric name
- * @param {string} body.level - the level of the hierarchy for which we are computing completions,
+ * @param {string} body.level - the level of the hierarchy for which we are computing assessments,
  *     one of: 'program', 'namespace', 'lesson', 'component'.
  * @param {ObjectId} body.id - the id of the entity at the given level for which we are computing
- *     the completions.
+ *     the assessments.
  * @returns {void}
  */
 export const deleteMetric = async ( dispatch, { name, level, id }) => {
@@ -311,10 +311,10 @@ export const deleteMetric = async ( dispatch, { name, level, id }) => {
 };
 
 /**
- * Returns a function to make a POST request to the server to delete a completion metric.
+ * Returns a function to make a POST request to the server to delete a assessment metric.
  *
  * @param {Function} dispatch - dispatch function
- * @returns {Function} a function to make a POST request to the server to delete a completion metric
+ * @returns {Function} a function to make a POST request to the server to delete a assessment metric
  */
 export const deleteMetricInjector = dispatch => {
 	return async ({ name, level, id }) => {
@@ -347,13 +347,13 @@ export const saveLessonMetricsInjector = dispatch => {
 	};
 };
 
-export const getCompletionRules = async ( dispatch ) => {
+export const getAssessmentRules = async ( dispatch ) => {
 	try {
-		const res = await axios.get( `${server}/completion_rules` );
+		const res = await axios.get( `${server}/assessment_rules` );
 		dispatch({
-			type: RETRIEVED_COMPLETION_RULES,
+			type: RETRIEVED_ASSESSMENT_RULES,
 			payload: {
-				completionRules: res.data
+				assessmentRules: res.data
 			}
 		});
 		return res;
@@ -362,9 +362,9 @@ export const getCompletionRules = async ( dispatch ) => {
 	}
 };
 
-export const getCompletionRulesInjector = dispatch => {
+export const getAssessmentRulesInjector = dispatch => {
 	return async () => {
-		const res = await getCompletionRules( dispatch );
+		const res = await getAssessmentRules( dispatch );
 		return res;
 	};
 };

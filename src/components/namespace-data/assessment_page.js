@@ -70,7 +70,7 @@ const AssessmentPage = ( props ) => {
 						cohorts={props.namespace.cohorts}
 						lessons={props.lessons}
 						user={props.user}
-						computeCompletions={props.computeCompletions}
+						computeAssessments={props.computeAssessments}
 					/>}
 				/>
 				<Route path="tags"
@@ -102,7 +102,7 @@ const AssessmentPage = ( props ) => {
 
 AssessmentPage.propTypes = {
 		addNotification: PropTypes.func.isRequired,
-		computeCompletions: PropTypes.func.isRequired,
+		computeAssessments: PropTypes.func.isRequired,
 		lessons: PropTypes.array.isRequired,
 		namespace: PropTypes.object.isRequired,
 		user: PropTypes.object.isRequired

@@ -46,7 +46,7 @@ const NamespaceData = ({
 		addAnnouncement, deleteAnnouncement, editAnnouncement, badges, namespace, user,
 		getBadges, uploadFile, deleteFile, getFiles, sendTicketMessage, addNotification,
 		adjustProgress, getCourseTickets, getNamespaceActions, openTicket, closeTicket,
-		computeCompletions, updatePriority, getOwnerFiles
+		computeAssessments, updatePriority, getOwnerFiles
 }) => {
 	let pathname = window.location.pathname;
 	const [ activePage, setActivePage ] = useState( pathname.substring( pathname.lastIndexOf( '/' ) + 1 ) );
@@ -145,7 +145,7 @@ const NamespaceData = ({
 						lessons={namespace.lessons} user={user} />}
 					/>
 					<Route path="assessments/*" element={<AssessmentPage addNotification={addNotification} namespace={namespace}
-						cohorts={namespace.cohorts} lessons={namespace.lessons} user={user} computeCompletions={computeCompletions} />}
+						cohorts={namespace.cohorts} lessons={namespace.lessons} user={user} computeAssessments={computeAssessments} />}
 					/>
 					<Route path="grades" element={<GradesPage addNotification={addNotification} namespace={namespace}
 						cohorts={namespace.cohorts} lessons={namespace.lessons} user={user} />}
@@ -183,7 +183,7 @@ NamespaceData.propTypes = {
 	adjustProgress: PropTypes.func.isRequired,
 	badges: PropTypes.array,
 	closeTicket: PropTypes.func.isRequired,
-	computeCompletions: PropTypes.func.isRequired,
+	computeAssessments: PropTypes.func.isRequired,
 	deleteAnnouncement: PropTypes.func.isRequired,
 	deleteFile: PropTypes.func.isRequired,
 	editAnnouncement: PropTypes.func.isRequired,
