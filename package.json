@@ -141,7 +141,7 @@
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "ajv": "^8.11.0",
-    "autoprefixer": "10.4.8",
+    "autoprefixer": "10.4.9",
     "babel-plugin-css-modules-transform": "^1.6.2",
     "bfj": "^7.0.2",
     "case-sensitive-paths-webpack-plugin": "2.4.0",
