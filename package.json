@@ -121,7 +121,7 @@
     "redux": "^4.1.2",
     "redux-persist": "^6.0.0",
     "resize-observer-polyfill": "^1.5.1",
-    "source-map-explorer": "^2.5.2",
+    "source-map-explorer": "^2.5.3",
     "stream-browserify": "^3.0.0",
     "svg-react-loader": "^0.4.6",
     "url": "^0.11.0",
