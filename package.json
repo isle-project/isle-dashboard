@@ -114,7 +114,7 @@
     "react-resizable": "^3.0.4",
     "react-router": "6.4.2",
     "react-router-dom": "6.4.2",
-    "react-select": "5.5.1",
+    "react-select": "5.5.4",
     "react-string-avatar": "^1.2.2",
     "react-table": "6.11.5",
     "@tanstack/react-table": "^8.5.15",
