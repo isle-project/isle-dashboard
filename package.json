@@ -77,7 +77,7 @@
     "buffer": "^6.0.3",
     "clipboard-copy": "^4.0.1",
     "cross-env": "^7.0.3",
-    "csv-stringify": "^5.6.5",
+    "csv-stringify": "^6.2.0",
     "debug": "4.3.4",
     "dotenv-expand": "^9.0.0",
     "i18next": "^22.0.4",
