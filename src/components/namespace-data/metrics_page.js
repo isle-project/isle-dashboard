@@ -20,7 +20,7 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import StandardTable from 'components/standard-table';
-import { getExpandedRowModel } from '@tanstack/react-table';
+import ReactTable from '@tanstack/react-table';
 import isEmptyObject from '@stdlib/assert/is-empty-object';
 import objectValues from '@stdlib/utils/values';
 
@@ -110,7 +110,7 @@ function MetricsTable({ namespace, lessons }) {
 			getSubRows: row => {
 				return row.assessments;
 			},
-			getExpandedRowModel: getExpandedRowModel(),
+			getExpandedRowModel: ReactTable.getExpandedRowModel(),
 			initialState: {
 				expanded: true
 			}

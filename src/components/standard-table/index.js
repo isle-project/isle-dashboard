@@ -2,12 +2,13 @@
 // MODULES //
 
 import React, { useRef } from 'react';
-import {
-	flexRender,
-	getCoreRowModel,
-	useReactTable
-} from '@tanstack/react-table';
+import ReactTable from '@tanstack/react-table';
 import './table.css';
+
+
+// VARIABLES //
+
+const { useReactTable, getCoreRowModel, flexRender } = ReactTable;
 
 
 // MAIN //

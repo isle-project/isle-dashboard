@@ -20,7 +20,7 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import StandardTable from 'components/standard-table';
-import { getExpandedRowModel } from '@tanstack/react-table';
+import ReactTable from '@tanstack/react-table';
 
 
 // MAIN //
@@ -88,7 +88,7 @@ function TagTable({ namespace, lessons }) {
 				console.log( components );
 				return components;
 			},
-			getExpandedRowModel: getExpandedRowModel(),
+			getExpandedRowModel: ReactTable.getExpandedRowModel(),
 			state: {
 				expanded
 			},
