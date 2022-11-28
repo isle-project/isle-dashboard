@@ -15,6 +15,8 @@
 * along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
+/* eslint-disable react/prop-types */
+
 // MODULES //
 
 import React, { Component, Fragment } from 'react';
