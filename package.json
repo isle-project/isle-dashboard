@@ -117,7 +117,7 @@
     "react-select": "5.4.0",
     "react-string-avatar": "^1.2.2",
     "react-table": "6.11.5",
-    "@tanstack/react-table": "^8.7.0",
+    "@tanstack/react-table": "^8.7.2",
     "redux": "^4.1.2",
     "redux-persist": "^6.0.0",
     "resize-observer-polyfill": "^1.5.1",
