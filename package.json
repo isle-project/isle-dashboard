@@ -71,7 +71,7 @@
     "@stdlib/string": "^0.0.14",
     "@stdlib/utils": "^0.0.12",
     "@wojtekmaj/react-datetimerange-picker": "^4.1.1",
-    "axios": "^1.2.1",
+    "axios": "^1.2.2",
     "babel-plugin-add-module-exports": "^1.0.4",
     "babel-plugin-module-resolver": "^4.1.0",
     "buffer": "^6.0.3",
