@@ -19,6 +19,7 @@
 
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import qs from 'querystring';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, Route, Routes } from 'react-router-dom';
 import Nav from 'react-bootstrap/Nav';
@@ -37,6 +38,7 @@ const UserTable = asyncComponent( () => import( './user_table.js' ) );
 const Rooms = asyncComponent( () => import( './rooms.js' ) );
 const Overview = asyncComponent( () => import( './overview.js' ) );
 const Requests = asyncComponent( () => import( './requests.js' ) );
+import server from 'constants/server';
 import './admin_page.css';
 
 
@@ -101,6 +103,15 @@ const AdminPage = ( props ) => {
 			</Nav.Item>
 			<Nav.Item>
 				<Nav.Link eventKey="/admin/settings/license" title="Settings" >{t('settings')}</Nav.Link>
+			</Nav.Item>
+			<Nav.Item>
+				<a
+					href={`${server}/socket.io-admin?${qs.stringify({ jwt: user.token })}`}
+					className="nav-link"
+					title={t('socket-monitoring-admin-page')}
+				>
+					{t('socket-monitoring')}
+				</a>
 			</Nav.Item>
 		</Nav>
 	</div>;
