@@ -57,7 +57,7 @@
     "@babel/plugin-transform-react-jsx": "^7.20.13",
     "@isle-project/components": "^0.50.37",
     "@isle-project/constants": "^0.50.37",
-    "@isle-project/locales": "^0.50.61",
+    "@isle-project/locales": "^0.50.62",
     "@isle-project/session": "^0.50.37",
     "@isle-project/utils": "^0.50.37",
     "@isle-project/webpack-cdn-plugin": "^0.50.37",
