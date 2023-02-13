@@ -250,6 +250,7 @@ module.exports = {
 						use: {
 							loader: 'esbuild-loader',
 							options: {
+								loader: 'jsx',
 								target: 'es2015',
 								legalComments: 'none'
 							}
