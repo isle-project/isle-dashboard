@@ -29,7 +29,7 @@ const webpack = require('webpack');
 const PnpWebpackPlugin = require('pnp-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const InlineChunkHtmlPlugin = require('react-dev-utils/InlineChunkHtmlPlugin');
-const { ESBuildMinifyPlugin } = require( 'esbuild-loader' );
+const { EsbuildPlugin } = require( 'esbuild-loader' );
 const esbuild = require( 'esbuild' );
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
@@ -144,7 +144,7 @@ module.exports = {
 	},
 	optimization: {
 		minimizer: [
-			new ESBuildMinifyPlugin({
+			new EsbuildPlugin({
 				target: 'es2015',
 				implementation: esbuild,
 				minify: false,
@@ -250,7 +250,6 @@ module.exports = {
 						use: {
 							loader: 'esbuild-loader',
 							options: {
-								loader: 'jsx',
 								target: 'es2015',
 								legalComments: 'none'
 							}
