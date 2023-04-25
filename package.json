@@ -116,7 +116,7 @@
     "react-router-dom": "6.10.0",
     "react-select": "5.4.0",
     "react-string-avatar": "^1.2.2",
-    "react-table": "6.11.5",
+    "react-table": "7.8.0",
     "@tanstack/react-table": "^8.8.5",
     "redux": "^4.2.1",
     "redux-persist": "^6.0.0",
