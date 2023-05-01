@@ -178,7 +178,7 @@
     "stylelint": "^15.6.0",
     "stylelint-config-standard": "^33.0.0",
     "v8-compile-cache": "^2.3.0",
-    "webpack": "5.80.0",
+    "webpack": "5.81.0",
     "webpack-dev-server": "4.13.3",
     "workbox-webpack-plugin": "6.5.4"
   },
