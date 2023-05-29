@@ -129,7 +129,7 @@
     "worker-loader": "3.0.8"
   },
   "devDependencies": {
-    "@babel/core": "^7.21.8",
+    "@babel/core": "^7.22.1",
     "@babel/eslint-parser": "^7.21.8",
     "@babel/eslint-plugin": "^7.19.1",
     "@babel/plugin-transform-async-to-generator": "^7.20.7",
