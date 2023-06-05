@@ -153,7 +153,7 @@
     "dotenv": "16.1.0",
     "esbuild": "^0.17.19",
     "esbuild-loader": "^3.0.1",
-    "eslint": "^8.41.0",
+    "eslint": "^8.42.0",
     "eslint-import-resolver-webpack": "^0.13.2",
     "eslint-plugin-i18next": "^6.0.1",
     "eslint-plugin-import": "^2.27.5",
