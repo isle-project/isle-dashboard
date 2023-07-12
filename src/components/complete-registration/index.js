@@ -34,7 +34,7 @@ import Popover from 'react-bootstrap/Popover';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
 import PropTypes from 'prop-types';
-import queryString from 'query-string';
+import queryString from 'qs';
 import axios from 'axios';
 import server from 'constants/server.js';
 import 'css/login.css';

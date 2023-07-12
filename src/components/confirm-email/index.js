@@ -22,7 +22,7 @@ import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import Card from 'react-bootstrap/Card';
 import { Link } from 'react-router-dom';
-import queryString from 'query-string';
+import queryString from 'qs';
 import 'css/login.css';
 
 

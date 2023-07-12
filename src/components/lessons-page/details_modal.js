@@ -29,6 +29,7 @@ import Modal from 'react-bootstrap/Modal';
 import DateTimePicker from 'react-datetime-picker';
 import isEmptyObject from '@stdlib/assert/is-empty-object';
 import SERVER from 'constants/server';
+import 'react-datetime-picker/dist/DateTimePicker.css';
 
 
 // VARIABLES //
