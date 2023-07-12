@@ -41,7 +41,7 @@ const FooterBar = ({ settings }) => {
 		<div className="isle-logo" >
 			<img src="img/isle_logo.svg" alt="ISLE Logo" />
 			<div className="footer-bar-copyright" >
-				© 2016-2022 The ISLE Authors. All rights reserved.
+				© 2016-2023 The ISLE Authors. All rights reserved.
 			</div>
 		</div>
 		<div className="isle-terms" >
