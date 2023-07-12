@@ -39,7 +39,7 @@ process.on( 'unhandledRejection', err => {
 require('../config/env');
 
 const path = require('path');
-const chalk = require('chalk');
+const colorette = require('colorette');
 const fs = require('fs-extra');
 const webpack = require('webpack');
 const bfj = require('bfj');
@@ -90,20 +90,20 @@ checkBrowsers( paths.appPath, isInteractive )
 	.then(
 		({ stats, previousFileSizes, warnings }) => {
 			if ( warnings.length ) {
-				console.log(chalk.yellow('Compiled with warnings.\n'));
+				console.log(colorette.yellow('Compiled with warnings.\n'));
 				console.log(warnings.join('\n\n'));
 				console.log(
 					'\nSearch for the ' +
-						chalk.underline(chalk.yellow('keywords')) +
+						colorette.underline(colorette.yellow('keywords')) +
 						' to learn more about each warning.'
 				);
 				console.log(
 					'To ignore, add ' +
-						chalk.cyan('// eslint-disable-next-line') +
+						colorette.cyan('// eslint-disable-next-line') +
 						' to the line before.\n'
 				);
 			} else {
-				console.log(chalk.green('Compiled successfully.\n'));
+				console.log(colorette.green('Compiled successfully.\n'));
 			}
 
 			console.log('File sizes after gzip:\n');
@@ -129,7 +129,7 @@ checkBrowsers( paths.appPath, isInteractive )
 			console.log();
 		},
 		err => {
-			console.log( chalk.red( 'Failed to compile.\n' ) );
+			console.log( colorette.red( 'Failed to compile.\n' ) );
 			printBuildError( err );
 			process.exit( 1 );
 		}

@@ -4,6 +4,7 @@ import React from 'react';
 import DateTimePicker from 'react-datetime-picker';
 import SelectInput from 'react-select';
 import Form from 'react-bootstrap/Form';
+import 'react-datetime-picker/dist/DateTimePicker.css';
 
 
 // FUNCTIONS //

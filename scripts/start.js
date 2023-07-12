@@ -39,7 +39,7 @@ process.on('unhandledRejection', err => {
 require('../config/env');
 
 const fs = require('fs');
-const chalk = require('chalk');
+const colorette = require('colorette');
 const webpack = require('webpack');
 const WebpackDevServer = require('webpack-dev-server');
 const clearConsole = require('react-dev-utils/clearConsole');
@@ -69,9 +69,9 @@ const HOST = process.env.HOST || '0.0.0.0';
 
 if ( process.env.HOST ) {
 	console.log(
-		chalk.cyan(
-			`Attempting to bind to HOST environment variable: ${chalk.yellow(
-				chalk.bold( process.env.HOST )
+		colorette.cyan(
+			`Attempting to bind to HOST environment variable: ${colorette.yellow(
+				colorette.bold( process.env.HOST )
 			)}`
 		)
 	);
@@ -79,7 +79,7 @@ if ( process.env.HOST ) {
 		`If this was unintentional, check that you haven't mistakenly set it in your shell.`
 	);
 	console.log(
-		`Learn more here: ${chalk.yellow('http://bit.ly/CRA-advanced-config')}`
+		`Learn more here: ${colorette.yellow('http://bit.ly/CRA-advanced-config')}`
 	);
 	console.log();
 }
@@ -128,7 +128,7 @@ checkBrowsers(paths.appPath, isInteractive)
 			if ( isInteractive ) {
 				clearConsole();
 			}
-			console.log( chalk.cyan('Starting the development server...\n') );
+			console.log( colorette.cyan('Starting the development server...\n') );
 			openBrowser( urls.localUrlForBrowser + 'dashboard' );
 		});
 

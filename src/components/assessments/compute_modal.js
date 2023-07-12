@@ -30,6 +30,7 @@ import Col from 'react-bootstrap/Col';
 import SelectInput from 'react-select';
 import isArray from '@stdlib/assert/is-array';
 import HelpfulLabel from './helpful_label.js';
+import '@wojtekmaj/react-datetimerange-picker/dist/DateTimeRangePicker.css';
 
 
 // VARIABLES //
