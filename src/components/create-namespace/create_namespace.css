@@ -10,7 +10,7 @@
 	margin: 0 auto;
 }
 
-@media screen and (max-width: 800px) {
+@media screen and (width <= 800px) {
 	.create-namespace-container {
 		top: 112px;
 	}

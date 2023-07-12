@@ -17,7 +17,7 @@
 	top: 52px;
 }
 
-@media screen and (max-width: 800px) {
+@media screen and (width <= 800px) {
 	.gallery {
 		top: 172px;
 		height: calc(100% - 196px);

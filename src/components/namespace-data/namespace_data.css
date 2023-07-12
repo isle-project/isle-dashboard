@@ -4,7 +4,7 @@
 	margin: 0 auto;
 }
 
-@media screen and (max-width: 800px) {
+@media screen and (width <= 800px) {
 	.namespace-data-div {
 		top: 110px;
 	}
@@ -25,7 +25,7 @@
 	right: 8px;
 }
 
-@media screen and (max-width: 1080px) {
+@media screen and (width <= 1080px) {
 	.namespace-data-navbar {
 		height: 80px;
 	}
@@ -35,7 +35,7 @@
 	}
 }
 
-@media screen and (max-width: 800px) {
+@media screen and (width <= 800px) {
 	.namespace-data-buttons {
 		top: 72px;
 	}

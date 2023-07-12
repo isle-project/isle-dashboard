@@ -23,7 +23,7 @@
 		"left badges badges right";
 }
 
-@media screen and (max-width: 800px) {
+@media screen and (width <= 800px) {
 	.profile-page-grid-container {
 		top: 94px;
 		height: calc(100% - 94px);

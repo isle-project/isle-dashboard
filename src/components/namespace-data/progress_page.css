@@ -18,7 +18,7 @@
 	margin-right: 8px;
 }
 
-@media screen and (max-width: 800px) {
+@media screen and (width <= 800px) {
 	.sort-button-group {
 		width: 100px;
 	}

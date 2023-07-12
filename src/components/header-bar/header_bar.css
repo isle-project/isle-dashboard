@@ -24,7 +24,7 @@
 	margin-left: 4px;
 }
 
-@media screen and (max-width: 1250px) {
+@media screen and (width <= 1250px) {
 	.gallery-label {
 		display: none;
 	}
@@ -34,7 +34,7 @@
 	}
 }
 
-@media screen and (max-width: 1400px) {
+@media screen and (width <= 1400px) {
 	.admin-label,
 	.course-data-label {
 		display: none;
@@ -50,7 +50,7 @@
 	text-overflow: ellipsis;
 }
 
-@media screen and (max-width: 992px) {
+@media screen and (width <= 992px) {
 	#header-bar-username {
 		display: none;
 	}
@@ -70,7 +70,7 @@
 	font-variant: small-caps;
 }
 
-@media screen and (max-width: 1200px) {
+@media screen and (width <= 1200px) {
 	.header-bar-title-wrapper {
 		display: none;
 	}
@@ -113,7 +113,7 @@
 	float: left;
 }
 
-@media screen and (max-width: 800px) {
+@media screen and (width <= 800px) {
 	.header-bar {
 		height: 94px;
 	}

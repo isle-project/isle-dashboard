@@ -4,7 +4,7 @@
 	margin: 0 auto;
 }
 
-@media screen and (max-width: 800px) {
+@media screen and (width <= 800px) {
 	.admin-settings-div {
 		top: 110px;
 	}
