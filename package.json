@@ -151,7 +151,7 @@
     "css-loader": "6.8.1",
     "css-minimizer-webpack-plugin": "^5.0.1",
     "dotenv": "16.3.1",
-    "esbuild": "^0.18.17",
+    "esbuild": "^0.18.19",
     "esbuild-loader": "^3.1.0",
     "eslint": "^8.46.0",
     "eslint-import-resolver-webpack": "^0.13.2",
