@@ -70,7 +70,7 @@
     "@stdlib/stats": "^0.0.13",
     "@stdlib/string": "^0.0.14",
     "@stdlib/utils": "^0.0.12",
-    "@tanstack/react-table": "^8.9.8",
+    "@tanstack/react-table": "^8.10.3",
     "@wojtekmaj/react-datetimerange-picker": "^5.4.2",
     "axios": "^1.5.0",
     "babel-plugin-add-module-exports": "^1.0.4",
